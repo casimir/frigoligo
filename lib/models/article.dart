@@ -24,8 +24,10 @@ class Article {
 
   Article();
 
+  @ignore
   StateFilter get stateValue =>
       archivedAt != null ? StateFilter.archived : StateFilter.unread;
+  @ignore
   StarredFilter get starredValue =>
       starredAt != null ? StarredFilter.starred : StarredFilter.unstarred;
 

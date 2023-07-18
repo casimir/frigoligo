@@ -17,15 +17,15 @@ class SessionDetailsPage extends StatelessWidget {
         children: [
           ListTile(
             title: const Text('Server'),
-            subtitle: Text(wallabag.server),
+            subtitle: Text(wallabag.connectionData.server),
           ),
           ListTile(
             title: const Text('Client ID'),
-            subtitle: Text(wallabag.clientId),
+            subtitle: Text(wallabag.connectionData.clientId),
           ),
           ListTile(
             title: const Text('Client secret'),
-            subtitle: Text(wallabag.clientSecret),
+            subtitle: Text(wallabag.connectionData.clientSecret),
           ),
           ListTile(
             title: const Text('Token data'),

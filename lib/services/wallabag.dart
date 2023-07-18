@@ -97,7 +97,8 @@ class ArticlesProvider with ChangeNotifier {
         starred: starred,
         sort: '-createdAt',
       ).findAllSync();
-  Article index(int n, StateFilter state, StarredFilter starred) {
+  Article? index(int n, StateFilter state, StarredFilter starred) {
+    if (n < 0 || n >= count(state, starred)) return null;
     var ids = _buildQuery(
       state: state,
       starred: starred,

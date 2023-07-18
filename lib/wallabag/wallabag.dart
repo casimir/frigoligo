@@ -17,6 +17,8 @@ part 'wallabag.g.dart';
 
 final _log = Logger('wallabag.client');
 
+const wallabagConnectionDataKey = 'wallabag.connectionData';
+
 void throwOnError(http.Response response, {List<int> expected = const [200]}) {
   if (!expected.contains(response.statusCode)) {
     throw WallabagError.fromResponse(response);
@@ -49,30 +51,30 @@ Future<String> _buildUserAgent() async {
   return '${info.appName}/${info.version}+${info.buildNumber}';
 }
 
+@JsonSerializable()
+class WallabagConnectionData {
+  const WallabagConnectionData(this.server, this.clientId, this.clientSecret);
+
+  final String server;
+  final String clientId;
+  final String clientSecret;
+
+  factory WallabagConnectionData.fromJson(Map<String, dynamic> json) =>
+      _$WallabagConnectionDataFromJson(json);
+  Map<String, dynamic> toJson() => _$WallabagConnectionDataToJson(this);
+}
+
 class WallabagClient extends http.BaseClient {
   static String tokenEnpointPath = '/oauth/v2/token';
   static String tokenDataKey = 'tokenData';
 
-  static Future<WallabagClient> build() async => WallabagClient._(
-        'app.wallabag.it',
-        '22008_1gpdsuojqq2scwg0w8gssw8gowkc0oos04o4ws8k0o8ogswgsk',
-        '616pv4k42k08ck4kk4gwkk8occ84sgsgkkwgscgcgk0w8gwosk',
-        await _buildUserAgent(),
-        await _loadTokenData(),
-      );
+  static Future<WallabagClient> build(WallabagConnectionData data) async =>
+      WallabagClient._(data, await _buildUserAgent(), await _loadTokenData());
 
-  WallabagClient._(
-    this.server,
-    this.clientId,
-    this.clientSecret,
-    this.userAgent,
-    this._tokenData,
-  );
+  WallabagClient._(this.connectionData, this.userAgent, this._tokenData);
 
   final http.Client _inner = RetryClient(http.Client());
-  final String server;
-  final String clientId;
-  final String clientSecret;
+  final WallabagConnectionData connectionData;
   OAuthToken? _tokenData;
   final String? userAgent;
 
@@ -95,16 +97,18 @@ class WallabagClient extends http.BaseClient {
     }).onError((e, _) => throw WallabagError.fromException(e as Exception));
   }
 
+  Uri _buildUri(String path, [Map<String, dynamic>? queryParameters]) =>
+      Uri.https(connectionData.server, path, queryParameters);
+
   Future<http.Response> authenticate(Map<String, String> grantData) async {
     _log.info(
         'authentication attempt (grant_type: ${grantData['grant_type']})');
     var payload = {
-      'client_id': clientId,
-      'client_secret': clientSecret,
+      'client_id': connectionData.clientId,
+      'client_secret': connectionData.clientSecret,
       ...grantData,
     };
-    var response =
-        await http.post(Uri.https(server, tokenEnpointPath), body: payload);
+    var response = await http.post(_buildUri(tokenEnpointPath), body: payload);
     throwOnError(response);
 
     var tokenData = OAuthToken.fromJson(jsonDecode(response.body));
@@ -176,8 +180,7 @@ class WallabagClient extends http.BaseClient {
       'detail': detail?.name,
       'domain_name': domainName,
     }..removeWhere((_, value) => value == null);
-    var response = await get(Uri.https(
-      server,
+    var response = await get(_buildUri(
       '/api/entries.json',
       params.map((key, value) => MapEntry(key, value.toString())),
     ));
@@ -187,7 +190,7 @@ class WallabagClient extends http.BaseClient {
   }
 
   Future<(WallabagEntry, http.Response)> getEntry(int id) async {
-    var response = await get(Uri.https(server, '/api/entries/$id.json'));
+    var response = await get(_buildUri('/api/entries/$id.json'));
     throwOnError(response);
     return (WallabagEntry.fromJson(jsonDecode(response.body)), response);
   }
@@ -202,7 +205,7 @@ class WallabagClient extends http.BaseClient {
       if (starred != null) 'starred': starred ? 1 : 0,
     };
     var response = await patch(
-      Uri.https(server, '/api/entries/$id.json'),
+      _buildUri('/api/entries/$id.json'),
       body: params.map((key, value) => MapEntry(key, value.toString())),
     );
     throwOnError(response);
@@ -210,13 +213,13 @@ class WallabagClient extends http.BaseClient {
   }
 
   Future<http.Response> deleteEntry(int id) async {
-    var response = await delete(Uri.https(server, '/api/entries/$id.json'));
+    var response = await delete(_buildUri('/api/entries/$id.json'));
     throwOnError(response);
     return response;
   }
 
   Future<http.Response> getInfo() {
-    return get(Uri.https(server, '/api/info.json'));
+    return get(_buildUri('/api/info.json'));
   }
 
   // higher level methods
@@ -339,14 +342,27 @@ class WallabagEmbeddedEntries {
 class WallabagInstance {
   static WallabagClient? _instance;
 
-  static Future<void> init({bool force = false}) async {
-    if (_instance == null || force) {
-      _instance = await WallabagClient.build();
+  static Future<void> init() async {
+    String? rawData = await SharedPreferences.getInstance()
+        .then((prefs) => prefs.getString(wallabagConnectionDataKey));
+    if (rawData != null) {
+      var data = WallabagConnectionData.fromJson(jsonDecode(rawData));
+      _instance = await WallabagClient.build(data);
+    } else {
+      _log.info('could not find existing connection data');
     }
+  }
+
+  static Future<void> initWith(WallabagConnectionData data) async {
+    await SharedPreferences.getInstance().then((prefs) =>
+        prefs.setString(wallabagConnectionDataKey, jsonEncode(data.toJson())));
+    return init();
   }
 
   static WallabagClient get() {
     assert(_instance != null);
     return _instance!;
   }
+
+  static bool get isReady => _instance != null && _instance!.canRefreshToken;
 }

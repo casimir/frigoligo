@@ -85,9 +85,9 @@ class HomePage extends StatelessWidget {
       future: Future.wait([DB.init(), WallabagInstance.init()]),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return WallabagInstance.get().canRefreshToken
+          return WallabagInstance.isReady
               ? const _MainContainer()
-              : LoginPage();
+              : const LoginPage();
         } else if (snapshot.hasError) {
           _log.severe(
             'failed to finish login process',

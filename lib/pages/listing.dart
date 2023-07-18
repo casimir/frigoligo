@@ -48,8 +48,10 @@ class _ListingPageState extends State<ListingPage> {
     // in split mode, select the first article of the list
     var articleProvider = context.read<ArticleProvider?>();
     if (articleProvider != null && articleProvider.articleId == 0) {
-      var firstId = articles.index(0, _stateFilter, _starredFilter).id!;
-      articleProvider.updateId(firstId);
+      final first = articles.index(0, _stateFilter, _starredFilter);
+      if (first != null) {
+        articleProvider.updateId(first.id!);
+      }
     }
 
     return Scaffold(
@@ -151,7 +153,7 @@ class _ListingPageState extends State<ListingPage> {
                           itemBuilder: (context, index) {
                             return ArticleListItem(
                               article: articles.index(
-                                  index, _stateFilter, _starredFilter),
+                                  index, _stateFilter, _starredFilter)!,
                               onTap: (article) => widget.onItemSelect(article),
                             );
                           },

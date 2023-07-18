@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:frigoligo/server_presets.dart';
 import 'package:frigoligo/wallabag/wallabag.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({super.key});
-
-  final WallabagClient wallabag = WallabagInstance.get();
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -24,6 +23,14 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    // TODO server preset dialog
+    var data = WallabagConnectionData(
+      serverPresets[0].server,
+      serverPresets[0].clientId!,
+      serverPresets[0].clientSecret!,
+    );
+    WallabagInstance.initWith(data);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
@@ -63,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
           ElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
-                widget.wallabag
+                WallabagInstance.get()
                     .fetchToken(
                         _usernameController.text, _passwordController.text)
                     .then((_) => Navigator.pushNamedAndRemoveUntil(

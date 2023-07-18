@@ -6,6 +6,22 @@ part of 'wallabag.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+WallabagConnectionData _$WallabagConnectionDataFromJson(
+        Map<String, dynamic> json) =>
+    WallabagConnectionData(
+      json['server'] as String,
+      json['clientId'] as String,
+      json['clientSecret'] as String,
+    );
+
+Map<String, dynamic> _$WallabagConnectionDataToJson(
+        WallabagConnectionData instance) =>
+    <String, dynamic>{
+      'server': instance.server,
+      'clientId': instance.clientId,
+      'clientSecret': instance.clientSecret,
+    };
+
 OAuthToken _$OAuthTokenFromJson(Map<String, dynamic> json) => OAuthToken(
       json['access_token'] as String,
       secondsOffsetOrTimestamp2Datetime(json['expires_in']),
