@@ -342,7 +342,7 @@ class WallabagEmbeddedEntries {
 class WallabagInstance {
   static WallabagClient? _instance;
 
-  static Future<void> init() async {
+  static Future<WallabagClient?> init() async {
     String? rawData = await SharedPreferences.getInstance()
         .then((prefs) => prefs.getString(wallabagConnectionDataKey));
     if (rawData != null) {
@@ -351,9 +351,10 @@ class WallabagInstance {
     } else {
       _log.info('could not find existing connection data');
     }
+    return _instance;
   }
 
-  static Future<void> initWith(WallabagConnectionData data) async {
+  static Future<WallabagClient?> initWith(WallabagConnectionData data) async {
     await SharedPreferences.getInstance().then((prefs) =>
         prefs.setString(wallabagConnectionDataKey, jsonEncode(data.toJson())));
     return init();

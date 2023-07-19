@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:frigoligo/wallabag/wallabag.dart';
 
 class LoginPage extends StatefulWidget {
@@ -9,7 +10,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _formKey = GlobalKey<FormState>();
+  final _fbKey = GlobalKey<FormBuilderState>();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -22,64 +23,80 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO server preset dialog
-    var data = const WallabagConnectionData(
-      String.fromEnvironment('WALLABAG_SERVER'),
-      String.fromEnvironment('WALLABAG_CLIENT_ID'),
-      String.fromEnvironment('WALLABAG_CLIENT_SECRET'),
-    );
-    WallabagInstance.initWith(data);
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
       ),
-      body: Column(
-        children: [
-          Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                TextFormField(
-                  controller: _usernameController,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.person),
-                    hintText: 'Your username or email address',
-                    labelText: 'Username',
-                  ),
-                  validator: (value) {
-                    return value!.isEmpty ? 'Enter your username' : null;
-                  },
-                ),
-                TextFormField(
-                  controller: _passwordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    icon: Icon(Icons.password),
-                    hintText: 'Your super secret password',
-                    labelText: 'Password',
-                  ),
-                  validator: (value) {
-                    return value!.isEmpty ? 'Enter your password' : null;
-                  },
-                ),
-              ],
+      body: FormBuilder(
+        key: _fbKey,
+        child: Column(children: [
+          FormBuilderTextField(
+            name: 'server',
+            validator: (value) => notEmptyValidator(value, 'server URL'),
+            decoration: const InputDecoration(
+              icon: Icon(Icons.home),
+              labelText: 'Server URL',
+            ),
+          ),
+          FormBuilderTextField(
+            name: 'clientId',
+            validator: (value) => notEmptyValidator(value, 'client ID'),
+            decoration: const InputDecoration(
+              icon: Icon(Icons.key),
+              labelText: 'Client ID',
+            ),
+          ),
+          FormBuilderTextField(
+            name: 'clientSecret',
+            validator: (value) => notEmptyValidator(value, 'client secret'),
+            decoration: const InputDecoration(
+              icon: Icon(Icons.key),
+              labelText: 'Client Secret',
+            ),
+          ),
+          FormBuilderTextField(
+            name: 'username',
+            validator: (value) =>
+                value == null || value.isEmpty ? 'Enter your username' : null,
+            decoration: const InputDecoration(
+              icon: Icon(Icons.person),
+              labelText: 'Username',
+            ),
+          ),
+          FormBuilderTextField(
+            name: 'password',
+            validator: (value) =>
+                value == null || value.isEmpty ? 'Enter your password' : null,
+            obscureText: true, // TODO password visibility toggle
+            decoration: const InputDecoration(
+              icon: Icon(Icons.password),
+              labelText: 'Password',
             ),
           ),
           ElevatedButton(
             onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                WallabagInstance.get()
-                    .fetchToken(
-                        _usernameController.text, _passwordController.text)
-                    .then((_) => Navigator.pushNamedAndRemoveUntil(
-                        context, '/', (r) => false));
+              if (_fbKey.currentState!.saveAndValidate()) {
+                var connData = WallabagConnectionData(
+                  _fbKey.currentState!.value['server'],
+                  _fbKey.currentState!.value['clientId'],
+                  _fbKey.currentState!.value['clientSecret'],
+                );
+                WallabagInstance.initWith(connData).then((wallabag) {
+                  wallabag!
+                      .fetchToken(_fbKey.currentState!.value['username'],
+                          _fbKey.currentState!.value['password'])
+                      .then((_) => Navigator.pushNamedAndRemoveUntil(
+                          context, '/', (r) => false));
+                });
               }
             },
             child: const Text('Login'),
           ),
-        ],
+        ]),
       ),
     );
   }
 }
+
+String? notEmptyValidator(String? value, String label) =>
+    value == null || value.isEmpty ? 'Enter your $label' : null;
