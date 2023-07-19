@@ -14,7 +14,7 @@ import 'services/wallabag.dart';
 
 final _log = Logger('frigoligo');
 
-// TODO
+// XXX roadmap
 // 0.1
 // - [x] article persistence
 // - [x] api pagination
@@ -26,21 +26,24 @@ final _log = Logger('frigoligo');
 // - [x] check FTUE (/!\ first sync) and reset workflow
 // - [x] set up logos and launch screen
 // - [x] Add an about section with the version and licenses and stuff...
-// - [ ] server selection -> https://github.com/wallabag/docker#sqlite
+// - [x] server selection
 // 0.2
-// - [ ] unit tests (at least for WallabagClient)
+// - [ ] unit tests (at least for WallabagClient) -> https://github.com/wallabag/docker#sqlite
 // - [ ] padding and spacing everywhere
 // - [ ] handle server side deletion of articles
-// - [ ] handle tags
+// - [ ] handle filtering by tag
+// - [ ] toggle unread/archived and starred/unstarred
 // - [ ] translations
 // 1.0
 // - [ ] background sync
 // - [ ] notification badge with https://pub.dev/packages/flutter_app_badger ?
-// - [ ] reader mode settings
-// - [ ] toggle unread/archived and starred/unstarred
 // - [ ] full text search
-// - [ ] use (when it's easy) Cupertino design system on iOS/macOS
 // - [ ] desktop window management https://pub.dev/packages/window_manager
+// - [ ] use (when it's easy) Cupertino design system on iOS/macOS
+// 1.1
+// - [ ] handle tags management
+// - [ ] handle annotations
+// - [ ] reader mode settings
 
 void main() {
   Logger.root.level = Level.INFO;
