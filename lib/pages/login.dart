@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frigoligo/server_presets.dart';
 import 'package:frigoligo/wallabag/wallabag.dart';
 
 class LoginPage extends StatefulWidget {
@@ -24,10 +23,10 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     // TODO server preset dialog
-    var data = WallabagConnectionData(
-      serverPresets[0].server,
-      serverPresets[0].clientId!,
-      serverPresets[0].clientSecret!,
+    var data = const WallabagConnectionData(
+      String.fromEnvironment('WALLABAG_SERVER'),
+      String.fromEnvironment('WALLABAG_CLIENT_ID'),
+      String.fromEnvironment('WALLABAG_CLIENT_SECRET'),
     );
     WallabagInstance.initWith(data);
 
