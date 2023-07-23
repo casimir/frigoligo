@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:frigoligo/wallabag/models/info.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/retry.dart';
 import 'package:isar/isar.dart';
@@ -218,8 +219,10 @@ class WallabagClient extends http.BaseClient {
     return response;
   }
 
-  Future<http.Response> getInfo() {
-    return get(_buildUri('/api/info.json'));
+  Future<(WallabagInfo, http.Response)> getInfo() async {
+    var response = await get(_buildUri('/api/info.json'));
+    throwOnError(response);
+    return (WallabagInfo.fromJson(jsonDecode(response.body)), response);
   }
 
   // higher level methods
