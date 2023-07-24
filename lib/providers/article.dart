@@ -16,10 +16,13 @@ class ArticleProvider extends ChangeNotifier {
   final DBInstance db = DB.get();
   StreamSubscription? _watcher;
   int articleId;
+  bool hasJumpedToPosition = false;
 
   Article? get article => db.articles.getSync(articleId);
   double? get scrollPosition =>
       db.articleScrollPositions.getSync(articleId)?.position;
+  bool get isPositionRestorePending =>
+      articleId != 0 && !hasJumpedToPosition && scrollPosition != null;
 
   @override
   void dispose() {
@@ -32,6 +35,7 @@ class ArticleProvider extends ChangeNotifier {
     _watcher?.cancel();
     _watcher =
         db.articles.watchObjectLazy(articleId).listen((_) => notifyListeners());
+    hasJumpedToPosition = false;
   }
 
   Future<void> modifyAndRefresh({

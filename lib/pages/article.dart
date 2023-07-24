@@ -25,12 +25,12 @@ class ArticlePage extends StatefulWidget {
 class _ArticlePageState extends State<ArticlePage> {
   bool _stateChangePending = false;
   bool _starredChangePending = false;
-  bool _contentRendered = false;
 
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<ArticleProvider>();
     final article = provider.article;
+    final scroller = ScrollController(keepScrollOffset: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -107,21 +107,20 @@ class _ArticlePageState extends State<ArticlePage> {
       body: article != null
           ? NotificationListener<ScrollNotification>(
               onNotification: (notification) {
-                if (notification is ScrollEndNotification) {
-                  if (_contentRendered) {
-                    provider.saveScrollPosition(notification.metrics.pixels);
-                  }
+                if (notification is ScrollEndNotification &&
+                    !provider.isPositionRestorePending) {
+                  provider.saveScrollPosition(notification.metrics.pixels);
                 }
                 return false;
               },
               child: SingleChildScrollView(
                 key: ObjectKey(provider.articleId),
+                controller: scroller,
                 child: Column(
                   children: [
                     _buildHeader(article),
                     const Divider(),
-                    _buildContent(
-                        context, article.content, provider.scrollPosition ?? 0)
+                    _buildContent(article.content, scroller, provider)
                   ],
                 ),
               ),
@@ -150,20 +149,19 @@ class _ArticlePageState extends State<ArticlePage> {
     );
   }
 
-  Widget _buildContent(BuildContext context, String content, double position) {
+  Widget _buildContent(
+      String content, ScrollController scroller, ArticleProvider provider) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: HtmlWidget(
         content,
         factoryBuilder: () => HtmlWidgetFactory(
-          onTreeBuilt: (body) {
-            if (!_contentRendered) {
-              _contentRendered = true;
-              final scroller = PrimaryScrollController.of(context);
-              WidgetsBinding.instance
-                  .addPostFrameCallback((_) => scroller.jumpTo(position));
+          onTreeBuilt: (_) => WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (provider.isPositionRestorePending) {
+              scroller.jumpTo(provider.scrollPosition!);
+              provider.hasJumpedToPosition = true;
             }
-          },
+          }),
         ),
       ),
     );
