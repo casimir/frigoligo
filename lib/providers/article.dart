@@ -43,8 +43,13 @@ class ArticleProvider extends ChangeNotifier {
     var wallabag = WallabagInstance.get();
     await wallabag.patchEntry(articleId, archive: archive, starred: starred);
     var (entry, _) = await wallabag.getEntry(articleId);
+    final article = Article.fromWallabagEntry(entry);
+    final scrollPosition = await db.articleScrollPositions.get(articleId);
     await db.writeTxn(() async {
-      return await db.articles.put(Article.fromWallabagEntry(entry));
+      await db.articles.put(article);
+      if (scrollPosition?.readingTime != article.readingTime) {
+        await db.articleScrollPositions.delete(articleId);
+      }
     });
     onProgress?.call(1);
   }
@@ -53,7 +58,8 @@ class ArticleProvider extends ChangeNotifier {
     var wallabag = WallabagInstance.get();
     await wallabag.deleteEntry(articleId);
     await db.writeTxn(() async {
-      return await db.articles.delete(articleId);
+      await db.articles.delete(articleId);
+      await db.articleScrollPositions.delete(articleId);
     });
   }
 

@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants.dart';
 import '../models/article.dart';
+import '../models/article_scroll_position.dart';
 import '../models/db.dart';
 
 final _log = Logger('wallabag.service');
@@ -130,10 +131,22 @@ class ArticlesProvider with ChangeNotifier {
       onProgress: (progress) => refreshProgressValue = progress,
     );
     await for (final (entries, _) in entriesStream) {
-      final articles =
-          entries.map((e) => Article.fromWallabagEntry(e)).toList();
-      // TODO clean invalid scroll positions (different readingTime)
-      await db.writeTxn(() async => db.articles.putAll(articles));
+      final articles = {
+        for (var e in entries) e.id: Article.fromWallabagEntry(e)
+      };
+      final positions =
+          await db.articleScrollPositions.getAll(articles.keys.toList());
+      final invalidPositions = positions
+          .whereType<ArticleScrollPosition>()
+          .where((e) => e.readingTime != articles[e.id]?.readingTime)
+          .map((e) => e.id!)
+          .toList();
+
+      await db.writeTxn(() async {
+        await db.articles.putAll(articles.values.toList());
+        await db.articleScrollPositions.deleteAll(invalidPositions);
+      });
+
       count += entries.length;
     }
     _log.info(
