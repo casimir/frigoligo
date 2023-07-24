@@ -130,7 +130,9 @@ class ArticlesProvider with ChangeNotifier {
       onProgress: (progress) => refreshProgressValue = progress,
     );
     await for (final (entries, _) in entriesStream) {
-      var articles = entries.map((e) => Article.fromWallabagEntry(e)).toList();
+      final articles =
+          entries.map((e) => Article.fromWallabagEntry(e)).toList();
+      // TODO clean invalid scroll positions (different readingTime)
       await db.writeTxn(() async => db.articles.putAll(articles));
       count += entries.length;
     }

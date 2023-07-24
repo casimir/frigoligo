@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
-import 'package:frigoligo/constants.dart';
-import 'package:frigoligo/widgets/async_action_button.dart';
 import 'package:fwfh_cached_network_image/fwfh_cached_network_image.dart';
 import 'package:fwfh_url_launcher/fwfh_url_launcher.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../constants.dart';
 import '../models/article.dart';
 import '../providers/article.dart';
+import '../widgets/async_action_button.dart';
 
 class ArticlePage extends StatefulWidget {
   // TODO articleId is not used but required to avoid triggering flutter caching
@@ -25,11 +25,13 @@ class ArticlePage extends StatefulWidget {
 class _ArticlePageState extends State<ArticlePage> {
   bool _stateChangePending = false;
   bool _starredChangePending = false;
+  bool _contentRendered = false;
 
   @override
   Widget build(BuildContext context) {
-    var provider = context.watch<ArticleProvider>();
-    var article = provider.article;
+    final provider = context.watch<ArticleProvider>();
+    final article = provider.article;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -103,34 +105,32 @@ class _ArticlePageState extends State<ArticlePage> {
         ],
       ),
       body: article != null
-          ? SingleChildScrollView(
-              key: ObjectKey(article.id),
-              child: Column(
-                children: [
-                  ArticlePageHeader(article: article),
-                  const Divider(),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: HtmlWidget(
-                      article.content,
-                      factoryBuilder: () => HtmlWidgetFactory(),
-                    ),
-                  )
-                ],
+          ? NotificationListener<ScrollNotification>(
+              onNotification: (notification) {
+                if (notification is ScrollEndNotification) {
+                  if (_contentRendered) {
+                    provider.saveScrollPosition(notification.metrics.pixels);
+                  }
+                }
+                return false;
+              },
+              child: SingleChildScrollView(
+                key: ObjectKey(provider.articleId),
+                child: Column(
+                  children: [
+                    _buildHeader(article),
+                    const Divider(),
+                    _buildContent(
+                        context, article.content, provider.scrollPosition ?? 0)
+                  ],
+                ),
               ),
             )
           : const Center(child: Icon(Icons.question_mark)),
     );
   }
-}
 
-class ArticlePageHeader extends StatelessWidget {
-  const ArticlePageHeader({super.key, required this.article});
-
-  final Article article;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildHeader(Article article) {
     return Column(
       children: [
         Text(
@@ -149,7 +149,37 @@ class ArticlePageHeader extends StatelessWidget {
       ],
     );
   }
+
+  Widget _buildContent(BuildContext context, String content, double position) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: HtmlWidget(
+        content,
+        factoryBuilder: () => HtmlWidgetFactory(
+          onTreeBuilt: (body) {
+            if (!_contentRendered) {
+              _contentRendered = true;
+              final scroller = PrimaryScrollController.of(context);
+              WidgetsBinding.instance
+                  .addPostFrameCallback((_) => scroller.jumpTo(position));
+            }
+          },
+        ),
+      ),
+    );
+  }
 }
 
 class HtmlWidgetFactory extends WidgetFactory
-    with CachedNetworkImageFactory, UrlLauncherFactory {}
+    with CachedNetworkImageFactory, UrlLauncherFactory {
+  HtmlWidgetFactory({this.onTreeBuilt});
+
+  void Function(Widget)? onTreeBuilt;
+
+  @override
+  Widget buildBodyWidget(BuildContext context, Widget child) {
+    final body = super.buildBodyWidget(context, child);
+    onTreeBuilt?.call(body);
+    return body;
+  }
+}

@@ -28,18 +28,23 @@ final _log = Logger('frigoligo');
 // - [x] Add an about section with the version and licenses and stuff...
 // - [x] server selection
 // 0.2
-// - [ ] unit tests (at least for WallabagClient) -> https://github.com/wallabag/docker#sqlite
+// - [x] better server configuration flow (more interactive)
+// - [x] save scroll position in article view
 // - [ ] padding and spacing everywhere
 // - [ ] handle server side deletion of articles
+// - [ ] unit tests (at least for WallabagClient) -> https://github.com/wallabag/docker#sqlite
 // - [ ] handle filtering by tag
-// - [ ] toggle unread/archived and starred/unstarred
-// - [ ] translations
+// 0.3
+// - [ ] add article (in app + share sheet)
+// - [ ] translations -> https://docs.flutter.dev/accessibility-and-localization/internationalization
 // 1.0
 // - [ ] background sync
 // - [ ] notification badge with https://pub.dev/packages/flutter_app_badger ?
 // - [ ] full text search
 // - [ ] desktop window management https://pub.dev/packages/window_manager
 // - [ ] use (when it's easy) Cupertino design system on iOS/macOS
+// - [ ] toggle unread/archived and starred/unstarred
+// - [ ] save app state -> https://docs.flutter.dev/platform-integration/android/restore-state-android
 // 1.1
 // - [ ] handle tags management
 // - [ ] handle annotations

@@ -5,6 +5,7 @@ import 'package:frigoligo/wallabag/wallabag.dart';
 
 import '../models/article.dart';
 import '../models/db.dart';
+import '../models/article_scroll_position.dart';
 
 class ArticleProvider extends ChangeNotifier {
   ArticleProvider(this.articleId) {
@@ -17,6 +18,8 @@ class ArticleProvider extends ChangeNotifier {
   int articleId;
 
   Article? get article => db.articles.getSync(articleId);
+  double? get scrollPosition =>
+      db.articleScrollPositions.getSync(articleId)?.position;
 
   @override
   void dispose() {
@@ -51,6 +54,16 @@ class ArticleProvider extends ChangeNotifier {
     await wallabag.deleteEntry(articleId);
     await db.writeTxn(() async {
       return await db.articles.delete(articleId);
+    });
+  }
+
+  Future<void> saveScrollPosition(double position) async {
+    if (articleId == 0) return;
+    final article = await db.articles.get(articleId);
+    await db.writeTxn(() async {
+      await db.articleScrollPositions.put(
+        ArticleScrollPosition.fromArticle(article!, position),
+      );
     });
   }
 }
