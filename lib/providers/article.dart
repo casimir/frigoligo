@@ -5,6 +5,7 @@ import 'package:frigoligo/wallabag/wallabag.dart';
 
 import '../models/article.dart';
 import '../models/db.dart';
+import '../models/article_scroll_position.dart';
 
 class ArticleProvider extends ChangeNotifier {
   ArticleProvider(this.articleId) {
@@ -15,8 +16,13 @@ class ArticleProvider extends ChangeNotifier {
   final DBInstance db = DB.get();
   StreamSubscription? _watcher;
   int articleId;
+  bool hasJumpedToPosition = false;
 
   Article? get article => db.articles.getSync(articleId);
+  double? get scrollPosition =>
+      db.articleScrollPositions.getSync(articleId)?.position;
+  bool get isPositionRestorePending =>
+      articleId != 0 && !hasJumpedToPosition && scrollPosition != null;
 
   @override
   void dispose() {
@@ -29,6 +35,7 @@ class ArticleProvider extends ChangeNotifier {
     _watcher?.cancel();
     _watcher =
         db.articles.watchObjectLazy(articleId).listen((_) => notifyListeners());
+    hasJumpedToPosition = false;
   }
 
   Future<void> modifyAndRefresh({
@@ -40,8 +47,13 @@ class ArticleProvider extends ChangeNotifier {
     var wallabag = WallabagInstance.get();
     await wallabag.patchEntry(articleId, archive: archive, starred: starred);
     var (entry, _) = await wallabag.getEntry(articleId);
+    final article = Article.fromWallabagEntry(entry);
+    final scrollPosition = await db.articleScrollPositions.get(articleId);
     await db.writeTxn(() async {
-      return await db.articles.put(Article.fromWallabagEntry(entry));
+      await db.articles.put(article);
+      if (scrollPosition?.readingTime != article.readingTime) {
+        await db.articleScrollPositions.delete(articleId);
+      }
     });
     onProgress?.call(1);
   }
@@ -50,7 +62,18 @@ class ArticleProvider extends ChangeNotifier {
     var wallabag = WallabagInstance.get();
     await wallabag.deleteEntry(articleId);
     await db.writeTxn(() async {
-      return await db.articles.delete(articleId);
+      await db.articles.delete(articleId);
+      await db.articleScrollPositions.delete(articleId);
+    });
+  }
+
+  Future<void> saveScrollPosition(double position) async {
+    if (articleId == 0) return;
+    final article = await db.articles.get(articleId);
+    await db.writeTxn(() async {
+      await db.articleScrollPositions.put(
+        ArticleScrollPosition.fromArticle(article!, position),
+      );
     });
   }
 }
