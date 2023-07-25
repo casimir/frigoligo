@@ -30,7 +30,7 @@ final _log = Logger('frigoligo');
 // 0.2
 // - [x] better server configuration flow (more interactive)
 // - [x] save scroll position in article view
-// - [ ] padding and spacing everywhere
+// - [x] padding and spacing everywhere
 // - [ ] handle server side deletion of articles
 // - [ ] unit tests (at least for WallabagClient) -> https://github.com/wallabag/docker#sqlite
 // - [ ] handle filtering by tag

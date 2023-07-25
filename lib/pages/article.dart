@@ -133,22 +133,26 @@ class _ArticlePageState extends State<ArticlePage> {
   }
 
   Widget _buildHeader(Article article) {
-    return Column(
-      children: [
-        Text(
-          article.title,
-          style: Theme.of(context).textTheme.headlineSmall,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(article.domainName!),
-            const Text(' - '),
-            const Icon(Icons.timer_outlined),
-            Text('${article.readingTime} min'),
-          ],
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          Text(
+            article.title,
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+          const SizedBox(height: 8.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(article.domainName!),
+              const Text(' - '),
+              const Icon(Icons.timer_outlined),
+              Text('${article.readingTime} min'),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
