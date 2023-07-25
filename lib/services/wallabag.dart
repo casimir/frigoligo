@@ -24,8 +24,12 @@ enum RefreshState {
 class ArticlesProvider with ChangeNotifier {
   ArticlesProvider() {
     _watcher = db.articles.watchLazy().listen((_) => notifyListeners());
-    if (wallabag.canRefreshToken && db.articles.countSync() == 0) {
-      fullRefresh();
+    if (wallabag.canRefreshToken) {
+      if (db.articles.countSync() == 0) {
+        fullRefresh();
+      } else {
+        incrementalRefresh(threshold: autoSyncThrottleSeconds);
+      }
     }
   }
 
@@ -185,9 +189,14 @@ class ArticlesProvider with ChangeNotifier {
     return count;
   }
 
-  Future<int> incrementalRefresh() async {
+  Future<int> incrementalRefresh({int? threshold}) async {
     final since = await SharedPreferences.getInstance()
         .then((prefs) => prefs.getInt('lastRefreshTimestamp'));
+
+    if (threshold != null && since != null) {
+      final now = DateTime.now().millisecondsSinceEpoch / 1000;
+      if (now - since < threshold) return 0;
+    }
     return fullRefresh(since: since);
   }
 }

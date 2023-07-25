@@ -16,12 +16,11 @@ final _log = Logger('frigoligo');
 
 // XXX roadmap
 // 0.3
-// - [ ] auto-sync
+// - [x] auto-sync
 // - [ ] add article (in app + share sheet)
 // - [ ] translations -> https://docs.flutter.dev/accessibility-and-localization/internationalization
 // - [ ] handle filtering by tag
 // 1.0
-// - [ ] background sync
 // - [ ] notification badge with https://pub.dev/packages/flutter_app_badger ?
 // - [ ] full text search
 // - [ ] desktop window management https://pub.dev/packages/window_manager
