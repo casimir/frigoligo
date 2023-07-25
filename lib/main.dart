@@ -31,12 +31,12 @@ final _log = Logger('frigoligo');
 // - [x] better server configuration flow (more interactive)
 // - [x] save scroll position in article view
 // - [x] padding and spacing everywhere
-// - [ ] handle server side deletion of articles
+// - [x] handle server side deletion of articles
 // - [ ] unit tests (at least for WallabagClient) -> https://github.com/wallabag/docker#sqlite
-// - [ ] handle filtering by tag
 // 0.3
 // - [ ] add article (in app + share sheet)
 // - [ ] translations -> https://docs.flutter.dev/accessibility-and-localization/internationalization
+// - [ ] handle filtering by tag
 // 1.0
 // - [ ] background sync
 // - [ ] notification badge with https://pub.dev/packages/flutter_app_badger ?
