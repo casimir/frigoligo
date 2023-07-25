@@ -15,25 +15,8 @@ import 'services/wallabag.dart';
 final _log = Logger('frigoligo');
 
 // XXX roadmap
-// 0.1
-// - [x] article persistence
-// - [x] api pagination
-// - [x] article list filtering
-// - [x] smart full sync (with since)
-// - [x] refresh progress indicator
-// - [x] auto refresh of article view
-// - [x] split views on wide screens (manual switch?)
-// - [x] check FTUE (/!\ first sync) and reset workflow
-// - [x] set up logos and launch screen
-// - [x] Add an about section with the version and licenses and stuff...
-// - [x] server selection
-// 0.2
-// - [x] better server configuration flow (more interactive)
-// - [x] save scroll position in article view
-// - [x] padding and spacing everywhere
-// - [x] handle server side deletion of articles
-// - [ ] unit tests (at least for WallabagClient) -> https://github.com/wallabag/docker#sqlite
 // 0.3
+// - [ ] auto-sync
 // - [ ] add article (in app + share sheet)
 // - [ ] translations -> https://docs.flutter.dev/accessibility-and-localization/internationalization
 // - [ ] handle filtering by tag
@@ -45,6 +28,7 @@ final _log = Logger('frigoligo');
 // - [ ] use (when it's easy) Cupertino design system on iOS/macOS
 // - [ ] toggle unread/archived and starred/unstarred
 // - [ ] save app state -> https://docs.flutter.dev/platform-integration/android/restore-state-android
+// - [ ] unit tests (at least for WallabagClient) -> https://github.com/wallabag/docker#sqlite
 // 1.1
 // - [ ] handle tags management
 // - [ ] handle annotations
