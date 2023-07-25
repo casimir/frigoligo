@@ -116,7 +116,7 @@ class _ArticlePageState extends State<ArticlePage> {
               child: Scrollbar(
                 controller: scroller,
                 child: SingleChildScrollView(
-                  key: ObjectKey(provider.articleId),
+                  key: GlobalObjectKey('articlepage-${provider.articleId}'),
                   controller: scroller,
                   child: Column(
                     children: [
