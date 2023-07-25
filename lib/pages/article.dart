@@ -113,15 +113,18 @@ class _ArticlePageState extends State<ArticlePage> {
                 }
                 return false;
               },
-              child: SingleChildScrollView(
-                key: ObjectKey(provider.articleId),
+              child: Scrollbar(
                 controller: scroller,
-                child: Column(
-                  children: [
-                    _buildHeader(article),
-                    const Divider(),
-                    _buildContent(article.content, scroller, provider)
-                  ],
+                child: SingleChildScrollView(
+                  key: ObjectKey(provider.articleId),
+                  controller: scroller,
+                  child: Column(
+                    children: [
+                      _buildHeader(article),
+                      const Divider(),
+                      _buildContent(article.content, scroller, provider)
+                    ],
+                  ),
                 ),
               ),
             )
