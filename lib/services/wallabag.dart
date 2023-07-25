@@ -112,6 +112,30 @@ class ArticlesProvider with ChangeNotifier {
   int count(StateFilter state, StarredFilter starred) =>
       _buildQuery(state: state, starred: starred).countSync();
 
+  Future<int> syncRemoteDeletes() async {
+    final remoteCount = await wallabag.fetchTotalEntriesCount();
+    var localIds = (await db.articles.where().idProperty().findAll()).toSet();
+    final delta = localIds.length - remoteCount;
+    if (delta <= 0) return 0;
+    _log.info('server-side deletion detected: delta=$delta');
+
+    // seems overkill but the only way to enumerate all entry ids efficiently
+    final entriesStream = wallabag.fetchAllEntries(
+      perPage: 100,
+      detail: DetailValue.metadata,
+    );
+    await for (final (entries, _) in entriesStream) {
+      localIds = localIds.difference(entries.map((e) => e.id).toSet());
+    }
+
+    await db.writeTxn(() async {
+      await db.articles.deleteAll(localIds.toList());
+      await db.articleScrollPositions.deleteAll(localIds.toList());
+    });
+
+    return delta;
+  }
+
   Future<int> fullRefresh({int? since}) async {
     assert(!refreshInProgress);
 
@@ -151,6 +175,7 @@ class ArticlesProvider with ChangeNotifier {
     }
     _log.info(
         'completed refresh of $count entries in ${stopwatch.elapsed.inSeconds} s');
+    syncRemoteDeletes();
 
     final now = DateTime.now().millisecondsSinceEpoch / 1000;
     await SharedPreferences.getInstance()
