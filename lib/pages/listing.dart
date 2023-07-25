@@ -235,93 +235,122 @@ class ArticleListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO explore https://pub.dev/packages/flutter_slidable
     // TODO GestureDetector on iOS
-    return InkWell(
-      onTap: () => onTap?.call(article),
-      child: Column(
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return SizedBox(
+      height: 130,
+      child: InkWell(
+        onTap: () => onTap?.call(article),
+        child: Column(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(
-                          child: Text(
-                            article.domainName ?? article.url,
-                            softWrap: false,
-                            overflow: TextOverflow.fade,
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                article.domainName ?? article.url,
+                                style: Theme.of(context).textTheme.labelMedium,
+                                softWrap: false,
+                                overflow: TextOverflow.fade,
+                              ),
+                            ),
+                            Text(
+                              '${article.readingTime} min',
+                              style: Theme.of(context).textTheme.labelMedium,
+                            ),
+                          ],
                         ),
-                        Text('${article.readingTime} min'),
+                        const SizedBox(height: 4.0),
+                        Text(
+                          article.title,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                        )
                       ],
                     ),
-                    Text(
-                      article.title,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    )
-                  ],
+                  ),
                 ),
-              ),
-              if (article.previewPicture != null)
+                if (article.previewPicture != null)
+                  SizedBox(
+                    width: 80,
+                    height: 80,
+                    child:
+                        // https://github.com/Baseflow/flutter_cached_network_image/issues/383
+                        article.previewPicture!.endsWith('.svg')
+                            ? SvgPicture.network(
+                                article.previewPicture!,
+                                fit: BoxFit.cover,
+                              )
+                            : CachedNetworkImage(
+                                imageUrl: article.previewPicture!,
+                                errorWidget: (context, url, error) {
+                                  _log.severe(
+                                      'article:${article.id} failed to load image',
+                                      error);
+                                  return const Icon(Icons.error);
+                                },
+                                fit: BoxFit.cover,
+                              ),
+                  )
+              ],
+            ),
+            const Spacer(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Wrap(
+                        spacing: 4.0,
+                        runSpacing: 4.0,
+                        children: article.tags
+                            .map((tag) => ActionChip(
+                                  label: Text(tag),
+                                  labelStyle:
+                                      Theme.of(context).textTheme.labelSmall,
+                                  onPressed: () {
+                                    var snackBar = SnackBar(
+                                      content: Text(
+                                          'In the future, filtering by tag $tag...'),
+                                      duration: const Duration(seconds: 1),
+                                    );
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(snackBar);
+                                  },
+                                  padding: const EdgeInsets.all(2.0),
+                                  backgroundColor: Theme.of(context)
+                                      .colorScheme
+                                      .surfaceVariant,
+                                ))
+                            .toList()),
+                  ),
+                ),
                 SizedBox(
                   width: 80,
-                  height: 80,
-                  child:
-                      // https://github.com/Baseflow/flutter_cached_network_image/issues/383
-                      article.previewPicture!.endsWith('.svg')
-                          ? SvgPicture.network(
-                              article.previewPicture!,
-                              fit: BoxFit.cover,
-                            )
-                          : CachedNetworkImage(
-                              imageUrl: article.previewPicture!,
-                              errorWidget: (context, url, error) {
-                                _log.severe(
-                                    'article:${article.id} failed to load image',
-                                    error);
-                                return const Icon(Icons.error);
-                              },
-                              fit: BoxFit.cover,
-                            ),
-                )
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
+                  height: 40,
                   child: Row(
-                      children: article.tags
-                          .map((tag) => ActionChip(
-                                label: Text(tag),
-                                onPressed: () {
-                                  var snackBar = SnackBar(
-                                    content: Text(
-                                        'In the future, filtering by tag $tag...'),
-                                    duration: const Duration(seconds: 1),
-                                  );
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(snackBar);
-                                },
-                              ))
-                          .toList()),
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      stateIcons[article.stateValue]!,
+                      starredIcons[article.starredValue]!,
+                    ],
+                  ),
                 ),
-              ),
-              Row(
-                children: [
-                  stateIcons[article.stateValue]!,
-                  starredIcons[article.starredValue]!,
-                ],
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
