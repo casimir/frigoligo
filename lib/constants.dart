@@ -32,3 +32,5 @@ final Map<StarredFilter, Icon> starredIcons = {
 final Icon shareIcon = Platform.isIOS || Platform.isMacOS
     ? const Icon(Icons.ios_share)
     : const Icon(Icons.share);
+
+final int autoSyncThrottleSeconds = 15 * 60;
