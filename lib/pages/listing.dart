@@ -25,17 +25,37 @@ class ListingPage extends StatefulWidget {
   State<ListingPage> createState() => _ListingPageState();
 }
 
-class _ListingPageState extends State<ListingPage> {
-  bool _showFilters = false;
-  StateFilter _stateFilter = StateFilter.unread;
-  StarredFilter _starredFilter = StarredFilter.all;
+class _ListingPageState extends State<ListingPage> with RestorationMixin {
+  final RestorableBool _showFilters = RestorableBool(false);
+  final RestorableEnum<StateFilter> _stateFilter =
+      RestorableEnum(StateFilter.unread, values: StateFilter.values);
+  final RestorableEnum<StarredFilter> _starredFilter =
+      RestorableEnum(StarredFilter.all, values: StarredFilter.values);
+
+  @override
+  String? get restorationId => 'listing';
+
+  @override
+  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
+    registerForRestoration(_showFilters, 'listing.showFilters');
+    registerForRestoration(_stateFilter, 'listing.stateFilter');
+    registerForRestoration(_starredFilter, 'listing.starredFilter');
+  }
+
+  @override
+  void dispose() {
+    _showFilters.dispose();
+    _stateFilter.dispose();
+    _starredFilter.dispose();
+    super.dispose();
+  }
 
   String _makeTitle(ArticlesProvider articles) {
-    var prefix = _stateFilter.name.toCapitalCase()!;
-    if (_starredFilter == StarredFilter.starred) {
+    var prefix = _stateFilter.value.name.toCapitalCase()!;
+    if (_starredFilter.value == StarredFilter.starred) {
       prefix += ' ★';
     }
-    return '$prefix (${articles.count(_stateFilter, _starredFilter)})';
+    return '$prefix (${articles.count(_stateFilter.value, _starredFilter.value)})';
   }
 
   @override
@@ -48,7 +68,7 @@ class _ListingPageState extends State<ListingPage> {
     // in split mode, select the first article of the list
     var articleProvider = context.read<ArticleProvider?>();
     if (articleProvider != null && articleProvider.articleId == 0) {
-      final first = articles.index(0, _stateFilter, _starredFilter);
+      final first = articles.index(0, _stateFilter.value, _starredFilter.value);
       if (first != null) {
         articleProvider.updateId(first.id!);
       }
@@ -61,9 +81,9 @@ class _ListingPageState extends State<ListingPage> {
         title: Text(_makeTitle(articles)),
         actions: [
           IconToggleButton(
-            isSelected: _showFilters,
+            isSelected: _showFilters.value,
             onPressed: () {
-              setState(() => _showFilters = !_showFilters);
+              setState(() => _showFilters.value = !_showFilters.value);
             },
             icon: const Icon(Icons.filter_list),
           ),
@@ -124,19 +144,19 @@ class _ListingPageState extends State<ListingPage> {
       ),
       body: Column(
         children: [
-          if (_showFilters)
+          if (_showFilters.value)
             FilterHeader(
-              selectedState: _stateFilter,
-              selectedStarred: _starredFilter,
+              selectedState: _stateFilter.value,
+              selectedStarred: _starredFilter.value,
               onStateChange: (stateSelection, starredSelection) {
                 setState(() {
-                  _stateFilter = stateSelection;
-                  _starredFilter = starredSelection;
+                  _stateFilter.value = stateSelection;
+                  _starredFilter.value = starredSelection;
                 });
               },
             ),
           Expanded(
-            child: articles.count(_stateFilter, _starredFilter) == 0
+            child: articles.count(_stateFilter.value, _starredFilter.value) == 0
                 ? Center(
                     child: Text(
                       'No articles',
@@ -148,16 +168,17 @@ class _ListingPageState extends State<ListingPage> {
                     children: [
                       Expanded(
                         child: ListView.separated(
-                          itemCount:
-                              articles.count(_stateFilter, _starredFilter),
+                          itemCount: articles.count(
+                              _stateFilter.value, _starredFilter.value),
                           itemBuilder: (context, index) {
                             return ArticleListItem(
-                              article: articles.index(
-                                  index, _stateFilter, _starredFilter)!,
+                              article: articles.index(index, _stateFilter.value,
+                                  _starredFilter.value)!,
                               onTap: (article) => widget.onItemSelect(article),
                             );
                           },
                           separatorBuilder: (context, index) => const Divider(),
+                          restorationId: 'listing.list',
                         ),
                       ),
                     ],
@@ -165,6 +186,7 @@ class _ListingPageState extends State<ListingPage> {
           ),
         ],
       ),
+      restorationId: 'listing.scaffold',
     );
   }
 }

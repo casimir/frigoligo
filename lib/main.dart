@@ -14,7 +14,7 @@ import 'services/wallabag.dart';
 
 final _log = Logger('frigoligo');
 
-// XXX roadmap
+// XXX roadmap (a really loose one)
 // 0.3
 // - [x] auto-sync
 // - [ ] add article (in app + share sheet)
@@ -26,7 +26,6 @@ final _log = Logger('frigoligo');
 // - [ ] desktop window management https://pub.dev/packages/window_manager
 // - [ ] use (when it's easy) Cupertino design system on iOS/macOS
 // - [ ] toggle unread/archived and starred/unstarred
-// - [ ] save app state -> https://docs.flutter.dev/platform-integration/android/restore-state-android
 // - [ ] unit tests (at least for WallabagClient) -> https://github.com/wallabag/docker#sqlite
 // 1.1
 // - [ ] handle tags management
@@ -62,6 +61,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(colorScheme: schemeLight, useMaterial3: true),
       darkTheme: ThemeData(colorScheme: schemeDark, useMaterial3: true),
       themeMode: ThemeMode.system,
+      restorationScopeId: 'app',
       home: const HomePage(),
     );
   }
@@ -100,8 +100,22 @@ class _MainContainer extends StatefulWidget {
   State<_MainContainer> createState() => _MainContainerState();
 }
 
-class _MainContainerState extends State<_MainContainer> {
-  int? _selectedId;
+class _MainContainerState extends State<_MainContainer> with RestorationMixin {
+  final RestorableIntN _selectedId = RestorableIntN(null);
+
+  @override
+  String? get restorationId => 'main';
+
+  @override
+  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
+    registerForRestoration(_selectedId, 'main.selectedId');
+  }
+
+  @override
+  void dispose() {
+    _selectedId.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +143,7 @@ class _MainContainerState extends State<_MainContainer> {
 
   Widget _buildWideLayout() {
     return ChangeNotifierProvider(
-      create: (_) => ArticleProvider(_selectedId ?? 0),
+      create: (_) => ArticleProvider(_selectedId.value ?? 0),
       builder: (context, _) {
         return Row(
           children: [
@@ -139,15 +153,17 @@ class _MainContainerState extends State<_MainContainer> {
                 create: (context) => ArticlesProvider(),
                 child: ListingPage(
                   onItemSelect: (article) => setState(() {
-                    _selectedId = article.id;
-                    context.read<ArticleProvider>().updateId(_selectedId!);
+                    _selectedId.value = article.id;
+                    context
+                        .read<ArticleProvider>()
+                        .updateId(_selectedId.value!);
                   }),
                 ),
               ),
             ),
             Flexible(
               flex: 2,
-              child: ArticlePage(articleId: _selectedId ?? 0),
+              child: ArticlePage(articleId: _selectedId.value ?? 0),
             ),
           ],
         );
