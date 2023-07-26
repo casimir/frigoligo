@@ -33,4 +33,4 @@ final Icon shareIcon = Platform.isIOS || Platform.isMacOS
     ? const Icon(Icons.ios_share)
     : const Icon(Icons.share);
 
-final int autoSyncThrottleSeconds = 15 * 60;
+const int autoSyncThrottleSeconds = 15 * 60;
