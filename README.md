@@ -1,16 +1,14 @@
 # frigoligo
 
-A new Flutter project.
+Frigoligo is an universal [Wallabag](https://wallabag.org/) client made with [Flutter](https://flutter.dev/).
+It is made to be 'a lot of super-cool marketing things' but for now it is mainly made with love. And that's something.
 
-## Getting Started
+Feel free to use a [TestFlight slot](https://testflight.apple.com/join/nYnbySd8) (iOS and macOS) or to grab the APK in the [latest release](/releases/latest/download/frigoligo-release.apk.zip). Windows and Flatpak builds should be available in a not so far future too.
 
-This project is a starting point for a Flutter application.
+A full history of changes is available in [CHANGELOG.md](./CHANGELOG.md).
 
-A few resources to get you started if this is your first Flutter project:
+|Android|macOS|Android (dark)|
+|:-:|:-:|:-:|
+|![android screenshot](assets/screenshots/android_light.png)|![desktop screenshot](./assets/screenshots/desktop.png)|![android dark theme screenshot](assets/screenshots/android_dark.png)|
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Licensed under the MIT License. See [LICENSE](./LICENSE) for details.
