@@ -30,7 +30,7 @@ class _ArticlePageState extends State<ArticlePage> {
   Widget build(BuildContext context) {
     final provider = context.watch<ArticleProvider>();
     final article = provider.article;
-    final scroller = ScrollController(keepScrollOffset: false);
+    final scroller = ScrollController();
 
     return Scaffold(
       appBar: AppBar(
