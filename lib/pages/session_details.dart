@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frigoligo/wallabag/wallabag.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../constants.dart';
 import '../models/db.dart';
 
 class SessionDetailsPage extends StatelessWidget {
@@ -40,6 +42,8 @@ class SessionDetailsPage extends StatelessWidget {
               WallabagInstance.get()
                   .resetTokenData()
                   .then((_) => DB.clear())
+                  .then((_) => SharedPreferences.getInstance()
+                      .then((prefs) => prefs.remove(spLastRefreshTimestamp)))
                   .then((_) => Navigator.pushNamedAndRemoveUntil(
                       context, '/', (r) => false));
             },

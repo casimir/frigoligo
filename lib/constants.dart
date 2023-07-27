@@ -34,3 +34,4 @@ final Icon shareIcon = Platform.isIOS || Platform.isMacOS
     : const Icon(Icons.share);
 
 const int autoSyncThrottleSeconds = 15 * 60;
+const String spLastRefreshTimestamp = 'lastRefreshTimestamp';
