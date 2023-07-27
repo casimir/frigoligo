@@ -7,7 +7,7 @@ Feel free to use a [TestFlight slot](https://testflight.apple.com/join/nYnbySd8)
 
 A full history of changes is available in [CHANGELOG.md](./CHANGELOG.md).
 
-|Android|macOS|Android (dark)|
+|Mobile|Desktop|Mobile (dark)|
 |:-:|:-:|:-:|
 |![android screenshot](assets/screenshots/android_light.png)|![desktop screenshot](./assets/screenshots/desktop.png)|![android dark theme screenshot](assets/screenshots/android_dark.png)|
 
