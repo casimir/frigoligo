@@ -74,6 +74,9 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
       }
     }
 
+    // ensure a relative freshness of the articles
+    articles.incrementalRefresh(threshold: autoSyncThrottleSeconds);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
