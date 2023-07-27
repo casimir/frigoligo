@@ -16,7 +16,6 @@ final _log = Logger('frigoligo');
 
 // XXX roadmap (a really loose one)
 // 0.3
-// - [x] auto-sync
 // - [ ] add article (in app + share sheet)
 // - [ ] translations -> https://docs.flutter.dev/accessibility-and-localization/internationalization
 // - [ ] handle filtering by tag
