@@ -1,7 +1,7 @@
 # frigoligo
 
 Frigoligo is an universal [Wallabag](https://wallabag.org/) client made with [Flutter](https://flutter.dev/).
-It is made to be 'a lot of super-cool marketing things' but for now it is mainly made with love. And that's something.
+It is made to be _a lot of super-cool marketing things_ but for now it is just made with love and that's something.
 
 Feel free to use a [TestFlight slot](https://testflight.apple.com/join/nYnbySd8) (iOS and macOS) or to grab the APK in the [latest release](/releases/latest/download/frigoligo-release.apk.zip). Windows and Flatpak builds should be available in a not so far future too.
 
