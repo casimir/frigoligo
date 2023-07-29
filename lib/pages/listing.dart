@@ -74,8 +74,11 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
       }
     }
 
-    // ensure a relative freshness of the articles
-    articles.incrementalRefresh(threshold: autoSyncThrottleSeconds);
+    articles.onError = (error) {
+      ScaffoldMessenger.maybeOf(context)?.showSnackBar(
+        SnackBar(content: Text(error.toString())),
+      );
+    };
 
     return Scaffold(
       appBar: AppBar(

@@ -22,13 +22,17 @@ enum RefreshState {
 }
 
 class ArticlesProvider with ChangeNotifier {
-  ArticlesProvider() {
+  ArticlesProvider({this.onError}) {
     _watcher = db.articles.watchLazy().listen((_) => notifyListeners());
+
+    // ensure a relative freshness of the articles
+    incrementalRefresh(threshold: autoSyncThrottleSeconds);
   }
 
   final DBInstance db = DB.get();
   final WallabagClient wallabag = WallabagInstance.get();
   StreamSubscription? _watcher;
+  void Function(Exception)? onError;
 
   float? _refreshProgressValue;
   float? get refreshProgressValue => _refreshProgressValue;
@@ -146,38 +150,44 @@ class ArticlesProvider with ChangeNotifier {
       await db.writeTxn(() async => await db.articles.clear());
     }
 
-    final stopwatch = Stopwatch()..start();
-    var entriesStream = wallabag.fetchAllEntries(
-      since: since,
-      onProgress: (progress) => refreshProgressValue = progress,
-    );
-    await for (final (entries, _) in entriesStream) {
-      final articles = {
-        for (var e in entries) e.id: Article.fromWallabagEntry(e)
-      };
-      final positions =
-          await db.articleScrollPositions.getAll(articles.keys.toList());
-      final invalidPositions = positions
-          .whereType<ArticleScrollPosition>()
-          .where((e) => e.readingTime != articles[e.id]?.readingTime)
-          .map((e) => e.id!)
-          .toList();
+    try {
+      final stopwatch = Stopwatch()..start();
+      var entriesStream = wallabag.fetchAllEntries(
+        since: since,
+        onProgress: (progress) => refreshProgressValue = progress,
+      );
+      await for (final (entries, _) in entriesStream) {
+        final articles = {
+          for (var e in entries) e.id: Article.fromWallabagEntry(e)
+        };
+        final positions =
+            await db.articleScrollPositions.getAll(articles.keys.toList());
+        final invalidPositions = positions
+            .whereType<ArticleScrollPosition>()
+            .where((e) => e.readingTime != articles[e.id]?.readingTime)
+            .map((e) => e.id!)
+            .toList();
 
-      await db.writeTxn(() async {
-        await db.articles.putAll(articles.values.toList());
-        await db.articleScrollPositions.deleteAll(invalidPositions);
-      });
+        await db.writeTxn(() async {
+          await db.articles.putAll(articles.values.toList());
+          await db.articleScrollPositions.deleteAll(invalidPositions);
+        });
 
-      count += entries.length;
+        count += entries.length;
+      }
+      _log.info(
+          'completed refresh of $count entries in ${stopwatch.elapsed.inSeconds} s');
+      syncRemoteDeletes();
+
+      final now = DateTime.now().millisecondsSinceEpoch / 1000;
+      await SharedPreferences.getInstance()
+          .then((prefs) => prefs.setInt(spLastRefreshTimestamp, now.toInt()));
+    } on Exception catch (e, st) {
+      _log.severe('refresh failed', e, st);
+      onError?.call(e);
+    } finally {
+      refreshProgressValue = null;
     }
-    _log.info(
-        'completed refresh of $count entries in ${stopwatch.elapsed.inSeconds} s');
-    syncRemoteDeletes();
-
-    final now = DateTime.now().millisecondsSinceEpoch / 1000;
-    await SharedPreferences.getInstance()
-        .then((prefs) => prefs.setInt(spLastRefreshTimestamp, now.toInt()));
-    refreshProgressValue = null;
 
     return count;
   }
