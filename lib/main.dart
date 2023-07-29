@@ -17,6 +17,7 @@ final _log = Logger('frigoligo');
 void main() {
   Logger.root.level = Level.INFO;
   Logger.root.onRecord.listen((record) {
+    DB.appendLog(record);
     var line =
         '[${record.time}] ${record.level.name} ${record.loggerName} ${record.message}';
     if (record.error != null) {
@@ -24,7 +25,7 @@ void main() {
     }
     debugPrint(line);
   });
-  _log.info('Starting Frigoligo');
+  _log.info('starting app');
   runApp(const MyApp());
 }
 

@@ -1,17 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:frigoligo/providers/article.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
 import '../constants.dart';
 import '../models/article.dart';
+import '../providers/article.dart';
+import '../providers/logconsole.dart';
 import '../services/wallabag.dart';
 import '../string_extension.dart';
 import '../widgets/async_action_button.dart';
 import '../widgets/icon_toggle_button.dart';
+import 'logconsole.dart';
 import 'session_details.dart';
 
 final _log = Logger('frigoligo.listing');
@@ -115,6 +117,13 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
                 ),
               ),
               const PopupMenuItem(
+                value: 'logs',
+                child: ListTile(
+                  leading: Icon(Icons.bug_report),
+                  title: Text('Show logs'),
+                ),
+              ),
+              const PopupMenuItem(
                 value: 'about',
                 child: ListTile(
                   leading: Icon(Icons.info),
@@ -133,6 +142,16 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
                     context,
                     MaterialPageRoute(
                         builder: (_) => const SessionDetailsPage()),
+                  );
+                case 'logs':
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => ChangeNotifierProvider(
+                        create: (_) => LogConsoleProvider(),
+                        child: const LogConsolePage(),
+                      ),
+                    ),
                   );
                 case 'about':
                   PackageInfo.fromPlatform().then((info) {
