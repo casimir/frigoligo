@@ -98,7 +98,10 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
           AsyncActionButton(
             icon: const Icon(Icons.refresh),
             progressValue: refreshProgressValue,
-            onPressed: () => articles.incrementalRefresh(),
+            onPressed: () {
+              _log.info('user action > incremental refresh');
+              articles.incrementalRefresh();
+            },
           ),
           PopupMenuButton(
             itemBuilder: (context) => [
@@ -134,9 +137,8 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
             onSelected: (value) {
               switch (value) {
                 case 'resync':
-                  if (!articles.refreshInProgress) {
-                    articles.fullRefresh();
-                  }
+                  _log.info('user action > full refresh');
+                  articles.fullRefresh();
                 case 'session':
                   Navigator.push(
                     context,

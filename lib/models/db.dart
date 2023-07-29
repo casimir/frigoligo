@@ -31,9 +31,9 @@ class DB {
     return _instance!;
   }
 
-  static Future<void> clear() {
+  static Future<void> clear() async {
     final db = get();
-    return db.writeTxn(() => db.clear());
+    await db.writeTxn(() => db.clear());
   }
 
   static Future<void> _prepareAppLogs() async {

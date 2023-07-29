@@ -26,6 +26,7 @@ class ArticlesProvider with ChangeNotifier {
     _watcher = db.articles.watchLazy().listen((_) => notifyListeners());
 
     // ensure a relative freshness of the articles
+    _log.info('provider initialization > incremental refresh');
     incrementalRefresh(threshold: autoSyncThrottleSeconds);
   }
 
@@ -114,6 +115,7 @@ class ArticlesProvider with ChangeNotifier {
       _buildQuery(state: state, starred: starred).countSync();
 
   Future<int> syncRemoteDeletes() async {
+    _log.info('checking for server-side deletions');
     final remoteCount = await wallabag.fetchTotalEntriesCount();
     var localIds = (await db.articles.where().idProperty().findAll()).toSet();
     final delta = localIds.length - remoteCount;
@@ -129,12 +131,14 @@ class ArticlesProvider with ChangeNotifier {
       localIds = localIds.difference(entries.map((e) => e.id).toSet());
     }
 
-    await db.writeTxn(() async {
-      await db.articles.deleteAll(localIds.toList());
+    final deletedCount = await db.writeTxn(() async {
+      final res = await db.articles.deleteAll(localIds.toList());
       await db.articleScrollPositions.deleteAll(localIds.toList());
+      return res;
     });
+    _log.info('removed $deletedCount entries from database');
 
-    return delta;
+    return deletedCount;
   }
 
   Future<int> fullRefresh({int? since}) async {
@@ -144,18 +148,21 @@ class ArticlesProvider with ChangeNotifier {
     final sinceRepr = since != null
         ? DateTime.fromMillisecondsSinceEpoch(since * 1000).toIso8601String()
         : null;
-    _log.info('starting entries refresh from (since: $sinceRepr)');
+    _log.info('starting refresh with since=$sinceRepr');
 
     if (since == null) {
-      await db.writeTxn(() async => await db.articles.clear());
+      await db.writeTxn(() async {
+        await db.articles.clear();
+        _log.info('cleared the whole articles collection');
+      });
     }
+
+    void onProgress(float progress) => refreshProgressValue = progress;
 
     try {
       final stopwatch = Stopwatch()..start();
-      var entriesStream = wallabag.fetchAllEntries(
-        since: since,
-        onProgress: (progress) => refreshProgressValue = progress,
-      );
+      var entriesStream =
+          wallabag.fetchAllEntries(since: since, onProgress: onProgress);
       await for (final (entries, _) in entriesStream) {
         final articles = {
           for (var e in entries) e.id: Article.fromWallabagEntry(e)
@@ -168,15 +175,19 @@ class ArticlesProvider with ChangeNotifier {
             .map((e) => e.id!)
             .toList();
 
-        await db.writeTxn(() async {
-          await db.articles.putAll(articles.values.toList());
+        final putCount = await db.writeTxn(() async {
+          final res = await db.articles.putAll(articles.values.toList());
           await db.articleScrollPositions.deleteAll(invalidPositions);
+          return res.length;
         });
+        _log.info('put $putCount entries in database');
 
         count += entries.length;
       }
       _log.info(
           'completed refresh of $count entries in ${stopwatch.elapsed.inSeconds} s');
+
+      onProgress(0);
       syncRemoteDeletes();
 
       final now = DateTime.now().millisecondsSinceEpoch / 1000;
@@ -198,7 +209,12 @@ class ArticlesProvider with ChangeNotifier {
 
     if (threshold != null && since != null) {
       final now = DateTime.now().millisecondsSinceEpoch / 1000;
-      if (now - since < threshold) return 0;
+      final elapsed = now - since;
+      if (elapsed < threshold) {
+        _log.info(
+            'incremental refresh throttled (last: ${elapsed.toStringAsFixed(0)} s)');
+        return 0;
+      }
     }
     return fullRefresh(since: since);
   }
