@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:frigoligo/providers/article.dart';
 import 'package:frigoligo/wallabag/wallabag.dart';
 import 'package:logging/logging.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
 import 'constants.dart';
@@ -26,6 +27,9 @@ void main() {
     debugPrint(line);
   });
   _log.info('starting app');
+  PackageInfo.fromPlatform().then((info) {
+    _log.info('version: ${info.version}+${info.buildNumber}');
+  });
   runApp(const MyApp());
 }
 
