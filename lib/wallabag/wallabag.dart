@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:frigoligo/wallabag/models/info.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/retry.dart';
 import 'package:isar/isar.dart';
@@ -12,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 export 'models/annotation.dart' show WallabagAnnotation;
 import 'models/entry.dart';
 export 'models/entry.dart' show WallabagEntry;
+import 'models/info.dart';
 export 'models/tag.dart' show WallabagTag;
 
 part 'wallabag.g.dart';
@@ -192,6 +192,42 @@ class WallabagClient extends http.BaseClient {
 
   Future<(WallabagEntry, http.Response)> getEntry(int id) async {
     var response = await get(_buildUri('/api/entries/$id.json'));
+    throwOnError(response);
+    return (WallabagEntry.fromJson(jsonDecode(response.body)), response);
+  }
+
+  Future<(WallabagEntry, http.Response)> createEntry(
+    String url, {
+    String? title,
+    List<String>? tags,
+    bool? archive,
+    bool? starred,
+    String? content,
+    String? language,
+    String? previewPicture,
+    DateTime? publishedAt,
+    List<String>? authors,
+    bool? public,
+    String? originUrl,
+  }) async {
+    final params = {
+      'url': url,
+      if (title != null) 'title': title,
+      if (tags != null) 'tags': tags.join(','),
+      if (archive != null) 'archive': archive ? 1 : 0,
+      if (starred != null) 'starred': starred ? 1 : 0,
+      if (content != null) 'content': content,
+      if (language != null) 'language': language,
+      if (previewPicture != null) 'preview_picture': previewPicture,
+      if (publishedAt != null) 'published_at': publishedAt.toIso8601String(),
+      if (authors != null) 'authors': authors.join(','),
+      if (public != null) 'public': public ? 1 : 0,
+      if (originUrl != null) 'origin_url': originUrl,
+    };
+    final response = await post(
+      _buildUri('/api/entries.json'),
+      body: params.map((key, value) => MapEntry(key, value.toString())),
+    );
     throwOnError(response);
     return (WallabagEntry.fromJson(jsonDecode(response.body)), response);
   }
