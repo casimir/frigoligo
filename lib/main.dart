@@ -27,6 +27,7 @@ void main() {
     debugPrint(line);
   });
   _log.info('starting app');
+  WidgetsFlutterBinding.ensureInitialized();
   PackageInfo.fromPlatform().then((info) {
     _log.info('version: ${info.version}+${info.buildNumber}');
   });
