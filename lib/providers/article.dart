@@ -46,7 +46,7 @@ class ArticleProvider extends ChangeNotifier {
     onProgress?.call(0);
     var wallabag = WallabagInstance.get();
     await wallabag.patchEntry(articleId, archive: archive, starred: starred);
-    var (entry, _) = await wallabag.getEntry(articleId);
+    final entry = await wallabag.getEntry(articleId);
     final article = Article.fromWallabagEntry(entry);
     final scrollPosition = await db.articleScrollPositions.get(articleId);
     await db.writeTxn(() async {

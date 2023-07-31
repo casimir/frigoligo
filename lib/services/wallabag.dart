@@ -127,7 +127,11 @@ class ArticlesProvider with ChangeNotifier {
       perPage: 100,
       detail: DetailValue.metadata,
     );
-    await for (final (entries, _) in entriesStream) {
+    await for (final (entries, err) in entriesStream) {
+      if (err != null) {
+        onError?.call(err);
+        break;
+      }
       localIds = localIds.difference(entries.map((e) => e.id).toSet());
     }
 
@@ -163,7 +167,8 @@ class ArticlesProvider with ChangeNotifier {
       final stopwatch = Stopwatch()..start();
       var entriesStream =
           wallabag.fetchAllEntries(since: since, onProgress: onProgress);
-      await for (final (entries, _) in entriesStream) {
+      await for (final (entries, err) in entriesStream) {
+        if (err != null) throw err;
         final articles = {
           for (var e in entries) e.id: Article.fromWallabagEntry(e)
         };

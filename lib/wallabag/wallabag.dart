@@ -27,24 +27,41 @@ void throwOnError(http.Response response, {List<int> expected = const [200]}) {
 }
 
 class WallabagError implements Exception {
-  const WallabagError(this.message, {this.source});
+  const WallabagError(this.message, {this.source, this.response});
 
   final String message;
   final Exception? source;
+  final http.Response? response;
 
   @override
   String toString() {
     var str = 'WallabagError: $message';
-    if (source != null) {
-      str += ': $source';
-    }
+    if (source != null) str += ': $source';
+    if (response != null) str += ': ${response!.body}';
     return str;
   }
 
   factory WallabagError.fromResponse(http.Response response) =>
       WallabagError('${response.statusCode} > ${response.body}');
-  factory WallabagError.fromException(Exception e) =>
-      WallabagError('unknown error', source: e);
+  factory WallabagError.fromException(Exception e, {http.Response? response}) =>
+      WallabagError('unknown error', source: e, response: response);
+}
+
+typedef Decoder<T> = T Function(Map<String, dynamic>);
+
+T safeDecode<T>(http.Response response, Decoder<T> decoder) {
+  try {
+    final json = jsonDecode(response.body);
+    return decoder(json);
+  } catch (source) {
+    throw switch (source.runtimeType) {
+      WallabagError => source as WallabagError,
+      Exception =>
+        WallabagError.fromException(source as Exception, response: response),
+      _ => WallabagError.fromException(Exception(source.toString()),
+          response: response),
+    };
+  }
 }
 
 Future<String> _buildUserAgent() async {
@@ -109,10 +126,11 @@ class WallabagClient extends http.BaseClient {
       'client_secret': connectionData.clientSecret,
       ...grantData,
     };
-    var response = await http.post(_buildUri(tokenEnpointPath), body: payload);
+    final response =
+        await http.post(_buildUri(tokenEnpointPath), body: payload);
     throwOnError(response);
 
-    var tokenData = OAuthToken.fromJson(jsonDecode(response.body));
+    final tokenData = safeDecode(response, OAuthToken.fromJson);
     _tokenData = tokenData;
     _persistTokenData();
 
@@ -155,7 +173,7 @@ class WallabagClient extends http.BaseClient {
     });
   }
 
-  Future<(WallabagPaginatedEntries, http.Response)> getEntries({
+  Future<WallabagPaginatedEntries> getEntries({
     int? archive,
     int? starred,
     SortValue? sort,
@@ -181,22 +199,21 @@ class WallabagClient extends http.BaseClient {
       'detail': detail?.name,
       'domain_name': domainName,
     }..removeWhere((_, value) => value == null);
-    var response = await get(_buildUri(
+    final response = await get(_buildUri(
       '/api/entries.json',
       params.map((key, value) => MapEntry(key, value.toString())),
     ));
     throwOnError(response);
-    var pageData = WallabagPaginatedEntries.fromJson(jsonDecode(response.body));
-    return (pageData, response);
+    return safeDecode(response, WallabagPaginatedEntries.fromJson);
   }
 
-  Future<(WallabagEntry, http.Response)> getEntry(int id) async {
-    var response = await get(_buildUri('/api/entries/$id.json'));
+  Future<WallabagEntry> getEntry(int id) async {
+    final response = await get(_buildUri('/api/entries/$id.json'));
     throwOnError(response);
-    return (WallabagEntry.fromJson(jsonDecode(response.body)), response);
+    return safeDecode(response, WallabagEntry.fromJson);
   }
 
-  Future<(WallabagEntry, http.Response)> createEntry(
+  Future<WallabagEntry> createEntry(
     String url, {
     String? title,
     List<String>? tags,
@@ -229,7 +246,7 @@ class WallabagClient extends http.BaseClient {
       body: params.map((key, value) => MapEntry(key, value.toString())),
     );
     throwOnError(response);
-    return (WallabagEntry.fromJson(jsonDecode(response.body)), response);
+    return safeDecode(response, WallabagEntry.fromJson);
   }
 
   Future<http.Response> patchEntry(
@@ -241,7 +258,7 @@ class WallabagClient extends http.BaseClient {
       if (archive != null) 'archive': archive ? 1 : 0,
       if (starred != null) 'starred': starred ? 1 : 0,
     };
-    var response = await patch(
+    final response = await patch(
       _buildUri('/api/entries/$id.json'),
       body: params.map((key, value) => MapEntry(key, value.toString())),
     );
@@ -250,27 +267,25 @@ class WallabagClient extends http.BaseClient {
   }
 
   Future<http.Response> deleteEntry(int id) async {
-    var response = await delete(_buildUri('/api/entries/$id.json'));
+    final response = await delete(_buildUri('/api/entries/$id.json'));
     throwOnError(response);
     return response;
   }
 
-  Future<(WallabagInfo, http.Response)> getInfo() async {
-    var response = await get(_buildUri('/api/info.json'));
+  Future<WallabagInfo> getInfo() async {
+    final response = await get(_buildUri('/api/info.json'));
     throwOnError(response);
-    return (WallabagInfo.fromJson(jsonDecode(response.body)), response);
+    return safeDecode(response, WallabagInfo.fromJson);
   }
 
   // higher level methods
 
   Future<int> fetchTotalEntriesCount() async {
-    var (data, response) =
-        await getEntries(perPage: 1, detail: DetailValue.metadata);
-    throwOnError(response);
+    var data = await getEntries(perPage: 1, detail: DetailValue.metadata);
     return data.total;
   }
 
-  Stream<(List<WallabagEntry>, http.Response)> fetchAllEntries({
+  Stream<(List<WallabagEntry>, WallabagError?)> fetchAllEntries({
     int? archive,
     int? starred,
     SortValue? sort,
@@ -288,24 +303,37 @@ class WallabagClient extends http.BaseClient {
     var lastPage = pageIndex + 1; // start with +1 just to start the loop
     onProgress?.call(0);
     while (pageIndex <= lastPage) {
-      var (pageData, response) = await getEntries(
-        archive: archive,
-        starred: starred,
-        sort: sort,
-        order: order,
-        page: pageIndex,
-        perPage: perPage,
-        tags: tags,
-        since: since,
-        public: public,
-        detail: detail,
-        domainName: domainName,
-      );
+      late WallabagPaginatedEntries pageData;
+      try {
+        pageData = await getEntries(
+          archive: archive,
+          starred: starred,
+          sort: sort,
+          order: order,
+          page: pageIndex,
+          perPage: perPage,
+          tags: tags,
+          since: since,
+          public: public,
+          detail: detail,
+          domainName: domainName,
+        );
+      } catch (source, st) {
+        final e = switch (source.runtimeType) {
+          WallabagError => source as WallabagError,
+          Exception => WallabagError.fromException(source as Exception),
+          _ => WallabagError.fromException(Exception(source.toString())),
+        };
+        _log.severe(
+            'error fetching entries (page $pageIndex)', source.toString(), st);
+        yield ([], e);
+        return;
+      }
       lastPage = pageData.pages;
       _log.info('fetched entries (page $pageIndex of $lastPage)');
       onProgress?.call(pageIndex / lastPage);
       pageIndex++;
-      yield (pageData.embedded.items, response);
+      yield (pageData.embedded.items, null);
     }
   }
 }
