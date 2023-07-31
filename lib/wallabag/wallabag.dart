@@ -266,6 +266,7 @@ class WallabagClient extends http.BaseClient {
         domainName: domainName,
       );
       lastPage = pageData.pages;
+      _log.info('fetched entries (page $pageIndex of $lastPage)');
       onProgress?.call(pageIndex / lastPage);
       pageIndex++;
       yield (pageData.embedded.items, response);

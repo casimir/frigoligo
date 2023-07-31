@@ -180,19 +180,19 @@ class ArticlesProvider with ChangeNotifier {
           await db.articleScrollPositions.deleteAll(invalidPositions);
           return res.length;
         });
-        _log.info('put $putCount entries in database');
+        _log.info('saved $putCount entries to the database');
 
         count += entries.length;
       }
       _log.info(
           'completed refresh of $count entries in ${stopwatch.elapsed.inSeconds} s');
 
-      onProgress(0);
-      syncRemoteDeletes();
-
       final now = DateTime.now().millisecondsSinceEpoch / 1000;
       await SharedPreferences.getInstance()
           .then((prefs) => prefs.setInt(spLastRefreshTimestamp, now.toInt()));
+
+      onProgress(0);
+      syncRemoteDeletes();
     } on Exception catch (e, st) {
       _log.severe('refresh failed', e, st);
       onError?.call(e);
