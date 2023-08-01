@@ -37,7 +37,7 @@ jobs:
         with:
           name: ${{ env.artifact_prefix }}-unsigned.apk
           path: build/app/outputs/flutter-apk/app-release.apk
-      - if: github.ref_type == "tag"
+      - if: ${{ github.ref_type == 'tag' }}
         run: gh release upload ${{ env.artifact_prefix }}-unsigned.apk --clobber
 
 
@@ -61,7 +61,7 @@ jobs:
         with:
           name: ${{ env.artifact_prefix }}-linux-x64.tar.gz
           path: ${{ env.artifact_prefix }}-linux-x64.tar.gz
-      - if: github.ref_type == "tag"
+      - if: ${{ github.ref_type == 'tag' }}
         run: gh release upload ${{ env.artifact_prefix }}-linux-x64.tar.gz --clobber
 
   build_windows:
@@ -81,5 +81,5 @@ jobs:
         with:
           name: ${{ env.artifact_prefix }}-windows-x64.zip
           path: ${{ env.artifact_prefix }}-windows-x64.zip
-      - if: github.ref_type == "tag"
+      - if: ${{ github.ref_type == 'tag' }}
         run: gh release upload ${{ env.artifact_prefix }}-windows-x64.zip --clobber
