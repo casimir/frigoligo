@@ -32,10 +32,10 @@ WallabagEntry _$WallabagEntryFromJson(Map<String, dynamic> json) =>
           ?.map((e) => WallabagAnnotation.fromJson(e as Map<String, dynamic>))
           .toList(),
       json['url'] as String?,
-      json['hashed_url'] as String,
+      json['hashed_url'] as String?,
       json['origin_url'] as String?,
       json['given_url'] as String?,
-      json['hashed_given_url'] as String,
+      json['hashed_given_url'] as String?,
       json['is_public'] as bool,
       json['uid'] as String?,
       json['published_at'] == null
