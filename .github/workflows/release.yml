@@ -3,8 +3,14 @@ on:
   push:
     tags:
       - v*
+  workflow_dispatch:
+
+concurrency:
+  group: release_workflow
+  cancel-in-progress: true
+
 jobs:
-  build:
+  build_apk:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -17,8 +23,30 @@ jobs:
           channel: stable
       - run: flutter --version
       - run: flutter pub get
-      - run: flutter build apk
+      - run: flutter build apk --release
       - uses: actions/upload-artifact@v3
         with:
-          name: frigoligo-release.apk
+          name: frigoligo-${{ github.ref_name }}.apk
           path: build/app/outputs/flutter-apk/app-release.apk
+  build_linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: zulu
+          java-version: 11
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - run: |
+          sudo apt-get update -y
+          sudo apt-get install -y ninja-build libgtk-3-dev
+      - run: flutter --version
+      - run: flutter pub get
+      - run: flutter build linux --release
+      - run: tar -czf frigoligo-linux-x64-${{ github.ref_name }}.tar.gz build/linux/x64/release/bundle/
+      - uses: actions/upload-artifact@v3
+        with:
+          name: frigoligo-linux-x64-${{ github.ref_name }}.tar.gz
+          path: frigoligo-linux-x64-${{ github.ref_name }}.tar.gz
