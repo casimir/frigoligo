@@ -1,4 +1,4 @@
-# frigoligo
+# Frigoligo [![Chat on Matrix](https://matrix.to/img/matrix-badge.svg)](https://matrix.to/#/#frigoligo:one.ems.host)
 
 Frigoligo is an universal [Wallabag](https://wallabag.org/) client made with [Flutter](https://flutter.dev/).
 It is made to be _a lot of super-cool marketing things_ but for now it is just made with love and that's something.
