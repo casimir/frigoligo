@@ -5,10 +5,6 @@ on:
       - v*.*.*
   workflow_dispatch:
 
-concurrency:
-  group: release_workflow
-  cancel-in-progress: true
-
 jobs:
   setup:
     runs-on: ubuntu-latest
