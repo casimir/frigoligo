@@ -198,8 +198,7 @@ class ArticlesProvider with ChangeNotifier {
 
       onProgress(0);
       syncRemoteDeletes();
-    } on Exception catch (e, st) {
-      _log.severe('refresh failed', e, st);
+    } on Exception catch (e) {
       onError?.call(e);
     } finally {
       refreshProgressValue = null;
