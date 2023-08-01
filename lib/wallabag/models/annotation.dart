@@ -32,14 +32,14 @@ class WallabagAnnotation {
   Map<String, dynamic> toJson() => _$WallabagAnnotationToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class WallabagAnnotationRange {
   final String? start;
   final String? end;
-  @JsonKey(name: 'start_offset')
-  final int startOffset;
-  @JsonKey(name: 'end_offset')
-  final int endOffset;
+  @JsonKey(fromJson: _magicInt)
+  final int? startOffset;
+  @JsonKey(fromJson: _magicInt)
+  final int? endOffset;
 
   const WallabagAnnotationRange(
     this.start,
@@ -51,4 +51,13 @@ class WallabagAnnotationRange {
   factory WallabagAnnotationRange.fromJson(Map<String, dynamic> json) =>
       _$WallabagAnnotationRangeFromJson(json);
   Map<String, dynamic> toJson() => _$WallabagAnnotationRangeToJson(this);
+}
+
+int? _magicInt(dynamic value) {
+  if (value == null) return null;
+  return switch (value.runtimeType) {
+    int => value,
+    String => int.parse(value),
+    _ => throw Exception('Invalid type ${value.runtimeType}'),
+  };
 }

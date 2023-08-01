@@ -38,8 +38,8 @@ WallabagAnnotationRange _$WallabagAnnotationRangeFromJson(
     WallabagAnnotationRange(
       json['start'] as String?,
       json['end'] as String?,
-      json['start_offset'] as int,
-      json['end_offset'] as int,
+      _magicInt(json['start_offset']),
+      _magicInt(json['end_offset']),
     );
 
 Map<String, dynamic> _$WallabagAnnotationRangeToJson(
