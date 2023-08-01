@@ -58,7 +58,7 @@ jobs:
       - run: flutter --version
       - run: flutter pub get
       - run: flutter build linux
-      - run: tar czf ${{ env.artifact_prefix }}-linux-x64.tar.gz build/linux/x64/release/bundle/
+      - run: tar czf ${{ steps.setup.outputs.ARTIFACT_LINUX_X64 }} build/linux/x64/release/bundle/
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ steps.setup.outputs.ARTIFACT_LINUX_X64 }}
