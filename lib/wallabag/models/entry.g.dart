@@ -50,7 +50,7 @@ WallabagEntry _$WallabagEntryFromJson(Map<String, dynamic> json) =>
       json['mimetype'] as String?,
       json['http_status'] as String?,
       (json['headers'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, e as String),
+        (k, e) => MapEntry(k, e as String?),
       ),
     );
 

@@ -76,7 +76,7 @@ class WallabagEntry {
   final String? mimeType;
   @JsonKey(name: 'http_status')
   final String? httpStatus;
-  final Map<String, String>? headers;
+  final Map<String, String?>? headers;
 
   // ignored fields
   // _links
