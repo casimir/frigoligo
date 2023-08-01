@@ -9,10 +9,10 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
-      - run: | 
+      - shell: bash
+        run: | 
           echo "release_version=${GITHUB_REF_NAME#v}" >> $GITHUB_ENV
           echo "artifact_prefix=frigoligo-${GITHUB_REF_NAME#v}" >> $GITHUB_ENV
-          shell: bash
       - run: |
           echo "VERSION=${{ env.release_version }}" >> $GITHUB_OUTPUT
           echo "ARTIFACT_ANDROID=${{ env.artifact_prefix }}-unsigned.apk" >> $GITHUB_OUTPUT
