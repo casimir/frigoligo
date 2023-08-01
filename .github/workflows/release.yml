@@ -10,15 +10,21 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  env_setup:
+  setup:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "release_version=${GITHUB_REF_NAME#v}" >> $GITHUB_ENV
+      - run: | 
+        echo "release_version=${GITHUB_REF_NAME#v}" >> $GITHUB_ENV
+        echo "artifact_prefix=frigoligo-${GITHUB_REF_NAME#v}" >> $GITHUB_ENV
         shell: bash
-      - run: echo "artifact_prefix=frigoligo-${{ env.release_version }}" >> $GITHUB_ENV
+      - run: |
+        echo "VERSION=${{ env.release_version }}" >> $GITHUB_OUTPUT
+        echo "ARTIFACT_ANDROID=${{ env.artifact_prefix }}-unsigned.apk" >> $GITHUB_OUTPUT
+        echo "ARTIFACT_LINUX_X64=${{ env.artifact_prefix }}-linux-x64.tar.gz" >> $GITHUB_OUTPUT
+        echo "ARTIFACT_WINDOWS=${{ env.artifact_prefix }}-windows-x64.zip" >> $GITHUB_OUTPUT
 
   build_apk:
-    needs: env_setup
+    needs: setup
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -35,14 +41,14 @@ jobs:
       - run: flutter build apk
       - uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.artifact_prefix }}-unsigned.apk
+          name: ${{ steps.setup.outputs.ARTIFACT_ANDROID }}
           path: build/app/outputs/flutter-apk/app-release.apk
       - if: ${{ github.ref_type == 'tag' }}
-        run: gh release upload ${{ env.artifact_prefix }}-unsigned.apk --clobber
+        run: gh release upload ${{ steps.setup.outputs.ARTIFACT_ANDROID }} --clobber
 
 
   build_linux:
-    needs: env_setup
+    needs: setup
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -59,13 +65,13 @@ jobs:
       - run: tar czf ${{ env.artifact_prefix }}-linux-x64.tar.gz build/linux/x64/release/bundle/
       - uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.artifact_prefix }}-linux-x64.tar.gz
-          path: ${{ env.artifact_prefix }}-linux-x64.tar.gz
+          name: ${{ steps.setup.outputs.ARTIFACT_LINUX_X64 }}
+          path: ${{ steps.setup.outputs.ARTIFACT_LINUX_X64 }}
       - if: ${{ github.ref_type == 'tag' }}
-        run: gh release upload ${{ env.artifact_prefix }}-linux-x64.tar.gz --clobber
+        run: gh release upload ${{ steps.setup.outputs.ARTIFACT_LINUX_X64 }} --clobber
 
   build_windows:
-    needs: env_setup
+    needs: setup
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
@@ -79,7 +85,7 @@ jobs:
       - run: Compress-Archive -Path build\windows\runner\Release\* -DestinationPath ${{ env.artifact_prefix }}-windows-x64.zip
       - uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.artifact_prefix }}-windows-x64.zip
-          path: ${{ env.artifact_prefix }}-windows-x64.zip
+          name: ${{ steps.setup.outputs.ARTIFACT_WINDOWS }}
+          path: ${{ steps.setup.outputs.ARTIFACT_WINDOWS }}
       - if: ${{ github.ref_type == 'tag' }}
-        run: gh release upload ${{ env.artifact_prefix }}-windows-x64.zip --clobber
+        run: gh release upload ${{ steps.setup.outputs.ARTIFACT_WINDOWS }} --clobber
