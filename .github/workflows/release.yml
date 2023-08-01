@@ -2,7 +2,7 @@ name: release artifacts
 on:
   push:
     tags:
-      - v*
+      - v*.*.*
   workflow_dispatch:
 
 concurrency:
@@ -10,7 +10,15 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  env_setup:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "release_version=${GITHUB_REF_NAME#v}" >> $GITHUB_ENV
+        shell: bash
+      - run: echo "artifact_prefix=frigoligo-${{ env.release_version }}" >> $GITHUB_ENV
+
   build_apk:
+    needs: env_setup
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -27,10 +35,14 @@ jobs:
       - run: flutter build apk
       - uses: actions/upload-artifact@v3
         with:
-          name: frigoligo-${{ github.ref_name }}.apk
+          name: ${{ env.artifact_prefix }}-unsigned.apk
           path: build/app/outputs/flutter-apk/app-release.apk
+      - if: github.ref_type == "tag"
+        run: gh release upload ${{ env.artifact_prefix }}-unsigned.apk --clobber
+
 
   build_linux:
+    needs: env_setup
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -44,13 +56,16 @@ jobs:
       - run: flutter --version
       - run: flutter pub get
       - run: flutter build linux
-      - run: tar czf frigoligo-${{ github.ref_name }}-linux-x64.tar.gz build/linux/x64/release/bundle/
+      - run: tar czf ${{ env.artifact_prefix }}-linux-x64.tar.gz build/linux/x64/release/bundle/
       - uses: actions/upload-artifact@v3
         with:
-          name: frigoligo-${{ github.ref_name }}-linux-x64.tar.gz
-          path: frigoligo-${{ github.ref_name }}-linux-x64.tar.gz
+          name: ${{ env.artifact_prefix }}-linux-x64.tar.gz
+          path: ${{ env.artifact_prefix }}-linux-x64.tar.gz
+      - if: github.ref_type == "tag"
+        run: gh release upload ${{ env.artifact_prefix }}-linux-x64.tar.gz --clobber
 
   build_windows:
+    needs: env_setup
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
@@ -61,8 +76,10 @@ jobs:
       - run: flutter --version
       - run: flutter pub get
       - run: flutter build windows
-      - run: Compress-Archive -Path build\windows\runner\Release\* -DestinationPath frigoligo-${{ github.ref_name }}-windows-x64.zip
+      - run: Compress-Archive -Path build\windows\runner\Release\* -DestinationPath ${{ env.artifact_prefix }}-windows-x64.zip
       - uses: actions/upload-artifact@v3
         with:
-          name: frigoligo-${{ github.ref_name }}-windows-x64.zip
-          path: frigoligo-${{ github.ref_name }}-windows-x64.zip
+          name: ${{ env.artifact_prefix }}-windows-x64.zip
+          path: ${{ env.artifact_prefix }}-windows-x64.zip
+      - if: github.ref_type == "tag"
+        run: gh release upload ${{ env.artifact_prefix }}-windows-x64.zip --clobber
