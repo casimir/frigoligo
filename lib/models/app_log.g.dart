@@ -37,13 +37,18 @@ const AppLogSchema = CollectionSchema(
       name: r'loggerName',
       type: IsarType.string,
     ),
-    r'message': PropertySchema(
+    r'logline': PropertySchema(
       id: 4,
+      name: r'logline',
+      type: IsarType.string,
+    ),
+    r'message': PropertySchema(
+      id: 5,
       name: r'message',
       type: IsarType.string,
     ),
     r'time': PropertySchema(
-      id: 5,
+      id: 6,
       name: r'time',
       type: IsarType.dateTime,
     )
@@ -82,6 +87,7 @@ int _appLogEstimateSize(
   }
   bytesCount += 3 + object.level.length * 3;
   bytesCount += 3 + object.loggerName.length * 3;
+  bytesCount += 3 + object.logline.length * 3;
   bytesCount += 3 + object.message.length * 3;
   return bytesCount;
 }
@@ -96,8 +102,9 @@ void _appLogSerialize(
   writer.writeString(offsets[1], object.id);
   writer.writeString(offsets[2], object.level);
   writer.writeString(offsets[3], object.loggerName);
-  writer.writeString(offsets[4], object.message);
-  writer.writeDateTime(offsets[5], object.time);
+  writer.writeString(offsets[4], object.logline);
+  writer.writeString(offsets[5], object.message);
+  writer.writeDateTime(offsets[6], object.time);
 }
 
 AppLog _appLogDeserialize(
@@ -111,8 +118,8 @@ AppLog _appLogDeserialize(
   object.id = reader.readStringOrNull(offsets[1]);
   object.level = reader.readString(offsets[2]);
   object.loggerName = reader.readString(offsets[3]);
-  object.message = reader.readString(offsets[4]);
-  object.time = reader.readDateTime(offsets[5]);
+  object.message = reader.readString(offsets[5]);
+  object.time = reader.readDateTime(offsets[6]);
   return object;
 }
 
@@ -134,6 +141,8 @@ P _appLogDeserializeProp<P>(
     case 4:
       return (reader.readString(offset)) as P;
     case 5:
+      return (reader.readString(offset)) as P;
+    case 6:
       return (reader.readDateTime(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -828,6 +837,136 @@ extension AppLogQueryFilter on QueryBuilder<AppLog, AppLog, QFilterCondition> {
     });
   }
 
+  QueryBuilder<AppLog, AppLog, QAfterFilterCondition> loglineEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'logline',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<AppLog, AppLog, QAfterFilterCondition> loglineGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'logline',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<AppLog, AppLog, QAfterFilterCondition> loglineLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'logline',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<AppLog, AppLog, QAfterFilterCondition> loglineBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'logline',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<AppLog, AppLog, QAfterFilterCondition> loglineStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'logline',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<AppLog, AppLog, QAfterFilterCondition> loglineEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'logline',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<AppLog, AppLog, QAfterFilterCondition> loglineContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'logline',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<AppLog, AppLog, QAfterFilterCondition> loglineMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'logline',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<AppLog, AppLog, QAfterFilterCondition> loglineIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'logline',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<AppLog, AppLog, QAfterFilterCondition> loglineIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'logline',
+        value: '',
+      ));
+    });
+  }
+
   QueryBuilder<AppLog, AppLog, QAfterFilterCondition> messageEqualTo(
     String value, {
     bool caseSensitive = true,
@@ -1065,6 +1204,18 @@ extension AppLogQuerySortBy on QueryBuilder<AppLog, AppLog, QSortBy> {
     });
   }
 
+  QueryBuilder<AppLog, AppLog, QAfterSortBy> sortByLogline() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'logline', Sort.asc);
+    });
+  }
+
+  QueryBuilder<AppLog, AppLog, QAfterSortBy> sortByLoglineDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'logline', Sort.desc);
+    });
+  }
+
   QueryBuilder<AppLog, AppLog, QAfterSortBy> sortByMessage() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'message', Sort.asc);
@@ -1151,6 +1302,18 @@ extension AppLogQuerySortThenBy on QueryBuilder<AppLog, AppLog, QSortThenBy> {
     });
   }
 
+  QueryBuilder<AppLog, AppLog, QAfterSortBy> thenByLogline() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'logline', Sort.asc);
+    });
+  }
+
+  QueryBuilder<AppLog, AppLog, QAfterSortBy> thenByLoglineDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'logline', Sort.desc);
+    });
+  }
+
   QueryBuilder<AppLog, AppLog, QAfterSortBy> thenByMessage() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'message', Sort.asc);
@@ -1205,6 +1368,13 @@ extension AppLogQueryWhereDistinct on QueryBuilder<AppLog, AppLog, QDistinct> {
     });
   }
 
+  QueryBuilder<AppLog, AppLog, QDistinct> distinctByLogline(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'logline', caseSensitive: caseSensitive);
+    });
+  }
+
   QueryBuilder<AppLog, AppLog, QDistinct> distinctByMessage(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1247,6 +1417,12 @@ extension AppLogQueryProperty on QueryBuilder<AppLog, AppLog, QQueryProperty> {
   QueryBuilder<AppLog, String, QQueryOperations> loggerNameProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'loggerName');
+    });
+  }
+
+  QueryBuilder<AppLog, String, QQueryOperations> loglineProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'logline');
     });
   }
 

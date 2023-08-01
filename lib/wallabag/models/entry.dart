@@ -46,13 +46,13 @@ class WallabagEntry {
   // urls
   final String? url; // this is the final url
   @JsonKey(name: 'hashed_url')
-  final String hashedUrl;
+  final String? hashedUrl;
   @JsonKey(name: 'origin_url')
   final String? originUrl;
   @JsonKey(name: 'given_url')
   final String? givenUrl; // the url provided by the user
   @JsonKey(name: 'hashed_given_url')
-  final String hashedGivenUrl;
+  final String? hashedGivenUrl;
 
   // for published entries (only when isPublic is true)
   @JsonKey(name: 'is_public')
