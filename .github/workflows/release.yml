@@ -2,15 +2,31 @@ name: release artifacts
 on:
   push:
     tags:
-      - v*
+      - v*.*.*
   workflow_dispatch:
 
-concurrency:
-  group: release_workflow
-  cancel-in-progress: true
-
 jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      VERSION: ${{ steps.export.outputs.VERSION }}
+      ARTIFACT_ANDROID: ${{ steps.export.outputs.ARTIFACT_ANDROID }}
+      ARTIFACT_LINUX_X64: ${{ steps.export.outputs.ARTIFACT_LINUX_X64 }}
+      ARTIFACT_WINDOWS: ${{ steps.export.outputs.ARTIFACT_WINDOWS }}
+    steps:
+      - shell: bash
+        run: | 
+          echo "release_version=${GITHUB_REF_NAME#v}" >> "$GITHUB_ENV"
+          echo "artifact_prefix=frigoligo-${GITHUB_REF_NAME#v}" >> "$GITHUB_ENV"
+      - id: export
+        run: |
+          echo "VERSION=${{ env.release_version }}" >> "$GITHUB_OUTPUT"
+          echo "ARTIFACT_ANDROID=${{ env.artifact_prefix }}-unsigned.apk" >> "$GITHUB_OUTPUT"
+          echo "ARTIFACT_LINUX_X64=${{ env.artifact_prefix }}-linux-x64.tar.gz" >> "$GITHUB_OUTPUT"
+          echo "ARTIFACT_WINDOWS=${{ env.artifact_prefix }}-windows-x64.zip" >> "$GITHUB_OUTPUT"
+
   build_apk:
+    needs: setup
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -27,10 +43,14 @@ jobs:
       - run: flutter build apk
       - uses: actions/upload-artifact@v3
         with:
-          name: frigoligo-${{ github.ref_name }}.apk
+          name: ${{ needs.setup.outputs.ARTIFACT_ANDROID }}
           path: build/app/outputs/flutter-apk/app-release.apk
+      - if: ${{ github.ref_type == 'tag' }}
+        run: gh release upload ${{ github.ref_name }} ${{ needs.setup.outputs.ARTIFACT_ANDROID }} --clobber
+
 
   build_linux:
+    needs: setup
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -44,13 +64,16 @@ jobs:
       - run: flutter --version
       - run: flutter pub get
       - run: flutter build linux
-      - run: tar czf frigoligo-${{ github.ref_name }}-linux-x64.tar.gz build/linux/x64/release/bundle/
+      - run: tar czf ${{ needs.setup.outputs.ARTIFACT_LINUX_X64 }} build/linux/x64/release/bundle/
       - uses: actions/upload-artifact@v3
         with:
-          name: frigoligo-${{ github.ref_name }}-linux-x64.tar.gz
-          path: frigoligo-${{ github.ref_name }}-linux-x64.tar.gz
+          name: ${{ needs.setup.outputs.ARTIFACT_LINUX_X64 }}
+          path: ${{ needs.setup.outputs.ARTIFACT_LINUX_X64 }}
+      - if: ${{ github.ref_type == 'tag' }}
+        run: gh release upload ${{ github.ref_name }} ${{ needs.setup.outputs.ARTIFACT_LINUX_X64 }} --clobber
 
   build_windows:
+    needs: setup
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
@@ -61,8 +84,10 @@ jobs:
       - run: flutter --version
       - run: flutter pub get
       - run: flutter build windows
-      - run: Compress-Archive -Path build\windows\runner\Release\* -DestinationPath frigoligo-${{ github.ref_name }}-windows-x64.zip
+      - run: Compress-Archive -Path build\windows\runner\Release\* -DestinationPath ${{ needs.setup.outputs.ARTIFACT_WINDOWS }}
       - uses: actions/upload-artifact@v3
         with:
-          name: frigoligo-${{ github.ref_name }}-windows-x64.zip
-          path: frigoligo-${{ github.ref_name }}-windows-x64.zip
+          name: ${{ needs.setup.outputs.ARTIFACT_WINDOWS }}
+          path: ${{ needs.setup.outputs.ARTIFACT_WINDOWS }}
+      - if: ${{ github.ref_type == 'tag' }}
+        run: gh release upload ${{ github.ref_name }} ${{ needs.setup.outputs.ARTIFACT_WINDOWS }} --clobber
