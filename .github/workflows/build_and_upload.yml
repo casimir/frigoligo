@@ -41,10 +41,11 @@ jobs:
       - run: flutter --version
       - run: flutter pub get
       - run: flutter build apk
+      - run: cp build/app/outputs/flutter-apk/app-release.apk ${{ needs.setup.outputs.ARTIFACT_ANDROID }}
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ needs.setup.outputs.ARTIFACT_ANDROID }}
-          path: build/app/outputs/flutter-apk/app-release.apk
+          path: ${{ needs.setup.outputs.ARTIFACT_ANDROID }}
       - if: ${{ github.ref_type == 'tag' }}
         run: gh release upload ${{ github.ref_name }} ${{ needs.setup.outputs.ARTIFACT_ANDROID }} --clobber
         env:
