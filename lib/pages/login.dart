@@ -1,9 +1,13 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:frigoligo/wallabag/wallabag.dart';
+import 'package:logging/logging.dart';
 
 import 'login_forms/server_form.dart';
 import 'login_forms/validators.dart';
+
+final _log = Logger('login');
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -20,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Login')),
+      appBar: AppBar(title: const Text('Log in')),
       body: ListView(
         children: [
           ServerForm(
@@ -89,23 +93,30 @@ class _LoginPageState extends State<LoginPage> {
           ),
           const SizedBox(height: 8.0),
           ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
               if (_serverConfigured && _fbKey.currentState!.saveAndValidate()) {
-                var connData = WallabagConnectionData(
+                final connData = WallabagConnectionData(
                   _serverFbKey.currentState!.value['server'],
                   _fbKey.currentState!.value['clientId'],
                   _fbKey.currentState!.value['clientSecret'],
                 );
-                WallabagInstance.initWith(connData).then((wallabag) {
-                  wallabag!
-                      .fetchToken(_fbKey.currentState!.value['username'],
-                          _fbKey.currentState!.value['password'])
-                      .then((_) => Navigator.pushNamedAndRemoveUntil(
-                          context, '/', (r) => false));
-                });
+                try {
+                  final wallabag = await WallabagInstance.initWith(connData);
+                  await wallabag.fetchToken(
+                      _fbKey.currentState!.value['username'],
+                      _fbKey.currentState!.value['password']);
+                  if (context.mounted) {
+                    Navigator.of(context)
+                        .pushNamedAndRemoveUntil('/', (r) => false);
+                  }
+                } on WallabagError catch (e) {
+                  showOkAlertDialog(context: context, message: e.message);
+                } catch (e) {
+                  _log.severe('unexpected error', e);
+                }
               }
             },
-            child: const Text('Login'),
+            child: const Text('Log in'),
           ),
         ],
       ),
