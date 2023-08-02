@@ -11,16 +11,22 @@ import 'package:url_launcher/url_launcher.dart';
 import '../constants.dart';
 import '../models/article.dart';
 import '../providers/article.dart';
+import '../providers/expander.dart';
 import '../widgets/async_action_button.dart';
 
 class ArticlePage extends StatefulWidget {
   // TODO articleId is not used but required to avoid triggering flutter caching
   // maybe that's just a setState() missing somewhere
-  const ArticlePage(
-      {super.key, required this.articleId, required this.isFullScreen});
+  const ArticlePage({
+    super.key,
+    required this.articleId,
+    this.drawer,
+  });
 
   final int articleId;
-  final bool isFullScreen;
+  final Widget? drawer;
+
+  bool get isFullScreen => drawer == null;
 
   @override
   State<ArticlePage> createState() => _ArticlePageState();
@@ -36,6 +42,16 @@ class _ArticlePageState extends State<ArticlePage> {
     final article = provider.article;
     final scroller = ScrollController();
 
+    final toggler = context.watch<Expander?>();
+    Widget? leading;
+    if (toggler != null) {
+      leading = IconButton(
+        icon: Icon(
+            toggler.expanded ? Icons.list : Icons.keyboard_double_arrow_left),
+        onPressed: toggler.toggle,
+      );
+    }
+
     late final Widget bodyBuilder;
     if (article == null) {
       bodyBuilder = _buildNoArticle();
@@ -48,6 +64,7 @@ class _ArticlePageState extends State<ArticlePage> {
     return SelectionArea(
       child: Scaffold(
         appBar: AppBar(
+          leading: leading,
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           actions: [
             if (article != null)

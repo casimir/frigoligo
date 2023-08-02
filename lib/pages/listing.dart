@@ -100,7 +100,6 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        centerTitle: true,
         title: Text(_makeTitle(storage)),
         actions: [
           IconToggleButton(

@@ -18,6 +18,7 @@ import 'pages/session_details.dart';
 import 'pages/settings.dart';
 import 'providers/article.dart';
 import 'providers/deeplinks.dart';
+import 'providers/expander.dart';
 import 'providers/logconsole.dart';
 import 'providers/settings.dart';
 import 'services/wallabag_storage.dart';
@@ -90,11 +91,12 @@ final _router = GoRouter(routes: [
     path: '/articles/:id',
     builder: (context, state) {
       final id = int.parse(state.pathParameters['id']!);
+      final drawer = state.extra as Widget?;
       return ChangeNotifierProvider(
         create: (_) => ArticleProvider(id),
         builder: (context, _) => ArticlePage(
           articleId: id,
-          isFullScreen: true,
+          drawer: drawer,
         ),
       );
     },
@@ -198,6 +200,7 @@ class _MainContainer extends StatefulWidget {
 class _MainContainerState extends State<_MainContainer> {
   int? deepLinkHandledFor;
   int? _selectedId;
+  bool expanded = false;
 
   bool get deepLinkHandled =>
       deepLinkHandledFor != null &&
@@ -205,16 +208,22 @@ class _MainContainerState extends State<_MainContainer> {
 
   @override
   Widget build(BuildContext context) {
-    var shortestSide = MediaQuery.of(context).size.shortestSide;
+    final width = MediaQuery.of(context).size.width;
+    // ipad air 5th gen (portrait) = 820
+    // TODO 3 steps
+    // w < 600 => narrow
+    // w > "ideal list width x3" => wide
+    // 600 < w < "ideal list width x3" => hybrid (narrow with navigation drawer)
+    print(width);
     return ChangeNotifierProvider(
       create: (context) => WallabagStorage(context.read<SettingsProvider>()),
-      child: shortestSide < 600 ? _buildNarrowLayout() : _buildWideLayout(),
+      child: width < 600 ? _buildNarrowLayout() : _buildWideLayout(),
     );
   }
 
-  Widget _buildNarrowLayout() {
+  Widget _buildNarrowLayout({Widget? drawer}) {
     void onItemSelect(int articleId) {
-      context.push('/articles/$articleId');
+      context.push('/articles/$articleId', extra: drawer);
     }
 
     _handleInitial(onItemSelect, false);
@@ -226,8 +235,12 @@ class _MainContainerState extends State<_MainContainer> {
   }
 
   Widget _buildWideLayout() {
-    return ChangeNotifierProvider(
-      create: (_) => ArticleProvider(_selectedId ?? 0),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ArticleProvider>(
+            create: (_) => ArticleProvider(_selectedId ?? 0)),
+        ChangeNotifierProvider<Expander>(create: (_) => Expander()),
+      ],
       builder: (context, _) {
         void onItemSelect(int articleId) {
           if (context.mounted) {
@@ -240,23 +253,34 @@ class _MainContainerState extends State<_MainContainer> {
 
         _handleInitial(onItemSelect, true);
 
+        final expander = context.watch<Expander>();
+
         return Row(
           children: [
-            Flexible(
-              flex: 1,
-              child: ListingPage(
-                onItemSelect: onItemSelect,
-                initialArticleId: widget.initialArticleId,
+            if (!expander.expanded)
+              Flexible(
+                flex: 1,
+                child: ListingPage(
+                  onItemSelect: onItemSelect,
+                  initialArticleId: _selectedId,
+                ),
               ),
-            ),
             Flexible(
               flex: 2,
-              child:
-                  ArticlePage(articleId: _selectedId ?? 0, isFullScreen: false),
+              child: ArticlePage(articleId: _selectedId ?? 0),
             ),
           ],
         );
       },
+    );
+  }
+
+  Widget _buildDynamicLayout() {
+    // TODO implement dynamic layout
+    return _buildNarrowLayout(
+      drawer: const Center(
+        child: Text('coucou'),
+      ),
     );
   }
 
