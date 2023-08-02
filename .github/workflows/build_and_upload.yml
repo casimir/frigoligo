@@ -67,7 +67,7 @@ jobs:
       - run: flutter pub get
       - run: flutter build linux
       - run: cp -R build/linux/x64/release/bundle/ build/frigoligo/
-      - run: tar czf ${{ needs.setup.outputs.ARTIFACT_LINUX_X64 }} frigoligo/
+      - run: tar czf ../${{ needs.setup.outputs.ARTIFACT_LINUX_X64 }} frigoligo/
         working-directory: ./build
       - uses: actions/upload-artifact@v3
         with:
@@ -91,7 +91,7 @@ jobs:
       - run: flutter pub get
       - run: flutter build windows
       - run: Copy-Item -Path build\windows\runner\Release\ -Destination build\frigoligo\ -Recurse
-      - run: Compress-Archive -Path frigoligo -DestinationPath ${{ needs.setup.outputs.ARTIFACT_WINDOWS }}
+      - run: Compress-Archive -Path frigoligo -DestinationPath ..\${{ needs.setup.outputs.ARTIFACT_WINDOWS }}
         working-directory: ./build
       - uses: actions/upload-artifact@v3
         with:
