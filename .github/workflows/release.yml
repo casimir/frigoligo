@@ -47,6 +47,8 @@ jobs:
           path: build/app/outputs/flutter-apk/app-release.apk
       - if: ${{ github.ref_type == 'tag' }}
         run: gh release upload ${{ github.ref_name }} ${{ needs.setup.outputs.ARTIFACT_ANDROID }} --clobber
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
   build_linux:
@@ -71,6 +73,8 @@ jobs:
           path: ${{ needs.setup.outputs.ARTIFACT_LINUX_X64 }}
       - if: ${{ github.ref_type == 'tag' }}
         run: gh release upload ${{ github.ref_name }} ${{ needs.setup.outputs.ARTIFACT_LINUX_X64 }} --clobber
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build_windows:
     needs: setup
@@ -91,3 +95,5 @@ jobs:
           path: ${{ needs.setup.outputs.ARTIFACT_WINDOWS }}
       - if: ${{ github.ref_type == 'tag' }}
         run: gh release upload ${{ github.ref_name }} ${{ needs.setup.outputs.ARTIFACT_WINDOWS }} --clobber
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
