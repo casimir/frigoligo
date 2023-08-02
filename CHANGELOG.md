@@ -1,3 +1,24 @@
+<a name="v0.3.1"></a>
+# [0.3.1 (v0.3.1)](https://github.com/casimir/frigoligo/releases/tag/v0.3.1) - 02 Aug 2023
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### Features
+* allow to access and share logs from the app by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/19
+### Bug Fixes
+* Better handling of exceptions while syncing by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/18
+* better error handling for json deserialization by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/20
+* mark Entry hashed url fields as nullable by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/21
+### Miscellaneous
+* add artifact upload to releases by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/22
+
+
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.3.0...v0.3.1
+
+[Changes][v0.3.1]
+
+
 <a name="v0.3.0"></a>
 # [0.3.0 (v0.3.0)](https://github.com/casimir/frigoligo/releases/tag/v0.3.0) - 27 Jul 2023
 
@@ -52,6 +73,7 @@ Let's begin! This is the very first release.
 [Changes][v0.1.0]
 
 
+[v0.3.1]: https://github.com/casimir/frigoligo/compare/v0.3.0...v0.3.1
 [v0.3.0]: https://github.com/casimir/frigoligo/compare/v0.2.0...v0.3.0
 [v0.2.0]: https://github.com/casimir/frigoligo/compare/v0.1.0...v0.2.0
 [v0.1.0]: https://github.com/casimir/frigoligo/tree/v0.1.0
