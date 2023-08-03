@@ -78,6 +78,34 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  build_appimage:
+    needs: [setup, build_linux]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          sparse-checkout: appimage
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ needs.setup.outputs.ARTIFACT_LINUX_X64 }}
+      - run: |
+          tar xzf ../${{ needs.setup.outputs.ARTIFACT_LINUX_X64 }}
+          mv frigoligo/ Frigoligo.AppDir
+          cp AppRun Frigoligo.AppDir/
+          cp Frigoligo.desktop Frigoligo.AppDir/
+          cp ../assets/logos/frigoligo.png Frigoligo.AppDir/
+        working-directory: ./appimage
+      - run: |
+          wget "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
+          chmod a+x appimagetool-x86_64.AppImage
+          appimagetool-x86_64.AppImage Frigoligo.AppDir
+        working-directory: ./appimage
+      - if: ${{ github.ref_type == 'tag' }}
+        run: gh release upload ${{ github.ref_name }} Frigoligo.AppImage --clobber
+        working-directory: ./appimage
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   build_windows:
     needs: setup
     runs-on: windows-latest
