@@ -108,7 +108,6 @@ class _ArticlePageState extends State<ArticlePage> {
                     isDestructiveAction: true,
                   );
                   if (result == OkCancelResult.cancel) return;
-
                   await provider.deleteAndRefresh();
                   if (widget.isFullScreen && context.mounted) {
                     Navigator.of(context).pop();
