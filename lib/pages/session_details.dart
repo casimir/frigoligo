@@ -1,3 +1,4 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:frigoligo/wallabag/wallabag.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -38,16 +39,26 @@ class SessionDetailsPage extends StatelessWidget {
             ),
           ),
           ElevatedButton(
-            onPressed: () {
-              WallabagInstance.get()
-                  .resetTokenData()
-                  .then((_) => DB.clear())
-                  .then((_) => SharedPreferences.getInstance()
-                      .then((prefs) => prefs.remove(spLastRefreshTimestamp)))
-                  .then((_) => Navigator.pushNamedAndRemoveUntil(
-                      context, '/', (r) => false));
+            onPressed: () async {
+              final result = await showOkCancelAlertDialog(
+                context: context,
+                title: 'Log out session',
+                message: 'You will need to log in again.',
+                okLabel: 'Log out',
+                isDestructiveAction: true,
+              );
+              if (result == OkCancelResult.cancel) return;
+
+              await WallabagInstance.get().resetTokenData();
+              await SharedPreferences.getInstance()
+                  .then((prefs) => prefs.remove(spLastRefreshTimestamp));
+              await DB.clear();
+              if (context.mounted) {
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil('/', (r) => false);
+              }
             },
-            child: const Text('Reset session'),
+            child: const Text('Log out session'),
           ),
         ],
       ),

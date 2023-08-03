@@ -35,14 +35,22 @@ class WallabagError implements Exception {
 
   @override
   String toString() {
-    var str = 'WallabagError: $message';
+    final statusPart = response != null ? ' (${response!.statusCode})' : '';
+    var str = 'WallabagError$statusPart: $message';
     if (source != null) str += ': $source';
     if (response != null) str += ': ${response!.body}';
     return str;
   }
 
-  factory WallabagError.fromResponse(http.Response response) =>
-      WallabagError('${response.statusCode} > ${response.body}');
+  factory WallabagError.fromResponse(http.Response response) {
+    var message = response.body;
+    if (message.length > 100) message = '${message.substring(0, 100)}...';
+    try {
+      final json = jsonDecode(response.body);
+      message = json['error_description'] ?? json['error'];
+    } catch (_) {}
+    return WallabagError(message, response: response);
+  }
   factory WallabagError.fromException(Exception e, {http.Response? response}) =>
       WallabagError('unknown error', source: e, response: response);
 }
@@ -158,7 +166,7 @@ class WallabagClient extends http.BaseClient {
     });
   }
 
-  Future<http.Response> fetchToken(username, password) {
+  Future<http.Response> fetchToken(String username, String password) {
     return authenticate({
       'grant_type': 'password',
       'username': username,
@@ -422,10 +430,11 @@ class WallabagInstance {
     return _instance;
   }
 
-  static Future<WallabagClient?> initWith(WallabagConnectionData data) async {
+  static Future<WallabagClient> initWith(WallabagConnectionData data) async {
     await SharedPreferences.getInstance().then((prefs) =>
         prefs.setString(wallabagConnectionDataKey, jsonEncode(data.toJson())));
-    return init();
+    final client = await init();
+    return client!;
   }
 
   static WallabagClient get() {

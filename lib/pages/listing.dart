@@ -1,3 +1,4 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -134,9 +135,17 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
                 ),
               ),
             ],
-            onSelected: (value) {
+            onSelected: (value) async {
               switch (value) {
                 case 'resync':
+                  final result = await showOkCancelAlertDialog(
+                    context: context,
+                    title: 'Resync all articles',
+                    message:
+                        'The local cache will be deleted and fetched again.',
+                    okLabel: 'Confirm',
+                  );
+                  if (result == OkCancelResult.cancel) return;
                   _log.info('user action > full refresh');
                   articles.fullRefresh();
                 case 'session':
