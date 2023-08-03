@@ -82,6 +82,10 @@ jobs:
     needs: [setup, build_linux]
     runs-on: ubuntu-latest
     steps:
+      - name: Install native dependencies
+        run: |
+          sudo apt update -y
+          sudo apt install libfuse2
       - uses: actions/checkout@v3
         with:
           sparse-checkout: |
@@ -100,8 +104,8 @@ jobs:
         working-directory: ./appimage
       - name: Build AppImage
         run: |
-          wget "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
-          chmod a+x appimagetool-x86_64.AppImage
+          wget -q "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
+          chmod +x appimagetool-x86_64.AppImage
           ./appimagetool-x86_64.AppImage Frigoligo.AppDir
         working-directory: ./appimage
       - if: ${{ github.ref_type == 'tag' }}
