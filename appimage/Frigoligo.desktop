@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Frigoligo
+Comment=Keep your links fresh
+Exec=AppRun
+Icon=frigoligo
+Terminal=false
+Type=Application
+Categories=Utility;

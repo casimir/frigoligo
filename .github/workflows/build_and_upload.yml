@@ -54,6 +54,9 @@ jobs:
   build_linux:
     needs: setup
     runs-on: ubuntu-latest
+    env:
+      ARCH: x86_64
+      VERSION: ${{ needs.setup.outputs.VERSION }}
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
@@ -66,13 +69,55 @@ jobs:
       - run: flutter --version
       - run: flutter pub get
       - run: flutter build linux
-      - run: tar czf ${{ needs.setup.outputs.ARTIFACT_LINUX_X64 }} build/linux/x64/release/bundle/
+      - run: cp -R build/linux/x64/release/bundle/ build/frigoligo/
+      - run: tar czf ../${{ needs.setup.outputs.ARTIFACT_LINUX_X64 }} frigoligo/
+        working-directory: ./build
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ needs.setup.outputs.ARTIFACT_LINUX_X64 }}
           path: ${{ needs.setup.outputs.ARTIFACT_LINUX_X64 }}
       - if: ${{ github.ref_type == 'tag' }}
         run: gh release upload ${{ github.ref_name }} ${{ needs.setup.outputs.ARTIFACT_LINUX_X64 }} --clobber
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build_appimage:
+    needs: [setup, build_linux]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install native dependencies
+        run: |
+          sudo apt update -y
+          sudo apt install libfuse2
+      - uses: actions/checkout@v3
+        with:
+          sparse-checkout: |
+            appimage
+            assets
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ needs.setup.outputs.ARTIFACT_LINUX_X64 }}
+      - name: Prepare AppImage
+        run: |
+          tar xzf ../${{ needs.setup.outputs.ARTIFACT_LINUX_X64 }}
+          mv frigoligo/ Frigoligo.AppDir
+          cp AppRun Frigoligo.AppDir/
+          cp Frigoligo.desktop Frigoligo.AppDir/
+          cp ../assets/logos/frigoligo.png Frigoligo.AppDir/
+        working-directory: ./appimage
+      - name: Build AppImage
+        run: |
+          wget -q "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
+          chmod +x appimagetool-x86_64.AppImage
+          ./appimagetool-x86_64.AppImage Frigoligo.AppDir Frigoligo-x86_64.AppImage
+        working-directory: ./appimage
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Frigoligo-x86_64.AppImage
+          path: appimage/Frigoligo-x86_64.AppImage
+      - if: ${{ github.ref_type == 'tag' }}
+        run: gh release upload ${{ github.ref_name }} Frigoligo-x86_64.AppImage --clobber
+        working-directory: ./appimage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -88,7 +133,9 @@ jobs:
       - run: flutter --version
       - run: flutter pub get
       - run: flutter build windows
-      - run: Compress-Archive -Path build\windows\runner\Release\* -DestinationPath ${{ needs.setup.outputs.ARTIFACT_WINDOWS }}
+      - run: Copy-Item -Path build\windows\runner\Release\ -Destination build\frigoligo\ -Recurse
+      - run: Compress-Archive -Path frigoligo -DestinationPath ..\${{ needs.setup.outputs.ARTIFACT_WINDOWS }}
+        working-directory: ./build
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ needs.setup.outputs.ARTIFACT_WINDOWS }}
