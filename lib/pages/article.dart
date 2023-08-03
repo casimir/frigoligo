@@ -35,6 +35,15 @@ class _ArticlePageState extends State<ArticlePage> {
     final article = provider.article;
     final scroller = ScrollController();
 
+    late final bodyBuilder;
+    if (article == null) {
+      bodyBuilder = _buildNoArticle();
+    } else if (article.content == null) {
+      bodyBuilder = _buildEmptyContent(context, article);
+    } else {
+      bodyBuilder = _buildArticleContent(article, provider, scroller);
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -117,31 +126,57 @@ class _ArticlePageState extends State<ArticlePage> {
           ),
         ],
       ),
-      body: article != null
-          ? NotificationListener<ScrollNotification>(
-              onNotification: (notification) {
-                if (notification is ScrollEndNotification &&
-                    !provider.isPositionRestorePending) {
-                  provider.saveScrollPosition(notification.metrics.pixels);
-                }
-                return false;
-              },
-              child: Scrollbar(
-                controller: scroller,
-                child: SingleChildScrollView(
-                  key: GlobalObjectKey('articlepage-${provider.articleId}'),
-                  controller: scroller,
-                  child: Column(
-                    children: [
-                      _buildHeader(article),
-                      const Divider(),
-                      _buildContent(article.content, scroller, provider)
-                    ],
-                  ),
-                ),
-              ),
-            )
-          : const Center(child: Icon(Icons.question_mark)),
+      body: bodyBuilder,
+    );
+  }
+
+  Widget _buildNoArticle() {
+    return const Center(child: Icon(Icons.question_mark));
+  }
+
+  Widget _buildEmptyContent(BuildContext context, Article article) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'No content fetched',
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+          const SizedBox(height: 8.0),
+          ElevatedButton(
+            onPressed: () => launchUrl(Uri.parse(article.url)),
+            child: const Text('Browse the original'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildArticleContent(
+      Article article, ArticleProvider provider, scroller) {
+    return NotificationListener<ScrollNotification>(
+      onNotification: (notification) {
+        if (notification is ScrollEndNotification &&
+            !provider.isPositionRestorePending) {
+          provider.saveScrollPosition(notification.metrics.pixels);
+        }
+        return false;
+      },
+      child: Scrollbar(
+        controller: scroller,
+        child: SingleChildScrollView(
+          key: GlobalObjectKey('articlepage-${provider.articleId}'),
+          controller: scroller,
+          child: Column(
+            children: [
+              _buildHeader(article),
+              const Divider(),
+              _buildContent(article.content!, scroller, provider)
+            ],
+          ),
+        ),
+      ),
     );
   }
 
