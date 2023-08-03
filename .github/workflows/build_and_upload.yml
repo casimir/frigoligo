@@ -84,7 +84,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          sparse-checkout: appimage
+          sparse-checkout: |
+            appimage
+            assets
       - uses: actions/download-artifact@v3
         with:
           name: ${{ needs.setup.outputs.ARTIFACT_LINUX_X64 }}
@@ -94,7 +96,6 @@ jobs:
           mv frigoligo/ Frigoligo.AppDir
           cp AppRun Frigoligo.AppDir/
           cp Frigoligo.desktop Frigoligo.AppDir/
-          ls ../
           cp ../assets/logos/frigoligo.png Frigoligo.AppDir/
         working-directory: ./appimage
       - name: Build AppImage
