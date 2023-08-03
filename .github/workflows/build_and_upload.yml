@@ -54,6 +54,9 @@ jobs:
   build_linux:
     needs: setup
     runs-on: ubuntu-latest
+    env:
+      ARCH: x86_64
+      VERSION: ${{ needs.setup.outputs.VERSION }}
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
@@ -106,10 +109,10 @@ jobs:
         run: |
           wget -q "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
           chmod +x appimagetool-x86_64.AppImage
-          ./appimagetool-x86_64.AppImage Frigoligo.AppDir
+          ./appimagetool-x86_64.AppImage Frigoligo.AppDir Frigoligo-x86_64.AppImage
         working-directory: ./appimage
       - if: ${{ github.ref_type == 'tag' }}
-        run: gh release upload ${{ github.ref_name }} Frigoligo.AppImage --clobber
+        run: gh release upload ${{ github.ref_name }} Frigoligo-x86_64.AppImage --clobber
         working-directory: ./appimage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
