@@ -121,7 +121,10 @@ class _MainContainerState extends State<_MainContainer> with RestorationMixin {
             MaterialPageRoute(
               builder: (_) => ChangeNotifierProvider(
                   create: (_) => ArticleProvider(article.id!),
-                  builder: (_, __) => ArticlePage(articleId: article.id!)),
+                  builder: (_, __) => ArticlePage(
+                        articleId: article.id!,
+                        isFullScreen: true,
+                      )),
             ),
           );
         },
@@ -151,7 +154,10 @@ class _MainContainerState extends State<_MainContainer> with RestorationMixin {
             ),
             Flexible(
               flex: 2,
-              child: ArticlePage(articleId: _selectedId.value ?? 0),
+              child: ArticlePage(
+                articleId: _selectedId.value ?? 0,
+                isFullScreen: false,
+              ),
             ),
           ],
         );

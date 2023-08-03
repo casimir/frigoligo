@@ -1,3 +1,4 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:fwfh_cached_network_image/fwfh_cached_network_image.dart';
@@ -14,9 +15,11 @@ import '../widgets/async_action_button.dart';
 class ArticlePage extends StatefulWidget {
   // TODO articleId is not used but required to avoid triggering flutter caching
   // maybe that's just a setState() missing somewhere
-  const ArticlePage({super.key, required this.articleId});
+  const ArticlePage(
+      {super.key, required this.articleId, required this.isFullScreen});
 
   final int articleId;
+  final isFullScreen;
 
   @override
   State<ArticlePage> createState() => _ArticlePageState();
@@ -84,7 +87,7 @@ class _ArticlePageState extends State<ArticlePage> {
                 ),
               ),
             ],
-            onSelected: (value) {
+            onSelected: (value) async {
               switch (value) {
                 case 'share':
                   final box = context.findRenderObject() as RenderBox?;
@@ -97,8 +100,19 @@ class _ArticlePageState extends State<ArticlePage> {
                 case 'open':
                   launchUrl(Uri.parse(article!.url));
                 case 'delete':
-                  provider.deleteAndRefresh();
-                  Navigator.of(context).pop();
+                  final result = await showOkCancelAlertDialog(
+                    context: context,
+                    title: 'Delete this article',
+                    message: article!.title,
+                    okLabel: 'Delete',
+                    isDestructiveAction: true,
+                  );
+                  if (result == OkCancelResult.cancel) return;
+
+                  await provider.deleteAndRefresh();
+                  if (widget.isFullScreen && context.mounted) {
+                    Navigator.of(context).pop();
+                  }
               }
             },
           ),
