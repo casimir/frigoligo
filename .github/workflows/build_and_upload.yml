@@ -102,7 +102,7 @@ jobs:
         run: |
           wget "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
           chmod a+x appimagetool-x86_64.AppImage
-          appimagetool-x86_64.AppImage Frigoligo.AppDir
+          ./appimagetool-x86_64.AppImage Frigoligo.AppDir
         working-directory: ./appimage
       - if: ${{ github.ref_type == 'tag' }}
         run: gh release upload ${{ github.ref_name }} Frigoligo.AppImage --clobber
