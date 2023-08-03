@@ -111,6 +111,10 @@ jobs:
           chmod +x appimagetool-x86_64.AppImage
           ./appimagetool-x86_64.AppImage Frigoligo.AppDir Frigoligo-x86_64.AppImage
         working-directory: ./appimage
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Frigoligo-x86_64.AppImage
+          path: appimage/Frigoligo-x86_64.AppImage
       - if: ${{ github.ref_type == 'tag' }}
         run: gh release upload ${{ github.ref_name }} Frigoligo-x86_64.AppImage --clobber
         working-directory: ./appimage
