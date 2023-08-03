@@ -98,7 +98,12 @@ int _articleEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
-  bytesCount += 3 + object.content.length * 3;
+  {
+    final value = object.content;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   {
     final value = object.domainName;
     if (value != null) {
@@ -157,7 +162,7 @@ Article _articleDeserialize(
 ) {
   final object = Article();
   object.archivedAt = reader.readDateTimeOrNull(offsets[0]);
-  object.content = reader.readString(offsets[1]);
+  object.content = reader.readStringOrNull(offsets[1]);
   object.createdAt = reader.readDateTime(offsets[2]);
   object.domainName = reader.readStringOrNull(offsets[3]);
   object.id = id;
@@ -182,7 +187,7 @@ P _articleDeserializeProp<P>(
     case 0:
       return (reader.readDateTimeOrNull(offset)) as P;
     case 1:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 2:
       return (reader.readDateTime(offset)) as P;
     case 3:
@@ -366,8 +371,24 @@ extension ArticleQueryFilter
     });
   }
 
+  QueryBuilder<Article, Article, QAfterFilterCondition> contentIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'content',
+      ));
+    });
+  }
+
+  QueryBuilder<Article, Article, QAfterFilterCondition> contentIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'content',
+      ));
+    });
+  }
+
   QueryBuilder<Article, Article, QAfterFilterCondition> contentEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -380,7 +401,7 @@ extension ArticleQueryFilter
   }
 
   QueryBuilder<Article, Article, QAfterFilterCondition> contentGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -395,7 +416,7 @@ extension ArticleQueryFilter
   }
 
   QueryBuilder<Article, Article, QAfterFilterCondition> contentLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -410,8 +431,8 @@ extension ArticleQueryFilter
   }
 
   QueryBuilder<Article, Article, QAfterFilterCondition> contentBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -2094,7 +2115,7 @@ extension ArticleQueryProperty
     });
   }
 
-  QueryBuilder<Article, String, QQueryOperations> contentProperty() {
+  QueryBuilder<Article, String?, QQueryOperations> contentProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'content');
     });

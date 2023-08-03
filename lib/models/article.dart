@@ -13,7 +13,7 @@ class Article {
   String? domainName;
   late String url;
 
-  late String content;
+  String? content;
   String? language;
   late int readingTime;
   String? previewPicture;
@@ -39,7 +39,7 @@ class Article {
       ..title = entry.title!
       ..domainName = entry.domainName
       ..url = entry.url!
-      ..content = entry.content!
+      ..content = entry.content
       ..language = entry.language
       ..readingTime = entry.readingTime
       ..previewPicture = entry.previewPicture
