@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/retry.dart';
 import 'package:isar/isar.dart';
@@ -18,7 +19,8 @@ part 'wallabag.g.dart';
 
 final _log = Logger('wallabag.client');
 
-const wallabagConnectionDataKey = 'wallabag.connectionData';
+const wallabagConnectionDataKey =
+    '${kDebugMode ? 'debug.' : ''}wallabag.connectionData';
 
 void throwOnError(http.Response response, {List<int> expected = const [200]}) {
   if (!expected.contains(response.statusCode)) {
@@ -92,7 +94,7 @@ class WallabagConnectionData {
 
 class WallabagClient extends http.BaseClient {
   static String tokenEnpointPath = '/oauth/v2/token';
-  static String tokenDataKey = 'tokenData';
+  static String tokenDataKey = '${kDebugMode ? 'debug.' : ''}tokenData';
 
   static Future<WallabagClient> build(WallabagConnectionData data) async =>
       WallabagClient._(data, await _buildUserAgent(), await _loadTokenData());
@@ -147,7 +149,7 @@ class WallabagClient extends http.BaseClient {
 
   static Future<OAuthToken?> _loadTokenData() {
     return SharedPreferences.getInstance().then((prefs) {
-      var rawTokenData = prefs.getString('tokenData');
+      final rawTokenData = prefs.getString(tokenDataKey);
       if (rawTokenData == null) return null;
       return OAuthToken.fromJson(jsonDecode(rawTokenData));
     });
