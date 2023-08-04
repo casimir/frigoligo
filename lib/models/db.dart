@@ -13,13 +13,14 @@ class DB {
   static Isar? _instance;
   static final List<LogRecord> _earlyLogs = [];
 
-  static Future<void> init() async {
+  static Future<void> init(bool devmode) async {
     if (_instance != null) return;
 
     final dir = await getApplicationDocumentsDirectory();
     _instance = await Isar.open(
       [AppLogSchema, ArticleSchema, ArticleScrollPositionSchema],
       directory: dir.path,
+      name: 'frigoligo${devmode ? '-dev' : ''}',
     );
     _prepareAppLogs();
   }
