@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:frigoligo/providers/article.dart';
 import 'package:frigoligo/wallabag/wallabag.dart';
@@ -61,7 +62,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Future.wait([DB.init(), WallabagInstance.init()]),
+      future: Future.wait([DB.init(kDebugMode), WallabagInstance.init()]),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return WallabagInstance.isReady
