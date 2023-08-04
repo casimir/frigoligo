@@ -19,7 +19,7 @@ class ArticlePage extends StatefulWidget {
       {super.key, required this.articleId, required this.isFullScreen});
 
   final int articleId;
-  final isFullScreen;
+  final bool isFullScreen;
 
   @override
   State<ArticlePage> createState() => _ArticlePageState();
@@ -35,7 +35,7 @@ class _ArticlePageState extends State<ArticlePage> {
     final article = provider.article;
     final scroller = ScrollController();
 
-    late final bodyBuilder;
+    late final Widget bodyBuilder;
     if (article == null) {
       bodyBuilder = _buildNoArticle();
     } else if (article.content == null) {

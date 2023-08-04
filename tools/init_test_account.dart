@@ -68,6 +68,7 @@ class _HomePageState extends State<HomePage> {
           starred: starred,
         );
       } catch (e) {
+        // ignore: avoid_print
         print('Error while creating $url: $e');
       }
       setState(() {
