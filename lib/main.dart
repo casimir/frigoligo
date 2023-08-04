@@ -28,10 +28,16 @@ void main() {
     debugPrint(line);
   });
   _log.info('starting app');
+
+  PlatformDispatcher.instance.onError = (error, stack) {
+    _log.severe('uncaught error', error, stack);
+    return true;
+  };
   WidgetsFlutterBinding.ensureInitialized();
   PackageInfo.fromPlatform().then((info) {
     _log.info('version: ${info.version}+${info.buildNumber}');
   });
+
   runApp(const MyApp());
 }
 
