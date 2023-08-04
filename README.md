@@ -11,8 +11,8 @@ It is made to be _a lot of super-cool marketing things_ but for now it is just m
 | Android  | [see latest release](https://github.com/casimir/frigoligo/releases/latest) |
 | macOS    | [Testflight](https://testflight.apple.com/join/nYnbySd8)                   |
 | Linux    | [see latest release](https://github.com/casimir/frigoligo/releases/latest) |
+| AppImage | [see latest release](https://github.com/casimir/frigoligo/releases/latest) |
 | Windows  | [see latest release](https://github.com/casimir/frigoligo/releases/latest) |
-| Flatpak  | _Coming soon..._                                                           |
 
 ## Features
 
