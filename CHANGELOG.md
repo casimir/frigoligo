@@ -1,3 +1,27 @@
+<a name="v0.3.2"></a>
+# [0.3.2 (v0.3.2)](https://github.com/casimir/frigoligo/releases/tag/v0.3.2) - 04 Aug 2023
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### Features
+* Add of few dialog windows here and there by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/24
+* Handle articles without content by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/30
+### Miscellaneous
+* Release artifacts enhancements by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/27
+* Configure Renovate by [@renovate](https://github.com/renovate) in https://github.com/casimir/frigoligo/pull/28
+* Use different database names for release and debug builds by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/31
+* Log uncatched exceptions by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/32
+
+## New Contributors
+* [@github-actions](https://github.com/github-actions) made their first contribution in https://github.com/casimir/frigoligo/pull/23
+* [@renovate](https://github.com/renovate) made their first contribution in https://github.com/casimir/frigoligo/pull/28
+
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.3.1...v0.3.2
+
+[Changes][v0.3.2]
+
+
 <a name="v0.3.1"></a>
 # [0.3.1 (v0.3.1)](https://github.com/casimir/frigoligo/releases/tag/v0.3.1) - 02 Aug 2023
 
@@ -73,6 +97,7 @@ Let's begin! This is the very first release.
 [Changes][v0.1.0]
 
 
+[v0.3.2]: https://github.com/casimir/frigoligo/compare/v0.3.1...v0.3.2
 [v0.3.1]: https://github.com/casimir/frigoligo/compare/v0.3.0...v0.3.1
 [v0.3.0]: https://github.com/casimir/frigoligo/compare/v0.2.0...v0.3.0
 [v0.2.0]: https://github.com/casimir/frigoligo/compare/v0.1.0...v0.2.0
