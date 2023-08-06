@@ -18,18 +18,23 @@ class LogConsolePage extends StatelessWidget {
         title: const Text('Log Console'),
         actions: [
           IconButton(
-              icon: shareIcon,
-              onPressed: () {
-                console.exportCurrentRunToFile().then((filename) {
-                  final box = context.findRenderObject() as RenderBox?;
-                  Share.shareXFiles(
-                    [XFile(filename)],
-                    subject: filename.split(Platform.pathSeparator).last,
-                    sharePositionOrigin:
-                        box!.localToGlobal(Offset.zero) & box.size,
-                  );
-                });
-              }),
+            icon: shareIcon,
+            onPressed: () {
+              console.exportCurrentRunToFile().then((filename) {
+                final box = context.findRenderObject() as RenderBox?;
+                Share.shareXFiles(
+                  [XFile(filename)],
+                  subject: filename.split(Platform.pathSeparator).last,
+                  sharePositionOrigin:
+                      box!.localToGlobal(Offset.zero) & box.size,
+                );
+              });
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.delete),
+            onPressed: () => console.clear(),
+          ),
         ],
       ),
       body: ListView.builder(

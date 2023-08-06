@@ -30,6 +30,8 @@ class LogConsoleProvider extends ChangeNotifier {
     return db.appLogs.getSync(ids[n])!;
   }
 
+  void clear() => db.writeTxnSync(() => db.appLogs.clearSync());
+
   String exportCurrentRun() {
     final firstRecord = db.appLogs
         .filter()
