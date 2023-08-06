@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:frigoligo/providers/article.dart';
-import 'package:frigoligo/providers/settings.dart';
 import 'package:frigoligo/wallabag/wallabag.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -13,6 +11,8 @@ import 'models/db.dart';
 import 'pages/article.dart';
 import 'pages/listing.dart';
 import 'pages/login.dart';
+import 'providers/article.dart';
+import 'providers/settings.dart';
 import 'services/wallabag.dart';
 
 final _log = Logger('frigoligo');
