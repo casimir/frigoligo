@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:frigoligo/providers/settings.dart';
 import 'package:frigoligo/wallabag/wallabag.dart';
 import 'package:isar/isar.dart';
 import 'package:logging/logging.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants.dart';
 import '../models/article.dart';
@@ -22,7 +22,7 @@ enum RefreshState {
 }
 
 class ArticlesProvider with ChangeNotifier {
-  ArticlesProvider({this.onError}) {
+  ArticlesProvider(this.settings, {this.onError}) {
     _watcher = db.articles.watchLazy().listen((_) => notifyListeners());
 
     // ensure a relative freshness of the articles
@@ -33,6 +33,7 @@ class ArticlesProvider with ChangeNotifier {
   final DBInstance db = DB.get();
   final WallabagClient wallabag = WallabagInstance.get();
   StreamSubscription? _watcher;
+  final SettingsProvider settings;
   void Function(Exception)? onError;
 
   float? _refreshProgressValue;
@@ -193,8 +194,7 @@ class ArticlesProvider with ChangeNotifier {
           'completed refresh of $count entries in ${stopwatch.elapsed.inSeconds} s');
 
       final now = DateTime.now().millisecondsSinceEpoch / 1000;
-      await SharedPreferences.getInstance()
-          .then((prefs) => prefs.setInt(spLastRefreshTimestamp, now.toInt()));
+      settings[Sk.lastRefresh] = now.toInt();
 
       onProgress(0);
       syncRemoteDeletes();
@@ -208,10 +208,8 @@ class ArticlesProvider with ChangeNotifier {
   }
 
   Future<int> incrementalRefresh({int? threshold}) async {
-    final since = await SharedPreferences.getInstance()
-        .then((prefs) => prefs.getInt(spLastRefreshTimestamp));
-
-    if (threshold != null && since != null) {
+    final int since = settings[Sk.lastRefresh];
+    if (threshold != null && since > 0) {
       final now = DateTime.now().millisecondsSinceEpoch / 1000;
       final elapsed = now - since;
       if (elapsed < threshold) {
@@ -220,6 +218,6 @@ class ArticlesProvider with ChangeNotifier {
         return 0;
       }
     }
-    return fullRefresh(since: since);
+    return fullRefresh(since: since > 0 ? since : null);
   }
 }

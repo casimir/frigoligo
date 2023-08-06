@@ -53,6 +53,7 @@ dependencies:
   package_info_plus: ^4.0.2
   flutter_form_builder: ^9.0.0
   adaptive_dialog: ^1.9.0
+  settings_ui: ^2.0.2
 
 dev_dependencies:
   flutter_test:

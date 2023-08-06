@@ -1,21 +1,17 @@
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:logging/logging.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
 import '../constants.dart';
 import '../models/article.dart';
 import '../providers/article.dart';
-import '../providers/logconsole.dart';
 import '../services/wallabag.dart';
 import '../string_extension.dart';
 import '../widgets/async_action_button.dart';
 import '../widgets/icon_toggle_button.dart';
-import 'logconsole.dart';
-import 'session_details.dart';
+import 'settings.dart';
 
 final _log = Logger('frigoligo.listing');
 
@@ -63,13 +59,13 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
 
   @override
   Widget build(BuildContext context) {
-    var articles = context.watch<ArticlesProvider>();
-    var refreshProgressValue = context.select<ArticlesProvider, double?>(
+    final articles = context.watch<ArticlesProvider>();
+    final refreshProgressValue = context.select<ArticlesProvider, double?>(
       (articles) => articles.refreshProgressValue,
     );
 
     // in split mode, select the first article of the list
-    var articleProvider = context.read<ArticleProvider?>();
+    final articleProvider = context.read<ArticleProvider?>();
     if (articleProvider != null && articleProvider.articleId == 0) {
       final first = articles.index(0, _stateFilter.value, _starredFilter.value);
       if (first != null) {
@@ -104,77 +100,12 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
               articles.incrementalRefresh();
             },
           ),
-          PopupMenuButton(
-            itemBuilder: (context) => [
-              const PopupMenuItem(
-                value: 'resync',
-                child: ListTile(
-                  leading: Icon(Icons.sync),
-                  title: Text('Resync all articles'),
-                ),
-              ),
-              const PopupMenuItem(
-                value: 'session',
-                child: ListTile(
-                  leading: Icon(Icons.key),
-                  title: Text('Session details'),
-                ),
-              ),
-              const PopupMenuItem(
-                value: 'logs',
-                child: ListTile(
-                  leading: Icon(Icons.bug_report),
-                  title: Text('Show logs'),
-                ),
-              ),
-              const PopupMenuItem(
-                value: 'about',
-                child: ListTile(
-                  leading: Icon(Icons.info),
-                  title: Text('About'),
-                ),
-              ),
-            ],
-            onSelected: (value) async {
-              switch (value) {
-                case 'resync':
-                  final result = await showOkCancelAlertDialog(
-                    context: context,
-                    title: 'Resync all articles',
-                    message:
-                        'The local cache will be deleted and fetched again.',
-                    okLabel: 'Confirm',
-                  );
-                  if (result == OkCancelResult.cancel) return;
-                  _log.info('user action > full refresh');
-                  articles.fullRefresh();
-                case 'session':
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => const SessionDetailsPage()),
-                  );
-                case 'logs':
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => ChangeNotifierProvider(
-                        create: (_) => LogConsoleProvider(),
-                        child: const LogConsolePage(),
-                      ),
-                    ),
-                  );
-                case 'about':
-                  PackageInfo.fromPlatform().then((info) {
-                    showAboutDialog(
-                      context: context,
-                      // applicationIcon: const FlutterLogo(),
-                      applicationVersion: '${info.version}+${info.buildNumber}',
-                      applicationLegalese: '© 2023 Casimir Lab',
-                    );
-                  });
-              }
-            },
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const SettingsPage()),
+            ),
           ),
         ],
       ),

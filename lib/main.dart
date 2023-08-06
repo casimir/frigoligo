@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:frigoligo/providers/article.dart';
 import 'package:frigoligo/wallabag/wallabag.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -12,11 +11,13 @@ import 'models/db.dart';
 import 'pages/article.dart';
 import 'pages/listing.dart';
 import 'pages/login.dart';
+import 'providers/article.dart';
+import 'providers/settings.dart';
 import 'services/wallabag.dart';
 
 final _log = Logger('frigoligo');
 
-void main() {
+void main() async {
   Logger.root.level = Level.INFO;
   Logger.root.onRecord.listen((record) {
     DB.appendLog(record);
@@ -27,16 +28,18 @@ void main() {
     }
     debugPrint(line);
   });
-  _log.info('starting app');
-
   PlatformDispatcher.instance.onError = (error, stack) {
     _log.severe('uncaught error', error, stack);
-    return true;
+    return false;
   };
+  _log.info('starting app');
+
+  // after this line using `await` is OK
   WidgetsFlutterBinding.ensureInitialized();
-  PackageInfo.fromPlatform().then((info) {
-    _log.info('version: ${info.version}+${info.buildNumber}');
-  });
+
+  await SettingsProvider.init();
+  final info = await PackageInfo.fromPlatform();
+  _log.info('version: ${info.version}+${info.buildNumber}');
 
   runApp(const MyApp());
 }
@@ -46,18 +49,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      localizationsDelegates: const [
-        DefaultMaterialLocalizations.delegate,
-        DefaultWidgetsLocalizations.delegate,
-        DefaultCupertinoLocalizations.delegate,
-      ],
-      title: 'Frigoligo',
-      theme: ThemeData(colorScheme: schemeLight, useMaterial3: true),
-      darkTheme: ThemeData(colorScheme: schemeDark, useMaterial3: true),
-      themeMode: ThemeMode.system,
-      restorationScopeId: 'app',
-      home: const HomePage(),
+    return ChangeNotifierProvider(
+      create: (_) => SettingsProvider(namespace: kDebugMode ? 'debug' : null),
+      builder: (context, child) {
+        final themeMode = context
+            .select((SettingsProvider settings) => settings[Sk.themeMode]);
+        return MaterialApp(
+          localizationsDelegates: const [
+            DefaultMaterialLocalizations.delegate,
+            DefaultWidgetsLocalizations.delegate,
+            DefaultCupertinoLocalizations.delegate,
+          ],
+          title: 'Frigoligo',
+          theme: ThemeData(colorScheme: schemeLight, useMaterial3: true),
+          darkTheme: ThemeData(colorScheme: schemeDark, useMaterial3: true),
+          themeMode: themeMode,
+          restorationScopeId: 'app',
+          home: const HomePage(),
+        );
+      },
     );
   }
 }
@@ -120,7 +130,7 @@ class _MainContainerState extends State<_MainContainer> with RestorationMixin {
 
   Widget _buildNarrowLayout() {
     return ChangeNotifierProvider(
-      create: (_) => ArticlesProvider(),
+      create: (context) => ArticlesProvider(context.read<SettingsProvider>()),
       child: ListingPage(
         onItemSelect: (article) {
           Navigator.push(
@@ -148,7 +158,8 @@ class _MainContainerState extends State<_MainContainer> with RestorationMixin {
             Flexible(
               flex: 1,
               child: ChangeNotifierProvider(
-                create: (context) => ArticlesProvider(),
+                create: (context) =>
+                    ArticlesProvider(context.read<SettingsProvider>()),
                 child: ListingPage(
                   onItemSelect: (article) => setState(() {
                     _selectedId.value = article.id;

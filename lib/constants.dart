@@ -36,5 +36,3 @@ final Icon shareIcon = Platform.isIOS || Platform.isMacOS
 
 const int autoSyncThrottleSeconds = 15 * 60;
 const int logCountResetThreshold = 1000;
-const String spLastRefreshTimestamp =
-    '${kDebugMode ? 'debug.' : ''}lastRefreshTimestamp';
