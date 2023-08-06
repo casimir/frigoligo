@@ -79,8 +79,6 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
       );
     };
 
-    // TODO handle nullified since
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
