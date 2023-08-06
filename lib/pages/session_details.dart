@@ -1,17 +1,18 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:frigoligo/wallabag/wallabag.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
-import '../constants.dart';
 import '../models/db.dart';
+import '../providers/settings.dart';
 
 class SessionDetailsPage extends StatelessWidget {
   const SessionDetailsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var wallabag = WallabagInstance.get();
+    final settings = context.read<SettingsProvider>();
+    final wallabag = WallabagInstance.get();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Session details'),
@@ -50,8 +51,7 @@ class SessionDetailsPage extends StatelessWidget {
               if (result == OkCancelResult.cancel) return;
 
               await WallabagInstance.get().resetTokenData();
-              await SharedPreferences.getInstance()
-                  .then((prefs) => prefs.remove(spLastRefreshTimestamp));
+              settings.remove(Sk.lastRefresh);
               await DB.clear();
               if (context.mounted) {
                 Navigator.of(context)
