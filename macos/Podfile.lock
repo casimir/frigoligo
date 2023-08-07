@@ -1,6 +1,8 @@
 PODS:
   - dynamic_color (0.0.2):
     - FlutterMacOS
+  - flutter_app_badger (1.3.0):
+    - FlutterMacOS
   - FlutterMacOS (1.0.0)
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
@@ -29,6 +31,7 @@ PODS:
 
 DEPENDENCIES:
   - dynamic_color (from `Flutter/ephemeral/.symlinks/plugins/dynamic_color/macos`)
+  - flutter_app_badger (from `Flutter/ephemeral/.symlinks/plugins/flutter_app_badger/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
   - isar_flutter_libs (from `Flutter/ephemeral/.symlinks/plugins/isar_flutter_libs/macos`)
   - macos_ui (from `Flutter/ephemeral/.symlinks/plugins/macos_ui/macos`)
@@ -47,6 +50,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   dynamic_color:
     :path: Flutter/ephemeral/.symlinks/plugins/dynamic_color/macos
+  flutter_app_badger:
+    :path: Flutter/ephemeral/.symlinks/plugins/flutter_app_badger/macos
   FlutterMacOS:
     :path: Flutter/ephemeral
   isar_flutter_libs:
@@ -70,6 +75,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   dynamic_color: 2eaa27267de1ca20d879fbd6e01259773fb1670f
+  flutter_app_badger: 55a64b179f8438e89d574320c77b306e327a1730
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   isar_flutter_libs: 43385c99864c168fadba7c9adeddc5d38838ca6a
