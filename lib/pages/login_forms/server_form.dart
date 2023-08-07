@@ -68,7 +68,7 @@ class _ServerFormState extends State<ServerForm> {
                           case WallabagCheckErrorKind.unreachable:
                             return 'Server unreachable';
                           case WallabagCheckErrorKind.apiError:
-                            return 'Invalid server API';
+                            return 'Invalid API response';
                           case WallabagCheckErrorKind.unknown:
                             return '? ${_serverCheck!.error}';
                           case null:
