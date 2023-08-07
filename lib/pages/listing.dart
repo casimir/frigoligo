@@ -104,7 +104,12 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
             icon: const Icon(Icons.settings),
             onPressed: () => Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => const SettingsPage()),
+              MaterialPageRoute(
+                builder: (_) => ChangeNotifierProvider.value(
+                  value: articles,
+                  child: const SettingsPage(),
+                ),
+              ),
             ),
           ),
         ],

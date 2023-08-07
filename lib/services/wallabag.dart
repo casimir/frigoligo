@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:frigoligo/providers/settings.dart';
 import 'package:frigoligo/wallabag/wallabag.dart';
 import 'package:isar/isar.dart';
@@ -146,6 +147,19 @@ class ArticlesProvider with ChangeNotifier {
     return deletedCount;
   }
 
+  Future<void> updateAppBadge() async {
+    bool isSupported = await FlutterAppBadger.isAppBadgeSupported();
+    if (!isSupported) return;
+
+    final unread = count(StateFilter.unread, StarredFilter.all);
+    if (unread == 0 || !settings[Sk.appBadge]) {
+      FlutterAppBadger.removeBadge();
+    } else {
+      _log.info('updating app badge to $unread');
+      FlutterAppBadger.updateBadgeCount(unread);
+    }
+  }
+
   Future<int> fullRefresh({int? since}) async {
     if (refreshInProgress) return 0;
 
@@ -203,6 +217,8 @@ class ArticlesProvider with ChangeNotifier {
     } finally {
       refreshProgressValue = null;
     }
+
+    updateAppBadge();
 
     return count;
   }

@@ -6,8 +6,10 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
+import '../constants.dart';
 import '../providers/logconsole.dart';
 import '../providers/settings.dart';
+import '../services/wallabag.dart';
 import 'logconsole.dart';
 import 'session_details.dart';
 
@@ -19,76 +21,96 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final settings = context.watch<SettingsProvider>();
+    final articles = context.read<ArticlesProvider>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
       ),
       body: Center(
-        child: SettingsList(sections: [
-          SettingsSection(
-            tiles: [
-              SettingsTile.navigation(
-                leading: const Icon(Icons.format_paint),
-                title: const Text('Appearance'),
-                value: Text((settings[Sk.themeMode] as ThemeMode)
-                    .name
-                    .toCapitalCase()!),
-                onPressed: (context) async {
-                  AlertDialogAction build(ThemeMode mode) => AlertDialogAction(
-                        label: mode.name.toCapitalCase()!,
-                        key: mode,
-                      );
-                  final choice = await showConfirmationDialog(
-                    context: context,
-                    title: 'Appearance',
-                    actions: [
-                      build(ThemeMode.system),
-                      build(ThemeMode.light),
-                      build(ThemeMode.dark),
-                    ],
-                  );
-                  if (choice != null) settings[Sk.themeMode] = choice;
-                },
-              ),
-            ],
-          ),
-          SettingsSection(tiles: [
-            SettingsTile(
-              leading: const Icon(Icons.sync),
-              title: const Text('Clear cache'),
-              onPressed: (context) async {
-                final result = await showOkCancelAlertDialog(
-                  context: context,
-                  title: 'Clear cache',
-                  message: 'The local cache will be deleted and fetched again.',
-                  okLabel: 'Confirm',
-                );
-                if (result == OkCancelResult.cancel) return;
-                _log.info('user action > cache rebuild');
-                settings.remove(Sk.lastRefresh);
-                if (context.mounted) {
-                  Navigator.of(context)
-                      .pushNamedAndRemoveUntil('/', (r) => false);
-                }
-              },
+        child: SettingsList(
+          sections: [
+            SettingsSection(
+              title: const Text('Preferences'),
+              tiles: [
+                SettingsTile.navigation(
+                  leading: const Icon(Icons.format_paint),
+                  title: const Text('Appearance'),
+                  value: Text((settings[Sk.themeMode] as ThemeMode)
+                      .name
+                      .toCapitalCase()!),
+                  onPressed: (context) async {
+                    AlertDialogAction build(ThemeMode mode) =>
+                        AlertDialogAction(
+                          label: mode.name.toCapitalCase()!,
+                          key: mode,
+                        );
+                    final choice = await showConfirmationDialog(
+                      context: context,
+                      title: 'Appearance',
+                      actions: [
+                        build(ThemeMode.system),
+                        build(ThemeMode.light),
+                        build(ThemeMode.dark),
+                      ],
+                    );
+                    if (choice != null) settings[Sk.themeMode] = choice;
+                  },
+                ),
+                if (appBadgeSupported)
+                  SettingsTile.switchTile(
+                    leading: const Icon(Icons.markunread_mailbox),
+                    title: const Text('Show unread badge'),
+                    initialValue: settings[Sk.appBadge],
+                    onToggle: (value) {
+                      final previous = settings[Sk.appBadge];
+                      if (previous != value) articles.updateAppBadge();
+                      return settings[Sk.appBadge] = value;
+                    },
+                  )
+              ],
             ),
-            SettingsTile.navigation(
-              leading: const Icon(Icons.info),
-              title: const Text('About'),
-              onPressed: (context) => PackageInfo.fromPlatform().then((info) {
-                showAboutDialog(
-                  context: context,
-                  // applicationIcon: const FlutterLogo(),
-                  applicationVersion: '${info.version}+${info.buildNumber}',
-                  applicationLegalese: '© 2023 Casimir Lab',
-                );
-              }),
+            SettingsSection(
+              title: const Text('General'),
+              tiles: [
+                SettingsTile(
+                  leading: const Icon(Icons.sync),
+                  title: const Text('Clear cache'),
+                  onPressed: (context) async {
+                    final result = await showOkCancelAlertDialog(
+                      context: context,
+                      title: 'Clear cache',
+                      message:
+                          'The local cache will be deleted and fetched again.',
+                      okLabel: 'Confirm',
+                    );
+                    if (result == OkCancelResult.cancel) return;
+                    _log.info('user action > cache rebuild');
+                    settings.remove(Sk.lastRefresh);
+                    if (context.mounted) {
+                      Navigator.of(context)
+                          .pushNamedAndRemoveUntil('/', (r) => false);
+                    }
+                  },
+                ),
+                SettingsTile(
+                  leading: const Icon(Icons.info),
+                  title: const Text('About'),
+                  onPressed: (context) =>
+                      PackageInfo.fromPlatform().then((info) {
+                    showAboutDialog(
+                      context: context,
+                      // applicationIcon: const FlutterLogo(),
+                      applicationVersion: '${info.version}+${info.buildNumber}',
+                      applicationLegalese: '© 2023 Casimir Lab',
+                    );
+                  }),
+                ),
+              ],
             ),
-          ]),
-          SettingsSection(
-            title: const Text('Advanced'),
-            tiles: [
-              SettingsTile.navigation(
+            SettingsSection(
+              title: const Text('Advanced'),
+              tiles: [
+                SettingsTile.navigation(
                   leading: const Icon(Icons.key),
                   title: const Text('Session details'),
                   onPressed: (context) {
@@ -97,8 +119,9 @@ class SettingsPage extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (_) => const SessionDetailsPage()),
                     );
-                  }),
-              SettingsTile.navigation(
+                  },
+                ),
+                SettingsTile.navigation(
                   leading: const Icon(Icons.bug_report),
                   title: const Text('Log Console'),
                   onPressed: (context) {
@@ -111,10 +134,12 @@ class SettingsPage extends StatelessWidget {
                         ),
                       ),
                     );
-                  }),
-            ],
-          )
-        ]),
+                  },
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

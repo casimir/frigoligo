@@ -125,27 +125,28 @@ class _MainContainerState extends State<_MainContainer> with RestorationMixin {
   @override
   Widget build(BuildContext context) {
     var shortestSide = MediaQuery.of(context).size.shortestSide;
-    return shortestSide < 600 ? _buildNarrowLayout() : _buildWideLayout();
+    return ChangeNotifierProvider(
+      create: (context) => ArticlesProvider(context.read<SettingsProvider>()),
+      child: shortestSide < 600 ? _buildNarrowLayout() : _buildWideLayout(),
+    );
   }
 
   Widget _buildNarrowLayout() {
-    return ChangeNotifierProvider(
-      create: (context) => ArticlesProvider(context.read<SettingsProvider>()),
-      child: ListingPage(
-        onItemSelect: (article) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => ChangeNotifierProvider(
-                  create: (_) => ArticleProvider(article.id!),
-                  builder: (_, __) => ArticlePage(
-                        articleId: article.id!,
-                        isFullScreen: true,
-                      )),
+    return ListingPage(
+      onItemSelect: (article) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => ChangeNotifierProvider(
+              create: (_) => ArticleProvider(article.id!),
+              builder: (_, __) => ArticlePage(
+                articleId: article.id!,
+                isFullScreen: true,
+              ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 
@@ -157,17 +158,11 @@ class _MainContainerState extends State<_MainContainer> with RestorationMixin {
           children: [
             Flexible(
               flex: 1,
-              child: ChangeNotifierProvider(
-                create: (context) =>
-                    ArticlesProvider(context.read<SettingsProvider>()),
-                child: ListingPage(
-                  onItemSelect: (article) => setState(() {
-                    _selectedId.value = article.id;
-                    context
-                        .read<ArticleProvider>()
-                        .updateId(_selectedId.value!);
-                  }),
-                ),
+              child: ListingPage(
+                onItemSelect: (article) => setState(() {
+                  _selectedId.value = article.id;
+                  context.read<ArticleProvider>().updateId(_selectedId.value!);
+                }),
               ),
             ),
             Flexible(

@@ -77,6 +77,7 @@ class SettingsProvider extends ChangeNotifier {
 const skThemeMode = 'settings.themeMode';
 
 enum Sk {
+  appBadge('appBadge', false),
   lastRefresh('lastRefresh', -1),
   themeMode('themeMode', ThemeMode.system, ThemeMode.values);
 
