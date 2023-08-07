@@ -44,89 +44,91 @@ class _ArticlePageState extends State<ArticlePage> {
       bodyBuilder = _buildArticleContent(article, provider, scroller);
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        actions: [
-          if (article != null)
-            AsyncActionButton(
-              icon: stateIcons[article.stateValue]!,
-              progressValue: _stateChangePending ? 0 : null,
-              onPressed: () => provider.modifyAndRefresh(
-                archive: article.archivedAt == null,
-                onProgress: (progress) =>
-                    setState(() => _stateChangePending = progress < 1),
+    return SelectionArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          actions: [
+            if (article != null)
+              AsyncActionButton(
+                icon: stateIcons[article.stateValue]!,
+                progressValue: _stateChangePending ? 0 : null,
+                onPressed: () => provider.modifyAndRefresh(
+                  archive: article.archivedAt == null,
+                  onProgress: (progress) =>
+                      setState(() => _stateChangePending = progress < 1),
+                ),
               ),
+            if (article != null)
+              AsyncActionButton(
+                icon: starredIcons[article.starredValue]!,
+                progressValue: _starredChangePending ? 0 : null,
+                onPressed: () => provider.modifyAndRefresh(
+                  starred: article.starredAt == null,
+                  onProgress: (progress) =>
+                      setState(() => _starredChangePending = progress < 1),
+                ),
+              ),
+            PopupMenuButton(
+              itemBuilder: (context) => [
+                // TODO UI settings
+                PopupMenuItem(
+                  value: 'share',
+                  enabled: article != null,
+                  child: ListTile(
+                    leading: shareIcon,
+                    title: const Text('Share'),
+                  ),
+                ),
+                PopupMenuItem(
+                  value: 'open',
+                  enabled: article != null,
+                  child: const ListTile(
+                    leading: Icon(Icons.open_in_browser),
+                    title: Text('Open in browser'),
+                  ),
+                ),
+                PopupMenuItem(
+                  value: 'delete',
+                  enabled: article != null,
+                  child: const ListTile(
+                    leading: Icon(Icons.delete),
+                    title: Text('Delete article'),
+                  ),
+                ),
+              ],
+              onSelected: (value) async {
+                switch (value) {
+                  case 'share':
+                    final box = context.findRenderObject() as RenderBox?;
+                    Share.share(
+                      article!.url,
+                      subject: article.title,
+                      sharePositionOrigin:
+                          box!.localToGlobal(Offset.zero) & box.size,
+                    );
+                  case 'open':
+                    launchUrl(Uri.parse(article!.url));
+                  case 'delete':
+                    final result = await showOkCancelAlertDialog(
+                      context: context,
+                      title: 'Delete this article',
+                      message: article!.title,
+                      okLabel: 'Delete',
+                      isDestructiveAction: true,
+                    );
+                    if (result == OkCancelResult.cancel) return;
+                    await provider.deleteAndRefresh();
+                    if (widget.isFullScreen && context.mounted) {
+                      Navigator.of(context).pop();
+                    }
+                }
+              },
             ),
-          if (article != null)
-            AsyncActionButton(
-              icon: starredIcons[article.starredValue]!,
-              progressValue: _starredChangePending ? 0 : null,
-              onPressed: () => provider.modifyAndRefresh(
-                starred: article.starredAt == null,
-                onProgress: (progress) =>
-                    setState(() => _starredChangePending = progress < 1),
-              ),
-            ),
-          PopupMenuButton(
-            itemBuilder: (context) => [
-              // TODO UI settings
-              PopupMenuItem(
-                value: 'share',
-                enabled: article != null,
-                child: ListTile(
-                  leading: shareIcon,
-                  title: const Text('Share'),
-                ),
-              ),
-              PopupMenuItem(
-                value: 'open',
-                enabled: article != null,
-                child: const ListTile(
-                  leading: Icon(Icons.open_in_browser),
-                  title: Text('Open in browser'),
-                ),
-              ),
-              PopupMenuItem(
-                value: 'delete',
-                enabled: article != null,
-                child: const ListTile(
-                  leading: Icon(Icons.delete),
-                  title: Text('Delete article'),
-                ),
-              ),
-            ],
-            onSelected: (value) async {
-              switch (value) {
-                case 'share':
-                  final box = context.findRenderObject() as RenderBox?;
-                  Share.share(
-                    article!.url,
-                    subject: article.title,
-                    sharePositionOrigin:
-                        box!.localToGlobal(Offset.zero) & box.size,
-                  );
-                case 'open':
-                  launchUrl(Uri.parse(article!.url));
-                case 'delete':
-                  final result = await showOkCancelAlertDialog(
-                    context: context,
-                    title: 'Delete this article',
-                    message: article!.title,
-                    okLabel: 'Delete',
-                    isDestructiveAction: true,
-                  );
-                  if (result == OkCancelResult.cancel) return;
-                  await provider.deleteAndRefresh();
-                  if (widget.isFullScreen && context.mounted) {
-                    Navigator.of(context).pop();
-                  }
-              }
-            },
-          ),
-        ],
+          ],
+        ),
+        body: bodyBuilder,
       ),
-      body: bodyBuilder,
     );
   }
 
