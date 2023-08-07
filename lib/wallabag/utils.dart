@@ -3,13 +3,22 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import 'models/info.dart';
 
 final _log = Logger('wallabag.utils');
 
+Future<String> buildUserAgent() async {
+  final info = await PackageInfo.fromPlatform();
+  return '${info.appName}/${info.version}+${info.buildNumber}';
+}
+
 Future<WallabagInfo?> _fetchWallabagInfo(Uri uri) async {
-  final response = await http.get(Uri.https(uri.authority, '/api/info.json'));
+  final response = await http.get(
+    Uri.https(uri.authority, '${uri.path}/api/info.json'),
+    headers: {'user-agent': await buildUserAgent()},
+  );
   if (response.statusCode != 200) {
     throw const WallabagCheckError(WallabagCheckErrorKind.apiError);
   }
@@ -26,8 +35,11 @@ Future<WallabagServerCheck> checkWallabagServer(String serverUrl) async {
   _log.info("starting server check for '$serverUrl'");
   late final WallabagServerCheck check;
   try {
-    final authority = serverUrl.split('://').last;
-    final uri = Uri.https(authority);
+    var trimmed = serverUrl.split('://').last;
+    trimmed = trimmed.endsWith('/')
+        ? trimmed.substring(0, trimmed.length - 1)
+        : trimmed;
+    final uri = Uri.parse('https://$trimmed');
     final info = await _fetchWallabagInfo(uri);
     final faviconUri = await _detectFavicon(uri);
     check = WallabagServerCheck(uri, info, faviconUri, null);
@@ -49,7 +61,9 @@ class WallabagServerCheck {
   bool get isValid => info != null && error == null;
   WallabagCheckErrorKind? get errorKind {
     if (error == null) return null;
-    if (error is FormatException) {
+    if (error is WallabagCheckError) {
+      return (error as WallabagCheckError).kind;
+    } else if (error is FormatException) {
       return WallabagCheckErrorKind.invalidUrl;
     } else if (error is HandshakeException) {
       return WallabagCheckErrorKind.unreachable;
@@ -75,4 +89,9 @@ class WallabagCheckError implements Exception {
   const WallabagCheckError(this.kind);
 
   final WallabagCheckErrorKind kind;
+
+  @override
+  String toString() {
+    return 'WallabagCheckError(${kind.name})';
+  }
 }

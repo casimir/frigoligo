@@ -6,7 +6,6 @@ import 'package:http/retry.dart';
 import 'package:isar/isar.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:logging/logging.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 export 'models/annotation.dart' show WallabagAnnotation;
@@ -14,6 +13,7 @@ import 'models/entry.dart';
 export 'models/entry.dart' show WallabagEntry;
 import 'models/info.dart';
 export 'models/tag.dart' show WallabagTag;
+import 'utils.dart';
 
 part 'wallabag.g.dart';
 
@@ -74,11 +74,6 @@ T safeDecode<T>(http.Response response, Decoder<T> decoder) {
   }
 }
 
-Future<String> _buildUserAgent() async {
-  var info = await PackageInfo.fromPlatform();
-  return '${info.appName}/${info.version}+${info.buildNumber}';
-}
-
 @JsonSerializable()
 class WallabagConnectionData {
   const WallabagConnectionData(this.server, this.clientId, this.clientSecret);
@@ -97,7 +92,7 @@ class WallabagClient extends http.BaseClient {
   static String tokenDataKey = '${kDebugMode ? 'debug.' : ''}tokenData';
 
   static Future<WallabagClient> build(WallabagConnectionData data) async =>
-      WallabagClient._(data, await _buildUserAgent(), await _loadTokenData());
+      WallabagClient._(data, await buildUserAgent(), await _loadTokenData());
 
   WallabagClient._(this.connectionData, this.userAgent, this._tokenData);
 
@@ -136,8 +131,11 @@ class WallabagClient extends http.BaseClient {
       'client_secret': connectionData.clientSecret,
       ...grantData,
     };
-    final response =
-        await http.post(_buildUri(tokenEnpointPath), body: payload);
+    final response = await http.post(
+      _buildUri(tokenEnpointPath),
+      headers: {'user-agent': await buildUserAgent()},
+      body: payload,
+    );
     throwOnError(response);
 
     final tokenData = safeDecode(response, OAuthToken.fromJson);

@@ -1,6 +1,5 @@
 import 'dart:io' show Platform;
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // Fun fact about the seed colors, both have been chosen using a color picker
