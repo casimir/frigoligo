@@ -108,7 +108,7 @@ class WallabagClient extends http.BaseClient {
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) async {
     if (userAgent != null) request.headers['user-agent'] = userAgent!;
-    if (request.url.path != tokenEnpointPath) {
+    if (!request.url.path.endsWith(tokenEnpointPath)) {
       if (canRefreshToken && tokenIsExpired) await refreshToken();
       request.headers['Authorization'] = 'Bearer ${_tokenData!.accessToken}';
     }
@@ -120,8 +120,11 @@ class WallabagClient extends http.BaseClient {
     }).onError((e, _) => throw WallabagError.fromException(e as Exception));
   }
 
-  Uri _buildUri(String path, [Map<String, dynamic>? queryParameters]) =>
-      Uri.https(connectionData.server, path, queryParameters);
+  Uri _buildUri(String path, [Map<String, dynamic>? queryParameters]) {
+    final serverUri = Uri.parse('https://${connectionData.server}');
+    return Uri.https(
+        serverUri.authority, serverUri.path + path, queryParameters);
+  }
 
   Future<http.Response> authenticate(Map<String, String> grantData) async {
     _log.info(
