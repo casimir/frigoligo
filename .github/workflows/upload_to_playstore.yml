@@ -4,10 +4,16 @@ on:
     tags:
       - v*.*.*
   workflow_dispatch:
+    inputs:
+      force:
+        description: "Force run"
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   build_appbundle:
-    if: ${{ github.ref_type == 'tag' }}
+    if: ${{ github.ref_type == 'tag' || github.event.inputs.force == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -31,12 +37,11 @@ jobs:
           alias: ${{ secrets.ALIAS }}
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
-
       - name: Deploy to beta channel
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           packageName: net.casimirlab.frigoligo
-          releaseFile: ${{ steps.sign_app.outputs.signedReleaseFile }}
+          releaseFiles: ${{ steps.sign_release.outputs.signedReleaseFile }}
           track: beta
           status: draft
