@@ -79,7 +79,7 @@ class SessionDetailsPage extends StatelessWidget {
                 _copyText(context, accessToken.toString(), accessToken != null),
           ),
           ListTile(
-            title: Text('Token valid until'),
+            title: const Text('Token valid until'),
             subtitle: Text(accessTokenValidity),
           ),
           ListTile(
