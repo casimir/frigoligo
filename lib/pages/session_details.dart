@@ -87,7 +87,7 @@ class SessionDetailsPage extends StatelessWidget {
             subtitle: Text(sinceLastSync),
           ),
           const SizedBox(height: 8.0),
-          ElevatedButton(
+          ElevatedButton.icon(
             onPressed: () async {
               final result = await showOkCancelAlertDialog(
                 context: context,
@@ -106,7 +106,8 @@ class SessionDetailsPage extends StatelessWidget {
                     .pushNamedAndRemoveUntil('/', (r) => false);
               }
             },
-            child: const Text('Log out session'),
+            icon: const Icon(Icons.logout),
+            label: const Text('Log out session'),
           ),
         ],
       ),
