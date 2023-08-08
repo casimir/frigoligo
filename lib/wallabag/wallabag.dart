@@ -134,7 +134,7 @@ class WallabagClient extends http.BaseClient {
       'client_secret': connectionData.clientSecret,
       ...grantData,
     };
-    final response = await http.post(
+    final response = await post(
       _buildUri(tokenEnpointPath),
       headers: {'user-agent': await buildUserAgent()},
       body: payload,
