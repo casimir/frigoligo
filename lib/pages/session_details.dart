@@ -56,7 +56,7 @@ class SessionDetailsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Session details'),
       ),
-      body: Column(
+      body: ListView(
         children: [
           ListTile(
             title: const Text('Server'),
