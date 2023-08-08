@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:frigoligo/wallabag/wallabag.dart';
 import 'package:logging/logging.dart';
+import 'package:provider/provider.dart';
 
+import '../providers/logconsole.dart';
+import 'logconsole.dart';
 import 'login_forms/server_form.dart';
 import 'login_forms/validators.dart';
 
@@ -20,6 +23,7 @@ class _LoginPageState extends State<LoginPage> {
   final _serverFbKey = GlobalKey<FormBuilderState>();
   bool _serverConfigured = false;
   final _fbKey = GlobalKey<FormBuilderState>();
+  bool _gotAnError = false;
 
   @override
   Widget build(BuildContext context) {
@@ -109,15 +113,36 @@ class _LoginPageState extends State<LoginPage> {
                     Navigator.of(context)
                         .pushNamedAndRemoveUntil('/', (r) => false);
                   }
-                } on WallabagError catch (e) {
-                  showOkAlertDialog(context: context, message: e.message);
                 } catch (e) {
-                  _log.severe('unexpected error', e);
+                  setState(() => _gotAnError = true);
+                  if (e is WallabagError) {
+                    _log.warning('authentication failed', e.message);
+                    showOkAlertDialog(context: context, message: e.message);
+                  } else {
+                    _log.severe('unexpected error', e);
+                    showOkAlertDialog(context: context, message: e.toString());
+                  }
                 }
               }
             },
             child: const Text('Log in'),
           ),
+          const SizedBox(height: 8.0),
+          if (_gotAnError)
+            MaterialButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => ChangeNotifierProvider(
+                      create: (_) => LogConsoleProvider(),
+                      child: const LogConsolePage(),
+                    ),
+                  ),
+                );
+              },
+              child: const Text('Open the Log Console'),
+            ),
         ],
       ),
     );
