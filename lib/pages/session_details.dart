@@ -17,7 +17,7 @@ Widget _copyText(BuildContext context, String text, [bool obfuscate = false]) {
   }
   return InkWell(
     onTap: () async {
-      await Clipboard.setData(ClipboardData(text: content));
+      await Clipboard.setData(ClipboardData(text: text));
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Copied to your clipboard!')));
