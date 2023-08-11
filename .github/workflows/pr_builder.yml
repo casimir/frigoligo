@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Remove label
-        run: gh pr remove-label $PR --remove-label build-branch
+        run: gh pr edit $PR --remove-label build-branch
       - name: Add the acknowledgement comment
         run: gh pr comment $PR --edit-last --body "A build has been started for this PR..."
   build:
