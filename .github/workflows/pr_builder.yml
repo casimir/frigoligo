@@ -21,16 +21,14 @@ jobs:
         env:
           COMMENT: A build has been started for this PR...
         run: gh pr comment $PR --edit-last --body "$COMMENT" || gh pr comment $PR --body "$COMMENT"
-  build:
-    needs: prepare
-    runs-on: ubuntu-latest
-    steps:
       - uses: actions/checkout@v3
         with:
           sparse-checkout: |
             .github/workflows
-      - name: Run the build workflow
-        uses: ./.github/workflows/build_and_upload.yml
+  build:
+    name: Run the build workflow
+    needs: prepare
+    uses: ./.github/workflows/build_and_upload.yml
   report:
     needs: build
     runs-on: ubuntu-latest
