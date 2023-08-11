@@ -10,7 +10,7 @@ env:
 
 jobs:
   prepare:
-    if: github.event.label.name == 'build-head'
+    if: ${{ github.event.label.name == 'build-head' }}
     runs-on: ubuntu-latest
     steps:
       - name: Remove label
