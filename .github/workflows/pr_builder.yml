@@ -25,6 +25,9 @@ jobs:
     needs: prepare
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+        with:
+          sparse-checkout: .github/workflows/build_and_upload.yml
       - name: Run the build workflow
         uses: ./.github/workflows/build_and_upload.yml
   report:
