@@ -1,3 +1,4 @@
+name: on-demand pr build
 on:
   pull_request:
     types:
