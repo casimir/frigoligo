@@ -18,7 +18,7 @@ on:
   workflow_dispatch:
 
 env:
-  VERSION: ${{ github.ref_name }}
+  VERSION: ${{ github.head_ref ||  github.ref_name }}
 
 jobs:
   build_apk:
