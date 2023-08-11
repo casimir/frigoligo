@@ -74,8 +74,8 @@ jobs:
         working-directory: ./build
       - uses: actions/upload-artifact@v3
         with:
-          name: $ARTIFACT
-          path: $ARTIFACT
+          name: ${{ env.ARTIFACT }}
+          path: ${{ env.ARTIFACT }}
       - if: ${{ github.ref_type == 'tag' }}
         run: gh release upload $VERSION $ARTIFACT --clobber
         env:
@@ -117,8 +117,8 @@ jobs:
         working-directory: ./appimage
       - uses: actions/upload-artifact@v3
         with:
-          name: $ARTIFACT
-          path: appimage/$ARTIFACT
+          name: ${{ env.ARTIFACT }}
+          path: appimage/${{ env.ARTIFACT }}
       - if: ${{ github.ref_type == 'tag' }}
         run: gh release upload $VERSION $ARTIFACT --clobber
         working-directory: ./appimage
@@ -145,8 +145,8 @@ jobs:
         working-directory: ./build
       - uses: actions/upload-artifact@v3
         with:
-          name: $ARTIFACT
-          path: $ARTIFACT
+          name: ${{ env.ARTIFACT }}
+          path: ${{ env.ARTIFACT }}
       - if: ${{ github.ref_type == 'tag' }}
         run: gh release upload $VERSION $ARTIFACT --clobber
         env:
