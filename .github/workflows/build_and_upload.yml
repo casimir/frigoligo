@@ -24,7 +24,7 @@ jobs:
   build_apk:
     runs-on: ubuntu-latest
     env:
-      ARTIFACT: frigoligo-$VERSION-unsigned.apk
+      ARTIFACT: frigoligo-${{ github.head_ref ||  github.ref_name }}-unsigned.apk
     outputs:
       artifact: ${{ env.ARTIFACT }}
     steps:
@@ -54,7 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ARCH: x86_64
-      ARTIFACT: frigoligo-$VERSION-linux-x64.tar.gz
+      ARTIFACT: frigoligo-${{ github.head_ref ||  github.ref_name }}-linux-x64.tar.gz
     outputs:
       artifact: ${{ env.ARTIFACT }}
     steps:
@@ -85,7 +85,7 @@ jobs:
     needs: build_linux
     runs-on: ubuntu-latest
     env:
-      ARTIFACT: Frigoligo-$VERSION-x86_64.AppImage
+      ARTIFACT: Frigoligo-${{ github.head_ref ||  github.ref_name }}-x86_64.AppImage
     outputs:
       artifact: ${{ env.ARTIFACT }}
     steps:
@@ -128,7 +128,7 @@ jobs:
   build_windows:
     runs-on: windows-latest
     env:
-      ARTIFACT: frigoligo-$VERSION-win-x64.zip
+      ARTIFACT: frigoligo-${{ github.head_ref ||  github.ref_name }}-win-x64.zip
     outputs:
       artifact: ${{ env.ARTIFACT }}
     steps:
