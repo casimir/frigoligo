@@ -43,8 +43,8 @@ jobs:
       - run: cp build/app/outputs/flutter-apk/app-release.apk $ARTIFACT
       - uses: actions/upload-artifact@v3
         with:
-          name: $ARTIFACT
-          path: $ARTIFACT
+          name: ${{ env.ARTIFACT }}
+          path: ${{ env. }}
       - if: ${{ github.ref_type == 'tag' }}
         run: gh release upload $VERSION $ARTIFACT --clobber
         env:

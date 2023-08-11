@@ -39,6 +39,6 @@ jobs:
       WINDOWS: ${{ needs.build.outputs.windows }}
     steps:
       - run: gh run list --workflow 'build and upload artifacts' --branch $BRANCH --event workflow_call
-      - run: gh workflow view ${{ needs.build.outputs.run_id }}
+      - run: gh workflow view ${{ needs.build.outputs.run_id }} || true
       - name: Publish the build result
         run: gh pr comment $PR --edit-last --body "The build has finished."
