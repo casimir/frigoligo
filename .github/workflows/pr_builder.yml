@@ -18,7 +18,9 @@ jobs:
       - name: Remove label
         run: gh pr edit $PR --remove-label build-head
       - name: Add the acknowledgement comment
-        run: gh pr comment $PR --edit-last --body "A build has been started for this PR..."
+        env:
+          COMMENT: A build has been started for this PR...
+        run: gh pr comment $PR --edit-last --body "$COMMENT" || gh pr comment $PR --body "$COMMENT"
   build:
     needs: prepare
     runs-on: ubuntu-latest
