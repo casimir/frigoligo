@@ -27,7 +27,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          sparse-checkout: .github/workflows/build_and_upload.yml
+          sparse-checkout: |
+            .github/workflows
       - name: Run the build workflow
         uses: ./.github/workflows/build_and_upload.yml
   report:
