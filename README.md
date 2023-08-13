@@ -5,14 +5,15 @@ It is made to be _a lot of super-cool marketing things_ but for now it is just m
 
 ## Installation
 
-| Platform | Link                                                                       |
-|----------|----------------------------------------------------------------------------|
-| iOS      | [Testflight](https://testflight.apple.com/join/nYnbySd8)                   |
-| Android  | [see latest release](https://github.com/casimir/frigoligo/releases/latest) |
-| macOS    | [Testflight](https://testflight.apple.com/join/nYnbySd8)                   |
-| Linux    | [see latest release](https://github.com/casimir/frigoligo/releases/latest) |
-| AppImage | [see latest release](https://github.com/casimir/frigoligo/releases/latest) |
-| Windows  | [see latest release](https://github.com/casimir/frigoligo/releases/latest) |
+| Platform        | Link                                                                                |
+|-----------------|-------------------------------------------------------------------------------------|
+| iOS             | [Testflight](https://testflight.apple.com/join/nYnbySd8)                            |
+| Android (store) | [PlayStore](https://play.google.com/store/apps/details?id=net.casimirlab.frigoligo) |
+| Android (apk)   | [see latest release](https://github.com/casimir/frigoligo/releases/latest)          |
+| macOS           | [Testflight](https://testflight.apple.com/join/nYnbySd8)                            |
+| Linux           | [see latest release](https://github.com/casimir/frigoligo/releases/latest)          |
+| AppImage        | [see latest release](https://github.com/casimir/frigoligo/releases/latest)          |
+| Windows         | [see latest release](https://github.com/casimir/frigoligo/releases/latest)          |
 
 ## Features
 
