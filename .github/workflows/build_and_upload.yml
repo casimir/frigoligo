@@ -3,31 +3,30 @@ on:
   push:
     tags:
       - v*.*.*
+  workflow_call:
+    outputs:
+      run_id:
+        value: ${{ github.run_id}}
+      apk:
+        value: ${{ jobs.build_apk.outputs.artifact }}
+      linux:
+        value: ${{ jobs.build_linux.outputs.artifact }}
+      appimage:
+        value: ${{ jobs.build_appimage.outputs.artifact }}
+      windows:
+        value: ${{ jobs.build_windows.outputs.artifact }}
   workflow_dispatch:
 
-jobs:
-  setup:
-    runs-on: ubuntu-latest
-    outputs:
-      VERSION: ${{ steps.export.outputs.VERSION }}
-      ARTIFACT_ANDROID: ${{ steps.export.outputs.ARTIFACT_ANDROID }}
-      ARTIFACT_LINUX_X64: ${{ steps.export.outputs.ARTIFACT_LINUX_X64 }}
-      ARTIFACT_WINDOWS: ${{ steps.export.outputs.ARTIFACT_WINDOWS }}
-    steps:
-      - shell: bash
-        run: |
-          echo "release_version=${GITHUB_REF_NAME#v}" >> "$GITHUB_ENV"
-          echo "artifact_prefix=frigoligo-${GITHUB_REF_NAME#v}" >> "$GITHUB_ENV"
-      - id: export
-        run: |
-          echo "VERSION=${{ env.release_version }}" >> "$GITHUB_OUTPUT"
-          echo "ARTIFACT_ANDROID=${{ env.artifact_prefix }}-unsigned.apk" >> "$GITHUB_OUTPUT"
-          echo "ARTIFACT_LINUX_X64=${{ env.artifact_prefix }}-linux-x64.tar.gz" >> "$GITHUB_OUTPUT"
-          echo "ARTIFACT_WINDOWS=${{ env.artifact_prefix }}-windows-x64.zip" >> "$GITHUB_OUTPUT"
+env:
+  VERSION: ${{ github.head_ref ||  github.ref_name }}
 
+jobs:
   build_apk:
-    needs: setup
     runs-on: ubuntu-latest
+    env:
+      ARTIFACT: frigoligo-${{ github.head_ref ||  github.ref_name }}-unsigned.apk
+    outputs:
+      artifact: ${{ env.ARTIFACT }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-java@v3
@@ -41,22 +40,23 @@ jobs:
       - run: flutter --version
       - run: flutter pub get
       - run: flutter build apk
-      - run: cp build/app/outputs/flutter-apk/app-release.apk ${{ needs.setup.outputs.ARTIFACT_ANDROID }}
+      - run: cp build/app/outputs/flutter-apk/app-release.apk $ARTIFACT
       - uses: actions/upload-artifact@v3
         with:
-          name: ${{ needs.setup.outputs.ARTIFACT_ANDROID }}
-          path: ${{ needs.setup.outputs.ARTIFACT_ANDROID }}
+          name: ${{ env.ARTIFACT }}
+          path: ${{ env.ARTIFACT }}
       - if: ${{ github.ref_type == 'tag' }}
-        run: gh release upload ${{ github.ref_name }} ${{ needs.setup.outputs.ARTIFACT_ANDROID }} --clobber
+        run: gh release upload $VERSION $ARTIFACT --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build_linux:
-    needs: setup
     runs-on: ubuntu-latest
     env:
       ARCH: x86_64
-      VERSION: ${{ needs.setup.outputs.VERSION }}
+      ARTIFACT: frigoligo-${{ github.head_ref ||  github.ref_name }}-linux-x64.tar.gz
+    outputs:
+      artifact: ${{ env.ARTIFACT }}
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
@@ -70,20 +70,25 @@ jobs:
       - run: flutter pub get
       - run: flutter build linux
       - run: cp -R build/linux/x64/release/bundle/ build/frigoligo/
-      - run: tar czf ../${{ needs.setup.outputs.ARTIFACT_LINUX_X64 }} frigoligo/
+      - run: tar czf ../$ARTIFACT frigoligo/
         working-directory: ./build
       - uses: actions/upload-artifact@v3
         with:
-          name: ${{ needs.setup.outputs.ARTIFACT_LINUX_X64 }}
-          path: ${{ needs.setup.outputs.ARTIFACT_LINUX_X64 }}
+          name: ${{ env.ARTIFACT }}
+          path: ${{ env.ARTIFACT }}
       - if: ${{ github.ref_type == 'tag' }}
-        run: gh release upload ${{ github.ref_name }} ${{ needs.setup.outputs.ARTIFACT_LINUX_X64 }} --clobber
+        run: gh release upload $VERSION $ARTIFACT --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build_appimage:
-    needs: [setup, build_linux]
+    needs: build_linux
     runs-on: ubuntu-latest
+    env:
+      ARTIFACT: Frigoligo-${{ github.head_ref ||  github.ref_name }}-x86_64.AppImage
+      LINUX_ARTIFACT: ${{ needs.build_linux.outputs.artifact }}
+    outputs:
+      artifact: ${{ env.ARTIFACT }}
     steps:
       - name: Install native dependencies
         run: |
@@ -96,10 +101,10 @@ jobs:
             assets
       - uses: actions/download-artifact@v3
         with:
-          name: ${{ needs.setup.outputs.ARTIFACT_LINUX_X64 }}
+          name: ${{ env.LINUX_ARTIFACT }}
       - name: Prepare AppImage
         run: |
-          tar xzf ../${{ needs.setup.outputs.ARTIFACT_LINUX_X64 }}
+          tar xzf ../$LINUX_ARTIFACT
           mv frigoligo/ Frigoligo.AppDir
           cp AppRun Frigoligo.AppDir/
           cp Frigoligo.desktop Frigoligo.AppDir/
@@ -109,21 +114,24 @@ jobs:
         run: |
           wget -q "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
           chmod +x appimagetool-x86_64.AppImage
-          ./appimagetool-x86_64.AppImage Frigoligo.AppDir Frigoligo-x86_64.AppImage
+          ./appimagetool-x86_64.AppImage Frigoligo.AppDir $ARTIFACT
         working-directory: ./appimage
       - uses: actions/upload-artifact@v3
         with:
-          name: Frigoligo-x86_64.AppImage
-          path: appimage/Frigoligo-x86_64.AppImage
+          name: ${{ env.ARTIFACT }}
+          path: appimage/${{ env.ARTIFACT }}
       - if: ${{ github.ref_type == 'tag' }}
-        run: gh release upload ${{ github.ref_name }} Frigoligo-x86_64.AppImage --clobber
+        run: gh release upload $VERSION $ARTIFACT --clobber
         working-directory: ./appimage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build_windows:
-    needs: setup
     runs-on: windows-latest
+    env:
+      ARTIFACT: frigoligo-${{ github.head_ref ||  github.ref_name }}-win-x64.zip
+    outputs:
+      artifact: ${{ env.ARTIFACT }}
     steps:
       - uses: actions/checkout@v3
       - uses: subosito/flutter-action@v2
@@ -134,13 +142,13 @@ jobs:
       - run: flutter pub get
       - run: flutter build windows
       - run: Copy-Item -Path build\windows\runner\Release\ -Destination build\frigoligo\ -Recurse
-      - run: Compress-Archive -Path frigoligo -DestinationPath ..\${{ needs.setup.outputs.ARTIFACT_WINDOWS }}
+      - run: Compress-Archive -Path frigoligo -DestinationPath ..\\$env:ARTIFACT
         working-directory: ./build
       - uses: actions/upload-artifact@v3
         with:
-          name: ${{ needs.setup.outputs.ARTIFACT_WINDOWS }}
-          path: ${{ needs.setup.outputs.ARTIFACT_WINDOWS }}
+          name: ${{ env.ARTIFACT }}
+          path: ${{ env.ARTIFACT }}
       - if: ${{ github.ref_type == 'tag' }}
-        run: gh release upload ${{ github.ref_name }} ${{ needs.setup.outputs.ARTIFACT_WINDOWS }} --clobber
+        run: gh release upload $env:VERSION $env:ARTIFACT --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

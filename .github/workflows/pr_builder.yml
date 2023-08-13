@@ -1,0 +1,45 @@
+name: on-demand pr build
+on:
+  pull_request:
+    types:
+      - labeled
+  workflow_dispatch:
+
+env:
+  PR: ${{ github.event.pull_request.html_url }}
+  BRANCH: ${{ github.event.pull_request.head.ref }}
+  GH_TOKEN: ${{ github.token }}
+  GH_REPO: ${{ github.repository }}
+
+jobs:
+  prepare:
+    if: ${{ github.event.label.name == 'build-head' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove label
+        run: gh pr edit $PR --remove-label build-head
+      - name: Add the acknowledgement comment
+        env:
+          COMMENT: 🏗️ A build has been started for this PR...
+        run: gh pr comment $PR --edit-last --body "$COMMENT" || gh pr comment $PR --body "$COMMENT"
+      - uses: actions/checkout@v3
+        with:
+          sparse-checkout: |
+            .github/workflows
+  build:
+    name: Run the build workflow
+    needs: prepare
+    uses: ./.github/workflows/build_and_upload.yml
+  report:
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      APK: ${{ needs.build.outputs.apk }}
+      LINUX: ${{ needs.build.outputs.linux }}
+      APPIMAGE: ${{ needs.build.outputs.appimage }}
+      WINDOWS: ${{ needs.build.outputs.windows }}
+    steps:
+      - name: Compute run URL
+        run: echo RUN_URL=$(gh run view ${{ github.run_id }} --json url --jq .url) >> $GITHUB_ENV
+      - name: Publish the build result
+        run: gh pr comment $PR --edit-last --body "📦 The build has completed! The latest artifacts are available at $RUN_URL."
