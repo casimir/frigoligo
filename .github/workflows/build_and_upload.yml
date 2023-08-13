@@ -142,13 +142,13 @@ jobs:
       - run: flutter pub get
       - run: flutter build windows
       - run: Copy-Item -Path build\windows\runner\Release\ -Destination build\frigoligo\ -Recurse
-      - run: Compress-Archive -Path frigoligo -DestinationPath ..\\$ARTIFACT
+      - run: Compress-Archive -Path frigoligo -DestinationPath ..\\$env:ARTIFACT
         working-directory: ./build
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ env.ARTIFACT }}
           path: ${{ env.ARTIFACT }}
       - if: ${{ github.ref_type == 'tag' }}
-        run: gh release upload $VERSION $ARTIFACT --clobber
+        run: gh release upload $env:VERSION $env:ARTIFACT --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
