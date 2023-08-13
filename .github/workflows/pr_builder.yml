@@ -39,7 +39,7 @@ jobs:
       APPIMAGE: ${{ needs.build.outputs.appimage }}
       WINDOWS: ${{ needs.build.outputs.windows }}
     steps:
-      - run: gh run list --workflow 'build and upload artifacts' --branch $BRANCH --event workflow_call
-      - run: gh workflow view ${{ needs.build.outputs.run_id }} || true
+      - name: Compute run URL
+        run: echo RUN_URL=$(gh run view ${{ github.run_id }} --json url --jq .url) >> $GITHUB_ENV
       - name: Publish the build result
-        run: gh pr comment $PR --edit-last --body "The build has finished."
+        run: gh pr comment $PR --edit-last --body "The build is finished! The latest artifacts are available at $RUN_URL."
