@@ -1,0 +1,21 @@
+name: smoke tests
+on:
+  push:
+    tags:
+      - dependencies
+  workflow_dispatch:
+jobs:
+  smoke-tests:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - run: flutter --version
+      - run: flutter pub get
+      - run: flutter test test/smoke_test.dart

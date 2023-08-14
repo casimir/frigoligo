@@ -39,6 +39,7 @@ jobs:
           cache: true
       - run: flutter --version
       - run: flutter pub get
+      - run: flutter test
       - run: flutter build apk
       - run: cp build/app/outputs/flutter-apk/app-release.apk $ARTIFACT
       - uses: actions/upload-artifact@v3
@@ -68,6 +69,7 @@ jobs:
           sudo apt-get install -y ninja-build libgtk-3-dev
       - run: flutter --version
       - run: flutter pub get
+      - run: flutter test
       - run: flutter build linux
       - run: cp -R build/linux/x64/release/bundle/ build/frigoligo/
       - run: tar czf ../$ARTIFACT frigoligo/
@@ -140,6 +142,7 @@ jobs:
           cache: true
       - run: flutter --version
       - run: flutter pub get
+      - run: flutter test
       - run: flutter build windows
       - run: Copy-Item -Path build\windows\runner\Release\ -Destination build\frigoligo\ -Recurse
       - run: Compress-Archive -Path frigoligo -DestinationPath ..\\$env:ARTIFACT
