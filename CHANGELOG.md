@@ -1,3 +1,20 @@
+<a name="v0.4.1"></a>
+# [v0.4.1](https://github.com/casimir/frigoligo/releases/tag/v0.4.1) - 14 Aug 2023
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### Miscellaneous
+* On-demand builds for pull requests by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/55
+* Smoke tests by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/57
+* Allow to sign debug version alongside release version for android by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/58
+
+
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.4.0...v0.4.1
+
+[Changes][v0.4.1]
+
+
 <a name="v0.4.0"></a>
 # [0.4.0 (v0.4.0)](https://github.com/casimir/frigoligo/releases/tag/v0.4.0) - 08 Aug 2023
 
@@ -125,6 +142,7 @@ Let's begin! This is the very first release.
 [Changes][v0.1.0]
 
 
+[v0.4.1]: https://github.com/casimir/frigoligo/compare/v0.4.0...v0.4.1
 [v0.4.0]: https://github.com/casimir/frigoligo/compare/v0.3.2...v0.4.0
 [v0.3.2]: https://github.com/casimir/frigoligo/compare/v0.3.1...v0.3.2
 [v0.3.1]: https://github.com/casimir/frigoligo/compare/v0.3.0...v0.3.1
