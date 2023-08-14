@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:fwfh_cached_network_image/fwfh_cached_network_image.dart';
 import 'package:fwfh_url_launcher/fwfh_url_launcher.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -118,9 +119,9 @@ class _ArticlePageState extends State<ArticlePage> {
                       isDestructiveAction: true,
                     );
                     if (result == OkCancelResult.cancel) return;
-                    await provider.deleteAndRefresh();
+                    await provider.delete();
                     if (widget.isFullScreen && context.mounted) {
-                      Navigator.of(context).pop();
+                      context.go('/');
                     }
                 }
               },

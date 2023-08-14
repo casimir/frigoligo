@@ -1,7 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:frigoligo/pages/logconsole.dart';
+import 'package:frigoligo/pages/session_details.dart';
+import 'package:frigoligo/pages/settings.dart';
+import 'package:frigoligo/providers/logconsole.dart';
 import 'package:frigoligo/wallabag/wallabag.dart';
+import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
@@ -37,12 +42,57 @@ void main() async {
   // after this line using `await` is OK
   WidgetsFlutterBinding.ensureInitialized();
 
+  await DB.init(kDebugMode);
+  await WallabagInstance.init();
   await SettingsProvider.init();
   final info = await PackageInfo.fromPlatform();
   _log.info('version: ${info.version}+${info.buildNumber}');
 
   runApp(const MyApp());
 }
+
+final _router = GoRouter(routes: [
+  GoRoute(
+    path: '/',
+    redirect: (context, state) => !WallabagInstance.isReady ? '/login' : null,
+    builder: (context, state) => const HomePage(),
+  ),
+  GoRoute(
+    path: '/login',
+    builder: (context, state) => const LoginPage(),
+  ),
+  GoRoute(
+    path: '/settings',
+    builder: (context, state) => ChangeNotifierProvider.value(
+      value: state.extra as ArticlesProvider,
+      child: const SettingsPage(),
+    ),
+  ),
+  GoRoute(
+    path: '/session',
+    builder: (context, state) => const SessionDetailsPage(),
+  ),
+  GoRoute(
+    path: '/logs',
+    builder: (context, state) => ChangeNotifierProvider(
+      create: (_) => LogConsoleProvider(),
+      child: const LogConsolePage(),
+    ),
+  ),
+  GoRoute(
+    path: '/articles/:id',
+    builder: (context, state) {
+      final id = int.parse(state.pathParameters['id']!);
+      return ChangeNotifierProvider(
+        create: (_) => ArticleProvider(id),
+        builder: (context, _) => ArticlePage(
+          articleId: id,
+          isFullScreen: true,
+        ),
+      );
+    },
+  ),
+]);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -54,18 +104,18 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         final themeMode = context
             .select((SettingsProvider settings) => settings[Sk.themeMode]);
-        return MaterialApp(
+        return MaterialApp.router(
+          routerConfig: _router,
+          title: 'Frigoligo',
+          theme: ThemeData(colorScheme: schemeLight, useMaterial3: true),
+          darkTheme: ThemeData(colorScheme: schemeDark, useMaterial3: true),
+          themeMode: themeMode,
           localizationsDelegates: const [
             DefaultMaterialLocalizations.delegate,
             DefaultWidgetsLocalizations.delegate,
             DefaultCupertinoLocalizations.delegate,
           ],
-          title: 'Frigoligo',
-          theme: ThemeData(colorScheme: schemeLight, useMaterial3: true),
-          darkTheme: ThemeData(colorScheme: schemeDark, useMaterial3: true),
-          themeMode: themeMode,
           restorationScopeId: 'app',
-          home: const HomePage(),
         );
       },
     );
@@ -77,24 +127,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: Future.wait([DB.init(kDebugMode), WallabagInstance.init()]),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return WallabagInstance.isReady
-              ? const _MainContainer()
-              : const LoginPage();
-        } else if (snapshot.hasError) {
-          _log.severe(
-            'failed to finish login process',
-            snapshot.error,
-            snapshot.stackTrace,
-          );
-          return Text('ERROR ${snapshot.error}');
-        }
-        return const Center(child: CircularProgressIndicator());
-      },
-    );
+    return const _MainContainer();
   }
 }
 
@@ -133,20 +166,7 @@ class _MainContainerState extends State<_MainContainer> with RestorationMixin {
 
   Widget _buildNarrowLayout() {
     return ListingPage(
-      onItemSelect: (article) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => ChangeNotifierProvider(
-              create: (_) => ArticleProvider(article.id!),
-              builder: (_, __) => ArticlePage(
-                articleId: article.id!,
-                isFullScreen: true,
-              ),
-            ),
-          ),
-        );
-      },
+      onItemSelect: (article) => context.push('/articles/${article.id}'),
     );
   }
 

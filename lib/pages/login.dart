@@ -2,11 +2,9 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:frigoligo/wallabag/wallabag.dart';
+import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
-import 'package:provider/provider.dart';
 
-import '../providers/logconsole.dart';
-import 'logconsole.dart';
 import 'login_forms/server_form.dart';
 import 'login_forms/validators.dart';
 
@@ -110,8 +108,7 @@ class _LoginPageState extends State<LoginPage> {
                       _fbKey.currentState!.value['username'],
                       _fbKey.currentState!.value['password']);
                   if (context.mounted) {
-                    Navigator.of(context)
-                        .pushNamedAndRemoveUntil('/', (r) => false);
+                    context.go('/');
                   }
                 } catch (e) {
                   setState(() => _gotAnError = true);
@@ -130,17 +127,7 @@ class _LoginPageState extends State<LoginPage> {
           const SizedBox(height: 8.0),
           if (_gotAnError)
             MaterialButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => ChangeNotifierProvider(
-                      create: (_) => LogConsoleProvider(),
-                      child: const LogConsolePage(),
-                    ),
-                  ),
-                );
-              },
+              onPressed: () => context.push('/logs'),
               child: const Text('Open the Log Console'),
             ),
         ],

@@ -58,7 +58,7 @@ class ArticleProvider extends ChangeNotifier {
     onProgress?.call(1);
   }
 
-  Future<void> deleteAndRefresh() async {
+  Future<void> delete() async {
     var wallabag = WallabagInstance.get();
     await wallabag.deleteEntry(articleId);
     await db.writeTxn(() async {
