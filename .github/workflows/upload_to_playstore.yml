@@ -28,6 +28,8 @@ jobs:
       - run: flutter --version
       - run: flutter pub get
       - run: flutter build appbundle
+        env:
+          NO_SIGNING: true
       - name: Sign Release
         uses: r0adkll/sign-android-release@v1
         id: sign_release
