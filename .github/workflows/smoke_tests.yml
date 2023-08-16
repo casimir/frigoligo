@@ -1,6 +1,8 @@
 name: smoke tests
 on:
   push:
+    branches:
+      - main
     tags:
       - dependencies
   workflow_dispatch:
