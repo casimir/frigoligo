@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 
@@ -11,7 +12,6 @@ import '../services/wallabag.dart';
 import '../string_extension.dart';
 import '../widgets/async_action_button.dart';
 import '../widgets/icon_toggle_button.dart';
-import 'settings.dart';
 
 final _log = Logger('frigoligo.listing');
 
@@ -102,15 +102,7 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
           ),
           IconButton(
             icon: const Icon(Icons.settings),
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => ChangeNotifierProvider.value(
-                  value: articles,
-                  child: const SettingsPage(),
-                ),
-              ),
-            ),
+            onPressed: () => context.push('/settings', extra: articles),
           ),
         ],
       ),

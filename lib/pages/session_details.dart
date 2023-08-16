@@ -2,6 +2,7 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:frigoligo/wallabag/wallabag.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../models/db.dart';
@@ -102,8 +103,7 @@ class SessionDetailsPage extends StatelessWidget {
               settings.remove(Sk.lastRefresh);
               await DB.clear();
               if (context.mounted) {
-                Navigator.of(context)
-                    .pushNamedAndRemoveUntil('/', (r) => false);
+                context.go('/login');
               }
             },
             icon: const Icon(Icons.logout),

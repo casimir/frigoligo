@@ -1,16 +1,15 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:frigoligo/string_extension.dart';
+import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 import '../constants.dart';
-import '../providers/logconsole.dart';
 import '../providers/settings.dart';
 import '../services/wallabag.dart';
-import 'logconsole.dart';
 import 'session_details.dart';
 
 final _log = Logger('frigoligo.listing');
@@ -87,8 +86,8 @@ class SettingsPage extends StatelessWidget {
                     _log.info('user action > cache rebuild');
                     settings.remove(Sk.lastRefresh);
                     if (context.mounted) {
-                      Navigator.of(context)
-                          .pushNamedAndRemoveUntil('/', (r) => false);
+                      articles.fullRefresh();
+                      context.go('/');
                     }
                   },
                 ),
@@ -113,28 +112,12 @@ class SettingsPage extends StatelessWidget {
                 SettingsTile.navigation(
                   leading: const Icon(Icons.key),
                   title: const Text('Session details'),
-                  onPressed: (context) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => const SessionDetailsPage()),
-                    );
-                  },
+                  onPressed: (context) => context.push('/session'),
                 ),
                 SettingsTile.navigation(
                   leading: const Icon(Icons.bug_report),
                   title: const Text('Log Console'),
-                  onPressed: (context) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => ChangeNotifierProvider(
-                          create: (_) => LogConsoleProvider(),
-                          child: const LogConsolePage(),
-                        ),
-                      ),
-                    );
-                  },
+                  onPressed: (context) => context.push('/logs'),
                 ),
               ],
             )

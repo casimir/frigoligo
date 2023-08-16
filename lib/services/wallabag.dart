@@ -148,8 +148,7 @@ class ArticlesProvider with ChangeNotifier {
   }
 
   Future<void> updateAppBadge() async {
-    bool isSupported = await FlutterAppBadger.isAppBadgeSupported();
-    if (!isSupported) return;
+    if (!appBadgeSupported) return;
 
     final unread = count(StateFilter.unread, StarredFilter.all);
     if (unread == 0 || !settings[Sk.appBadge]) {
