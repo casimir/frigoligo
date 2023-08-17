@@ -10,7 +10,6 @@ import 'package:settings_ui/settings_ui.dart';
 import '../constants.dart';
 import '../providers/settings.dart';
 import '../services/wallabag.dart';
-import 'session_details.dart';
 
 final _log = Logger('frigoligo.listing');
 

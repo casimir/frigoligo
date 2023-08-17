@@ -56,6 +56,7 @@ dependencies:
   settings_ui: ^2.0.2
   flutter_app_badger: ^1.5.0
   go_router: ^10.0.0
+  app_links: ^3.4.3
 
 dev_dependencies:
   flutter_test:

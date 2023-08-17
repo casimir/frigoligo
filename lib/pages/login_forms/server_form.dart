@@ -5,10 +5,12 @@ import 'package:frigoligo/wallabag/utils.dart';
 import 'validators.dart';
 
 class ServerForm extends StatefulWidget {
-  const ServerForm({super.key, required this.stateKey, this.onCheckChange});
+  const ServerForm(
+      {super.key, required this.stateKey, this.onCheckChange, this.initial});
 
   final GlobalKey<FormBuilderState> stateKey;
   final void Function(WallabagServerCheck?)? onCheckChange;
+  final String? initial;
 
   @override
   State<ServerForm> createState() => _ServerFormState();
@@ -82,6 +84,7 @@ class _ServerFormState extends State<ServerForm> {
                       ),
                       autocorrect: false,
                       onSubmitted: (_) => startValidationAndCheck(),
+                      initialValue: widget.initial,
                     ),
                     const SizedBox(height: 8.0),
                     ElevatedButton(

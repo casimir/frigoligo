@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  app_links
   dynamic_color
   isar_flutter_libs
   share_plus

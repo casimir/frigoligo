@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:frigoligo/pages/logconsole.dart';
+import 'package:frigoligo/pages/save.dart';
 import 'package:frigoligo/pages/session_details.dart';
 import 'package:frigoligo/pages/settings.dart';
+import 'package:frigoligo/providers/deeplinks.dart';
 import 'package:frigoligo/providers/logconsole.dart';
 import 'package:frigoligo/wallabag/wallabag.dart';
 import 'package:go_router/go_router.dart';
@@ -59,7 +61,7 @@ final _router = GoRouter(routes: [
   ),
   GoRoute(
     path: '/login',
-    builder: (context, state) => const LoginPage(),
+    builder: (context, state) => LoginPage(initial: state.uri.queryParameters),
   ),
   GoRoute(
     path: '/settings',
@@ -92,6 +94,10 @@ final _router = GoRouter(routes: [
       );
     },
   ),
+  GoRoute(
+    path: '/save',
+    builder: (context, state) => const SavePage(),
+  ),
 ]);
 
 class MyApp extends StatelessWidget {
@@ -99,11 +105,36 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => SettingsProvider(namespace: kDebugMode ? 'debug' : null),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) =>
+              SettingsProvider(namespace: kDebugMode ? 'debug' : null),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => DeeplinksProvider(_router.configuration),
+          lazy: false,
+        ),
+      ],
       builder: (context, child) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          final deeplinks = context.read<DeeplinksProvider>();
+          if (!deeplinks.isListening) {
+            deeplinks.listen((linkType, uri) {
+              switch (linkType) {
+                case Deeplink.login:
+                  _router.go(uri.toString());
+                case Deeplink.save:
+                  _router.push(uri.toString());
+                default:
+              }
+            });
+          }
+        });
+
         final themeMode = context
             .select((SettingsProvider settings) => settings[Sk.themeMode]);
+
         return MaterialApp.router(
           routerConfig: _router,
           title: 'Frigoligo',
