@@ -27,8 +27,13 @@ Future<WallabagInfo?> _fetchWallabagInfo(Uri uri) async {
 
 Future<Uri?> _detectFavicon(Uri uri) async {
   final faviconUri = Uri.https(uri.authority, '/favicon.ico');
-  final response = await http.head(faviconUri);
-  return response.statusCode == 200 ? faviconUri : null;
+  try {
+    final response = await http.head(faviconUri);
+    return response.statusCode == 200 ? faviconUri : null;
+  } catch (e) {
+    _log.warning("failed to detect favicon for '$uri': $e");
+    return null;
+  }
 }
 
 Future<WallabagServerCheck> checkWallabagServer(String serverUrl) async {

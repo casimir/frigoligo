@@ -18,9 +18,9 @@ class ArticleProvider extends ChangeNotifier {
   int articleId;
   bool hasJumpedToPosition = false;
 
-  Article? get article => db.articles.getSync(articleId);
+  Article? get article => db.articles.get(articleId);
   double? get scrollPosition =>
-      db.articleScrollPositions.getSync(articleId)?.position;
+      db.articleScrollPositions.get(articleId)?.position;
   bool get isPositionRestorePending =>
       articleId != 0 && !hasJumpedToPosition && scrollPosition != null;
 
@@ -48,11 +48,11 @@ class ArticleProvider extends ChangeNotifier {
     await wallabag.patchEntry(articleId, archive: archive, starred: starred);
     final entry = await wallabag.getEntry(articleId);
     final article = Article.fromWallabagEntry(entry);
-    final scrollPosition = await db.articleScrollPositions.get(articleId);
-    await db.writeTxn(() async {
-      await db.articles.put(article);
+    final scrollPosition = db.articleScrollPositions.get(articleId);
+    db.write((db) {
+      db.articles.put(article);
       if (scrollPosition?.readingTime != article.readingTime) {
-        await db.articleScrollPositions.delete(articleId);
+        db.articleScrollPositions.delete(articleId);
       }
     });
     onProgress?.call(1);
@@ -61,17 +61,17 @@ class ArticleProvider extends ChangeNotifier {
   Future<void> delete() async {
     var wallabag = WallabagInstance.get();
     await wallabag.deleteEntry(articleId);
-    await db.writeTxn(() async {
-      await db.articles.delete(articleId);
-      await db.articleScrollPositions.delete(articleId);
+    db.write((db) {
+      db.articles.delete(articleId);
+      db.articleScrollPositions.delete(articleId);
     });
   }
 
   Future<void> saveScrollPosition(double position) async {
     if (articleId == 0) return;
-    final article = await db.articles.get(articleId);
-    await db.writeTxn(() async {
-      await db.articleScrollPositions.put(
+    final article = db.articles.get(articleId);
+    db.write((db) {
+      db.articleScrollPositions.put(
         ArticleScrollPosition.fromArticle(article!, position),
       );
     });

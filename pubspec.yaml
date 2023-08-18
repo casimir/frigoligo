@@ -41,8 +41,8 @@ dependencies:
   flutter_widget_from_html_core: ^0.10.1
   shared_preferences: ^2.1.2
   logging: ^1.2.0
-  isar: ^3.1.0+1
-  isar_flutter_libs: ^3.1.0+1
+  isar: ^4.0.0-dev.10
+  isar_flutter_libs: ^4.0.0-dev.10
   path_provider: ^2.0.15
   fwfh_url_launcher: ^0.9.0+2
   fwfh_cached_network_image: ^0.7.0+5
@@ -70,7 +70,6 @@ dev_dependencies:
 
   build_runner: ^2.4.6
   json_serializable: ^6.7.0
-  isar_generator: ^3.1.0+1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

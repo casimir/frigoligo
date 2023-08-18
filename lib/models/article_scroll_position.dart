@@ -6,16 +6,21 @@ part 'article_scroll_position.g.dart';
 
 @collection
 class ArticleScrollPosition {
-  Id? id;
-  late int readingTime;
-  late double position;
+  int id;
+  int readingTime;
+  double position;
 
-  ArticleScrollPosition();
+  ArticleScrollPosition({
+    required this.id,
+    required this.readingTime,
+    required this.position,
+  });
 
   factory ArticleScrollPosition.fromArticle(Article article, double position) {
-    return ArticleScrollPosition()
-      ..id = article.id
-      ..readingTime = article.readingTime
-      ..position = position;
+    return ArticleScrollPosition(
+      id: article.id,
+      readingTime: article.readingTime,
+      position: position,
+    );
   }
 }

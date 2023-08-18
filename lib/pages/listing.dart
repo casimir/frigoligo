@@ -69,7 +69,7 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
     if (articleProvider != null && articleProvider.articleId == 0) {
       final first = articles.index(0, _stateFilter.value, _starredFilter.value);
       if (first != null) {
-        articleProvider.updateId(first.id!);
+        articleProvider.updateId(first.id);
       }
     }
 

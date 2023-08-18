@@ -6,45 +6,61 @@ part 'article.g.dart';
 
 @collection
 class Article {
-  Id? id;
-  late DateTime createdAt;
-  late DateTime updatedAt;
-  late String title;
+  int id;
+  DateTime createdAt;
+  DateTime updatedAt;
+  String title;
   String? domainName;
-  late String url;
+  String url;
 
   String? content;
   String? language;
-  late int readingTime;
+  int readingTime;
   String? previewPicture;
 
   DateTime? archivedAt;
   DateTime? starredAt;
-  late List<String> tags;
+  List<String> tags;
 
-  Article();
+  Article({
+    required this.id,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.title,
+    this.domainName,
+    required this.url,
+    this.content,
+    this.language,
+    this.readingTime = 0,
+    this.previewPicture,
+    this.archivedAt,
+    this.starredAt,
+    this.tags = const [],
+  });
 
-  @ignore
+  // ignore: unused_element
   StateFilter get stateValue =>
       archivedAt != null ? StateFilter.archived : StateFilter.unread;
-  @ignore
+
+  // ignore: unused_element
   StarredFilter get starredValue =>
       starredAt != null ? StarredFilter.starred : StarredFilter.unstarred;
 
   factory Article.fromWallabagEntry(WallabagEntry entry) {
-    return Article()
-      ..id = entry.id
-      ..createdAt = entry.createdAt
-      ..updatedAt = entry.updatedAt
-      ..title = entry.title!
-      ..domainName = entry.domainName
-      ..url = entry.url!
-      ..content = entry.content
-      ..language = entry.language
-      ..readingTime = entry.readingTime
-      ..previewPicture = entry.previewPicture
-      ..archivedAt = entry.archivedAt
-      ..starredAt = entry.starredAt
-      ..tags = entry.tags.map((e) => e.label).toList();
+    return Article(
+      id: entry.id,
+      createdAt: entry.createdAt,
+      updatedAt: entry.updatedAt,
+      title: entry.title!,
+      domainName: entry.domainName,
+      url: entry.url!,
+      content: entry.content,
+      language: entry.language,
+      readingTime: entry.readingTime,
+      previewPicture: entry.previewPicture,
+      archivedAt: entry.archivedAt,
+      starredAt: entry.starredAt,
+      tags: entry.tags.map((e) => e.label).toList(),
+    );
   }
 }

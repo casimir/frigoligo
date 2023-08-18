@@ -52,27 +52,22 @@ class ArticlesProvider with ChangeNotifier {
     super.dispose();
   }
 
-  Query<R> _buildQuery<R>({
+  IsarQuery<R> _buildQuery<R>({
     StateFilter state = StateFilter.unread,
     StarredFilter starred = StarredFilter.all,
     String? sort,
     String? property,
   }) {
-    List<FilterCondition> conditions = [];
+    List<Filter> filters = [];
     if (state != StateFilter.all) {
-      conditions.add(state == StateFilter.archived
-          ? const FilterCondition.isNotNull(property: 'archivedAt')
-          : const FilterCondition.isNull(property: 'archivedAt'));
+      final propertyIdx = db.articles.schema.getPropertyIndex('archivedAt');
+      filters.add(state == StateFilter.archived
+          ? NotGroup(IsNullCondition(property: propertyIdx))
+          : IsNullCondition(property: propertyIdx));
     }
     if (starred == StarredFilter.starred) {
-      conditions.add(const FilterCondition.isNotNull(property: 'starredAt'));
-    }
-
-    FilterOperation? filter;
-    if (conditions.length == 1) {
-      filter = conditions[0];
-    } else {
-      filter = FilterGroup.and(conditions);
+      final propertyIdx = db.articles.schema.getPropertyIndex('starredAt');
+      filters.add(NotGroup(IsNullCondition(property: propertyIdx)));
     }
 
     List<SortProperty> sortBy = [];
@@ -86,13 +81,17 @@ class ArticlesProvider with ChangeNotifier {
         property = sort;
         direction = Sort.asc;
       }
-      sortBy.add(SortProperty(property: property, sort: direction));
+      final propertyIdx = db.articles.schema.getPropertyIndex(property);
+      sortBy.add(SortProperty(property: propertyIdx, sort: direction));
     }
 
+    final propertiesIdx = property != null
+        ? [db.articles.schema.getPropertyIndex(property)]
+        : null;
     return db.articles.buildQuery(
-      filter: filter,
+      filter: AndGroup(filters),
       sortBy: sortBy,
-      property: property,
+      properties: propertiesIdx,
     );
   }
 
@@ -101,7 +100,7 @@ class ArticlesProvider with ChangeNotifier {
         state: state,
         starred: starred,
         sort: '-createdAt',
-      ).findAllSync();
+      ).findAll();
   Article? index(int n, StateFilter state, StarredFilter starred) {
     if (n < 0 || n >= count(state, starred)) return null;
     var ids = _buildQuery(
@@ -109,17 +108,17 @@ class ArticlesProvider with ChangeNotifier {
       starred: starred,
       sort: '-createdAt',
       property: 'id',
-    ).findAllSync();
-    return db.articles.getSync(ids[n])!;
+    ).findAll();
+    return db.articles.get(ids[n])!;
   }
 
   int count(StateFilter state, StarredFilter starred) =>
-      _buildQuery(state: state, starred: starred).countSync();
+      _buildQuery(state: state, starred: starred).count();
 
   Future<int> syncRemoteDeletes() async {
     _log.info('checking for server-side deletions');
     final remoteCount = await wallabag.fetchTotalEntriesCount();
-    var localIds = (await db.articles.where().idProperty().findAll()).toSet();
+    var localIds = (db.articles.where().idProperty().findAll()).toSet();
     final delta = localIds.length - remoteCount;
     if (delta <= 0) return 0;
     _log.info('server-side deletion detected: delta=$delta');
@@ -137,9 +136,9 @@ class ArticlesProvider with ChangeNotifier {
       localIds = localIds.difference(entries.map((e) => e.id).toSet());
     }
 
-    final deletedCount = await db.writeTxn(() async {
-      final res = await db.articles.deleteAll(localIds.toList());
-      await db.articleScrollPositions.deleteAll(localIds.toList());
+    final deletedCount = db.write((db) {
+      final res = db.articles.deleteAll(localIds.toList());
+      db.articleScrollPositions.deleteAll(localIds.toList());
       return res;
     });
     _log.info('removed $deletedCount entries from database');
@@ -169,8 +168,8 @@ class ArticlesProvider with ChangeNotifier {
     _log.info('starting refresh with since=$sinceRepr');
 
     if (since == null) {
-      await db.writeTxn(() async {
-        await db.articles.clear();
+      db.write((db) {
+        db.articles.clear();
         _log.info('cleared the whole articles collection');
       });
     }
@@ -187,17 +186,17 @@ class ArticlesProvider with ChangeNotifier {
           for (var e in entries) e.id: Article.fromWallabagEntry(e)
         };
         final positions =
-            await db.articleScrollPositions.getAll(articles.keys.toList());
+            db.articleScrollPositions.getAll(articles.keys.toList());
         final invalidPositions = positions
             .whereType<ArticleScrollPosition>()
             .where((e) => e.readingTime != articles[e.id]?.readingTime)
-            .map((e) => e.id!)
+            .map((e) => e.id)
             .toList();
 
-        final putCount = await db.writeTxn(() async {
-          final res = await db.articles.putAll(articles.values.toList());
-          await db.articleScrollPositions.deleteAll(invalidPositions);
-          return res.length;
+        final putCount = db.write((db) {
+          db.articles.putAll(articles.values.toList());
+          db.articleScrollPositions.deleteAll(invalidPositions);
+          return articles.length;
         });
         _log.info('saved $putCount entries to the database');
 
