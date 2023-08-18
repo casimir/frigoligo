@@ -166,10 +166,15 @@ class _LoginPageState extends State<LoginPage> {
                   setState(() => _gotAnError = true);
                   if (e is WallabagError) {
                     _log.warning('authentication failed', e.message);
-                    showOkAlertDialog(context: context, message: e.message);
+                    if (context.mounted) {
+                      showOkAlertDialog(context: context, message: e.message);
+                    }
                   } else {
                     _log.severe('unexpected error', e);
-                    showOkAlertDialog(context: context, message: e.toString());
+                    if (context.mounted) {
+                      showOkAlertDialog(
+                          context: context, message: e.toString());
+                    }
                   }
                 }
               }
