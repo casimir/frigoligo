@@ -96,7 +96,10 @@ final _router = GoRouter(routes: [
   ),
   GoRoute(
     path: '/save',
-    builder: (context, state) => const SavePage(),
+    builder: (context, state) {
+      final url = state.uri.queryParameters['url'];
+      return SavePage(url: url);
+    },
   ),
 ]);
 
@@ -112,23 +115,32 @@ class MyApp extends StatelessWidget {
               SettingsProvider(namespace: kDebugMode ? 'debug' : null),
         ),
         ChangeNotifierProvider(
-          create: (_) => DeeplinksProvider(_router.configuration),
-          lazy: false,
+          create: (context) {
+            return DeeplinksProvider(_router.configuration, (linkType, uri) {
+              void pushOrGoLogin(Uri uri) {
+                if (WallabagInstance.isReady) {
+                  _router.push(uri.toString());
+                } else {
+                  _router.go('/login');
+                }
+              }
+
+              switch (linkType) {
+                case Deeplink.login:
+                  _router.go(uri.toString());
+                case Deeplink.save:
+                  pushOrGoLogin(uri);
+                default:
+              }
+            });
+          },
         ),
       ],
       builder: (context, child) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           final deeplinks = context.read<DeeplinksProvider>();
           if (!deeplinks.isListening) {
-            deeplinks.listen((linkType, uri) {
-              switch (linkType) {
-                case Deeplink.login:
-                  _router.go(uri.toString());
-                case Deeplink.save:
-                  _router.push(uri.toString());
-                default:
-              }
-            });
+            deeplinks.listen();
           }
         });
 

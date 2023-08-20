@@ -196,7 +196,7 @@ class _ArticlePageState extends State<ArticlePage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(article.domainName!),
+              Text(article.domainName ?? article.url),
               const Text(' - '),
               const Icon(Icons.timer_outlined),
               Text('${article.readingTime} min'),

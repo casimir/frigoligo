@@ -11,26 +11,32 @@ class DeeplinksProvider extends ChangeNotifier {
   final AppLinks _appLinks = AppLinks();
   StreamSubscription? _appLinksSubscription;
   final RouteConfiguration routeConfiguration;
+  final void Function(Deeplink, Uri) onData;
 
-  DeeplinksProvider(this.routeConfiguration);
+  DeeplinksProvider(this.routeConfiguration, this.onData);
 
   bool get isListening => _appLinksSubscription != null;
 
-  void listen(void Function(Deeplink, Uri) onData) {
+  Deeplink receive(Uri uri) {
+    _log.info('trying to open $uri');
+    final matches = routeConfiguration.findMatch(uri.toString());
+    if (matches.isEmpty) return Deeplink.invalid;
+    final linkType = switch (uri.pathSegments.first) {
+      'login' => Deeplink.login,
+      'save' => Deeplink.save,
+      _ => Deeplink.invalid,
+    };
+    if (linkType != Deeplink.invalid) {
+      _log.info('validated $linkType: $uri');
+      onData(linkType, uri);
+    }
+    return linkType;
+  }
+
+  void listen() {
     assert(_appLinksSubscription == null);
     _appLinksSubscription = _appLinks.allUriLinkStream.listen((uri) {
-      _log.info('trying to open $uri');
-      final matches = routeConfiguration.findMatch(uri.toString());
-      if (matches.isEmpty) return;
-      final linkType = switch (uri.pathSegments.first) {
-        'login' => Deeplink.login,
-        'save' => Deeplink.save,
-        _ => null,
-      };
-      if (linkType != null) {
-        _log.info('validated $linkType: $uri');
-        onData(linkType, uri);
-      }
+      receive(uri);
     });
   }
 
@@ -42,6 +48,7 @@ class DeeplinksProvider extends ChangeNotifier {
 }
 
 enum Deeplink {
+  invalid,
   login,
   save,
 }
