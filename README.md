@@ -27,6 +27,41 @@ A full history of changes is available in [CHANGELOG.md](./CHANGELOG.md).
 |:-:|:-:|:-:|
 |![android screenshot](./assets/screenshots/android_light.png)|![desktop screenshot](./assets/screenshots/desktop.png)|![android dark theme screenshot](./assets/screenshots/android_dark.png)|
 
+## Deeplinks
+
+Frigoligo supports a few deeplinks that allows it to be integrated in external workflows. All platforms except Linux are supported.
+
+### Links format
+
+Deeplinks are based on a custom scheme, the URI path is used to determine the action to perform.
+
+The follow link will open the app and perform the `action` action with the given parameters `param1` (`hello`) and `param2` (`Günther`). Note that the host `x` is just here for readability and is ignored.
+```
+frigoligo://x/action?param1=hello&param2=G%C3%BCnther
+```
+
+### Actions
+
+#### `/login`
+
+Open the login page and prefills the given credentials. Be aware that such link in the wild weakens the security of your account.
+
+| Parameter      | Description                  | Required |
+|----------------|------------------------------|----------|
+| `server`       | Your Wallabag server URL.    | No       |
+| `clientId`     | Your Wallabag client ID.     | No       |
+| `clientSecret` | Your Wallabag client secret. | No       |
+| `username`     | Your Wallabag username.      | No       |
+| `password`     | Your Wallabag password.      | No       |
+
+#### `/save`
+
+Save a new article. This is super useful to integrate article saving from an external workflow.
+
+| Parameter | Description                     | Required |
+|-----------|---------------------------------|----------|
+| `url`     | The URL of the article to save. | Yes      |
+
 ## License
 
 Licensed under the MIT. See [LICENSE](./LICENSE) for details.

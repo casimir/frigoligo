@@ -30,5 +30,16 @@
 	<string>NSApplication</string>
 	<key>NSUserNotificationAlertStyle</key>
 	<string>banner</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>net.casimir-lab.frigoligo</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>frigoligo</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

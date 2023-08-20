@@ -8,9 +8,9 @@ import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 import '../constants.dart';
+import '../providers/deeplinks.dart';
 import '../providers/settings.dart';
 import '../services/wallabag.dart';
-import 'session_details.dart';
 
 final _log = Logger('frigoligo.listing');
 
@@ -118,6 +118,25 @@ class SettingsPage extends StatelessWidget {
                   leading: const Icon(Icons.bug_report),
                   title: const Text('Log Console'),
                   onPressed: (context) => context.push('/logs'),
+                ),
+                SettingsTile(
+                  leading: const Icon(Icons.dataset_linked),
+                  title: const Text('Open a deeplink'),
+                  onPressed: (context) async {
+                    final urls = await showTextInputDialog(
+                        context: context,
+                        textFields: [
+                          const DialogTextField(
+                            hintText: 'URL',
+                            keyboardType: TextInputType.url,
+                            autocorrect: false,
+                          )
+                        ]);
+                    if (context.mounted && urls != null) {
+                      final uri = Uri.parse(urls.first);
+                      context.read<DeeplinksProvider>().receive(uri);
+                    }
+                  },
                 ),
               ],
             )
