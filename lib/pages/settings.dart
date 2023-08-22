@@ -10,7 +10,7 @@ import 'package:settings_ui/settings_ui.dart';
 import '../constants.dart';
 import '../providers/deeplinks.dart';
 import '../providers/settings.dart';
-import '../services/wallabag.dart';
+import '../services/wallabag_storage.dart';
 
 final _log = Logger('frigoligo.listing');
 
@@ -20,7 +20,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final settings = context.watch<SettingsProvider>();
-    final articles = context.read<ArticlesProvider>();
+    final storage = context.read<WallabagStorage>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
@@ -62,7 +62,7 @@ class SettingsPage extends StatelessWidget {
                     initialValue: settings[Sk.appBadge],
                     onToggle: (value) {
                       final previous = settings[Sk.appBadge];
-                      if (previous != value) articles.updateAppBadge();
+                      if (previous != value) storage.updateAppBadge();
                       return settings[Sk.appBadge] = value;
                     },
                   )
@@ -86,7 +86,7 @@ class SettingsPage extends StatelessWidget {
                     _log.info('user action > cache rebuild');
                     settings.remove(Sk.lastRefresh);
                     if (context.mounted) {
-                      articles.fullRefresh();
+                      storage.fullRefresh();
                       context.go('/');
                     }
                   },

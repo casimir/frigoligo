@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
-import 'package:frigoligo/providers/settings.dart';
 import 'package:frigoligo/wallabag/wallabag.dart';
 import 'package:isar/isar.dart';
 import 'package:logging/logging.dart';
@@ -12,8 +11,9 @@ import '../constants.dart';
 import '../models/article.dart';
 import '../models/article_scroll_position.dart';
 import '../models/db.dart';
+import '../providers/settings.dart';
 
-final _log = Logger('wallabag.service');
+final _log = Logger('wallabag.storage');
 
 enum RefreshState {
   idle,
@@ -22,8 +22,8 @@ enum RefreshState {
   error,
 }
 
-class ArticlesProvider with ChangeNotifier {
-  ArticlesProvider(this.settings, {this.onError}) {
+class WallabagStorage with ChangeNotifier {
+  WallabagStorage(this.settings, {this.onError}) {
     _watcher = db.articles.watchLazy().listen((_) => notifyListeners());
 
     // ensure a relative freshness of the articles
@@ -234,5 +234,15 @@ class ArticlesProvider with ChangeNotifier {
       }
     }
     return fullRefresh(since: since > 0 ? since : null);
+  }
+
+  Future<void> persistArticle(Article article) async {
+    final scrollPosition = await db.articleScrollPositions.get(article.id!);
+    await db.writeTxn(() async {
+      await db.articles.put(article);
+      if (scrollPosition?.readingTime != article.readingTime) {
+        await db.articleScrollPositions.delete(article.id!);
+      }
+    });
   }
 }

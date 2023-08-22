@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import '../constants.dart';
 import '../models/article.dart';
 import '../providers/article.dart';
-import '../services/wallabag.dart';
+import '../services/wallabag_storage.dart';
 import '../string_extension.dart';
 import '../widgets/async_action_button.dart';
 import '../widgets/icon_toggle_button.dart';
@@ -49,31 +49,31 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
     super.dispose();
   }
 
-  String _makeTitle(ArticlesProvider articles) {
+  String _makeTitle(WallabagStorage storage) {
     var prefix = _stateFilter.value.name.toCapitalCase()!;
     if (_starredFilter.value == StarredFilter.starred) {
       prefix += ' ★';
     }
-    return '$prefix (${articles.count(_stateFilter.value, _starredFilter.value)})';
+    return '$prefix (${storage.count(_stateFilter.value, _starredFilter.value)})';
   }
 
   @override
   Widget build(BuildContext context) {
-    final articles = context.watch<ArticlesProvider>();
-    final refreshProgressValue = context.select<ArticlesProvider, double?>(
-      (articles) => articles.refreshProgressValue,
+    final storage = context.watch<WallabagStorage>();
+    final refreshProgressValue = context.select<WallabagStorage, double?>(
+      (storage) => storage.refreshProgressValue,
     );
 
     // in split mode, select the first article of the list
     final articleProvider = context.read<ArticleProvider?>();
     if (articleProvider != null && articleProvider.articleId == 0) {
-      final first = articles.index(0, _stateFilter.value, _starredFilter.value);
+      final first = storage.index(0, _stateFilter.value, _starredFilter.value);
       if (first != null) {
         articleProvider.updateId(first.id!);
       }
     }
 
-    articles.onError = (error) {
+    storage.onError = (error) {
       ScaffoldMessenger.maybeOf(context)?.showSnackBar(
         SnackBar(content: Text(error.toString())),
       );
@@ -83,7 +83,7 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         centerTitle: true,
-        title: Text(_makeTitle(articles)),
+        title: Text(_makeTitle(storage)),
         actions: [
           IconToggleButton(
             isSelected: _showFilters.value,
@@ -97,12 +97,12 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
             progressValue: refreshProgressValue,
             onPressed: () {
               _log.info('user action > incremental refresh');
-              articles.incrementalRefresh();
+              storage.incrementalRefresh();
             },
           ),
           IconButton(
             icon: const Icon(Icons.settings),
-            onPressed: () => context.push('/settings', extra: articles),
+            onPressed: () => context.push('/settings', extra: storage),
           ),
         ],
       ),
@@ -120,7 +120,7 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
               },
             ),
           Expanded(
-            child: articles.count(_stateFilter.value, _starredFilter.value) == 0
+            child: storage.count(_stateFilter.value, _starredFilter.value) == 0
                 ? Center(
                     child: Text(
                       'No articles',
@@ -132,11 +132,11 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
                     children: [
                       Expanded(
                         child: ListView.separated(
-                          itemCount: articles.count(
+                          itemCount: storage.count(
                               _stateFilter.value, _starredFilter.value),
                           itemBuilder: (context, index) {
                             return ArticleListItem(
-                              article: articles.index(index, _stateFilter.value,
+                              article: storage.index(index, _stateFilter.value,
                                   _starredFilter.value)!,
                               onTap: (article) => widget.onItemSelect(article),
                             );

@@ -20,7 +20,7 @@ import 'pages/listing.dart';
 import 'pages/login.dart';
 import 'providers/article.dart';
 import 'providers/settings.dart';
-import 'services/wallabag.dart';
+import 'services/wallabag_storage.dart';
 
 final _log = Logger('frigoligo');
 
@@ -66,7 +66,7 @@ final _router = GoRouter(routes: [
   GoRoute(
     path: '/settings',
     builder: (context, state) => ChangeNotifierProvider.value(
-      value: state.extra as ArticlesProvider,
+      value: state.extra as WallabagStorage,
       child: const SettingsPage(),
     ),
   ),
@@ -202,7 +202,7 @@ class _MainContainerState extends State<_MainContainer> with RestorationMixin {
   Widget build(BuildContext context) {
     var shortestSide = MediaQuery.of(context).size.shortestSide;
     return ChangeNotifierProvider(
-      create: (context) => ArticlesProvider(context.read<SettingsProvider>()),
+      create: (context) => WallabagStorage(context.read<SettingsProvider>()),
       child: shortestSide < 600 ? _buildNarrowLayout() : _buildWideLayout(),
     );
   }
