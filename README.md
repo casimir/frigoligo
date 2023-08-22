@@ -1,6 +1,6 @@
 # Frigoligo [![Chat on Matrix](https://matrix.to/img/matrix-badge.svg)](https://matrix.to/#/#frigoligo:one.ems.host)
 
-Frigoligo is an universal [Wallabag](https://wallabag.org/) client made with [Flutter](https://flutter.dev/).
+Frigoligo is an universal [wallabag](https://wallabag.org/) client made with [Flutter](https://flutter.dev/).
 It is made to be _a lot of super-cool marketing things_ but for now it is just made with love and that's something.
 
 ## Installation
@@ -48,11 +48,11 @@ Open the login page and prefills the given credentials. Be aware that such link 
 
 | Parameter      | Description                  | Required |
 |----------------|------------------------------|----------|
-| `server`       | Your Wallabag server URL.    | No       |
-| `clientId`     | Your Wallabag client ID.     | No       |
-| `clientSecret` | Your Wallabag client secret. | No       |
-| `username`     | Your Wallabag username.      | No       |
-| `password`     | Your Wallabag password.      | No       |
+| `server`       | Your wallabag server URL.    | No       |
+| `clientId`     | Your wallabag client ID.     | No       |
+| `clientSecret` | Your wallabag client secret. | No       |
+| `username`     | Your wallabag username.      | No       |
+| `password`     | Your wallabag password.      | No       |
 
 #### `/save`
 
