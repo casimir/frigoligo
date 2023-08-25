@@ -4,10 +4,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../constants.dart';
 import '../models/article.dart';
-import '../providers/article.dart';
+import '../providers/settings.dart';
 import '../services/wallabag_storage.dart';
 import '../string_extension.dart';
 import '../widgets/async_action_button.dart';
@@ -16,9 +17,11 @@ import '../widgets/icon_toggle_button.dart';
 final _log = Logger('frigoligo.listing');
 
 class ListingPage extends StatefulWidget {
-  const ListingPage({super.key, required this.onItemSelect});
+  const ListingPage(
+      {super.key, required this.onItemSelect, this.initialArticleId});
 
-  final void Function(Article) onItemSelect;
+  final void Function(int articleId) onItemSelect;
+  final int? initialArticleId;
 
   @override
   State<ListingPage> createState() => _ListingPageState();
@@ -30,6 +33,8 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
       RestorableEnum(StateFilter.unread, values: StateFilter.values);
   final RestorableEnum<StarredFilter> _starredFilter =
       RestorableEnum(StarredFilter.all, values: StarredFilter.values);
+  final ItemScrollController _itemScrollController = ItemScrollController();
+  int? jumpedTo;
 
   @override
   String? get restorationId => 'listing';
@@ -49,6 +54,27 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
     super.dispose();
   }
 
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      // check if we have already jumped or if the state has been recycled
+      if (jumpedTo != null && jumpedTo == widget.initialArticleId) return;
+
+      final storage = context.read<WallabagStorage>();
+      final index = widget.initialArticleId != null
+          ? storage.indexOf(widget.initialArticleId!, _stateFilter.value,
+              _starredFilter.value)
+          : null;
+      if (index != null) {
+        _log.info('scrolling to $index (id:${widget.initialArticleId}))');
+        _itemScrollController.jumpTo(index: index, alignment: 0.5);
+        jumpedTo = widget.initialArticleId;
+      }
+    });
+  }
+
   String _makeTitle(WallabagStorage storage) {
     var prefix = _stateFilter.value.name.toCapitalCase()!;
     if (_starredFilter.value == StarredFilter.starred) {
@@ -60,18 +86,10 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
   @override
   Widget build(BuildContext context) {
     final storage = context.watch<WallabagStorage>();
+    final settings = storage.settings;
     final refreshProgressValue = context.select<WallabagStorage, double?>(
       (storage) => storage.refreshProgressValue,
     );
-
-    // in split mode, select the first article of the list
-    final articleProvider = context.read<ArticleProvider?>();
-    if (articleProvider != null && articleProvider.articleId == 0) {
-      final first = storage.index(0, _stateFilter.value, _starredFilter.value);
-      if (first != null) {
-        articleProvider.updateId(first.id!);
-      }
-    }
 
     storage.onError = (error) {
       ScaffoldMessenger.maybeOf(context)?.showSnackBar(
@@ -131,18 +149,21 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Expanded(
-                        child: ListView.separated(
+                        child: ScrollablePositionedList.separated(
                           itemCount: storage.count(
                               _stateFilter.value, _starredFilter.value),
                           itemBuilder: (context, index) {
                             return ArticleListItem(
                               article: storage.index(index, _stateFilter.value,
                                   _starredFilter.value)!,
-                              onTap: (article) => widget.onItemSelect(article),
+                              onTap: (article) {
+                                settings[Sk.selectedArticleId] = article.id;
+                                widget.onItemSelect(article.id!);
+                              },
                             );
                           },
                           separatorBuilder: (context, index) => const Divider(),
-                          restorationId: 'listing.list',
+                          itemScrollController: _itemScrollController,
                         ),
                       ),
                     ],

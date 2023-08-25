@@ -47,8 +47,6 @@ class _SavePageState extends State<SavePage> {
         if (context.mounted) context.pop();
         return;
       }
-    } else {
-      print(Uri.parse(widget.url!).host);
     }
 
     try {
@@ -115,7 +113,7 @@ class _SavePageState extends State<SavePage> {
       const SizedBox(height: 16.0),
       // TODO a preview card would be waaaay nicer
       ElevatedButton(
-        onPressed: () => context.replace('/articles/$savedArticleId'),
+        onPressed: () => context.replace('/?articleId=$savedArticleId'),
         child: const Text('View article'),
       ),
     ];

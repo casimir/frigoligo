@@ -1,12 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:frigoligo/pages/logconsole.dart';
-import 'package:frigoligo/pages/save.dart';
-import 'package:frigoligo/pages/session_details.dart';
-import 'package:frigoligo/pages/settings.dart';
-import 'package:frigoligo/providers/deeplinks.dart';
-import 'package:frigoligo/providers/logconsole.dart';
 import 'package:frigoligo/wallabag/wallabag.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
@@ -17,8 +11,14 @@ import 'constants.dart';
 import 'models/db.dart';
 import 'pages/article.dart';
 import 'pages/listing.dart';
+import 'pages/logconsole.dart';
 import 'pages/login.dart';
+import 'pages/save.dart';
+import 'pages/session_details.dart';
+import 'pages/settings.dart';
 import 'providers/article.dart';
+import 'providers/deeplinks.dart';
+import 'providers/logconsole.dart';
 import 'providers/settings.dart';
 import 'services/wallabag_storage.dart';
 
@@ -57,7 +57,12 @@ final _router = GoRouter(routes: [
   GoRoute(
     path: '/',
     redirect: (context, state) => !WallabagInstance.isReady ? '/login' : null,
-    builder: (context, state) => const HomePage(),
+    builder: (context, state) {
+      final rawArticleId = state.uri.queryParameters['articleId'];
+      return HomePage(
+        openArticleId: rawArticleId != null ? int.tryParse(rawArticleId) : null,
+      );
+    },
   ),
   GoRoute(
     path: '/login',
@@ -96,10 +101,8 @@ final _router = GoRouter(routes: [
   ),
   GoRoute(
     path: '/save',
-    builder: (context, state) {
-      final url = state.uri.queryParameters['url'];
-      return SavePage(url: url);
-    },
+    builder: (context, state) =>
+        SavePage(url: state.uri.queryParameters['url']),
   ),
 ]);
 
@@ -126,6 +129,8 @@ class MyApp extends StatelessWidget {
               }
 
               switch (linkType) {
+                case Deeplink.article:
+                  _router.go('/?articleId=${uri.pathSegments.last}');
                 case Deeplink.login:
                   _router.go(uri.toString());
                 case Deeplink.save:
@@ -166,37 +171,37 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  const HomePage({super.key, this.openArticleId});
+
+  final int? openArticleId;
 
   @override
   Widget build(BuildContext context) {
-    return const _MainContainer();
+    final settings = context.watch<SettingsProvider>();
+    return _MainContainer(
+      initialArticleId: openArticleId ?? settings[Sk.selectedArticleId],
+      openArticle: openArticleId != null,
+    );
   }
 }
 
 class _MainContainer extends StatefulWidget {
-  const _MainContainer();
+  const _MainContainer({this.initialArticleId, this.openArticle = false});
+
+  final int? initialArticleId;
+  final bool openArticle;
 
   @override
   State<_MainContainer> createState() => _MainContainerState();
 }
 
-class _MainContainerState extends State<_MainContainer> with RestorationMixin {
-  final RestorableIntN _selectedId = RestorableIntN(null);
+class _MainContainerState extends State<_MainContainer> {
+  int? deepLinkHandledFor;
+  int? _selectedId;
 
-  @override
-  String? get restorationId => 'main';
-
-  @override
-  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
-    registerForRestoration(_selectedId, 'main.selectedId');
-  }
-
-  @override
-  void dispose() {
-    _selectedId.dispose();
-    super.dispose();
-  }
+  bool get deepLinkHandled =>
+      deepLinkHandledFor != null &&
+      deepLinkHandledFor == widget.initialArticleId;
 
   @override
   Widget build(BuildContext context) {
@@ -208,36 +213,61 @@ class _MainContainerState extends State<_MainContainer> with RestorationMixin {
   }
 
   Widget _buildNarrowLayout() {
+    void onItemSelect(int articleId) {
+      context.push('/articles/$articleId');
+    }
+
+    _handleInitial(onItemSelect, false);
+
     return ListingPage(
-      onItemSelect: (article) => context.push('/articles/${article.id}'),
+      onItemSelect: onItemSelect,
+      initialArticleId: widget.initialArticleId,
     );
   }
 
   Widget _buildWideLayout() {
     return ChangeNotifierProvider(
-      create: (_) => ArticleProvider(_selectedId.value ?? 0),
+      create: (_) => ArticleProvider(_selectedId ?? 0),
       builder: (context, _) {
+        void onItemSelect(int articleId) {
+          if (context.mounted) {
+            setState(() {
+              _selectedId = articleId;
+              context.read<ArticleProvider>().updateId(_selectedId!);
+            });
+          }
+        }
+
+        _handleInitial(onItemSelect, true);
+
         return Row(
           children: [
             Flexible(
               flex: 1,
               child: ListingPage(
-                onItemSelect: (article) => setState(() {
-                  _selectedId.value = article.id;
-                  context.read<ArticleProvider>().updateId(_selectedId.value!);
-                }),
+                onItemSelect: onItemSelect,
+                initialArticleId: widget.initialArticleId,
               ),
             ),
             Flexible(
               flex: 2,
-              child: ArticlePage(
-                articleId: _selectedId.value ?? 0,
-                isFullScreen: false,
-              ),
+              child:
+                  ArticlePage(articleId: _selectedId ?? 0, isFullScreen: false),
             ),
           ],
         );
       },
     );
+  }
+
+  void _handleInitial(void Function(int) onItemSelect, bool forceOpen) {
+    if (widget.initialArticleId != null && (forceOpen || widget.openArticle)) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!deepLinkHandled) {
+          onItemSelect(widget.initialArticleId!);
+          deepLinkHandledFor = widget.initialArticleId;
+        }
+      });
+    }
   }
 }

@@ -102,6 +102,7 @@ class WallabagStorage with ChangeNotifier {
         starred: starred,
         sort: '-createdAt',
       ).findAllSync();
+
   Article? index(int n, StateFilter state, StarredFilter starred) {
     if (n < 0 || n >= count(state, starred)) return null;
     var ids = _buildQuery(
@@ -111,6 +112,16 @@ class WallabagStorage with ChangeNotifier {
       property: 'id',
     ).findAllSync();
     return db.articles.getSync(ids[n])!;
+  }
+
+  int? indexOf(int id, StateFilter state, StarredFilter starred) {
+    var ids = _buildQuery(
+      state: state,
+      starred: starred,
+      sort: '-createdAt',
+      property: 'id',
+    ).findAllSync();
+    return ids.indexOf(id);
   }
 
   int count(StateFilter state, StarredFilter starred) =>

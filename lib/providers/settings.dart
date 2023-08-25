@@ -66,6 +66,12 @@ class SettingsProvider extends ChangeNotifier {
     }
   }
 
+  Future<bool> clear() async {
+    final ret = await _prefs.clear();
+    notifyListeners();
+    return ret;
+  }
+
   Future<bool> remove(Sk skey) async {
     final ret = await _prefs.remove(_k(skey.key));
     notifyListeners();
@@ -79,6 +85,7 @@ const skThemeMode = 'settings.themeMode';
 enum Sk {
   appBadge('appBadge', false),
   lastRefresh('lastRefresh', -1),
+  selectedArticleId('selectedArticleId', -1),
   themeMode('themeMode', ThemeMode.system, ThemeMode.values);
 
   const Sk(this._key, this.initial, [this.items]);

@@ -22,6 +22,7 @@ class DeeplinksProvider extends ChangeNotifier {
     final matches = routeConfiguration.findMatch(uri.toString());
     if (matches.isEmpty) return Deeplink.invalid;
     final linkType = switch (uri.pathSegments.first) {
+      'articles' => Deeplink.article,
       'login' => Deeplink.login,
       'save' => Deeplink.save,
       _ => Deeplink.invalid,
@@ -48,6 +49,7 @@ class DeeplinksProvider extends ChangeNotifier {
 }
 
 enum Deeplink {
+  article,
   invalid,
   login,
   save,

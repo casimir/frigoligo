@@ -8,12 +8,13 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:logging/logging.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-export 'models/annotation.dart' show WallabagAnnotation;
 import 'models/entry.dart';
-export 'models/entry.dart' show WallabagEntry;
 import 'models/info.dart';
-export 'models/tag.dart' show WallabagTag;
 import 'utils.dart';
+
+export 'models/annotation.dart' show WallabagAnnotation;
+export 'models/entry.dart' show WallabagEntry;
+export 'models/tag.dart' show WallabagTag;
 
 part 'wallabag.g.dart';
 

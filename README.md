@@ -23,9 +23,9 @@ A full history of changes is available in [CHANGELOG.md](./CHANGELOG.md).
 
 ## Screenshots
 
-|Mobile|Desktop|Mobile (dark)|
-|:-:|:-:|:-:|
-|![android screenshot](./assets/screenshots/android_light.png)|![desktop screenshot](./assets/screenshots/desktop.png)|![android dark theme screenshot](./assets/screenshots/android_dark.png)|
+|                            Mobile                             |                         Desktop                         |                              Mobile (dark)                              |
+|:-------------------------------------------------------------:|:-------------------------------------------------------:|:-----------------------------------------------------------------------:|
+| ![android screenshot](./assets/screenshots/android_light.png) | ![desktop screenshot](./assets/screenshots/desktop.png) | ![android dark theme screenshot](./assets/screenshots/android_dark.png) |
 
 ## Deeplinks
 
@@ -41,6 +41,14 @@ frigoligo://x/action?param1=hello&param2=G%C3%BCnther
 ```
 
 ### Actions
+
+#### `/articles/:articleId`
+
+Open the article with the given ID respecting the correct app navigation mode.
+
+| Parameter   | Description                             | Required |
+|-------------|-----------------------------------------|----------|
+| `articleId` | The wallabag ID of the article to open. | Yes      |
 
 #### `/login`
 
