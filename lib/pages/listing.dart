@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:frigoligo/providers/settings.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +8,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../constants.dart';
 import '../models/article.dart';
+import '../providers/settings.dart';
 import '../services/wallabag_storage.dart';
 import '../string_extension.dart';
 import '../widgets/async_action_button.dart';
