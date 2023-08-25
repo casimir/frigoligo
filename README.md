@@ -42,6 +42,14 @@ frigoligo://x/action?param1=hello&param2=G%C3%BCnther
 
 ### Actions
 
+#### `/articles/:articleId`
+
+Open the article with the given ID respecting the correct app navigation mode.
+
+| Parameter   | Description                             | Required |
+|-------------|-----------------------------------------|----------|
+| `articleId` | The wallabag ID of the article to open. | Yes      |
+
 #### `/login`
 
 Open the login page and prefills the given credentials. Be aware that such link in the wild weakens the security of your account.
