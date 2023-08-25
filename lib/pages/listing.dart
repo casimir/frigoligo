@@ -67,7 +67,7 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
           ? storage.indexOf(widget.initialArticleId!, _stateFilter.value,
               _starredFilter.value)
           : null;
-      if (index != null) {
+      if (index != null && index > 0) {
         _log.info('scrolling to $index (id:${widget.initialArticleId}))');
         _itemScrollController.jumpTo(index: index, alignment: 0.5);
         jumpedTo = widget.initialArticleId;
