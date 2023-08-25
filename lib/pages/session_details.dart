@@ -100,7 +100,7 @@ class SessionDetailsPage extends StatelessWidget {
               if (result == OkCancelResult.cancel) return;
 
               await WallabagInstance.get().resetTokenData();
-              settings.remove(Sk.lastRefresh);
+              settings.clear();
               await DB.clear();
               if (context.mounted) {
                 context.go('/login');
