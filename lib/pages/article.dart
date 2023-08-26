@@ -56,7 +56,7 @@ class _ArticlePageState extends State<ArticlePage> {
     if (article == null) {
       bodyBuilder = _buildNoArticle();
     } else if (article.content == null) {
-      bodyBuilder = _buildEmptyContent(context, article);
+      bodyBuilder = _buildEmptyContent(Uri.parse(article.url));
     } else {
       bodyBuilder = _buildArticleContent(article, provider, scroller);
     }
@@ -89,7 +89,6 @@ class _ArticlePageState extends State<ArticlePage> {
               ),
             PopupMenuButton(
               itemBuilder: (context) => [
-                // TODO UI settings
                 PopupMenuItem(
                   value: 'share',
                   enabled: article != null,
@@ -154,7 +153,7 @@ class _ArticlePageState extends State<ArticlePage> {
     return const Center(child: Icon(Icons.question_mark));
   }
 
-  Widget _buildEmptyContent(BuildContext context, Article article) {
+  Widget _buildEmptyContent(Uri articleUrl) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -165,7 +164,7 @@ class _ArticlePageState extends State<ArticlePage> {
           ),
           const SizedBox(height: 8.0),
           ElevatedButton(
-            onPressed: () => launchUrl(Uri.parse(article.url)),
+            onPressed: () => launchUrl(articleUrl),
             child: const Text('Browse the original'),
           ),
         ],
