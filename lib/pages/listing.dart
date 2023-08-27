@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:frigoligo/providers/article.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
@@ -241,121 +242,128 @@ class ArticleListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO explore https://pub.dev/packages/flutter_slidable
     // TODO GestureDetector on iOS
-    return SizedBox(
-      height: listingHeight,
-      child: InkWell(
-        onTap: () => onTap?.call(article),
-        child: Column(
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                article.domainName ?? article.url,
-                                style: Theme.of(context).textTheme.labelMedium,
-                                softWrap: false,
-                                overflow: TextOverflow.fade,
+
+    final selectedId = context.read<ArticleProvider?>()?.articleId;
+
+    return Ink(
+      color: selectedId == article.id ? Theme.of(context).hoverColor : null,
+      child: SizedBox(
+        height: listingHeight,
+        child: InkWell(
+          onTap: () => onTap?.call(article),
+          child: Column(
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  article.domainName ?? article.url,
+                                  style:
+                                      Theme.of(context).textTheme.labelMedium,
+                                  softWrap: false,
+                                  overflow: TextOverflow.fade,
+                                ),
                               ),
-                            ),
-                            Text(
-                              '${article.readingTime} min',
-                              style: Theme.of(context).textTheme.labelMedium,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 4.0),
-                        Text(
-                          article.title,
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
-                        )
+                              Text(
+                                '${article.readingTime} min',
+                                style: Theme.of(context).textTheme.labelMedium,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 4.0),
+                          Text(
+                            article.title,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  if (article.previewPicture != null)
+                    SizedBox(
+                      width: 80,
+                      height: 80,
+                      child:
+                          // https://github.com/Baseflow/flutter_cached_network_image/issues/383
+                          article.previewPicture!.endsWith('.svg')
+                              ? SvgPicture.network(
+                                  article.previewPicture!,
+                                  fit: BoxFit.cover,
+                                )
+                              : CachedNetworkImage(
+                                  imageUrl: article.previewPicture!,
+                                  errorWidget: (context, url, error) {
+                                    _log.severe(
+                                        'article:${article.id} failed to load image',
+                                        error);
+                                    return const Icon(Icons.error);
+                                  },
+                                  fit: BoxFit.cover,
+                                ),
+                    )
+                ],
+              ),
+              const Spacer(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Wrap(
+                          spacing: 4.0,
+                          runSpacing: 4.0,
+                          children: article.tags
+                              .map((tag) => ActionChip(
+                                    label: Text(tag),
+                                    labelStyle:
+                                        Theme.of(context).textTheme.labelSmall,
+                                    onPressed: () {
+                                      var snackBar = SnackBar(
+                                        content: Text(
+                                            'In the future, filtering by tag $tag...'),
+                                        duration: const Duration(seconds: 1),
+                                      );
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
+                                    },
+                                    padding: const EdgeInsets.all(2.0),
+                                    backgroundColor: Theme.of(context)
+                                        .colorScheme
+                                        .surfaceVariant,
+                                  ))
+                              .toList()),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 80,
+                    height: 40,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        stateIcons[article.stateValue]!,
+                        starredIcons[article.starredValue]!,
                       ],
                     ),
                   ),
-                ),
-                if (article.previewPicture != null)
-                  SizedBox(
-                    width: 80,
-                    height: 80,
-                    child:
-                        // https://github.com/Baseflow/flutter_cached_network_image/issues/383
-                        article.previewPicture!.endsWith('.svg')
-                            ? SvgPicture.network(
-                                article.previewPicture!,
-                                fit: BoxFit.cover,
-                              )
-                            : CachedNetworkImage(
-                                imageUrl: article.previewPicture!,
-                                errorWidget: (context, url, error) {
-                                  _log.severe(
-                                      'article:${article.id} failed to load image',
-                                      error);
-                                  return const Icon(Icons.error);
-                                },
-                                fit: BoxFit.cover,
-                              ),
-                  )
-              ],
-            ),
-            const Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: Wrap(
-                        spacing: 4.0,
-                        runSpacing: 4.0,
-                        children: article.tags
-                            .map((tag) => ActionChip(
-                                  label: Text(tag),
-                                  labelStyle:
-                                      Theme.of(context).textTheme.labelSmall,
-                                  onPressed: () {
-                                    var snackBar = SnackBar(
-                                      content: Text(
-                                          'In the future, filtering by tag $tag...'),
-                                      duration: const Duration(seconds: 1),
-                                    );
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(snackBar);
-                                  },
-                                  padding: const EdgeInsets.all(2.0),
-                                  backgroundColor: Theme.of(context)
-                                      .colorScheme
-                                      .surfaceVariant,
-                                ))
-                            .toList()),
-                  ),
-                ),
-                SizedBox(
-                  width: 80,
-                  height: 40,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      stateIcons[article.stateValue]!,
-                      starredIcons[article.starredValue]!,
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
