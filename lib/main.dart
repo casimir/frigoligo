@@ -278,11 +278,13 @@ class _MainContainerState extends State<_MainContainer> {
               _selectedId = articleId;
               context.read<ArticleProvider>().updateId(_selectedId!);
             });
-            context.pop();
+            if (context.canPop()) {
+              context.pop();
+            }
           }
         }
 
-        _handleInitial(onItemSelect, false);
+        _handleInitial(onItemSelect, true);
 
         return ArticlePage(
           articleId: _selectedId ?? 0,
