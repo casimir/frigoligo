@@ -1,7 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:frigoligo/providers/article.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
@@ -9,9 +6,11 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../constants.dart';
 import '../models/article.dart';
+import '../providers/article.dart';
 import '../providers/settings.dart';
 import '../services/wallabag_storage.dart';
 import '../string_extension.dart';
+import '../widgets/article_image_preview.dart';
 import '../widgets/async_action_button.dart';
 import '../widgets/icon_toggle_button.dart';
 
@@ -292,27 +291,7 @@ class ArticleListItem extends StatelessWidget {
                     ),
                   ),
                   if (article.previewPicture != null)
-                    SizedBox(
-                      width: 80,
-                      height: 80,
-                      child:
-                          // https://github.com/Baseflow/flutter_cached_network_image/issues/383
-                          article.previewPicture!.endsWith('.svg')
-                              ? SvgPicture.network(
-                                  article.previewPicture!,
-                                  fit: BoxFit.cover,
-                                )
-                              : CachedNetworkImage(
-                                  imageUrl: article.previewPicture!,
-                                  errorWidget: (context, url, error) {
-                                    _log.severe(
-                                        'article:${article.id} failed to load image',
-                                        error);
-                                    return const Icon(Icons.error);
-                                  },
-                                  fit: BoxFit.cover,
-                                ),
-                    )
+                    ArticleImagePreview(article: article)
                 ],
               ),
               const Spacer(),
