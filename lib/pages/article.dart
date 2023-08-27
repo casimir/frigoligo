@@ -11,16 +11,16 @@ import 'package:url_launcher/url_launcher.dart';
 import '../constants.dart';
 import '../models/article.dart';
 import '../providers/article.dart';
+import '../providers/expander.dart';
 import '../widgets/async_action_button.dart';
 
 class ArticlePage extends StatefulWidget {
   // TODO articleId is not used but required to avoid triggering flutter caching
   // maybe that's just a setState() missing somewhere
-  const ArticlePage(
-      {super.key, required this.articleId, required this.isFullScreen});
+  const ArticlePage({super.key, required this.articleId, this.drawer});
 
   final int articleId;
-  final bool isFullScreen;
+  final Widget? drawer;
 
   @override
   State<ArticlePage> createState() => _ArticlePageState();
@@ -36,11 +36,21 @@ class _ArticlePageState extends State<ArticlePage> {
     final article = provider.article;
     final scroller = ScrollController();
 
+    final toggler = context.watch<Expander?>();
+    Widget? leading;
+    if (toggler != null) {
+      leading = IconButton(
+        icon: Icon(
+            toggler.expanded ? Icons.list : Icons.keyboard_double_arrow_left),
+        onPressed: toggler.toggle,
+      );
+    }
+
     late final Widget bodyBuilder;
     if (article == null) {
       bodyBuilder = _buildNoArticle();
     } else if (article.content == null) {
-      bodyBuilder = _buildEmptyContent(context, article);
+      bodyBuilder = _buildEmptyContent(Uri.parse(article.url));
     } else {
       bodyBuilder = _buildArticleContent(article, provider, scroller);
     }
@@ -48,6 +58,7 @@ class _ArticlePageState extends State<ArticlePage> {
     return SelectionArea(
       child: Scaffold(
         appBar: AppBar(
+          leading: leading,
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           actions: [
             if (article != null)
@@ -72,7 +83,6 @@ class _ArticlePageState extends State<ArticlePage> {
               ),
             PopupMenuButton(
               itemBuilder: (context) => [
-                // TODO UI settings
                 PopupMenuItem(
                   value: 'share',
                   enabled: article != null,
@@ -120,7 +130,7 @@ class _ArticlePageState extends State<ArticlePage> {
                     );
                     if (result == OkCancelResult.cancel) return;
                     await provider.delete();
-                    if (widget.isFullScreen && context.mounted) {
+                    if (toggler == null && context.mounted) {
                       context.go('/');
                     }
                 }
@@ -129,6 +139,7 @@ class _ArticlePageState extends State<ArticlePage> {
           ],
         ),
         body: bodyBuilder,
+        drawer: widget.drawer,
       ),
     );
   }
@@ -137,7 +148,7 @@ class _ArticlePageState extends State<ArticlePage> {
     return const Center(child: Icon(Icons.question_mark));
   }
 
-  Widget _buildEmptyContent(BuildContext context, Article article) {
+  Widget _buildEmptyContent(Uri articleUrl) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -148,7 +159,7 @@ class _ArticlePageState extends State<ArticlePage> {
           ),
           const SizedBox(height: 8.0),
           ElevatedButton(
-            onPressed: () => launchUrl(Uri.parse(article.url)),
+            onPressed: () => launchUrl(articleUrl),
             child: const Text('Browse the original'),
           ),
         ],
