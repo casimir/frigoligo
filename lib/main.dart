@@ -91,13 +91,9 @@ final _router = GoRouter(routes: [
     path: '/articles/:id',
     builder: (context, state) {
       final id = int.parse(state.pathParameters['id']!);
-      final drawer = state.extra as Widget?;
       return ChangeNotifierProvider(
         create: (_) => ArticleProvider(id),
-        builder: (context, _) => ArticlePage(
-          articleId: id,
-          drawer: drawer,
-        ),
+        builder: (context, _) => ArticlePage(articleId: id),
       );
     },
   ),
@@ -209,21 +205,19 @@ class _MainContainerState extends State<_MainContainer> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    // ipad air 5th gen (portrait) = 820
-    // TODO 3 steps
-    // w < 600 => narrow
-    // w > "ideal list width x3" => wide
-    // 600 < w < "ideal list width x3" => hybrid (narrow with navigation drawer)
-    print(width);
     return ChangeNotifierProvider(
       create: (context) => WallabagStorage(context.read<SettingsProvider>()),
-      child: width < 600 ? _buildNarrowLayout() : _buildWideLayout(),
+      builder: (_, __) {
+        if (width <= narrowScreenBreakpoint) return _buildNarrowLayout();
+        if (width >= idealListingWidth * 3) return _buildWideLayout();
+        return _buildDynamicLayout();
+      },
     );
   }
 
-  Widget _buildNarrowLayout({Widget? drawer}) {
+  Widget _buildNarrowLayout() {
     void onItemSelect(int articleId) {
-      context.push('/articles/$articleId', extra: drawer);
+      context.push('/articles/$articleId');
     }
 
     _handleInitial(onItemSelect, false);
@@ -254,7 +248,6 @@ class _MainContainerState extends State<_MainContainer> {
         _handleInitial(onItemSelect, true);
 
         final expander = context.watch<Expander>();
-
         return Row(
           children: [
             if (!expander.expanded)
@@ -276,11 +269,32 @@ class _MainContainerState extends State<_MainContainer> {
   }
 
   Widget _buildDynamicLayout() {
-    // TODO implement dynamic layout
-    return _buildNarrowLayout(
-      drawer: const Center(
-        child: Text('coucou'),
-      ),
+    return ChangeNotifierProvider(
+      create: (_) => ArticleProvider(_selectedId ?? 0),
+      builder: (context, _) {
+        void onItemSelect(int articleId) {
+          if (context.mounted) {
+            setState(() {
+              _selectedId = articleId;
+              context.read<ArticleProvider>().updateId(_selectedId!);
+            });
+            context.pop();
+          }
+        }
+
+        _handleInitial(onItemSelect, false);
+
+        return ArticlePage(
+          articleId: _selectedId ?? 0,
+          drawer: SizedBox(
+            width: idealListingWidth,
+            child: ListingPage(
+              onItemSelect: onItemSelect,
+              initialArticleId: _selectedId,
+            ),
+          ),
+        );
+      },
     );
   }
 

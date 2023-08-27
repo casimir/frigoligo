@@ -38,3 +38,7 @@ const int logCountResetThreshold = 1000;
 
 final appBadgeSupported =
     Platform.isIOS || Platform.isMacOS || Platform.isAndroid;
+
+const narrowScreenBreakpoint = 600.0;
+const listingHeight = 130.0;
+const idealListingWidth = 333.3;

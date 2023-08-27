@@ -242,7 +242,7 @@ class ArticleListItem extends StatelessWidget {
     // TODO explore https://pub.dev/packages/flutter_slidable
     // TODO GestureDetector on iOS
     return SizedBox(
-      height: 130,
+      height: listingHeight,
       child: InkWell(
         onTap: () => onTap?.call(article),
         child: Column(

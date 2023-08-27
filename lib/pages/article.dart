@@ -17,16 +17,10 @@ import '../widgets/async_action_button.dart';
 class ArticlePage extends StatefulWidget {
   // TODO articleId is not used but required to avoid triggering flutter caching
   // maybe that's just a setState() missing somewhere
-  const ArticlePage({
-    super.key,
-    required this.articleId,
-    this.drawer,
-  });
+  const ArticlePage({super.key, required this.articleId, this.drawer});
 
   final int articleId;
   final Widget? drawer;
-
-  bool get isFullScreen => drawer == null;
 
   @override
   State<ArticlePage> createState() => _ArticlePageState();
@@ -136,7 +130,7 @@ class _ArticlePageState extends State<ArticlePage> {
                     );
                     if (result == OkCancelResult.cancel) return;
                     await provider.delete();
-                    if (widget.isFullScreen && context.mounted) {
+                    if (toggler == null && context.mounted) {
                       context.go('/');
                     }
                 }
@@ -145,6 +139,7 @@ class _ArticlePageState extends State<ArticlePage> {
           ],
         ),
         body: bodyBuilder,
+        drawer: widget.drawer,
       ),
     );
   }
