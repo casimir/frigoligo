@@ -48,10 +48,10 @@ class SessionDetailsPage extends StatelessWidget {
         sinceLastSync = '${asMinutes.toStringAsFixed(0)} minutes ago';
       }
     }
-    final accessToken = wallabag.tokenData?.accessToken;
-    final accessTokenValidity = wallabag.tokenData != null
-        ? wallabag.tokenData!.expiresIn.toIso8601String()
-        : 'invalid';
+    final token = wallabag.credentials.token;
+    final accessToken = token?.accessToken;
+    final accessTokenValidity =
+        token != null ? token.expiresAt.toIso8601String() : 'invalid';
 
     return Scaffold(
       appBar: AppBar(
@@ -62,17 +62,16 @@ class SessionDetailsPage extends StatelessWidget {
           ListTile(
             title: const Text('Server'),
             subtitle:
-                _copyText(context, 'https://${wallabag.connectionData.server}'),
+                _copyText(context, 'https://${wallabag.credentials.server}'),
           ),
           ListTile(
             title: const Text('Client ID'),
-            subtitle:
-                _copyText(context, wallabag.connectionData.clientId, true),
+            subtitle: _copyText(context, wallabag.credentials.clientId, true),
           ),
           ListTile(
             title: const Text('Client secret'),
             subtitle:
-                _copyText(context, wallabag.connectionData.clientSecret, true),
+                _copyText(context, wallabag.credentials.clientSecret, true),
           ),
           ListTile(
             title: const Text('Access token'),
@@ -108,6 +107,12 @@ class SessionDetailsPage extends StatelessWidget {
             },
             icon: const Icon(Icons.logout),
             label: const Text('Log out session'),
+          ),
+          const SizedBox(height: 8.0),
+          ElevatedButton.icon(
+            onPressed: () => WallabagInstance.get().refreshToken(),
+            icon: const Icon(Icons.restart_alt),
+            label: const Text('Force token refresh'),
           ),
         ],
       ),
