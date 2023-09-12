@@ -7,7 +7,7 @@ part of 'credentials.dart';
 // **************************************************************************
 
 Credentials _$CredentialsFromJson(Map<String, dynamic> json) => Credentials(
-      json['server'] as String,
+      Uri.parse(json['server'] as String),
       json['clientId'] as String,
       json['clientSecret'] as String,
       token: json['token'] == null
@@ -17,7 +17,7 @@ Credentials _$CredentialsFromJson(Map<String, dynamic> json) => Credentials(
 
 Map<String, dynamic> _$CredentialsToJson(Credentials instance) =>
     <String, dynamic>{
-      'server': instance.server,
+      'server': instance.server.toString(),
       'clientId': instance.clientId,
       'clientSecret': instance.clientSecret,
       'token': instance.token,

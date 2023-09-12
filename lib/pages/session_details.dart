@@ -62,7 +62,7 @@ class SessionDetailsPage extends StatelessWidget {
           ListTile(
             title: const Text('Server'),
             subtitle:
-                _copyText(context, 'https://${wallabag.credentials.server}'),
+                _copyText(context, wallabag.credentials.server.toString()),
           ),
           ListTile(
             title: const Text('Client ID'),

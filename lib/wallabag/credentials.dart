@@ -14,7 +14,7 @@ part 'credentials.g.dart';
 class Credentials {
   Credentials(this.server, this.clientId, this.clientSecret, {this.token});
 
-  final String server;
+  final Uri server;
   final String clientId;
   final String clientSecret;
   OAuthToken? token;
@@ -71,7 +71,8 @@ class CredentialsManager {
 
   Future<String?> _loadString(key) async {
     if (Platform.isIOS) {
-      return SharedPreferenceAppGroup.get(key) as String?;
+      return SharedPreferenceAppGroup.get(key)
+          .then((value) => value as String?);
     } else {
       return SharedPreferences.getInstance()
           .then((prefs) => prefs.getString(key));

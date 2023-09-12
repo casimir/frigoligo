@@ -150,8 +150,10 @@ class _LoginPageState extends State<LoginPage> {
           ElevatedButton(
             onPressed: () async {
               if (_serverConfigured && _fbKey.currentState!.saveAndValidate()) {
+                String server = _serverFbKey.currentState!.value['server'];
+                if (!server.startsWith('http')) server = 'https://$server';
                 final credentials = Credentials(
-                  _serverFbKey.currentState!.value['server'],
+                  Uri.parse(server),
                   _fbKey.currentState!.value['clientId'],
                   _fbKey.currentState!.value['clientSecret'],
                 );

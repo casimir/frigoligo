@@ -115,9 +115,11 @@ class WallabagClient extends http.BaseClient {
   }
 
   Uri _buildUri(String path, [Map<String, dynamic>? queryParameters]) {
-    final serverUri = Uri.parse('https://${credentials.server}');
     return Uri.https(
-        serverUri.authority, serverUri.path + path, queryParameters);
+      credentials.server.authority,
+      credentials.server.path + path,
+      queryParameters,
+    );
   }
 
   Future<http.Response> authenticate(Map<String, String> grantData) async {
