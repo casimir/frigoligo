@@ -3,12 +3,15 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:logging/logging.dart';
 import 'package:shared_preference_app_group/shared_preference_app_group.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants.dart';
 
 part 'credentials.g.dart';
+
+final log = Logger('wallabag.credentials');
 
 @JsonSerializable()
 class Credentials {
@@ -29,10 +32,12 @@ class OAuthToken {
   OAuthToken(this.accessToken, this.expiresAt, this.refreshToken);
 
   final String accessToken;
-  final DateTime expiresAt;
+  final int expiresAt;
   final String refreshToken;
 
-  bool get isExpired => expiresAt.isBefore(DateTime.now());
+  DateTime get expirationDateTime =>
+      DateTime.fromMillisecondsSinceEpoch(expiresAt * 1000);
+  bool get isExpired => expirationDateTime.isBefore(DateTime.now());
 
   factory OAuthToken.fromJson(Map<String, dynamic> json) =>
       _$OAuthTokenFromJson(json);
@@ -71,8 +76,7 @@ class CredentialsManager {
 
   Future<String?> _loadString(key) async {
     if (Platform.isIOS) {
-      return SharedPreferenceAppGroup.get(key)
-          .then((value) => value as String?);
+      return await SharedPreferenceAppGroup.get(key);
     } else {
       return SharedPreferences.getInstance()
           .then((prefs) => prefs.getString(key));
@@ -89,6 +93,7 @@ class CredentialsManager {
   }
 
   Future<void> load() async {
+    log.info('loading credentials...');
     final raw = await _loadString(credentialsKey);
     if (raw != null) {
       credentials = Credentials.fromJson(jsonDecode(raw));
@@ -96,12 +101,14 @@ class CredentialsManager {
   }
 
   Future<void> commit() async {
+    log.info('saving credentials...');
     if (credentials != null) {
       _saveString(credentialsKey, jsonEncode(credentials!.toJson()));
     }
   }
 
   Future<void> clear() async {
+    log.info('clearing credentials...');
     credentials = null;
     if (Platform.isIOS) {
       await SharedPreferenceAppGroup.remove(credentialsKey);

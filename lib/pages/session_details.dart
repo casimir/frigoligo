@@ -5,6 +5,7 @@ import 'package:frigoligo/wallabag/wallabag.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../datetime_extension.dart';
 import '../models/db.dart';
 import '../providers/settings.dart';
 
@@ -39,19 +40,13 @@ class SessionDetailsPage extends StatelessWidget {
     String sinceLastSync = 'never';
     final lastSync = settings[Sk.lastRefresh];
     if (lastSync > 0) {
-      final now = DateTime.now().millisecondsSinceEpoch / 1000;
-      final elapsed = now - lastSync;
-      if (elapsed < 1000) {
-        sinceLastSync = '${elapsed.toStringAsFixed(0)} seconds ago';
-      } else {
-        final asMinutes = elapsed / 60;
-        sinceLastSync = '${asMinutes.toStringAsFixed(0)} minutes ago';
-      }
+      sinceLastSync = DateTime.fromMillisecondsSinceEpoch(lastSync * 1000)
+          .toHumanizedString();
     }
     final token = wallabag.credentials.token;
     final accessToken = token?.accessToken;
-    final accessTokenValidity =
-        token != null ? token.expiresAt.toIso8601String() : 'invalid';
+    final nextTokenExpiration =
+        token?.expirationDateTime.toHumanizedString() ?? 'invalid';
 
     return Scaffold(
       appBar: AppBar(
@@ -79,8 +74,8 @@ class SessionDetailsPage extends StatelessWidget {
                 _copyText(context, accessToken.toString(), accessToken != null),
           ),
           ListTile(
-            title: const Text('Token valid until'),
-            subtitle: Text(accessTokenValidity),
+            title: const Text('Token expiration'),
+            subtitle: Text(nextTokenExpiration),
           ),
           ListTile(
             title: const Text('Last server sync'),

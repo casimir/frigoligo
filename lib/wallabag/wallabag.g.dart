@@ -9,7 +9,7 @@ part of 'wallabag.dart';
 OAuthTokenBody _$OAuthTokenBodyFromJson(Map<String, dynamic> json) =>
     OAuthTokenBody(
       json['access_token'] as String,
-      secondsOffsetOrTimestamp2Datetime(json['expires_in']),
+      json['expires_in'] as int,
       json['refresh_token'] as String,
     );
 

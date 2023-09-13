@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:frigoligo/wallabag/credentials.dart';
 import 'package:http/http.dart' as http;
@@ -100,6 +101,7 @@ class WallabagClient extends http.BaseClient {
 
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) async {
+    _credsManager.load(); // handle desync from external extensions
     if (userAgent != null) request.headers['user-agent'] = userAgent!;
     if (!request.url.path.endsWith(tokenEnpointPath)) {
       if (canRefreshToken && tokenIsExpired) await refreshToken();
@@ -140,7 +142,7 @@ class WallabagClient extends http.BaseClient {
     final tokenData = safeDecode(response, OAuthTokenBody.fromJson);
     _credsManager.token = OAuthToken(
       tokenData.accessToken,
-      tokenData.expiresIn,
+      DateTime.now().millisecondsSinceEpoch ~/ 1000 + tokenData.expiresIn,
       tokenData.refreshToken,
     );
 
@@ -331,21 +333,12 @@ class WallabagClient extends http.BaseClient {
   }
 }
 
-DateTime secondsOffsetOrTimestamp2Datetime(value) {
-  if (value is int) {
-    return DateTime.now().add(Duration(seconds: value));
-  } else {
-    return DateTime.parse(value);
-  }
-}
-
 @JsonSerializable(fieldRename: FieldRename.snake, createToJson: false)
 class OAuthTokenBody {
   OAuthTokenBody(this.accessToken, this.expiresIn, this.refreshToken);
 
   final String accessToken;
-  @JsonKey(fromJson: secondsOffsetOrTimestamp2Datetime)
-  final DateTime expiresIn;
+  final int expiresIn;
   final String refreshToken;
 
   factory OAuthTokenBody.fromJson(Map<String, dynamic> json) =>
