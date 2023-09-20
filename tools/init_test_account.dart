@@ -56,7 +56,10 @@ class _HomePageState extends State<HomePage> {
     final urls = await extractUrls();
     setState(() => _urlCount = urls.length);
 
-    final wallabag = await WallabagClient.build(testConnectionData)
+    final wallabag = await WallabagClient.build(
+      credentials: testCredentials,
+      autoSyncCredentials: false,
+    )
       ..fetchToken(testUser, testPassword);
     for (final url in urls) {
       final (tags, archive, starred) = generateEntryState(url.toString());

@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 import '../models/db.dart';
 import '../providers/settings.dart';
+import '../wallabag/credentials.dart';
 import 'login_forms/server_form.dart';
 import 'login_forms/validators.dart';
 
@@ -149,13 +150,16 @@ class _LoginPageState extends State<LoginPage> {
           ElevatedButton(
             onPressed: () async {
               if (_serverConfigured && _fbKey.currentState!.saveAndValidate()) {
-                final connData = WallabagConnectionData(
-                  _serverFbKey.currentState!.value['server'],
+                String server = _serverFbKey.currentState!.value['server'];
+                if (!server.startsWith('http')) server = 'https://$server';
+                final credentials = Credentials(
+                  Uri.parse(server),
                   _fbKey.currentState!.value['clientId'],
                   _fbKey.currentState!.value['clientSecret'],
                 );
                 try {
-                  final wallabag = await WallabagInstance.initWith(connData);
+                  final wallabag =
+                      await WallabagInstance.init(credentials: credentials);
                   await wallabag.fetchToken(
                       _fbKey.currentState!.value['username'],
                       _fbKey.currentState!.value['password']);

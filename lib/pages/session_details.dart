@@ -5,6 +5,7 @@ import 'package:frigoligo/wallabag/wallabag.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../datetime_extension.dart';
 import '../models/db.dart';
 import '../providers/settings.dart';
 
@@ -39,19 +40,13 @@ class SessionDetailsPage extends StatelessWidget {
     String sinceLastSync = 'never';
     final lastSync = settings[Sk.lastRefresh];
     if (lastSync > 0) {
-      final now = DateTime.now().millisecondsSinceEpoch / 1000;
-      final elapsed = now - lastSync;
-      if (elapsed < 1000) {
-        sinceLastSync = '${elapsed.toStringAsFixed(0)} seconds ago';
-      } else {
-        final asMinutes = elapsed / 60;
-        sinceLastSync = '${asMinutes.toStringAsFixed(0)} minutes ago';
-      }
+      sinceLastSync = DateTime.fromMillisecondsSinceEpoch(lastSync * 1000)
+          .toHumanizedString();
     }
-    final accessToken = wallabag.tokenData?.accessToken;
-    final accessTokenValidity = wallabag.tokenData != null
-        ? wallabag.tokenData!.expiresIn.toIso8601String()
-        : 'invalid';
+    final token = wallabag.credentials.token;
+    final accessToken = token?.accessToken;
+    final nextTokenExpiration =
+        token?.expirationDateTime.toHumanizedString() ?? 'invalid';
 
     return Scaffold(
       appBar: AppBar(
@@ -62,17 +57,16 @@ class SessionDetailsPage extends StatelessWidget {
           ListTile(
             title: const Text('Server'),
             subtitle:
-                _copyText(context, 'https://${wallabag.connectionData.server}'),
+                _copyText(context, wallabag.credentials.server.toString()),
           ),
           ListTile(
             title: const Text('Client ID'),
-            subtitle:
-                _copyText(context, wallabag.connectionData.clientId, true),
+            subtitle: _copyText(context, wallabag.credentials.clientId, true),
           ),
           ListTile(
             title: const Text('Client secret'),
             subtitle:
-                _copyText(context, wallabag.connectionData.clientSecret, true),
+                _copyText(context, wallabag.credentials.clientSecret, true),
           ),
           ListTile(
             title: const Text('Access token'),
@@ -80,8 +74,8 @@ class SessionDetailsPage extends StatelessWidget {
                 _copyText(context, accessToken.toString(), accessToken != null),
           ),
           ListTile(
-            title: const Text('Token valid until'),
-            subtitle: Text(accessTokenValidity),
+            title: const Text('Token expiration'),
+            subtitle: Text(nextTokenExpiration),
           ),
           ListTile(
             title: const Text('Last server sync'),
@@ -108,6 +102,12 @@ class SessionDetailsPage extends StatelessWidget {
             },
             icon: const Icon(Icons.logout),
             label: const Text('Log out session'),
+          ),
+          const SizedBox(height: 8.0),
+          ElevatedButton.icon(
+            onPressed: () => WallabagInstance.get().refreshToken(),
+            icon: const Icon(Icons.restart_alt),
+            label: const Text('Force token refresh'),
           ),
         ],
       ),

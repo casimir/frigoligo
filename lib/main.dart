@@ -143,7 +143,11 @@ class MyApp extends StatelessWidget {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           final deeplinks = context.read<DeeplinksProvider>();
           if (!deeplinks.isListening) {
-            deeplinks.listen();
+            // This is ugly but... The point is listen() after _router is ready
+            Future.delayed(
+              const Duration(milliseconds: 50),
+              () => deeplinks.listen(),
+            );
           }
         });
 

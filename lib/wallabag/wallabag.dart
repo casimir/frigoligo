@@ -1,12 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 
-import 'package:flutter/foundation.dart';
+import 'package:frigoligo/wallabag/credentials.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/retry.dart';
 import 'package:isar/isar.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:logging/logging.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'models/entry.dart';
 import 'models/info.dart';
@@ -19,9 +19,6 @@ export 'models/tag.dart' show WallabagTag;
 part 'wallabag.g.dart';
 
 final _log = Logger('wallabag.client');
-
-const wallabagConnectionDataKey =
-    '${kDebugMode ? 'debug.' : ''}wallabag.connectionData';
 
 void throwOnError(http.Response response, {List<int> expected = const [200]}) {
   if (!expected.contains(response.statusCode)) {
@@ -75,43 +72,41 @@ T safeDecode<T>(http.Response response, Decoder<T> decoder) {
   }
 }
 
-@JsonSerializable()
-class WallabagConnectionData {
-  const WallabagConnectionData(this.server, this.clientId, this.clientSecret);
-
-  final String server;
-  final String clientId;
-  final String clientSecret;
-
-  factory WallabagConnectionData.fromJson(Map<String, dynamic> json) =>
-      _$WallabagConnectionDataFromJson(json);
-  Map<String, dynamic> toJson() => _$WallabagConnectionDataToJson(this);
-}
-
 class WallabagClient extends http.BaseClient {
   static String tokenEnpointPath = '/oauth/v2/token';
-  static String tokenDataKey = '${kDebugMode ? 'debug.' : ''}tokenData';
 
-  static Future<WallabagClient> build(WallabagConnectionData data) async =>
-      WallabagClient._(data, await buildUserAgent(), await _loadTokenData());
+  static Future<WallabagClient> build({
+    Credentials? credentials,
+    bool? autoSyncCredentials,
+  }) async {
+    late final CredentialsManager credsManager;
+    if (autoSyncCredentials != null) {
+      credsManager = CredentialsManager(autoSync: autoSyncCredentials);
+    } else {
+      credsManager = CredentialsManager();
+    }
+    await credsManager.init(initial: credentials);
+    return WallabagClient._(credsManager, await buildUserAgent());
+  }
 
-  WallabagClient._(this.connectionData, this.userAgent, this._tokenData);
+  WallabagClient._(this._credsManager, this.userAgent);
 
   final http.Client _inner = RetryClient(http.Client());
-  final WallabagConnectionData connectionData;
-  OAuthToken? _tokenData;
+  final CredentialsManager _credsManager;
   final String? userAgent;
 
-  OAuthToken? get tokenData => _tokenData;
-  bool get canRefreshToken => _tokenData != null;
-  bool get tokenIsExpired => _tokenData!.expiresIn.isBefore(DateTime.now());
+  Credentials get credentials => _credsManager.credentials!;
+  bool get canRefreshToken => _credsManager.canRefreshToken;
+  bool get tokenIsExpired => _credsManager.tokenIsExpired;
 
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) async {
+    _credsManager.load(); // handle desync from external extensions
     if (userAgent != null) request.headers['user-agent'] = userAgent!;
     if (!request.url.path.endsWith(tokenEnpointPath)) {
       if (canRefreshToken && tokenIsExpired) await refreshToken();
-      request.headers['Authorization'] = 'Bearer ${_tokenData!.accessToken}';
+      final accessToken = credentials.token!.accessToken;
+      request.headers['Authorization'] = 'Bearer $accessToken';
     }
     final stopwatch = Stopwatch()..start();
     return _inner.send(request).then((response) {
@@ -122,17 +117,19 @@ class WallabagClient extends http.BaseClient {
   }
 
   Uri _buildUri(String path, [Map<String, dynamic>? queryParameters]) {
-    final serverUri = Uri.parse('https://${connectionData.server}');
     return Uri.https(
-        serverUri.authority, serverUri.path + path, queryParameters);
+      credentials.server.authority,
+      credentials.server.path + path,
+      queryParameters,
+    );
   }
 
   Future<http.Response> authenticate(Map<String, String> grantData) async {
     _log.info(
         'authentication attempt (grant_type: ${grantData['grant_type']})');
-    var payload = {
-      'client_id': connectionData.clientId,
-      'client_secret': connectionData.clientSecret,
+    final payload = {
+      'client_id': credentials.clientId,
+      'client_secret': credentials.clientSecret,
       ...grantData,
     };
     final response = await post(
@@ -142,32 +139,18 @@ class WallabagClient extends http.BaseClient {
     );
     throwOnError(response);
 
-    final tokenData = safeDecode(response, OAuthToken.fromJson);
-    _tokenData = tokenData;
-    _persistTokenData();
+    final tokenData = safeDecode(response, OAuthTokenBody.fromJson);
+    _credsManager.token = OAuthToken(
+      tokenData.accessToken,
+      DateTime.now().millisecondsSinceEpoch ~/ 1000 + tokenData.expiresIn,
+      tokenData.refreshToken,
+    );
 
     return response;
   }
 
-  static Future<OAuthToken?> _loadTokenData() {
-    return SharedPreferences.getInstance().then((prefs) {
-      final rawTokenData = prefs.getString(tokenDataKey);
-      if (rawTokenData == null) return null;
-      return OAuthToken.fromJson(jsonDecode(rawTokenData));
-    });
-  }
-
-  Future<void> _persistTokenData() {
-    return SharedPreferences.getInstance().then((prefs) {
-      prefs.setString(tokenDataKey, jsonEncode(_tokenData!));
-    });
-  }
-
-  Future<void> resetTokenData() {
-    _tokenData = null;
-    return SharedPreferences.getInstance().then((prefs) {
-      prefs.remove(tokenDataKey);
-    });
+  Future<void> resetTokenData() async {
+    _credsManager.token = null;
   }
 
   Future<http.Response> fetchToken(String username, String password) {
@@ -181,7 +164,7 @@ class WallabagClient extends http.BaseClient {
   Future<http.Response> refreshToken() {
     return authenticate({
       'grant_type': 'refresh_token',
-      'refresh_token': _tokenData!.refreshToken,
+      'refresh_token': credentials.token!.refreshToken,
     });
   }
 
@@ -350,26 +333,16 @@ class WallabagClient extends http.BaseClient {
   }
 }
 
-DateTime secondsOffsetOrTimestamp2Datetime(value) {
-  if (value is int) {
-    return DateTime.now().add(Duration(seconds: value));
-  } else {
-    return DateTime.parse(value);
-  }
-}
-
-@JsonSerializable(fieldRename: FieldRename.snake)
-class OAuthToken {
-  OAuthToken(this.accessToken, this.expiresIn, this.refreshToken);
+@JsonSerializable(fieldRename: FieldRename.snake, createToJson: false)
+class OAuthTokenBody {
+  OAuthTokenBody(this.accessToken, this.expiresIn, this.refreshToken);
 
   final String accessToken;
-  @JsonKey(fromJson: secondsOffsetOrTimestamp2Datetime)
-  final DateTime expiresIn;
+  final int expiresIn;
   final String refreshToken;
 
-  factory OAuthToken.fromJson(Map<String, dynamic> json) =>
-      _$OAuthTokenFromJson(json);
-  Map<String, dynamic> toJson() => _$OAuthTokenToJson(this);
+  factory OAuthTokenBody.fromJson(Map<String, dynamic> json) =>
+      _$OAuthTokenBodyFromJson(json);
 }
 
 enum SortValue {
@@ -422,23 +395,9 @@ class WallabagEmbeddedEntries {
 class WallabagInstance {
   static WallabagClient? _instance;
 
-  static Future<WallabagClient?> init() async {
-    String? rawData = await SharedPreferences.getInstance()
-        .then((prefs) => prefs.getString(wallabagConnectionDataKey));
-    if (rawData != null) {
-      var data = WallabagConnectionData.fromJson(jsonDecode(rawData));
-      _instance = await WallabagClient.build(data);
-    } else {
-      _log.info('could not find existing connection data');
-    }
-    return _instance;
-  }
-
-  static Future<WallabagClient> initWith(WallabagConnectionData data) async {
-    await SharedPreferences.getInstance().then((prefs) =>
-        prefs.setString(wallabagConnectionDataKey, jsonEncode(data.toJson())));
-    final client = await init();
-    return client!;
+  static Future<WallabagClient> init({Credentials? credentials}) async {
+    _instance = await WallabagClient.build(credentials: credentials);
+    return _instance!;
   }
 
   static WallabagClient get() {

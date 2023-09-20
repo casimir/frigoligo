@@ -58,6 +58,7 @@ dependencies:
   go_router: ^10.0.0
   app_links: ^3.4.3
   scrollable_positioned_list: ^0.3.8
+  shared_preference_app_group: ^1.0.0+1
 
 dev_dependencies:
   flutter_test:
