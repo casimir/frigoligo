@@ -95,7 +95,6 @@ class ShareViewController: UIViewController {
                 if (error != nil) {
                     self.exitExtension(withErrorMessage: "Could not get URL: \(error!)")
                 } else {
-                    devLog("processing url: \(String(describing: url))")
                     self.saveURLAndExit(url: url as! URL)
                 }
             })
@@ -126,10 +125,12 @@ class ShareViewController: UIViewController {
         payload["refresh_token"] = credentials!.token.refreshToken
         
         var request = URLRequest(url: getEndpoint(path: "/oauth/v2/token"))
+        request.setValue("frigoligo/ios-extension", forHTTPHeaderField:"user-agent")
         request.httpMethod = "POST"
         request.httpBody = try! JSONEncoder().encode(payload)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("frigoligo/ios-extension", forHTTPHeaderField:"user-agent")
         
         var token: String? = nil
         devLog("requesting a fresh token...")
@@ -143,7 +144,7 @@ class ShareViewController: UIViewController {
     
             let httpResponse = response as? HTTPURLResponse
             if (httpResponse!.statusCode > 200) {
-                self.exitExtension(withErrorMessage: "from server: \(String(data: data!, encoding: .utf8)!)")
+                self.exitExtension(withErrorMessage: "token refresh: from server: \(String(data: data!, encoding: .utf8)!)")
             } else {
                 do {
                     let payload = try JSONDecoder().decode(OAuthTokenBody.self, from: data!)
@@ -172,6 +173,7 @@ class ShareViewController: UIViewController {
         payload["url"] = url.description
         
         var request = URLRequest(url: getEndpoint(path: "/api/entries"))
+        request.setValue("frigoligo/ios-extension", forHTTPHeaderField:"user-agent")
         request.httpMethod = "POST"
         request.httpBody = try! JSONEncoder().encode(payload)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -187,7 +189,7 @@ class ShareViewController: UIViewController {
             
             let httpResponse = response as? HTTPURLResponse
             if (httpResponse!.statusCode > 200) {
-                self.exitExtension(withErrorMessage: "from server: \(String(data: data!, encoding: .utf8)!)")
+                self.exitExtension(withErrorMessage: "save entry: from server: \(String(data: data!, encoding: .utf8)!)")
             } else {
                 devLog("article saved!")
                 self.exitExtension()
