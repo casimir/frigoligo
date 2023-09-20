@@ -13,7 +13,7 @@ import OSLog
 let logger = Logger()
 
 func devLog(_ message: String) {
-    logger.log("[DEV] \(message)")
+    logger.log("[DEV] \(message, privacy: .public)")
 }
 
 #if DEBUG
