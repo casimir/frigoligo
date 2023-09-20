@@ -22,64 +22,94 @@ let credentialsKey = "debug.wallabag.credentials"
 let credentialsKey = "wallabag.credentials"
 #endif
 
-class ShareViewController: SLComposeServiceViewController {
+class ShareViewController: UIViewController {
     let userDefaults = UserDefaults(suiteName: "group.net.casimir-lab.frigoligo")!
     var credentials: Credentials?
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-
+    let spinner = UIActivityIndicatorView()
+    
+    private func loadCredentials() -> Bool {
         let raw = userDefaults.string(forKey: credentialsKey)?.data(using: .utf8)
         if let data = raw {
             do {
-                self.credentials = try JSONDecoder().decode(Credentials.self, from: data)
+                credentials = try JSONDecoder().decode(Credentials.self, from: data)
+                return true
             } catch {
-                showError("credentials loading error: \(error)")
+                // TODO it would be nice to have deeplink in there to open the log in screen directly
+                exitExtension(withErrorMessage: "credentials loading error: \(error)")
             }
         }
-        devLog("init with valid credentials: \(self.credentials != nil)")
-    }
-
-    override func isContentValid() -> Bool {
-        if (credentials == nil) {
-            // TODO it would be nice to have deeplink in there to open the log in screen directly
-            showError("You need to log in with Frigoligo first.")
-        }
-        return credentials != nil
-    }
-
-    override func didSelectPost() {
-        // This is called after the user selects Post. Do the upload of contentText and/or NSExtensionContext attachments.
-        if let item = extensionContext?.inputItems.first as? NSExtensionItem,
-           let attachment = item.attachments?.first {
-            if attachment.hasItemConformingToTypeIdentifier(UTType.url.identifier) {
-                attachment.loadItem(forTypeIdentifier: UTType.url.identifier, completionHandler: { (url, error) in
-                    if let sharedURL = url as? URL {
-                        self.saveURL(url: sharedURL)
-                    } else {
-                        self.showError("invalid URL: \(String(describing: url))")
-                    }
-                })
-            } else {
-                devLog("wrong attachment type for \(attachment)")
-            }
-        } else {
-            devLog("could not find any URL in attachments")
-        }
-        self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
-    }
-
-    override func configurationItems() -> [Any]! {
-        // To add configuration options via table cells at the bottom of the sheet, return an array of SLComposeSheetConfigurationItem here.
-        return []
+        return false
     }
     
-    func getEndpoint(path: String) -> URL {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.addSubview(spinner)
+        
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        ])
+        spinner.startAnimating()
+        
+        doSave()
+    }
+    
+    private func exitExtension(withErrorMessage: String? = nil) {
+        DispatchQueue.main.async {
+            self.spinner.stopAnimating()
+        }
+        
+        if (withErrorMessage != nil) {
+            devLog("ERROR: \(withErrorMessage!)")
+            let alert = UIAlertController(title: "Error", message: withErrorMessage, preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .default) { _ in
+                self.dismiss(animated: true, completion: nil)
+                let error = NSError(domain: "net.casimir-lab.frigoligo", code: 0, userInfo: [NSLocalizedDescriptionKey: withErrorMessage!])
+                self.extensionContext?.cancelRequest(withError: error)
+            }
+            alert.addAction(action)
+            present(alert, animated: true, completion: nil)
+        } else {
+            extensionContext?.completeRequest(returningItems: [], completionHandler: nil)
+        }
+    }
+    
+    private func doSave() {
+        if !loadCredentials() { return }
+        
+        guard
+            let items = extensionContext?.inputItems as? [NSExtensionItem],
+            let item = items.first,
+            let attachments = item.attachments,
+            let attachment = attachments.first
+        else {
+            exitExtension(withErrorMessage: "Could not extract attachment")
+            return
+        }
+        
+        if attachment.hasItemConformingToTypeIdentifier(UTType.url.identifier) {
+            attachment.loadItem(forTypeIdentifier: UTType.url.identifier, completionHandler: { (url, error) in
+                if (error != nil) {
+                    self.exitExtension(withErrorMessage: "Could not get URL: \(error!)")
+                } else {
+                    devLog("processing url: \(String(describing: url))")
+                    self.saveURLAndExit(url: url as! URL)
+                }
+            })
+        } else {
+            exitExtension(withErrorMessage: "Wrong attachment type for \(attachment)")
+        }
+    }
+    
+    private func getEndpoint(path: String) -> URL {
         return URL(string: path, relativeTo: credentials!.server)!
     }
     
-    func getToken() -> String? {
-        let tokenDeadline =  Double(credentials!.token.expiresAt) - Date.now.timeIntervalSince1970 
+    private func getToken() -> String? {
+        let tokenDeadline =  Double(credentials!.token.expiresAt) - Date.now.timeIntervalSince1970
         let formatter = DateComponentsFormatter()
         formatter.unitsStyle = .abbreviated
         devLog("token deadline: \(formatter.string(from: tokenDeadline)!)")
@@ -106,14 +136,14 @@ class ShareViewController: SLComposeServiceViewController {
         let semaphore = DispatchSemaphore(value: 0)
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if (error != nil) {
-                self.showError(error.debugDescription)
+                self.exitExtension(withErrorMessage: error.debugDescription)
                 semaphore.signal()
                 return
             }
     
             let httpResponse = response as? HTTPURLResponse
             if (httpResponse!.statusCode > 200) {
-                self.showError("from server: \(String(data: data!, encoding: .utf8)!)")
+                self.exitExtension(withErrorMessage: "from server: \(String(data: data!, encoding: .utf8)!)")
             } else {
                 do {
                     let payload = try JSONDecoder().decode(OAuthTokenBody.self, from: data!)
@@ -126,7 +156,7 @@ class ShareViewController: SLComposeServiceViewController {
                     self.userDefaults.set(rawCredentials, forKey: credentialsKey)
                     devLog("updated the OAuth token")
                 } catch {
-                    self.showError("credentials loading error: \(error)")
+                    self.exitExtension(withErrorMessage: "credentials loading error: \(error)")
                 }
             }
             semaphore.signal()
@@ -135,7 +165,7 @@ class ShareViewController: SLComposeServiceViewController {
         return token
     }
 
-    func saveURL(url: URL) {
+    func saveURLAndExit(url: URL) {
         devLog("received an URL to save: \(url)")
         
         var payload =  [String: String]();
@@ -151,27 +181,31 @@ class ShareViewController: SLComposeServiceViewController {
         devLog("sending save request...")
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if (error != nil) {
-                self.showError(error.debugDescription)
+                self.exitExtension(withErrorMessage: error.debugDescription)
                 return
             }
             
             let httpResponse = response as? HTTPURLResponse
             if (httpResponse!.statusCode > 200) {
-                self.showError("from server: \(String(data: data!, encoding: .utf8)!)")
+                self.exitExtension(withErrorMessage: "from server: \(String(data: data!, encoding: .utf8)!)")
             } else {
                 devLog("article saved!")
+                self.exitExtension()
             }
         }.resume()
     }
-    
-    func showError(_ message: String) {
-        devLog("ERROR: \(message)")
-        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default) { _ in
-            self.dismiss(animated: true, completion: nil)
-            self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
-        }
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
+}
+
+@objc(ShareNavigationController)
+class ShareNavigationController: UINavigationController {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+
+        self.setViewControllers([ShareViewController()], animated: false)
+    }
+
+    @available(*, unavailable)
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 }
