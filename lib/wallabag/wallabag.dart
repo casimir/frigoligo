@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:frigoligo/wallabag/credentials.dart';
 import 'package:http/http.dart' as http;
