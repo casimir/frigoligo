@@ -119,6 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     FormBuilderTextField(
                       name: 'username',
+                      autofillHints: const [AutofillHints.username],
                       validator: (value) => value == null || value.isEmpty
                           ? 'Enter your username'
                           : null,
@@ -130,6 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     FormBuilderTextField(
                       name: 'password',
+                      autofillHints: const [AutofillHints.password],
                       validator: (value) => value == null || value.isEmpty
                           ? 'Enter your password'
                           : null,
