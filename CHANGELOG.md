@@ -1,3 +1,25 @@
+<a name="v0.5.0"></a>
+# [0.5.0 (v0.5.0)](https://github.com/casimir/frigoligo/releases/tag/v0.5.0) - 21 Sep 2023
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### Features
+* Rework page routes navigation logic by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/60
+* Add a few deeplinks by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/61
+* Rework how the article page is loaded by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/66
+* Flexible interface by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/25
+* Native integration for URL shares by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/67
+* Add hints for password managers for login fields by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/69
+### Miscellaneous
+* Bulk upgrade flutter dependencies by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/62
+
+
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.4.1...v0.5.0
+
+[Changes][v0.5.0]
+
+
 <a name="v0.4.1"></a>
 # [v0.4.1](https://github.com/casimir/frigoligo/releases/tag/v0.4.1) - 14 Aug 2023
 
@@ -142,6 +164,7 @@ Let's begin! This is the very first release.
 [Changes][v0.1.0]
 
 
+[v0.5.0]: https://github.com/casimir/frigoligo/compare/v0.4.1...v0.5.0
 [v0.4.1]: https://github.com/casimir/frigoligo/compare/v0.4.0...v0.4.1
 [v0.4.0]: https://github.com/casimir/frigoligo/compare/v0.3.2...v0.4.0
 [v0.3.2]: https://github.com/casimir/frigoligo/compare/v0.3.1...v0.3.2
