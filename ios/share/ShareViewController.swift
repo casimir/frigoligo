@@ -71,7 +71,9 @@ class ShareViewController: UIViewController {
                 self.extensionContext?.cancelRequest(withError: error)
             }
             alert.addAction(action)
-            present(alert, animated: true, completion: nil)
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+            }
         } else {
             extensionContext?.completeRequest(returningItems: [], completionHandler: nil)
         }
@@ -130,7 +132,6 @@ class ShareViewController: UIViewController {
         request.httpBody = try! JSONEncoder().encode(payload)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("frigoligo/ios-extension", forHTTPHeaderField:"user-agent")
         
         var token: String? = nil
         devLog("requesting a fresh token...")
