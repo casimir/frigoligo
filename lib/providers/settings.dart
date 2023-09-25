@@ -86,6 +86,8 @@ enum Sk {
   appBadge('appBadge', false),
   lastRefresh('lastRefresh', -1),
   selectedArticleId('selectedArticleId', -1),
+  tagSaveEnabled('tagSaveEnabled', false),
+  tagSaveLabel('tagSaveLabel', 'inbox'),
   themeMode('themeMode', ThemeMode.system, ThemeMode.values);
 
   const Sk(this._key, this.initial, [this.items]);

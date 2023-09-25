@@ -172,6 +172,9 @@ class ShareViewController: UIViewController {
         
         var payload =  [String: String]();
         payload["url"] = url.description
+        if userDefaults.bool(forKey: "tagSaveEnabled") {
+            payload["tags"] = userDefaults.string(forKey: "tagSaveLabel")
+        }
         
         var request = URLRequest(url: getEndpoint(path: "/api/entries"))
         request.setValue("frigoligo/ios-extension", forHTTPHeaderField:"user-agent")
