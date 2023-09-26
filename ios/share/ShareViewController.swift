@@ -8,6 +8,7 @@
 import UIKit
 import UniformTypeIdentifiers
 import Social
+import SwiftUI
 
 import OSLog
 let logger = Logger()
@@ -16,6 +17,7 @@ func devLog(_ message: String) {
     logger.log("[DEV] \(message, privacy: .public)")
 }
 
+let frigoligoColor = Color(UIColor(red: 0.31372550129999999, green: 0.61960786580000005, blue: 0.7607843876, alpha: 1.0))
 #if DEBUG
 let credentialsKey = "debug.wallabag.credentials"
 #else
@@ -23,45 +25,30 @@ let credentialsKey = "wallabag.credentials"
 #endif
 
 class ShareViewController: UIViewController {
+    @StateObject private var toastState = ToastViewModel()
     let userDefaults = UserDefaults(suiteName: "group.net.casimir-lab.frigoligo")!
     var credentials: Credentials?
-    
-    let spinner = UIActivityIndicatorView()
-    
-    private func loadCredentials() -> Bool {
-        let raw = userDefaults.string(forKey: credentialsKey)?.data(using: .utf8)
-        if let data = raw {
-            do {
-                credentials = try JSONDecoder().decode(Credentials.self, from: data)
-                return true
-            } catch {
-                // TODO it would be nice to have deeplink in there to open the log in screen directly
-                exitExtension(withErrorMessage: "credentials loading error: \(error)")
-            }
-        }
-        return false
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(spinner)
-        
-        spinner.translatesAutoresizingMaskIntoConstraints = false
+        let innerController = UIHostingController(rootView: CompletionToast(viewModel: toastState, strokeColor: frigoligoColor))
+        innerController.view.backgroundColor = .clear
+        addChild(innerController)
+        view.addSubview(innerController.view)
+        innerController.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            innerController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            innerController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            innerController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            innerController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        spinner.startAnimating()
+        innerController.didMove(toParent: self)
         
         doSave()
     }
     
     private func exitExtension(withErrorMessage: String? = nil) {
-        DispatchQueue.main.async {
-            self.spinner.stopAnimating()
-        }
-        
         if (withErrorMessage != nil) {
             devLog("ERROR: \(withErrorMessage!)")
             let alert = UIAlertController(title: "Error", message: withErrorMessage, preferredStyle: .alert)
@@ -75,8 +62,28 @@ class ShareViewController: UIViewController {
                 self.present(alert, animated: true, completion: nil)
             }
         } else {
-            extensionContext?.completeRequest(returningItems: [], completionHandler: nil)
+            DispatchQueue.main.async {
+                self.toastState.state = .success
+                devLog("succes!")
+                usleep(1_000_000)
+                devLog("succes! BIS")
+                self.extensionContext?.completeRequest(returningItems: [], completionHandler: nil)
+            }
         }
+    }
+    
+    private func loadCredentials() -> Bool {
+        let raw = userDefaults.string(forKey: credentialsKey)?.data(using: .utf8)
+        if let data = raw {
+            do {
+                credentials = try JSONDecoder().decode(Credentials.self, from: data)
+                return true
+            } catch {
+                // TODO it would be nice to have deeplink in there to open the log in screen directly
+                exitExtension(withErrorMessage: "credentials loading error: \(error)")
+            }
+        }
+        return false
     }
     
     private func doSave() {
