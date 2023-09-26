@@ -65,7 +65,35 @@ class SettingsPage extends StatelessWidget {
                       if (previous != value) storage.updateAppBadge();
                       return settings[Sk.appBadge] = value;
                     },
-                  )
+                  ),
+                SettingsTile.switchTile(
+                  leading: const Icon(Icons.tag),
+                  title: const Text('Add a label to saved articles'),
+                  initialValue: settings[Sk.tagSaveEnabled],
+                  onToggle: (value) => settings[Sk.tagSaveEnabled] = value,
+                ),
+                SettingsTile.navigation(
+                  leading: const Icon(Icons.tag),
+                  title: const Text('Label for saved articles'),
+                  value: Text(settings[Sk.tagSaveLabel]),
+                  onPressed: (context) async {
+                    final result = await showTextInputDialog(
+                      context: context,
+                      textFields: [
+                        DialogTextField(
+                          hintText: 'Tag',
+                          keyboardType: TextInputType.text,
+                          autocorrect: false,
+                          initialText: settings[Sk.tagSaveLabel],
+                        )
+                      ],
+                    );
+                    if (result != null) {
+                      settings[Sk.tagSaveLabel] = result.first;
+                    }
+                  },
+                  enabled: settings[Sk.tagSaveEnabled],
+                ),
               ],
             ),
             SettingsSection(

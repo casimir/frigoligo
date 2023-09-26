@@ -1,24 +1,36 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'ios/settings_syncer.dart';
 
 class SettingsProvider extends ChangeNotifier {
   static late SharedPreferences _prefs;
 
   static init() async {
     _prefs = await SharedPreferences.getInstance();
+    if (Platform.isIOS) {
+      await SettingsSyncer.init();
+    }
   }
 
-  SettingsProvider({this.namespace});
+  SettingsProvider({this.namespace}) {
+    if (Platform.isIOS) {
+      _syncer = SettingsSyncer(this);
+    }
+  }
 
   final String? namespace;
+  SettingsSyncer? _syncer;
 
   String _k(String key) => namespace != null ? '\$$namespace.$key' : key;
 
   operator [](Sk skey) => _getValue(skey);
   operator []=(Sk skey, dynamic value) {
     _setValue(skey, value);
+    _syncer?.onChange(skey, value);
     notifyListeners();
   }
 
@@ -68,6 +80,7 @@ class SettingsProvider extends ChangeNotifier {
 
   Future<bool> clear() async {
     final ret = await _prefs.clear();
+    _syncer?.onClear();
     notifyListeners();
     return ret;
   }
@@ -86,6 +99,8 @@ enum Sk {
   appBadge('appBadge', false),
   lastRefresh('lastRefresh', -1),
   selectedArticleId('selectedArticleId', -1),
+  tagSaveEnabled('tagSaveEnabled', false),
+  tagSaveLabel('tagSaveLabel', 'inbox'),
   themeMode('themeMode', ThemeMode.system, ThemeMode.values);
 
   const Sk(this._key, this.initial, [this.items]);

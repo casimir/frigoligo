@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:frigoligo/models/article.dart';
 import 'package:frigoligo/wallabag/wallabag.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 import '../models/db.dart';
+import '../providers/settings.dart';
 
 class SavePage extends StatefulWidget {
   const SavePage({super.key, required this.url});
@@ -30,11 +32,18 @@ class _SavePageState extends State<SavePage> {
         errorMessage = 'No URL provided';
       });
     } else {
-      WidgetsBinding.instance.addPostFrameCallback((_) => _doSave());
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        final settings = context.read<SettingsProvider>();
+        if (settings[Sk.tagSaveEnabled]) {
+          _doSave([settings[Sk.tagSaveLabel]]);
+        } else {
+          _doSave();
+        }
+      });
     }
   }
 
-  Future<void> _doSave() async {
+  Future<void> _doSave([List<String>? tags]) async {
     if (Uri.tryParse(widget.url!)?.host.isEmpty ?? true) {
       final res = await showOkCancelAlertDialog(
         context: context,
@@ -50,7 +59,8 @@ class _SavePageState extends State<SavePage> {
     }
 
     try {
-      final entry = await WallabagInstance.get().createEntry(widget.url!);
+      final entry =
+          await WallabagInstance.get().createEntry(widget.url!, tags: tags);
       final article = Article.fromWallabagEntry(entry);
 
       final db = DB.get();
