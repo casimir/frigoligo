@@ -172,8 +172,8 @@ class ShareViewController: UIViewController {
         
         var payload =  [String: String]();
         payload["url"] = url.description
-        if userDefaults.bool(forKey: "tagSaveEnabled") {
-            payload["tags"] = userDefaults.string(forKey: "tagSaveLabel")
+        if let tag = userDefaults.string(forKey: "settings.tagSaveLabel") {
+            payload["tags"] = tag
         }
         
         var request = URLRequest(url: getEndpoint(path: "/api/entries"))
