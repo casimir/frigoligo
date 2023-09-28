@@ -1,3 +1,23 @@
+<a name="v0.5.1"></a>
+# [0.5.1 (v0.5.1)](https://github.com/casimir/frigoligo/releases/tag/v0.5.1) - 28 Sep 2023
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### Features
+* Allow to add a tag when saving articles by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/73
+* Add an animation when the save is complete in iOS share sheet by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/74
+### Miscellaneous
+* Update changelog for "v0.5.0" by [@github-actions](https://github.com/github-actions) in https://github.com/casimir/frigoligo/pull/71
+* Update dependency go_router to v11 by [@renovate](https://github.com/renovate) in https://github.com/casimir/frigoligo/pull/72
+* Update actions/checkout action to v4 by [@renovate](https://github.com/renovate) in https://github.com/casimir/frigoligo/pull/68
+
+
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.5.0...v0.5.1
+
+[Changes][v0.5.1]
+
+
 <a name="v0.5.0"></a>
 # [0.5.0 (v0.5.0)](https://github.com/casimir/frigoligo/releases/tag/v0.5.0) - 21 Sep 2023
 
@@ -164,6 +184,7 @@ Let's begin! This is the very first release.
 [Changes][v0.1.0]
 
 
+[v0.5.1]: https://github.com/casimir/frigoligo/compare/v0.5.0...v0.5.1
 [v0.5.0]: https://github.com/casimir/frigoligo/compare/v0.4.1...v0.5.0
 [v0.4.1]: https://github.com/casimir/frigoligo/compare/v0.4.0...v0.4.1
 [v0.4.0]: https://github.com/casimir/frigoligo/compare/v0.3.2...v0.4.0
