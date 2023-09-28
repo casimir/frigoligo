@@ -25,14 +25,23 @@ let credentialsKey = "wallabag.credentials"
 #endif
 
 class ShareViewController: UIViewController {
-    @StateObject private var toastState = ToastViewModel()
     let userDefaults = UserDefaults(suiteName: "group.net.casimir-lab.frigoligo")!
     var credentials: Credentials?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let innerController = UIHostingController(rootView: CompletionToast(viewModel: toastState, strokeColor: frigoligoColor))
+        devLog("viewDidLoad()")
+        let toast = CompletionToast(
+            vm: ToastViewModel(), // FIXME init inside?
+            action: self.doSave,
+            didSucceed: { self.exitExtension() },
+            onError: { (errorMessage) -> Void in
+                self.exitExtension(withErrorMessage: errorMessage)
+            },
+            strokeColor: frigoligoColor
+        )
+        let innerController = UIHostingController(rootView: toast)
         innerController.view.backgroundColor = .clear
         addChild(innerController)
         view.addSubview(innerController.view)
@@ -44,11 +53,10 @@ class ShareViewController: UIViewController {
             innerController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         innerController.didMove(toParent: self)
-        
-        doSave()
     }
     
     private func exitExtension(withErrorMessage: String? = nil) {
+        devLog("exiting extension (error: \(withErrorMessage != nil))...")
         if (withErrorMessage != nil) {
             devLog("ERROR: \(withErrorMessage!)")
             let alert = UIAlertController(title: "Error", message: withErrorMessage, preferredStyle: .alert)
@@ -63,31 +71,20 @@ class ShareViewController: UIViewController {
             }
         } else {
             DispatchQueue.main.async {
-                self.toastState.state = .success
-                devLog("succes!")
-                usleep(1_000_000)
-                devLog("succes! BIS")
                 self.extensionContext?.completeRequest(returningItems: [], completionHandler: nil)
             }
         }
     }
     
-    private func loadCredentials() -> Bool {
+    private func doSave() async throws {
         let raw = userDefaults.string(forKey: credentialsKey)?.data(using: .utf8)
         if let data = raw {
             do {
                 credentials = try JSONDecoder().decode(Credentials.self, from: data)
-                return true
             } catch {
-                // TODO it would be nice to have deeplink in there to open the log in screen directly
-                exitExtension(withErrorMessage: "credentials loading error: \(error)")
+                throw CompletionError.description("credentials loading error: \(error)")
             }
         }
-        return false
-    }
-    
-    private func doSave() {
-        if !loadCredentials() { return }
         
         guard
             let items = extensionContext?.inputItems as? [NSExtensionItem],
@@ -95,20 +92,18 @@ class ShareViewController: UIViewController {
             let attachments = item.attachments,
             let attachment = attachments.first
         else {
-            exitExtension(withErrorMessage: "Could not extract attachment")
-            return
+            throw CompletionError.description("Could not extract attachment")
         }
         
         if attachment.hasItemConformingToTypeIdentifier(UTType.url.identifier) {
-            attachment.loadItem(forTypeIdentifier: UTType.url.identifier, completionHandler: { (url, error) in
-                if (error != nil) {
-                    self.exitExtension(withErrorMessage: "Could not get URL: \(error!)")
-                } else {
-                    self.saveURLAndExit(url: url as! URL)
-                }
-            })
+            do {
+                let url = try await attachment.loadItem(forTypeIdentifier: UTType.url.identifier)
+                try await self.sendSaveRequest(url: url as! URL)
+            } catch {
+                throw CompletionError.description("Could not get URL: \(error)")
+            }
         } else {
-            exitExtension(withErrorMessage: "Wrong attachment type for \(attachment)")
+            throw CompletionError.description("Wrong attachment type for \(attachment)")
         }
     }
     
@@ -116,7 +111,7 @@ class ShareViewController: UIViewController {
         return URL(string: path, relativeTo: credentials!.server)!
     }
     
-    private func getToken() -> String? {
+    private func getToken() async throws -> String {
         let tokenDeadline =  Double(credentials!.token.expiresAt) - Date.now.timeIntervalSince1970
         let formatter = DateComponentsFormatter()
         formatter.unitsStyle = .abbreviated
@@ -140,41 +135,30 @@ class ShareViewController: UIViewController {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
-        var token: String? = nil
         devLog("requesting a fresh token...")
-        let semaphore = DispatchSemaphore(value: 0)
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
-            if (error != nil) {
-                self.exitExtension(withErrorMessage: error.debugDescription)
-                semaphore.signal()
-                return
-            }
-    
-            let httpResponse = response as? HTTPURLResponse
-            if (httpResponse!.statusCode > 200) {
-                self.exitExtension(withErrorMessage: "token refresh: from server: \(String(data: data!, encoding: .utf8)!)")
-            } else {
-                do {
-                    let payload = try JSONDecoder().decode(OAuthTokenBody.self, from: data!)
-                    token = payload.access_token
-                    devLog("got a new token!")
-                    
-                    self.credentials!.token = buildTokenData(payload)
-                    let encoder = JSONEncoder()
-                    let rawCredentials = String(data: try encoder.encode(self.credentials), encoding: .utf8)
-                    self.userDefaults.set(rawCredentials, forKey: credentialsKey)
-                    devLog("updated the OAuth token")
-                } catch {
-                    self.exitExtension(withErrorMessage: "credentials loading error: \(error)")
-                }
-            }
-            semaphore.signal()
-        }.resume()
-        semaphore.wait()
-        return token
+        let (data, response) = try await URLSession.shared.data(for: request)
+        let httpResponse = response as? HTTPURLResponse
+        if (httpResponse!.statusCode > 200) {
+            throw CompletionError.description("token refresh: from server: \(String(data: data, encoding: .utf8)!)")
+        }
+        
+        do {
+            let payload = try JSONDecoder().decode(OAuthTokenBody.self, from: data)
+            let token = payload.access_token
+            devLog("got a new token!")
+            
+            self.credentials!.token = buildTokenData(payload)
+            let encoder = JSONEncoder()
+            let rawCredentials = String(data: try encoder.encode(self.credentials), encoding: .utf8)
+            self.userDefaults.set(rawCredentials, forKey: credentialsKey)
+            devLog("updated the OAuth token")
+            return token
+        } catch {
+            throw CompletionError.description("credentials updating error: \(error)")
+        }
     }
 
-    func saveURLAndExit(url: URL) {
+    func sendSaveRequest(url: URL) async throws {
         devLog("received an URL to save: \(url)")
         
         var payload =  [String: String]();
@@ -183,29 +167,22 @@ class ShareViewController: UIViewController {
             payload["tags"] = tag
         }
         
+        let token = try await getToken()
         var request = URLRequest(url: getEndpoint(path: "/api/entries"))
         request.setValue("frigoligo/ios-extension", forHTTPHeaderField:"user-agent")
         request.httpMethod = "POST"
         request.httpBody = try! JSONEncoder().encode(payload)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("Bearer \(getToken()!)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         devLog("sending save request...")
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
-            if (error != nil) {
-                self.exitExtension(withErrorMessage: error.debugDescription)
-                return
-            }
-            
-            let httpResponse = response as? HTTPURLResponse
-            if (httpResponse!.statusCode > 200) {
-                self.exitExtension(withErrorMessage: "save entry: from server: \(String(data: data!, encoding: .utf8)!)")
-            } else {
-                devLog("article saved!")
-                self.exitExtension()
-            }
-        }.resume()
+        let (data, response) = try await URLSession.shared.data(for: request)
+        let httpResponse = response as? HTTPURLResponse
+        if (httpResponse!.statusCode > 200) {
+            throw CompletionError.description("save entry: from server: \(String(data: data, encoding: .utf8)!)")
+        }
+        devLog("article saved!")
     }
 }
 
