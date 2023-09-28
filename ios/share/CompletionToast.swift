@@ -65,7 +65,7 @@ public struct CompletionToast: View {
             .task {
                 do {
                     // leave the success feedback sink in the user mind
-                    try await Task.sleep(nanoseconds: 600_000_000)
+                    try await Task.sleep(nanoseconds: 400_000_000)
                 } catch {
                     devLog("task: couldn't wait a bit: \(error)")
                 }

@@ -56,7 +56,6 @@ class ShareViewController: UIViewController {
     }
     
     private func exitExtension(withErrorMessage: String? = nil) {
-        devLog("exiting extension (error: \(withErrorMessage != nil))...")
         if (withErrorMessage != nil) {
             devLog("ERROR: \(withErrorMessage!)")
             let alert = UIAlertController(title: "Error", message: withErrorMessage, preferredStyle: .alert)
@@ -92,18 +91,20 @@ class ShareViewController: UIViewController {
             let attachments = item.attachments,
             let attachment = attachments.first
         else {
-            throw CompletionError.description("Could not extract attachment")
+            throw CompletionError.description("could not extract attachment")
         }
         
         if attachment.hasItemConformingToTypeIdentifier(UTType.url.identifier) {
             do {
                 let url = try await attachment.loadItem(forTypeIdentifier: UTType.url.identifier)
                 try await self.sendSaveRequest(url: url as! URL)
+            } catch let error as CompletionError {
+                throw error
             } catch {
-                throw CompletionError.description("Could not get URL: \(error)")
+                throw CompletionError.description("could not get URL: \(error)")
             }
         } else {
-            throw CompletionError.description("Wrong attachment type for \(attachment)")
+            throw CompletionError.description("wrong attachment type for \(attachment)")
         }
     }
     
@@ -129,7 +130,7 @@ class ShareViewController: UIViewController {
         payload["refresh_token"] = credentials!.token.refreshToken
         
         var request = URLRequest(url: getEndpoint(path: "/oauth/v2/token"))
-        request.setValue("frigoligo/ios-extension", forHTTPHeaderField:"user-agent")
+        request.setValue("frigoligo/ios-extension", forHTTPHeaderField: "user-agent")
         request.httpMethod = "POST"
         request.httpBody = try! JSONEncoder().encode(payload)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -153,6 +154,8 @@ class ShareViewController: UIViewController {
             self.userDefaults.set(rawCredentials, forKey: credentialsKey)
             devLog("updated the OAuth token")
             return token
+        } catch let error as CompletionError {
+            throw error
         } catch {
             throw CompletionError.description("credentials updating error: \(error)")
         }
