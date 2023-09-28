@@ -94,22 +94,29 @@ class ShareViewController: UIViewController {
             throw CompletionError.description("could not extract attachment")
         }
         
-        if attachment.hasItemConformingToTypeIdentifier(UTType.url.identifier) {
-            do {
-                let url = try await attachment.loadItem(forTypeIdentifier: UTType.url.identifier)
-                try await self.sendSaveRequest(url: url as! URL)
-            } catch let error as CompletionError {
-                throw error
-            } catch {
-                throw CompletionError.description("could not get URL: \(error)")
-            }
-        } else {
+        if !attachment.hasItemConformingToTypeIdentifier(UTType.url.identifier) {
             throw CompletionError.description("wrong attachment type for \(attachment)")
+        }
+        do {
+            let url = try await attachment.loadItem(forTypeIdentifier: UTType.url.identifier)
+            try await self.sendSaveRequest(url: url as! URL)
+        } catch let error as CompletionError {
+            throw error
+        } catch {
+            throw CompletionError.description("could not get URL: \(error)")
         }
     }
     
-    private func getEndpoint(path: String) -> URL {
-        return URL(string: path, relativeTo: credentials!.server)!
+    private func prepareServerRequest(path: String, payload: [String: String]?) -> URLRequest {
+        var request = URLRequest(url: URL(string: path, relativeTo: credentials!.server)!)
+        request.setValue("frigoligo/ios-extension", forHTTPHeaderField: "user-agent")
+        if payload != nil {
+            request.httpMethod = "POST"
+            request.httpBody = try! JSONEncoder().encode(payload)
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+        }
+        return request
     }
     
     private func getToken() async throws -> String {
@@ -128,13 +135,7 @@ class ShareViewController: UIViewController {
         payload["client_secret"] = credentials!.clientSecret
         payload["grant_type"] =  "refresh_token"
         payload["refresh_token"] = credentials!.token.refreshToken
-        
-        var request = URLRequest(url: getEndpoint(path: "/oauth/v2/token"))
-        request.setValue("frigoligo/ios-extension", forHTTPHeaderField: "user-agent")
-        request.httpMethod = "POST"
-        request.httpBody = try! JSONEncoder().encode(payload)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        let request = prepareServerRequest(path: "/oauth/v2/token", payload: payload)
         
         devLog("requesting a fresh token...")
         let (data, response) = try await URLSession.shared.data(for: request)
@@ -169,14 +170,8 @@ class ShareViewController: UIViewController {
         if let tag = userDefaults.string(forKey: "settings.tagSaveLabel") {
             payload["tags"] = tag
         }
-        
+        var request = prepareServerRequest(path: "/api/entries", payload: payload)
         let token = try await getToken()
-        var request = URLRequest(url: getEndpoint(path: "/api/entries"))
-        request.setValue("frigoligo/ios-extension", forHTTPHeaderField:"user-agent")
-        request.httpMethod = "POST"
-        request.httpBody = try! JSONEncoder().encode(payload)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         devLog("sending save request...")
