@@ -45,7 +45,7 @@ dependencies:
   isar_flutter_libs: ^3.1.0+1
   path_provider: ^2.0.15
   fwfh_url_launcher: ^0.9.0+2
-  fwfh_cached_network_image: ^0.7.0+5
+  fwfh_cached_network_image: ^0.14.0
   cached_network_image: ^3.2.3
   flutter_svg: ^2.0.7
   url_launcher: ^6.1.12

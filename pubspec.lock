@@ -372,10 +372,10 @@ packages:
     dependency: "direct main"
     description:
       name: fwfh_cached_network_image
-      sha256: "3de22aa3a6943c968e0d9fbcba4463b3dbbf7103171d62c84b6c672fb83eebdf"
+      sha256: "952aea958a5fda7d616cc297ba4bc08427e381459e75526fa375d6d8345630d3"
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.0+7"
+    version: "0.14.2"
   fwfh_url_launcher:
     dependency: "direct main"
     description:
