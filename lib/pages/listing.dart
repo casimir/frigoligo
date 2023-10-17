@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frigoligo/widgets/tag_list.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
@@ -303,29 +304,17 @@ class ArticleListItem extends StatelessWidget {
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       padding: const EdgeInsets.only(left: 8.0),
-                      child: Wrap(
-                          spacing: 4.0,
-                          runSpacing: 4.0,
-                          children: article.tags
-                              .map((tag) => ActionChip(
-                                    label: Text(tag),
-                                    labelStyle:
-                                        Theme.of(context).textTheme.labelSmall,
-                                    onPressed: () {
-                                      var snackBar = SnackBar(
-                                        content: Text(
-                                            'In the future, filtering by tag $tag...'),
-                                        duration: const Duration(seconds: 1),
-                                      );
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(snackBar);
-                                    },
-                                    padding: const EdgeInsets.all(2.0),
-                                    backgroundColor: Theme.of(context)
-                                        .colorScheme
-                                        .surfaceVariant,
-                                  ))
-                              .toList()),
+                      child: TagList(
+                        tags: article.tags,
+                        onTagPressed: (tag) {
+                          var snackBar = SnackBar(
+                            content:
+                                Text('In the future, filtering by tag $tag...'),
+                            duration: const Duration(seconds: 1),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        },
+                      ),
                     ),
                   ),
                   SizedBox(
