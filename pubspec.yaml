@@ -38,14 +38,14 @@ dependencies:
   http: ^1.0.0
   provider: ^6.0.5
   json_annotation: ^4.8.1
-  flutter_widget_from_html_core: ^0.10.1
+  flutter_widget_from_html_core: ^0.14.0
+  fwfh_cached_network_image: ^0.14.0
+  fwfh_url_launcher: ^0.9.0
   shared_preferences: ^2.1.2
   logging: ^1.2.0
   isar: ^3.1.0+1
   isar_flutter_libs: ^3.1.0+1
   path_provider: ^2.0.15
-  fwfh_url_launcher: ^0.9.0+2
-  fwfh_cached_network_image: ^0.7.0+5
   cached_network_image: ^3.2.3
   flutter_svg: ^2.0.7
   url_launcher: ^6.1.12
