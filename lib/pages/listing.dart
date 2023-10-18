@@ -1,9 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:frigoligo/widgets/tag_list.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../constants.dart';
 import '../models/article.dart';
@@ -34,8 +35,6 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
       RestorableEnum(StateFilter.unread, values: StateFilter.values);
   final RestorableEnum<StarredFilter> _starredFilter =
       RestorableEnum(StarredFilter.all, values: StarredFilter.values);
-  final ItemScrollController _itemScrollController = ItemScrollController();
-  int? jumpedTo;
 
   @override
   String? get restorationId => 'listing';
@@ -55,27 +54,6 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
     super.dispose();
   }
 
-  @override
-  void initState() {
-    super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      // check if we have already jumped or if the state has been recycled
-      if (jumpedTo != null && jumpedTo == widget.initialArticleId) return;
-
-      final storage = context.read<WallabagStorage>();
-      final index = widget.initialArticleId != null
-          ? storage.indexOf(widget.initialArticleId!, _stateFilter.value,
-              _starredFilter.value)
-          : null;
-      if (index != null && index > 0) {
-        _log.info('scrolling to $index (id:${widget.initialArticleId}))');
-        _itemScrollController.jumpTo(index: index, alignment: 0.5);
-        jumpedTo = widget.initialArticleId;
-      }
-    });
-  }
-
   String _makeTitle(WallabagStorage storage) {
     var prefix = _stateFilter.value.name.toCapitalCase()!;
     if (_starredFilter.value == StarredFilter.starred) {
@@ -90,13 +68,20 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
     final settings = storage.settings;
     final refreshProgressValue = context.select<WallabagStorage, double?>(
       (storage) => storage.refreshProgressValue,
-    );
+    ); // TODO move to a completion toast with linear progress indicator
 
     storage.onError = (error) {
       ScaffoldMessenger.maybeOf(context)?.showSnackBar(
         SnackBar(content: Text(error.toString())),
       );
     };
+
+    Future<int> doRefresh() async {
+      _log.info('triggered refresh');
+      return storage.incrementalRefresh();
+    }
+
+    final count = storage.count(_stateFilter.value, _starredFilter.value);
 
     return Scaffold(
       appBar: AppBar(
@@ -110,14 +95,12 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
             },
             icon: const Icon(Icons.filter_list),
           ),
-          AsyncActionButton(
-            icon: const Icon(Icons.refresh),
-            progressValue: refreshProgressValue,
-            onPressed: () {
-              _log.info('user action > incremental refresh');
-              storage.incrementalRefresh();
-            },
-          ),
+          if (!isMobilePlatform) // TODO will go away if it feels right with a mouse scroll too
+            AsyncActionButton(
+              icon: const Icon(Icons.refresh),
+              progressValue: refreshProgressValue,
+              onPressed: doRefresh,
+            ),
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () => context.push('/settings', extra: storage),
@@ -137,43 +120,51 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
                 });
               },
             ),
-          Expanded(
-            child: storage.count(_stateFilter.value, _starredFilter.value) == 0
-                ? Center(
-                    child: Text(
-                      'No articles',
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                  )
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: ScrollablePositionedList.separated(
-                          itemCount: storage.count(
-                              _stateFilter.value, _starredFilter.value),
-                          itemBuilder: (context, index) {
-                            return ArticleListItem(
-                              article: storage.index(index, _stateFilter.value,
-                                  _starredFilter.value)!,
-                              onTap: (article) {
-                                settings[Sk.selectedArticleId] = article.id;
-                                widget.onItemSelect(article.id!);
-                              },
-                            );
-                          },
-                          separatorBuilder: (context, index) => const Divider(),
-                          itemScrollController: _itemScrollController,
-                        ),
+          listOrEmpyPlaceholder(
+            context,
+            count,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: RefreshIndicator.adaptive(
+                    onRefresh: doRefresh,
+                    child: ListView.separated(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      itemBuilder: (context, index) => ArticleListItem(
+                        article: storage.index(
+                            index, _stateFilter.value, _starredFilter.value)!,
+                        onTap: (article) {
+                          settings[Sk.selectedArticleId] = article.id;
+                          widget.onItemSelect(article.id!);
+                        },
                       ),
-                    ],
+                      separatorBuilder: (context, index) => const Divider(),
+                      itemCount: count,
+                    ),
                   ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
       restorationId: 'listing.scaffold',
     );
   }
+}
+
+Widget listOrEmpyPlaceholder(BuildContext context, int count, Widget child) {
+  return Expanded(
+    child: count == 0
+        ? Center(
+            child: Text(
+              'No articles',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+          )
+        : child,
+  );
 }
 
 class FilterHeader extends StatelessWidget {

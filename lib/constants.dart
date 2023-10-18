@@ -36,8 +36,8 @@ final Icon shareIcon = Platform.isIOS || Platform.isMacOS
 const int autoSyncThrottleSeconds = 15 * 60;
 const int logCountResetThreshold = 1000;
 
-final appBadgeSupported =
-    Platform.isIOS || Platform.isMacOS || Platform.isAndroid;
+final isMobilePlatform = Platform.isAndroid || Platform.isIOS;
+final appBadgeSupported = isMobilePlatform || Platform.isMacOS;
 const appGroupId = 'group.net.casimir-lab.frigoligo';
 
 const narrowScreenBreakpoint = 600.0;
