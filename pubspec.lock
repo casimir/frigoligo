@@ -261,10 +261,10 @@ packages:
     dependency: transitive
     description:
       name: dynamic_color
-      sha256: "96bff3df72e3d428bda2b874c7a521e8c86f592cae626ea594922fcc8d166e0c"
+      sha256: "8b8bd1d798bd393e11eddeaa8ae95b12ff028bf7d5998fc5d003488cd5f4ce2f"
       url: "https://pub.dev"
     source: hosted
-    version: "1.6.7"
+    version: "1.6.8"
   equatable:
     dependency: transitive
     description:
@@ -364,10 +364,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_widget_from_html_core
-      sha256: ce4ff8be8057a9260edab50b28c3d53e7a5ec5eb70cb1de089c4a96f398c1d9b
+      sha256: bf896211759a972c14054921ec9a97f551769cd0c8d970ac750d204d98322bdc
       url: "https://pub.dev"
     source: hosted
-    version: "0.14.2"
+    version: "0.14.3"
   frontend_server_client:
     dependency: transitive
     description:
@@ -760,14 +760,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.27.7"
-  scrollable_positioned_list:
-    dependency: "direct main"
-    description:
-      name: scrollable_positioned_list
-      sha256: "1b54d5f1329a1e263269abc9e2543d90806131aa14fe7c6062a8054d57249287"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.3.8"
   settings_ui:
     dependency: "direct main"
     description:

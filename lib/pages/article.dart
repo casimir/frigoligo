@@ -13,6 +13,7 @@ import '../models/article.dart';
 import '../providers/article.dart';
 import '../providers/expander.dart';
 import '../widgets/async_action_button.dart';
+import '../widgets/tag_list.dart';
 
 class ArticlePage extends StatefulWidget {
   // TODO articleId is not used but required to avoid triggering flutter caching
@@ -185,6 +186,7 @@ class _ArticlePageState extends State<ArticlePage> {
           child: Column(
             children: [
               _buildHeader(article),
+              TagList(tags: article.tags),
               const Divider(),
               _buildContent(article.content!, scroller, provider)
             ],
