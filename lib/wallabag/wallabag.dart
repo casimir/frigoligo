@@ -61,10 +61,9 @@ T safeDecode<T>(http.Response response, Decoder<T> decoder) {
     final json = jsonDecode(response.body);
     return decoder(json);
   } catch (source) {
-    throw switch (source.runtimeType) {
-      WallabagError => source as WallabagError,
-      Exception =>
-        WallabagError.fromException(source as Exception, response: response),
+    throw switch (source) {
+      WallabagError e => e,
+      Exception e => WallabagError.fromException(e, response: response),
       _ => WallabagError.fromException(Exception(source.toString()),
           response: response),
     };
@@ -314,8 +313,8 @@ class WallabagClient extends http.BaseClient {
         );
       } catch (source, st) {
         final e = switch (source.runtimeType) {
-          WallabagError => source as WallabagError,
-          Exception => WallabagError.fromException(source as Exception),
+          WallabagError e => e,
+          Exception e => WallabagError.fromException(e),
           _ => WallabagError.fromException(Exception(source.toString())),
         };
         _log.severe(

@@ -55,9 +55,9 @@ class WallabagAnnotationRange {
 
 int? _magicInt(dynamic value) {
   if (value == null) return null;
-  return switch (value.runtimeType) {
-    int => value,
-    String => int.parse(value),
+  return switch (value) {
+    int i => i,
+    String s => int.parse(s),
     _ => throw Exception('Invalid type ${value.runtimeType}'),
   };
 }

@@ -44,13 +44,13 @@ class SettingsProvider extends ChangeNotifier {
       return skey.items![index];
     }
 
-    switch (skey.initial.runtimeType) {
-      case bool:
-      case double:
-      case int:
-      case String:
+    switch (skey.initial) {
+      case bool _:
+      case double _:
+      case int _:
+      case String _:
         return _prefs.get(key) ?? skey.initial;
-      case const (List<String>):
+      case List<String> _:
         return _prefs.getStringList(key);
       default:
         final raw = _prefs.getString(key);
@@ -61,19 +61,19 @@ class SettingsProvider extends ChangeNotifier {
 
   Future<bool> _setValue(Sk skey, dynamic value) {
     final key = _k(skey.key);
-    switch (value.runtimeType) {
-      case bool:
-        return _prefs.setBool(key, value as bool);
-      case double:
-        return _prefs.setDouble(key, value as double);
-      case int:
-        return _prefs.setInt(key, value as int);
-      case String:
-        return _prefs.setString(key, value as String);
-      case const (List<String>):
-        return _prefs.setStringList(key, value as List<String>);
+    switch (value) {
+      case bool b:
+        return _prefs.setBool(key, b);
+      case double d:
+        return _prefs.setDouble(key, d);
+      case int i:
+        return _prefs.setInt(key, i);
+      case String s:
+        return _prefs.setString(key, s);
+      case List<String> ss:
+        return _prefs.setStringList(key, ss);
       default:
-        if (value is Enum) return _prefs.setInt(key, value.index);
+        if (value case Enum e) return _prefs.setInt(key, e.index);
         return _prefs.setString(key, jsonEncode(value));
     }
   }
