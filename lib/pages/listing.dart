@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:frigoligo/widgets/tag_list.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
@@ -13,17 +12,23 @@ import '../providers/settings.dart';
 import '../services/wallabag_storage.dart';
 import '../string_extension.dart';
 import '../widgets/article_image_preview.dart';
-import '../widgets/async_action_button.dart';
 import '../widgets/icon_toggle_button.dart';
+import '../widgets/remote_sync_progress_indicator.dart';
+import '../widgets/tag_list.dart';
 
 final _log = Logger('frigoligo.listing');
 
 class ListingPage extends StatefulWidget {
-  const ListingPage(
-      {super.key, required this.onItemSelect, this.initialArticleId});
+  const ListingPage({
+    super.key,
+    required this.onItemSelect,
+    this.initialArticleId,
+    this.withProgressIndicator = true,
+  });
 
   final void Function(int articleId) onItemSelect;
   final int? initialArticleId;
+  final bool withProgressIndicator;
 
   @override
   State<ListingPage> createState() => _ListingPageState();
@@ -66,9 +71,6 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
   Widget build(BuildContext context) {
     final storage = context.watch<WallabagStorage>();
     final settings = storage.settings;
-    final refreshProgressValue = context.select<WallabagStorage, double?>(
-      (storage) => storage.refreshProgressValue,
-    ); // TODO move to a completion toast with linear progress indicator
 
     storage.onError = (error) {
       ScaffoldMessenger.maybeOf(context)?.showSnackBar(
@@ -95,10 +97,9 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
             },
             icon: const Icon(Icons.filter_list),
           ),
-          if (!isMobilePlatform) // TODO will go away if it feels right with a mouse scroll too
-            AsyncActionButton(
+          if (!pullToRefreshSupported)
+            IconButton(
               icon: const Icon(Icons.refresh),
-              progressValue: refreshProgressValue,
               onPressed: doRefresh,
             ),
           IconButton(
@@ -109,6 +110,7 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
       ),
       body: Column(
         children: [
+          if (widget.withProgressIndicator) const RemoteSyncProgressIndicator(),
           if (_showFilters.value)
             FilterHeader(
               selectedState: _stateFilter.value,

@@ -12,6 +12,7 @@ import '../models/article.dart';
 import '../models/article_scroll_position.dart';
 import '../models/db.dart';
 import '../providers/settings.dart';
+import '../services/remote_sync.dart';
 
 final _log = Logger('wallabag.storage');
 
@@ -22,8 +23,10 @@ enum RefreshState {
   error,
 }
 
+const progressReporterTopic = 'service:wallabag:storage';
+
 class WallabagStorage with ChangeNotifier {
-  WallabagStorage(this.settings, {this.onError}) {
+  WallabagStorage(this.settings, this.syncProvider, {this.onError}) {
     _watcher = db.articles.watchLazy().listen((_) => notifyListeners());
 
     // ensure a relative freshness of the articles
@@ -35,11 +38,18 @@ class WallabagStorage with ChangeNotifier {
   final WallabagClient wallabag = WallabagInstance.get();
   StreamSubscription? _watcher;
   final SettingsProvider settings;
+  final RemoteSync syncProvider;
   void Function(Exception)? onError;
 
   float? _refreshProgressValue;
   float? get refreshProgressValue => _refreshProgressValue;
   set refreshProgressValue(float? value) {
+    if (value == null) {
+      syncProvider.finish(SyncAction.refresh);
+    } else {
+      syncProvider.setProgress(SyncAction.refresh, value);
+    }
+
     _refreshProgressValue = value;
     notifyListeners();
   }

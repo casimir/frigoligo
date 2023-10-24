@@ -21,6 +21,7 @@ import 'providers/deeplinks.dart';
 import 'providers/expander.dart';
 import 'providers/logconsole.dart';
 import 'providers/settings.dart';
+import 'services/remote_sync.dart';
 import 'services/wallabag_storage.dart';
 
 final _log = Logger('frigoligo');
@@ -115,6 +116,7 @@ class MyApp extends StatelessWidget {
           create: (_) =>
               SettingsProvider(namespace: kDebugMode ? 'debug' : null),
         ),
+        ChangeNotifierProvider(create: (_) => RemoteSync.instance),
         ChangeNotifierProvider(
           create: (context) {
             return DeeplinksProvider(_router.configuration, (linkType, uri) {
@@ -179,7 +181,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final settings = context.watch<SettingsProvider>();
+    final settings = context.read<SettingsProvider>();
     return _MainContainer(
       initialArticleId: openArticleId ?? settings[Sk.selectedArticleId],
       openArticle: openArticleId != null,
@@ -200,7 +202,6 @@ class _MainContainer extends StatefulWidget {
 class _MainContainerState extends State<_MainContainer> {
   int? deepLinkHandledFor;
   int? _selectedId;
-  bool expanded = false;
 
   bool get deepLinkHandled =>
       deepLinkHandledFor != null &&
@@ -209,8 +210,10 @@ class _MainContainerState extends State<_MainContainer> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    final syncProvider = context.read<RemoteSync>();
     return ChangeNotifierProvider(
-      create: (context) => WallabagStorage(context.read<SettingsProvider>()),
+      create: (context) =>
+          WallabagStorage(context.read<SettingsProvider>(), syncProvider),
       builder: (_, __) {
         if (width <= narrowScreenBreakpoint) return _buildNarrowLayout();
         if (width >= idealListingWidth * 3) return _buildWideLayout();
@@ -264,7 +267,10 @@ class _MainContainerState extends State<_MainContainer> {
               ),
             Flexible(
               flex: 2,
-              child: ArticlePage(articleId: _selectedId ?? 0),
+              child: ArticlePage(
+                articleId: _selectedId ?? 0,
+                withProgressIndicator: expander.expanded,
+              ),
             ),
           ],
         );

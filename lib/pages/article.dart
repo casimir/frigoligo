@@ -13,21 +13,29 @@ import '../models/article.dart';
 import '../providers/article.dart';
 import '../providers/expander.dart';
 import '../widgets/async_action_button.dart';
+import '../widgets/remote_sync_progress_indicator.dart';
 import '../widgets/tag_list.dart';
 
 class ArticlePage extends StatefulWidget {
   // TODO articleId is not used but required to avoid triggering flutter caching
   // maybe that's just a setState() missing somewhere
-  const ArticlePage({super.key, required this.articleId, this.drawer});
+  const ArticlePage({
+    super.key,
+    required this.articleId,
+    this.drawer,
+    this.withProgressIndicator = true,
+  });
 
   final int articleId;
   final Widget? drawer;
+  final bool withProgressIndicator;
 
   @override
   State<ArticlePage> createState() => _ArticlePageState();
 }
 
 class _ArticlePageState extends State<ArticlePage> {
+  bool _drawerIsOpened = false;
   bool _stateChangePending = false;
   bool _starredChangePending = false;
 
@@ -47,13 +55,13 @@ class _ArticlePageState extends State<ArticlePage> {
       );
     }
 
-    late final Widget bodyBuilder;
+    late final Widget body;
     if (article == null) {
-      bodyBuilder = _buildNoArticle();
+      body = _buildNoArticle();
     } else if (article.content == null) {
-      bodyBuilder = _buildEmptyContent(Uri.parse(article.url));
+      body = _buildEmptyContent(Uri.parse(article.url));
     } else {
-      bodyBuilder = _buildArticleContent(article, provider, scroller);
+      body = _buildArticleContent(article, provider, scroller);
     }
 
     return SelectionArea(
@@ -139,8 +147,17 @@ class _ArticlePageState extends State<ArticlePage> {
             ),
           ],
         ),
-        body: bodyBuilder,
+        body: Column(
+          children: [
+            if (widget.withProgressIndicator && !_drawerIsOpened)
+              const RemoteSyncProgressIndicator(),
+            Expanded(child: body),
+          ],
+        ),
         drawer: widget.drawer,
+        onDrawerChanged: (isOpened) => setState(() {
+          _drawerIsOpened = isOpened;
+        }),
       ),
     );
   }
