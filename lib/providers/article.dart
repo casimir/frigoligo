@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:frigoligo/wallabag/wallabag.dart';
 
 import '../models/article.dart';
 import '../models/article_scroll_position.dart';
 import '../models/db.dart';
+import '../wallabag/wallabag.dart';
 
 class ArticleProvider extends ChangeNotifier {
   ArticleProvider(this.articleId) {

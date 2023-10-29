@@ -1,8 +1,8 @@
-import 'package:frigoligo/constants.dart';
 import 'package:isar/isar.dart';
 import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../constants.dart';
 import 'app_log.dart';
 import 'article.dart';
 import 'article_scroll_position.dart';

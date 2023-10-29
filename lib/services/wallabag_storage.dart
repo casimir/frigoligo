@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
-import 'package:frigoligo/wallabag/wallabag.dart';
 import 'package:isar/isar.dart';
 import 'package:logging/logging.dart';
 
@@ -12,6 +11,7 @@ import '../models/article.dart';
 import '../models/article_scroll_position.dart';
 import '../models/db.dart';
 import '../providers/settings.dart';
+import '../wallabag/wallabag.dart';
 
 final _log = Logger('wallabag.storage');
 

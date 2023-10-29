@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:frigoligo/wallabag/credentials.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/retry.dart';
 import 'package:isar/isar.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:logging/logging.dart';
 
+import 'credentials.dart';
 import 'models/entry.dart';
 import 'models/info.dart';
 import 'utils.dart';

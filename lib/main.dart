@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:frigoligo/wallabag/wallabag.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -23,6 +22,7 @@ import 'providers/logconsole.dart';
 import 'providers/settings.dart';
 import 'services/remote_sync.dart';
 import 'services/wallabag_storage.dart';
+import 'wallabag/wallabag.dart';
 
 final _log = Logger('frigoligo');
 

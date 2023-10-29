@@ -1,12 +1,12 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:frigoligo/models/article.dart';
-import 'package:frigoligo/wallabag/wallabag.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../models/article.dart';
 import '../models/db.dart';
 import '../providers/settings.dart';
+import '../wallabag/wallabag.dart';
 
 class SavePage extends StatefulWidget {
   const SavePage({super.key, required this.url});

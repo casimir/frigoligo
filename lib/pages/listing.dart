@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:frigoligo/services/remote_sync.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +9,7 @@ import '../constants.dart';
 import '../models/article.dart';
 import '../providers/article.dart';
 import '../providers/settings.dart';
+import '../services/remote_sync.dart';
 import '../services/wallabag_storage.dart';
 import '../string_extension.dart';
 import '../widgets/article_image_preview.dart';

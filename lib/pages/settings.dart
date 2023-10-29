@@ -1,8 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:frigoligo/services/remote_sync.dart';
-import 'package:frigoligo/services/remote_sync_actions/articles.dart';
-import 'package:frigoligo/string_extension.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -12,7 +9,10 @@ import 'package:settings_ui/settings_ui.dart';
 import '../constants.dart';
 import '../providers/deeplinks.dart';
 import '../providers/settings.dart';
+import '../services/remote_sync.dart';
+import '../services/remote_sync_actions/articles.dart';
 import '../services/wallabag_storage.dart';
+import '../string_extension.dart';
 
 final _log = Logger('frigoligo.listing');
 
