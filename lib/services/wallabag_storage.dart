@@ -12,21 +12,11 @@ import '../models/article.dart';
 import '../models/article_scroll_position.dart';
 import '../models/db.dart';
 import '../providers/settings.dart';
-import '../services/remote_sync.dart';
 
 final _log = Logger('wallabag.storage');
 
-enum RefreshState {
-  idle,
-  inProgress,
-  success,
-  error,
-}
-
-const progressReporterTopic = 'service:wallabag:storage';
-
 class WallabagStorage with ChangeNotifier {
-  WallabagStorage(this.settings, this.syncProvider, {this.onError}) {
+  WallabagStorage(this.settings, {this.onError}) {
     _watcher = db.articles.watchLazy().listen((_) => notifyListeners());
 
     // ensure a relative freshness of the articles
@@ -38,23 +28,7 @@ class WallabagStorage with ChangeNotifier {
   final WallabagClient wallabag = WallabagInstance.get();
   StreamSubscription? _watcher;
   final SettingsProvider settings;
-  final RemoteSync syncProvider;
   void Function(Exception)? onError;
-
-  float? _refreshProgressValue;
-  float? get refreshProgressValue => _refreshProgressValue;
-  set refreshProgressValue(float? value) {
-    if (value == null) {
-      syncProvider.finish(SyncAction.refresh);
-    } else {
-      syncProvider.setProgress(SyncAction.refresh, value);
-    }
-
-    _refreshProgressValue = value;
-    notifyListeners();
-  }
-
-  bool get refreshInProgress => _refreshProgressValue != null;
 
   @override
   void dispose() {
@@ -137,7 +111,7 @@ class WallabagStorage with ChangeNotifier {
   int count(StateFilter state, StarredFilter starred) =>
       _buildQuery(state: state, starred: starred).countSync();
 
-  Future<int> syncRemoteDeletes() async {
+  Future<int> _syncRemoteDeletes() async {
     _log.info('checking for server-side deletions');
     final remoteCount = await wallabag.fetchTotalEntriesCount();
     var localIds = (await db.articles.where().idProperty().findAll()).toSet();
@@ -180,23 +154,24 @@ class WallabagStorage with ChangeNotifier {
     }
   }
 
-  Future<int> fullRefresh({int? since}) async {
-    if (refreshInProgress) return 0;
+  Future<void> clearArticles({bool keepPositions = true}) async {
+    await db.writeTxn(() async {
+      await db.articles.clear();
+      if (!keepPositions) await db.articleScrollPositions.clear();
+    });
+    _log.info('cleared the whole articles collection');
+    updateAppBadge();
+  }
 
+  Future<int> fullRefresh(
+      {int? since, void Function(double)? onProgress}) async {
     var count = 0;
     final sinceRepr = since != null
         ? DateTime.fromMillisecondsSinceEpoch(since * 1000).toIso8601String()
         : null;
     _log.info('starting refresh with since=$sinceRepr');
 
-    if (since == null) {
-      await db.writeTxn(() async {
-        await db.articles.clear();
-        _log.info('cleared the whole articles collection');
-      });
-    }
-
-    void onProgress(float progress) => refreshProgressValue = progress;
+    if (since == null) clearArticles();
 
     try {
       final stopwatch = Stopwatch()..start();
@@ -230,12 +205,9 @@ class WallabagStorage with ChangeNotifier {
       final now = DateTime.now().millisecondsSinceEpoch / 1000;
       settings[Sk.lastRefresh] = now.toInt();
 
-      onProgress(0);
-      syncRemoteDeletes();
+      _syncRemoteDeletes();
     } on Exception catch (e) {
       onError?.call(e);
-    } finally {
-      refreshProgressValue = null;
     }
 
     updateAppBadge();
@@ -243,7 +215,8 @@ class WallabagStorage with ChangeNotifier {
     return count;
   }
 
-  Future<int> incrementalRefresh({int? threshold}) async {
+  Future<int> incrementalRefresh(
+      {int? threshold, void Function(double)? onProgress}) async {
     final int since = settings[Sk.lastRefresh];
     if (threshold != null && since > 0) {
       final now = DateTime.now().millisecondsSinceEpoch / 1000;
@@ -254,7 +227,7 @@ class WallabagStorage with ChangeNotifier {
         return 0;
       }
     }
-    return fullRefresh(since: since > 0 ? since : null);
+    return fullRefresh(since: since > 0 ? since : null, onProgress: onProgress);
   }
 
   Future<void> persistArticle(Article article) async {

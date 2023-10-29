@@ -290,11 +290,10 @@ class WallabagClient extends http.BaseClient {
     int? public,
     DetailValue? detail, // include the content if 'full'
     String? domainName,
-    Function(float)? onProgress,
+    void Function(float)? onProgress,
   }) async* {
     var pageIndex = page;
     var lastPage = pageIndex + 1; // start with +1 just to start the loop
-    onProgress?.call(0);
     while (pageIndex <= lastPage) {
       late WallabagPaginatedEntries pageData;
       try {

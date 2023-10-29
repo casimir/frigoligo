@@ -210,10 +210,13 @@ class _MainContainerState extends State<_MainContainer> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final syncProvider = context.read<RemoteSync>();
+    final syncer = context.read<RemoteSync>();
     return ChangeNotifierProvider(
-      create: (context) =>
-          WallabagStorage(context.read<SettingsProvider>(), syncProvider),
+      create: (context) {
+        final provider = WallabagStorage(context.read<SettingsProvider>());
+        syncer.wallabag = provider;
+        return provider;
+      },
       builder: (_, __) {
         if (width <= narrowScreenBreakpoint) return _buildNarrowLayout();
         if (width >= idealListingWidth * 3) return _buildWideLayout();

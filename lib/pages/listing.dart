@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:frigoligo/services/remote_sync.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
@@ -78,9 +79,9 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
       );
     };
 
-    Future<int> doRefresh() async {
+    Future<void> doRefresh() async {
       _log.info('triggered refresh');
-      return storage.incrementalRefresh();
+      await context.read<RemoteSync>().synchronize(withFinalRefresh: true);
     }
 
     final count = storage.count(_stateFilter.value, _starredFilter.value);

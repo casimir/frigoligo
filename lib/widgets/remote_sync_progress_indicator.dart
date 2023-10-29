@@ -16,7 +16,15 @@ class RemoteSyncProgressIndicator extends StatelessWidget {
       _log.warning('RemoteSyncProgressReporter: provider is null');
     }
 
-    if (provider == null || !provider.isWorking) {
+    final error = provider?.lastError;
+    if (error != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        final snackbar = SnackBar(content: Text(error.toString()));
+        ScaffoldMessenger.maybeOf(context)?.showSnackBar(snackbar);
+      });
+    }
+
+    if (provider == null || error != null || !provider.isWorking) {
       return const SizedBox.shrink();
     } else {
       return LinearProgressIndicator(value: provider.progressValue);

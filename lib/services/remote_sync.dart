@@ -1,37 +1,87 @@
-import 'dart:collection';
-
 import 'package:flutter/widgets.dart';
+import 'package:logging/logging.dart';
 
-enum SyncAction {
-  refresh,
-}
+import 'remote_sync_actions/articles.dart';
+import 'remote_sync_actions/base.dart';
+import 'wallabag_storage.dart';
+
+final _log = Logger('remote.sync');
 
 class RemoteSync with ChangeNotifier {
-  final ListQueue<SyncAction> _queue = ListQueue();
-  final Map<SyncAction, double?> _progress = {};
+  static const _refreshAction = RefreshArticlesAction();
 
-  bool get isWorking => _queue.isNotEmpty;
-  double? get progressValue {
-    if (_progress.isEmpty) return null;
+// FIXME it should come from the contructor or as a singleton
+  WallabagStorage? wallabag;
 
-    var sum = 0.0;
-    for (final value in _progress.values) {
-      if (value == null) return null;
-      sum += value;
+  final Set<RemoteSyncAction> _queue = {};
+  int get pendingCount => _queue.length;
+
+  bool isWorking = false;
+
+  double? _progressValue;
+  double? get progressValue => _progressValue;
+  set progressValue(double? value) {
+    if (value == _progressValue) return;
+    _progressValue = value;
+    notifyListeners();
+  }
+
+  bool _withFinalRefresh = false;
+
+  void _resetWorkingState() {
+    isWorking = false;
+    _progressValue = null;
+    _withFinalRefresh = false;
+    notifyListeners();
+  }
+
+  Exception? _error;
+  Exception? get lastError {
+    final error = _error;
+    _error = null;
+    return error;
+  }
+
+  // TODO keep withFinalRefresh?
+  RemoteSync add(RemoteSyncAction action, {bool withFinalRefresh = false}) {
+    _queue.add(action);
+    _withFinalRefresh |= withFinalRefresh;
+    return this;
+  }
+
+  Future<void> synchronize({bool withFinalRefresh = false}) async {
+    _log.info('starting remote synchronization');
+    if (isWorking) {
+      _log.info('sync already in progress, skipping...');
+      return;
     }
-    return sum / _progress.length;
+    isWorking = true;
+
+    try {
+      await _executeActions();
+      if (_withFinalRefresh || withFinalRefresh) {
+        progressValue = null;
+        _log.info('running action: $_refreshAction');
+        await _refreshAction.execute(this);
+      }
+    } on Exception catch (e, st) {
+      _log.severe('error while executing actions', e, st);
+      _error = e;
+    } finally {
+      _resetWorkingState();
+    }
   }
 
-  void setProgress(SyncAction action, double? value) {
-    if (!_queue.contains(action)) _queue.add(action);
-    _progress[action] = value;
-    notifyListeners();
-  }
-
-  void finish(SyncAction action) {
-    _queue.remove(action);
-    _progress.remove(action);
-    notifyListeners();
+  Future<void> _executeActions() async {
+    progressValue = null;
+    final actionsCount = _queue.length;
+    int i = 0;
+    for (final action in _queue.toList()) {
+      _log.info('running action: $action');
+      await action.execute(this);
+      _queue.remove(action);
+      progressValue = i / actionsCount;
+    }
   }
 
   static final _instance = RemoteSync();

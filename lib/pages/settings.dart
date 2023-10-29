@@ -1,5 +1,7 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:frigoligo/services/remote_sync.dart';
+import 'package:frigoligo/services/remote_sync_actions/articles.dart';
 import 'package:frigoligo/string_extension.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
@@ -21,6 +23,7 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final settings = context.watch<SettingsProvider>();
     final storage = context.read<WallabagStorage>();
+    final syncer = context.read<RemoteSync>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
@@ -114,7 +117,9 @@ class SettingsPage extends StatelessWidget {
                     _log.info('user action > cache rebuild');
                     settings.remove(Sk.lastRefresh);
                     if (context.mounted) {
-                      storage.fullRefresh();
+                      syncer
+                          .add(const ClearArticlesAction())
+                          .synchronize(withFinalRefresh: true);
                       context.go('/');
                     }
                   },
