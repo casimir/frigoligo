@@ -81,7 +81,7 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
 
     Future<void> doRefresh() async {
       _log.info('triggered refresh');
-      await context.read<RemoteSync>().synchronize(withFinalRefresh: true);
+      await context.read<RemoteSyncer>().synchronize(withFinalRefresh: true);
     }
 
     final count = storage.count(_stateFilter.value, _starredFilter.value);

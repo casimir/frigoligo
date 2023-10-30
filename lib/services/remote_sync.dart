@@ -7,7 +7,7 @@ import 'wallabag_storage.dart';
 
 final _log = Logger('remote.sync');
 
-class RemoteSync with ChangeNotifier {
+class RemoteSyncer with ChangeNotifier {
   static const _refreshAction = RefreshArticlesAction();
 
 // FIXME it should come from the contructor or as a singleton
@@ -89,6 +89,6 @@ class RemoteSync with ChangeNotifier {
     }
   }
 
-  static final _instance = RemoteSync();
-  static RemoteSync get instance => _instance;
+  static final _instance = RemoteSyncer();
+  static RemoteSyncer get instance => _instance;
 }

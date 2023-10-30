@@ -23,7 +23,7 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final settings = context.watch<SettingsProvider>();
     final storage = context.read<WallabagStorage>();
-    final syncer = context.read<RemoteSync>();
+    final syncer = context.read<RemoteSyncer>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),

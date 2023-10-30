@@ -11,7 +11,7 @@ class RemoteSyncProgressIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = context.watch<RemoteSync?>();
+    final provider = context.watch<RemoteSyncer?>();
     if (provider == null) {
       _log.warning('RemoteSyncProgressReporter: provider is null');
     }

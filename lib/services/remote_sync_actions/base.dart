@@ -12,7 +12,7 @@ abstract class RemoteSyncAction {
   @override
   int get hashCode => _key.hashCode;
 
-  Future<void> execute(RemoteSync syncer);
+  Future<void> execute(RemoteSyncer syncer);
 
   @override
   String toString() {

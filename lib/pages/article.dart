@@ -40,7 +40,7 @@ class _ArticlePageState extends State<ArticlePage> {
 
   @override
   Widget build(BuildContext context) {
-    final syncer = context.read<RemoteSync>();
+    final syncer = context.read<RemoteSyncer>();
     final provider = context.watch<ArticleProvider>();
     final article = provider.article;
     final scroller = ScrollController();

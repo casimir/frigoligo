@@ -116,7 +116,7 @@ class MyApp extends StatelessWidget {
           create: (_) =>
               SettingsProvider(namespace: kDebugMode ? 'debug' : null),
         ),
-        ChangeNotifierProvider(create: (_) => RemoteSync.instance),
+        ChangeNotifierProvider(create: (_) => RemoteSyncer.instance),
         ChangeNotifierProvider(
           create: (context) {
             return DeeplinksProvider(_router.configuration, (linkType, uri) {
@@ -210,7 +210,7 @@ class _MainContainerState extends State<_MainContainer> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final syncer = context.read<RemoteSync>();
+    final syncer = context.read<RemoteSyncer>();
     return ChangeNotifierProvider(
       create: (context) {
         final provider = WallabagStorage(context.read<SettingsProvider>());
