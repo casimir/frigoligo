@@ -217,6 +217,7 @@ class _MainContainerState extends State<_MainContainer> {
         syncer.wallabag = provider;
         return provider;
       },
+      lazy: false, // Just for RemoteSync initialization.
       builder: (_, __) {
         if (width <= narrowScreenBreakpoint) return _buildNarrowLayout();
         if (width >= idealListingWidth * 3) return _buildWideLayout();

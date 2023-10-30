@@ -118,8 +118,8 @@ class SettingsPage extends StatelessWidget {
                     settings.remove(Sk.lastRefresh);
                     if (context.mounted) {
                       syncer
-                          .add(const ClearArticlesAction())
-                          .synchronize(withFinalRefresh: true);
+                        ..add(const ClearArticlesAction())
+                        ..synchronize(withFinalRefresh: true);
                       context.go('/');
                     }
                   },

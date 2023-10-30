@@ -239,4 +239,20 @@ class WallabagStorage with ChangeNotifier {
       }
     });
   }
+
+  Future<void> deleteArticle(int articleId) async {
+    await wallabag.deleteEntry(articleId);
+    await db.writeTxn(() async {
+      await db.articles.delete(articleId);
+      await db.articleScrollPositions.delete(articleId);
+    });
+  }
+
+  Future<void> editArticle(int articleId,
+      {bool? archive, bool? starred}) async {
+    await wallabag.patchEntry(articleId, archive: archive, starred: starred);
+    final entry = await wallabag.getEntry(articleId);
+    final article = Article.fromWallabagEntry(entry);
+    await persistArticle(article);
+  }
 }

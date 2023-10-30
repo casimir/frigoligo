@@ -12,7 +12,8 @@ import '../constants.dart';
 import '../models/article.dart';
 import '../providers/article.dart';
 import '../providers/expander.dart';
-import '../widgets/async_action_button.dart';
+import '../services/remote_sync.dart';
+import '../services/remote_sync_actions/articles.dart';
 import '../widgets/remote_sync_progress_indicator.dart';
 import '../widgets/tag_list.dart';
 
@@ -36,11 +37,10 @@ class ArticlePage extends StatefulWidget {
 
 class _ArticlePageState extends State<ArticlePage> {
   bool _drawerIsOpened = false;
-  bool _stateChangePending = false;
-  bool _starredChangePending = false;
 
   @override
   Widget build(BuildContext context) {
+    final syncer = context.read<RemoteSync>();
     final provider = context.watch<ArticleProvider>();
     final article = provider.article;
     final scroller = ScrollController();
@@ -71,24 +71,24 @@ class _ArticlePageState extends State<ArticlePage> {
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           actions: [
             if (article != null)
-              AsyncActionButton(
+              IconButton(
                 icon: stateIcons[article.stateValue]!,
-                progressValue: _stateChangePending ? 0 : null,
-                onPressed: () => provider.modifyAndRefresh(
-                  archive: article.archivedAt == null,
-                  onProgress: (progress) =>
-                      setState(() => _stateChangePending = progress < 1),
-                ),
+                onPressed: () => syncer
+                  ..add(EditArticleAction(
+                    article.id!,
+                    archive: article.archivedAt == null,
+                  ))
+                  ..synchronize(),
               ),
             if (article != null)
-              AsyncActionButton(
+              IconButton(
                 icon: starredIcons[article.starredValue]!,
-                progressValue: _starredChangePending ? 0 : null,
-                onPressed: () => provider.modifyAndRefresh(
-                  starred: article.starredAt == null,
-                  onProgress: (progress) =>
-                      setState(() => _starredChangePending = progress < 1),
-                ),
+                onPressed: () => syncer
+                  ..add(EditArticleAction(
+                    article.id!,
+                    starred: article.starredAt == null,
+                  ))
+                  ..synchronize(),
               ),
             PopupMenuButton(
               itemBuilder: (context) => [
@@ -138,7 +138,8 @@ class _ArticlePageState extends State<ArticlePage> {
                       isDestructiveAction: true,
                     );
                     if (result == OkCancelResult.cancel) return;
-                    await provider.delete();
+                    syncer.add(DeleteArticleAction(article.id!));
+                    await syncer.synchronize();
                     if (toggler == null && context.mounted) {
                       context.go('/');
                     }

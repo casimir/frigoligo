@@ -16,7 +16,13 @@ class RemoteSync with ChangeNotifier {
   final Set<RemoteSyncAction> _queue = {};
   int get pendingCount => _queue.length;
 
-  bool isWorking = false;
+  bool _isWorking = false;
+  bool get isWorking => _isWorking;
+  set isWorking(bool value) {
+    if (value == _isWorking) return;
+    _isWorking = value;
+    notifyListeners();
+  }
 
   double? _progressValue;
   double? get progressValue => _progressValue;
@@ -26,12 +32,9 @@ class RemoteSync with ChangeNotifier {
     notifyListeners();
   }
 
-  bool _withFinalRefresh = false;
-
   void _resetWorkingState() {
     isWorking = false;
     _progressValue = null;
-    _withFinalRefresh = false;
     notifyListeners();
   }
 
@@ -42,11 +45,8 @@ class RemoteSync with ChangeNotifier {
     return error;
   }
 
-  // TODO keep withFinalRefresh?
-  RemoteSync add(RemoteSyncAction action, {bool withFinalRefresh = false}) {
+  void add(RemoteSyncAction action) {
     _queue.add(action);
-    _withFinalRefresh |= withFinalRefresh;
-    return this;
   }
 
   Future<void> synchronize({bool withFinalRefresh = false}) async {
@@ -59,7 +59,7 @@ class RemoteSync with ChangeNotifier {
 
     try {
       await _executeActions();
-      if (_withFinalRefresh || withFinalRefresh) {
+      if (withFinalRefresh) {
         progressValue = null;
         _log.info('running action: $_refreshAction');
         await _refreshAction.execute(this);
@@ -76,7 +76,7 @@ class RemoteSync with ChangeNotifier {
     progressValue = null;
     int actionsCount = _queue.length;
     List<RemoteSyncAction> actions = _queue.toList();
-    int i = 0;
+    int i = 1;
     while (_queue.isNotEmpty) {
       for (final action in actions) {
         _log.info('running action: $action');

@@ -19,3 +19,29 @@ class ClearArticlesAction extends RemoteSyncAction {
     await syncer.wallabag!.clearArticles();
   }
 }
+
+class DeleteArticleAction extends RemoteSyncAction {
+  const DeleteArticleAction(this.articleId) : super('deleteArticle:$articleId');
+
+  final int articleId;
+
+  @override
+  Future<void> execute(syncer) async {
+    await syncer.wallabag!.deleteArticle(articleId);
+  }
+}
+
+class EditArticleAction extends RemoteSyncAction {
+  const EditArticleAction(this.articleId, {this.archive, this.starred})
+      : super('patchArticle:$articleId:$archive:$starred');
+
+  final int articleId;
+  final bool? archive;
+  final bool? starred;
+
+  @override
+  Future<void> execute(syncer) async {
+    await syncer.wallabag!
+        .editArticle(articleId, archive: archive, starred: starred);
+  }
+}
