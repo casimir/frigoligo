@@ -74,13 +74,18 @@ class RemoteSync with ChangeNotifier {
 
   Future<void> _executeActions() async {
     progressValue = null;
-    final actionsCount = _queue.length;
+    int actionsCount = _queue.length;
+    List<RemoteSyncAction> actions = _queue.toList();
     int i = 0;
-    for (final action in _queue.toList()) {
-      _log.info('running action: $action');
-      await action.execute(this);
-      _queue.remove(action);
-      progressValue = i / actionsCount;
+    while (_queue.isNotEmpty) {
+      for (final action in actions) {
+        _log.info('running action: $action');
+        await action.execute(this);
+        _queue.remove(action);
+        progressValue = i / actionsCount;
+      }
+      actionsCount += _queue.length;
+      actions = _queue.toList();
     }
   }
 
