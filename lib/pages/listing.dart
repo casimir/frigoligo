@@ -14,6 +14,7 @@ import '../services/wallabag_storage.dart';
 import '../string_extension.dart';
 import '../widgets/article_image_preview.dart';
 import '../widgets/icon_toggle_button.dart';
+import '../widgets/remote_sync_fab.dart';
 import '../widgets/remote_sync_progress_indicator.dart';
 import '../widgets/tag_list.dart';
 
@@ -152,6 +153,7 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
           ),
         ],
       ),
+      floatingActionButton: RemoteSyncFAB(showIf: widget.withProgressIndicator),
       restorationId: 'listing.scaffold',
     );
   }

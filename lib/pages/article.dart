@@ -14,6 +14,7 @@ import '../providers/article.dart';
 import '../providers/expander.dart';
 import '../services/remote_sync.dart';
 import '../services/remote_sync_actions/articles.dart';
+import '../widgets/remote_sync_fab.dart';
 import '../widgets/remote_sync_progress_indicator.dart';
 import '../widgets/tag_list.dart';
 
@@ -63,6 +64,9 @@ class _ArticlePageState extends State<ArticlePage> {
     } else {
       body = _buildArticleContent(article, provider, scroller);
     }
+
+    final showRemoteSyncerWidgets =
+        widget.withProgressIndicator && !_drawerIsOpened;
 
     return SelectionArea(
       child: Scaffold(
@@ -150,11 +154,11 @@ class _ArticlePageState extends State<ArticlePage> {
         ),
         body: Column(
           children: [
-            if (widget.withProgressIndicator && !_drawerIsOpened)
-              const RemoteSyncProgressIndicator(),
+            if (showRemoteSyncerWidgets) const RemoteSyncProgressIndicator(),
             Expanded(child: body),
           ],
         ),
+        floatingActionButton: RemoteSyncFAB(showIf: showRemoteSyncerWidgets),
         drawer: widget.drawer,
         onDrawerChanged: (isOpened) => setState(() {
           _drawerIsOpened = isOpened;
