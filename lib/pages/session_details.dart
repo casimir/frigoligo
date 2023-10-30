@@ -1,13 +1,13 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:frigoligo/wallabag/wallabag.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../datetime_extension.dart';
 import '../models/db.dart';
 import '../providers/settings.dart';
+import '../wallabag/wallabag.dart';
 
 Widget _copyText(BuildContext context, String text, [bool obfuscate = false]) {
   var content = text;

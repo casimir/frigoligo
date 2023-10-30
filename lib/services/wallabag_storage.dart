@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
-import 'package:frigoligo/wallabag/wallabag.dart';
 import 'package:isar/isar.dart';
 import 'package:logging/logging.dart';
 
@@ -12,15 +11,9 @@ import '../models/article.dart';
 import '../models/article_scroll_position.dart';
 import '../models/db.dart';
 import '../providers/settings.dart';
+import '../wallabag/wallabag.dart';
 
 final _log = Logger('wallabag.storage');
-
-enum RefreshState {
-  idle,
-  inProgress,
-  success,
-  error,
-}
 
 class WallabagStorage with ChangeNotifier {
   WallabagStorage(this.settings, {this.onError}) {
@@ -36,15 +29,6 @@ class WallabagStorage with ChangeNotifier {
   StreamSubscription? _watcher;
   final SettingsProvider settings;
   void Function(Exception)? onError;
-
-  float? _refreshProgressValue;
-  float? get refreshProgressValue => _refreshProgressValue;
-  set refreshProgressValue(float? value) {
-    _refreshProgressValue = value;
-    notifyListeners();
-  }
-
-  bool get refreshInProgress => _refreshProgressValue != null;
 
   @override
   void dispose() {
@@ -127,7 +111,7 @@ class WallabagStorage with ChangeNotifier {
   int count(StateFilter state, StarredFilter starred) =>
       _buildQuery(state: state, starred: starred).countSync();
 
-  Future<int> syncRemoteDeletes() async {
+  Future<int> _syncRemoteDeletes() async {
     _log.info('checking for server-side deletions');
     final remoteCount = await wallabag.fetchTotalEntriesCount();
     var localIds = (await db.articles.where().idProperty().findAll()).toSet();
@@ -170,23 +154,24 @@ class WallabagStorage with ChangeNotifier {
     }
   }
 
-  Future<int> fullRefresh({int? since}) async {
-    if (refreshInProgress) return 0;
+  Future<void> clearArticles({bool keepPositions = true}) async {
+    await db.writeTxn(() async {
+      await db.articles.clear();
+      if (!keepPositions) await db.articleScrollPositions.clear();
+    });
+    _log.info('cleared the whole articles collection');
+    updateAppBadge();
+  }
 
+  Future<int> fullRefresh(
+      {int? since, void Function(double)? onProgress}) async {
     var count = 0;
     final sinceRepr = since != null
         ? DateTime.fromMillisecondsSinceEpoch(since * 1000).toIso8601String()
         : null;
     _log.info('starting refresh with since=$sinceRepr');
 
-    if (since == null) {
-      await db.writeTxn(() async {
-        await db.articles.clear();
-        _log.info('cleared the whole articles collection');
-      });
-    }
-
-    void onProgress(float progress) => refreshProgressValue = progress;
+    if (since == null) clearArticles();
 
     try {
       final stopwatch = Stopwatch()..start();
@@ -220,12 +205,9 @@ class WallabagStorage with ChangeNotifier {
       final now = DateTime.now().millisecondsSinceEpoch / 1000;
       settings[Sk.lastRefresh] = now.toInt();
 
-      onProgress(0);
-      syncRemoteDeletes();
+      _syncRemoteDeletes();
     } on Exception catch (e) {
       onError?.call(e);
-    } finally {
-      refreshProgressValue = null;
     }
 
     updateAppBadge();
@@ -233,7 +215,8 @@ class WallabagStorage with ChangeNotifier {
     return count;
   }
 
-  Future<int> incrementalRefresh({int? threshold}) async {
+  Future<int> incrementalRefresh(
+      {int? threshold, void Function(double)? onProgress}) async {
     final int since = settings[Sk.lastRefresh];
     if (threshold != null && since > 0) {
       final now = DateTime.now().millisecondsSinceEpoch / 1000;
@@ -244,7 +227,7 @@ class WallabagStorage with ChangeNotifier {
         return 0;
       }
     }
-    return fullRefresh(since: since > 0 ? since : null);
+    return fullRefresh(since: since > 0 ? since : null, onProgress: onProgress);
   }
 
   Future<void> persistArticle(Article article) async {
@@ -255,5 +238,21 @@ class WallabagStorage with ChangeNotifier {
         await db.articleScrollPositions.delete(article.id!);
       }
     });
+  }
+
+  Future<void> deleteArticle(int articleId) async {
+    await wallabag.deleteEntry(articleId);
+    await db.writeTxn(() async {
+      await db.articles.delete(articleId);
+      await db.articleScrollPositions.delete(articleId);
+    });
+  }
+
+  Future<void> editArticle(int articleId,
+      {bool? archive, bool? starred}) async {
+    await wallabag.patchEntry(articleId, archive: archive, starred: starred);
+    final entry = await wallabag.getEntry(articleId);
+    final article = Article.fromWallabagEntry(entry);
+    await persistArticle(article);
   }
 }

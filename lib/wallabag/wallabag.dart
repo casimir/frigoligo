@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:frigoligo/wallabag/credentials.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/retry.dart';
 import 'package:isar/isar.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:logging/logging.dart';
 
+import 'credentials.dart';
 import 'models/entry.dart';
 import 'models/info.dart';
 import 'utils.dart';
@@ -290,11 +290,10 @@ class WallabagClient extends http.BaseClient {
     int? public,
     DetailValue? detail, // include the content if 'full'
     String? domainName,
-    Function(float)? onProgress,
+    void Function(float)? onProgress,
   }) async* {
     var pageIndex = page;
     var lastPage = pageIndex + 1; // start with +1 just to start the loop
-    onProgress?.call(0);
     while (pageIndex <= lastPage) {
       late WallabagPaginatedEntries pageData;
       try {

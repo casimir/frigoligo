@@ -3,15 +3,12 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:logging/logging.dart';
 import 'package:shared_preference_app_group/shared_preference_app_group.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants.dart';
 
 part 'credentials.g.dart';
-
-final log = Logger('wallabag.credentials');
 
 @JsonSerializable()
 class Credentials {
@@ -93,7 +90,6 @@ class CredentialsManager {
   }
 
   Future<void> load() async {
-    log.info('loading credentials...');
     final raw = await _loadString(credentialsKey);
     if (raw != null) {
       credentials = Credentials.fromJson(jsonDecode(raw));
@@ -101,14 +97,12 @@ class CredentialsManager {
   }
 
   Future<void> commit() async {
-    log.info('saving credentials...');
     if (credentials != null) {
       _saveString(credentialsKey, jsonEncode(credentials!.toJson()));
     }
   }
 
   Future<void> clear() async {
-    log.info('clearing credentials...');
     credentials = null;
     if (Platform.isIOS) {
       await SharedPreferenceAppGroup.remove(credentialsKey);

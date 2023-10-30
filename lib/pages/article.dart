@@ -12,27 +12,36 @@ import '../constants.dart';
 import '../models/article.dart';
 import '../providers/article.dart';
 import '../providers/expander.dart';
-import '../widgets/async_action_button.dart';
+import '../services/remote_sync.dart';
+import '../services/remote_sync_actions/articles.dart';
+import '../widgets/remote_sync_fab.dart';
+import '../widgets/remote_sync_progress_indicator.dart';
 import '../widgets/tag_list.dart';
 
 class ArticlePage extends StatefulWidget {
   // TODO articleId is not used but required to avoid triggering flutter caching
   // maybe that's just a setState() missing somewhere
-  const ArticlePage({super.key, required this.articleId, this.drawer});
+  const ArticlePage({
+    super.key,
+    required this.articleId,
+    this.drawer,
+    this.withProgressIndicator = true,
+  });
 
   final int articleId;
   final Widget? drawer;
+  final bool withProgressIndicator;
 
   @override
   State<ArticlePage> createState() => _ArticlePageState();
 }
 
 class _ArticlePageState extends State<ArticlePage> {
-  bool _stateChangePending = false;
-  bool _starredChangePending = false;
+  bool _drawerIsOpened = false;
 
   @override
   Widget build(BuildContext context) {
+    final syncer = context.read<RemoteSyncer>();
     final provider = context.watch<ArticleProvider>();
     final article = provider.article;
     final scroller = ScrollController();
@@ -47,14 +56,17 @@ class _ArticlePageState extends State<ArticlePage> {
       );
     }
 
-    late final Widget bodyBuilder;
+    late final Widget body;
     if (article == null) {
-      bodyBuilder = _buildNoArticle();
+      body = _buildNoArticle();
     } else if (article.content == null) {
-      bodyBuilder = _buildEmptyContent(Uri.parse(article.url));
+      body = _buildEmptyContent(Uri.parse(article.url));
     } else {
-      bodyBuilder = _buildArticleContent(article, provider, scroller);
+      body = _buildArticleContent(article, provider, scroller);
     }
+
+    final showRemoteSyncerWidgets =
+        widget.withProgressIndicator && !_drawerIsOpened;
 
     return SelectionArea(
       child: Scaffold(
@@ -63,24 +75,24 @@ class _ArticlePageState extends State<ArticlePage> {
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           actions: [
             if (article != null)
-              AsyncActionButton(
+              IconButton(
                 icon: stateIcons[article.stateValue]!,
-                progressValue: _stateChangePending ? 0 : null,
-                onPressed: () => provider.modifyAndRefresh(
-                  archive: article.archivedAt == null,
-                  onProgress: (progress) =>
-                      setState(() => _stateChangePending = progress < 1),
-                ),
+                onPressed: () => syncer
+                  ..add(EditArticleAction(
+                    article.id!,
+                    archive: article.archivedAt == null,
+                  ))
+                  ..synchronize(),
               ),
             if (article != null)
-              AsyncActionButton(
+              IconButton(
                 icon: starredIcons[article.starredValue]!,
-                progressValue: _starredChangePending ? 0 : null,
-                onPressed: () => provider.modifyAndRefresh(
-                  starred: article.starredAt == null,
-                  onProgress: (progress) =>
-                      setState(() => _starredChangePending = progress < 1),
-                ),
+                onPressed: () => syncer
+                  ..add(EditArticleAction(
+                    article.id!,
+                    starred: article.starredAt == null,
+                  ))
+                  ..synchronize(),
               ),
             PopupMenuButton(
               itemBuilder: (context) => [
@@ -130,7 +142,8 @@ class _ArticlePageState extends State<ArticlePage> {
                       isDestructiveAction: true,
                     );
                     if (result == OkCancelResult.cancel) return;
-                    await provider.delete();
+                    syncer.add(DeleteArticleAction(article.id!));
+                    await syncer.synchronize();
                     if (toggler == null && context.mounted) {
                       context.go('/');
                     }
@@ -139,8 +152,17 @@ class _ArticlePageState extends State<ArticlePage> {
             ),
           ],
         ),
-        body: bodyBuilder,
+        body: Column(
+          children: [
+            if (showRemoteSyncerWidgets) const RemoteSyncProgressIndicator(),
+            Expanded(child: body),
+          ],
+        ),
+        floatingActionButton: RemoteSyncFAB(showIf: showRemoteSyncerWidgets),
         drawer: widget.drawer,
+        onDrawerChanged: (isOpened) => setState(() {
+          _drawerIsOpened = isOpened;
+        }),
       ),
     );
   }

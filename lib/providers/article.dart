@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:frigoligo/wallabag/wallabag.dart';
 
 import '../models/article.dart';
 import '../models/article_scroll_position.dart';
@@ -36,35 +35,6 @@ class ArticleProvider extends ChangeNotifier {
     _watcher =
         db.articles.watchObjectLazy(articleId).listen((_) => notifyListeners());
     hasJumpedToPosition = false;
-  }
-
-  Future<void> modifyAndRefresh({
-    bool? archive,
-    bool? starred,
-    Function(double)? onProgress,
-  }) async {
-    onProgress?.call(0);
-    var wallabag = WallabagInstance.get();
-    await wallabag.patchEntry(articleId, archive: archive, starred: starred);
-    final entry = await wallabag.getEntry(articleId);
-    final article = Article.fromWallabagEntry(entry);
-    final scrollPosition = await db.articleScrollPositions.get(articleId);
-    await db.writeTxn(() async {
-      await db.articles.put(article);
-      if (scrollPosition?.readingTime != article.readingTime) {
-        await db.articleScrollPositions.delete(articleId);
-      }
-    });
-    onProgress?.call(1);
-  }
-
-  Future<void> delete() async {
-    var wallabag = WallabagInstance.get();
-    await wallabag.deleteEntry(articleId);
-    await db.writeTxn(() async {
-      await db.articles.delete(articleId);
-      await db.articleScrollPositions.delete(articleId);
-    });
   }
 
   Future<void> saveScrollPosition(double position) async {

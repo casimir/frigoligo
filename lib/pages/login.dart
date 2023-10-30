@@ -1,7 +1,6 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:frigoligo/wallabag/wallabag.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../models/db.dart';
 import '../providers/settings.dart';
 import '../wallabag/credentials.dart';
+import '../wallabag/wallabag.dart';
 import 'login_forms/server_form.dart';
 import 'login_forms/validators.dart';
 

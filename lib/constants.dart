@@ -37,6 +37,7 @@ const int autoSyncThrottleSeconds = 15 * 60;
 const int logCountResetThreshold = 1000;
 
 final isMobilePlatform = Platform.isAndroid || Platform.isIOS;
+final pullToRefreshSupported = isMobilePlatform || Platform.isMacOS;
 final appBadgeSupported = isMobilePlatform || Platform.isMacOS;
 const appGroupId = 'group.net.casimir-lab.frigoligo';
 

@@ -1,7 +1,7 @@
-import 'package:frigoligo/constants.dart';
-import 'package:frigoligo/wallabag/models/entry.dart';
 import 'package:isar/isar.dart';
 
+import '../constants.dart';
+import '../wallabag/models/entry.dart';
 part 'article.g.dart';
 
 @collection
