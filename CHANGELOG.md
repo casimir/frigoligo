@@ -1,3 +1,28 @@
+<a name="v0.6.0"></a>
+# [0.6.0 (v0.6.0)](https://github.com/casimir/frigoligo/releases/tag/v0.6.0) - 03 Nov 2023
+
+Another big one! The highlight are a completly new synchronization backend and a basic support for tags.
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### Features
+* Pull to refresh for article listing by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/84
+* Centralize syncing actions into a single service by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/86
+* Allow to change article attributes from the listing view by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/87
+* Tags support by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/81
+### Miscellaneous
+* Update changelog for "v0.5.1" by [@github-actions](https://github.com/github-actions) in https://github.com/casimir/frigoligo/pull/75
+* Upgrade flutter packages by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/80
+* Upgrade flutter_lints and correct a few warnings by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/85
+* Update dependency go_router to v12 by [@renovate](https://github.com/renovate) in https://github.com/casimir/frigoligo/pull/83
+
+
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.5.1...v0.6.0
+
+[Changes][v0.6.0]
+
+
 <a name="v0.5.1"></a>
 # [0.5.1 (v0.5.1)](https://github.com/casimir/frigoligo/releases/tag/v0.5.1) - 28 Sep 2023
 
@@ -184,6 +209,7 @@ Let's begin! This is the very first release.
 [Changes][v0.1.0]
 
 
+[v0.6.0]: https://github.com/casimir/frigoligo/compare/v0.5.1...v0.6.0
 [v0.5.1]: https://github.com/casimir/frigoligo/compare/v0.5.0...v0.5.1
 [v0.5.0]: https://github.com/casimir/frigoligo/compare/v0.4.1...v0.5.0
 [v0.4.1]: https://github.com/casimir/frigoligo/compare/v0.4.0...v0.4.1
