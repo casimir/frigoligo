@@ -249,9 +249,18 @@ class WallabagStorage with ChangeNotifier {
     });
   }
 
-  Future<void> editArticle(int articleId,
-      {bool? archive, bool? starred}) async {
-    await wallabag.patchEntry(articleId, archive: archive, starred: starred);
+  Future<void> editArticle(
+    int articleId, {
+    bool? archive,
+    bool? starred,
+    List<String>? tags,
+  }) async {
+    await wallabag.patchEntry(
+      articleId,
+      archive: archive,
+      starred: starred,
+      tags: tags,
+    );
     final entry = await wallabag.getEntry(articleId);
     final article = Article.fromWallabagEntry(entry);
     await persistArticle(article);

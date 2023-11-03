@@ -246,10 +246,12 @@ class WallabagClient extends http.BaseClient {
     int id, {
     bool? archive,
     bool? starred,
+    List<String>? tags,
   }) async {
     var params = {
       if (archive != null) 'archive': archive ? 1 : 0,
       if (starred != null) 'starred': starred ? 1 : 0,
+      if (tags != null) 'tags': tags.join(','),
     };
     final response = await patch(
       _buildUri('/api/entries/$id.json'),

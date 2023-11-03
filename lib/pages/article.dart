@@ -4,6 +4,8 @@ import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart
 import 'package:fwfh_cached_network_image/fwfh_cached_network_image.dart';
 import 'package:fwfh_url_launcher/fwfh_url_launcher.dart';
 import 'package:go_router/go_router.dart';
+import 'package:multi_select_flutter/bottom_sheet/multi_select_bottom_sheet.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -62,7 +64,7 @@ class _ArticlePageState extends State<ArticlePage> {
     } else if (article.content == null) {
       body = _buildEmptyContent(Uri.parse(article.url));
     } else {
-      body = _buildArticleContent(article, provider, scroller);
+      body = _buildArticleContent(article, provider, syncer, scroller);
     }
 
     final showRemoteSyncerWidgets =
@@ -191,7 +193,11 @@ class _ArticlePageState extends State<ArticlePage> {
   }
 
   Widget _buildArticleContent(
-      Article article, ArticleProvider provider, scroller) {
+    Article article,
+    ArticleProvider provider,
+    RemoteSyncer syncer,
+    scroller,
+  ) {
     return NotificationListener<ScrollNotification>(
       onNotification: (notification) {
         if (notification is ScrollEndNotification &&
@@ -208,7 +214,30 @@ class _ArticlePageState extends State<ArticlePage> {
           child: Column(
             children: [
               _buildHeader(article),
-              TagList(tags: article.tags),
+              TagList(
+                tags: article.tags,
+                onTagPressed: (_) async {
+                  await showModalBottomSheet(
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (ctx) => MultiSelectBottomSheet(
+                      items: syncer.wallabag!.tags
+                          .map((it) => MultiSelectItem(it, it))
+                          .toList(),
+                      initialValue: article.tags,
+                      onConfirm: (tags) => syncer
+                        ..add(
+                          EditArticleAction(article.id!, tags: tags),
+                        )
+                        ..synchronize(),
+                      listType: MultiSelectListType.CHIP,
+                      title: const Text('Tags'),
+                      searchable: true,
+                      separateSelectedItems: true,
+                    ),
+                  );
+                },
+              ),
               const Divider(),
               _buildContent(article.content!, scroller, provider)
             ],
