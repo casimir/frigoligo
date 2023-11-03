@@ -32,16 +32,21 @@ class DeleteArticleAction extends RemoteSyncAction {
 }
 
 class EditArticleAction extends RemoteSyncAction {
-  const EditArticleAction(this.articleId, {this.archive, this.starred})
-      : super('patchArticle:$articleId:$archive:$starred');
+  const EditArticleAction(
+    this.articleId, {
+    this.archive,
+    this.starred,
+    this.tags,
+  }) : super('patchArticle:$articleId:$archive:$starred:$tags');
 
   final int articleId;
   final bool? archive;
   final bool? starred;
+  final List<String>? tags;
 
   @override
   Future<void> execute(syncer) async {
     await syncer.wallabag!
-        .editArticle(articleId, archive: archive, starred: starred);
+        .editArticle(articleId, archive: archive, starred: starred, tags: tags);
   }
 }

@@ -36,20 +36,28 @@ class WallabagStorage with ChangeNotifier {
     super.dispose();
   }
 
-  Query<R> _buildQuery<R>({
-    StateFilter state = StateFilter.unread,
-    StarredFilter starred = StarredFilter.all,
-    String? sort,
-    String? property,
-  }) {
-    List<FilterCondition> conditions = [];
-    if (state != StateFilter.all) {
-      conditions.add(state == StateFilter.archived
+  Query<R> _buildQuery<R>(WQuery wq, {String? sort, String? property}) {
+    List<FilterOperation> conditions = [];
+    if (wq.state != null && wq.state != StateFilter.all) {
+      conditions.add(wq.state == StateFilter.archived
           ? const FilterCondition.isNotNull(property: 'archivedAt')
           : const FilterCondition.isNull(property: 'archivedAt'));
     }
-    if (starred == StarredFilter.starred) {
+    if (wq.starred == StarredFilter.starred) {
       conditions.add(const FilterCondition.isNotNull(property: 'starredAt'));
+    }
+
+    if (wq.tags != null) {
+      if (wq.tags!.length == 1) {
+        conditions.add(
+            FilterCondition.contains(property: 'tags', value: wq.tags![0]));
+      } else {
+        List<FilterCondition> tagFilters = wq.tags!
+            .map(
+                (tag) => FilterCondition.contains(property: 'tags', value: tag))
+            .toList();
+        conditions.add(FilterGroup.or(tagFilters));
+      }
     }
 
     FilterOperation? filter;
@@ -80,36 +88,28 @@ class WallabagStorage with ChangeNotifier {
     );
   }
 
-  List<Article> all(StateFilter state, StarredFilter starred) =>
-      _buildQuery<Article>(
-        state: state,
-        starred: starred,
-        sort: '-createdAt',
-      ).findAllSync();
+  List<Article> all(WQuery wq) =>
+      _buildQuery<Article>(wq, sort: '-createdAt').findAllSync();
 
-  Article? index(int n, StateFilter state, StarredFilter starred) {
-    if (n < 0 || n >= count(state, starred)) return null;
-    var ids = _buildQuery(
-      state: state,
-      starred: starred,
-      sort: '-createdAt',
-      property: 'id',
-    ).findAllSync();
+  Article? index(int n, WQuery wq) {
+    if (n < 0 || n >= count(wq)) return null;
+    var ids = _buildQuery(wq, sort: '-createdAt', property: 'id').findAllSync();
     return db.articles.getSync(ids[n])!;
   }
 
-  int? indexOf(int id, StateFilter state, StarredFilter starred) {
-    var ids = _buildQuery(
-      state: state,
-      starred: starred,
-      sort: '-createdAt',
-      property: 'id',
-    ).findAllSync();
-    return ids.indexOf(id);
-  }
+  int count(WQuery wq) => _buildQuery(wq).countSync();
 
-  int count(StateFilter state, StarredFilter starred) =>
-      _buildQuery(state: state, starred: starred).countSync();
+  List<String> get tags {
+    var tags = db.articles
+        .where()
+        .tagsProperty()
+        .findAllSync()
+        .expand((it) => it)
+        .toSet()
+        .toList();
+    tags.sort();
+    return tags;
+  }
 
   Future<int> _syncRemoteDeletes() async {
     _log.info('checking for server-side deletions');
@@ -145,7 +145,8 @@ class WallabagStorage with ChangeNotifier {
   Future<void> updateAppBadge() async {
     if (!appBadgeSupported) return;
 
-    final unread = count(StateFilter.unread, StarredFilter.all);
+    final unread =
+        count(WQuery(state: StateFilter.unread, starred: StarredFilter.all));
     if (unread == 0 || !settings[Sk.appBadge]) {
       FlutterAppBadger.removeBadge();
     } else {
@@ -248,11 +249,40 @@ class WallabagStorage with ChangeNotifier {
     });
   }
 
-  Future<void> editArticle(int articleId,
-      {bool? archive, bool? starred}) async {
-    await wallabag.patchEntry(articleId, archive: archive, starred: starred);
+  Future<void> editArticle(
+    int articleId, {
+    bool? archive,
+    bool? starred,
+    List<String>? tags,
+  }) async {
+    await wallabag.patchEntry(
+      articleId,
+      archive: archive,
+      starred: starred,
+      tags: tags,
+    );
     final entry = await wallabag.getEntry(articleId);
     final article = Article.fromWallabagEntry(entry);
     await persistArticle(article);
   }
+}
+
+class WQuery {
+  WQuery({this.state, this.starred, this.tags});
+
+  StateFilter? state;
+  StarredFilter? starred;
+  List<String>? tags;
+
+  WQuery dup() => WQuery(
+        state: state,
+        starred: starred,
+        tags: tags,
+      );
+
+  WQuery override(WQuery wq) => WQuery(
+        state: wq.state ?? state,
+        starred: wq.starred ?? starred,
+        tags: wq.tags ?? tags,
+      );
 }
