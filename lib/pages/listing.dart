@@ -10,6 +10,7 @@ import '../models/article.dart';
 import '../providers/article.dart';
 import '../providers/settings.dart';
 import '../services/remote_sync.dart';
+import '../services/remote_sync_actions/articles.dart';
 import '../services/wallabag_storage.dart';
 import '../string_extension.dart';
 import '../widgets/article_image_preview.dart';
@@ -239,6 +240,7 @@ class ArticleListItem extends StatelessWidget {
     // TODO explore https://pub.dev/packages/flutter_slidable
     // TODO GestureDetector on iOS
 
+    final syncer = context.read<RemoteSyncer>();
     final selectedId = context.read<ArticleProvider?>()?.articleId;
 
     return Ink(
@@ -319,8 +321,26 @@ class ArticleListItem extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        stateIcons[article.stateValue]!,
-                        starredIcons[article.starredValue]!,
+                        IconButton(
+                          visualDensity: VisualDensity.compact,
+                          icon: stateIcons[article.stateValue]!,
+                          onPressed: () => syncer
+                            ..add(EditArticleAction(
+                              article.id!,
+                              archive: article.archivedAt == null,
+                            ))
+                            ..synchronize(),
+                        ),
+                        IconButton(
+                          visualDensity: VisualDensity.compact,
+                          icon: starredIcons[article.starredValue]!,
+                          onPressed: () => syncer
+                            ..add(EditArticleAction(
+                              article.id!,
+                              starred: article.starredAt == null,
+                            ))
+                            ..synchronize(),
+                        ),
                       ],
                     ),
                   ),
