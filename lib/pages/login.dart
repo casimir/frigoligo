@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../models/db.dart';
 import '../providers/settings.dart';
 import '../wallabag/credentials.dart';
+import '../wallabag/utils.dart';
 import '../wallabag/wallabag.dart';
 import 'login_forms/server_form.dart';
 import 'login_forms/validators.dart';
@@ -26,7 +27,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   late Map<String, String>? _initialData;
   final _serverFbKey = GlobalKey<FormBuilderState>();
-  bool _serverConfigured = false;
+  WallabagServerCheck? _configuredServer;
   final _fbKey = GlobalKey<FormBuilderState>();
   bool _gotAnError = false;
 
@@ -80,7 +81,9 @@ class _LoginPageState extends State<LoginPage> {
           ServerForm(
             stateKey: _serverFbKey,
             onCheckChange: (check) => setState(() {
-              _serverConfigured = check?.isValid ?? false;
+              if (check?.isValid ?? false) {
+                _configuredServer = check;
+              }
             }),
             initial: widget.initial?['server'],
           ),
@@ -95,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: FormBuilder(
                   key: _fbKey,
-                  enabled: _serverConfigured,
+                  enabled: _configuredServer != null,
                   child: Column(children: [
                     FormBuilderTextField(
                       name: 'clientId',
@@ -151,11 +154,10 @@ class _LoginPageState extends State<LoginPage> {
           const SizedBox(height: 8.0),
           ElevatedButton(
             onPressed: () async {
-              if (_serverConfigured && _fbKey.currentState!.saveAndValidate()) {
-                String server = _serverFbKey.currentState!.value['server'];
-                if (!server.startsWith('http')) server = 'https://$server';
+              if (_configuredServer != null &&
+                  _fbKey.currentState!.saveAndValidate()) {
                 final credentials = Credentials(
-                  Uri.parse(server),
+                  _configuredServer!.uri!,
                   _fbKey.currentState!.value['clientId'],
                   _fbKey.currentState!.value['clientSecret'],
                 );
