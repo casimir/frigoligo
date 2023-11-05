@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 
 import '../services/remote_sync.dart';
-
-final _log = Logger('widgets.remote_sync_fab');
 
 class RemoteSyncFAB extends StatelessWidget {
   const RemoteSyncFAB({super.key, this.showIf = true});
