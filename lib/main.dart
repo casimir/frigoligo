@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:http/http.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,7 @@ import 'providers/article.dart';
 import 'providers/deeplinks.dart';
 import 'providers/expander.dart';
 import 'providers/logconsole.dart';
+import 'providers/query.dart';
 import 'providers/settings.dart';
 import 'services/remote_sync.dart';
 import 'services/wallabag_storage.dart';
@@ -211,13 +213,18 @@ class _MainContainerState extends State<_MainContainer> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final syncer = context.read<RemoteSyncer>();
-    return ChangeNotifierProvider(
-      create: (context) {
-        final provider = WallabagStorage(context.read<SettingsProvider>());
-        syncer.wallabag = provider;
-        return provider;
-      },
-      lazy: false, // Just for RemoteSync initialization.
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) {
+            final provider = WallabagStorage(context.read<SettingsProvider>());
+            syncer.wallabag = provider;
+            return provider;
+          },
+          lazy: false, // Just for RemoteSync initialization.
+        ),
+        ChangeNotifierProvider(create: (_) => QueryProvider()),
+      ],
       builder: (_, __) {
         if (width <= narrowScreenBreakpoint) return _buildNarrowLayout();
         if (width >= idealListingWidth * 3) return _buildWideLayout();
