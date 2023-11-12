@@ -9,6 +9,15 @@ import '../providers/query.dart';
 import '../services/wallabag_storage.dart';
 import '../string_extension.dart';
 
+const defaultPadding = 10.0;
+const defaultSpacing = 16.0;
+const leftAlingnedInsets = EdgeInsets.only(
+  left: defaultSpacing,
+  top: defaultPadding,
+  right: defaultPadding,
+  bottom: defaultPadding,
+);
+
 class FiltersPage extends StatelessWidget {
   const FiltersPage({super.key});
 
@@ -40,11 +49,11 @@ class FiltersPage extends StatelessWidget {
           shape: const Border(),
           margin: EdgeInsets.zero,
           child: Padding(
-            padding: const EdgeInsets.all(10.0).copyWith(left: 16.0),
+            padding: leftAlingnedInsets,
             child: Wrap(
               alignment: WrapAlignment.center,
-              spacing: 8.0,
-              runSpacing: 8.0,
+              spacing: defaultSpacing,
+              runSpacing: defaultSpacing,
               children: [
                 Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Expanded(
@@ -79,6 +88,7 @@ class FiltersPage extends StatelessWidget {
             ),
           ),
         ),
+        const SizedBox(height: defaultPadding),
       ],
     );
   }
@@ -91,7 +101,7 @@ Widget _buildFilterHeader(BuildContext context, String label) {
       .copyWith(fontWeight: FontWeight.bold);
 
   return Padding(
-    padding: const EdgeInsets.all(10.0).copyWith(left: 16.0),
+    padding: leftAlingnedInsets,
     child: Text(label, style: filterLabelStyle),
   );
 }
@@ -101,9 +111,9 @@ Widget _buildFilterChoices(List<Widget> children) {
     shape: const Border(),
     margin: EdgeInsets.zero,
     child: Padding(
-      padding: const EdgeInsets.all(10.0).copyWith(left: 16.0),
+      padding: leftAlingnedInsets,
       child: Wrap(
-        spacing: 16.0,
+        spacing: defaultSpacing,
         children: children,
       ),
     ),
