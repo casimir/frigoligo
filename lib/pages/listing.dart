@@ -170,6 +170,7 @@ class _TitleWidgetState extends State<TitleWidget> {
                 return const FiltersPage();
               }),
           direction: PopoverDirection.top,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           constraints: const BoxConstraints(maxWidth: idealListingWidth),
           onPop: () => setState(() {
             _showingFilters = false;
