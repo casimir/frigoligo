@@ -3,9 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
-import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
-import 'package:multi_select_flutter/util/multi_select_item.dart';
-import 'package:multi_select_flutter/util/multi_select_list_type.dart';
 import 'package:popover/popover.dart';
 import 'package:provider/provider.dart';
 
@@ -22,6 +19,7 @@ import '../widgets/article_image_preview.dart';
 import '../widgets/remote_sync_fab.dart';
 import '../widgets/remote_sync_progress_indicator.dart';
 import '../widgets/tag_list.dart';
+import 'filters.dart';
 
 final _log = Logger('frigoligo.listing');
 
@@ -169,10 +167,7 @@ class _TitleWidgetState extends State<TitleWidget> {
                 ChangeNotifierProvider.value(value: queryProvider),
               ],
               builder: (context, child) {
-                return const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: FilterHeader(),
-                );
+                return const FiltersPage();
               }),
           direction: PopoverDirection.top,
           constraints: const BoxConstraints(maxWidth: idealListingWidth),
@@ -183,94 +178,6 @@ class _TitleWidgetState extends State<TitleWidget> {
       },
     );
   }
-}
-
-class FilterHeader extends StatelessWidget {
-  const FilterHeader({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final storage = context.watch<WallabagStorage>();
-    final queryProvider = context.watch<QueryProvider>();
-
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Wrap(
-        alignment: WrapAlignment.center,
-        spacing: 8.0,
-        runSpacing: 8.0,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('${storage.count(queryProvider.query)} articles found'),
-            ],
-          ),
-          SegmentedButton(
-            segments: [
-              _makeButtonSegment(StateFilter.all),
-              _makeButtonSegment(StateFilter.unread),
-              _makeButtonSegment(StateFilter.archived),
-            ],
-            selected: {queryProvider.query.state},
-            onSelectionChanged: (selection) {
-              var wq = queryProvider.query.dup();
-              wq.state = selection.first;
-              queryProvider.query = wq;
-            },
-          ),
-          SegmentedButton(
-            segments: [
-              _makeButtonSegment(StarredFilter.all),
-              _makeButtonSegment(
-                StarredFilter.starred,
-                label: starredIcons[StarredFilter.starred]!,
-              ),
-            ],
-            selected: {queryProvider.query.starred},
-            onSelectionChanged: (selection) {
-              var wq = queryProvider.query.dup();
-              wq.starred = selection.first;
-              queryProvider.query = wq;
-            },
-          ),
-          Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Expanded(
-              child: MultiSelectDialogField(
-                items:
-                    storage.tags.map((it) => MultiSelectItem(it, it)).toList(),
-                listType: MultiSelectListType.CHIP,
-                onConfirm: (values) {
-                  var wq = queryProvider.query.dup();
-                  wq.tags = values;
-                  queryProvider.query = wq;
-                },
-                buttonText: const Text('Filter by tags'),
-                title: const Text('Tags'),
-                searchable: true,
-                separateSelectedItems: true,
-                initialValue: queryProvider.query.tags ?? List<String>.empty(),
-              ),
-            ),
-            IconButton(
-                onPressed: () {
-                  var wq = queryProvider.query.dup();
-                  wq.tags = [];
-                  queryProvider.query = wq;
-                },
-                icon: const Icon(Icons.clear)),
-          ]),
-        ],
-      ),
-    );
-  }
-}
-
-ButtonSegment<T> _makeButtonSegment<T extends Enum>(T value, {Widget? label}) {
-  return ButtonSegment(
-    value: value,
-    label: label ?? Text(value.name.toCapitalCase()!),
-  );
 }
 
 class ArticleListItem extends StatelessWidget {
