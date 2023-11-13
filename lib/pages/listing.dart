@@ -171,6 +171,7 @@ class _TitleWidgetState extends State<TitleWidget> {
               }),
           direction: PopoverDirection.top,
           backgroundColor: Theme.of(context).colorScheme.surface,
+          transitionDuration: const Duration(milliseconds: 150),
           constraints: const BoxConstraints(maxWidth: idealListingWidth),
           onPop: () => setState(() {
             _showingFilters = false;
