@@ -160,7 +160,7 @@ List<ChoiceChip> _buildStarredFilterChoices(QueryProvider queryProvider) {
   return [
     _makeChoiceChip(
       StarredFilter.all,
-      queryProvider.query.starred,
+      queryProvider.query.starred ?? StarredFilter.all,
       onSelected(StarredFilter.all),
     ),
     _makeChoiceChip(
