@@ -89,13 +89,11 @@ class ShareViewController: UIViewController {
             let items = extensionContext?.inputItems as? [NSExtensionItem],
             let item = items.first,
             let attachments = item.attachments,
-            let attachment = attachments.first
+            let attachment = attachments.first(where: { item in
+                item.hasItemConformingToTypeIdentifier(UTType.url.identifier)
+            })
         else {
-            throw CompletionError.description("could not extract attachment")
-        }
-        
-        if !attachment.hasItemConformingToTypeIdentifier(UTType.url.identifier) {
-            throw CompletionError.description("wrong attachment type for \(attachment)")
+            throw CompletionError.description("could not extract the url from the attachments")
         }
         do {
             let url = try await attachment.loadItem(forTypeIdentifier: UTType.url.identifier)
