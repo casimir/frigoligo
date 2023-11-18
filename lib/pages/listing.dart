@@ -3,24 +3,23 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
-import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
-import 'package:multi_select_flutter/util/multi_select_item.dart';
-import 'package:multi_select_flutter/util/multi_select_list_type.dart';
+import 'package:popover/popover.dart';
 import 'package:provider/provider.dart';
 
 import '../constants.dart';
 import '../models/article.dart';
 import '../providers/article.dart';
+import '../providers/query.dart';
 import '../providers/settings.dart';
 import '../services/remote_sync.dart';
 import '../services/remote_sync_actions/articles.dart';
 import '../services/wallabag_storage.dart';
 import '../string_extension.dart';
 import '../widgets/article_image_preview.dart';
-import '../widgets/icon_toggle_button.dart';
 import '../widgets/remote_sync_fab.dart';
 import '../widgets/remote_sync_progress_indicator.dart';
 import '../widgets/tag_list.dart';
+import 'filters.dart';
 
 final _log = Logger('frigoligo.listing');
 
@@ -40,46 +39,12 @@ class ListingPage extends StatefulWidget {
   State<ListingPage> createState() => _ListingPageState();
 }
 
-class _ListingPageState extends State<ListingPage> with RestorationMixin {
-  final RestorableBool _showFilters = RestorableBool(false);
-  final RestorableEnum<StateFilter> _stateFilter =
-      RestorableEnum(StateFilter.unread, values: StateFilter.values);
-  final RestorableEnum<StarredFilter> _starredFilter =
-      RestorableEnum(StarredFilter.all, values: StarredFilter.values);
-
-// TODO make it restorable and remove all the other attributes
-  WQuery _query = WQuery(state: StateFilter.unread);
-
-  @override
-  String? get restorationId => 'listing';
-
-  @override
-  void restoreState(RestorationBucket? oldBucket, bool initialRestore) {
-    registerForRestoration(_showFilters, 'listing.showFilters');
-    registerForRestoration(_stateFilter, 'listing.stateFilter');
-    registerForRestoration(_starredFilter, 'listing.starredFilter');
-  }
-
-  @override
-  void dispose() {
-    _showFilters.dispose();
-    _stateFilter.dispose();
-    _starredFilter.dispose();
-    super.dispose();
-  }
-
-  String _makeTitle(WallabagStorage storage) {
-    var prefix = _query.state!.name.toCapitalCase()!;
-    if (_starredFilter.value == StarredFilter.starred) {
-      prefix += ' ★';
-    }
-    return '$prefix (${storage.count(_query)})';
-  }
-
+class _ListingPageState extends State<ListingPage> {
   @override
   Widget build(BuildContext context) {
     final storage = context.watch<WallabagStorage>();
     final settings = storage.settings;
+    final queryProvider = context.watch<QueryProvider>();
 
     storage.onError = (error) {
       ScaffoldMessenger.maybeOf(context)?.showSnackBar(
@@ -92,20 +57,13 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
       await context.read<RemoteSyncer>().synchronize(withFinalRefresh: true);
     }
 
-    final count = storage.count(_query);
+    final count = storage.count(queryProvider.query);
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(_makeTitle(storage)),
+        title: const TitleWidget(),
         actions: [
-          IconToggleButton(
-            isSelected: _showFilters.value,
-            onPressed: () {
-              setState(() => _showFilters.value = !_showFilters.value);
-            },
-            icon: const Icon(Icons.filter_list),
-          ),
           if (!pullToRefreshSupported)
             IconButton(
               icon: const Icon(Icons.refresh),
@@ -120,13 +78,6 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
       body: Column(
         children: [
           if (widget.withProgressIndicator) const RemoteSyncProgressIndicator(),
-          if (_showFilters.value)
-            FilterHeader(
-              query: _query,
-              onStateChange: (WQuery wq) => setState(() {
-                _query = wq;
-              }),
-            ),
           listOrEmpyPlaceholder(
             context,
             count,
@@ -139,14 +90,11 @@ class _ListingPageState extends State<ListingPage> with RestorationMixin {
                     child: ListView.separated(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       itemBuilder: (context, index) => ArticleListItem(
-                        article: storage.index(index, _query)!,
+                        article: storage.index(index, queryProvider.query)!,
                         onTap: (article) {
                           settings[Sk.selectedArticleId] = article.id;
                           widget.onItemSelect(article.id!);
                         },
-                        updateQuery: (wq) => setState(() {
-                          _query = _query.override(wq);
-                        }),
                       ),
                       separatorBuilder: (context, index) => const Divider(),
                       itemCount: count,
@@ -177,97 +125,68 @@ Widget listOrEmpyPlaceholder(BuildContext context, int count, Widget child) {
   );
 }
 
-class FilterHeader extends StatelessWidget {
-  const FilterHeader({super.key, required this.query, this.onStateChange});
+class TitleWidget extends StatefulWidget {
+  const TitleWidget({super.key});
 
-  final WQuery query;
-  final Function(WQuery)? onStateChange;
+  @override
+  State<TitleWidget> createState() => _TitleWidgetState();
+}
+
+class _TitleWidgetState extends State<TitleWidget> {
+  bool _showingFilters = false;
 
   @override
   Widget build(BuildContext context) {
+    final queryProvider = context.watch<QueryProvider>();
+    var text = queryProvider.query.state!.name.toCapitalCase()!;
+    text += ' articles';
+    if (queryProvider.query.starred == StarredFilter.starred) {
+      text += ' (★)';
+    }
+
     final storage = context.watch<WallabagStorage>();
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Wrap(
-        alignment: WrapAlignment.center,
-        spacing: 8.0,
-        runSpacing: 8.0,
+    return GestureDetector(
+      child: Row(
         children: [
-          SegmentedButton(
-            segments: [
-              _makeButtonSegment(StateFilter.all),
-              _makeButtonSegment(StateFilter.unread),
-              _makeButtonSegment(StateFilter.archived),
-            ],
-            selected: {query.state},
-            onSelectionChanged: (selection) {
-              var wq = query.dup();
-              wq.state = selection.first;
-              onStateChange?.call(wq);
-            },
-          ),
-          SegmentedButton(
-            segments: [
-              _makeButtonSegment(StarredFilter.all),
-              _makeButtonSegment(
-                StarredFilter.starred,
-                label: starredIcons[StarredFilter.starred]!,
-              ),
-            ],
-            selected: {query.starred},
-            onSelectionChanged: (selection) {
-              var wq = query.dup();
-              wq.starred = selection.first;
-              onStateChange?.call(wq);
-            },
-          ),
-          Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Expanded(
-              child: MultiSelectDialogField(
-                items:
-                    storage.tags.map((it) => MultiSelectItem(it, it)).toList(),
-                listType: MultiSelectListType.CHIP,
-                onConfirm: (values) {
-                  var wq = query.dup();
-                  wq.tags = values;
-                  onStateChange?.call(wq);
-                },
-                buttonText: const Text('Filter by tags'),
-                title: const Text('Tags'),
-                searchable: true,
-                separateSelectedItems: true,
-                initialValue: query.tags ?? List<String>.empty(),
-              ),
-            ),
-            IconButton(
-                onPressed: () {
-                  var wq = query.dup();
-                  wq.tags = [];
-                  onStateChange?.call(wq);
-                },
-                icon: const Icon(Icons.clear)),
-          ]),
+          Text(text, style: const TextStyle(fontWeight: FontWeight.bold)),
+          _showingFilters
+              ? const Icon(Icons.expand_less)
+              : const Icon(Icons.expand_more),
         ],
       ),
+      onTap: () {
+        setState(() {
+          _showingFilters = !_showingFilters;
+        });
+        showPopover(
+          context: context,
+          bodyBuilder: (context) => MultiProvider(
+              providers: [
+                ChangeNotifierProvider.value(value: storage),
+                ChangeNotifierProvider.value(value: queryProvider),
+              ],
+              builder: (context, child) {
+                return const FiltersPage();
+              }),
+          direction: PopoverDirection.top,
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          transitionDuration: const Duration(milliseconds: 150),
+          constraints: const BoxConstraints(maxWidth: idealListingWidth),
+          onPop: () => setState(() {
+            _showingFilters = false;
+          }),
+        );
+      },
     );
   }
 }
 
-ButtonSegment<T> _makeButtonSegment<T extends Enum>(T value, {Widget? label}) {
-  return ButtonSegment(
-    value: value,
-    label: label ?? Text(value.name.toCapitalCase()!),
-  );
-}
-
 class ArticleListItem extends StatelessWidget {
-  const ArticleListItem(
-      {super.key, required this.article, this.onTap, this.updateQuery});
+  const ArticleListItem({super.key, required this.article, this.onTap});
 
   final Article article;
   final void Function(Article)? onTap;
-  final void Function(WQuery)? updateQuery;
 
   @override
   Widget build(BuildContext context) {
@@ -275,6 +194,7 @@ class ArticleListItem extends StatelessWidget {
     // TODO GestureDetector on iOS
 
     final syncer = context.read<RemoteSyncer>();
+    final queryProvider = context.watch<QueryProvider>();
     final selectedId = context.read<ArticleProvider?>()?.articleId;
 
     return Ink(
@@ -339,7 +259,7 @@ class ArticleListItem extends StatelessWidget {
                       child: TagList(
                         tags: article.tags,
                         onTagPressed: (tag) =>
-                            updateQuery?.call(WQuery(tags: [tag])),
+                            queryProvider.overrideWith(WQuery(tags: [tag])),
                       ),
                     ),
                   ),

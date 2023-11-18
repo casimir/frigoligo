@@ -4,7 +4,6 @@ import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart
 import 'package:fwfh_cached_network_image/fwfh_cached_network_image.dart';
 import 'package:fwfh_url_launcher/fwfh_url_launcher.dart';
 import 'package:go_router/go_router.dart';
-import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -18,6 +17,7 @@ import '../services/remote_sync_actions/articles.dart';
 import '../widgets/remote_sync_fab.dart';
 import '../widgets/remote_sync_progress_indicator.dart';
 import '../widgets/tag_list.dart';
+import 'tags_selector.dart';
 
 class ArticlePage extends StatefulWidget {
   // TODO articleId is not used but required to avoid triggering flutter caching
@@ -197,6 +197,22 @@ class _ArticlePageState extends State<ArticlePage> {
     RemoteSyncer syncer,
     scroller,
   ) {
+    void showTagsDialog([_]) => showDialog(
+          context: context,
+          builder: (ctx) => TagsSelectorDialog(
+            tags: syncer.wallabag!.tags,
+            initialValue: article.tags,
+            onConfirm: (tags) {
+              // final nullifiedTags =
+              syncer
+                ..add(
+                  EditArticleAction(article.id!, tags: tags),
+                )
+                ..synchronize();
+            },
+          ),
+        );
+
     return NotificationListener<ScrollNotification>(
       onNotification: (notification) {
         if (notification is ScrollEndNotification &&
@@ -213,30 +229,10 @@ class _ArticlePageState extends State<ArticlePage> {
           child: Column(
             children: [
               _buildHeader(article),
-              TagList(
-                tags: article.tags,
-                onTagPressed: (_) async {
-                  await showModalBottomSheet(
-                    isScrollControlled: true,
-                    context: context,
-                    builder: (ctx) => MultiSelectBottomSheet(
-                      items: syncer.wallabag!.tags
-                          .map((it) => MultiSelectItem(it, it))
-                          .toList(),
-                      initialValue: article.tags,
-                      onConfirm: (tags) => syncer
-                        ..add(
-                          EditArticleAction(article.id!, tags: tags),
-                        )
-                        ..synchronize(),
-                      listType: MultiSelectListType.CHIP,
-                      title: const Text('Tags'),
-                      searchable: true,
-                      separateSelectedItems: true,
-                    ),
-                  );
-                },
-              ),
+              article.tags.isNotEmpty
+                  ? TagList(tags: article.tags, onTagPressed: showTagsDialog)
+                  : TextButton(
+                      onPressed: showTagsDialog, child: const Text('Add tags')),
               const Divider(),
               _buildContent(article.content!, scroller, provider)
             ],
