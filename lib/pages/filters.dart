@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
-import 'package:multi_select_flutter/util/multi_select_item.dart';
-import 'package:multi_select_flutter/util/multi_select_list_type.dart';
 import 'package:provider/provider.dart';
 
 import '../constants.dart';
 import '../providers/query.dart';
 import '../services/wallabag_storage.dart';
 import '../string_extension.dart';
+import '../widgets/tag_list.dart';
+import 'tags_selector.dart';
 
 const defaultPadding = 10.0;
 const defaultSpacing = 16.0;
-const leftAlingnedInsets = EdgeInsets.only(
+const leftAlignedInsets = EdgeInsets.only(
   left: defaultSpacing,
   top: defaultPadding,
   right: defaultPadding,
@@ -45,49 +44,7 @@ class FiltersPage extends StatelessWidget {
         _buildFilterHeader(context, 'Favorites'),
         _buildFilterChoices(_buildStarredFilterChoices(queryProvider)),
         _buildFilterHeader(context, 'Tags'),
-        Card(
-          shape: const Border(),
-          margin: EdgeInsets.zero,
-          child: Padding(
-            padding: leftAlingnedInsets,
-            child: Wrap(
-              alignment: WrapAlignment.center,
-              spacing: defaultSpacing,
-              runSpacing: defaultSpacing,
-              children: [
-                Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Expanded(
-                    child: MultiSelectDialogField(
-                      items: storage.tags
-                          .map((it) => MultiSelectItem(it, it))
-                          .toList(),
-                      listType: MultiSelectListType.CHIP,
-                      onConfirm: (values) {
-                        var wq = queryProvider.query.dup();
-                        wq.tags = values;
-                        queryProvider.query = wq;
-                      },
-                      buttonText: const Text('Filter by tags'),
-                      title: const Text('Tags'),
-                      searchable: true,
-                      separateSelectedItems: true,
-                      initialValue:
-                          queryProvider.query.tags ?? List<String>.empty(),
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      var wq = queryProvider.query.dup();
-                      wq.tags = [];
-                      queryProvider.query = wq;
-                    },
-                    icon: const Icon(Icons.clear),
-                  ),
-                ]),
-              ],
-            ),
-          ),
-        ),
+        _buildTagsSelector(context, queryProvider, storage.tags),
         const SizedBox(height: defaultPadding),
       ],
     );
@@ -101,7 +58,7 @@ Widget _buildFilterHeader(BuildContext context, String label) {
       .copyWith(fontWeight: FontWeight.bold);
 
   return Padding(
-    padding: leftAlingnedInsets,
+    padding: leftAlignedInsets,
     child: Text(label, style: filterLabelStyle),
   );
 }
@@ -111,7 +68,7 @@ Widget _buildFilterChoices(List<Widget> children) {
     shape: const Border(),
     margin: EdgeInsets.zero,
     child: Padding(
-      padding: leftAlingnedInsets,
+      padding: leftAlignedInsets,
       child: Wrap(
         spacing: defaultSpacing,
         children: children,
@@ -169,4 +126,56 @@ List<ChoiceChip> _buildStarredFilterChoices(QueryProvider queryProvider) {
       onSelected(StarredFilter.starred),
     ),
   ];
+}
+
+Widget _buildTagsSelector(
+    BuildContext context, QueryProvider queryProvider, List<String> tags) {
+  final selection = queryProvider.query.tags?.isNotEmpty ?? false
+      ? TagList(
+          tags: queryProvider.query.tags!,
+          onTagPressed: (_) =>
+              _showTagsSelectionDialog(context, queryProvider, tags),
+        )
+      : const Padding(
+          // make the Card at least the same height than the others
+          padding: EdgeInsets.symmetric(vertical: 12.0),
+          child: Text('No tags selected'),
+        );
+
+  return Card(
+    shape: const Border(),
+    margin: EdgeInsets.zero,
+    child: Padding(
+      padding: leftAlignedInsets,
+      child: Wrap(
+        alignment: WrapAlignment.center,
+        spacing: defaultSpacing,
+        children: [
+          InkWell(
+            child: Row(
+              children: [
+                Expanded(child: Wrap(children: [selection])),
+                const Icon(Icons.keyboard_arrow_right),
+              ],
+            ),
+            onTap: () => _showTagsSelectionDialog(context, queryProvider, tags),
+          ),
+          if (queryProvider.query.tags?.isNotEmpty ?? false)
+            TextButton(
+              onPressed: queryProvider.clearTags,
+              child: const Text('Clear selection'),
+            ),
+        ],
+      ),
+    ),
+  );
+}
+
+void _showTagsSelectionDialog(
+    BuildContext context, QueryProvider queryProvider, List<String> tags) {
+  showDialog(
+    context: context,
+    builder: (ctx) =>
+        TagsSelectorDialog(tags: tags, queryProvider: queryProvider),
+  );
 }

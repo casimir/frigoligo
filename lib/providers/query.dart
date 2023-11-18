@@ -15,4 +15,14 @@ class QueryProvider extends ChangeNotifier {
     _query = _query.override(value);
     notifyListeners();
   }
+
+  void setTags(List<String> tags) {
+    _query = _query.dup()..tags = tags;
+    notifyListeners();
+  }
+
+  void clearTags() {
+    _query = _query.dup()..tags = null;
+    notifyListeners();
+  }
 }
