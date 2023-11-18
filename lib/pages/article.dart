@@ -197,6 +197,22 @@ class _ArticlePageState extends State<ArticlePage> {
     RemoteSyncer syncer,
     scroller,
   ) {
+    void showTagsDialog([_]) => showDialog(
+          context: context,
+          builder: (ctx) => TagsSelectorDialog(
+            tags: syncer.wallabag!.tags,
+            initialValue: article.tags,
+            onConfirm: (tags) {
+              // final nullifiedTags =
+              syncer
+                ..add(
+                  EditArticleAction(article.id!, tags: tags),
+                )
+                ..synchronize();
+            },
+          ),
+        );
+
     return NotificationListener<ScrollNotification>(
       onNotification: (notification) {
         if (notification is ScrollEndNotification &&
@@ -213,21 +229,10 @@ class _ArticlePageState extends State<ArticlePage> {
           child: Column(
             children: [
               _buildHeader(article),
-              TagList(
-                tags: article.tags,
-                onTagPressed: (_) => showDialog(
-                  context: context,
-                  builder: (ctx) => TagsSelectorDialog(
-                    tags: syncer.wallabag!.tags,
-                    initialValue: article.tags,
-                    onConfirm: (tags) => syncer
-                      ..add(
-                        EditArticleAction(article.id!, tags: tags),
-                      )
-                      ..synchronize(),
-                  ),
-                ),
-              ),
+              article.tags.isNotEmpty
+                  ? TagList(tags: article.tags, onTagPressed: showTagsDialog)
+                  : TextButton(
+                      onPressed: showTagsDialog, child: const Text('Add tags')),
               const Divider(),
               _buildContent(article.content!, scroller, provider)
             ],
