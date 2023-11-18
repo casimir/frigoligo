@@ -175,7 +175,10 @@ void _showTagsSelectionDialog(
     BuildContext context, QueryProvider queryProvider, List<String> tags) {
   showDialog(
     context: context,
-    builder: (ctx) =>
-        TagsSelectorDialog(tags: tags, queryProvider: queryProvider),
+    builder: (ctx) => TagsSelectorDialog(
+      tags: tags,
+      initialValue: queryProvider.query.tags ?? [],
+      onConfirm: queryProvider.setTags,
+    ),
   );
 }
