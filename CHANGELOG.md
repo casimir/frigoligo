@@ -1,7 +1,25 @@
+<a name="v0.6.1"></a>
+# [0.6.1 (v0.6.1)](https://github.com/casimir/frigoligo/releases/tag/v0.6.1) - 18 Nov 2023
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### Features
+* Enhance server validation and configuration logic by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/89
+* Redesign articles listing and filters by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/93
+### Bug Fixes
+* Change how iOS share extension attachments are handled by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/95
+
+
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.6.0...v0.6.1
+
+[Changes][v0.6.1]
+
+
 <a name="v0.6.0"></a>
 # [0.6.0 (v0.6.0)](https://github.com/casimir/frigoligo/releases/tag/v0.6.0) - 03 Nov 2023
 
-Another big one! The highlight are a completly new synchronization backend and a basic support for tags.
+Another big one! The highlights are a completly new synchronization backend and a basic support for tags.
 
 <!-- Release notes generated using configuration in .github/release.yml at main -->
 
@@ -209,6 +227,7 @@ Let's begin! This is the very first release.
 [Changes][v0.1.0]
 
 
+[v0.6.1]: https://github.com/casimir/frigoligo/compare/v0.6.0...v0.6.1
 [v0.6.0]: https://github.com/casimir/frigoligo/compare/v0.5.1...v0.6.0
 [v0.5.1]: https://github.com/casimir/frigoligo/compare/v0.5.0...v0.5.1
 [v0.5.0]: https://github.com/casimir/frigoligo/compare/v0.4.1...v0.5.0
