@@ -1,3 +1,21 @@
+<a name="v0.6.2"></a>
+# [0.6.2 (v0.6.2)](https://github.com/casimir/frigoligo/releases/tag/v0.6.2) - 20 Nov 2023
+
+This is a maintenance release to fix Windows builds and upgrade a few building tools.
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### Miscellaneous
+* Upgrade dart, cocoapods and flutter deps by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/98
+* Update windows build directory by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/99
+
+
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.6.1...v0.6.2
+
+[Changes][v0.6.2]
+
+
 <a name="v0.6.1"></a>
 # [0.6.1 (v0.6.1)](https://github.com/casimir/frigoligo/releases/tag/v0.6.1) - 18 Nov 2023
 
@@ -227,6 +245,7 @@ Let's begin! This is the very first release.
 [Changes][v0.1.0]
 
 
+[v0.6.2]: https://github.com/casimir/frigoligo/compare/v0.6.1...v0.6.2
 [v0.6.1]: https://github.com/casimir/frigoligo/compare/v0.6.0...v0.6.1
 [v0.6.0]: https://github.com/casimir/frigoligo/compare/v0.5.1...v0.6.0
 [v0.5.1]: https://github.com/casimir/frigoligo/compare/v0.5.0...v0.5.1
