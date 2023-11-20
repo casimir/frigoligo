@@ -144,7 +144,7 @@ jobs:
       - run: flutter pub get
       - run: flutter test
       - run: flutter build windows
-      - run: Copy-Item -Path build\windows\runner\Release\ -Destination build\frigoligo\ -Recurse
+      - run: Copy-Item -Path build\windows\x64\runner\Release\ -Destination build\frigoligo\ -Recurse
       - run: Compress-Archive -Path frigoligo -DestinationPath ..\\$env:ARTIFACT
         working-directory: ./build
       - uses: actions/upload-artifact@v3
