@@ -6,7 +6,7 @@ import '../providers/query.dart';
 import '../services/wallabag_storage.dart';
 import '../string_extension.dart';
 import '../widgets/tag_list.dart';
-import 'tags_selector.dart';
+import 'tags_selector/dialog.dart';
 
 const defaultPadding = 10.0;
 const defaultSpacing = 16.0;
