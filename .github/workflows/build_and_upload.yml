@@ -42,7 +42,7 @@ jobs:
       - run: flutter test
       - run: flutter build apk
       - run: cp build/app/outputs/flutter-apk/app-release.apk $ARTIFACT
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: ${{ env.ARTIFACT }}
           path: ${{ env.ARTIFACT }}
@@ -74,7 +74,7 @@ jobs:
       - run: cp -R build/linux/x64/release/bundle/ build/frigoligo/
       - run: tar czf ../$ARTIFACT frigoligo/
         working-directory: ./build
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: ${{ env.ARTIFACT }}
           path: ${{ env.ARTIFACT }}
@@ -118,7 +118,7 @@ jobs:
           chmod +x appimagetool-x86_64.AppImage
           ./appimagetool-x86_64.AppImage Frigoligo.AppDir $ARTIFACT
         working-directory: ./appimage
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: ${{ env.ARTIFACT }}
           path: appimage/${{ env.ARTIFACT }}
@@ -147,7 +147,7 @@ jobs:
       - run: Copy-Item -Path build\windows\x64\runner\Release\ -Destination build\frigoligo\ -Recurse
       - run: Compress-Archive -Path frigoligo -DestinationPath ..\\$env:ARTIFACT
         working-directory: ./build
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: ${{ env.ARTIFACT }}
           path: ${{ env.ARTIFACT }}
