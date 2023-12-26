@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../../layout.dart';
+
 class TagsSelectorDialog extends StatefulWidget {
   const TagsSelectorDialog({
     super.key,
@@ -43,8 +45,7 @@ class _TagsSelectorDialogState extends State<TagsSelectorDialog> {
         children: [
           Row(children: [Expanded(child: _buildSearchField())]),
           SizedBox(
-            width: double.maxFinite,
-            // height: double.maxFinite,
+            width: mediumBreakpoint * 0.66,
             height: MediaQuery.of(context).size.height * 0.66,
             child: ListView(
               children: widget.tags
