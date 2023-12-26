@@ -1,3 +1,24 @@
+<a name="v0.6.3"></a>
+# [0.6.3 (v0.6.3)](https://github.com/casimir/frigoligo/releases/tag/v0.6.3) - 26 Dec 2023
+
+Bugfix release mainly for the tags selector issues in dark mode.
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### Bug Fixes
+* New simpler tags selector dialog by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/107
+### Miscellaneous
+* Adaptive layout management by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/108
+* Encapsulate dimension constants as much as possible by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/109
+* Upgrade packages and build dependencies by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/110
+
+
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.6.2...v0.6.3
+
+[Changes][v0.6.3]
+
+
 <a name="v0.6.2"></a>
 # [0.6.2 (v0.6.2)](https://github.com/casimir/frigoligo/releases/tag/v0.6.2) - 20 Nov 2023
 
@@ -245,6 +266,7 @@ Let's begin! This is the very first release.
 [Changes][v0.1.0]
 
 
+[v0.6.3]: https://github.com/casimir/frigoligo/compare/v0.6.2...v0.6.3
 [v0.6.2]: https://github.com/casimir/frigoligo/compare/v0.6.1...v0.6.2
 [v0.6.1]: https://github.com/casimir/frigoligo/compare/v0.6.0...v0.6.1
 [v0.6.0]: https://github.com/casimir/frigoligo/compare/v0.5.1...v0.6.0
