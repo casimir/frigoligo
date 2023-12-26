@@ -17,7 +17,7 @@ import '../services/remote_sync_actions/articles.dart';
 import '../widgets/remote_sync_fab.dart';
 import '../widgets/remote_sync_progress_indicator.dart';
 import '../widgets/tag_list.dart';
-import 'tags_selector.dart';
+import 'tags_selector/dialog.dart';
 
 class ArticlePage extends StatefulWidget {
   // TODO articleId is not used but required to avoid triggering flutter caching
@@ -199,15 +199,12 @@ class _ArticlePageState extends State<ArticlePage> {
   ) {
     void showTagsDialog([_]) => showDialog(
           context: context,
-          builder: (ctx) => TagsSelectorDialog(
+          builder: (_) => TagsSelectorDialog(
             tags: syncer.wallabag!.tags,
             initialValue: article.tags,
             onConfirm: (tags) {
-              // final nullifiedTags =
               syncer
-                ..add(
-                  EditArticleAction(article.id!, tags: tags),
-                )
+                ..add(EditArticleAction(article.id!, tags: tags))
                 ..synchronize();
             },
           ),
