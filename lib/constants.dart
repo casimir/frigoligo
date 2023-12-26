@@ -40,7 +40,3 @@ final isMobilePlatform = Platform.isAndroid || Platform.isIOS;
 final pullToRefreshSupported = isMobilePlatform || Platform.isMacOS;
 final appBadgeSupported = isMobilePlatform || Platform.isMacOS;
 const appGroupId = 'group.net.casimir-lab.frigoligo';
-
-const narrowScreenBreakpoint = 600.0;
-const listingHeight = 130.0;
-const idealListingWidth = 333.3;
