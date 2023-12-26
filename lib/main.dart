@@ -7,6 +7,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
 import 'constants.dart';
+import 'layout.dart';
 import 'models/db.dart';
 import 'pages/article.dart';
 import 'pages/listing.dart';
@@ -210,7 +211,6 @@ class _MainContainerState extends State<_MainContainer> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
     final syncer = context.read<RemoteSyncer>();
     return MultiProvider(
       providers: [
@@ -225,9 +225,14 @@ class _MainContainerState extends State<_MainContainer> {
         ChangeNotifierProvider(create: (_) => QueryProvider()),
       ],
       builder: (_, __) {
-        if (width <= narrowScreenBreakpoint) return _buildNarrowLayout();
-        if (width >= idealListingWidth * 3) return _buildWideLayout();
-        return _buildDynamicLayout();
+        switch (Layout.windowClass(context)) {
+          case WindowClass.compact:
+            return _buildNarrowLayout();
+          case WindowClass.medium:
+            return _buildWideLayout();
+          case WindowClass.expanded:
+            return _buildDynamicLayout();
+        }
       },
     );
   }
