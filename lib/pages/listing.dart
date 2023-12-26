@@ -23,6 +23,9 @@ import 'filters.dart';
 
 final _log = Logger('frigoligo.listing');
 
+const listingHeight = 130.0;
+const idealListingWidth = 333.3;
+
 class ListingPage extends StatefulWidget {
   const ListingPage({
     super.key,
