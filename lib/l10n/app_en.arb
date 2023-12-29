@@ -198,6 +198,55 @@
   "@server_unreachable": {
     "description": "The Wallabag instance is unreachable."
   },
+  "@_SESSION": {},
+  "session_copiedToClipboard": "Copied to clipboard",
+  "@session_copiedToClipboard": {
+    "description": "A message displayed when the value is copied to the clipboard."
+  },
+  "session_invalidToken": "invalid",
+  "@session_invalidToken": {
+    "description": "Placeholder for expiration date when the token is invalid."
+  },
+  "session_logoutDialogConfirm": "Log out",
+  "@session_logoutDialogConfirm": {
+    "description": "Confirm the log out from the confirmation dialog."
+  },
+  "session_logoutDialogMessage": "You will need to log in again.",
+  "@session_logoutDialogMessage": {
+    "description": "The message of the confirmation dialog to log out."
+  },
+  "session_logoutDialogTitle": "Log out session",
+  "@session_logoutDialogTitle": {
+    "description": "The title of the confirmation dialog to log out."
+  },
+  "session_logoutSession": "Log out session",
+  "@session_logoutSession": {
+    "description": "The action to log out the session."
+  },
+  "session_fieldAccessToken": "Access token",
+  "@session_fieldAccessToken": {
+    "description": "The label of the access token field in the session screen."
+  },
+  "session_fieldLastServerSync": "Last server sync",
+  "@session_fieldLastServerSync": {
+    "description": "The label of the last server sync field in the session screen."
+  },
+  "session_fieldTokenExpiration": "Token expiration",
+  "@session_fieldTokenExpiration": {
+    "description": "The label of the token expiration field in the session screen."
+  },
+  "session_forceTokenResfresh": "Force token refresh",
+  "@session_forceTokenResfresh": {
+    "description": "The action to force a token refresh."
+  },
+  "session_neverSynced": "never",
+  "@session_neverSynced": {
+    "description": "Default value for the last sync time."
+  },
+  "session_title": "Session details",
+  "@session_title": {
+    "description": "The title of the session details screen."
+  },
   "@_SYNCER": {},
   "syncer_pendingActions": "{count, plural, =1{1 action} other{{count} actions}}",
   "@syncer_pendingActions": {

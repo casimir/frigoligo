@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../buildcontext_extension.dart';
 import '../datetime_extension.dart';
 import '../models/db.dart';
 import '../providers/settings.dart';
@@ -22,7 +23,7 @@ Widget _copyText(BuildContext context, String text, [bool obfuscate = false]) {
       await Clipboard.setData(ClipboardData(text: text));
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Copied to your clipboard!')));
+            SnackBar(content: Text(context.L.session_copiedToClipboard)));
       }
     },
     child: Text(content, style: const TextStyle(fontFamily: 'monospace')),
@@ -37,7 +38,7 @@ class SessionDetailsPage extends StatelessWidget {
     final settings = context.read<SettingsProvider>();
     final wallabag = WallabagInstance.get();
 
-    String sinceLastSync = 'never';
+    String sinceLastSync = context.L.session_neverSynced;
     final lastSync = settings[Sk.lastRefresh];
     if (lastSync > 0) {
       sinceLastSync = DateTime.fromMillisecondsSinceEpoch(lastSync * 1000)
@@ -45,40 +46,40 @@ class SessionDetailsPage extends StatelessWidget {
     }
     final token = wallabag.credentials.token;
     final accessToken = token?.accessToken;
-    final nextTokenExpiration =
-        token?.expirationDateTime.toHumanizedString() ?? 'invalid';
+    final nextTokenExpiration = token?.expirationDateTime.toHumanizedString() ??
+        context.L.session_invalidToken;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Session details'),
+        title: Text(context.L.session_title),
       ),
       body: ListView(
         children: [
           ListTile(
-            title: const Text('Server'),
+            title: Text(context.L.g_server),
             subtitle:
                 _copyText(context, wallabag.credentials.server.toString()),
           ),
           ListTile(
-            title: const Text('Client ID'),
+            title: Text(context.L.login_fieldClientId),
             subtitle: _copyText(context, wallabag.credentials.clientId, true),
           ),
           ListTile(
-            title: const Text('Client secret'),
+            title: Text(context.L.login_fieldClientSecret),
             subtitle:
                 _copyText(context, wallabag.credentials.clientSecret, true),
           ),
           ListTile(
-            title: const Text('Access token'),
+            title: Text(context.L.session_fieldAccessToken),
             subtitle:
                 _copyText(context, accessToken.toString(), accessToken != null),
           ),
           ListTile(
-            title: const Text('Token expiration'),
+            title: Text(context.L.session_fieldTokenExpiration),
             subtitle: Text(nextTokenExpiration),
           ),
           ListTile(
-            title: const Text('Last server sync'),
+            title: Text(context.L.session_fieldLastServerSync),
             subtitle: Text(sinceLastSync),
           ),
           const SizedBox(height: 8.0),
@@ -86,9 +87,9 @@ class SessionDetailsPage extends StatelessWidget {
             onPressed: () async {
               final result = await showOkCancelAlertDialog(
                 context: context,
-                title: 'Log out session',
-                message: 'You will need to log in again.',
-                okLabel: 'Log out',
+                title: context.L.session_logoutDialogTitle,
+                message: context.L.session_logoutDialogMessage,
+                okLabel: context.L.session_logoutDialogConfirm,
                 isDestructiveAction: true,
               );
               if (result == OkCancelResult.cancel) return;
@@ -101,13 +102,13 @@ class SessionDetailsPage extends StatelessWidget {
               }
             },
             icon: const Icon(Icons.logout),
-            label: const Text('Log out session'),
+            label: Text(context.L.session_logoutSession),
           ),
           const SizedBox(height: 8.0),
           ElevatedButton.icon(
             onPressed: () => WallabagInstance.get().refreshToken(),
             icon: const Icon(Icons.restart_alt),
-            label: const Text('Force token refresh'),
+            label: Text(context.L.session_forceTokenResfresh),
           ),
         ],
       ),
