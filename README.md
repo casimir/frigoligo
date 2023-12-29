@@ -36,6 +36,7 @@ Frigoligo supports a few deeplinks that allows it to be integrated in external w
 Deeplinks are based on a custom scheme, the URI path is used to determine the action to perform.
 
 The follow link will open the app and perform the `action` action with the given parameters `param1` (`hello`) and `param2` (`Günther`). Note that the host `x` is just here for readability and is ignored.
+
 ```
 frigoligo://x/action?param1=hello&param2=G%C3%BCnther
 ```
@@ -73,3 +74,7 @@ Save a new article. This is super useful to integrate article saving from an ext
 ## License
 
 Licensed under the MIT. See [LICENSE](./LICENSE) for details.
+
+## Translations
+
+Translations are managed on [Weblate](https://hosted.weblate.org/projects/frigoligo/flutter/). Feel free to help!
