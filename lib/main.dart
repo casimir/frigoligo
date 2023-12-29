@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -164,11 +164,9 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(colorScheme: schemeLight, useMaterial3: true),
           darkTheme: ThemeData(colorScheme: schemeDark, useMaterial3: true),
           themeMode: themeMode,
-          localizationsDelegates: const [
-            DefaultMaterialLocalizations.delegate,
-            DefaultWidgetsLocalizations.delegate,
-            DefaultCupertinoLocalizations.delegate,
-          ],
+          locale: null, // TODO add in settings?
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           restorationScopeId: 'app',
         );
       },
