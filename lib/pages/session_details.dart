@@ -42,12 +42,13 @@ class SessionDetailsPage extends StatelessWidget {
     final lastSync = settings[Sk.lastRefresh];
     if (lastSync > 0) {
       sinceLastSync = DateTime.fromMillisecondsSinceEpoch(lastSync * 1000)
-          .toHumanizedString();
+          .toHumanizedString(context);
     }
     final token = wallabag.credentials.token;
     final accessToken = token?.accessToken;
-    final nextTokenExpiration = token?.expirationDateTime.toHumanizedString() ??
-        context.L.session_invalidToken;
+    final nextTokenExpiration =
+        token?.expirationDateTime.toHumanizedString(context) ??
+            context.L.session_invalidToken;
 
     return Scaffold(
       appBar: AppBar(

@@ -21,6 +21,61 @@
   "@g_share": {
     "description": "A verb, as in to share something."
   },
+  "@_HUMANIZE": {},
+  "humanize_days": "{n, plural, =1{1 day} other{{n} days}}",
+  "@humanize_day": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "humanize_future": "in {duration}",
+  "@humanize_future": {
+    "description": "Describe a duration until a moment in the future.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "humanize_hours": "{n, plural, =1{1 hour} other{{n} hours}}",
+  "@humanize_hour": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "humanize_minutes": "{n, plural, =1{1 minute} other{{n} minutes}}",
+  "@humanize_minute": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "humanize_past": "{duration} ago",
+  "@humanize_past": {
+    "description": "Describe a duration since a moment in the past.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "humanize_seconds": "{n, plural, =1{1 second} other{{n} seconds}}",
+  "@humanize_second": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
   "@_ARTICLE": {},
   "article_addTags": "Add tags",
   "@article_addTags": {
