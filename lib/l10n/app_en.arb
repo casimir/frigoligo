@@ -93,6 +93,47 @@
   "@listing_noArticles": {
     "description": "Placeholder for when there are no articles to display."
   },
+  "@LOGIN": {},
+  "login_actionLogin": "Log in",
+  "@login_actionLogin": {
+    "description": "The action to log in."
+  },
+  "login_existingSessionDialogConfirm": "Log out",
+  "@login_existingSessionDialogConfirm": {
+    "description": "The action to log out from the existing session."
+  },
+  "login_existingSessionDialogMessage": "Do you want to log out of the current session and open a new one?",
+  "@login_existingSessionDialogMessage": {
+    "description": "The message of the dialog warning about an existing session."
+  },
+  "login_existingSessionDialogTitle": "A session is currently active",
+  "@login_existingSessionDialogTitle": {
+    "description": "The title of the dialog warning about an existing session."
+  },
+  "login_fieldClientId": "Client ID",
+  "@login_fieldClientId": {
+    "description": "The client ID field of the login form."
+  },
+  "login_fieldClientSecret": "Client Secret",
+  "@login_fieldClientSecret": {
+    "description": "The client secret field of the login form."
+  },
+  "login_fieldPassword": "Password",
+  "@login_fieldPassword": {
+    "description": "The password field of the login form."
+  },
+  "login_fieldUsername": "Username",
+  "@login_fieldUsername": {
+    "description": "The username field of the login form."
+  },
+  "login_openLogConsole": "Open the Log Console",
+  "@login_openLogConsole": {
+    "description": "The action to open the log console."
+  },
+  "login_title": "Log in",
+  "@login_title": {
+    "description": "The title of the login screen."
+  },
   "@_SAVE": {},
   "save_confirmationTitle": "Article saved!",
   "@save_confirmationTitle": {
