@@ -6,6 +6,7 @@ import 'package:logging/logging.dart';
 import 'package:popover/popover.dart';
 import 'package:provider/provider.dart';
 
+import '../buildcontext_extension.dart';
 import '../constants.dart';
 import '../models/article.dart';
 import '../providers/article.dart';
@@ -120,7 +121,7 @@ Widget listOrEmpyPlaceholder(BuildContext context, int count, Widget child) {
     child: count == 0
         ? Center(
             child: Text(
-              'No articles',
+              context.L.listing_noArticles,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           )
@@ -230,7 +231,8 @@ class ArticleListItem extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                '${article.readingTime} min',
+                                context.L
+                                    .article_readingTime(article.readingTime),
                                 style: Theme.of(context).textTheme.labelMedium,
                               ),
                             ],

@@ -52,6 +52,50 @@
       }
     }
   },
+  "@_LOGCONSOLE": {},
+  "logconsole_title": "Log Console",
+  "@logconsole_title": {
+    "description": "The title of the log console screen."
+  },
+  "@_LISTING": {},
+  "listing_noArticles": "No articles",
+  "@listing_noArticles": {
+    "description": "Placeholder for when there are no articles to display."
+  },
+  "@_SAVE": {},
+  "save_confirmationTitle": "Article saved!",
+  "@save_confirmationTitle": {
+    "description": "The title of the confirmation screen after the article is saved. "
+  },
+  "save_dubiousUrlMessage": "This URL does not look like one. Save it anyway?\n{url}",
+  "@save_dubiousUrlMessage": {
+    "description": "The message of the dubious URL warning dialog.",
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "save_dubiousUrlConfirm": "Save it",
+  "@save_dubiousUrlConfirm": {
+    "description": "The confirmation button of the dubious URL warning dialog."
+  },
+  "save_dubiousUrlTitle": "Dubious URL",
+  "@save_dubiousUrlTitle": {
+    "description": "The title of the dubious URL warning dialog."
+  },
+  "save_noUrl": "No URL provided",
+  "@save_noUrl": {
+    "description": "The URL was missing from the save request."
+  },
+  "save_title": "Save article",
+  "@save_title": {
+    "description": "The title of the save screen."
+  },
+  "save_viewArticle": "View article",
+  "@save_viewArticle": {
+    "description": "The action to view the article after it is saved."
+  },
   "@_SERVER": {},
   "server_address": "Server address",
   "@server_address": {
