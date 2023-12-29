@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../buildcontext_extension.dart';
 import '../constants.dart';
 import '../models/article.dart';
 import '../providers/article.dart';
@@ -102,23 +103,23 @@ class _ArticlePageState extends State<ArticlePage> {
                   enabled: article != null,
                   child: ListTile(
                     leading: shareIcon,
-                    title: const Text('Share'),
+                    title: Text(context.L.g_share),
                   ),
                 ),
                 PopupMenuItem(
                   value: 'open',
                   enabled: article != null,
-                  child: const ListTile(
-                    leading: Icon(Icons.open_in_browser),
-                    title: Text('Open in browser'),
+                  child: ListTile(
+                    leading: const Icon(Icons.open_in_browser),
+                    title: Text(context.L.article_openInBrowser),
                   ),
                 ),
                 PopupMenuItem(
                   value: 'delete',
                   enabled: article != null,
-                  child: const ListTile(
-                    leading: Icon(Icons.delete),
-                    title: Text('Delete article'),
+                  child: ListTile(
+                    leading: const Icon(Icons.delete),
+                    title: Text(context.L.g_delete),
                   ),
                 ),
               ],
@@ -137,9 +138,9 @@ class _ArticlePageState extends State<ArticlePage> {
                   case 'delete':
                     final result = await showOkCancelAlertDialog(
                       context: context,
-                      title: 'Delete this article',
+                      title: context.L.article_delete,
                       message: article!.title,
-                      okLabel: 'Delete',
+                      okLabel: context.L.g_delete,
                       isDestructiveAction: true,
                     );
                     if (result == OkCancelResult.cancel) return;
@@ -178,13 +179,13 @@ class _ArticlePageState extends State<ArticlePage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'No content fetched',
+            context.L.article_noContentFetched,
             style: Theme.of(context).textTheme.headlineSmall,
           ),
           const SizedBox(height: 8.0),
           ElevatedButton(
             onPressed: () => launchUrl(articleUrl),
-            child: const Text('Browse the original'),
+            child: Text(context.L.article_openInBrowser),
           ),
         ],
       ),
@@ -229,9 +230,13 @@ class _ArticlePageState extends State<ArticlePage> {
               article.tags.isNotEmpty
                   ? TagList(tags: article.tags, onTagPressed: showTagsDialog)
                   : TextButton(
-                      onPressed: showTagsDialog, child: const Text('Add tags')),
+                      onPressed: showTagsDialog,
+                      child: Text(context.L.article_addTags),
+                    ),
               const Divider(),
-              _buildContent(article.content!, scroller, provider)
+              _buildContent(article.content!, scroller, provider),
+              // use the same padding as SafeArea.bottom
+              SizedBox(height: MediaQuery.paddingOf(context).bottom),
             ],
           ),
         ),
@@ -255,7 +260,7 @@ class _ArticlePageState extends State<ArticlePage> {
               Text(article.domainName ?? article.url),
               const Text(' - '),
               const Icon(Icons.timer_outlined),
-              Text('${article.readingTime} min'),
+              Text(context.L.article_readingTime(article.readingTime)),
             ],
           ),
         ],

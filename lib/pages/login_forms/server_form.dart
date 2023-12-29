@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import '../../buildcontext_extension.dart';
 import '../../wallabag/utils.dart';
 
 import 'validators.dart';
@@ -41,15 +42,17 @@ class _ServerFormState extends State<ServerForm> {
               return isValidAndChecked && !isExpanded
                   ? ListTile(
                       leading: const Icon(Icons.check),
-                      title: const Text(
-                        'Server',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                      title: Text(
+                        context.L.g_server,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       subtitle: Text(
                           '${_serverCheck!.uri} (${_serverCheck!.info!.version})'),
                     )
-                  : const ListTile(
-                      leading: Icon(Icons.home), title: Text('Server'));
+                  : ListTile(
+                      leading: const Icon(Icons.home),
+                      title: Text(context.L.g_server),
+                    );
             },
             body: FormBuilder(
               key: widget.stateKey,
@@ -60,17 +63,17 @@ class _ServerFormState extends State<ServerForm> {
                     FormBuilderTextField(
                       name: 'server',
                       validator: (value) {
-                        var emptyCheck =
-                            notEmptyValidator(value, 'server address');
+                        var emptyCheck = notEmptyValidator(
+                            context, value, context.L.server_address);
                         if (emptyCheck != null) return emptyCheck;
-                        if (_checkPending) return 'Still checking...';
+                        if (_checkPending) return context.L.server_checkPending;
                         switch (_serverCheck?.errorKind) {
                           case WallabagCheckErrorKind.invalidUrl:
-                            return 'Invalid address';
+                            return context.L.server_invalidUrl;
                           case WallabagCheckErrorKind.unreachable:
-                            return 'Server unreachable';
+                            return context.L.server_unreachable;
                           case WallabagCheckErrorKind.apiError:
-                            return 'Invalid API response';
+                            return context.L.server_apiError;
                           case WallabagCheckErrorKind.unknown:
                             return '? ${_serverCheck!.error}';
                           case null:
@@ -78,8 +81,8 @@ class _ServerFormState extends State<ServerForm> {
                         return null;
                       },
                       readOnly: _checkPending,
-                      decoration: const InputDecoration(
-                        labelText: 'Server address',
+                      decoration: InputDecoration(
+                        labelText: context.L.server_address,
                         hintText: 'wallabag.domain.net',
                       ),
                       autocorrect: false,
@@ -89,7 +92,11 @@ class _ServerFormState extends State<ServerForm> {
                     const SizedBox(height: 8.0),
                     ElevatedButton(
                       onPressed: startValidationAndCheck,
-                      child: Text(_checkPending ? 'Checking...' : 'Check'),
+                      child: Text(
+                        _checkPending
+                            ? context.L.g_checking
+                            : context.L.g_check,
+                      ),
                     ),
                   ],
                 ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
+import '../buildcontext_extension.dart';
 import '../models/article.dart';
 import '../models/db.dart';
 import '../providers/settings.dart';
@@ -29,7 +30,7 @@ class _SavePageState extends State<SavePage> {
     if (widget.url == null) {
       setState(() {
         step = SaveStep.error;
-        errorMessage = 'No URL provided';
+        errorMessage = context.L.save_noUrl;
       });
     } else {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -47,10 +48,9 @@ class _SavePageState extends State<SavePage> {
     if (Uri.tryParse(widget.url!)?.host.isEmpty ?? true) {
       final res = await showOkCancelAlertDialog(
         context: context,
-        title: 'Dubious URL',
-        message:
-            'This URL does not look like one. Save it anyway?\n${widget.url}',
-        okLabel: 'Save it',
+        title: context.L.save_dubiousUrlTitle,
+        message: context.L.save_dubiousUrlMessage(widget.url!),
+        okLabel: context.L.save_dubiousUrlConfirm,
       );
       if (res == OkCancelResult.cancel) {
         if (context.mounted) context.pop();
@@ -86,7 +86,7 @@ class _SavePageState extends State<SavePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Save article'),
+        title: Text(context.L.save_title),
       ),
       body: Center(
         child: Column(
@@ -115,7 +115,7 @@ class _SavePageState extends State<SavePage> {
   List<Widget> _buildSuccessWidgets() {
     return [
       Text(
-        'Article saved!',
+        context.L.save_confirmationTitle,
         style: Theme.of(context).textTheme.headlineSmall,
       ),
       const SizedBox(height: 16.0),
@@ -124,7 +124,7 @@ class _SavePageState extends State<SavePage> {
       // TODO a preview card would be waaaay nicer
       ElevatedButton(
         onPressed: () => context.replace('/?articleId=$savedArticleId'),
-        child: const Text('View article'),
+        child: Text(context.L.save_viewArticle),
       ),
     ];
   }

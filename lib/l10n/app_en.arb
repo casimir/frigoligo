@@ -1,0 +1,381 @@
+{
+  "@@locale": "en",
+  "@_G": {},
+  "g_check": "Check",
+  "@g_check": {
+    "description": "A verb as in to check something."
+  },
+  "g_checking": "Checking…",
+  "@g_checking": {
+    "description": "Present participle of the verb to check."
+  },
+  "g_delete": "Delete",
+  "@g_delete": {
+    "description": "A verb, as in to delete something."
+  },
+  "g_server": "Server",
+  "@g_server": {
+    "description": "A server, as in a computer providing a service."
+  },
+  "g_share": "Share",
+  "@g_share": {
+    "description": "A verb, as in to share something."
+  },
+  "g_tag": "Tag",
+  "@g_tag": {
+    "description": "A tag can be attached to an article."
+  },
+  "g_url": "URL",
+  "@g_url": {
+    "description": "An URL, as in a web address."
+  },
+  "@_HUMANIZE": {},
+  "humanize_days": "{n, plural, =1{1 day} other{{n} days}}",
+  "@humanize_day": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "humanize_future": "in {duration}",
+  "@humanize_future": {
+    "description": "Describe a duration until a moment in the future.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "humanize_hours": "{n, plural, =1{1 hour} other{{n} hours}}",
+  "@humanize_hour": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "humanize_minutes": "{n, plural, =1{1 minute} other{{n} minutes}}",
+  "@humanize_minute": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "humanize_past": "{duration} ago",
+  "@humanize_past": {
+    "description": "Describe a duration since a moment in the past.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "humanize_seconds": "{n, plural, =1{1 second} other{{n} seconds}}",
+  "@humanize_second": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "@_ARTICLE": {},
+  "article_addTags": "Add tags",
+  "@article_addTags": {
+    "description": "The action to add tags to an article."
+  },
+  "article_browseOriginal": "Browse the original",
+  "@article_browseOriginal": {
+    "description": "The action to open the URL of the article in the web browser."
+  },
+  "article_delete": "Delete this article",
+  "@article_delete": {
+    "description": "The action to delete the article."
+  },
+  "article_noContentFetched": "No content fetched",
+  "@article_noContentFetched": {
+    "description": "Placeholder for when the article content is not available."
+  },
+  "article_openInBrowser": "Open in browser",
+  "@article_openInBrowser": {
+    "description": "The action to open the article in the web browser."
+  },
+  "article_readingTime": "{minutes} min",
+  "@article_readingTime": {
+    "description": "The estimated reading time of the article.",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "@_FILTERS": {},
+  "filters_articlesCount": "{count, plural, =1{1 article found} other{{count} articles found}}",
+  "@filters_articlesCount": {
+    "description": "The number of articles found with current filters values.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "filters_articleFavorite": "Favorite",
+  "@filters_articleFavorite": {
+    "description": "The favorite status of the article."
+  },
+  "filters_articleState": "State",
+  "@filters_articleState": {
+    "description": "The state of the article."
+  },
+  "filters_articleTags": "Tags",
+  "@filters_articleTags": {
+    "description": "The tags attached to the article."
+  },
+  "filters_clearTagsSelection": "Clear selection",
+  "@filters_clearTagsSelection": {
+    "description": "The action to clear the selection of tags."
+  },
+  "filters_noTagsSelected": "No tags selected",
+  "@filters_noTagsSelected": {
+    "description": "Placeholder for when no tags are selected."
+  },
+  "@_LOGCONSOLE": {},
+  "logconsole_title": "Log Console",
+  "@logconsole_title": {
+    "description": "The title of the log console screen."
+  },
+  "@_LISTING": {},
+  "listing_noArticles": "No articles",
+  "@listing_noArticles": {
+    "description": "Placeholder for when there are no articles to display."
+  },
+  "@LOGIN": {},
+  "login_actionLogin": "Log in",
+  "@login_actionLogin": {
+    "description": "The action to log in."
+  },
+  "login_existingSessionDialogConfirm": "Log out",
+  "@login_existingSessionDialogConfirm": {
+    "description": "The action to log out from the existing session."
+  },
+  "login_existingSessionDialogMessage": "Do you want to log out of the current session and open a new one?",
+  "@login_existingSessionDialogMessage": {
+    "description": "The message of the dialog warning about an existing session."
+  },
+  "login_existingSessionDialogTitle": "A session is currently active",
+  "@login_existingSessionDialogTitle": {
+    "description": "The title of the dialog warning about an existing session."
+  },
+  "login_fieldClientId": "Client ID",
+  "@login_fieldClientId": {
+    "description": "The client ID field of the login form."
+  },
+  "login_fieldClientSecret": "Client Secret",
+  "@login_fieldClientSecret": {
+    "description": "The client secret field of the login form."
+  },
+  "login_fieldPassword": "Password",
+  "@login_fieldPassword": {
+    "description": "The password field of the login form."
+  },
+  "login_fieldUsername": "Username",
+  "@login_fieldUsername": {
+    "description": "The username field of the login form."
+  },
+  "login_openLogConsole": "Open the Log Console",
+  "@login_openLogConsole": {
+    "description": "The action to open the log console."
+  },
+  "login_title": "Log in",
+  "@login_title": {
+    "description": "The title of the login screen."
+  },
+  "@_SAVE": {},
+  "save_confirmationTitle": "Article saved!",
+  "@save_confirmationTitle": {
+    "description": "The title of the confirmation screen after the article is saved. "
+  },
+  "save_dubiousUrlMessage": "This URL does not look like one. Save it anyway?\n{url}",
+  "@save_dubiousUrlMessage": {
+    "description": "The message of the dubious URL warning dialog.",
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "save_dubiousUrlConfirm": "Save it",
+  "@save_dubiousUrlConfirm": {
+    "description": "The confirmation button of the dubious URL warning dialog."
+  },
+  "save_dubiousUrlTitle": "Dubious URL",
+  "@save_dubiousUrlTitle": {
+    "description": "The title of the dubious URL warning dialog."
+  },
+  "save_noUrl": "No URL provided",
+  "@save_noUrl": {
+    "description": "The URL was missing from the save request."
+  },
+  "save_title": "Save article",
+  "@save_title": {
+    "description": "The title of the save screen."
+  },
+  "save_viewArticle": "View article",
+  "@save_viewArticle": {
+    "description": "The action to view the article after it is saved."
+  },
+  "@_SERVER": {},
+  "server_address": "Server address",
+  "@server_address": {
+    "description": "The address of the Wallabag instance."
+  },
+  "server_apiError": "Invalid API response",
+  "@server_apiError": {
+    "description": "An error occurred while communicating with the Wallabag API."
+  },
+  "server_checkPending": "Still checking…",
+  "@server_checkPending": {
+    "description": "The server configuration is already being checked."
+  },
+  "server_emptyField": "Enter your {label}",
+  "@server_emptyField": {
+    "description": "A message for non-empty check fail on a form field.",
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "server_invalidUrl": "Invalid address",
+  "@server_invalidUrl": {
+    "description": "The address of the Wallabag instance is invalid."
+  },
+  "server_unreachable": "Server unreachable",
+  "@server_unreachable": {
+    "description": "The Wallabag instance is unreachable."
+  },
+  "@_SESSION": {},
+  "session_copiedToClipboard": "Copied to clipboard",
+  "@session_copiedToClipboard": {
+    "description": "A message displayed when the value is copied to the clipboard."
+  },
+  "session_invalidToken": "invalid",
+  "@session_invalidToken": {
+    "description": "Placeholder for expiration date when the token is invalid."
+  },
+  "session_logoutDialogConfirm": "Log out",
+  "@session_logoutDialogConfirm": {
+    "description": "Confirm the log out from the confirmation dialog."
+  },
+  "session_logoutDialogMessage": "You will need to log in again.",
+  "@session_logoutDialogMessage": {
+    "description": "The message of the confirmation dialog to log out."
+  },
+  "session_logoutDialogTitle": "Log out session",
+  "@session_logoutDialogTitle": {
+    "description": "The title of the confirmation dialog to log out."
+  },
+  "session_logoutSession": "Log out session",
+  "@session_logoutSession": {
+    "description": "The action to log out the session."
+  },
+  "session_fieldAccessToken": "Access token",
+  "@session_fieldAccessToken": {
+    "description": "The label of the access token field in the session screen."
+  },
+  "session_fieldLastServerSync": "Last server sync",
+  "@session_fieldLastServerSync": {
+    "description": "The label of the last server sync field in the session screen."
+  },
+  "session_fieldTokenExpiration": "Token expiration",
+  "@session_fieldTokenExpiration": {
+    "description": "The label of the token expiration field in the session screen."
+  },
+  "session_forceTokenResfresh": "Force token refresh",
+  "@session_forceTokenResfresh": {
+    "description": "The action to force a token refresh."
+  },
+  "session_neverSynced": "never",
+  "@session_neverSynced": {
+    "description": "Default value for the last sync time."
+  },
+  "session_title": "Session details",
+  "@session_title": {
+    "description": "The title of the session details screen."
+  },
+  "@_SETTINGS": {},
+  "settings_clearCacheMessage": "The local cache will be deleted and fetched again from the server.",
+  "@settings_clearCacheMessage": {
+    "description": "The message of the confirmation dialog to clear the cache."
+  },
+  "settings_itemAppearance": "Appearance",
+  "@settings_itemAppearance": {
+    "description": "Settings for the appearance of the application."
+  },
+  "settings_itemAbout": "About",
+  "@settings_itemAbout": {
+    "description": "The action to display the about screen."
+  },
+  "settings_itemAppBadge": "Show unread badge",
+  "@settings_itemAppBadge": {
+    "description": "The action to toggle the unread badge on the application icon."
+  },
+  "settings_itemClearCache": "Clear cache",
+  "@settings_itemClearCache": {
+    "description": "The action to clear the offline cache."
+  },
+  "settings_itemLogConsole": "Log Console",
+  "@settings_itemLogConsole": {
+    "description": "The action to display the log console screen."
+  },
+  "settings_itemOpenDeeplink": "Open a deep link",
+  "@settings_itemOpenDeeplink": {
+    "description": "The action to open a deep link."
+  },
+  "settings_savedArticleTag": "Add a tag to saved articles",
+  "@settings_savedArticleTag": {
+    "description": "The action to toggle the addition of a tag to saved articles."
+  },
+  "settings_savedArticleTagLabel": "Label for saved articles",
+  "@settings_savedArticleTagLabel": {
+    "description": "The label of the tag to add to saved articles."
+  },
+  "settings_itemSessionDetails": "Session details",
+  "@settings_itemSessionDetails": {
+    "description": "The action to display the session details screen."
+  },
+  "settings_headerAdvanced": "Advanced",
+  "@settings_headerAdvanced": {
+    "description": "The header of the advanced section in the settings screen."
+  },
+  "settings_headerGeneral": "General",
+  "@settings_headerGeneral": {
+    "description": "The header of the general section in the settings screen."
+  },
+  "settings_headerPreferences": "Preferences",
+  "@settings_headerPreferences": {
+    "description": "The header of the preferences section in the settings screen."
+  },
+  "settings_title": "Settings",
+  "@settings_title": {
+    "description": "The title of the settings screen."
+  },
+  "@_SYNCER": {},
+  "syncer_pendingActions": "{count, plural, =1{1 action} other{{count} actions}}",
+  "@syncer_pendingActions": {
+    "description": "Number of pending actions in the RemoteSyncer queue.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  }
+}

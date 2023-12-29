@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 
+import '../buildcontext_extension.dart';
 import '../models/db.dart';
 import '../providers/settings.dart';
 import '../wallabag/credentials.dart';
@@ -40,10 +41,9 @@ class _LoginPageState extends State<LoginPage> {
         final settings = context.read<SettingsProvider>();
         final result = await showOkCancelAlertDialog(
           context: context,
-          title: 'A session is already open',
-          message:
-              'Do you want to log out of the current session and open a new one?',
-          okLabel: 'Log out',
+          title: context.L.login_existingSessionDialogTitle,
+          message: context.L.login_existingSessionDialogMessage,
+          okLabel: context.L.login_existingSessionDialogConfirm,
           isDestructiveAction: true,
         );
         if (result == OkCancelResult.ok) {
@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
       }
     }
     return Scaffold(
-      appBar: AppBar(title: const Text('Log in')),
+      appBar: AppBar(title: Text(context.L.login_title)),
       body: ListView(
         children: [
           ServerForm(
@@ -102,46 +102,44 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(children: [
                     FormBuilderTextField(
                       name: 'clientId',
-                      validator: (value) =>
-                          notEmptyValidator(value, 'client ID'),
-                      decoration: const InputDecoration(
-                        icon: Icon(Icons.key),
-                        labelText: 'Client ID',
+                      validator: (value) => notEmptyValidator(
+                          context, value, context.L.login_fieldClientId),
+                      decoration: InputDecoration(
+                        icon: const Icon(Icons.key),
+                        labelText: context.L.login_fieldClientId,
                       ),
                       initialValue: widget.initial?['clientId'],
                     ),
                     FormBuilderTextField(
                       name: 'clientSecret',
-                      validator: (value) =>
-                          notEmptyValidator(value, 'client secret'),
-                      decoration: const InputDecoration(
-                        icon: Icon(Icons.key),
-                        labelText: 'Client Secret',
+                      validator: (value) => notEmptyValidator(
+                          context, value, context.L.login_fieldClientSecret),
+                      decoration: InputDecoration(
+                        icon: const Icon(Icons.key),
+                        labelText: context.L.login_fieldClientSecret,
                       ),
                       initialValue: widget.initial?['clientSecret'],
                     ),
                     FormBuilderTextField(
                       name: 'username',
                       autofillHints: const [AutofillHints.username],
-                      validator: (value) => value == null || value.isEmpty
-                          ? 'Enter your username'
-                          : null,
-                      decoration: const InputDecoration(
-                        icon: Icon(Icons.person),
-                        labelText: 'Username',
+                      validator: (value) => notEmptyValidator(
+                          context, value, context.L.login_fieldUsername),
+                      decoration: InputDecoration(
+                        icon: const Icon(Icons.person),
+                        labelText: context.L.login_fieldUsername,
                       ),
                       initialValue: widget.initial?['username'],
                     ),
                     FormBuilderTextField(
                       name: 'password',
                       autofillHints: const [AutofillHints.password],
-                      validator: (value) => value == null || value.isEmpty
-                          ? 'Enter your password'
-                          : null,
+                      validator: (value) => notEmptyValidator(
+                          context, value, context.L.login_fieldPassword),
                       obscureText: true, // TODO password visibility toggle
-                      decoration: const InputDecoration(
-                        icon: Icon(Icons.password),
-                        labelText: 'Password',
+                      decoration: InputDecoration(
+                        icon: const Icon(Icons.password),
+                        labelText: context.L.login_fieldPassword,
                       ),
                       initialValue: widget.initial?['password'],
                     ),
@@ -187,13 +185,13 @@ class _LoginPageState extends State<LoginPage> {
                 }
               }
             },
-            child: const Text('Log in'),
+            child: Text(context.L.login_actionLogin),
           ),
           const SizedBox(height: 8.0),
           if (_gotAnError)
             MaterialButton(
               onPressed: () => context.push('/logs'),
-              child: const Text('Open the Log Console'),
+              child: Text(context.L.login_openLogConsole),
             ),
         ],
       ),

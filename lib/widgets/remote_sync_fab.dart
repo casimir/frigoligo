@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../buildcontext_extension.dart';
 import '../services/remote_sync.dart';
 
 class RemoteSyncFAB extends StatelessWidget {
@@ -19,7 +20,7 @@ class RemoteSyncFAB extends StatelessWidget {
     if (showButton) {
       return FloatingActionButton.extended(
         icon: const Icon(Icons.sync),
-        label: Text('${provider.pendingCount} actions'),
+        label: Text(context.L.syncer_pendingActions(provider.pendingCount)),
         onPressed: () => provider.synchronize(),
       );
     } else {
