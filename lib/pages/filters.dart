@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../buildcontext_extension.dart';
 import '../constants.dart';
 import '../providers/query.dart';
 import '../services/wallabag_storage.dart';
@@ -32,18 +33,18 @@ class FiltersPage extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _buildFilterHeader(context, 'State'),
+            _buildFilterHeader(context, context.L.filters_articleState),
             Padding(
               padding: const EdgeInsets.only(right: 8.0),
-              child:
-                  Text('${storage.count(queryProvider.query)} articles found'),
+              child: Text(context.L
+                  .filters_articlesCount(storage.count(queryProvider.query))),
             ),
           ],
         ),
         _buildFilterChoices(_buildStateFilterChoices(queryProvider)),
-        _buildFilterHeader(context, 'Favorites'),
+        _buildFilterHeader(context, context.L.filters_articleFavorite),
         _buildFilterChoices(_buildStarredFilterChoices(queryProvider)),
-        _buildFilterHeader(context, 'Tags'),
+        _buildFilterHeader(context, context.L.filters_articleTags),
         _buildTagsSelector(context, queryProvider, storage.tags),
         const SizedBox(height: defaultPadding),
       ],
@@ -136,10 +137,10 @@ Widget _buildTagsSelector(
           onTagPressed: (_) =>
               _showTagsSelectionDialog(context, queryProvider, tags),
         )
-      : const Padding(
+      : Padding(
           // make the Card at least the same height than the others
-          padding: EdgeInsets.symmetric(vertical: 12.0),
-          child: Text('No tags selected'),
+          padding: const EdgeInsets.symmetric(vertical: 12.0),
+          child: Text(context.L.filters_noTagsSelected),
         );
 
   return Card(
@@ -163,7 +164,7 @@ Widget _buildTagsSelector(
           if (queryProvider.query.tags?.isNotEmpty ?? false)
             TextButton(
               onPressed: queryProvider.clearTags,
-              child: const Text('Clear selection'),
+              child: Text(context.L.filters_clearTagsSelection),
             ),
         ],
       ),
