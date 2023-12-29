@@ -1,5 +1,48 @@
 {
   "@@locale": "en",
+  "@_G": {},
+  "g_check": "Check",
+  "@g_check": {
+    "description": "A verb as in to check something."
+  },
+  "g_checking": "Checking…",
+  "@g_checking": {
+    "description": "Present participle of the verb to check."
+  },
+  "g_server": "Server",
+  "@g_server": {
+    "description": "A server, as in a computer providing a service."
+  },
+  "@_SERVER": {},
+  "server_address": "Server address",
+  "@server_address": {
+    "description": "The address of the Wallabag instance."
+  },
+  "server_apiError": "Invalid API response",
+  "@server_apiError": {
+    "description": "An error occurred while communicating with the Wallabag API."
+  },
+  "server_checkPending": "Still checking…",
+  "@server_checkPending": {
+    "description": "The server configuration is already being checked."
+  },
+  "server_emptyField": "Enter your {label}",
+  "@server_emptyField": {
+    "description": "A message for non-empty check fail on a form field.",
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "server_invalidUrl": "Invalid address",
+  "@server_invalidUrl": {
+    "description": "The address of the Wallabag instance is invalid."
+  },
+  "server_unreachable": "Server unreachable",
+  "@server_unreachable": {
+    "description": "The Wallabag instance is unreachable."
+  },
   "@_SYNCER": {},
   "syncer_pendingActions": "{count, plural, =1{1 action} other{{count} actions}}",
   "@syncer_pendingActions": {

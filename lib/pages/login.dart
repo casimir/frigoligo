@@ -103,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                     FormBuilderTextField(
                       name: 'clientId',
                       validator: (value) =>
-                          notEmptyValidator(value, 'client ID'),
+                          notEmptyValidator(context, value, 'client ID'),
                       decoration: const InputDecoration(
                         icon: Icon(Icons.key),
                         labelText: 'Client ID',
@@ -113,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
                     FormBuilderTextField(
                       name: 'clientSecret',
                       validator: (value) =>
-                          notEmptyValidator(value, 'client secret'),
+                          notEmptyValidator(context, value, 'client secret'),
                       decoration: const InputDecoration(
                         icon: Icon(Icons.key),
                         labelText: 'Client Secret',
