@@ -9,9 +9,48 @@
   "@g_checking": {
     "description": "Present participle of the verb to check."
   },
+  "g_delete": "Delete",
+  "@g_delete": {
+    "description": "A verb, as in to delete something."
+  },
   "g_server": "Server",
   "@g_server": {
     "description": "A server, as in a computer providing a service."
+  },
+  "g_share": "Share",
+  "@g_share": {
+    "description": "A verb, as in to share something."
+  },
+  "@_ARTICLE": {},
+  "article_addTags": "Add tags",
+  "@article_addTags": {
+    "description": "The action to add tags to an article."
+  },
+  "article_browseOriginal": "Browse the original",
+  "@article_browseOriginal": {
+    "description": "The action to open the URL of the article in the web browser."
+  },
+  "article_delete": "Delete this article",
+  "@article_delete": {
+    "description": "The action to delete the article."
+  },
+  "article_noContentFetched": "No content fetched",
+  "@article_noContentFetched": {
+    "description": "Placeholder for when the article content is not available."
+  },
+  "article_openInBrowser": "Open in browser",
+  "@article_openInBrowser": {
+    "description": "The action to open the article in the web browser."
+  },
+  "article_readingTime": "{minutes} min",
+  "@article_readingTime": {
+    "description": "The estimated reading time of the article.",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
   },
   "@_SERVER": {},
   "server_address": "Server address",
