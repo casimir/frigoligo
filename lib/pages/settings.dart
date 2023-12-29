@@ -6,6 +6,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 
+import '../buildcontext_extension.dart';
 import '../constants.dart';
 import '../providers/deeplinks.dart';
 import '../providers/settings.dart';
@@ -26,17 +27,17 @@ class SettingsPage extends StatelessWidget {
     final syncer = context.read<RemoteSyncer>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: Text(context.L.settings_title),
       ),
       body: Center(
         child: SettingsList(
           sections: [
             SettingsSection(
-              title: const Text('Preferences'),
+              title: Text(context.L.settings_headerPreferences),
               tiles: [
                 SettingsTile.navigation(
                   leading: const Icon(Icons.format_paint),
-                  title: const Text('Appearance'),
+                  title: Text(context.L.settings_itemAppearance),
                   value: Text((settings[Sk.themeMode] as ThemeMode)
                       .name
                       .toCapitalCase()!),
@@ -48,7 +49,7 @@ class SettingsPage extends StatelessWidget {
                         );
                     final choice = await showConfirmationDialog(
                       context: context,
-                      title: 'Appearance',
+                      title: context.L.settings_itemAppearance,
                       actions: [
                         build(ThemeMode.system),
                         build(ThemeMode.light),
@@ -61,7 +62,7 @@ class SettingsPage extends StatelessWidget {
                 if (appBadgeSupported)
                   SettingsTile.switchTile(
                     leading: const Icon(Icons.markunread_mailbox),
-                    title: const Text('Show unread badge'),
+                    title: Text(context.L.settings_itemAppBadge),
                     initialValue: settings[Sk.appBadge],
                     onToggle: (value) {
                       final previous = settings[Sk.appBadge];
@@ -71,20 +72,20 @@ class SettingsPage extends StatelessWidget {
                   ),
                 SettingsTile.switchTile(
                   leading: const Icon(Icons.tag),
-                  title: const Text('Add a label to saved articles'),
+                  title: Text(context.L.settings_savedArticleTag),
                   initialValue: settings[Sk.tagSaveEnabled],
                   onToggle: (value) => settings[Sk.tagSaveEnabled] = value,
                 ),
                 SettingsTile.navigation(
                   leading: const Icon(Icons.tag),
-                  title: const Text('Label for saved articles'),
+                  title: Text(context.L.settings_savedArticleTagLabel),
                   value: Text(settings[Sk.tagSaveLabel]),
                   onPressed: (context) async {
                     final result = await showTextInputDialog(
                       context: context,
                       textFields: [
                         DialogTextField(
-                          hintText: 'Tag',
+                          hintText: context.L.g_tag,
                           keyboardType: TextInputType.text,
                           autocorrect: false,
                           initialText: settings[Sk.tagSaveLabel],
@@ -100,18 +101,16 @@ class SettingsPage extends StatelessWidget {
               ],
             ),
             SettingsSection(
-              title: const Text('General'),
+              title: Text(context.L.settings_headerGeneral),
               tiles: [
                 SettingsTile(
                   leading: const Icon(Icons.sync),
-                  title: const Text('Clear cache'),
+                  title: Text(context.L.settings_itemClearCache),
                   onPressed: (context) async {
                     final result = await showOkCancelAlertDialog(
                       context: context,
-                      title: 'Clear cache',
-                      message:
-                          'The local cache will be deleted and fetched again.',
-                      okLabel: 'Confirm',
+                      title: context.L.settings_itemClearCache,
+                      message: context.L.settings_clearCacheMessage,
                     );
                     if (result == OkCancelResult.cancel) return;
                     _log.info('user action > cache rebuild');
@@ -126,7 +125,7 @@ class SettingsPage extends StatelessWidget {
                 ),
                 SettingsTile(
                   leading: const Icon(Icons.info),
-                  title: const Text('About'),
+                  title: Text(context.L.settings_itemAbout),
                   onPressed: (context) =>
                       PackageInfo.fromPlatform().then((info) {
                     showAboutDialog(
@@ -140,27 +139,27 @@ class SettingsPage extends StatelessWidget {
               ],
             ),
             SettingsSection(
-              title: const Text('Advanced'),
+              title: Text(context.L.settings_headerAdvanced),
               tiles: [
                 SettingsTile.navigation(
                   leading: const Icon(Icons.key),
-                  title: const Text('Session details'),
+                  title: Text(context.L.settings_itemSessionDetails),
                   onPressed: (context) => context.push('/session'),
                 ),
                 SettingsTile.navigation(
                   leading: const Icon(Icons.bug_report),
-                  title: const Text('Log Console'),
+                  title: Text(context.L.settings_itemLogConsole),
                   onPressed: (context) => context.push('/logs'),
                 ),
                 SettingsTile(
                   leading: const Icon(Icons.dataset_linked),
-                  title: const Text('Open a deeplink'),
+                  title: Text(context.L.settings_itemOpenDeeplink),
                   onPressed: (context) async {
                     final urls = await showTextInputDialog(
                         context: context,
                         textFields: [
-                          const DialogTextField(
-                            hintText: 'URL',
+                          DialogTextField(
+                            hintText: context.L.g_url,
                             keyboardType: TextInputType.url,
                             autocorrect: false,
                           )

@@ -21,6 +21,14 @@
   "@g_share": {
     "description": "A verb, as in to share something."
   },
+  "g_tag": "Tag",
+  "@g_tag": {
+    "description": "A tag can be attached to an article."
+  },
+  "g_url": "URL",
+  "@g_url": {
+    "description": "An URL, as in a web address."
+  },
   "@_HUMANIZE": {},
   "humanize_days": "{n, plural, =1{1 day} other{{n} days}}",
   "@humanize_day": {
@@ -301,6 +309,63 @@
   "session_title": "Session details",
   "@session_title": {
     "description": "The title of the session details screen."
+  },
+  "@_SETTINGS": {},
+  "settings_clearCacheMessage": "The local cache will be deleted and fetched again from the server.",
+  "@settings_clearCacheMessage": {
+    "description": "The message of the confirmation dialog to clear the cache."
+  },
+  "settings_itemAppearance": "Appearance",
+  "@settings_itemAppearance": {
+    "description": "Settings for the appearance of the application."
+  },
+  "settings_itemAbout": "About",
+  "@settings_itemAbout": {
+    "description": "The action to display the about screen."
+  },
+  "settings_itemAppBadge": "Show unread badge",
+  "@settings_itemAppBadge": {
+    "description": "The action to toggle the unread badge on the application icon."
+  },
+  "settings_itemClearCache": "Clear cache",
+  "@settings_itemClearCache": {
+    "description": "The action to clear the offline cache."
+  },
+  "settings_itemLogConsole": "Log Console",
+  "@settings_itemLogConsole": {
+    "description": "The action to display the log console screen."
+  },
+  "settings_itemOpenDeeplink": "Open a deep link",
+  "@settings_itemOpenDeeplink": {
+    "description": "The action to open a deep link."
+  },
+  "settings_savedArticleTag": "Add a tag to saved articles",
+  "@settings_savedArticleTag": {
+    "description": "The action to toggle the addition of a tag to saved articles."
+  },
+  "settings_savedArticleTagLabel": "Label for saved articles",
+  "@settings_savedArticleTagLabel": {
+    "description": "The label of the tag to add to saved articles."
+  },
+  "settings_itemSessionDetails": "Session details",
+  "@settings_itemSessionDetails": {
+    "description": "The action to display the session details screen."
+  },
+  "settings_headerAdvanced": "Advanced",
+  "@settings_headerAdvanced": {
+    "description": "The header of the advanced section in the settings screen."
+  },
+  "settings_headerGeneral": "General",
+  "@settings_headerGeneral": {
+    "description": "The header of the general section in the settings screen."
+  },
+  "settings_headerPreferences": "Preferences",
+  "@settings_headerPreferences": {
+    "description": "The header of the preferences section in the settings screen."
+  },
+  "settings_title": "Settings",
+  "@settings_title": {
+    "description": "The title of the settings screen."
   },
   "@_SYNCER": {},
   "syncer_pendingActions": "{count, plural, =1{1 action} other{{count} actions}}",
