@@ -1,2 +1,14 @@
 {
+  "@@locale": "en",
+  "@_SYNCER": {},
+  "syncer_pendingActions": "{count, plural, =1{1 action} other{{count} actions}}",
+  "@syncer_pendingActions": {
+    "description": "Number of pending actions in the RemoteSyncer queue.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  }
 }
