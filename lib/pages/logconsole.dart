@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../buildcontext_extension.dart';
 import '../constants.dart';
 import '../providers/logconsole.dart';
 
@@ -15,7 +16,7 @@ class LogConsolePage extends StatelessWidget {
     final console = context.watch<LogConsoleProvider>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Log Console'),
+        title: Text(context.L.logconsole_title),
         actions: [
           IconButton(
             icon: shareIcon,
