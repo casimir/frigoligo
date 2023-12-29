@@ -60,7 +60,7 @@ class _TagsSelectorDialogState extends State<TagsSelectorDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(false),
-          child: const Text('Cancel'),
+          child: Text(MaterialLocalizations.of(context).cancelButtonLabel),
         ),
         TextButton(
           onPressed: () {
@@ -69,7 +69,7 @@ class _TagsSelectorDialogState extends State<TagsSelectorDialog> {
             }
             Navigator.of(context).pop(true);
           },
-          child: const Text('OK'),
+          child: Text(MaterialLocalizations.of(context).okButtonLabel),
         ),
       ],
     );
