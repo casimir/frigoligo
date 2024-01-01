@@ -50,12 +50,6 @@ class _ListingPageState extends State<ListingPage> {
     final settings = storage.settings;
     final queryProvider = context.watch<QueryProvider>();
 
-    storage.onError = (error) {
-      ScaffoldMessenger.maybeOf(context)?.showSnackBar(
-        SnackBar(content: Text(error.toString())),
-      );
-    };
-
     Future<void> doRefresh() async {
       _log.info('triggered refresh');
       await context.read<RemoteSyncer>().synchronize(withFinalRefresh: true);
