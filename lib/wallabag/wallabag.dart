@@ -52,6 +52,16 @@ class WallabagError implements Exception {
   }
   factory WallabagError.fromException(Exception e, {http.Response? response}) =>
       WallabagError('unknown error', source: e, response: response);
+
+  bool get isInvalidTokenError {
+    if (response?.body == null) return false;
+    try {
+      final json = jsonDecode(response!.body);
+      return json['error'] == 'invalid_grant';
+    } catch (_) {
+      return false;
+    }
+  }
 }
 
 typedef Decoder<T> = T Function(Map<String, dynamic>);

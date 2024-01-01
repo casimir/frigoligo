@@ -306,6 +306,14 @@
   "@session_neverSynced": {
     "description": "Default value for the last sync time."
   },
+  "session_renewDialogMessage": "The server refuses the current session token. You will need to log in again to resume the synchronization.",
+  "@session_renewDialogMessage": {
+    "description": "The message of the confirmation dialog to renew the session."
+  },
+  "session_renewDialogTitle": "Renew session",
+  "@session_renewDialogTitle": {
+    "description": "The title of the confirmation dialog to renew the session."
+  },
   "session_title": "Session details",
   "@session_title": {
     "description": "The title of the session details screen."
