@@ -290,7 +290,7 @@ class WallabagClient extends http.BaseClient {
     return data.total;
   }
 
-  Stream<(List<WallabagEntry>, WallabagError?)> fetchAllEntries({
+  Stream<List<WallabagEntry>> fetchAllEntries({
     int? archive,
     int? starred,
     SortValue? sort,
@@ -323,21 +323,21 @@ class WallabagClient extends http.BaseClient {
           domainName: domainName,
         );
       } catch (source, st) {
-        final e = switch (source.runtimeType) {
-          WallabagError e => e,
-          Exception e => WallabagError.fromException(e),
-          _ => WallabagError.fromException(Exception(source.toString())),
-        };
         _log.severe(
             'error fetching entries (page $pageIndex)', source.toString(), st);
-        yield ([], e);
-        return;
+        if (source is WallabagError) {
+          rethrow;
+        } else if (source is Exception) {
+          throw WallabagError.fromException(source);
+        } else {
+          throw WallabagError.fromException(Exception(source.toString()));
+        }
       }
       lastPage = pageData.pages;
       _log.info('fetched entries (page $pageIndex of $lastPage)');
       onProgress?.call(pageIndex / lastPage);
       pageIndex++;
-      yield (pageData.embedded.items, null);
+      yield pageData.embedded.items;
     }
   }
 }
