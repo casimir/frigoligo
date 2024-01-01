@@ -21,6 +21,8 @@ class LoginPage extends StatefulWidget {
 
   final Map<String, String>? initial;
 
+  bool get hasInitialData => initial != null && initial!.isNotEmpty;
+
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -35,7 +37,18 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    _initialData = widget.initial;
+
+    final wallabag = WallabagInstance.get();
+    if (!widget.hasInitialData && wallabag.hasCredentials) {
+      _initialData = {
+        'server': wallabag.credentials.server.toString(),
+        'clientId': wallabag.credentials.clientId,
+        'clientSecret': wallabag.credentials.clientSecret,
+      };
+    } else {
+      _initialData = widget.initial;
+    }
+
     if (WallabagInstance.isReady) {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         final settings = context.read<SettingsProvider>();
@@ -61,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (_initialData != widget.initial) {
+    if (widget.hasInitialData && _initialData != widget.initial) {
       // when a deeplink is opened and the login page is already shown
       _initialData = widget.initial;
       if (_initialData?['server'] != null) {
@@ -85,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                 _configuredServer = check;
               }
             }),
-            initial: widget.initial?['server'],
+            initial: _initialData?['server'],
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -108,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                         icon: const Icon(Icons.key),
                         labelText: context.L.login_fieldClientId,
                       ),
-                      initialValue: widget.initial?['clientId'],
+                      initialValue: _initialData?['clientId'],
                     ),
                     FormBuilderTextField(
                       name: 'clientSecret',
@@ -118,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                         icon: const Icon(Icons.key),
                         labelText: context.L.login_fieldClientSecret,
                       ),
-                      initialValue: widget.initial?['clientSecret'],
+                      initialValue: _initialData?['clientSecret'],
                     ),
                     FormBuilderTextField(
                       name: 'username',
@@ -129,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                         icon: const Icon(Icons.person),
                         labelText: context.L.login_fieldUsername,
                       ),
-                      initialValue: widget.initial?['username'],
+                      initialValue: _initialData?['username'],
                     ),
                     FormBuilderTextField(
                       name: 'password',
@@ -141,7 +154,7 @@ class _LoginPageState extends State<LoginPage> {
                         icon: const Icon(Icons.password),
                         labelText: context.L.login_fieldPassword,
                       ),
-                      initialValue: widget.initial?['password'],
+                      initialValue: _initialData?['password'],
                     ),
                     const SizedBox(height: 8.0),
                   ]),

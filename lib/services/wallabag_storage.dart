@@ -16,7 +16,7 @@ import '../wallabag/wallabag.dart';
 final _log = Logger('wallabag.storage');
 
 class WallabagStorage with ChangeNotifier {
-  WallabagStorage(this.settings, {this.onError}) {
+  WallabagStorage(this.settings) {
     _watcher = db.articles.watchLazy().listen((_) => notifyListeners());
 
     // ensure a relative freshness of the articles
@@ -28,7 +28,6 @@ class WallabagStorage with ChangeNotifier {
   final WallabagClient wallabag = WallabagInstance.get();
   StreamSubscription? _watcher;
   final SettingsProvider settings;
-  void Function(Exception)? onError;
 
   @override
   void dispose() {
@@ -124,11 +123,7 @@ class WallabagStorage with ChangeNotifier {
       perPage: 100,
       detail: DetailValue.metadata,
     );
-    await for (final (entries, err) in entriesStream) {
-      if (err != null) {
-        onError?.call(err);
-        break;
-      }
+    await for (final entries in entriesStream) {
       localIds = localIds.difference(entries.map((e) => e.id).toSet());
     }
 
@@ -174,42 +169,37 @@ class WallabagStorage with ChangeNotifier {
 
     if (since == null) clearArticles();
 
-    try {
-      final stopwatch = Stopwatch()..start();
-      var entriesStream =
-          wallabag.fetchAllEntries(since: since, onProgress: onProgress);
-      await for (final (entries, err) in entriesStream) {
-        if (err != null) throw err;
-        final articles = {
-          for (var e in entries) e.id: Article.fromWallabagEntry(e)
-        };
-        final positions =
-            await db.articleScrollPositions.getAll(articles.keys.toList());
-        final invalidPositions = positions
-            .whereType<ArticleScrollPosition>()
-            .where((e) => e.readingTime != articles[e.id]?.readingTime)
-            .map((e) => e.id!)
-            .toList();
+    final stopwatch = Stopwatch()..start();
+    var entriesStream =
+        wallabag.fetchAllEntries(since: since, onProgress: onProgress);
+    await for (final entries in entriesStream) {
+      final articles = {
+        for (var e in entries) e.id: Article.fromWallabagEntry(e)
+      };
+      final positions =
+          await db.articleScrollPositions.getAll(articles.keys.toList());
+      final invalidPositions = positions
+          .whereType<ArticleScrollPosition>()
+          .where((e) => e.readingTime != articles[e.id]?.readingTime)
+          .map((e) => e.id!)
+          .toList();
 
-        final putCount = await db.writeTxn(() async {
-          final res = await db.articles.putAll(articles.values.toList());
-          await db.articleScrollPositions.deleteAll(invalidPositions);
-          return res.length;
-        });
-        _log.info('saved $putCount entries to the database');
+      final putCount = await db.writeTxn(() async {
+        final res = await db.articles.putAll(articles.values.toList());
+        await db.articleScrollPositions.deleteAll(invalidPositions);
+        return res.length;
+      });
+      _log.info('saved $putCount entries to the database');
 
-        count += entries.length;
-      }
-      _log.info(
-          'completed refresh of $count entries in ${stopwatch.elapsed.inSeconds} s');
-
-      final now = DateTime.now().millisecondsSinceEpoch / 1000;
-      settings[Sk.lastRefresh] = now.toInt();
-
-      _syncRemoteDeletes();
-    } on Exception catch (e) {
-      onError?.call(e);
+      count += entries.length;
     }
+    _log.info(
+        'completed refresh of $count entries in ${stopwatch.elapsed.inSeconds} s');
+
+    final now = DateTime.now().millisecondsSinceEpoch / 1000;
+    settings[Sk.lastRefresh] = now.toInt();
+
+    _syncRemoteDeletes();
 
     updateAppBadge();
 
