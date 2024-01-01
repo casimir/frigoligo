@@ -103,6 +103,7 @@ class WallabagClient extends http.BaseClient {
   final CredentialsManager _credsManager;
   final String? userAgent;
 
+  bool get hasCredentials => _credsManager.credentials != null;
   Credentials get credentials => _credsManager.credentials!;
   bool get canRefreshToken => _credsManager.canRefreshToken;
   bool get tokenIsExpired => _credsManager.tokenIsExpired;
@@ -160,6 +161,8 @@ class WallabagClient extends http.BaseClient {
   Future<void> resetTokenData() async {
     _credsManager.token = null;
   }
+
+  Future<void> resetSession() => _credsManager.clear();
 
   Future<http.Response> fetchToken(String username, String password) {
     return authenticate({
