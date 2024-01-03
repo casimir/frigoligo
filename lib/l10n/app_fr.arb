@@ -104,5 +104,245 @@
         "type": "String"
       }
     }
+  },
+  "syncer_pendingActions": "{count, plural, =1{1 action} other{{count} actions}}",
+  "@syncer_pendingActions": {
+    "description": "Number of pending actions in the RemoteSyncer queue.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "session_title": "Détails de la session",
+  "@session_title": {
+    "description": "The title of the session details screen."
+  },
+  "save_viewArticle": "Voir l'article",
+  "@save_viewArticle": {
+    "description": "The action to view the article after it is saved."
+  },
+  "server_emptyField": "Entrez votre {label}",
+  "@server_emptyField": {
+    "description": "A message for non-empty check fail on a form field.",
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "filters_clearTagsSelection": "Réinitialiser la sélection",
+  "@filters_clearTagsSelection": {
+    "description": "The action to clear the selection of tags."
+  },
+  "filters_noTagsSelected": "Aucun tag sélectionné",
+  "@filters_noTagsSelected": {
+    "description": "Placeholder for when no tags are selected."
+  },
+  "save_confirmationTitle": "Article sauvegardé !",
+  "@save_confirmationTitle": {
+    "description": "The title of the confirmation screen after the article is saved. "
+  },
+  "server_unreachable": "Serveur injoignable",
+  "@server_unreachable": {
+    "description": "The Wallabag instance is unreachable."
+  },
+  "settings_itemOpenDeeplink": "Ouvrir un lien profond",
+  "@settings_itemOpenDeeplink": {
+    "description": "The action to open a deep link."
+  },
+  "session_logoutDialogMessage": "Vous devrez vous reconnecter.",
+  "@session_logoutDialogMessage": {
+    "description": "The message of the confirmation dialog to log out."
+  },
+  "save_title": "Sauvegarder l'article",
+  "@save_title": {
+    "description": "The title of the save screen."
+  },
+  "settings_itemLogConsole": "Console de journalisation",
+  "@settings_itemLogConsole": {
+    "description": "The action to display the log console screen."
+  },
+  "save_dubiousUrlMessage": "Cette URL à l'air invalide. Sauvegarder quand même ?\n{url}",
+  "@save_dubiousUrlMessage": {
+    "description": "The message of the dubious URL warning dialog.",
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "login_existingSessionDialogConfirm": "Déconnexion",
+  "@login_existingSessionDialogConfirm": {
+    "description": "The action to log out from the existing session."
+  },
+  "listing_noArticles": "Aucun article",
+  "@listing_noArticles": {
+    "description": "Placeholder for when there are no articles to display."
+  },
+  "session_copiedToClipboard": "Copié dans le presse-papier",
+  "@session_copiedToClipboard": {
+    "description": "A message displayed when the value is copied to the clipboard."
+  },
+  "server_address": "Adresse du serveur",
+  "@server_address": {
+    "description": "The address of the Wallabag instance."
+  },
+  "settings_headerPreferences": "Préférences",
+  "@settings_headerPreferences": {
+    "description": "The header of the preferences section in the settings screen."
+  },
+  "session_fieldTokenExpiration": "Expiration du token",
+  "@session_fieldTokenExpiration": {
+    "description": "The label of the token expiration field in the session screen."
+  },
+  "settings_itemClearCache": "Nettoyer le cache",
+  "@settings_itemClearCache": {
+    "description": "The action to clear the offline cache."
+  },
+  "session_neverSynced": "jamais",
+  "@session_neverSynced": {
+    "description": "Default value for the last sync time."
+  },
+  "login_existingSessionDialogTitle": "Une session est active",
+  "@login_existingSessionDialogTitle": {
+    "description": "The title of the dialog warning about an existing session."
+  },
+  "server_apiError": "Réponse de l'API invalide",
+  "@server_apiError": {
+    "description": "An error occurred while communicating with the Wallabag API."
+  },
+  "session_fieldLastServerSync": "Dernière synchronisation avec le serveur",
+  "@session_fieldLastServerSync": {
+    "description": "The label of the last server sync field in the session screen."
+  },
+  "settings_title": "Réglages",
+  "@settings_title": {
+    "description": "The title of the settings screen."
+  },
+  "login_fieldClientSecret": "Clef secrète",
+  "@login_fieldClientSecret": {
+    "description": "The client secret field of the login form."
+  },
+  "session_fieldAccessToken": "Jeton d'accès",
+  "@session_fieldAccessToken": {
+    "description": "The label of the access token field in the session screen."
+  },
+  "session_invalidToken": "invalide",
+  "@session_invalidToken": {
+    "description": "Placeholder for expiration date when the token is invalid."
+  },
+  "session_logoutSession": "Déconnecter la session",
+  "@session_logoutSession": {
+    "description": "The action to log out the session."
+  },
+  "settings_itemAppearance": "Apparence",
+  "@settings_itemAppearance": {
+    "description": "Settings for the appearance of the application."
+  },
+  "save_dubiousUrlConfirm": "Sauvegarder",
+  "@save_dubiousUrlConfirm": {
+    "description": "The confirmation button of the dubious URL warning dialog."
+  },
+  "server_checkPending": "Vérification en cours…",
+  "@server_checkPending": {
+    "description": "The server configuration is already being checked."
+  },
+  "settings_itemSessionDetails": "Détails de la session",
+  "@settings_itemSessionDetails": {
+    "description": "The action to display the session details screen."
+  },
+  "login_fieldPassword": "Mot de passe",
+  "@login_fieldPassword": {
+    "description": "The password field of the login form."
+  },
+  "session_logoutDialogTitle": "Déconnecter la session",
+  "@session_logoutDialogTitle": {
+    "description": "The title of the confirmation dialog to log out."
+  },
+  "settings_savedArticleTagLabel": "Label automatique la sauvegarde",
+  "@settings_savedArticleTagLabel": {
+    "description": "The label of the tag to add to saved articles."
+  },
+  "login_fieldUsername": "Nom d'utilisateur",
+  "@login_fieldUsername": {
+    "description": "The username field of the login form."
+  },
+  "session_renewDialogMessage": "Le serveur refuse le jeton de session actuel. Vous devrez vous connecter à nouveau pour reprendre la synchronisation.",
+  "@session_renewDialogMessage": {
+    "description": "The message of the confirmation dialog to renew the session."
+  },
+  "session_logoutDialogConfirm": "Déconnexion",
+  "@session_logoutDialogConfirm": {
+    "description": "Confirm the log out from the confirmation dialog."
+  },
+  "settings_itemAbout": "À propos",
+  "@settings_itemAbout": {
+    "description": "The action to display the about screen."
+  },
+  "settings_savedArticleTag": "Ajouter un label en sauvegardant",
+  "@settings_savedArticleTag": {
+    "description": "The action to toggle the addition of a tag to saved articles."
+  },
+  "login_actionLogin": "Connexion",
+  "@login_actionLogin": {
+    "description": "The action to log in."
+  },
+  "save_dubiousUrlTitle": "URL anormale",
+  "@save_dubiousUrlTitle": {
+    "description": "The title of the dubious URL warning dialog."
+  },
+  "save_noUrl": "Aucune URL fournie",
+  "@save_noUrl": {
+    "description": "The URL was missing from the save request."
+  },
+  "login_existingSessionDialogMessage": "Voulez-vous vous déconnecter de la session courante et en ouvrir une nouvelle ?",
+  "@login_existingSessionDialogMessage": {
+    "description": "The message of the dialog warning about an existing session."
+  },
+  "settings_clearCacheMessage": "Le cache local sera supprimé et récupéré à nouveau depuis le serveur.",
+  "@settings_clearCacheMessage": {
+    "description": "The message of the confirmation dialog to clear the cache."
+  },
+  "settings_headerAdvanced": "Avancé",
+  "@settings_headerAdvanced": {
+    "description": "The header of the advanced section in the settings screen."
+  },
+  "logconsole_title": "Console de journalisation",
+  "@logconsole_title": {
+    "description": "The title of the log console screen."
+  },
+  "session_renewDialogTitle": "Renouveler la session",
+  "@session_renewDialogTitle": {
+    "description": "The title of the confirmation dialog to renew the session."
+  },
+  "login_openLogConsole": "Ouvrir la console de journalisation",
+  "@login_openLogConsole": {
+    "description": "The action to open the log console."
+  },
+  "server_invalidUrl": "Adresse invalide",
+  "@server_invalidUrl": {
+    "description": "The address of the Wallabag instance is invalid."
+  },
+  "login_fieldClientId": "ID client",
+  "@login_fieldClientId": {
+    "description": "The client ID field of the login form."
+  },
+  "settings_headerGeneral": "Général",
+  "@settings_headerGeneral": {
+    "description": "The header of the general section in the settings screen."
+  },
+  "login_title": "Connexion",
+  "@login_title": {
+    "description": "The title of the login screen."
+  },
+  "settings_itemAppBadge": "Montrer le badge « non lus »",
+  "@settings_itemAppBadge": {
+    "description": "The action to toggle the unread badge on the application icon."
+  },
+  "session_forceTokenResfresh": "Rafraîchir le jeton",
+  "@session_forceTokenResfresh": {
+    "description": "The action to force a token refresh."
   }
 }
