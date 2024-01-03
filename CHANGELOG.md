@@ -1,3 +1,21 @@
+<a name="v0.6.4"></a>
+# [v0.6.4](https://github.com/casimir/frigoligo/releases/tag/v0.6.4) - 03 Jan 2024
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### Features
+* Add a localization infrastructure by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/112
+* Refresh workflow for invalid sessions by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/114
+### Bug Fixes
+* Refresh tag list when clearing filter by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/115
+
+
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.6.3...v0.6.4
+
+[Changes][v0.6.4]
+
+
 <a name="v0.6.3"></a>
 # [0.6.3 (v0.6.3)](https://github.com/casimir/frigoligo/releases/tag/v0.6.3) - 26 Dec 2023
 
@@ -266,6 +284,7 @@ Let's begin! This is the very first release.
 [Changes][v0.1.0]
 
 
+[v0.6.4]: https://github.com/casimir/frigoligo/compare/v0.6.3...v0.6.4
 [v0.6.3]: https://github.com/casimir/frigoligo/compare/v0.6.2...v0.6.3
 [v0.6.2]: https://github.com/casimir/frigoligo/compare/v0.6.1...v0.6.2
 [v0.6.1]: https://github.com/casimir/frigoligo/compare/v0.6.0...v0.6.1
