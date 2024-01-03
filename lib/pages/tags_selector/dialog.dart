@@ -82,8 +82,8 @@ class _TagsSelectorDialogState extends State<TagsSelectorDialog> {
         hintText: 'Search',
         prefixIcon: const Icon(Icons.search),
         suffixIcon: IconButton(
-          onPressed: _searchController.clear,
-          icon: const Icon(Icons.clear),
+          onPressed: () => setState(_searchController.clear),
+          icon: const Icon(Icons.backspace_outlined),
         ),
       ),
       autocorrect: false,
