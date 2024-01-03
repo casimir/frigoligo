@@ -1,1 +1,108 @@
-{}
+{
+  "filters_articleState": "État",
+  "@filters_articleState": {
+    "description": "The state of the article."
+  },
+  "g_server": "Serveur",
+  "@g_server": {
+    "description": "A server, as in a computer providing a service."
+  },
+  "article_noContentFetched": "Aucun contenu récupéré",
+  "@article_noContentFetched": {
+    "description": "Placeholder for when the article content is not available."
+  },
+  "g_checking": "Vérification…",
+  "@g_checking": {
+    "description": "Present participle of the verb to check."
+  },
+  "filters_articlesCount": "{count, plural, =0{0 article trouvé} =1{1 article trouvé} other{{count} articles trouvés}}",
+  "@filters_articlesCount": {
+    "description": "The number of articles found with current filters values.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "article_openInBrowser": "Ouvrir dans le navigateur",
+  "@article_openInBrowser": {
+    "description": "The action to open the article in the web browser."
+  },
+  "humanize_days": "{n, plural, =0{0 jour} =1{1 jour} other{{n} jours}}",
+  "@humanize_days": {},
+  "filters_articleTags": "Labels",
+  "@filters_articleTags": {
+    "description": "The tags attached to the article."
+  },
+  "humanize_hours": "{n, plural, =0{0 heure} =1{1 heure} other{{n} heures}}",
+  "@humanize_hours": {},
+  "g_share": "Partager",
+  "@g_share": {
+    "description": "A verb, as in to share something."
+  },
+  "humanize_seconds": "{n, plural, =0{0 seconde} =1{1 seconde} other{{n} secondes}}",
+  "@humanize_seconds": {},
+  "humanize_minutes": "{n, plural, =0{0 minute} =1{1 minute} other{{n} minutes}}",
+  "@humanize_minutes": {},
+  "g_check": "Vérifier",
+  "@g_check": {
+    "description": "A verb as in to check something."
+  },
+  "article_addTags": "Ajouter des labels",
+  "@article_addTags": {
+    "description": "The action to add tags to an article."
+  },
+  "filters_articleFavorite": "Favoris",
+  "@filters_articleFavorite": {
+    "description": "The favorite status of the article."
+  },
+  "g_tag": "Label",
+  "@g_tag": {
+    "description": "A tag can be attached to an article."
+  },
+  "article_delete": "Supprimer l'article",
+  "@article_delete": {
+    "description": "The action to delete the article."
+  },
+  "article_readingTime": "{minutes} min",
+  "@article_readingTime": {
+    "description": "The estimated reading time of the article.",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "g_delete": "Supprimer",
+  "@g_delete": {
+    "description": "A verb, as in to delete something."
+  },
+  "g_url": "URL",
+  "@g_url": {
+    "description": "An URL, as in a web address."
+  },
+  "article_browseOriginal": "Ouvrir l'original",
+  "@article_browseOriginal": {
+    "description": "The action to open the URL of the article in the web browser."
+  },
+  "humanize_past": "il y a {duration}",
+  "@humanize_past": {
+    "description": "Describe a duration since a moment in the past.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "humanize_future": "dans {duration}",
+  "@humanize_future": {
+    "description": "Describe a duration until a moment in the future.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  }
+}
