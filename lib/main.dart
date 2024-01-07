@@ -1,3 +1,4 @@
+import 'dart:io' show Platform;
 import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
@@ -56,7 +57,9 @@ void main() async {
   await WallabagInstance.init();
   await SettingsProvider.init();
   final info = await PackageInfo.fromPlatform();
-  _log.info('version: ${info.version}+${info.buildNumber}');
+  _log.info('version:    ${info.version}+${info.buildNumber}');
+  _log.info('platform:   ${Platform.operatingSystem}');
+  _log.info('os version: ${Platform.operatingSystemVersion}');
 
   if (periodicSyncSupported) {
     _log.info('starting periodic sync');
