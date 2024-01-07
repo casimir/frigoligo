@@ -51,6 +51,10 @@ class RemoteSyncer with ChangeNotifier {
 
   Future<void> synchronize({bool withFinalRefresh = false}) async {
     _log.info('starting remote synchronization');
+    if (wallabag == null) {
+      _log.info('still in intialization mode, skipping...');
+      return;
+    }
     if (isWorking) {
       _log.info('sync already in progress, skipping...');
       return;
