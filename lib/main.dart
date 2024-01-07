@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
+import 'package:neat_periodic_task/neat_periodic_task.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
@@ -53,6 +54,17 @@ void main() async {
   await SettingsProvider.init();
   final info = await PackageInfo.fromPlatform();
   _log.info('version: ${info.version}+${info.buildNumber}');
+
+  if (periodicSyncSupported) {
+    _log.info('starting periodic sync');
+    NeatPeriodicTaskScheduler(
+      interval: periodicSyncInterval,
+      name: 'background-sync',
+      timeout: periodicSyncTimeout,
+      task: () async =>
+          RemoteSyncer.instance.synchronize(withFinalRefresh: true),
+    ).start();
+  }
 
   runApp(const MyApp());
 }

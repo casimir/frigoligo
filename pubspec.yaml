@@ -62,6 +62,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
+  neat_periodic_task: ^2.0.1
 
 dev_dependencies:
   flutter_test:
