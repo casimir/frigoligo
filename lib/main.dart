@@ -1,5 +1,6 @@
 import 'dart:io' show Platform;
 
+import 'package:background_fetch/background_fetch.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -68,6 +69,29 @@ void main() async {
       task: () async =>
           RemoteSyncer.instance.synchronize(withFinalRefresh: true),
     ).start();
+  } else if (isMobilePlatform) {
+    BackgroundFetch.configure(
+      BackgroundFetchConfig(
+        minimumFetchInterval: periodicSyncInterval.inMinutes,
+        forceAlarmManager: false,
+        stopOnTerminate: false,
+        startOnBoot: true,
+        enableHeadless: true,
+        requiresBatteryNotLow: true,
+        requiresCharging: false,
+        requiresStorageNotLow: false,
+        requiresDeviceIdle: false,
+        requiredNetworkType: NetworkType.ANY,
+      ),
+      (String taskId) async {
+        _log.info('starting background sync');
+        await RemoteSyncer.instance.synchronize(withFinalRefresh: true);
+      },
+    ).then((int status) {
+      _log.info('background task configured: $status');
+    }).catchError((e) {
+      _log.info('failed to configure background task: $e');
+    });
   }
 
   runApp(const MyApp());
