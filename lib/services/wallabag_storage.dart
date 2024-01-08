@@ -18,10 +18,6 @@ final _log = Logger('wallabag.storage');
 class WallabagStorage with ChangeNotifier {
   WallabagStorage(this.settings) {
     _watcher = db.articles.watchLazy().listen((_) => notifyListeners());
-
-    // ensure a relative freshness of the articles
-    _log.info('provider initialization > incremental refresh');
-    incrementalRefresh(threshold: autoSyncThrottleSeconds);
   }
 
   final DBInstance db = DB.get();
