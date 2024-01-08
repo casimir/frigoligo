@@ -130,11 +130,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) =>
-              SettingsProvider(namespace: kDebugMode ? 'debug' : null),
-        ),
         ChangeNotifierProvider(create: (_) => RemoteSyncer.instance),
+        ChangeNotifierProvider(create: (_) => RemoteSyncer.instance.settings),
         ChangeNotifierProvider(
           create: (context) {
             return DeeplinksProvider(_router.configuration, (linkType, uri) {
@@ -224,18 +221,21 @@ class _MainContainerState extends State<_MainContainer> {
       deepLinkHandledFor == widget.initialArticleId;
 
   @override
+  void initState() {
+    super.initState();
+    if (!periodicSyncSupported) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        RemoteSyncer.instance.synchronize(withFinalRefresh: true);
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final syncer = context.read<RemoteSyncer>();
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (context) {
-            final provider = WallabagStorage(context.read<SettingsProvider>());
-            syncer.wallabag = provider;
-            return provider;
-          },
-          lazy: false, // Just for RemoteSync initialization.
-        ),
+        ChangeNotifierProvider(create: (_) => syncer.wallabag!),
         ChangeNotifierProvider(create: (_) => QueryProvider()),
       ],
       builder: (_, __) {

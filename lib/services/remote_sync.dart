@@ -1,6 +1,8 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 
+import '../providers/settings.dart';
+import '../wallabag/wallabag.dart';
 import 'remote_sync_actions/articles.dart';
 import 'remote_sync_actions/base.dart';
 import 'wallabag_storage.dart';
@@ -10,8 +12,16 @@ final _log = Logger('remote.sync');
 class RemoteSyncer with ChangeNotifier {
   static const _refreshAction = RefreshArticlesAction();
 
-// FIXME it should come from the contructor or as a singleton
-  WallabagStorage? wallabag;
+  SettingsProvider settings =
+      SettingsProvider(namespace: kDebugMode ? 'debug' : null);
+
+  WallabagStorage? _storage;
+  WallabagStorage? get wallabag {
+    if (_storage == null && WallabagInstance.isReady) {
+      _storage = WallabagStorage(settings);
+    }
+    return _storage;
+  }
 
   final Set<RemoteSyncAction> _queue = {};
   int get pendingCount => _queue.length;
