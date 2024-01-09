@@ -344,5 +344,31 @@
   "session_renewDialogTitle": "Session erneuern",
   "@session_renewDialogTitle": {
     "description": "The title of the confirmation dialog to renew the session."
+  },
+  "g_langEN": "Englisch",
+  "@g_langEN": {
+    "description": "The English language."
+  },
+  "g_langFR": "Französisch",
+  "@g_langFR": {
+    "description": "The French language."
+  },
+  "g_langDE": "Deutsch",
+  "@g_langDE": {
+    "description": "The German language."
+  },
+  "g_system": "System",
+  "@g_system": {},
+  "settings_itemLanguage": "Sprache",
+  "@settings_itemLanguage": {
+    "description": "The action to change the language of the application."
+  },
+  "settings_valueThemeDark": "Dunkel",
+  "@settings_valueThemeDark": {
+    "description": "The label for the dark theme mode."
+  },
+  "settings_valueThemeLight": "Licht",
+  "@settings_valueThemeLight": {
+    "description": "The label for the light theme mode."
   }
 }
