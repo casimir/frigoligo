@@ -1,0 +1,374 @@
+{
+  "syncer_pendingActions": "{count, plural, =1{1 Aktion} other{{count} Aktionen}}",
+  "@syncer_pendingActions": {
+    "description": "Number of pending actions in the RemoteSyncer queue.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "session_title": "Details der Session",
+  "@session_title": {
+    "description": "The title of the session details screen."
+  },
+  "filters_articleState": "Status",
+  "@filters_articleState": {
+    "description": "The state of the article."
+  },
+  "g_server": "Server",
+  "@g_server": {
+    "description": "A server, as in a computer providing a service."
+  },
+  "save_viewArticle": "Artikel betrachten",
+  "@save_viewArticle": {
+    "description": "The action to view the article after it is saved."
+  },
+  "server_emptyField": "Gebe dein {label} ein",
+  "@server_emptyField": {
+    "description": "A message for non-empty check fail on a form field.",
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "filters_clearTagsSelection": "Auswahl leeren",
+  "@filters_clearTagsSelection": {
+    "description": "The action to clear the selection of tags."
+  },
+  "filters_noTagsSelected": "Keine Schlagwörter ausgewählt",
+  "@filters_noTagsSelected": {
+    "description": "Placeholder for when no tags are selected."
+  },
+  "article_noContentFetched": "Kein Inhalt abgerufen",
+  "@article_noContentFetched": {
+    "description": "Placeholder for when the article content is not available."
+  },
+  "save_confirmationTitle": "Artikel gespeichert!",
+  "@save_confirmationTitle": {
+    "description": "The title of the confirmation screen after the article is saved. "
+  },
+  "server_unreachable": "Server nicht erreichbar",
+  "@server_unreachable": {
+    "description": "The Wallabag instance is unreachable."
+  },
+  "g_checking": "Prüfen…",
+  "@g_checking": {
+    "description": "Present participle of the verb to check."
+  },
+  "filters_articlesCount": "{count, plural, =1{1 Artikel gefunden} other{{count} Artikel gefunden}}",
+  "@filters_articlesCount": {
+    "description": "The number of articles found with current filters values.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "settings_itemOpenDeeplink": "Einen tiefen Link öffnen",
+  "@settings_itemOpenDeeplink": {
+    "description": "The action to open a deep link."
+  },
+  "session_logoutDialogMessage": "Du wirst dich erneut einloggen müssen.",
+  "@session_logoutDialogMessage": {
+    "description": "The message of the confirmation dialog to log out."
+  },
+  "save_title": "Artikel speichern",
+  "@save_title": {
+    "description": "The title of the save screen."
+  },
+  "settings_itemLogConsole": "Log Konsole",
+  "@settings_itemLogConsole": {
+    "description": "The action to display the log console screen."
+  },
+  "save_dubiousUrlMessage": "Diese URL sieht nicht wie eine aus. Trotzdem speichern?\n{url}",
+  "@save_dubiousUrlMessage": {
+    "description": "The message of the dubious URL warning dialog.",
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "login_existingSessionDialogConfirm": "Ausloggen",
+  "@login_existingSessionDialogConfirm": {
+    "description": "The action to log out from the existing session."
+  },
+  "article_openInBrowser": "Im Browser öffnen",
+  "@article_openInBrowser": {
+    "description": "The action to open the article in the web browser."
+  },
+  "listing_noArticles": "Keine Artikel",
+  "@listing_noArticles": {
+    "description": "Placeholder for when there are no articles to display."
+  },
+  "humanize_days": "{n, plural, =1{1 Tag} other{{n} Tage}}",
+  "@humanize_days": {},
+  "session_copiedToClipboard": "In die Zwischenablage kopiert",
+  "@session_copiedToClipboard": {
+    "description": "A message displayed when the value is copied to the clipboard."
+  },
+  "filters_articleTags": "Schlagwörter",
+  "@filters_articleTags": {
+    "description": "The tags attached to the article."
+  },
+  "server_address": "Server Adresse",
+  "@server_address": {
+    "description": "The address of the Wallabag instance."
+  },
+  "humanize_hours": "{n, plural, =1{1 Stunde} other{{n} Stunden}}",
+  "@humanize_hours": {},
+  "settings_headerPreferences": "Einstellungen",
+  "@settings_headerPreferences": {
+    "description": "The header of the preferences section in the settings screen."
+  },
+  "session_fieldTokenExpiration": "Token abgelaufen",
+  "@session_fieldTokenExpiration": {
+    "description": "The label of the token expiration field in the session screen."
+  },
+  "settings_itemClearCache": "Leere Cache",
+  "@settings_itemClearCache": {
+    "description": "The action to clear the offline cache."
+  },
+  "session_neverSynced": "Niemals",
+  "@session_neverSynced": {
+    "description": "Default value for the last sync time."
+  },
+  "g_share": "Teilen",
+  "@g_share": {
+    "description": "A verb, as in to share something."
+  },
+  "login_existingSessionDialogTitle": "Eine Session ist gerade aktiv",
+  "@login_existingSessionDialogTitle": {
+    "description": "The title of the dialog warning about an existing session."
+  },
+  "humanize_seconds": "{n, plural, =1{1 Sekunde} other{{n} Sekunden}}",
+  "@humanize_seconds": {},
+  "humanize_minutes": "{n, plural, =1{1 Minute} other{{n} Minuten}}",
+  "@humanize_minutes": {},
+  "server_apiError": "Ungültige API Antwort",
+  "@server_apiError": {
+    "description": "An error occurred while communicating with the Wallabag API."
+  },
+  "session_fieldLastServerSync": "Letzte Synchronisierung mit dem Server",
+  "@session_fieldLastServerSync": {
+    "description": "The label of the last server sync field in the session screen."
+  },
+  "g_check": "Prüfen",
+  "@g_check": {
+    "description": "A verb as in to check something."
+  },
+  "article_addTags": "Schlagwörter hinzufügen",
+  "@article_addTags": {
+    "description": "The action to add tags to an article."
+  },
+  "settings_title": "Einstellungen",
+  "@settings_title": {
+    "description": "The title of the settings screen."
+  },
+  "login_fieldClientSecret": "Client Secret",
+  "@login_fieldClientSecret": {
+    "description": "The client secret field of the login form."
+  },
+  "filters_articleFavorite": "Favorisiert",
+  "@filters_articleFavorite": {
+    "description": "The favorite status of the article."
+  },
+  "g_tag": "Schlagwort",
+  "@g_tag": {
+    "description": "A tag can be attached to an article."
+  },
+  "session_fieldAccessToken": "Access token",
+  "@session_fieldAccessToken": {
+    "description": "The label of the access token field in the session screen."
+  },
+  "session_invalidToken": "Ungültig",
+  "@session_invalidToken": {
+    "description": "Placeholder for expiration date when the token is invalid."
+  },
+  "session_logoutSession": "Session ausloggen",
+  "@session_logoutSession": {
+    "description": "The action to log out the session."
+  },
+  "article_delete": "Artikel löschen",
+  "@article_delete": {
+    "description": "The action to delete the article."
+  },
+  "settings_itemAppearance": "Aussehen",
+  "@settings_itemAppearance": {
+    "description": "Settings for the appearance of the application."
+  },
+  "save_dubiousUrlConfirm": "Speichern",
+  "@save_dubiousUrlConfirm": {
+    "description": "The confirmation button of the dubious URL warning dialog."
+  },
+  "server_checkPending": "Prüfung läuft…",
+  "@server_checkPending": {
+    "description": "The server configuration is already being checked."
+  },
+  "article_readingTime": "{minutes} Minuten",
+  "@article_readingTime": {
+    "description": "The estimated reading time of the article.",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "g_delete": "Löschen",
+  "@g_delete": {
+    "description": "A verb, as in to delete something."
+  },
+  "settings_itemSessionDetails": "Details der Session",
+  "@settings_itemSessionDetails": {
+    "description": "The action to display the session details screen."
+  },
+  "login_fieldPassword": "Passwort",
+  "@login_fieldPassword": {
+    "description": "The password field of the login form."
+  },
+  "session_logoutDialogTitle": "Session ausloggen",
+  "@session_logoutDialogTitle": {
+    "description": "The title of the confirmation dialog to log out."
+  },
+  "settings_savedArticleTagLabel": "Schlagwort für gespeicherte Artikel",
+  "@settings_savedArticleTagLabel": {
+    "description": "The label of the tag to add to saved articles."
+  },
+  "login_fieldUsername": "Username",
+  "@login_fieldUsername": {
+    "description": "The username field of the login form."
+  },
+  "g_url": "URL",
+  "@g_url": {
+    "description": "An URL, as in a web address."
+  },
+  "session_logoutDialogConfirm": "Ausloggen",
+  "@session_logoutDialogConfirm": {
+    "description": "Confirm the log out from the confirmation dialog."
+  },
+  "settings_itemAbout": "Über",
+  "@settings_itemAbout": {
+    "description": "The action to display the about screen."
+  },
+  "settings_savedArticleTag": "Füge ein Schlagwort zu gespeicherten Artikeln hinzu.",
+  "@settings_savedArticleTag": {
+    "description": "The action to toggle the addition of a tag to saved articles."
+  },
+  "login_actionLogin": "Einloggen",
+  "@login_actionLogin": {
+    "description": "The action to log in."
+  },
+  "save_dubiousUrlTitle": "Ungewöhnliche URL",
+  "@save_dubiousUrlTitle": {
+    "description": "The title of the dubious URL warning dialog."
+  },
+  "save_noUrl": "Keine URL bereitgestellt",
+  "@save_noUrl": {
+    "description": "The URL was missing from the save request."
+  },
+  "article_browseOriginal": "Zum Original gehen",
+  "@article_browseOriginal": {
+    "description": "The action to open the URL of the article in the web browser."
+  },
+  "login_existingSessionDialogMessage": "Möchtest du dich von der aktuellen Session abmelden und eine neue eröffnen?",
+  "@login_existingSessionDialogMessage": {
+    "description": "The message of the dialog warning about an existing session."
+  },
+  "settings_clearCacheMessage": "Der lokale Cache wird gelöscht und erneut vom Server abgerufen.",
+  "@settings_clearCacheMessage": {
+    "description": "The message of the confirmation dialog to clear the cache."
+  },
+  "settings_headerAdvanced": "Fortgeschritten",
+  "@settings_headerAdvanced": {
+    "description": "The header of the advanced section in the settings screen."
+  },
+  "logconsole_title": "Log Konsole",
+  "@logconsole_title": {
+    "description": "The title of the log console screen."
+  },
+  "humanize_past": "Seit {duration}",
+  "@humanize_past": {
+    "description": "Describe a duration since a moment in the past.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "humanize_future": "in {duration}",
+  "@humanize_future": {
+    "description": "Describe a duration until a moment in the future.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "login_openLogConsole": "Log Konsole öffnen",
+  "@login_openLogConsole": {
+    "description": "The action to open the log console."
+  },
+  "server_invalidUrl": "Ungültige Adresse",
+  "@server_invalidUrl": {
+    "description": "The address of the Wallabag instance is invalid."
+  },
+  "login_fieldClientId": "Client ID",
+  "@login_fieldClientId": {
+    "description": "The client ID field of the login form."
+  },
+  "settings_headerGeneral": "Allgemein",
+  "@settings_headerGeneral": {
+    "description": "The header of the general section in the settings screen."
+  },
+  "login_title": "Einloggen",
+  "@login_title": {
+    "description": "The title of the login screen."
+  },
+  "settings_itemAppBadge": "Zeige ungelesene Anzahl",
+  "@settings_itemAppBadge": {
+    "description": "The action to toggle the unread badge on the application icon."
+  },
+  "session_forceTokenResfresh": "Erzwinge einen neuen Token",
+  "@session_forceTokenResfresh": {
+    "description": "The action to force a token refresh."
+  },
+  "session_renewDialogMessage": "Der Server lehnt den aktuellen Session Token ab. Du wirst dich erneut einloggen müssen um dir Synchronisierung fortsetzen zu können.",
+  "@session_renewDialogMessage": {
+    "description": "The message of the confirmation dialog to renew the session."
+  },
+  "session_renewDialogTitle": "Session erneuern",
+  "@session_renewDialogTitle": {
+    "description": "The title of the confirmation dialog to renew the session."
+  },
+  "g_langEN": "Englisch",
+  "@g_langEN": {
+    "description": "The English language."
+  },
+  "g_langFR": "Französisch",
+  "@g_langFR": {
+    "description": "The French language."
+  },
+  "g_langDE": "Deutsch",
+  "@g_langDE": {
+    "description": "The German language."
+  },
+  "g_system": "System",
+  "@g_system": {},
+  "settings_itemLanguage": "Sprache",
+  "@settings_itemLanguage": {
+    "description": "The action to change the language of the application."
+  },
+  "settings_valueThemeDark": "Dunkel",
+  "@settings_valueThemeDark": {
+    "description": "The label for the dark theme mode."
+  },
+  "settings_valueThemeLight": "Licht",
+  "@settings_valueThemeLight": {
+    "description": "The label for the light theme mode."
+  }
+}

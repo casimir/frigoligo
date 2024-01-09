@@ -1,0 +1,374 @@
+{
+  "filters_articleState": "État",
+  "@filters_articleState": {
+    "description": "The state of the article."
+  },
+  "g_server": "Serveur",
+  "@g_server": {
+    "description": "A server, as in a computer providing a service."
+  },
+  "article_noContentFetched": "Aucun contenu récupéré",
+  "@article_noContentFetched": {
+    "description": "Placeholder for when the article content is not available."
+  },
+  "g_checking": "Vérification…",
+  "@g_checking": {
+    "description": "Present participle of the verb to check."
+  },
+  "filters_articlesCount": "{count, plural, =0{0 article trouvé} =1{1 article trouvé} other{{count} articles trouvés}}",
+  "@filters_articlesCount": {
+    "description": "The number of articles found with current filters values.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "article_openInBrowser": "Ouvrir dans le navigateur",
+  "@article_openInBrowser": {
+    "description": "The action to open the article in the web browser."
+  },
+  "humanize_days": "{n, plural, =0{0 jour} =1{1 jour} other{{n} jours}}",
+  "@humanize_days": {},
+  "filters_articleTags": "Labels",
+  "@filters_articleTags": {
+    "description": "The tags attached to the article."
+  },
+  "humanize_hours": "{n, plural, =0{0 heure} =1{1 heure} other{{n} heures}}",
+  "@humanize_hours": {},
+  "g_share": "Partager",
+  "@g_share": {
+    "description": "A verb, as in to share something."
+  },
+  "humanize_seconds": "{n, plural, =0{0 seconde} =1{1 seconde} other{{n} secondes}}",
+  "@humanize_seconds": {},
+  "humanize_minutes": "{n, plural, =0{0 minute} =1{1 minute} other{{n} minutes}}",
+  "@humanize_minutes": {},
+  "g_check": "Vérifier",
+  "@g_check": {
+    "description": "A verb as in to check something."
+  },
+  "article_addTags": "Ajouter des labels",
+  "@article_addTags": {
+    "description": "The action to add tags to an article."
+  },
+  "filters_articleFavorite": "Favoris",
+  "@filters_articleFavorite": {
+    "description": "The favorite status of the article."
+  },
+  "g_tag": "Label",
+  "@g_tag": {
+    "description": "A tag can be attached to an article."
+  },
+  "article_delete": "Supprimer l'article",
+  "@article_delete": {
+    "description": "The action to delete the article."
+  },
+  "article_readingTime": "{minutes} min",
+  "@article_readingTime": {
+    "description": "The estimated reading time of the article.",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "g_delete": "Supprimer",
+  "@g_delete": {
+    "description": "A verb, as in to delete something."
+  },
+  "g_url": "URL",
+  "@g_url": {
+    "description": "An URL, as in a web address."
+  },
+  "article_browseOriginal": "Ouvrir l'original",
+  "@article_browseOriginal": {
+    "description": "The action to open the URL of the article in the web browser."
+  },
+  "humanize_past": "il y a {duration}",
+  "@humanize_past": {
+    "description": "Describe a duration since a moment in the past.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "humanize_future": "dans {duration}",
+  "@humanize_future": {
+    "description": "Describe a duration until a moment in the future.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "syncer_pendingActions": "{count, plural, =1{1 action} other{{count} actions}}",
+  "@syncer_pendingActions": {
+    "description": "Number of pending actions in the RemoteSyncer queue.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "session_title": "Détails de la session",
+  "@session_title": {
+    "description": "The title of the session details screen."
+  },
+  "save_viewArticle": "Voir l'article",
+  "@save_viewArticle": {
+    "description": "The action to view the article after it is saved."
+  },
+  "server_emptyField": "Entrez votre {label}",
+  "@server_emptyField": {
+    "description": "A message for non-empty check fail on a form field.",
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "filters_clearTagsSelection": "Réinitialiser la sélection",
+  "@filters_clearTagsSelection": {
+    "description": "The action to clear the selection of tags."
+  },
+  "filters_noTagsSelected": "Aucun tag sélectionné",
+  "@filters_noTagsSelected": {
+    "description": "Placeholder for when no tags are selected."
+  },
+  "save_confirmationTitle": "Article sauvegardé !",
+  "@save_confirmationTitle": {
+    "description": "The title of the confirmation screen after the article is saved. "
+  },
+  "server_unreachable": "Serveur injoignable",
+  "@server_unreachable": {
+    "description": "The Wallabag instance is unreachable."
+  },
+  "settings_itemOpenDeeplink": "Ouvrir un lien profond",
+  "@settings_itemOpenDeeplink": {
+    "description": "The action to open a deep link."
+  },
+  "session_logoutDialogMessage": "Vous devrez vous reconnecter.",
+  "@session_logoutDialogMessage": {
+    "description": "The message of the confirmation dialog to log out."
+  },
+  "save_title": "Sauvegarder l'article",
+  "@save_title": {
+    "description": "The title of the save screen."
+  },
+  "settings_itemLogConsole": "Console de journalisation",
+  "@settings_itemLogConsole": {
+    "description": "The action to display the log console screen."
+  },
+  "save_dubiousUrlMessage": "Cette URL à l'air invalide. Sauvegarder quand même ?\n{url}",
+  "@save_dubiousUrlMessage": {
+    "description": "The message of the dubious URL warning dialog.",
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "login_existingSessionDialogConfirm": "Déconnexion",
+  "@login_existingSessionDialogConfirm": {
+    "description": "The action to log out from the existing session."
+  },
+  "listing_noArticles": "Aucun article",
+  "@listing_noArticles": {
+    "description": "Placeholder for when there are no articles to display."
+  },
+  "session_copiedToClipboard": "Copié dans le presse-papier",
+  "@session_copiedToClipboard": {
+    "description": "A message displayed when the value is copied to the clipboard."
+  },
+  "server_address": "Adresse du serveur",
+  "@server_address": {
+    "description": "The address of the Wallabag instance."
+  },
+  "settings_headerPreferences": "Préférences",
+  "@settings_headerPreferences": {
+    "description": "The header of the preferences section in the settings screen."
+  },
+  "session_fieldTokenExpiration": "Expiration du token",
+  "@session_fieldTokenExpiration": {
+    "description": "The label of the token expiration field in the session screen."
+  },
+  "settings_itemClearCache": "Nettoyer le cache",
+  "@settings_itemClearCache": {
+    "description": "The action to clear the offline cache."
+  },
+  "session_neverSynced": "jamais",
+  "@session_neverSynced": {
+    "description": "Default value for the last sync time."
+  },
+  "login_existingSessionDialogTitle": "Une session est active",
+  "@login_existingSessionDialogTitle": {
+    "description": "The title of the dialog warning about an existing session."
+  },
+  "server_apiError": "Réponse de l'API invalide",
+  "@server_apiError": {
+    "description": "An error occurred while communicating with the Wallabag API."
+  },
+  "session_fieldLastServerSync": "Dernière synchronisation avec le serveur",
+  "@session_fieldLastServerSync": {
+    "description": "The label of the last server sync field in the session screen."
+  },
+  "settings_title": "Réglages",
+  "@settings_title": {
+    "description": "The title of the settings screen."
+  },
+  "login_fieldClientSecret": "Clef secrète",
+  "@login_fieldClientSecret": {
+    "description": "The client secret field of the login form."
+  },
+  "session_fieldAccessToken": "Jeton d'accès",
+  "@session_fieldAccessToken": {
+    "description": "The label of the access token field in the session screen."
+  },
+  "session_invalidToken": "invalide",
+  "@session_invalidToken": {
+    "description": "Placeholder for expiration date when the token is invalid."
+  },
+  "session_logoutSession": "Déconnecter la session",
+  "@session_logoutSession": {
+    "description": "The action to log out the session."
+  },
+  "settings_itemAppearance": "Apparence",
+  "@settings_itemAppearance": {
+    "description": "Settings for the appearance of the application."
+  },
+  "save_dubiousUrlConfirm": "Sauvegarder",
+  "@save_dubiousUrlConfirm": {
+    "description": "The confirmation button of the dubious URL warning dialog."
+  },
+  "server_checkPending": "Vérification en cours…",
+  "@server_checkPending": {
+    "description": "The server configuration is already being checked."
+  },
+  "settings_itemSessionDetails": "Détails de la session",
+  "@settings_itemSessionDetails": {
+    "description": "The action to display the session details screen."
+  },
+  "login_fieldPassword": "Mot de passe",
+  "@login_fieldPassword": {
+    "description": "The password field of the login form."
+  },
+  "session_logoutDialogTitle": "Déconnecter la session",
+  "@session_logoutDialogTitle": {
+    "description": "The title of the confirmation dialog to log out."
+  },
+  "settings_savedArticleTagLabel": "Label automatique la sauvegarde",
+  "@settings_savedArticleTagLabel": {
+    "description": "The label of the tag to add to saved articles."
+  },
+  "login_fieldUsername": "Nom d'utilisateur",
+  "@login_fieldUsername": {
+    "description": "The username field of the login form."
+  },
+  "session_renewDialogMessage": "Le serveur refuse le jeton de session actuel. Vous devrez vous connecter à nouveau pour reprendre la synchronisation.",
+  "@session_renewDialogMessage": {
+    "description": "The message of the confirmation dialog to renew the session."
+  },
+  "session_logoutDialogConfirm": "Déconnexion",
+  "@session_logoutDialogConfirm": {
+    "description": "Confirm the log out from the confirmation dialog."
+  },
+  "settings_itemAbout": "À propos",
+  "@settings_itemAbout": {
+    "description": "The action to display the about screen."
+  },
+  "settings_savedArticleTag": "Ajouter un label en sauvegardant",
+  "@settings_savedArticleTag": {
+    "description": "The action to toggle the addition of a tag to saved articles."
+  },
+  "login_actionLogin": "Connexion",
+  "@login_actionLogin": {
+    "description": "The action to log in."
+  },
+  "save_dubiousUrlTitle": "URL anormale",
+  "@save_dubiousUrlTitle": {
+    "description": "The title of the dubious URL warning dialog."
+  },
+  "save_noUrl": "Aucune URL fournie",
+  "@save_noUrl": {
+    "description": "The URL was missing from the save request."
+  },
+  "login_existingSessionDialogMessage": "Voulez-vous vous déconnecter de la session courante et en ouvrir une nouvelle ?",
+  "@login_existingSessionDialogMessage": {
+    "description": "The message of the dialog warning about an existing session."
+  },
+  "settings_clearCacheMessage": "Le cache local sera supprimé et récupéré à nouveau depuis le serveur.",
+  "@settings_clearCacheMessage": {
+    "description": "The message of the confirmation dialog to clear the cache."
+  },
+  "settings_headerAdvanced": "Avancé",
+  "@settings_headerAdvanced": {
+    "description": "The header of the advanced section in the settings screen."
+  },
+  "logconsole_title": "Console de journalisation",
+  "@logconsole_title": {
+    "description": "The title of the log console screen."
+  },
+  "session_renewDialogTitle": "Renouveler la session",
+  "@session_renewDialogTitle": {
+    "description": "The title of the confirmation dialog to renew the session."
+  },
+  "login_openLogConsole": "Ouvrir la console de journalisation",
+  "@login_openLogConsole": {
+    "description": "The action to open the log console."
+  },
+  "server_invalidUrl": "Adresse invalide",
+  "@server_invalidUrl": {
+    "description": "The address of the Wallabag instance is invalid."
+  },
+  "login_fieldClientId": "ID client",
+  "@login_fieldClientId": {
+    "description": "The client ID field of the login form."
+  },
+  "settings_headerGeneral": "Général",
+  "@settings_headerGeneral": {
+    "description": "The header of the general section in the settings screen."
+  },
+  "login_title": "Connexion",
+  "@login_title": {
+    "description": "The title of the login screen."
+  },
+  "settings_itemAppBadge": "Montrer le badge « non lus »",
+  "@settings_itemAppBadge": {
+    "description": "The action to toggle the unread badge on the application icon."
+  },
+  "session_forceTokenResfresh": "Rafraîchir le jeton",
+  "@session_forceTokenResfresh": {
+    "description": "The action to force a token refresh."
+  },
+  "g_langEN": "Anglais",
+  "@g_langEN": {
+    "description": "The English language."
+  },
+  "g_langFR": "Français",
+  "@g_langFR": {
+    "description": "The French language."
+  },
+  "g_system": "Système",
+  "@g_system": {},
+  "settings_itemLanguage": "Langue",
+  "@settings_itemLanguage": {
+    "description": "The action to change the language of the application."
+  },
+  "settings_valueThemeDark": "Sombre",
+  "@settings_valueThemeDark": {
+    "description": "The label for the dark theme mode."
+  },
+  "settings_valueThemeLight": "Clair",
+  "@settings_valueThemeLight": {
+    "description": "The label for the light theme mode."
+  },
+  "g_langDE": "Allemand",
+  "@g_langDE": {
+    "description": "The German language."
+  }
+}
