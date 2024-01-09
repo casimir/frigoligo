@@ -61,7 +61,7 @@ class SettingsPage extends StatelessWidget {
                   onPressed: (context) async {
                     AlertDialogAction build(ThemeMode mode) =>
                         AlertDialogAction(
-                          label: mode.name.toCapitalCase()!,
+                          label: getThemeModeLabel(context, mode),
                           key: mode,
                         );
                     final choice = await showConfirmationDialog(
@@ -212,4 +212,12 @@ List<Language> getOrderedLanguageLabels(BuildContext context) {
   final orderedLabels = mapping.keys.toList()..sort();
   final orderedKeys = orderedLabels.map((e) => mapping[e]!).toList();
   return [Language.system] + orderedKeys;
+}
+
+String getThemeModeLabel(BuildContext context, ThemeMode mode) {
+  return switch (mode) {
+    ThemeMode.system => context.L.g_system,
+    ThemeMode.light => context.L.settings_valueThemeLight,
+    ThemeMode.dark => context.L.settings_valueThemeDark,
+  };
 }

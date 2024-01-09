@@ -395,6 +395,14 @@
   "@settings_title": {
     "description": "The title of the settings screen."
   },
+  "settings_valueThemeDark": "Dark",
+  "@settings_valueThemeDark": {
+    "description": "The label for the dark theme mode."
+  },
+  "settings_valueThemeLight": "Light",
+  "@settings_valueThemeLight": {
+    "description": "The label for the light theme mode."
+  },
   "@_SYNCER": {},
   "syncer_pendingActions": "{count, plural, =1{1 action} other{{count} actions}}",
   "@syncer_pendingActions": {
