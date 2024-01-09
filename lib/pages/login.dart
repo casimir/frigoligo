@@ -165,41 +165,43 @@ class _LoginPageState extends State<LoginPage> {
           ),
           const SizedBox(height: 8.0),
           ElevatedButton(
-            onPressed: () async {
-              if (_configuredServer != null &&
-                  _fbKey.currentState!.saveAndValidate()) {
-                final credentials = Credentials(
-                  _configuredServer!.uri!,
-                  _fbKey.currentState!.value['clientId'],
-                  _fbKey.currentState!.value['clientSecret'],
-                );
-                try {
-                  final wallabag =
-                      await WallabagInstance.init(credentials: credentials);
-                  await wallabag.fetchToken(
-                      _fbKey.currentState!.value['username'],
-                      _fbKey.currentState!.value['password']);
-                  RemoteSyncer.instance.invalidateWallabagInstance();
-                  if (context.mounted) {
-                    context.go('/');
-                  }
-                } catch (e) {
-                  setState(() => _gotAnError = true);
-                  if (e is WallabagError) {
-                    _log.warning('authentication failed', e.message);
-                    if (context.mounted) {
-                      showOkAlertDialog(context: context, message: e.message);
+            onPressed: _configuredServer == null
+                ? null
+                : () async {
+                    if (_fbKey.currentState!.saveAndValidate()) {
+                      final credentials = Credentials(
+                        _configuredServer!.uri!,
+                        _fbKey.currentState!.value['clientId'],
+                        _fbKey.currentState!.value['clientSecret'],
+                      );
+                      try {
+                        final wallabag = await WallabagInstance.init(
+                            credentials: credentials);
+                        await wallabag.fetchToken(
+                            _fbKey.currentState!.value['username'],
+                            _fbKey.currentState!.value['password']);
+                        RemoteSyncer.instance.invalidateWallabagInstance();
+                        if (context.mounted) {
+                          context.go('/');
+                        }
+                      } catch (e) {
+                        setState(() => _gotAnError = true);
+                        if (e is WallabagError) {
+                          _log.warning('authentication failed', e.message);
+                          if (context.mounted) {
+                            showOkAlertDialog(
+                                context: context, message: e.message);
+                          }
+                        } else {
+                          _log.severe('unexpected error', e);
+                          if (context.mounted) {
+                            showOkAlertDialog(
+                                context: context, message: e.toString());
+                          }
+                        }
+                      }
                     }
-                  } else {
-                    _log.severe('unexpected error', e);
-                    if (context.mounted) {
-                      showOkAlertDialog(
-                          context: context, message: e.toString());
-                    }
-                  }
-                }
-              }
-            },
+                  },
             child: Text(context.L.login_actionLogin),
           ),
           const SizedBox(height: 8.0),
