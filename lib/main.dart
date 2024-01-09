@@ -192,7 +192,9 @@ class MyApp extends StatelessWidget {
           }
         });
 
-        final themeMode = context
+        final Language language = context
+            .select((SettingsProvider settings) => settings[Sk.language]);
+        final ThemeMode themeMode = context
             .select((SettingsProvider settings) => settings[Sk.themeMode]);
 
         return MaterialApp.router(
@@ -201,7 +203,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(colorScheme: schemeLight, useMaterial3: true),
           darkTheme: ThemeData(colorScheme: schemeDark, useMaterial3: true),
           themeMode: themeMode,
-          locale: null, // TODO add in settings?
+          locale: language.locale,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           restorationScopeId: 'app',
