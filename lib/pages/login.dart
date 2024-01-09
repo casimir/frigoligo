@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../buildcontext_extension.dart';
 import '../models/db.dart';
 import '../providers/settings.dart';
+import '../services/remote_sync.dart';
 import '../wallabag/credentials.dart';
 import '../wallabag/utils.dart';
 import '../wallabag/wallabag.dart';
@@ -178,6 +179,7 @@ class _LoginPageState extends State<LoginPage> {
                   await wallabag.fetchToken(
                       _fbKey.currentState!.value['username'],
                       _fbKey.currentState!.value['password']);
+                  RemoteSyncer.instance.invalidateWallabagInstance();
                   if (context.mounted) {
                     context.go('/');
                   }

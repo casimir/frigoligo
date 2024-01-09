@@ -23,6 +23,8 @@ class RemoteSyncer with ChangeNotifier {
     return _storage;
   }
 
+  void invalidateWallabagInstance() => _storage = null;
+
   final Set<RemoteSyncAction> _queue = {};
   int get pendingCount => _queue.length;
 
