@@ -18,10 +18,6 @@ final _log = Logger('wallabag.storage');
 class WallabagStorage with ChangeNotifier {
   WallabagStorage(this.settings) {
     _watcher = db.articles.watchLazy().listen((_) => notifyListeners());
-
-    // ensure a relative freshness of the articles
-    _log.info('provider initialization > incremental refresh');
-    incrementalRefresh(threshold: autoSyncThrottleSeconds);
   }
 
   final DBInstance db = DB.get();
@@ -143,10 +139,10 @@ class WallabagStorage with ChangeNotifier {
     final unread =
         count(WQuery(state: StateFilter.unread, starred: StarredFilter.all));
     if (unread == 0 || !settings[Sk.appBadge]) {
-      FlutterAppBadger.removeBadge();
+      return FlutterAppBadger.removeBadge();
     } else {
       _log.info('updating app badge to $unread');
-      FlutterAppBadger.updateBadgeCount(unread);
+      return FlutterAppBadger.updateBadgeCount(unread);
     }
   }
 

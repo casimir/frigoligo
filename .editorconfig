@@ -7,3 +7,6 @@ indent_size = 2
 
 [*.arb]
 trim_trailing_whitespace = true
+
+[*.gradle]
+indent_size = 4

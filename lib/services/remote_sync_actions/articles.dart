@@ -11,15 +11,6 @@ class RefreshArticlesAction extends RemoteSyncAction {
   }
 }
 
-class ClearArticlesAction extends RemoteSyncAction {
-  const ClearArticlesAction() : super('clearArticles');
-
-  @override
-  Future<void> execute(syncer) async {
-    await syncer.wallabag!.clearArticles();
-  }
-}
-
 class DeleteArticleAction extends RemoteSyncAction {
   const DeleteArticleAction(this.articleId) : super('deleteArticle:$articleId');
 
@@ -28,6 +19,7 @@ class DeleteArticleAction extends RemoteSyncAction {
   @override
   Future<void> execute(syncer) async {
     await syncer.wallabag!.deleteArticle(articleId);
+    await syncer.wallabag!.updateAppBadge();
   }
 }
 
