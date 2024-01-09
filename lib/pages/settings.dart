@@ -55,9 +55,8 @@ class SettingsPage extends StatelessWidget {
                 SettingsTile.navigation(
                   leading: const Icon(Icons.format_paint),
                   title: Text(context.L.settings_itemAppearance),
-                  value: Text((settings[Sk.themeMode] as ThemeMode)
-                      .name
-                      .toCapitalCase()!),
+                  value:
+                      Text(getThemeModeLabel(context, settings[Sk.themeMode])),
                   onPressed: (context) async {
                     AlertDialogAction build(ThemeMode mode) =>
                         AlertDialogAction(
