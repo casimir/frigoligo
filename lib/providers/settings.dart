@@ -98,6 +98,7 @@ const skThemeMode = 'settings.themeMode';
 enum Sk {
   appBadge('appBadge', false),
   lastRefresh('lastRefresh', -1),
+  language('locale', Language.system, Language.values),
   selectedArticleId('selectedArticleId', -1),
   tagSaveEnabled('tagSaveEnabled', false),
   tagSaveLabel('tagSaveLabel', 'inbox'),
@@ -110,4 +111,15 @@ enum Sk {
   final List<Object>? items;
 
   String get key => 'settings.$_key';
+}
+
+enum Language {
+  system(null),
+  english(Locale('en')),
+  french(Locale('fr')),
+  german(Locale('de'));
+
+  const Language(this.locale);
+
+  final Locale? locale;
 }

@@ -35,6 +35,24 @@ class SettingsPage extends StatelessWidget {
               title: Text(context.L.settings_headerPreferences),
               tiles: [
                 SettingsTile.navigation(
+                  leading: const Icon(Icons.language),
+                  title: Text(context.L.settings_itemLanguage),
+                  value: Text(getLanguageLabel(context, settings[Sk.language])),
+                  onPressed: (context) async {
+                    AlertDialogAction build(Language lang) => AlertDialogAction(
+                          label: getLanguageLabel(context, lang),
+                          key: lang,
+                        );
+                    final choice = await showConfirmationDialog(
+                      context: context,
+                      title: context.L.settings_itemLanguage,
+                      actions:
+                          getOrderedLanguageLabels(context).map(build).toList(),
+                    );
+                    if (choice != null) settings[Sk.language] = choice;
+                  },
+                ),
+                SettingsTile.navigation(
                   leading: const Icon(Icons.format_paint),
                   title: Text(context.L.settings_itemAppearance),
                   value: Text((settings[Sk.themeMode] as ThemeMode)
@@ -175,4 +193,23 @@ class SettingsPage extends StatelessWidget {
       ),
     );
   }
+}
+
+String getLanguageLabel(BuildContext context, Language lang) {
+  return switch (lang) {
+    Language.system => context.L.g_system,
+    Language.english => context.L.g_langEN,
+    Language.french => context.L.g_langFR,
+    Language.german => context.L.g_langDE,
+  };
+}
+
+List<Language> getOrderedLanguageLabels(BuildContext context) {
+  final mapping = {
+    for (final lang in Language.values)
+      if (lang != Language.system) getLanguageLabel(context, lang): lang
+  };
+  final orderedLabels = mapping.keys.toList()..sort();
+  final orderedKeys = orderedLabels.map((e) => mapping[e]!).toList();
+  return [Language.system] + orderedKeys;
 }
