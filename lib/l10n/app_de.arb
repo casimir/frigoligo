@@ -336,5 +336,13 @@
   "session_forceTokenResfresh": "Erzwinge einen neuen Token",
   "@session_forceTokenResfresh": {
     "description": "The action to force a token refresh."
+  },
+  "session_renewDialogMessage": "Der Server lehnt den aktuellen Session Token ab. Du wirst dich erneut einloggen müssen um dir Synchronisierung fortsetzen zu können.",
+  "@session_renewDialogMessage": {
+    "description": "The message of the confirmation dialog to renew the session."
+  },
+  "session_renewDialogTitle": "Session erneuern",
+  "@session_renewDialogTitle": {
+    "description": "The title of the confirmation dialog to renew the session."
   }
 }
