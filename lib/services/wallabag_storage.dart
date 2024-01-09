@@ -139,10 +139,10 @@ class WallabagStorage with ChangeNotifier {
     final unread =
         count(WQuery(state: StateFilter.unread, starred: StarredFilter.all));
     if (unread == 0 || !settings[Sk.appBadge]) {
-      FlutterAppBadger.removeBadge();
+      return FlutterAppBadger.removeBadge();
     } else {
       _log.info('updating app badge to $unread');
-      FlutterAppBadger.updateBadgeCount(unread);
+      return FlutterAppBadger.updateBadgeCount(unread);
     }
   }
 

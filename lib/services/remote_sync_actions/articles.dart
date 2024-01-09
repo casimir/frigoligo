@@ -19,6 +19,7 @@ class DeleteArticleAction extends RemoteSyncAction {
   @override
   Future<void> execute(syncer) async {
     await syncer.wallabag!.deleteArticle(articleId);
+    await syncer.wallabag!.updateAppBadge();
   }
 }
 
