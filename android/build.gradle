@@ -1,5 +1,11 @@
 buildscript {
     ext.kotlin_version = '1.9.22'
+    ext {
+        // background_fetch needs these but I couldn't find a way to load these from flutter...
+        compileSdkVersion = 34
+        targetSdkVersion = 34
+//        appCompatVersion = "1.4.2"
+    }
     repositories {
         google()
         mavenCentral()
@@ -15,6 +21,9 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url "${project(':background_fetch').projectDir}/libs"
+        }
     }
 }
 
