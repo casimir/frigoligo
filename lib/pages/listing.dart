@@ -15,7 +15,6 @@ import '../providers/settings.dart';
 import '../services/remote_sync.dart';
 import '../services/remote_sync_actions/articles.dart';
 import '../services/wallabag_storage.dart';
-import '../string_extension.dart';
 import '../widgets/article_image_preview.dart';
 import '../widgets/remote_sync_fab.dart';
 import '../widgets/remote_sync_progress_indicator.dart';
@@ -136,8 +135,11 @@ class _TitleWidgetState extends State<TitleWidget> {
   @override
   Widget build(BuildContext context) {
     final queryProvider = context.watch<QueryProvider>();
-    var text = queryProvider.query.state!.name.toCapitalCase()!;
-    text += ' articles';
+    var text = switch (queryProvider.query.state!) {
+      StateFilter.unread => context.L.listing_articlesUnread,
+      StateFilter.archived => context.L.listing_articlesArchived,
+      StateFilter.all => context.L.listing_articlesAll,
+    };
     if (queryProvider.query.starred == StarredFilter.starred) {
       text += ' (★)';
     }
