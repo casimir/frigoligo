@@ -370,5 +370,41 @@
   "g_langDE": "Allemand",
   "@g_langDE": {
     "description": "The German language."
+  },
+  "g_search": "Rechercher",
+  "@g_search": {
+    "description": "A verb, as in to search something."
+  },
+  "filters_articleFavoriteAll": "Tous",
+  "@filters_articleFavoriteAll": {
+    "description": "Don't filter articles by favorite status."
+  },
+  "filters_articleFavoriteStarred": "Favori",
+  "@filters_articleFavoriteStarred": {
+    "description": "Filter starred articles."
+  },
+  "filters_articleStateArchived": "Archivé",
+  "@filters_articleStateArchived": {
+    "description": "Filter articles with the state 'archived'."
+  },
+  "filters_articleStateAll": "Tous",
+  "@filters_articleStateAll": {
+    "description": "Don't filter articles by state."
+  },
+  "listing_articlesArchived": "Articles archivés",
+  "@listing_articlesArchived": {
+    "description": "The title for the list of the articles with the state Archived."
+  },
+  "listing_articlesUnread": "Articles non-lus",
+  "@listing_articlesUnread": {
+    "description": "The title for the list of the articles with the state Unread."
+  },
+  "filters_articleStateUnread": "Non-lu",
+  "@filters_articleStateUnread": {
+    "description": "Filter articles with the state 'unread'."
+  },
+  "listing_articlesAll": "Tous les articles",
+  "@listing_articlesAll": {
+    "description": "The title for the list of all the articles."
   }
 }
