@@ -239,6 +239,7 @@ class _MainContainer extends StatefulWidget {
 }
 
 class _MainContainerState extends State<_MainContainer> {
+  bool isFirstInit = false;
   int? deepLinkHandledFor;
   int? _selectedId;
 
@@ -249,6 +250,7 @@ class _MainContainerState extends State<_MainContainer> {
   @override
   void initState() {
     super.initState();
+    isFirstInit = true;
     if (!periodicSyncSupported) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         RemoteSyncer.instance.synchronize(withFinalRefresh: true);
@@ -350,6 +352,8 @@ class _MainContainerState extends State<_MainContainer> {
         }
 
         _handleInitial(onItemSelect, true);
+        final forcedOpen = isFirstInit;
+        isFirstInit = false;
 
         return ArticlePage(
           articleId: _selectedId ?? 0,
@@ -360,6 +364,7 @@ class _MainContainerState extends State<_MainContainer> {
               initialArticleId: _selectedId,
             ),
           ),
+          forcedDrawerOpen: forcedOpen,
         );
       },
     );

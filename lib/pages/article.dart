@@ -27,11 +27,13 @@ class ArticlePage extends StatefulWidget {
     super.key,
     required this.articleId,
     this.drawer,
+    this.forcedDrawerOpen = false,
     this.withProgressIndicator = true,
   });
 
   final int articleId;
   final Widget? drawer;
+  final bool forcedDrawerOpen;
   final bool withProgressIndicator;
 
   @override
@@ -39,7 +41,17 @@ class ArticlePage extends StatefulWidget {
 }
 
 class _ArticlePageState extends State<ArticlePage> {
-  bool _drawerIsOpened = false;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.drawer != null && widget.forcedDrawerOpen) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _scaffoldKey.currentState?.openDrawer();
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,11 +79,12 @@ class _ArticlePageState extends State<ArticlePage> {
       body = _buildArticleContent(article, provider, syncer, scroller);
     }
 
-    final showRemoteSyncerWidgets =
-        widget.withProgressIndicator && !_drawerIsOpened;
+    final showRemoteSyncerWidgets = widget.withProgressIndicator &&
+        !(_scaffoldKey.currentState?.isDrawerOpen ?? false);
 
     return SelectionArea(
       child: Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           leading: leading,
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -163,7 +176,7 @@ class _ArticlePageState extends State<ArticlePage> {
         floatingActionButton: RemoteSyncFAB(showIf: showRemoteSyncerWidgets),
         drawer: widget.drawer,
         onDrawerChanged: (isOpened) => setState(() {
-          _drawerIsOpened = isOpened;
+          // set the state so that the progress indicator widget move correctly
         }),
       ),
     );
