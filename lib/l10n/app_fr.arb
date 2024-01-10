@@ -1,5 +1,5 @@
 {
-  "filters_articleState": "État",
+  "filters_articleState": "Statut",
   "@filters_articleState": {
     "description": "The state of the article."
   },
@@ -337,7 +337,7 @@
   "@login_title": {
     "description": "The title of the login screen."
   },
-  "settings_itemAppBadge": "Montrer le badge « non lus »",
+  "settings_itemAppBadge": "Afficher le badge « non-lus »",
   "@settings_itemAppBadge": {
     "description": "The action to toggle the unread badge on the application icon."
   },
