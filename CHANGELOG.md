@@ -1,3 +1,30 @@
+<a name="v0.7.0"></a>
+# [0.7.0 (v0.7.0)](https://github.com/casimir/frigoligo/releases/tag/v0.7.0) - 10 Jan 2024
+
+## What's Changed
+This release adds two big features: background syncing and the possiblity to choose the language of the application.
+
+### Features
+* Background server syncing by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/117
+* Disable login button until checks are passed by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/118
+* Allow to choose application language by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/119
+* In dynamic layout mode, open the drawer on start by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/121
+### Miscellaneous
+* Build the macOS version on XcodeCloud by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/90
+* Translations update from Hosted Weblate by [@weblate](https://github.com/weblate) in https://github.com/casimir/frigoligo/pull/113
+* Translations update from Hosted Weblate by [@weblate](https://github.com/weblate) in https://github.com/casimir/frigoligo/pull/120
+* Translate more strings by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/122
+* Translations update from Hosted Weblate by [@weblate](https://github.com/weblate) in https://github.com/casimir/frigoligo/pull/123
+
+## New Contributors
+* [@weblate](https://github.com/weblate) made their first contribution in https://github.com/casimir/frigoligo/pull/113
+* [@jrabensc](https://github.com/jrabensc) provided the german translation
+
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.6.4...v0.7.0
+
+[Changes][v0.7.0]
+
+
 <a name="v0.6.4"></a>
 # [v0.6.4](https://github.com/casimir/frigoligo/releases/tag/v0.6.4) - 03 Jan 2024
 
@@ -284,6 +311,7 @@ Let's begin! This is the very first release.
 [Changes][v0.1.0]
 
 
+[v0.7.0]: https://github.com/casimir/frigoligo/compare/v0.6.4...v0.7.0
 [v0.6.4]: https://github.com/casimir/frigoligo/compare/v0.6.3...v0.6.4
 [v0.6.3]: https://github.com/casimir/frigoligo/compare/v0.6.2...v0.6.3
 [v0.6.2]: https://github.com/casimir/frigoligo/compare/v0.6.1...v0.6.2
