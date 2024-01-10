@@ -12,7 +12,6 @@ import '../providers/deeplinks.dart';
 import '../providers/settings.dart';
 import '../services/remote_sync.dart';
 import '../services/wallabag_storage.dart';
-import '../string_extension.dart';
 
 final _log = Logger('frigoligo.listing');
 
