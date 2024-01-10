@@ -150,9 +150,29 @@
   "@filters_articleFavorite": {
     "description": "The favorite status of the article."
   },
+  "filters_articleFavoriteAll": "All",
+  "@filters_articleFavoriteAll": {
+    "description": "Don't filter articles by favorite status."
+  },
+  "filters_articleFavoriteStarred": "Starred",
+  "@filters_articleFavoriteStarred": {
+    "description": "Filter starred articles."
+  },
   "filters_articleState": "State",
   "@filters_articleState": {
     "description": "The state of the article."
+  },
+  "filters_articleStateUnread": "Unread",
+  "@filters_articleStateUnread": {
+    "description": "Filter articles with the state 'unread'."
+  },
+  "filters_articleStateArchived": "Archived",
+  "@filters_articleStateArchived": {
+    "description": "Filter articles with the state 'archived'."
+  },
+  "filters_articleStateAll": "All",
+  "@filters_articleStateAll": {
+    "description": "Don't filter articles by state."
   },
   "filters_articleTags": "Tags",
   "@filters_articleTags": {
@@ -175,6 +195,18 @@
   "listing_noArticles": "No articles",
   "@listing_noArticles": {
     "description": "Placeholder for when there are no articles to display."
+  },
+  "listing_articlesAll": "All articles",
+  "@listing_articlesAll": {
+    "description": "The title for the list of all the articles."
+  },
+  "listing_articlesArchived": "Archived articles",
+  "@listing_articlesArchived": {
+    "description": "The title for the list of the articles with the state Archived."
+  },
+  "listing_articlesUnread": "Unread articles",
+  "@listing_articlesUnread": {
+    "description": "The title for the list of the articles with the state Unread."
   },
   "@LOGIN": {},
   "login_actionLogin": "Log in",

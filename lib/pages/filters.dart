@@ -5,7 +5,6 @@ import '../buildcontext_extension.dart';
 import '../constants.dart';
 import '../providers/query.dart';
 import '../services/wallabag_storage.dart';
-import '../string_extension.dart';
 import '../widgets/tag_list.dart';
 import 'tags_selector/dialog.dart';
 
@@ -41,9 +40,9 @@ class FiltersPage extends StatelessWidget {
             ),
           ],
         ),
-        _buildFilterChoices(_buildStateFilterChoices(queryProvider)),
+        _buildFilterChoices(_buildStateFilterChoices(context, queryProvider)),
         _buildFilterHeader(context, context.L.filters_articleFavorite),
-        _buildFilterChoices(_buildStarredFilterChoices(queryProvider)),
+        _buildFilterChoices(_buildStarredFilterChoices(context, queryProvider)),
         _buildFilterHeader(context, context.L.filters_articleTags),
         _buildTagsSelector(context, queryProvider, storage.tags),
         const SizedBox(height: defaultPadding),
@@ -79,20 +78,28 @@ Widget _buildFilterChoices(List<Widget> children) {
 }
 
 ChoiceChip _makeChoiceChip<T extends Enum>(
-    T value, T? selected, void Function(bool) onSelected) {
+    T value, String label, T? selected, void Function(bool) onSelected) {
   return ChoiceChip(
-    label: Text(value.name.toCapitalCase()!),
+    label: Text(label),
     onSelected: onSelected,
     selected: value == selected,
     showCheckmark: false,
   );
 }
 
-List<ChoiceChip> _buildStateFilterChoices(QueryProvider queryProvider) {
+List<ChoiceChip> _buildStateFilterChoices(
+    BuildContext context, QueryProvider queryProvider) {
+  final labels = {
+    StateFilter.unread: context.L.filters_articleStateUnread,
+    StateFilter.archived: context.L.filters_articleStateArchived,
+    StateFilter.all: context.L.filters_articleStateAll,
+  };
+
   return List.generate(
     StateFilter.values.length,
     (index) => _makeChoiceChip(
       StateFilter.values[index],
+      labels[StateFilter.values[index]]!,
       queryProvider.query.state,
       (selected) {
         if (selected) {
@@ -105,7 +112,8 @@ List<ChoiceChip> _buildStateFilterChoices(QueryProvider queryProvider) {
   );
 }
 
-List<ChoiceChip> _buildStarredFilterChoices(QueryProvider queryProvider) {
+List<ChoiceChip> _buildStarredFilterChoices(
+    BuildContext context, QueryProvider queryProvider) {
   void Function(bool) onSelected(StarredFilter value) {
     return (selected) {
       if (!selected) return;
@@ -118,11 +126,13 @@ List<ChoiceChip> _buildStarredFilterChoices(QueryProvider queryProvider) {
   return [
     _makeChoiceChip(
       StarredFilter.all,
+      context.L.filters_articleFavoriteAll,
       queryProvider.query.starred ?? StarredFilter.all,
       onSelected(StarredFilter.all),
     ),
     _makeChoiceChip(
       StarredFilter.starred,
+      context.L.filters_articleFavoriteStarred,
       queryProvider.query.starred,
       onSelected(StarredFilter.starred),
     ),
