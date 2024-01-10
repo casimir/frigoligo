@@ -25,6 +25,10 @@
   "@g_langDE": {
     "description": "The German language."
   },
+  "g_search": "Search",
+  "@g_search": {
+    "description": "A verb, as in to search something."
+  },
   "g_server": "Server",
   "@g_server": {
     "description": "A server, as in a computer providing a service."

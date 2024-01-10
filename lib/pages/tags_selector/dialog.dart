@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../../buildcontext_extension.dart';
 import '../../layout.dart';
 
 class TagsSelectorDialog extends StatefulWidget {
@@ -79,7 +80,7 @@ class _TagsSelectorDialogState extends State<TagsSelectorDialog> {
     return TextField(
       controller: _searchController,
       decoration: InputDecoration(
-        hintText: 'Search',
+        hintText: context.L.g_search,
         prefixIcon: const Icon(Icons.search),
         suffixIcon: IconButton(
           onPressed: () => setState(_searchController.clear),
