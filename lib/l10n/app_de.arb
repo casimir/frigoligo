@@ -125,15 +125,15 @@
   "@settings_headerPreferences": {
     "description": "The header of the preferences section in the settings screen."
   },
-  "session_fieldTokenExpiration": "Token abgelaufen",
+  "session_fieldTokenExpiration": "Gültigkeit des Tokens",
   "@session_fieldTokenExpiration": {
     "description": "The label of the token expiration field in the session screen."
   },
-  "settings_itemClearCache": "Leere Cache",
+  "settings_itemClearCache": "Cache leeren",
   "@settings_itemClearCache": {
     "description": "The action to clear the offline cache."
   },
-  "session_neverSynced": "Niemals",
+  "session_neverSynced": "Noch nie",
   "@session_neverSynced": {
     "description": "Default value for the last sync time."
   },
@@ -291,7 +291,7 @@
   "@logconsole_title": {
     "description": "The title of the log console screen."
   },
-  "humanize_past": "Seit {duration}",
+  "humanize_past": "Vor {duration}",
   "@humanize_past": {
     "description": "Describe a duration since a moment in the past.",
     "placeholders": {
@@ -367,8 +367,44 @@
   "@settings_valueThemeDark": {
     "description": "The label for the dark theme mode."
   },
-  "settings_valueThemeLight": "Licht",
+  "settings_valueThemeLight": "Hell",
   "@settings_valueThemeLight": {
     "description": "The label for the light theme mode."
+  },
+  "g_search": "Suche",
+  "@g_search": {
+    "description": "A verb, as in to search something."
+  },
+  "filters_articleFavoriteStarred": "Mit Stern",
+  "@filters_articleFavoriteStarred": {
+    "description": "Filter starred articles."
+  },
+  "filters_articleStateUnread": "Ungelesen",
+  "@filters_articleStateUnread": {
+    "description": "Filter articles with the state 'unread'."
+  },
+  "filters_articleStateArchived": "Archiviert",
+  "@filters_articleStateArchived": {
+    "description": "Filter articles with the state 'archived'."
+  },
+  "filters_articleStateAll": "Alle",
+  "@filters_articleStateAll": {
+    "description": "Don't filter articles by state."
+  },
+  "listing_articlesAll": "Alle Artikel",
+  "@listing_articlesAll": {
+    "description": "The title for the list of all the articles."
+  },
+  "listing_articlesArchived": "Archivierte",
+  "@listing_articlesArchived": {
+    "description": "The title for the list of the articles with the state Archived."
+  },
+  "listing_articlesUnread": "Ungelesene",
+  "@listing_articlesUnread": {
+    "description": "The title for the list of the articles with the state Unread."
+  },
+  "filters_articleFavoriteAll": "Alle",
+  "@filters_articleFavoriteAll": {
+    "description": "Don't filter articles by favorite status."
   }
 }
