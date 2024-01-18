@@ -1,3 +1,18 @@
+<a name="v0.7.1"></a>
+# [0.7.1 (v0.7.1)](https://github.com/casimir/frigoligo/releases/tag/v0.7.1) - 18 Jan 2024
+
+Just a few adjustments in the German translation.
+
+## What's Changed
+### Miscellaneous
+* Translations update from Hosted Weblate by [@weblate](https://github.com/weblate) in https://github.com/casimir/frigoligo/pull/126
+
+
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.7.0...v0.7.1
+
+[Changes][v0.7.1]
+
+
 <a name="v0.7.0"></a>
 # [0.7.0 (v0.7.0)](https://github.com/casimir/frigoligo/releases/tag/v0.7.0) - 10 Jan 2024
 
@@ -311,6 +326,7 @@ Let's begin! This is the very first release.
 [Changes][v0.1.0]
 
 
+[v0.7.1]: https://github.com/casimir/frigoligo/compare/v0.7.0...v0.7.1
 [v0.7.0]: https://github.com/casimir/frigoligo/compare/v0.6.4...v0.7.0
 [v0.6.4]: https://github.com/casimir/frigoligo/compare/v0.6.3...v0.6.4
 [v0.6.3]: https://github.com/casimir/frigoligo/compare/v0.6.2...v0.6.3
