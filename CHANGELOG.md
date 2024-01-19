@@ -1,3 +1,19 @@
+<a name="v0.7.2"></a>
+# [v0.7.2](https://github.com/casimir/frigoligo/releases/tag/v0.7.2) - 19 Jan 2024
+
+## What's Changed
+
+A small maintenance release to fix iOS artifact metadata and upload on TestFlight.
+
+### Miscellaneous
+* Fix minimum iOS version by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/128
+
+
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.7.1...v0.7.2
+
+[Changes][v0.7.2]
+
+
 <a name="v0.7.1"></a>
 # [0.7.1 (v0.7.1)](https://github.com/casimir/frigoligo/releases/tag/v0.7.1) - 18 Jan 2024
 
@@ -326,6 +342,7 @@ Let's begin! This is the very first release.
 [Changes][v0.1.0]
 
 
+[v0.7.2]: https://github.com/casimir/frigoligo/compare/v0.7.1...v0.7.2
 [v0.7.1]: https://github.com/casimir/frigoligo/compare/v0.7.0...v0.7.1
 [v0.7.0]: https://github.com/casimir/frigoligo/compare/v0.6.4...v0.7.0
 [v0.6.4]: https://github.com/casimir/frigoligo/compare/v0.6.3...v0.6.4
