@@ -58,7 +58,7 @@ dependencies:
   go_router: ^13.0.0
   app_links: ^3.4.3
   shared_preference_app_group: ^1.0.0+1
-  popover: ^0.2.8+2
+  popover: ^0.3.0
   flutter_localizations:
     sdk: flutter
   intl: any
