@@ -40,7 +40,7 @@ const ArticleScrollPositionSchema = CollectionSchema(
   getId: _articleScrollPositionGetId,
   getLinks: _articleScrollPositionGetLinks,
   attach: _articleScrollPositionAttach,
-  version: '3.1.0+1',
+  version: '3.1.3',
 );
 
 int _articleScrollPositionEstimateSize(

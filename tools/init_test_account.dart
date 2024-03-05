@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:frigoligo/wallabag/wallabag.dart';
 import 'package:http/http.dart' as http;
@@ -9,7 +10,7 @@ import 'package:http/http.dart' as http;
 import 'test_credentials.local.dart';
 
 void main() {
-  runApp(const MaterialApp(home: HomePage()));
+  runApp(const ProviderScope(child: MaterialApp(home: HomePage())));
 }
 
 class HomePage extends StatefulWidget {
