@@ -295,6 +295,7 @@ class _ArticlePageState extends State<ArticlePage> {
             }
           }),
         ),
+        textStyle: Theme.of(context).textTheme.bodyLarge,
       ),
     );
   }
