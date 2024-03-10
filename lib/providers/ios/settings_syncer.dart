@@ -7,7 +7,7 @@ import '../settings.dart';
 final _log = Logger('settings.ios.syncer');
 
 class SettingsSyncer {
-  static init() async {
+  static Future<void> init() async {
     await SharedPreferenceAppGroup.setAppGroup(appGroupId);
   }
 
