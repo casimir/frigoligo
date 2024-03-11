@@ -114,11 +114,11 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
               ),
             PopupMenuButton(
               itemBuilder: (context) => [
-                const PopupMenuItem(
+                PopupMenuItem(
                   value: 'reading-settings',
                   child: ListTile(
-                    leading: Icon(Icons.format_size),
-                    title: Text('Reading settings'), // TODO translate
+                    leading: const Icon(Icons.format_size),
+                    title: Text(context.L.reading_settings_title),
                   ),
                 ),
                 PopupMenuItem(

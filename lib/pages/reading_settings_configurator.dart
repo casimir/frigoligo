@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../buildcontext_extension.dart';
 import '../providers/reading_settings.dart';
 
 const defaultPadding = 10.0;
@@ -22,7 +23,7 @@ class ReadingSettingsConfigurator extends ConsumerWidget {
     return ListView(
       shrinkWrap: true,
       children: [
-        _buildSectionHeader(context, 'Font size'), // TODO translate
+        _buildSectionHeader(context, context.L.reading_settings_fontSize),
         Padding(
           padding: const EdgeInsets.all(defaultPadding),
           // padding: leftAlignedInsets,

@@ -208,7 +208,7 @@
   "@listing_articlesUnread": {
     "description": "The title for the list of the articles with the state Unread."
   },
-  "@LOGIN": {},
+  "@_LOGIN": {},
   "login_actionLogin": "Log in",
   "@login_actionLogin": {
     "description": "The action to log in."
@@ -248,6 +248,15 @@
   "login_title": "Log in",
   "@login_title": {
     "description": "The title of the login screen."
+  },
+  "@_READING_SETTINGS": {},
+  "reading_settings_fontSize": "Font size",
+  "@reading_settings_fontSize": {
+    "description": "The font size of the article content display."
+  },
+  "reading_settings_title": "Reading settings",
+  "@reading_settings_title": {
+    "description": "The title of the reading settings screen."
   },
   "@_SAVE": {},
   "save_confirmationTitle": "Article saved!",
