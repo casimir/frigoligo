@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/article.dart';
 import '../models/article_scroll_position.dart';
@@ -15,13 +16,8 @@ class ArticleProvider extends ChangeNotifier {
   final DBInstance db = DB.get();
   StreamSubscription? _watcher;
   int articleId;
-  bool hasJumpedToPosition = false;
 
   Article? get article => db.articles.getSync(articleId);
-  double? get scrollPosition =>
-      db.articleScrollPositions.getSync(articleId)?.position;
-  bool get isPositionRestorePending =>
-      articleId != 0 && !hasJumpedToPosition && scrollPosition != null;
 
   @override
   void dispose() {
@@ -34,7 +30,6 @@ class ArticleProvider extends ChangeNotifier {
     _watcher?.cancel();
     _watcher =
         db.articles.watchObjectLazy(articleId).listen((_) => notifyListeners());
-    hasJumpedToPosition = false;
   }
 
   Future<void> saveScrollPosition(double position) async {
@@ -47,3 +42,8 @@ class ArticleProvider extends ChangeNotifier {
     });
   }
 }
+
+final scrollPositionProvider =
+    FutureProvider.autoDispose.family<ArticleScrollPosition?, int>(
+  (ref, articleId) => DB.get().articleScrollPositions.get(articleId),
+);
