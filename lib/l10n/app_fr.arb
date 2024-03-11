@@ -406,5 +406,13 @@
   "listing_articlesAll": "Tous les articles",
   "@listing_articlesAll": {
     "description": "The title for the list of all the articles."
+  },
+  "reading_settings_title": "Paramètres de lecture",
+  "@reading_settings_title": {
+    "description": "The title of the reading settings screen."
+  },
+  "reading_settings_fontSize": "Taille de police",
+  "@reading_settings_fontSize": {
+    "description": "The font size of the article content display."
   }
 }
