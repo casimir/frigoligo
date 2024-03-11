@@ -61,7 +61,7 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
 
   @override
   Widget build(BuildContext context) {
-    final syncer = context.read<RemoteSyncer>();
+    final syncer = RemoteSyncer.instance;
     final provider = context.watch<ArticleProvider>();
     final article = provider.article;
 
@@ -81,7 +81,7 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
     } else if (article.content == null) {
       body = _buildEmptyContent(Uri.parse(article.url));
     } else {
-      body = _buildArticleContent(article, provider, syncer);
+      body = _buildArticleContent(article, provider);
     }
 
     final showRemoteSyncerWidgets = widget.withProgressIndicator &&
@@ -224,15 +224,14 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
     );
   }
 
-  Widget _buildArticleContent(
-      Article article, ArticleProvider provider, RemoteSyncer syncer) {
+  Widget _buildArticleContent(Article article, ArticleProvider provider) {
     void showTagsDialog([_]) => showDialog(
           context: context,
           builder: (_) => TagsSelectorDialog(
-            tags: syncer.wallabag!.tags,
+            tags: RemoteSyncer.instance.wallabag!.tags,
             initialValue: article.tags,
             onConfirm: (tags) {
-              syncer
+              RemoteSyncer.instance
                 ..add(EditArticleAction(article.id!, tags: tags))
                 ..synchronize();
             },
