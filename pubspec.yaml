@@ -43,8 +43,12 @@ dependencies:
   fwfh_url_launcher: ^0.9.0
   shared_preferences: ^2.1.2
   logging: ^1.2.0
-  isar: ^3.1.0+1
-  isar_flutter_libs: ^3.1.0+1
+  isar:
+    version: ^3.1.3
+    hosted: https://isar-community.dev/
+  isar_flutter_libs:
+    version: ^3.1.3
+    hosted: https://isar-community.dev/
   path_provider: ^2.0.15
   cached_network_image: ^3.2.3
   flutter_svg: ^2.0.7
@@ -64,6 +68,8 @@ dependencies:
   intl: any
   neat_periodic_task: ^2.0.1
   background_fetch: ^1.2.1
+  flutter_riverpod: ^2.4.10
+  riverpod_annotation: ^2.3.4
 
 dev_dependencies:
   flutter_test:
@@ -76,9 +82,14 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
 
-  build_runner: ^2.4.6
+  build_runner: ^2.4.8
+  isar_generator:
+    version: ^3.1.3
+    hosted: https://isar-community.dev/
   json_serializable: ^6.7.0
-  isar_generator: ^3.1.0+1
+  riverpod_generator: ^2.3.11
+  custom_lint: ^0.6.2
+  riverpod_lint: ^2.3.9
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

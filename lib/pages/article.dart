@@ -1,5 +1,6 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:fwfh_cached_network_image/fwfh_cached_network_image.dart';
 import 'package:fwfh_url_launcher/fwfh_url_launcher.dart';
@@ -13,14 +14,16 @@ import '../constants.dart';
 import '../models/article.dart';
 import '../providers/article.dart';
 import '../providers/expander.dart';
+import '../providers/reading_settings.dart';
 import '../services/remote_sync.dart';
 import '../services/remote_sync_actions/articles.dart';
 import '../widgets/remote_sync_fab.dart';
 import '../widgets/remote_sync_progress_indicator.dart';
 import '../widgets/tag_list.dart';
+import 'reading_settings_configurator.dart';
 import 'tags_selector/dialog.dart';
 
-class ArticlePage extends StatefulWidget {
+class ArticlePage extends ConsumerStatefulWidget {
   // TODO articleId is not used but required to avoid triggering flutter caching
   // maybe that's just a setState() missing somewhere
   const ArticlePage({
@@ -37,10 +40,10 @@ class ArticlePage extends StatefulWidget {
   final bool withProgressIndicator;
 
   @override
-  State<ArticlePage> createState() => _ArticlePageState();
+  ConsumerState<ArticlePage> createState() => _ArticlePageState();
 }
 
-class _ArticlePageState extends State<ArticlePage> {
+class _ArticlePageState extends ConsumerState<ArticlePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   @override
@@ -112,6 +115,13 @@ class _ArticlePageState extends State<ArticlePage> {
             PopupMenuButton(
               itemBuilder: (context) => [
                 PopupMenuItem(
+                  value: 'reading-settings',
+                  child: ListTile(
+                    leading: const Icon(Icons.format_size),
+                    title: Text(context.L.reading_settings_title),
+                  ),
+                ),
+                PopupMenuItem(
                   value: 'share',
                   enabled: article != null,
                   child: ListTile(
@@ -138,6 +148,13 @@ class _ArticlePageState extends State<ArticlePage> {
               ],
               onSelected: (value) async {
                 switch (value) {
+                  case 'reading-settings':
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (_) => const ReadingSettingsConfigurator(),
+                      barrierColor: Colors.transparent,
+                      showDragHandle: true,
+                    );
                   case 'share':
                     final box = context.findRenderObject() as RenderBox?;
                     Share.share(
@@ -283,6 +300,8 @@ class _ArticlePageState extends State<ArticlePage> {
 
   Widget _buildContent(
       String content, ScrollController scroller, ArticleProvider provider) {
+    final values = ref.watch(readingSettingsProvider);
+
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: HtmlWidget(
@@ -295,6 +314,7 @@ class _ArticlePageState extends State<ArticlePage> {
             }
           }),
         ),
+        textStyle: values.textStyle,
       ),
     );
   }

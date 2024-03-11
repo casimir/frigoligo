@@ -2,14 +2,27 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:logging/logging.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../services/remote_sync.dart';
 import 'ios/settings_syncer.dart';
+
+part 'settings.g.dart';
+
+final _log = Logger('settings');
+
+@riverpod
+class Settings extends _$Settings {
+  @override
+  Raw<SettingsProvider> build() => RemoteSyncer.instance.settings;
+}
 
 class SettingsProvider extends ChangeNotifier {
   static late SharedPreferences _prefs;
 
-  static init() async {
+  static Future<void> init() async {
     _prefs = await SharedPreferences.getInstance();
     if (Platform.isIOS) {
       await SettingsSyncer.init();
@@ -29,6 +42,7 @@ class SettingsProvider extends ChangeNotifier {
 
   operator [](Sk skey) => _getValue(skey);
   operator []=(Sk skey, dynamic value) {
+    _log.info('updating $skey to $value');
     _setValue(skey, value);
     _syncer?.onChange(skey, value);
     notifyListeners();
@@ -93,13 +107,12 @@ class SettingsProvider extends ChangeNotifier {
 }
 
 // Settings Keys
-const skThemeMode = 'settings.themeMode';
-
 enum Sk {
   appBadge('appBadge', false),
   lastRefresh('lastRefresh', -1),
   language('locale', Language.system, Language.values),
   selectedArticleId('selectedArticleId', -1),
+  readingSettings('readingSettings', Object()),
   tagSaveEnabled('tagSaveEnabled', false),
   tagSaveLabel('tagSaveLabel', 'inbox'),
   themeMode('themeMode', ThemeMode.system, ThemeMode.values);
