@@ -240,13 +240,16 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
         );
 
     final scrollPositionFetch = ref.watch(scrollPositionProvider(article.id!));
-
     return scrollPositionFetch.when(
       data: (scrollPosition) {
         return NotificationListener<ScrollNotification>(
           onNotification: (notification) {
             if (notification is ScrollEndNotification) {
-              provider.saveScrollPosition(notification.metrics.pixels);
+              final progress =
+                  scroller.offset / scroller.position.maxScrollExtent;
+              if (progress > 0) {
+                provider.saveScrollProgress(progress);
+              }
             }
             return false;
           },
@@ -312,8 +315,10 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
         content,
         factoryBuilder: () => HtmlWidgetFactory(
           onTreeBuilt: (_) => WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (scrollPosition != null) {
-              scroller.jumpTo(scrollPosition.position);
+            if (scrollPosition != null && scrollPosition.progress > 0) {
+              final pixels =
+                  scrollPosition.progress * scroller.position.maxScrollExtent;
+              scroller.jumpTo(pixels);
             }
           }),
         ),

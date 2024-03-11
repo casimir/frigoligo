@@ -18,9 +18,9 @@ const ArticleScrollPositionSchema = CollectionSchema(
   name: r'ArticleScrollPosition',
   id: -9173229516223812652,
   properties: {
-    r'position': PropertySchema(
+    r'progress': PropertySchema(
       id: 0,
-      name: r'position',
+      name: r'progress',
       type: IsarType.double,
     ),
     r'readingTime': PropertySchema(
@@ -58,7 +58,7 @@ void _articleScrollPositionSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeDouble(offsets[0], object.position);
+  writer.writeDouble(offsets[0], object.progress);
   writer.writeLong(offsets[1], object.readingTime);
 }
 
@@ -70,7 +70,7 @@ ArticleScrollPosition _articleScrollPositionDeserialize(
 ) {
   final object = ArticleScrollPosition();
   object.id = id;
-  object.position = reader.readDouble(offsets[0]);
+  object.progress = reader.readDouble(offsets[0]);
   object.readingTime = reader.readLong(offsets[1]);
   return object;
 }
@@ -263,13 +263,13 @@ extension ArticleScrollPositionQueryFilter on QueryBuilder<
   }
 
   QueryBuilder<ArticleScrollPosition, ArticleScrollPosition,
-      QAfterFilterCondition> positionEqualTo(
+      QAfterFilterCondition> progressEqualTo(
     double value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'position',
+        property: r'progress',
         value: value,
         epsilon: epsilon,
       ));
@@ -277,7 +277,7 @@ extension ArticleScrollPositionQueryFilter on QueryBuilder<
   }
 
   QueryBuilder<ArticleScrollPosition, ArticleScrollPosition,
-      QAfterFilterCondition> positionGreaterThan(
+      QAfterFilterCondition> progressGreaterThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -285,7 +285,7 @@ extension ArticleScrollPositionQueryFilter on QueryBuilder<
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'position',
+        property: r'progress',
         value: value,
         epsilon: epsilon,
       ));
@@ -293,7 +293,7 @@ extension ArticleScrollPositionQueryFilter on QueryBuilder<
   }
 
   QueryBuilder<ArticleScrollPosition, ArticleScrollPosition,
-      QAfterFilterCondition> positionLessThan(
+      QAfterFilterCondition> progressLessThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -301,7 +301,7 @@ extension ArticleScrollPositionQueryFilter on QueryBuilder<
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'position',
+        property: r'progress',
         value: value,
         epsilon: epsilon,
       ));
@@ -309,7 +309,7 @@ extension ArticleScrollPositionQueryFilter on QueryBuilder<
   }
 
   QueryBuilder<ArticleScrollPosition, ArticleScrollPosition,
-      QAfterFilterCondition> positionBetween(
+      QAfterFilterCondition> progressBetween(
     double lower,
     double upper, {
     bool includeLower = true,
@@ -318,7 +318,7 @@ extension ArticleScrollPositionQueryFilter on QueryBuilder<
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'position',
+        property: r'progress',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -394,16 +394,16 @@ extension ArticleScrollPositionQueryLinks on QueryBuilder<ArticleScrollPosition,
 extension ArticleScrollPositionQuerySortBy
     on QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QSortBy> {
   QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QAfterSortBy>
-      sortByPosition() {
+      sortByProgress() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'position', Sort.asc);
+      return query.addSortBy(r'progress', Sort.asc);
     });
   }
 
   QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QAfterSortBy>
-      sortByPositionDesc() {
+      sortByProgressDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'position', Sort.desc);
+      return query.addSortBy(r'progress', Sort.desc);
     });
   }
 
@@ -439,16 +439,16 @@ extension ArticleScrollPositionQuerySortThenBy
   }
 
   QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QAfterSortBy>
-      thenByPosition() {
+      thenByProgress() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'position', Sort.asc);
+      return query.addSortBy(r'progress', Sort.asc);
     });
   }
 
   QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QAfterSortBy>
-      thenByPositionDesc() {
+      thenByProgressDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'position', Sort.desc);
+      return query.addSortBy(r'progress', Sort.desc);
     });
   }
 
@@ -470,9 +470,9 @@ extension ArticleScrollPositionQuerySortThenBy
 extension ArticleScrollPositionQueryWhereDistinct
     on QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QDistinct> {
   QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QDistinct>
-      distinctByPosition() {
+      distinctByProgress() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'position');
+      return query.addDistinctBy(r'progress');
     });
   }
 
@@ -493,9 +493,9 @@ extension ArticleScrollPositionQueryProperty on QueryBuilder<
   }
 
   QueryBuilder<ArticleScrollPosition, double, QQueryOperations>
-      positionProperty() {
+      progressProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'position');
+      return query.addPropertyName(r'progress');
     });
   }
 

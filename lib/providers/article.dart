@@ -32,12 +32,12 @@ class ArticleProvider extends ChangeNotifier {
         db.articles.watchObjectLazy(articleId).listen((_) => notifyListeners());
   }
 
-  Future<void> saveScrollPosition(double position) async {
+  Future<void> saveScrollProgress(double progress) async {
     if (articleId == 0) return;
     final article = await db.articles.get(articleId);
     await db.writeTxn(() async {
       await db.articleScrollPositions.put(
-        ArticleScrollPosition.fromArticle(article!, position),
+        ArticleScrollPosition.fromArticle(article!, progress),
       );
     });
   }

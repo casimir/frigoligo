@@ -8,14 +8,14 @@ part 'article_scroll_position.g.dart';
 class ArticleScrollPosition {
   Id? id;
   late int readingTime;
-  late double position;
+  late double progress;
 
   ArticleScrollPosition();
 
-  factory ArticleScrollPosition.fromArticle(Article article, double position) {
+  factory ArticleScrollPosition.fromArticle(Article article, double progress) {
     return ArticleScrollPosition()
       ..id = article.id
       ..readingTime = article.readingTime
-      ..position = position;
+      ..progress = progress;
   }
 }
