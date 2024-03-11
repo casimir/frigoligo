@@ -1,4 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:cadanse/components/widgets/error.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
@@ -12,6 +13,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../buildcontext_extension.dart';
 import '../constants.dart';
 import '../models/article.dart';
+import '../models/article_scroll_position.dart';
 import '../providers/article.dart';
 import '../providers/expander.dart';
 import '../providers/reading_settings.dart';
@@ -45,6 +47,7 @@ class ArticlePage extends ConsumerStatefulWidget {
 
 class _ArticlePageState extends ConsumerState<ArticlePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  final scroller = ScrollController();
 
   @override
   void initState() {
@@ -58,10 +61,9 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
 
   @override
   Widget build(BuildContext context) {
-    final syncer = context.read<RemoteSyncer>();
+    final syncer = RemoteSyncer.instance;
     final provider = context.watch<ArticleProvider>();
     final article = provider.article;
-    final scroller = ScrollController();
 
     final toggler = context.watch<Expander?>();
     Widget? leading;
@@ -79,7 +81,7 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
     } else if (article.content == null) {
       body = _buildEmptyContent(Uri.parse(article.url));
     } else {
-      body = _buildArticleContent(article, provider, syncer, scroller);
+      body = _buildArticleContent(article, provider);
     }
 
     final showRemoteSyncerWidgets = widget.withProgressIndicator &&
@@ -222,55 +224,60 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
     );
   }
 
-  Widget _buildArticleContent(
-    Article article,
-    ArticleProvider provider,
-    RemoteSyncer syncer,
-    scroller,
-  ) {
+  Widget _buildArticleContent(Article article, ArticleProvider provider) {
     void showTagsDialog([_]) => showDialog(
           context: context,
           builder: (_) => TagsSelectorDialog(
-            tags: syncer.wallabag!.tags,
+            tags: RemoteSyncer.instance.wallabag!.tags,
             initialValue: article.tags,
             onConfirm: (tags) {
-              syncer
+              RemoteSyncer.instance
                 ..add(EditArticleAction(article.id!, tags: tags))
                 ..synchronize();
             },
           ),
         );
 
-    return NotificationListener<ScrollNotification>(
-      onNotification: (notification) {
-        if (notification is ScrollEndNotification &&
-            !provider.isPositionRestorePending) {
-          provider.saveScrollPosition(notification.metrics.pixels);
-        }
-        return false;
-      },
-      child: Scrollbar(
-        controller: scroller,
-        child: SingleChildScrollView(
-          key: GlobalObjectKey('articlepage-${provider.articleId}'),
-          controller: scroller,
-          child: Column(
-            children: [
-              _buildHeader(article),
-              article.tags.isNotEmpty
-                  ? TagList(tags: article.tags, onTagPressed: showTagsDialog)
-                  : TextButton(
-                      onPressed: showTagsDialog,
-                      child: Text(context.L.article_addTags),
-                    ),
-              const Divider(),
-              _buildContent(article.content!, scroller, provider),
-              // use the same padding as SafeArea.bottom
-              SizedBox(height: MediaQuery.paddingOf(context).bottom),
-            ],
+    final scrollPositionFetch = ref.watch(scrollPositionProvider(article.id!));
+    return scrollPositionFetch.when(
+      data: (scrollPosition) {
+        return NotificationListener<ScrollNotification>(
+          onNotification: (notification) {
+            if (notification is ScrollEndNotification) {
+              final progress =
+                  scroller.offset / scroller.position.maxScrollExtent;
+              if (progress > 0) {
+                provider.saveScrollProgress(progress);
+              }
+            }
+            return false;
+          },
+          child: Scrollbar(
+            controller: scroller,
+            child: SingleChildScrollView(
+              controller: scroller,
+              child: Column(
+                children: [
+                  _buildHeader(article),
+                  article.tags.isNotEmpty
+                      ? TagList(
+                          tags: article.tags, onTagPressed: showTagsDialog)
+                      : TextButton(
+                          onPressed: showTagsDialog,
+                          child: Text(context.L.article_addTags),
+                        ),
+                  const Divider(),
+                  _buildContent(article.content!, scrollPosition),
+                  // use the same padding as SafeArea.bottom
+                  SizedBox(height: MediaQuery.paddingOf(context).bottom),
+                ],
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
+      error: (e, _) => Center(child: ErrorScreen(error: e as Exception)),
+      loading: () => const Center(child: CircularProgressIndicator.adaptive()),
     );
   }
 
@@ -298,8 +305,7 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
     );
   }
 
-  Widget _buildContent(
-      String content, ScrollController scroller, ArticleProvider provider) {
+  Widget _buildContent(String content, ArticleScrollPosition? scrollPosition) {
     final values = ref.watch(readingSettingsProvider);
 
     return Padding(
@@ -308,9 +314,10 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
         content,
         factoryBuilder: () => HtmlWidgetFactory(
           onTreeBuilt: (_) => WidgetsBinding.instance.addPostFrameCallback((_) {
-            if (provider.isPositionRestorePending) {
-              scroller.jumpTo(provider.scrollPosition!);
-              provider.hasJumpedToPosition = true;
+            if (scrollPosition != null && scrollPosition.progress > 0) {
+              final pixels =
+                  scrollPosition.progress * scroller.position.maxScrollExtent;
+              scroller.jumpTo(pixels);
             }
           }),
         ),
