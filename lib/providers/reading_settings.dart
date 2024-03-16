@@ -40,7 +40,7 @@ class ReadingSettings extends _$ReadingSettings {
     _commit();
   }
 
-  set fontFamily(String? family) {
+  set fontFamily(String family) {
     state.fontFamily = family;
     _commit();
   }
@@ -54,13 +54,13 @@ class ReaderSettingsValues {
     this.fontSize = 16.0,
     this.height = 1.5,
     this.letterSpacing = 0.5,
-    this.fontFamily,
+    this.fontFamily = '',
   });
 
   double fontSize;
   double height;
   double letterSpacing;
-  String? fontFamily;
+  String fontFamily;
 
   TextStyle get textStyle =>
       textStyleFromFontFamily(fontFamily).merge(TextStyle(
@@ -97,7 +97,7 @@ const gfonts = [
 // open dyslexic
 // Georgia
 
-TextStyle textStyleFromFontFamily(String? family) {
-  if (family == null || family.isEmpty) return const TextStyle();
+TextStyle textStyleFromFontFamily(String family) {
+  if (family.isEmpty) return const TextStyle();
   return GoogleFonts.getFont(family);
 }
