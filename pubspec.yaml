@@ -75,6 +75,7 @@ dependencies:
     git:
       url: https://github.com/casimir/cadanse.git
       ref: main
+  google_fonts: ^6.2.1
 
 dev_dependencies:
   flutter_test:
