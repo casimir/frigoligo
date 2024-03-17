@@ -1,20 +1,24 @@
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'settings.dart';
 
 part 'reading_settings.g.dart';
 
+final _log = Logger('readingsettings');
+
 @riverpod
 class ReadingSettings extends _$ReadingSettings {
   @override
   ReaderSettingsValues build() {
     final values = ref.read(settingsProvider)[Sk.readingSettings];
-    // FIXME quick an dirty setting init, specify the exception type at least
     try {
       return ReaderSettingsValues.fromJson(values);
-    } catch (_) {
+    } catch (e) {
+      _log.info('failed to load reading settings', e);
       return ReaderSettingsValues();
     }
   }
@@ -38,6 +42,30 @@ class ReadingSettings extends _$ReadingSettings {
     state.letterSpacing = spacing;
     _commit();
   }
+
+  set fontFamily(String family) {
+    state.fontFamily = family;
+    _commit();
+  }
+}
+
+// TODO maybe embed fonts and ensure licenses are shown like the others packages
+const readingFonts = [
+  'Lato',
+  'Montserrat',
+  'Literata',
+  'Newsreader',
+  'Atkinson Hyperlegible',
+];
+const defaultReadingFont = 'Lato';
+
+TextStyle textStyleFromFontFamily(String family) {
+  try {
+    return GoogleFonts.getFont(family);
+  } catch (e) {
+    _log.info('failed to load font $family', e);
+    return const TextStyle();
+  }
 }
 
 @JsonSerializable()
@@ -48,37 +76,22 @@ class ReaderSettingsValues {
     this.fontSize = 16.0,
     this.height = 1.5,
     this.letterSpacing = 0.5,
+    this.fontFamily = defaultReadingFont,
   });
 
   double fontSize;
   double height;
   double letterSpacing;
+  String fontFamily;
 
-  TextStyle get textStyle => TextStyle(
+  TextStyle get textStyle =>
+      textStyleFromFontFamily(fontFamily).merge(TextStyle(
         fontSize: fontSize,
         height: height,
         letterSpacing: letterSpacing,
-      );
+      ));
 
   factory ReaderSettingsValues.fromJson(Map<String, dynamic> json) =>
       _$ReaderSettingsValuesFromJson(json);
   Map<String, dynamic> toJson() => _$ReaderSettingsValuesToJson(this);
 }
-
-// FONTS
-// sans serif
-// serif
-// atkinson
-
-// Lato
-// Monserrat
-// Oswald
-
-// Literata
-// Georgia
-// IBM Plex Sans
-// Newsreader
-// Source Sans Pro
-// Source Serif Pro
-
-// open dyslexic

@@ -120,7 +120,7 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
                   value: 'reading-settings',
                   child: ListTile(
                     leading: const Icon(Icons.format_size),
-                    title: Text(context.L.reading_settings_title),
+                    title: Text(context.L.readingsettings_title),
                   ),
                 ),
                 PopupMenuItem(

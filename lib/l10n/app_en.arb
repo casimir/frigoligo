@@ -249,13 +249,17 @@
   "@login_title": {
     "description": "The title of the login screen."
   },
-  "@_READING_SETTINGS": {},
-  "reading_settings_fontSize": "Font size",
-  "@reading_settings_fontSize": {
-    "description": "The font size of the article content display."
+  "@_READINGSETTINGS": {},
+  "readingsettings_fontFamily": "Font family",
+  "@readingsettings_fontFamily": {
+    "description": "The font family to display the content of the article."
   },
-  "reading_settings_title": "Reading settings",
-  "@reading_settings_title": {
+  "readingsettings_fontSize": "Font size",
+  "@readingsettings_fontSize": {
+    "description": "The font size to display the content of the article."
+  },
+  "readingsettings_title": "Reading settings",
+  "@readingsettings_title": {
     "description": "The title of the reading settings screen."
   },
   "@_SAVE": {},

@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../buildcontext_extension.dart';
+import '../constants.dart';
 import '../providers/reading_settings.dart';
 
 const defaultPadding = 10.0;
 const defaultSpacing = 16.0;
+final defaultRunSpacing = !isMobilePlatform ? 10.0 : 0.0;
 const leftAlignedInsets = EdgeInsets.only(
   left: defaultSpacing,
   top: defaultPadding,
@@ -23,10 +25,9 @@ class ReadingSettingsConfigurator extends ConsumerWidget {
     return ListView(
       shrinkWrap: true,
       children: [
-        _buildSectionHeader(context, context.L.reading_settings_fontSize),
+        _buildSectionHeader(context, context.L.readingsettings_fontSize),
         Padding(
           padding: const EdgeInsets.all(defaultPadding),
-          // padding: leftAlignedInsets,
           child: Slider(
             value: values.fontSize,
             min: 12.0,
@@ -35,6 +36,30 @@ class ReadingSettingsConfigurator extends ConsumerWidget {
             onChanged: (size) {
               ref.read(readingSettingsProvider.notifier).fontSize = size;
             },
+          ),
+        ),
+        _buildSectionHeader(context, context.L.readingsettings_fontFamily),
+        Padding(
+          padding: const EdgeInsets.all(defaultPadding),
+          child: Wrap(
+            alignment: WrapAlignment.center,
+            spacing: defaultSpacing,
+            runSpacing: defaultRunSpacing,
+            children: readingFonts.map((family) {
+              return ChoiceChip(
+                label: Text(
+                  family,
+                  style: textStyleFromFontFamily(family),
+                ),
+                selected: values.fontFamily == family,
+                onSelected: (selected) {
+                  if (selected) {
+                    ref.read(readingSettingsProvider.notifier).fontFamily =
+                        family;
+                  }
+                },
+              );
+            }).toList(),
           ),
         ),
       ],
