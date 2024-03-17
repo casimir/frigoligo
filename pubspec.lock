@@ -180,11 +180,10 @@ packages:
   cadanse:
     dependency: "direct main"
     description:
-      path: "."
-      ref: main
-      resolved-ref: "935992cc5edb8bfd2ab761a0afe9567347a224e0"
-      url: "https://github.com/casimir/cadanse.git"
-    source: git
+      name: cadanse
+      sha256: "507fc584cb5c803be7735784921a13ac181d3f5b7b8eff76473c79c9387cde88"
+      url: "https://pub.dev"
+    source: hosted
     version: "1.0.0+1"
   characters:
     dependency: transitive

@@ -1,8 +1,8 @@
+import 'package:cadanse/layout.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../buildcontext_extension.dart';
-import '../../layout.dart';
 
 class TagsSelectorDialog extends StatefulWidget {
   const TagsSelectorDialog({
