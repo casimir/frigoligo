@@ -1,11 +1,14 @@
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'settings.dart';
 
 part 'reading_settings.g.dart';
+
+final _log = Logger('readingsettings');
 
 @riverpod
 class ReadingSettings extends _$ReadingSettings {
@@ -57,7 +60,12 @@ const readingFonts = [
 const defaultReadingFont = 'Lato';
 
 TextStyle textStyleFromFontFamily(String family) {
-  return GoogleFonts.getFont(family);
+  try {
+    return GoogleFonts.getFont(family);
+  } catch (e) {
+    _log.info('failed to load font $family', e);
+    return const TextStyle();
+  }
 }
 
 @JsonSerializable()
