@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../buildcontext_extension.dart';
+import '../constants.dart';
 import '../providers/reading_settings.dart';
 
 const defaultPadding = 10.0;
 const defaultSpacing = 16.0;
+final defaultRunSpacing = !isMobilePlatform ? 10.0 : 0.0;
 const leftAlignedInsets = EdgeInsets.only(
   left: defaultSpacing,
   top: defaultPadding,
@@ -38,24 +40,26 @@ class ReadingSettingsConfigurator extends ConsumerWidget {
         ),
         _buildSectionHeader(context, 'Font'), // TODO translate
         Padding(
-          // padding: const EdgeInsets.all(defaultPadding),
-          padding: leftAlignedInsets,
-          child: DropdownButton(
-            value: values.fontFamily,
-            items: gfonts
-                .map((family) => DropdownMenuItem(
-                      value: family,
-                      child: Text(
-                        family.isNotEmpty
-                            ? family
-                            : 'Default', // TODO translate
-                        style: textStyleFromFontFamily(family),
-                      ),
-                    ))
-                .toList(),
-            onChanged: (font) {
-              ref.read(readingSettingsProvider.notifier).fontFamily = font!;
-            },
+          padding: const EdgeInsets.all(defaultPadding),
+          child: Wrap(
+            alignment: WrapAlignment.center,
+            spacing: defaultSpacing,
+            runSpacing: defaultRunSpacing,
+            children: readingFonts.map((family) {
+              return ChoiceChip(
+                label: Text(
+                  family,
+                  style: textStyleFromFontFamily(family),
+                ),
+                selected: values.fontFamily == family,
+                onSelected: (selected) {
+                  if (selected) {
+                    ref.read(readingSettingsProvider.notifier).fontFamily =
+                        family;
+                  }
+                },
+              );
+            }).toList(),
           ),
         ),
       ],

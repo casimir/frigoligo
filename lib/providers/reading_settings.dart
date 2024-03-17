@@ -46,6 +46,20 @@ class ReadingSettings extends _$ReadingSettings {
   }
 }
 
+// TODO embed fonts
+const readingFonts = [
+  'Lato',
+  'Montserrat',
+  'Literata',
+  'Newsreader',
+  'Atkinson Hyperlegible',
+];
+const defaultReadingFont = 'Lato';
+
+TextStyle textStyleFromFontFamily(String family) {
+  return GoogleFonts.getFont(family);
+}
+
 @JsonSerializable()
 class ReaderSettingsValues {
 // The default values are based on Material's "Body Large" text theme.
@@ -54,7 +68,7 @@ class ReaderSettingsValues {
     this.fontSize = 16.0,
     this.height = 1.5,
     this.letterSpacing = 0.5,
-    this.fontFamily = '',
+    this.fontFamily = defaultReadingFont,
   });
 
   double fontSize;
@@ -72,32 +86,4 @@ class ReaderSettingsValues {
   factory ReaderSettingsValues.fromJson(Map<String, dynamic> json) =>
       _$ReaderSettingsValuesFromJson(json);
   Map<String, dynamic> toJson() => _$ReaderSettingsValuesToJson(this);
-}
-
-// TODO select and embed fonts
-// FIXME rename this variable
-const gfonts = [
-  '', // default
-  'Lato',
-  'Montserrat',
-  'Atkinson Hyperlegible',
-  'Oswald',
-  // -
-  'Literata',
-  'IBM Plex Sans',
-  'Newsreader',
-  'Source Sans 3',
-  'Source Serif 4',
-];
-
-// FONTS
-// sans serif
-// serif
-
-// open dyslexic
-// Georgia
-
-TextStyle textStyleFromFontFamily(String family) {
-  if (family.isEmpty) return const TextStyle();
-  return GoogleFonts.getFont(family);
 }

@@ -12,7 +12,7 @@ ReaderSettingsValues _$ReaderSettingsValuesFromJson(
       fontSize: (json['fontSize'] as num?)?.toDouble() ?? 16.0,
       height: (json['height'] as num?)?.toDouble() ?? 1.5,
       letterSpacing: (json['letterSpacing'] as num?)?.toDouble() ?? 0.5,
-      fontFamily: json['fontFamily'] as String? ?? '',
+      fontFamily: json['fontFamily'] as String? ?? defaultReadingFont,
     );
 
 Map<String, dynamic> _$ReaderSettingsValuesToJson(
