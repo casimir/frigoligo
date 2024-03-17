@@ -15,10 +15,10 @@ class ReadingSettings extends _$ReadingSettings {
   @override
   ReaderSettingsValues build() {
     final values = ref.read(settingsProvider)[Sk.readingSettings];
-    // FIXME quick an dirty setting init, specify the exception type at least
     try {
       return ReaderSettingsValues.fromJson(values);
-    } catch (_) {
+    } catch (e) {
+      _log.info('failed to load reading settings', e);
       return ReaderSettingsValues();
     }
   }
@@ -49,7 +49,7 @@ class ReadingSettings extends _$ReadingSettings {
   }
 }
 
-// TODO embed fonts
+// TODO maybe embed fonts and ensure licenses are shown like the others packages
 const readingFonts = [
   'Lato',
   'Montserrat',

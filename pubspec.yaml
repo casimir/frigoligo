@@ -70,12 +70,12 @@ dependencies:
   background_fetch: ^1.2.1
   flutter_riverpod: ^2.4.10
   riverpod_annotation: ^2.3.4
+  google_fonts: ^6.2.1
 
   cadanse:
     git:
       url: https://github.com/casimir/cadanse.git
       ref: main
-  google_fonts: ^6.2.1
 
 dev_dependencies:
   flutter_test:

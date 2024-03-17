@@ -25,7 +25,7 @@ class ReadingSettingsConfigurator extends ConsumerWidget {
     return ListView(
       shrinkWrap: true,
       children: [
-        _buildSectionHeader(context, context.L.reading_settings_fontSize),
+        _buildSectionHeader(context, context.L.readingsettings_fontSize),
         Padding(
           padding: const EdgeInsets.all(defaultPadding),
           child: Slider(
@@ -38,7 +38,7 @@ class ReadingSettingsConfigurator extends ConsumerWidget {
             },
           ),
         ),
-        _buildSectionHeader(context, 'Font'), // TODO translate
+        _buildSectionHeader(context, context.L.readingsettings_fontFamily),
         Padding(
           padding: const EdgeInsets.all(defaultPadding),
           child: Wrap(
