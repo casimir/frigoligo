@@ -1,6 +1,7 @@
 import 'dart:io' show Platform;
 
 import 'package:background_fetch/background_fetch.dart';
+import 'package:cadanse/layout.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -13,7 +14,6 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
 import 'constants.dart';
-import 'layout.dart';
 import 'models/db.dart';
 import 'pages/article.dart';
 import 'pages/listing.dart';
