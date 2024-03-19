@@ -406,5 +406,25 @@
   "listing_articlesAll": "Tous les articles",
   "@listing_articlesAll": {
     "description": "The title for the list of all the articles."
+  },
+  "reading_settings_title": "Paramètres de lecture",
+  "@reading_settings_title": {
+    "description": "The title of the reading settings screen."
+  },
+  "reading_settings_fontSize": "Taille de police",
+  "@reading_settings_fontSize": {
+    "description": "The font size of the article content display."
+  },
+  "readingsettings_fontFamily": "Famille de police",
+  "@readingsettings_fontFamily": {
+    "description": "The font family to display the content of the article."
+  },
+  "readingsettings_fontSize": "Taille de police",
+  "@readingsettings_fontSize": {
+    "description": "The font size to display the content of the article."
+  },
+  "readingsettings_title": "Réglages de lecture",
+  "@readingsettings_title": {
+    "description": "The title of the reading settings screen."
   }
 }
