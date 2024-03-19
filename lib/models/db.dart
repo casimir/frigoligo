@@ -6,6 +6,7 @@ import '../constants.dart';
 import 'app_log.dart';
 import 'article.dart';
 import 'article_scroll_position.dart';
+import 'remote_action.dart';
 
 typedef DBInstance = Isar;
 
@@ -18,7 +19,12 @@ class DB {
 
     final dir = await getApplicationDocumentsDirectory();
     _instance = await Isar.open(
-      [AppLogSchema, ArticleSchema, ArticleScrollPositionSchema],
+      [
+        AppLogSchema,
+        ArticleSchema,
+        ArticleScrollPositionSchema,
+        RemoteActionSchema,
+      ],
       directory: dir.path,
       name: 'frigoligo${devmode ? '-dev' : ''}',
     );

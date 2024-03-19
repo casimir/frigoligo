@@ -1,6 +1,9 @@
 import 'package:flutter/foundation.dart';
+import 'package:isar/isar.dart';
 import 'package:logging/logging.dart';
 
+import '../models/db.dart';
+import '../models/remote_action.dart';
 import '../providers/settings.dart';
 import '../wallabag/wallabag.dart';
 import 'remote_sync_actions/articles.dart';
@@ -12,7 +15,8 @@ final _log = Logger('remote.sync');
 class RemoteSyncer with ChangeNotifier {
   static const _refreshAction = RefreshArticlesAction();
 
-  SettingsProvider settings =
+  final DBInstance db = DB.get();
+  final SettingsProvider settings =
       SettingsProvider(namespace: kDebugMode ? 'debug' : null);
 
   WallabagStorage? _storage;
@@ -25,8 +29,7 @@ class RemoteSyncer with ChangeNotifier {
 
   void invalidateWallabagInstance() => _storage = null;
 
-  final Set<RemoteSyncAction> _queue = {};
-  int get pendingCount => _queue.length;
+  int get pendingCount => db.remoteActions.countSync();
 
   bool _isWorking = false;
   bool get isWorking => _isWorking;
@@ -58,7 +61,12 @@ class RemoteSyncer with ChangeNotifier {
   }
 
   void add(RemoteSyncAction action) {
-    _queue.add(action);
+    final existing =
+        db.remoteActions.filter().keyEqualTo(action.hashCode).findFirstSync();
+    if (existing == null) {
+      db.writeTxnSync(
+          () => db.remoteActions.putSync(RemoteAction.fromRSA(action)));
+    }
   }
 
   Future<void> synchronize({bool withFinalRefresh = false}) async {
@@ -90,19 +98,23 @@ class RemoteSyncer with ChangeNotifier {
 
   Future<void> _executeActions() async {
     progressValue = null;
-    int actionsCount = _queue.length;
-    List<RemoteSyncAction> actions = _queue.toList();
+
     int i = 1;
-    while (_queue.isNotEmpty) {
+    int actionsCount = 0;
+    do {
+      final actions = db.remoteActions.where().sortByCreatedAt().findAllSync();
+      actionsCount += actions.length;
       for (final action in actions) {
-        _log.info('running action: $action');
-        await action.execute(this);
-        _queue.remove(action);
+        final rsa = action.toRSA();
+        _log.info('running action: $rsa');
+        await rsa.execute(this);
+        db.writeTxnSync(() => db.remoteActions.deleteSync(action.id!));
         progressValue = i / actionsCount;
+        i++;
       }
-      actionsCount += _queue.length;
-      actions = _queue.toList();
-    }
+      // new actions might be added while the current batch was processed
+      actionsCount += pendingCount;
+    } while (i < actionsCount);
   }
 
   static final _instance = RemoteSyncer();
