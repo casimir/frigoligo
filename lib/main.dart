@@ -4,6 +4,7 @@ import 'package:background_fetch/background_fetch.dart';
 import 'package:cadanse/layout.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart'
     show ProviderScope, ConsumerWidget, WidgetRef;
@@ -45,9 +46,10 @@ void main() async {
     }
     debugPrint(line);
   });
-  PlatformDispatcher.instance.onError = (error, stack) {
-    _log.severe('uncaught error', error, stack);
-    return false;
+  FlutterError.onError = (errorDetails) {
+    final repr = errorDetails.exceptionAsString();
+    _log.severe('uncaught error', repr, errorDetails.stack);
+    FlutterError.presentError(errorDetails);
   };
   _log.info('starting app');
 
