@@ -216,14 +216,14 @@ class MyApp extends ConsumerWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({super.key, this.openArticleId});
 
   final int? openArticleId;
 
   @override
-  Widget build(BuildContext context) {
-    final settings = context.read<SettingsProvider>();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final settings = ref.read(settingsProvider);
     return _MainContainer(
       initialArticleId: openArticleId ?? settings[Sk.selectedArticleId],
       openArticle: openArticleId != null,
