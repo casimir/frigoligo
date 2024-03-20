@@ -7,7 +7,7 @@ void main() {
   group('Smoke Tests', () {
     testWidgets('empty login server', (tester) async {
       tester.runAsync(() async {
-        await SettingsProvider.init();
+        await SettingsValues.init();
         await tester.pumpWidget(const MyApp());
         expect(find.text('Server'), findsOneWidget);
         await tester.tap(find.byType(ElevatedButton).first);

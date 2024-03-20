@@ -1,7 +1,7 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
 import '../buildcontext_extension.dart';
 import '../models/article.dart';
@@ -9,16 +9,16 @@ import '../models/db.dart';
 import '../providers/settings.dart';
 import '../wallabag/wallabag.dart';
 
-class SavePage extends StatefulWidget {
+class SavePage extends ConsumerStatefulWidget {
   const SavePage({super.key, required this.url});
 
   final String? url;
 
   @override
-  State<SavePage> createState() => _SavePageState();
+  ConsumerState<SavePage> createState() => _SavePageState();
 }
 
-class _SavePageState extends State<SavePage> {
+class _SavePageState extends ConsumerState<SavePage> {
   SaveStep step = SaveStep.pending;
   int? savedArticleId;
   String? errorMessage;
@@ -34,7 +34,7 @@ class _SavePageState extends State<SavePage> {
       });
     } else {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        final settings = context.read<SettingsProvider>();
+        final settings = ref.read(settingsProvider);
         if (settings[Sk.tagSaveEnabled]) {
           _doSave([settings[Sk.tagSaveLabel]]);
         } else {

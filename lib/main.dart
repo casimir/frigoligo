@@ -29,7 +29,6 @@ import 'providers/logconsole.dart';
 import 'providers/query.dart';
 import 'providers/settings.dart';
 import 'services/remote_sync.dart';
-import 'services/wallabag_storage.dart';
 import 'wallabag/wallabag.dart';
 
 final _log = Logger('frigoligo');
@@ -45,9 +44,10 @@ void main() async {
     }
     debugPrint(line);
   });
-  PlatformDispatcher.instance.onError = (error, stack) {
-    _log.severe('uncaught error', error, stack);
-    return false;
+  FlutterError.onError = (errorDetails) {
+    final repr = errorDetails.exceptionAsString();
+    _log.severe('uncaught error', repr, errorDetails.stack);
+    FlutterError.presentError(errorDetails);
   };
   _log.info('starting app');
 
@@ -56,7 +56,7 @@ void main() async {
 
   await DB.init(kDebugMode);
   await WallabagInstance.init();
-  await SettingsProvider.init();
+  await SettingsValues.init();
   final info = await PackageInfo.fromPlatform();
   _log.info('version:    ${info.version}+${info.buildNumber}');
   _log.info('platform:   ${Platform.operatingSystem}');
@@ -116,10 +116,7 @@ final _router = GoRouter(routes: [
   ),
   GoRoute(
     path: '/settings',
-    builder: (context, state) => ChangeNotifierProvider.value(
-      value: state.extra as WallabagStorage,
-      child: const SettingsPage(),
-    ),
+    builder: (context, state) => const SettingsPage(),
   ),
   GoRoute(
     path: '/session',
@@ -157,7 +154,6 @@ class MyApp extends ConsumerWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => RemoteSyncer.instance),
-        ChangeNotifierProvider(create: (_) => ref.read(settingsProvider)),
         ChangeNotifierProvider(
           create: (context) {
             return DeeplinksProvider(_router.configuration, (linkType, uri) {
@@ -195,18 +191,13 @@ class MyApp extends ConsumerWidget {
           }
         });
 
-        final Language language = context
-            .select((SettingsProvider settings) => settings[Sk.language]);
-        final ThemeMode themeMode = context
-            .select((SettingsProvider settings) => settings[Sk.themeMode]);
-
         return MaterialApp.router(
           routerConfig: _router,
           title: 'Frigoligo',
           theme: ThemeData(colorScheme: schemeLight, useMaterial3: true),
           darkTheme: ThemeData(colorScheme: schemeDark, useMaterial3: true),
-          themeMode: themeMode,
-          locale: language.locale,
+          themeMode: ref.watch(themeModeProvider),
+          locale: ref.watch(languageProvider).locale,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           restorationScopeId: 'app',
@@ -216,14 +207,14 @@ class MyApp extends ConsumerWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({super.key, this.openArticleId});
 
   final int? openArticleId;
 
   @override
-  Widget build(BuildContext context) {
-    final settings = context.read<SettingsProvider>();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final settings = ref.read(settingsProvider);
     return _MainContainer(
       initialArticleId: openArticleId ?? settings[Sk.selectedArticleId],
       openArticle: openArticleId != null,

@@ -1,9 +1,9 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
-import 'package:provider/provider.dart';
 
 import '../buildcontext_extension.dart';
 import '../models/db.dart';
@@ -17,7 +17,7 @@ import 'login_forms/validators.dart';
 
 final _log = Logger('login');
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key, this.initial});
 
   final Map<String, String>? initial;
@@ -25,10 +25,10 @@ class LoginPage extends StatefulWidget {
   bool get hasInitialData => initial != null && initial!.isNotEmpty;
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  ConsumerState<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends ConsumerState<LoginPage> {
   late Map<String, String>? _initialData;
   final _serverFbKey = GlobalKey<FormBuilderState>();
   WallabagServerCheck? _configuredServer;
@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
 
     if (WallabagInstance.isReady) {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
-        final settings = context.read<SettingsProvider>();
+        final settings = ref.read(settingsProvider);
         final result = await showOkCancelAlertDialog(
           context: context,
           title: context.L.login_existingSessionDialogTitle,
