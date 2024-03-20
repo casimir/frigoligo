@@ -1,6 +1,7 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
@@ -30,12 +31,12 @@ Widget _copyText(BuildContext context, String text, [bool obfuscate = false]) {
   );
 }
 
-class SessionDetailsPage extends StatelessWidget {
+class SessionDetailsPage extends ConsumerWidget {
   const SessionDetailsPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final settings = context.read<SettingsProvider>();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final settings = ref.watch(settingsProvider);
     final wallabag = WallabagInstance.get();
 
     String sinceLastSync = context.L.session_neverSynced;

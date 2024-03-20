@@ -1,5 +1,6 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -15,14 +16,14 @@ import '../services/wallabag_storage.dart';
 
 final _log = Logger('frigoligo.listing');
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final settings = context.watch<SettingsProvider>();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final settings = ref.watch(settingsProvider);
     final storage = context.read<WallabagStorage>();
-    final syncer = context.read<RemoteSyncer>();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(context.L.settings_title),
@@ -132,7 +133,7 @@ class SettingsPage extends StatelessWidget {
                     settings.remove(Sk.lastRefresh);
                     if (context.mounted) {
                       storage.clearArticles();
-                      syncer.synchronize(withFinalRefresh: true);
+                      RemoteSyncer.instance.synchronize(withFinalRefresh: true);
                       context.go('/');
                     }
                   },
