@@ -423,7 +423,7 @@
   "@readingsettings_fontSize": {
     "description": "The font size to display the content of the article."
   },
-  "readingsettings_title": "Réglages de lecture",
+  "readingsettings_title": "Paramètres de lecture",
   "@readingsettings_title": {
     "description": "The title of the reading settings screen."
   }
