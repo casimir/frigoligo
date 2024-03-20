@@ -161,6 +161,8 @@ class MyApp extends ConsumerWidget {
         ChangeNotifierProvider(
           create: (context) {
             return DeeplinksProvider(_router.configuration, (linkType, uri) {
+              if (linkType == Deeplink.invalid) return;
+
               void pushOrGoLogin(Uri uri) {
                 if (WallabagInstance.isReady) {
                   _router.push(uri.toString());
@@ -172,11 +174,10 @@ class MyApp extends ConsumerWidget {
               switch (linkType) {
                 case Deeplink.article:
                   _router.go('/?articleId=${uri.pathSegments.last}');
-                case Deeplink.login:
-                  _router.go(uri.toString());
                 case Deeplink.save:
                   pushOrGoLogin(uri);
                 default:
+                  _router.go(uri.toString());
               }
             });
           },

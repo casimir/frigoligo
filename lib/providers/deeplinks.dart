@@ -24,6 +24,7 @@ class DeeplinksProvider extends ChangeNotifier {
     final linkType = switch (uri.pathSegments.first) {
       'articles' => Deeplink.article,
       'login' => Deeplink.login,
+      'logs' => Deeplink.logs,
       'save' => Deeplink.save,
       _ => Deeplink.invalid,
     };
@@ -56,5 +57,6 @@ enum Deeplink {
   article,
   invalid,
   login,
+  logs,
   save,
 }
