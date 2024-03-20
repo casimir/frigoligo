@@ -10,6 +10,7 @@ import '../constants.dart';
 import '../models/article.dart';
 import '../models/article_scroll_position.dart';
 import '../models/db.dart';
+import '../models/remote_action.dart';
 import '../providers/settings.dart';
 import '../wallabag/wallabag.dart';
 
@@ -150,6 +151,7 @@ class WallabagStorage with ChangeNotifier {
     await db.writeTxn(() async {
       await db.articles.clear();
       if (!keepPositions) await db.articleScrollPositions.clear();
+      await db.remoteActions.clear();
     });
     _log.info('cleared the whole articles collection');
     updateAppBadge();
