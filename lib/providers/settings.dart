@@ -2,24 +2,16 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../services/remote_sync.dart';
 import 'ios/settings_syncer.dart';
 
-part 'settings.g.dart';
-
 final _log = Logger('settings');
 
-@riverpod
-class Settings extends _$Settings {
-  @override
-  Raw<SettingsProvider> build() => RemoteSyncer.instance.settings;
-}
-
-class SettingsProvider extends ChangeNotifier {
+class SettingsValues extends ChangeNotifier {
   static late SharedPreferences _prefs;
 
   static Future<void> init() async {
@@ -29,7 +21,7 @@ class SettingsProvider extends ChangeNotifier {
     }
   }
 
-  SettingsProvider({this.namespace}) {
+  SettingsValues({this.namespace}) {
     if (Platform.isIOS) {
       _syncer = SettingsSyncer(this);
     }
@@ -136,3 +128,10 @@ enum Language {
 
   final Locale? locale;
 }
+
+final settingsProvider =
+    ChangeNotifierProvider((ref) => RemoteSyncer.instance.settings);
+final languageProvider =
+    Provider<Language>((ref) => ref.watch(settingsProvider)[Sk.language]);
+final themeModeProvider =
+    Provider<ThemeMode>((ref) => ref.watch(settingsProvider)[Sk.themeMode]);

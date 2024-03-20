@@ -13,7 +13,7 @@ class SettingsSyncer {
 
   SettingsSyncer(this.settings);
 
-  final SettingsProvider settings;
+  final SettingsValues settings;
 
   Future<bool> _isSet() async =>
       await SharedPreferenceAppGroup.get(Sk.tagSaveLabel.key) != null;

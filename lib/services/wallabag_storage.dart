@@ -24,7 +24,7 @@ class WallabagStorage with ChangeNotifier {
   final DBInstance db = DB.get();
   final WallabagClient wallabag = WallabagInstance.get();
   StreamSubscription? _watcher;
-  final SettingsProvider settings;
+  final SettingsValues settings;
 
   @override
   void dispose() {

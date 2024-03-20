@@ -16,8 +16,8 @@ class RemoteSyncer with ChangeNotifier {
   static const _refreshAction = RefreshArticlesAction();
 
   final DBInstance db = DB.get();
-  final SettingsProvider settings =
-      SettingsProvider(namespace: kDebugMode ? 'debug' : null);
+  final SettingsValues settings =
+      SettingsValues(namespace: kDebugMode ? 'debug' : null);
 
   WallabagStorage? _storage;
   WallabagStorage? get wallabag {

@@ -56,7 +56,7 @@ void main() async {
 
   await DB.init(kDebugMode);
   await WallabagInstance.init();
-  await SettingsProvider.init();
+  await SettingsValues.init();
   final info = await PackageInfo.fromPlatform();
   _log.info('version:    ${info.version}+${info.buildNumber}');
   _log.info('platform:   ${Platform.operatingSystem}');
@@ -157,7 +157,6 @@ class MyApp extends ConsumerWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => RemoteSyncer.instance),
-        ChangeNotifierProvider(create: (_) => ref.read(settingsProvider)),
         ChangeNotifierProvider(
           create: (context) {
             return DeeplinksProvider(_router.configuration, (linkType, uri) {
@@ -195,18 +194,13 @@ class MyApp extends ConsumerWidget {
           }
         });
 
-        final Language language = context
-            .select((SettingsProvider settings) => settings[Sk.language]);
-        final ThemeMode themeMode = context
-            .select((SettingsProvider settings) => settings[Sk.themeMode]);
-
         return MaterialApp.router(
           routerConfig: _router,
           title: 'Frigoligo',
           theme: ThemeData(colorScheme: schemeLight, useMaterial3: true),
           darkTheme: ThemeData(colorScheme: schemeDark, useMaterial3: true),
-          themeMode: themeMode,
-          locale: language.locale,
+          themeMode: ref.watch(themeModeProvider),
+          locale: ref.watch(languageProvider).locale,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
           restorationScopeId: 'app',
