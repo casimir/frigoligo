@@ -4,7 +4,6 @@ import 'package:background_fetch/background_fetch.dart';
 import 'package:cadanse/layout.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart'
     show ProviderScope, ConsumerWidget, WidgetRef;
@@ -30,7 +29,6 @@ import 'providers/logconsole.dart';
 import 'providers/query.dart';
 import 'providers/settings.dart';
 import 'services/remote_sync.dart';
-import 'services/wallabag_storage.dart';
 import 'wallabag/wallabag.dart';
 
 final _log = Logger('frigoligo');
