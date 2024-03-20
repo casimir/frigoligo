@@ -68,7 +68,7 @@ class _ListingPageState extends State<ListingPage> {
             ),
           IconButton(
             icon: const Icon(Icons.settings),
-            onPressed: () => context.push('/settings', extra: storage),
+            onPressed: () => context.push('/settings'),
           ),
         ],
       ),

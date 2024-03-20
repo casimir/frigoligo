@@ -12,7 +12,6 @@ import '../constants.dart';
 import '../providers/deeplinks.dart';
 import '../providers/settings.dart';
 import '../services/remote_sync.dart';
-import '../services/wallabag_storage.dart';
 
 final _log = Logger('frigoligo.listing');
 
@@ -22,7 +21,7 @@ class SettingsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final settings = ref.watch(settingsProvider);
-    final storage = context.read<WallabagStorage>();
+    final storage = RemoteSyncer.instance.wallabag!;
 
     return Scaffold(
       appBar: AppBar(

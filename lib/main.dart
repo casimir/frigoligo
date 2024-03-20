@@ -118,10 +118,7 @@ final _router = GoRouter(routes: [
   ),
   GoRoute(
     path: '/settings',
-    builder: (context, state) => ChangeNotifierProvider.value(
-      value: state.extra as WallabagStorage,
-      child: const SettingsPage(),
-    ),
+    builder: (context, state) => const SettingsPage(),
   ),
   GoRoute(
     path: '/session',
