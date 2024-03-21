@@ -13,18 +13,6 @@
   "@g_delete": {
     "description": "A verb, as in to delete something."
   },
-  "g_langEN": "English",
-  "@g_langEN": {
-    "description": "The English language."
-  },
-  "g_langFR": "French",
-  "@g_langFR": {
-    "description": "The French language."
-  },
-  "g_langDE": "German",
-  "@g_langDE": {
-    "description": "The German language."
-  },
   "g_search": "Search",
   "@g_search": {
     "description": "A verb, as in to search something."
@@ -415,6 +403,10 @@
   "settings_itemLanguage": "Language",
   "@settings_itemLanguage": {
     "description": "The action to change the language of the application."
+  },
+  "settings_helpToTranslate": "Help to translate",
+  "@settings_helpToTranslate": {
+    "description": "The action to open the Weblate project in a webview."
   },
   "settings_savedArticleTag": "Add a tag to saved articles",
   "@settings_savedArticleTag": {

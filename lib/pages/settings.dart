@@ -6,6 +6,7 @@ import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../buildcontext_extension.dart';
 import '../constants.dart';
@@ -33,24 +34,6 @@ class SettingsPage extends ConsumerWidget {
             SettingsSection(
               title: Text(context.L.settings_headerPreferences),
               tiles: [
-                SettingsTile.navigation(
-                  leading: const Icon(Icons.language),
-                  title: Text(context.L.settings_itemLanguage),
-                  value: Text(getLanguageLabel(context, settings[Sk.language])),
-                  onPressed: (context) async {
-                    AlertDialogAction build(Language lang) => AlertDialogAction(
-                          label: getLanguageLabel(context, lang),
-                          key: lang,
-                        );
-                    final choice = await showConfirmationDialog(
-                      context: context,
-                      title: context.L.settings_itemLanguage,
-                      actions:
-                          getOrderedLanguageLabels(context).map(build).toList(),
-                    );
-                    if (choice != null) settings[Sk.language] = choice;
-                  },
-                ),
                 SettingsTile.navigation(
                   leading: const Icon(Icons.format_paint),
                   title: Text(context.L.settings_itemAppearance),
@@ -115,6 +98,32 @@ class SettingsPage extends ConsumerWidget {
                 ),
               ],
             ),
+            SettingsSection(tiles: [
+              SettingsTile.navigation(
+                leading: const Icon(Icons.language),
+                title: Text(context.L.settings_itemLanguage),
+                value: Text(getLanguageLabel(context, settings[Sk.language])),
+                onPressed: (context) async {
+                  AlertDialogAction build(Language lang) => AlertDialogAction(
+                        label: getLanguageLabel(context, lang),
+                        key: lang,
+                      );
+                  final choice = await showConfirmationDialog(
+                    context: context,
+                    title: context.L.settings_itemLanguage,
+                    actions: Language.values.map(build).toList(),
+                  );
+                  if (choice != null) settings[Sk.language] = choice;
+                },
+              ),
+              SettingsTile(
+                leading: const Icon(Icons.handyman),
+                trailing: const Icon(Icons.open_in_new),
+                title: Text(context.L.settings_helpToTranslate),
+                onPressed: (context) => launchUrlString(
+                    'https://hosted.weblate.org/projects/frigoligo/'),
+              )
+            ]),
             SettingsSection(
               title: Text(context.L.settings_headerGeneral),
               tiles: [
@@ -196,20 +205,8 @@ class SettingsPage extends ConsumerWidget {
 String getLanguageLabel(BuildContext context, Language lang) {
   return switch (lang) {
     Language.system => context.L.g_system,
-    Language.english => context.L.g_langEN,
-    Language.french => context.L.g_langFR,
-    Language.german => context.L.g_langDE,
+    _ => lang.nativeName,
   };
-}
-
-List<Language> getOrderedLanguageLabels(BuildContext context) {
-  final mapping = {
-    for (final lang in Language.values)
-      if (lang != Language.system) getLanguageLabel(context, lang): lang
-  };
-  final orderedLabels = mapping.keys.toList()..sort();
-  final orderedKeys = orderedLabels.map((e) => mapping[e]!).toList();
-  return [Language.system] + orderedKeys;
 }
 
 String getThemeModeLabel(BuildContext context, ThemeMode mode) {

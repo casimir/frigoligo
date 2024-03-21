@@ -119,14 +119,16 @@ enum Sk {
 }
 
 enum Language {
-  system(null),
-  english(Locale('en')),
-  french(Locale('fr')),
-  german(Locale('de'));
+  system(null, ''),
+  // values should be in alphabetical order as they are displayed in the UI
+  de(Locale('de'), 'Deustch'),
+  en(Locale('en'), 'English'),
+  fr(Locale('fr'), 'Français');
 
-  const Language(this.locale);
+  const Language(this.locale, this.nativeName);
 
   final Locale? locale;
+  final String nativeName;
 }
 
 final settingsProvider =
