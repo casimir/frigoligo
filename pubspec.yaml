@@ -53,8 +53,8 @@ dependencies:
   cached_network_image: ^3.2.3
   flutter_svg: ^2.0.7
   url_launcher: ^6.1.12
-  share_plus: ^7.0.2
-  package_info_plus: ^5.0.1
+  share_plus: ^8.0.0
+  package_info_plus: ^6.0.0
   flutter_form_builder: ^9.0.0
   adaptive_dialog: ^2.0.0
   settings_ui: ^2.0.2
