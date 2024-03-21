@@ -10,9 +10,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart'
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:neat_periodic_task/neat_periodic_task.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
+import 'app_info.dart';
 import 'constants.dart';
 import 'models/db.dart';
 import 'pages/article.dart';
@@ -54,11 +54,12 @@ void main() async {
   // after this line using `await` is OK
   WidgetsFlutterBinding.ensureInitialized();
 
+  await AppInfo.init();
   await DB.init(kDebugMode);
   await WallabagInstance.init();
   await SettingsValues.init();
-  final info = await PackageInfo.fromPlatform();
-  _log.info('version:    ${info.version}+${info.buildNumber}');
+
+  _log.info('version:    ${AppInfo.versionVerbose}');
   _log.info('platform:   ${Platform.operatingSystem}');
   _log.info('os version: ${Platform.operatingSystemVersion}');
 

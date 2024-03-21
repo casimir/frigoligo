@@ -25,6 +25,10 @@
   "@g_share": {
     "description": "A verb, as in to share something."
   },
+  "g_sourceCode": "Source code",
+  "@g_sourceCode": {
+    "description": "The source code of a software."
+  },
   "g_system": "System",
   "@system": {
     "description": "A name, as in the default configuration (System configuration)."
@@ -36,6 +40,10 @@
   "g_url": "URL",
   "@g_url": {
     "description": "An URL, as in a web address."
+  },
+  "g_version": "Version",
+  "@g_version": {
+    "description": "A version, as in the application version."
   },
   "@_HUMANIZE": {},
   "humanize_days": "{n, plural, =1{1 day} other{{n} days}}",
@@ -372,6 +380,10 @@
     "description": "The title of the session details screen."
   },
   "@_SETTINGS": {},
+  "settings_bugReportLink": "Report a bug",
+  "@settings_bugReportLink": {
+    "description": "The action to open the bug report form."
+  },
   "settings_clearCacheMessage": "The local cache will be deleted and fetched again from the server.",
   "@settings_clearCacheMessage": {
     "description": "The message of the confirmation dialog to clear the cache."
@@ -419,18 +431,6 @@
   "settings_itemSessionDetails": "Session details",
   "@settings_itemSessionDetails": {
     "description": "The action to display the session details screen."
-  },
-  "settings_headerAdvanced": "Advanced",
-  "@settings_headerAdvanced": {
-    "description": "The header of the advanced section in the settings screen."
-  },
-  "settings_headerGeneral": "General",
-  "@settings_headerGeneral": {
-    "description": "The header of the general section in the settings screen."
-  },
-  "settings_headerPreferences": "Preferences",
-  "@settings_headerPreferences": {
-    "description": "The header of the preferences section in the settings screen."
   },
   "settings_title": "Settings",
   "@settings_title": {
