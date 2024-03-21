@@ -1,5 +1,6 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
@@ -8,13 +9,14 @@ import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../app_info.dart';
 import '../buildcontext_extension.dart';
 import '../constants.dart';
 import '../providers/deeplinks.dart';
 import '../providers/settings.dart';
 import '../services/remote_sync.dart';
 
-final _log = Logger('frigoligo.listing');
+final _log = Logger('settings');
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
@@ -31,8 +33,8 @@ class SettingsPage extends ConsumerWidget {
       body: Center(
         child: SettingsList(
           sections: [
+            // Preferences
             SettingsSection(
-              title: Text(context.L.settings_headerPreferences),
               tiles: [
                 SettingsTile.navigation(
                   leading: const Icon(Icons.format_paint),
@@ -98,6 +100,7 @@ class SettingsPage extends ConsumerWidget {
                 ),
               ],
             ),
+            // Translations
             SettingsSection(tiles: [
               SettingsTile.navigation(
                 leading: const Icon(Icons.language),
@@ -120,13 +123,64 @@ class SettingsPage extends ConsumerWidget {
                 leading: const Icon(Icons.handyman),
                 trailing: const Icon(Icons.open_in_new),
                 title: Text(context.L.settings_helpToTranslate),
-                onPressed: (context) => launchUrlString(
+                onPressed: (_) => launchUrlString(
                     'https://hosted.weblate.org/projects/frigoligo/'),
               )
             ]),
+            // App Info
             SettingsSection(
-              title: Text(context.L.settings_headerGeneral),
               tiles: [
+                SettingsTile(
+                  leading: const Icon(Icons.info_outline),
+                  title: Text(context.L.g_version),
+                  value: Text(AppInfo.versionVerbose),
+                  onPressed: (context) async {
+                    await Clipboard.setData(
+                        ClipboardData(text: AppInfo.versionVerbose));
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text(context.L.session_copiedToClipboard)));
+                    }
+                  },
+                ),
+                SettingsTile(
+                  leading: const Icon(Icons.code),
+                  trailing: const Icon(Icons.open_in_new),
+                  title: Text(context.L.g_sourceCode),
+                  onPressed: (_) =>
+                      launchUrlString('https://github.com/casimir/frigoligo'),
+                ),
+                SettingsTile(
+                  leading: const Icon(Icons.bug_report),
+                  trailing: const Icon(Icons.open_in_new),
+                  title: Text(context.L.settings_bugReportLink),
+                  onPressed: (_) => launchUrlString(
+                      'https://github.com/casimir/frigoligo/issues'),
+                ),
+                SettingsTile.navigation(
+                  leading: const Icon(Icons.description),
+                  title: Text(MaterialLocalizations.of(context)
+                      .viewLicensesButtonLabel),
+                  onPressed: (context) => showLicensePage(
+                    context: context,
+                    applicationLegalese: '© 2023 Casimir Lab',
+                  ),
+                ),
+              ],
+            ),
+            // Advanced
+            SettingsSection(
+              tiles: [
+                SettingsTile.navigation(
+                  leading: const Icon(Icons.key),
+                  title: Text(context.L.settings_itemSessionDetails),
+                  onPressed: (context) => context.push('/session'),
+                ),
+                SettingsTile.navigation(
+                  leading: const Icon(Icons.receipt_long),
+                  title: Text(context.L.settings_itemLogConsole),
+                  onPressed: (context) => context.push('/logs'),
+                ),
                 SettingsTile(
                   leading: const Icon(Icons.sync),
                   title: Text(context.L.settings_itemClearCache),
@@ -145,34 +199,6 @@ class SettingsPage extends ConsumerWidget {
                       context.go('/');
                     }
                   },
-                ),
-                SettingsTile(
-                  leading: const Icon(Icons.info),
-                  title: Text(context.L.settings_itemAbout),
-                  onPressed: (context) =>
-                      PackageInfo.fromPlatform().then((info) {
-                    showAboutDialog(
-                      context: context,
-                      // applicationIcon: const FlutterLogo(),
-                      applicationVersion: '${info.version}+${info.buildNumber}',
-                      applicationLegalese: '© 2023 Casimir Lab',
-                    );
-                  }),
-                ),
-              ],
-            ),
-            SettingsSection(
-              title: Text(context.L.settings_headerAdvanced),
-              tiles: [
-                SettingsTile.navigation(
-                  leading: const Icon(Icons.key),
-                  title: Text(context.L.settings_itemSessionDetails),
-                  onPressed: (context) => context.push('/session'),
-                ),
-                SettingsTile.navigation(
-                  leading: const Icon(Icons.bug_report),
-                  title: Text(context.L.settings_itemLogConsole),
-                  onPressed: (context) => context.push('/logs'),
                 ),
                 SettingsTile(
                   leading: const Icon(Icons.dataset_linked),
