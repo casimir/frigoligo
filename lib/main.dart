@@ -10,7 +10,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart'
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:neat_periodic_task/neat_periodic_task.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 
 import 'app_info.dart';
