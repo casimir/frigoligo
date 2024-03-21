@@ -4,8 +4,7 @@ class AppInfo {
   static PackageInfo? _data;
 
   static init() async {
-    final info = await PackageInfo.fromPlatform();
-    _data = info;
+    _data = await PackageInfo.fromPlatform();
   }
 
   static get data => _data!;
