@@ -45,8 +45,7 @@ class SettingsPage extends ConsumerWidget {
                     final choice = await showConfirmationDialog(
                       context: context,
                       title: context.L.settings_itemLanguage,
-                      actions:
-                          getOrderedLanguageLabels(context).map(build).toList(),
+                      actions: Language.values.map(build).toList(),
                     );
                     if (choice != null) settings[Sk.language] = choice;
                   },
@@ -196,20 +195,8 @@ class SettingsPage extends ConsumerWidget {
 String getLanguageLabel(BuildContext context, Language lang) {
   return switch (lang) {
     Language.system => context.L.g_system,
-    Language.english => context.L.g_langEN,
-    Language.french => context.L.g_langFR,
-    Language.german => context.L.g_langDE,
+    _ => lang.nativeName,
   };
-}
-
-List<Language> getOrderedLanguageLabels(BuildContext context) {
-  final mapping = {
-    for (final lang in Language.values)
-      if (lang != Language.system) getLanguageLabel(context, lang): lang
-  };
-  final orderedLabels = mapping.keys.toList()..sort();
-  final orderedKeys = orderedLabels.map((e) => mapping[e]!).toList();
-  return [Language.system] + orderedKeys;
 }
 
 String getThemeModeLabel(BuildContext context, ThemeMode mode) {

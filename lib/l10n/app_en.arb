@@ -13,18 +13,6 @@
   "@g_delete": {
     "description": "A verb, as in to delete something."
   },
-  "g_langEN": "English",
-  "@g_langEN": {
-    "description": "The English language."
-  },
-  "g_langFR": "French",
-  "@g_langFR": {
-    "description": "The French language."
-  },
-  "g_langDE": "German",
-  "@g_langDE": {
-    "description": "The German language."
-  },
   "g_search": "Search",
   "@g_search": {
     "description": "A verb, as in to search something."
