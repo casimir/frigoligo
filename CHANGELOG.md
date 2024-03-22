@@ -1,7 +1,31 @@
+<a name="v0.8.1"></a>
+# [v0.8.1](https://github.com/casimir/frigoligo/releases/tag/v0.8.1) - 22 Mar 2024
+
+Rework of the settings screen plus a few general bugfixes.
+
+## What's Changed
+### Features
+* Add a deeplink action to open the log console by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/145
+* Clear pending actions when clearing local data by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/147
+* Localization settings enhancements by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/149
+* Rework the settings screen by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/150
+* Keep settings sections readable on Android by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/152
+### Miscellaneous
+* Translations update from Hosted Weblate by [@weblate](https://github.com/weblate) in https://github.com/casimir/frigoligo/pull/143
+* Move settings backend usages from provider to riverpod by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/146
+* Upgrade a few dependencies by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/151
+* Translations update from Hosted Weblate by [@weblate](https://github.com/weblate) in https://github.com/casimir/frigoligo/pull/153
+
+
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.8.0...v0.8.1
+
+[Changes][v0.8.1]
+
+
 <a name="v0.8.0"></a>
 # [0.8.0 (v0.8.0)](https://github.com/casimir/frigoligo/releases/tag/v0.8.0) - 19 Mar 2024
 
-Most likely the last dev version, this release contains the last feature planned in the 1.0 milestone :tada:.
+Most likely the last dev version, this release contains the last features planned in the 1.0 milestone. :tada:
 
 ## What's Changed
 ### Features
@@ -365,6 +389,7 @@ Let's begin! This is the very first release.
 [Changes][v0.1.0]
 
 
+[v0.8.1]: https://github.com/casimir/frigoligo/compare/v0.8.0...v0.8.1
 [v0.8.0]: https://github.com/casimir/frigoligo/compare/v0.7.2...v0.8.0
 [v0.7.2]: https://github.com/casimir/frigoligo/compare/v0.7.1...v0.7.2
 [v0.7.1]: https://github.com/casimir/frigoligo/compare/v0.7.0...v0.7.1
