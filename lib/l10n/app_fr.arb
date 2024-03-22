@@ -189,10 +189,6 @@
   "@server_address": {
     "description": "The address of the Wallabag instance."
   },
-  "settings_headerPreferences": "Préférences",
-  "@settings_headerPreferences": {
-    "description": "The header of the preferences section in the settings screen."
-  },
   "session_fieldTokenExpiration": "Expiration du token",
   "@session_fieldTokenExpiration": {
     "description": "The label of the token expiration field in the session screen."
@@ -305,10 +301,6 @@
   "@settings_clearCacheMessage": {
     "description": "The message of the confirmation dialog to clear the cache."
   },
-  "settings_headerAdvanced": "Avancé",
-  "@settings_headerAdvanced": {
-    "description": "The header of the advanced section in the settings screen."
-  },
   "logconsole_title": "Console de journalisation",
   "@logconsole_title": {
     "description": "The title of the log console screen."
@@ -329,10 +321,6 @@
   "@login_fieldClientId": {
     "description": "The client ID field of the login form."
   },
-  "settings_headerGeneral": "Général",
-  "@settings_headerGeneral": {
-    "description": "The header of the general section in the settings screen."
-  },
   "login_title": "Connexion",
   "@login_title": {
     "description": "The title of the login screen."
@@ -344,14 +332,6 @@
   "session_forceTokenResfresh": "Rafraîchir le jeton",
   "@session_forceTokenResfresh": {
     "description": "The action to force a token refresh."
-  },
-  "g_langEN": "Anglais",
-  "@g_langEN": {
-    "description": "The English language."
-  },
-  "g_langFR": "Français",
-  "@g_langFR": {
-    "description": "The French language."
   },
   "g_system": "Système",
   "@g_system": {},
@@ -366,10 +346,6 @@
   "settings_valueThemeLight": "Clair",
   "@settings_valueThemeLight": {
     "description": "The label for the light theme mode."
-  },
-  "g_langDE": "Allemand",
-  "@g_langDE": {
-    "description": "The German language."
   },
   "g_search": "Rechercher",
   "@g_search": {
@@ -407,14 +383,6 @@
   "@listing_articlesAll": {
     "description": "The title for the list of all the articles."
   },
-  "reading_settings_title": "Paramètres de lecture",
-  "@reading_settings_title": {
-    "description": "The title of the reading settings screen."
-  },
-  "reading_settings_fontSize": "Taille de police",
-  "@reading_settings_fontSize": {
-    "description": "The font size of the article content display."
-  },
   "readingsettings_fontFamily": "Famille de police",
   "@readingsettings_fontFamily": {
     "description": "The font family to display the content of the article."
@@ -426,5 +394,21 @@
   "readingsettings_title": "Paramètres de lecture",
   "@readingsettings_title": {
     "description": "The title of the reading settings screen."
+  },
+  "g_version": "Version",
+  "@g_version": {
+    "description": "A version, as in the application version."
+  },
+  "g_sourceCode": "Code source",
+  "@g_sourceCode": {
+    "description": "The source code of a software."
+  },
+  "settings_bugReportLink": "Signaler un bug",
+  "@settings_bugReportLink": {
+    "description": "The action to open the bug report form."
+  },
+  "settings_helpToTranslate": "Aider à traduire",
+  "@settings_helpToTranslate": {
+    "description": "The action to open the Weblate project in a webview."
   }
 }

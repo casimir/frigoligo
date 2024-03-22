@@ -121,10 +121,6 @@
   },
   "humanize_hours": "{n, plural, =1{1 Stunde} other{{n} Stunden}}",
   "@humanize_hours": {},
-  "settings_headerPreferences": "Einstellungen",
-  "@settings_headerPreferences": {
-    "description": "The header of the preferences section in the settings screen."
-  },
   "session_fieldTokenExpiration": "Gültigkeit des Tokens",
   "@session_fieldTokenExpiration": {
     "description": "The label of the token expiration field in the session screen."
@@ -283,10 +279,6 @@
   "@settings_clearCacheMessage": {
     "description": "The message of the confirmation dialog to clear the cache."
   },
-  "settings_headerAdvanced": "Fortgeschritten",
-  "@settings_headerAdvanced": {
-    "description": "The header of the advanced section in the settings screen."
-  },
   "logconsole_title": "Log Konsole",
   "@logconsole_title": {
     "description": "The title of the log console screen."
@@ -321,10 +313,6 @@
   "@login_fieldClientId": {
     "description": "The client ID field of the login form."
   },
-  "settings_headerGeneral": "Allgemein",
-  "@settings_headerGeneral": {
-    "description": "The header of the general section in the settings screen."
-  },
   "login_title": "Einloggen",
   "@login_title": {
     "description": "The title of the login screen."
@@ -344,18 +332,6 @@
   "session_renewDialogTitle": "Session erneuern",
   "@session_renewDialogTitle": {
     "description": "The title of the confirmation dialog to renew the session."
-  },
-  "g_langEN": "Englisch",
-  "@g_langEN": {
-    "description": "The English language."
-  },
-  "g_langFR": "Französisch",
-  "@g_langFR": {
-    "description": "The French language."
-  },
-  "g_langDE": "Deutsch",
-  "@g_langDE": {
-    "description": "The German language."
   },
   "g_system": "System",
   "@g_system": {},
@@ -406,5 +382,13 @@
   "filters_articleFavoriteAll": "Alle",
   "@filters_articleFavoriteAll": {
     "description": "Don't filter articles by favorite status."
+  },
+  "g_sourceCode": "Quellcode",
+  "@g_sourceCode": {
+    "description": "The source code of a software."
+  },
+  "g_version": "Version",
+  "@g_version": {
+    "description": "A version, as in the application version."
   }
 }
