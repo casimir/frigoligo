@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,6 +19,11 @@ import '../services/remote_sync.dart';
 
 final _log = Logger('settings');
 
+final _settingsSectionSplitter =
+    Platform.isAndroid || Platform.isLinux || Platform.isFuchsia
+        ? const Text('')
+        : null;
+
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
 
@@ -33,74 +40,70 @@ class SettingsPage extends ConsumerWidget {
         child: SettingsList(
           sections: [
             // Preferences
-            SettingsSection(
-              tiles: [
-                SettingsTile.navigation(
-                  leading: const Icon(Icons.format_paint),
-                  title: Text(context.L.settings_itemAppearance),
-                  value:
-                      Text(getThemeModeLabel(context, settings[Sk.themeMode])),
-                  onPressed: (context) async {
-                    AlertDialogAction build(ThemeMode mode) =>
-                        AlertDialogAction(
-                          label: getThemeModeLabel(context, mode),
-                          key: mode,
-                        );
-                    final choice = await showConfirmationDialog(
-                      context: context,
-                      title: context.L.settings_itemAppearance,
-                      actions: [
-                        build(ThemeMode.system),
-                        build(ThemeMode.light),
-                        build(ThemeMode.dark),
-                      ],
-                    );
-                    if (choice != null) settings[Sk.themeMode] = choice;
-                  },
-                ),
-                if (appBadgeSupported)
-                  SettingsTile.switchTile(
-                    leading: const Icon(Icons.markunread_mailbox),
-                    title: Text(context.L.settings_itemAppBadge),
-                    initialValue: settings[Sk.appBadge],
-                    onToggle: (value) {
-                      final previous = settings[Sk.appBadge];
-                      if (previous != value) storage.updateAppBadge();
-                      return settings[Sk.appBadge] = value;
-                    },
-                  ),
-                SettingsTile.switchTile(
-                  leading: const Icon(Icons.tag),
-                  title: Text(context.L.settings_savedArticleTag),
-                  initialValue: settings[Sk.tagSaveEnabled],
-                  onToggle: (value) => settings[Sk.tagSaveEnabled] = value,
-                ),
-                SettingsTile.navigation(
-                  leading: const Icon(Icons.tag),
-                  title: Text(context.L.settings_savedArticleTagLabel),
-                  value: Text(settings[Sk.tagSaveLabel]),
-                  onPressed: (context) async {
-                    final result = await showTextInputDialog(
-                      context: context,
-                      textFields: [
-                        DialogTextField(
-                          hintText: context.L.g_tag,
-                          keyboardType: TextInputType.text,
-                          autocorrect: false,
-                          initialText: settings[Sk.tagSaveLabel],
-                        )
-                      ],
-                    );
-                    if (result != null) {
-                      settings[Sk.tagSaveLabel] = result.first;
-                    }
-                  },
-                  enabled: settings[Sk.tagSaveEnabled],
-                ),
-              ],
-            ),
-            // Translations
             SettingsSection(tiles: [
+              SettingsTile.navigation(
+                leading: const Icon(Icons.format_paint),
+                title: Text(context.L.settings_itemAppearance),
+                value: Text(getThemeModeLabel(context, settings[Sk.themeMode])),
+                onPressed: (context) async {
+                  AlertDialogAction build(ThemeMode mode) => AlertDialogAction(
+                        label: getThemeModeLabel(context, mode),
+                        key: mode,
+                      );
+                  final choice = await showConfirmationDialog(
+                    context: context,
+                    title: context.L.settings_itemAppearance,
+                    actions: [
+                      build(ThemeMode.system),
+                      build(ThemeMode.light),
+                      build(ThemeMode.dark),
+                    ],
+                  );
+                  if (choice != null) settings[Sk.themeMode] = choice;
+                },
+              ),
+              if (appBadgeSupported)
+                SettingsTile.switchTile(
+                  leading: const Icon(Icons.markunread_mailbox),
+                  title: Text(context.L.settings_itemAppBadge),
+                  initialValue: settings[Sk.appBadge],
+                  onToggle: (value) {
+                    final previous = settings[Sk.appBadge];
+                    if (previous != value) storage.updateAppBadge();
+                    return settings[Sk.appBadge] = value;
+                  },
+                ),
+              SettingsTile.switchTile(
+                leading: const Icon(Icons.tag),
+                title: Text(context.L.settings_savedArticleTag),
+                initialValue: settings[Sk.tagSaveEnabled],
+                onToggle: (value) => settings[Sk.tagSaveEnabled] = value,
+              ),
+              SettingsTile.navigation(
+                leading: const Icon(Icons.tag),
+                title: Text(context.L.settings_savedArticleTagLabel),
+                value: Text(settings[Sk.tagSaveLabel]),
+                onPressed: (context) async {
+                  final result = await showTextInputDialog(
+                    context: context,
+                    textFields: [
+                      DialogTextField(
+                        hintText: context.L.g_tag,
+                        keyboardType: TextInputType.text,
+                        autocorrect: false,
+                        initialText: settings[Sk.tagSaveLabel],
+                      )
+                    ],
+                  );
+                  if (result != null) {
+                    settings[Sk.tagSaveLabel] = result.first;
+                  }
+                },
+                enabled: settings[Sk.tagSaveEnabled],
+              ),
+            ]),
+            // Translations
+            SettingsSection(title: _settingsSectionSplitter, tiles: [
               SettingsTile.navigation(
                 leading: const Icon(Icons.language),
                 title: Text(context.L.settings_itemLanguage),
@@ -127,99 +130,94 @@ class SettingsPage extends ConsumerWidget {
               )
             ]),
             // App Info
-            SettingsSection(
-              tiles: [
-                SettingsTile(
-                  leading: const Icon(Icons.info_outline),
-                  title: Text(context.L.g_version),
-                  value: Text(AppInfo.versionVerbose),
-                  onPressed: (context) async {
-                    await Clipboard.setData(
-                        ClipboardData(text: AppInfo.versionVerbose));
-                    if (context.mounted) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text(context.L.session_copiedToClipboard)));
-                    }
-                  },
+            SettingsSection(title: _settingsSectionSplitter, tiles: [
+              SettingsTile(
+                leading: const Icon(Icons.info_outline),
+                title: Text(context.L.g_version),
+                value: Text(AppInfo.versionVerbose),
+                onPressed: (context) async {
+                  await Clipboard.setData(
+                      ClipboardData(text: AppInfo.versionVerbose));
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(context.L.session_copiedToClipboard)));
+                  }
+                },
+              ),
+              SettingsTile(
+                leading: const Icon(Icons.code),
+                trailing: const Icon(Icons.open_in_new),
+                title: Text(context.L.g_sourceCode),
+                onPressed: (_) =>
+                    launchUrlString('https://github.com/casimir/frigoligo'),
+              ),
+              SettingsTile(
+                leading: const Icon(Icons.bug_report),
+                trailing: const Icon(Icons.open_in_new),
+                title: Text(context.L.settings_bugReportLink),
+                onPressed: (_) => launchUrlString(
+                    'https://github.com/casimir/frigoligo/issues'),
+              ),
+              SettingsTile.navigation(
+                leading: const Icon(Icons.description),
+                title: Text(
+                    MaterialLocalizations.of(context).viewLicensesButtonLabel),
+                onPressed: (context) => showLicensePage(
+                  context: context,
+                  applicationLegalese: '© 2023 Casimir Lab',
                 ),
-                SettingsTile(
-                  leading: const Icon(Icons.code),
-                  trailing: const Icon(Icons.open_in_new),
-                  title: Text(context.L.g_sourceCode),
-                  onPressed: (_) =>
-                      launchUrlString('https://github.com/casimir/frigoligo'),
-                ),
-                SettingsTile(
-                  leading: const Icon(Icons.bug_report),
-                  trailing: const Icon(Icons.open_in_new),
-                  title: Text(context.L.settings_bugReportLink),
-                  onPressed: (_) => launchUrlString(
-                      'https://github.com/casimir/frigoligo/issues'),
-                ),
-                SettingsTile.navigation(
-                  leading: const Icon(Icons.description),
-                  title: Text(MaterialLocalizations.of(context)
-                      .viewLicensesButtonLabel),
-                  onPressed: (context) => showLicensePage(
-                    context: context,
-                    applicationLegalese: '© 2023 Casimir Lab',
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ]),
             // Advanced
-            SettingsSection(
-              tiles: [
-                SettingsTile.navigation(
-                  leading: const Icon(Icons.key),
-                  title: Text(context.L.settings_itemSessionDetails),
-                  onPressed: (context) => context.push('/session'),
-                ),
-                SettingsTile.navigation(
-                  leading: const Icon(Icons.receipt_long),
-                  title: Text(context.L.settings_itemLogConsole),
-                  onPressed: (context) => context.push('/logs'),
-                ),
-                SettingsTile(
-                  leading: const Icon(Icons.sync),
-                  title: Text(context.L.settings_itemClearCache),
-                  onPressed: (context) async {
-                    final result = await showOkCancelAlertDialog(
-                      context: context,
-                      title: context.L.settings_itemClearCache,
-                      message: context.L.settings_clearCacheMessage,
-                    );
-                    if (result == OkCancelResult.cancel) return;
-                    _log.info('user action > cache rebuild');
-                    settings.remove(Sk.lastRefresh);
-                    if (context.mounted) {
-                      storage.clearArticles();
-                      RemoteSyncer.instance.synchronize(withFinalRefresh: true);
-                      context.go('/');
-                    }
-                  },
-                ),
-                SettingsTile(
-                  leading: const Icon(Icons.dataset_linked),
-                  title: Text(context.L.settings_itemOpenDeeplink),
-                  onPressed: (context) async {
-                    final urls = await showTextInputDialog(
-                        context: context,
-                        textFields: [
-                          DialogTextField(
-                            hintText: context.L.g_url,
-                            keyboardType: TextInputType.url,
-                            autocorrect: false,
-                          )
-                        ]);
-                    if (context.mounted && urls != null) {
-                      final uri = Uri.parse(urls.first);
-                      context.read<DeeplinksProvider>().receive(uri);
-                    }
-                  },
-                ),
-              ],
-            )
+            SettingsSection(title: _settingsSectionSplitter, tiles: [
+              SettingsTile.navigation(
+                leading: const Icon(Icons.key),
+                title: Text(context.L.settings_itemSessionDetails),
+                onPressed: (context) => context.push('/session'),
+              ),
+              SettingsTile.navigation(
+                leading: const Icon(Icons.receipt_long),
+                title: Text(context.L.settings_itemLogConsole),
+                onPressed: (context) => context.push('/logs'),
+              ),
+              SettingsTile(
+                leading: const Icon(Icons.sync),
+                title: Text(context.L.settings_itemClearCache),
+                onPressed: (context) async {
+                  final result = await showOkCancelAlertDialog(
+                    context: context,
+                    title: context.L.settings_itemClearCache,
+                    message: context.L.settings_clearCacheMessage,
+                  );
+                  if (result == OkCancelResult.cancel) return;
+                  _log.info('user action > cache rebuild');
+                  settings.remove(Sk.lastRefresh);
+                  if (context.mounted) {
+                    storage.clearArticles();
+                    RemoteSyncer.instance.synchronize(withFinalRefresh: true);
+                    context.go('/');
+                  }
+                },
+              ),
+              SettingsTile(
+                leading: const Icon(Icons.dataset_linked),
+                title: Text(context.L.settings_itemOpenDeeplink),
+                onPressed: (context) async {
+                  final urls =
+                      await showTextInputDialog(context: context, textFields: [
+                    DialogTextField(
+                      hintText: context.L.g_url,
+                      keyboardType: TextInputType.url,
+                      autocorrect: false,
+                    )
+                  ]);
+                  if (context.mounted && urls != null) {
+                    final uri = Uri.parse(urls.first);
+                    context.read<DeeplinksProvider>().receive(uri);
+                  }
+                },
+              ),
+            ])
           ],
         ),
       ),
