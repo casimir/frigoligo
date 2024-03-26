@@ -1,7 +1,13 @@
 # Frigoligo [![Chat on Matrix](https://matrix.to/img/matrix-badge.svg)](https://matrix.to/#/#frigoligo:one.ems.host)
 
-Frigoligo is an universal [wallabag](https://wallabag.org/) client made with [Flutter](https://flutter.dev/).
-It is made to be _a lot of super-cool marketing things_ but for now it is just made with love and that's something.
+Frigoligo is a [wallabag](https://wallabag.org/) client crafted using [Flutter](https://flutter.dev/). Its core philosophy is to prioritize pragmatism and adhering to best practices when it makes sense.
+
+Frigoligo is aiming at being:
+
+1. **KISS**: Keep It Simple, Stupid. It should feel light and functional.
+2. **Universal**: Provides a consistent experience on Android, iOS, macOS, Linux and Windows.
+3. **Pluggable**: Easily pluggable into any workflows using deep links and OS integrations.
+4. **Offline first**: Works offline as much as possible and keep synchronization efficient.
 
 ## Installation
 
