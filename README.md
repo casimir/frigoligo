@@ -6,8 +6,9 @@ Frigoligo is aiming at being:
 
 1. **KISS**: Keep It Simple, Stupid. It should feel light and functional.
 2. **Universal**: Provides a consistent experience on Android, iOS, macOS, Linux and Windows.
-3. **Pluggable**: Easily pluggable into any workflows using deep links and OS integrations.
+3. **Pluggable**: Can be integrated into any workflows easily, using deep links and OS integrations.
 4. **Offline first**: Works offline as much as possible and keep synchronization efficient.
+5. **Innovative**: Experiment with new ideas on top of the solid backend that is wallabag.
 
 ## Installation
 
