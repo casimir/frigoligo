@@ -36,3 +36,4 @@ Runner/GeneratedPluginRegistrant.*
 fastlane/Appfile
 fastlane/metadata/review_information/
 fastlane/screenshots/
+fastlane/Preview.html
