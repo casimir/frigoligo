@@ -12,6 +12,7 @@ import 'ios/settings_syncer.dart';
 final _log = Logger('settings');
 
 class SettingsValues extends ChangeNotifier {
+  static Language? initialLocaleOverride;
   static late SharedPreferences _prefs;
 
   static Future<void> init() async {
@@ -24,6 +25,12 @@ class SettingsValues extends ChangeNotifier {
   SettingsValues({this.namespace}) {
     if (Platform.isIOS) {
       _syncer = SettingsSyncer(this);
+    }
+
+    if (initialLocaleOverride != null) {
+      _log.info('initial locale override: $initialLocaleOverride');
+      this[Sk.language] = initialLocaleOverride;
+      initialLocaleOverride = null;
     }
   }
 

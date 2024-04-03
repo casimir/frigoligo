@@ -61,9 +61,9 @@ Future<void> main() async {
   await WallabagInstance.init();
   await SettingsValues.init();
 
-  _log.info('version:    ${AppInfo.versionVerbose}');
-  _log.info('platform:   ${Platform.operatingSystem}');
-  _log.info('os version: ${Platform.operatingSystemVersion}');
+  _log.info('app version: ${AppInfo.versionVerbose}');
+  _log.info('platform:    ${Platform.operatingSystem}');
+  _log.info('os version:  ${Platform.operatingSystemVersion}');
 
   if (periodicSyncSupported) {
     _log.info('starting periodic sync');
