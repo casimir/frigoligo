@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:frigoligo/wallabag/credentials.dart';
 import 'package:frigoligo/wallabag/wallabag.dart';
 import 'package:http/http.dart' as http;
 
@@ -58,10 +59,14 @@ class _HomePageState extends State<HomePage> {
     setState(() => _urlCount = urls.length);
 
     final wallabag = await WallabagClient.build(
-      credentials: testCredentials,
+      credentials: Credentials(
+        TestCredentials.server,
+        TestCredentials.clientId,
+        TestCredentials.clientSecret,
+      ),
       autoSyncCredentials: false,
     )
-      ..fetchToken(testUser, testPassword);
+      ..fetchToken(TestCredentials.user, TestCredentials.password);
     for (final url in urls) {
       final (tags, archive, starred) = generateEntryState(url.toString());
       try {
