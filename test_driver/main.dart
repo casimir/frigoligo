@@ -12,11 +12,11 @@ void main() {
   print('device: ${Environment.device}');
   print('config: ${Environment.config}');
 
-  switch (Environment.getString('locale')) {
-    case 'en-GB':
+  switch (Environment.getString('locale')?.split('-').first) {
+    case 'en':
       SettingsValues.initialLocaleOverride = Language.en;
       break;
-    case 'fr-FR':
+    case 'fr':
       SettingsValues.initialLocaleOverride = Language.fr;
       break;
     default:
