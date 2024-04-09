@@ -1,4 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:cadanse/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,8 +14,8 @@ import '../services/remote_sync.dart';
 import '../wallabag/credentials.dart';
 import '../wallabag/utils.dart';
 import '../wallabag/wallabag.dart';
-import 'login_flow/login_credentials.dart';
-import 'login_flow/login_server.dart';
+import 'login_flow/check_server.dart';
+import 'login_flow/login_wallabag.dart';
 import 'login_forms/server_form.dart';
 import 'login_forms/validators.dart';
 
@@ -80,9 +81,16 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   Widget build(BuildContext context) {
     final serverCheck =
         ref.watch(serverLoginFlowProvider.select((value) => value.$2));
-    return serverCheck == null || !serverCheck.isValid
-        ? const LoginFlowServer()
-        : LoginFlowCredentials(serverCheck: serverCheck);
+    return Scaffold(
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: mediumBreakpoint),
+          child: serverCheck == null || !serverCheck.isValid
+              ? const LoginFlowServer()
+              : LoginFlowWallabag(serverCheck: serverCheck),
+        ),
+      ),
+    );
     if (widget.hasInitialData && _initialData != widget.initial) {
       // when a deeplink is opened and the login page is already shown
       _initialData = widget.initial;

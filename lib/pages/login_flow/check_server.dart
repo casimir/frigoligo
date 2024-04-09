@@ -25,15 +25,16 @@ class _LoginFlowServerState extends ConsumerState<LoginFlowServer> {
     final flowState =
         ref.watch(serverLoginFlowProvider.select((value) => value.$1));
 
-    return Scaffold(
-      body: Padding(
-        padding: C.paddings.defaultPadding,
-        child: FormBuilder(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              FormBuilderTextField(
+    return Padding(
+      padding: C.paddings.defaultPadding,
+      child: FormBuilder(
+        key: _formKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Hero(
+              tag: 'loginFlowServer',
+              child: FormBuilderTextField(
                 name: 'server',
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: _serverValidator,
@@ -53,21 +54,21 @@ class _LoginFlowServerState extends ConsumerState<LoginFlowServer> {
                 onSubmitted: (_) => _validateAndCheck(),
                 initialValue: widget.initial,
               ),
-              C.spacers.verticalContent,
-              ElevatedButton(
-                onPressed: () {
-                  if (flowState != FlowState.checking) {
-                    _validateAndCheck();
-                  }
-                },
-                child: Text(
-                  flowState == FlowState.checking
-                      ? context.L.g_checking
-                      : context.L.g_check,
-                ),
+            ),
+            C.spacers.verticalContent,
+            ElevatedButton(
+              onPressed: () {
+                if (flowState != FlowState.checking) {
+                  _validateAndCheck();
+                }
+              },
+              child: Text(
+                flowState == FlowState.checking
+                    ? context.L.g_checking
+                    : context.L.g_check,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
