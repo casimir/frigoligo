@@ -12,6 +12,7 @@ import '../services/remote_sync.dart';
 import '../wallabag/credentials.dart';
 import '../wallabag/utils.dart';
 import '../wallabag/wallabag.dart';
+import 'login_flow/login_server.dart';
 import 'login_forms/server_form.dart';
 import 'login_forms/validators.dart';
 
@@ -75,6 +76,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    return LoginFlowServer();
     if (widget.hasInitialData && _initialData != widget.initial) {
       // when a deeplink is opened and the login page is already shown
       _initialData = widget.initial;
