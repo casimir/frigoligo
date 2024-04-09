@@ -22,7 +22,8 @@ class _LoginFlowServerState extends ConsumerState<LoginFlowServer> {
 
   @override
   Widget build(BuildContext context) {
-    final flowState = ref.watch(serverLoginFlowProvider);
+    final flowState =
+        ref.watch(serverLoginFlowProvider.select((value) => value.$1));
 
     return Scaffold(
       body: Padding(
@@ -35,30 +36,7 @@ class _LoginFlowServerState extends ConsumerState<LoginFlowServer> {
               FormBuilderTextField(
                 name: 'server',
                 autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: (value) {
-                  var emptyCheck = notEmptyValidator(
-                      context, value, context.L.server_address);
-                  if (emptyCheck != null) return emptyCheck;
-
-                  if (ref.read(serverLoginFlowProvider) == FlowState.checked) {
-                    final serverCheck =
-                        ref.read(serverLoginFlowProvider.notifier).serverCheck;
-                    switch (serverCheck.errorKind) {
-                      case WallabagCheckErrorKind.invalidUrl:
-                        return context.L.server_invalidUrl;
-                      case WallabagCheckErrorKind.unreachable:
-                        return context.L.server_unreachable;
-                      case WallabagCheckErrorKind.apiError:
-                        return context.L.server_apiError;
-                      case WallabagCheckErrorKind.unknown:
-                        return '? ${serverCheck.error}';
-                      case null:
-                        return null;
-                    }
-                  }
-
-                  return null;
-                },
+                validator: _serverValidator,
                 onChanged: (_) {
                   if (flowState == FlowState.checked) {
                     ref.read(serverLoginFlowProvider.notifier).reset();
@@ -93,6 +71,30 @@ class _LoginFlowServerState extends ConsumerState<LoginFlowServer> {
         ),
       ),
     );
+  }
+
+  String? _serverValidator(String? value) {
+    var emptyCheck =
+        notEmptyValidator(context, value, context.L.server_address);
+    if (emptyCheck != null) return emptyCheck;
+
+    final (flowState, serverCheck) = ref.read(serverLoginFlowProvider);
+    if (flowState == FlowState.checked) {
+      switch (serverCheck!.errorKind) {
+        case WallabagCheckErrorKind.invalidUrl:
+          return context.L.server_invalidUrl;
+        case WallabagCheckErrorKind.unreachable:
+          return context.L.server_unreachable;
+        case WallabagCheckErrorKind.apiError:
+          return context.L.server_apiError;
+        case WallabagCheckErrorKind.unknown:
+          return '? ${serverCheck.error}';
+        case null:
+          return null;
+      }
+    }
+
+    return null;
   }
 
   void _validateAndCheck() {

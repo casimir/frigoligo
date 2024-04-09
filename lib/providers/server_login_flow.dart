@@ -6,26 +6,20 @@ part 'server_login_flow.g.dart';
 
 @riverpod
 class ServerLoginFlow extends _$ServerLoginFlow {
-  WallabagServerCheck? _serverCheck;
-  WallabagServerCheck get serverCheck => _serverCheck!;
-
   @override
-  FlowState build() {
-    return FlowState.uninitialized;
+  (FlowState, WallabagServerCheck?) build() {
+    return (FlowState.uninitialized, null);
   }
 
   void startCheckFor(String server) {
-    _serverCheck = null;
-    state = FlowState.checking;
+    state = (FlowState.checking, null);
     checkWallabagServer(server).then((value) {
-      _serverCheck = value;
-      state = FlowState.checked;
+      state = (FlowState.checked, value);
     });
   }
 
   void reset() {
-    _serverCheck = null;
-    state = FlowState.uninitialized;
+    state = (FlowState.uninitialized, null);
   }
 }
 
