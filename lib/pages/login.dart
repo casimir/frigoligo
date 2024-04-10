@@ -33,28 +33,32 @@ class LoginPage extends ConsumerStatefulWidget {
 }
 
 class _LoginPageState extends ConsumerState<LoginPage> {
-  late Map<String, String>? _initialData;
+  late Map<String, String>? _currentData;
   final _serverFbKey = GlobalKey<FormBuilderState>();
   WallabagServerCheck? _configuredServer;
   final _fbKey = GlobalKey<FormBuilderState>();
+  bool _hasBeenReset = false;
   bool _gotAnError = false;
 
   @override
   void initState() {
     super.initState();
 
+    // use server-level data if already configured
     final wallabag = WallabagInstance.get();
     if (!widget.hasInitialData && wallabag.hasCredentials) {
-      _initialData = {
+      _currentData = {
         'server': wallabag.credentials.server.toString(),
         'clientId': wallabag.credentials.clientId,
         'clientSecret': wallabag.credentials.clientSecret,
       };
     } else {
-      _initialData = widget.initial;
+      _currentData = widget.initial;
     }
 
-    if (WallabagInstance.isReady) {
+    // ask for confirmation if there is an existing session
+    // skip it if some initial data is provided (deeplink)
+    if (!widget.hasInitialData && WallabagInstance.isReady) {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         final settings = ref.read(settingsProvider);
         final result = await showOkCancelAlertDialog(
@@ -79,28 +83,47 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.hasInitialData &&
+        !_hasBeenReset &&
+        _currentData != widget.initial) {
+      // when a deeplink is opened and the login page is already shown
+      _log.info('override initial data');
+      _currentData = widget.initial;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ref.read(serverLoginFlowProvider.notifier).reset();
+      });
+    }
+
     final serverCheck =
         ref.watch(serverLoginFlowProvider.select((value) => value.$2));
+
     return Scaffold(
       body: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: mediumBreakpoint),
           child: serverCheck == null || !serverCheck.isValid
-              ? const LoginFlowServer()
-              : LoginFlowWallabag(serverCheck: serverCheck),
+              ? LoginFlowServer(initial: _currentData?['server'])
+              : LoginFlowWallabag(
+                  serverCheck: serverCheck,
+                  initial: _currentData ?? {},
+                  onReset: () => setState(() {
+                    _currentData = null;
+                    _hasBeenReset = true;
+                  }),
+                ),
         ),
       ),
     );
-    if (widget.hasInitialData && _initialData != widget.initial) {
+    if (widget.hasInitialData && _currentData != widget.initial) {
       // when a deeplink is opened and the login page is already shown
-      _initialData = widget.initial;
-      if (_initialData?['server'] != null) {
+      _currentData = widget.initial;
+      if (_currentData?['server'] != null) {
         _serverFbKey.currentState?.fields['server']!
-            .didChange(_initialData!['server']);
+            .didChange(_currentData!['server']);
       }
       for (final key in ['clientId', 'clientSecret', 'username', 'password']) {
-        if (_initialData?[key] != null) {
-          _fbKey.currentState?.fields[key]!.didChange(_initialData![key]);
+        if (_currentData?[key] != null) {
+          _fbKey.currentState?.fields[key]!.didChange(_currentData![key]);
         }
       }
     }
@@ -115,7 +138,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 _configuredServer = check;
               }
             }),
-            initial: _initialData?['server'],
+            initial: _currentData?['server'],
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -138,7 +161,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         icon: const Icon(Icons.key),
                         labelText: context.L.login_fieldClientId,
                       ),
-                      initialValue: _initialData?['clientId'],
+                      initialValue: _currentData?['clientId'],
                     ),
                     FormBuilderTextField(
                       name: 'clientSecret',
@@ -148,7 +171,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         icon: const Icon(Icons.key),
                         labelText: context.L.login_fieldClientSecret,
                       ),
-                      initialValue: _initialData?['clientSecret'],
+                      initialValue: _currentData?['clientSecret'],
                     ),
                     FormBuilderTextField(
                       name: 'username',
@@ -159,7 +182,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         icon: const Icon(Icons.person),
                         labelText: context.L.login_fieldUsername,
                       ),
-                      initialValue: _initialData?['username'],
+                      initialValue: _currentData?['username'],
                     ),
                     FormBuilderTextField(
                       name: 'password',
@@ -171,7 +194,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         icon: const Icon(Icons.password),
                         labelText: context.L.login_fieldPassword,
                       ),
-                      initialValue: _initialData?['password'],
+                      initialValue: _currentData?['password'],
                     ),
                     const SizedBox(height: 8.0),
                   ]),

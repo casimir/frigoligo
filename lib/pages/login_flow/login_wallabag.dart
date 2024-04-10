@@ -17,9 +17,16 @@ import '../login_forms/validators.dart';
 final _log = Logger('login');
 
 class LoginFlowWallabag extends ConsumerStatefulWidget {
-  const LoginFlowWallabag({super.key, required this.serverCheck});
+  const LoginFlowWallabag({
+    super.key,
+    required this.serverCheck,
+    this.initial = const {},
+    this.onReset,
+  });
 
   final WallabagServerCheck serverCheck;
+  final Map<String, String> initial;
+  final void Function()? onReset;
 
   @override
   ConsumerState<LoginFlowWallabag> createState() => _LoginFlowWallabagState();
@@ -28,6 +35,22 @@ class LoginFlowWallabag extends ConsumerStatefulWidget {
 class _LoginFlowWallabagState extends ConsumerState<LoginFlowWallabag> {
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   bool _gotAnError = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    final initialIsExhaustive = widget.initial.isNotEmpty &&
+        widget.initial.containsKey('clientId') &&
+        widget.initial.containsKey('clientSecret') &&
+        widget.initial.containsKey('username') &&
+        widget.initial.containsKey('password');
+    if (initialIsExhaustive) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        attemptLogin(context);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +72,7 @@ class _LoginFlowWallabagState extends ConsumerState<LoginFlowWallabag> {
                 icon: const Icon(Icons.edit),
                 onPressed: () {
                   ref.read(serverLoginFlowProvider.notifier).reset();
+                  widget.onReset?.call();
                 },
               ),
             ),
@@ -58,6 +82,7 @@ class _LoginFlowWallabagState extends ConsumerState<LoginFlowWallabag> {
             padding: C.paddings.defaultPadding,
             child: FormBuilder(
               key: _formKey,
+              initialValue: widget.initial,
               child: AutofillGroup(
                 // It would be nice to provide a domain for autofill but it's dynamic.
                 // https://developer.apple.com/documentation/xcode/supporting-associated-domains
