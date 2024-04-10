@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:logging/logging.dart';
 
 import '../../buildcontext_extension.dart';
 import '../../providers/server_login_flow.dart';
@@ -12,9 +11,7 @@ import '../../services/remote_sync.dart';
 import '../../wallabag/credentials.dart';
 import '../../wallabag/utils.dart';
 import '../../wallabag/wallabag.dart';
-import '../login_forms/validators.dart';
-
-final _log = Logger('login');
+import 'utils.dart';
 
 class LoginFlowWallabag extends ConsumerStatefulWidget {
   const LoginFlowWallabag({
@@ -171,12 +168,12 @@ class _LoginFlowWallabagState extends ConsumerState<LoginFlowWallabag> {
       } catch (e) {
         setState(() => _gotAnError = true);
         if (e is WallabagError) {
-          _log.warning('authentication failed', e.message);
+          logger.warning('authentication failed', e.message);
           if (context.mounted) {
             showOkAlertDialog(context: context, message: e.message);
           }
         } else {
-          _log.severe('unexpected error', e);
+          logger.severe('unexpected error', e);
           if (context.mounted) {
             showOkAlertDialog(context: context, message: e.toString());
           }

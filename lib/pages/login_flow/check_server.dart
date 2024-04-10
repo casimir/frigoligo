@@ -2,14 +2,11 @@ import 'package:cadanse/cadanse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:logging/logging.dart';
 
 import '../../buildcontext_extension.dart';
 import '../../providers/server_login_flow.dart';
 import '../../wallabag/utils.dart';
-import '../login_forms/validators.dart';
-
-final _log = Logger('login');
+import 'utils.dart';
 
 class LoginFlowServer extends ConsumerStatefulWidget {
   const LoginFlowServer({super.key, this.initial});
@@ -40,7 +37,7 @@ class _LoginFlowServerState extends ConsumerState<LoginFlowServer> {
   Widget build(BuildContext context) {
     if (_currentValue != widget.initial) {
       // when a deeplink is opened and the login page is already shown
-      _log.info('override initial server URL');
+      logger.info('override initial server URL');
       _currentValue = widget.initial;
       _formKey.currentState?.fields['server']?.didChange(_currentValue);
       if (_currentValue != null) {
