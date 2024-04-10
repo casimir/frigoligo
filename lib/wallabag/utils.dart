@@ -43,6 +43,9 @@ Future<WallabagServerCheck> checkWallabagServer(String serverUrl) async {
     final info = await _fetchWallabagInfo(uri);
     final faviconUri = await _detectFavicon(uri);
     check = WallabagServerCheck(uri, info, faviconUri, null);
+  } on http.ClientException catch (e) {
+    final exc = WallabagUnknownException(e.message);
+    check = WallabagServerCheck(null, null, null, exc);
   } on Exception catch (e) {
     check = WallabagServerCheck(null, null, null, e);
   }
@@ -93,5 +96,16 @@ class WallabagCheckError implements Exception {
   @override
   String toString() {
     return 'WallabagCheckError(${kind.name})';
+  }
+}
+
+class WallabagUnknownException implements Exception {
+  const WallabagUnknownException(this.message);
+
+  final String message;
+
+  @override
+  String toString() {
+    return message;
   }
 }

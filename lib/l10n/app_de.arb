@@ -201,10 +201,6 @@
   "@save_dubiousUrlConfirm": {
     "description": "The confirmation button of the dubious URL warning dialog."
   },
-  "server_checkPending": "Prüfung läuft…",
-  "@server_checkPending": {
-    "description": "The server configuration is already being checked."
-  },
   "article_readingTime": "{minutes} Minuten",
   "@article_readingTime": {
     "description": "The estimated reading time of the article.",
@@ -312,10 +308,6 @@
   "login_fieldClientId": "Client ID",
   "@login_fieldClientId": {
     "description": "The client ID field of the login form."
-  },
-  "login_title": "Einloggen",
-  "@login_title": {
-    "description": "The title of the login screen."
   },
   "settings_itemAppBadge": "Zeige ungelesene Anzahl",
   "@settings_itemAppBadge": {

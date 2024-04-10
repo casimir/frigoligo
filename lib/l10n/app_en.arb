@@ -241,10 +241,6 @@
   "@login_openLogConsole": {
     "description": "The action to open the log console."
   },
-  "login_title": "Log in",
-  "@login_title": {
-    "description": "The title of the login screen."
-  },
   "@_READINGSETTINGS": {},
   "readingsettings_fontFamily": "Font family",
   "@readingsettings_fontFamily": {
@@ -300,10 +296,6 @@
   "server_apiError": "Invalid API response",
   "@server_apiError": {
     "description": "An error occurred while communicating with the Wallabag API."
-  },
-  "server_checkPending": "Still checking…",
-  "@server_checkPending": {
-    "description": "The server configuration is already being checked."
   },
   "server_emptyField": "Enter your {label}",
   "@server_emptyField": {

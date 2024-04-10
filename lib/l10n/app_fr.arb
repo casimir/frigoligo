@@ -241,10 +241,6 @@
   "@save_dubiousUrlConfirm": {
     "description": "The confirmation button of the dubious URL warning dialog."
   },
-  "server_checkPending": "Vérification en cours…",
-  "@server_checkPending": {
-    "description": "The server configuration is already being checked."
-  },
   "settings_itemSessionDetails": "Détails de la session",
   "@settings_itemSessionDetails": {
     "description": "The action to display the session details screen."
@@ -320,10 +316,6 @@
   "login_fieldClientId": "ID client",
   "@login_fieldClientId": {
     "description": "The client ID field of the login form."
-  },
-  "login_title": "Connexion",
-  "@login_title": {
-    "description": "The title of the login screen."
   },
   "settings_itemAppBadge": "Afficher le badge « non-lus »",
   "@settings_itemAppBadge": {
