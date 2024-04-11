@@ -16,6 +16,7 @@ import '../constants.dart';
 import '../providers/deeplinks.dart';
 import '../providers/settings.dart';
 import '../services/remote_sync.dart';
+import '../widget_keys.dart';
 
 final _log = Logger('settings');
 
@@ -42,13 +43,14 @@ class SettingsPage extends ConsumerWidget {
             // Preferences
             SettingsSection(tiles: [
               SettingsTile.navigation(
+                key: const Key(wkSettingsTheme),
                 leading: const Icon(Icons.format_paint),
                 title: Text(context.L.settings_itemAppearance),
                 value: Text(getThemeModeLabel(context, settings[Sk.themeMode])),
                 onPressed: (context) async {
                   AlertDialogAction build(ThemeMode mode) => AlertDialogAction(
-                        label: getThemeModeLabel(context, mode),
                         key: mode,
+                        label: getThemeModeLabel(context, mode),
                       );
                   final choice = await showConfirmationDialog(
                     context: context,

@@ -16,6 +16,7 @@ import '../providers/query.dart';
 import '../services/remote_sync.dart';
 import '../services/remote_sync_actions/articles.dart';
 import '../services/wallabag_storage.dart';
+import '../widget_keys.dart';
 import '../widgets/article_image_preview.dart';
 import '../widgets/remote_sync_fab.dart';
 import '../widgets/remote_sync_progress_indicator.dart';
@@ -57,7 +58,7 @@ class _ListingPageState extends ConsumerState<ListingPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const TitleWidget(),
+        title: const TitleWidget(key: Key(wkListingFiltersButton)),
         actions: [
           if (!pullToRefreshSupported)
             IconButton(
@@ -65,6 +66,7 @@ class _ListingPageState extends ConsumerState<ListingPage> {
               onPressed: doRefresh,
             ),
           IconButton(
+            key: const Key(wkListingSettings),
             icon: const Icon(Icons.settings),
             onPressed: () => context.push('/settings'),
           ),

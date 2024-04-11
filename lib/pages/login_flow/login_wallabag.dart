@@ -11,6 +11,7 @@ import '../../services/remote_sync.dart';
 import '../../wallabag/credentials.dart';
 import '../../wallabag/utils.dart';
 import '../../wallabag/wallabag.dart';
+import '../../widget_keys.dart';
 import 'utils.dart';
 
 class LoginFlowWallabag extends ConsumerStatefulWidget {
@@ -86,6 +87,7 @@ class _LoginFlowWallabagState extends ConsumerState<LoginFlowWallabag> {
                 child: Column(
                   children: [
                     FormBuilderTextField(
+                      key: const Key(wkLoginFlowClientId),
                       name: 'clientId',
                       validator: (value) => notEmptyValidator(
                           context, value, context.L.login_fieldClientId),
@@ -131,6 +133,7 @@ class _LoginFlowWallabagState extends ConsumerState<LoginFlowWallabag> {
                     ),
                     C.spacers.verticalContent,
                     ElevatedButton(
+                      key: const Key(wkLoginFlowLogIn),
                       onPressed: () => attemptLogin(context),
                       child: Text(context.L.login_actionLogin),
                     ),
