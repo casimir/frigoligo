@@ -3,7 +3,11 @@ import 'package:emulators/emulators.dart';
 
 Future<void> main() async {
   const List<String> emulatorIds = [
-    'iPhone 15',
+    // https://developer.apple.com/help/app-store-connect/reference/screenshot-specifications
+    'iPhone 15 Plus',
+    'iPhone 8 Plus',
+    // 'iPad Pro (12.9-inch) (6th generation)',
+    // 'iPad Pro (12.9-inch) (2th generation)',
   ];
   const configs = [
     {'locale': 'en-GB'},
