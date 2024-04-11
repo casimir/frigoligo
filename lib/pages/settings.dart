@@ -69,8 +69,14 @@ class SettingsPage extends ConsumerWidget {
                   initialValue: settings[Sk.appBadge],
                   onToggle: (value) {
                     final previous = settings[Sk.appBadge];
-                    if (previous != value) storage.updateAppBadge();
-                    return settings[Sk.appBadge] = value;
+                    if (previous && !value) {
+                      // enabled -> disabled
+                      storage.removeAppBadge();
+                    } else if (!previous && value) {
+                      // disabled -> enabled
+                      storage.updateAppBadge();
+                    }
+                    settings[Sk.appBadge] = value;
                   },
                 ),
               SettingsTile.switchTile(
