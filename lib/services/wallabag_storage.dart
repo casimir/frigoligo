@@ -135,16 +135,21 @@ class WallabagStorage with ChangeNotifier {
   }
 
   Future<void> updateAppBadge() async {
-    if (!appBadgeSupported) return;
+    if (!appBadgeSupported || !settings[Sk.appBadge]) return;
 
     final unread =
         count(WQuery(state: StateFilter.unread, starred: StarredFilter.all));
-    if (unread == 0 || !settings[Sk.appBadge]) {
+    if (unread == 0) {
       return FlutterAppBadger.removeBadge();
     } else {
       _log.info('updating app badge to $unread');
       return FlutterAppBadger.updateBadgeCount(unread);
     }
+  }
+
+  Future<void> removeAppBadge() async {
+    if (!appBadgeSupported) return;
+    return FlutterAppBadger.removeBadge();
   }
 
   Future<void> clearArticles({bool keepPositions = true}) async {
