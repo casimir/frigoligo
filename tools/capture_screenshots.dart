@@ -11,17 +11,22 @@ Future<void> main() async {
   ];
 
   final emulators = await Emulators.build();
-  // await emulators.shutdownAll();
-  await emulators.forEach(emulatorIds)((device) async {
+  await emulators.shutdownAll();
+
+  // mitigate a cleanup bug in the emulators package by looping manually
+  // https://github.com/tim-smart/dart_emulators/issues/20
+  for (final it in emulatorIds) {
     for (final c in configs) {
-      final proc = await emulators.drive(
-        device,
-        'test_driver/main.dart',
-        args: ['--no-pub'],
-        config: c,
-      );
-      stderr.addStream(proc.stderr);
-      await stdout.addStream(proc.stdout);
+      await emulators.forEach([it])((device) async {
+        final proc = await emulators.drive(
+          device,
+          'test_driver/main.dart',
+          args: ['--no-pub'],
+          config: c,
+        );
+        stderr.addStream(proc.stderr);
+        await stdout.addStream(proc.stdout);
+      });
     }
-  });
+  }
 }
