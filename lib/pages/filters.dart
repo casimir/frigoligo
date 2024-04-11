@@ -1,10 +1,13 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../buildcontext_extension.dart';
 import '../constants.dart';
 import '../providers/query.dart';
 import '../services/wallabag_storage.dart';
+import '../widget_keys.dart';
 import '../widgets/tag_list.dart';
 import 'tags_selector/dialog.dart';
 
@@ -33,11 +36,7 @@ class FiltersPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             _buildFilterHeader(context, context.L.filters_articleState),
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: Text(context.L
-                  .filters_articlesCount(storage.count(queryProvider.query))),
-            ),
+            _buildCount(context, storage.count(queryProvider.query)),
           ],
         ),
         _buildFilterChoices(_buildStateFilterChoices(context, queryProvider)),
@@ -49,6 +48,21 @@ class FiltersPage extends StatelessWidget {
       ],
     );
   }
+}
+
+Widget _buildCount(BuildContext context, int count) {
+  final widget = Padding(
+    key: const ValueKey(wkListingFiltersCount),
+    padding: const EdgeInsets.only(right: 8.0),
+    child: Text(context.L.filters_articlesCount(count)),
+  );
+  // allow to close the dialog by tapping the count in debug mode for automation
+  return kDebugMode
+      ? GestureDetector(
+          child: widget,
+          onTap: () => context.pop(),
+        )
+      : widget;
 }
 
 Widget _buildFilterHeader(BuildContext context, String label) {
