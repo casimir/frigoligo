@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
@@ -20,13 +21,13 @@ const leftAlignedInsets = EdgeInsets.only(
   bottom: defaultPadding,
 );
 
-class FiltersPage extends StatelessWidget {
+class FiltersPage extends ConsumerWidget {
   const FiltersPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final storage = context.watch<WallabagStorage>();
-    final queryProvider = context.watch<QueryProvider>();
+    final query = ref.watch(queryProvider);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -36,14 +37,14 @@ class FiltersPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             _buildFilterHeader(context, context.L.filters_articleState),
-            _buildCount(context, storage.count(queryProvider.query)),
+            _buildCount(context, storage.count(query)),
           ],
         ),
-        _buildFilterChoices(_buildStateFilterChoices(context, queryProvider)),
+        _buildFilterChoices(_buildStateFilterChoices(context, ref)),
         _buildFilterHeader(context, context.L.filters_articleFavorite),
-        _buildFilterChoices(_buildStarredFilterChoices(context, queryProvider)),
+        _buildFilterChoices(_buildStarredFilterChoices(context, ref)),
         _buildFilterHeader(context, context.L.filters_articleTags),
-        _buildTagsSelector(context, queryProvider, storage.tags),
+        _buildTagsSelector(context, ref, storage.tags),
         const SizedBox(height: defaultPadding),
       ],
     );
@@ -101,25 +102,25 @@ ChoiceChip _makeChoiceChip<T extends Enum>(
   );
 }
 
-List<ChoiceChip> _buildStateFilterChoices(
-    BuildContext context, QueryProvider queryProvider) {
+List<ChoiceChip> _buildStateFilterChoices(BuildContext context, WidgetRef ref) {
   final labels = {
     StateFilter.unread: context.L.filters_articleStateUnread,
     StateFilter.archived: context.L.filters_articleStateArchived,
     StateFilter.all: context.L.filters_articleStateAll,
   };
+  final query = ref.watch(queryProvider);
 
   return List.generate(
     StateFilter.values.length,
     (index) => _makeChoiceChip(
       StateFilter.values[index],
       labels[StateFilter.values[index]]!,
-      queryProvider.query.state,
+      query.state,
       (selected) {
         if (selected) {
-          var wq = queryProvider.query.dup();
+          var wq = query.dup();
           wq.state = StateFilter.values[index];
-          queryProvider.query = wq;
+          ref.read(queryProvider.notifier).set(wq);
         }
       },
     ),
@@ -127,13 +128,15 @@ List<ChoiceChip> _buildStateFilterChoices(
 }
 
 List<ChoiceChip> _buildStarredFilterChoices(
-    BuildContext context, QueryProvider queryProvider) {
+    BuildContext context, WidgetRef ref) {
+  final query = ref.watch(queryProvider);
+
   void Function(bool) onSelected(StarredFilter value) {
     return (selected) {
       if (!selected) return;
-      var wq = queryProvider.query.dup();
+      var wq = query.dup();
       wq.starred = value;
-      queryProvider.query = wq;
+      ref.read(queryProvider.notifier).set(wq);
     };
   }
 
@@ -141,25 +144,25 @@ List<ChoiceChip> _buildStarredFilterChoices(
     _makeChoiceChip(
       StarredFilter.all,
       context.L.filters_articleFavoriteAll,
-      queryProvider.query.starred ?? StarredFilter.all,
+      query.starred ?? StarredFilter.all,
       onSelected(StarredFilter.all),
     ),
     _makeChoiceChip(
       StarredFilter.starred,
       context.L.filters_articleFavoriteStarred,
-      queryProvider.query.starred,
+      query.starred,
       onSelected(StarredFilter.starred),
     ),
   ];
 }
 
 Widget _buildTagsSelector(
-    BuildContext context, QueryProvider queryProvider, List<String> tags) {
-  final selection = queryProvider.query.tags?.isNotEmpty ?? false
+    BuildContext context, WidgetRef ref, List<String> tags) {
+  final query = ref.watch(queryProvider);
+  final selection = query.tags?.isNotEmpty ?? false
       ? TagList(
-          tags: queryProvider.query.tags!,
-          onTagPressed: (_) =>
-              _showTagsSelectionDialog(context, queryProvider, tags),
+          tags: query.tags!,
+          onTagPressed: (_) => _showTagsSelectionDialog(context, ref, tags),
         )
       : Padding(
           // make the Card at least the same height than the others
@@ -183,11 +186,11 @@ Widget _buildTagsSelector(
                 const Icon(Icons.keyboard_arrow_right),
               ],
             ),
-            onTap: () => _showTagsSelectionDialog(context, queryProvider, tags),
+            onTap: () => _showTagsSelectionDialog(context, ref, tags),
           ),
-          if (queryProvider.query.tags?.isNotEmpty ?? false)
+          if (query.tags?.isNotEmpty ?? false)
             TextButton(
-              onPressed: queryProvider.clearTags,
+              onPressed: ref.read(queryProvider.notifier).clearTags,
               child: Text(context.L.filters_clearTagsSelection),
             ),
         ],
@@ -197,13 +200,14 @@ Widget _buildTagsSelector(
 }
 
 void _showTagsSelectionDialog(
-    BuildContext context, QueryProvider queryProvider, List<String> tags) {
+    BuildContext context, WidgetRef ref, List<String> tags) {
+  final query = ref.read(queryProvider);
   showDialog(
     context: context,
     builder: (ctx) => TagsSelectorDialog(
       tags: tags,
-      initialValue: queryProvider.query.tags ?? [],
-      onConfirm: queryProvider.setTags,
+      initialValue: query.tags ?? [],
+      onConfirm: ref.read(queryProvider.notifier).setTags,
     ),
   );
 }

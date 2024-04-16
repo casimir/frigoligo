@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart'
-    show ProviderScope, ConsumerWidget, WidgetRef;
+    hide ChangeNotifierProvider; // use ChangeNotifierProvider from provider
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:neat_periodic_task/neat_periodic_task.dart';
@@ -223,17 +223,17 @@ class HomePage extends ConsumerWidget {
   }
 }
 
-class _MainContainer extends StatefulWidget {
+class _MainContainer extends ConsumerStatefulWidget {
   const _MainContainer({this.initialArticleId, this.openArticle = false});
 
   final int? initialArticleId;
   final bool openArticle;
 
   @override
-  State<_MainContainer> createState() => _MainContainerState();
+  ConsumerState<_MainContainer> createState() => _MainContainerState();
 }
 
-class _MainContainerState extends State<_MainContainer> {
+class _MainContainerState extends ConsumerState<_MainContainer> {
   bool isFirstInit = false;
   int? deepLinkHandledFor;
   int? _selectedId;
@@ -245,6 +245,7 @@ class _MainContainerState extends State<_MainContainer> {
   @override
   void initState() {
     super.initState();
+
     isFirstInit = true;
     if (!periodicSyncSupported) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -256,10 +257,10 @@ class _MainContainerState extends State<_MainContainer> {
   @override
   Widget build(BuildContext context) {
     final syncer = context.read<RemoteSyncer>();
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => syncer.wallabag!),
-        ChangeNotifierProvider(create: (_) => QueryProvider()),
       ],
       builder: (_, __) {
         switch (Layout.windowClass(context)) {
