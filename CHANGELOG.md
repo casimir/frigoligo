@@ -1,3 +1,27 @@
+<a name="v1.0.0"></a>
+# [v1.0.0](https://github.com/casimir/frigoligo/releases/tag/v1.0.0) - 17 Apr 2024
+
+This is the first version that will be in the stores! 🎉 
+
+## What's Changed
+### Features
+* Better login flow by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/160
+* Postpone the notification permission prompt as much as possible by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/162
+* Listing screen tweaks by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/165
+### Miscellaneous
+* Setup fastlane config and metadata files by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/154
+* Translations update from Hosted Weblate by [@weblate](https://github.com/weblate) in https://github.com/casimir/frigoligo/pull/155
+* Translations update from Hosted Weblate by [@weblate](https://github.com/weblate) in https://github.com/casimir/frigoligo/pull/156
+* Migrate current article provider to riverpod by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/163
+* Riverpod debug logs by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/164
+* Automatic App Store metadata by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/157
+
+
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.8.1...v1.0.0
+
+[Changes][v1.0.0]
+
+
 <a name="v0.8.1"></a>
 # [v0.8.1](https://github.com/casimir/frigoligo/releases/tag/v0.8.1) - 22 Mar 2024
 
@@ -389,6 +413,7 @@ Let's begin! This is the very first release.
 [Changes][v0.1.0]
 
 
+[v1.0.0]: https://github.com/casimir/frigoligo/compare/v0.8.1...v1.0.0
 [v0.8.1]: https://github.com/casimir/frigoligo/compare/v0.8.0...v0.8.1
 [v0.8.0]: https://github.com/casimir/frigoligo/compare/v0.7.2...v0.8.0
 [v0.7.2]: https://github.com/casimir/frigoligo/compare/v0.7.1...v0.7.2
