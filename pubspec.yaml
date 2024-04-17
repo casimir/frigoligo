@@ -30,6 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -63,8 +65,6 @@ dependencies:
   app_links: ^4.0.0
   shared_preference_app_group: ^1.0.0+1
   popover: ^0.3.0
-  flutter_localizations:
-    sdk: flutter
   intl: any
   neat_periodic_task: ^2.0.1
   background_fetch: ^1.2.1
@@ -74,6 +74,8 @@ dependencies:
   cadanse: ^1.0.0
 
 dev_dependencies:
+  flutter_driver:
+    sdk: flutter
   flutter_test:
     sdk: flutter
 
@@ -92,6 +94,8 @@ dev_dependencies:
   riverpod_generator: ^2.3.11
   custom_lint: ^0.6.2
   riverpod_lint: ^2.3.9
+  emulators: ^0.5.1
+  test: ^1.24.9
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

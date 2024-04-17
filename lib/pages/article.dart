@@ -19,6 +19,7 @@ import '../providers/expander.dart';
 import '../providers/reading_settings.dart';
 import '../services/remote_sync.dart';
 import '../services/remote_sync_actions/articles.dart';
+import '../widget_keys.dart';
 import '../widgets/remote_sync_fab.dart';
 import '../widgets/remote_sync_progress_indicator.dart';
 import '../widgets/tag_list.dart';
@@ -73,6 +74,7 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
     Widget? leading;
     if (toggler != null) {
       leading = IconButton(
+        key: const Key(wkArticleExpanderToggle),
         icon: Icon(
             toggler.expanded ? Icons.list : Icons.keyboard_double_arrow_left),
         onPressed: toggler.toggle,
@@ -119,8 +121,10 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
                   ..synchronize(),
               ),
             PopupMenuButton(
+              key: const Key(wkArticlePopupMenu),
               itemBuilder: (context) => [
                 PopupMenuItem(
+                  key: const Key(wkArticlePopupMenuSettings),
                   value: 'reading-settings',
                   child: ListTile(
                     leading: const Icon(Icons.format_size),
