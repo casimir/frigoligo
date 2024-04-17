@@ -27,13 +27,16 @@ import 'providers/deeplinks.dart';
 import 'providers/expander.dart';
 import 'providers/logconsole.dart';
 import 'providers/settings.dart';
+import 'providers/tools/observer.dart';
 import 'services/remote_sync.dart';
 import 'wallabag/wallabag.dart';
 
+const enableDebugLogs = false;
 final _log = Logger('frigoligo');
 
-void main() async {
-  Logger.root.level = Level.INFO;
+// TODO factorize init steps
+Future<void> main() async {
+  Logger.root.level = enableDebugLogs ? Level.FINE : Level.INFO;
   Logger.root.onRecord.listen((record) {
     DB.appendLog(record);
     var line =
@@ -96,7 +99,12 @@ void main() async {
     });
   }
 
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(const ProviderScope(
+    observers: [
+      if (enableDebugLogs) RiverpodObserver(),
+    ],
+    child: MyApp(),
+  ));
 }
 
 final _router = GoRouter(routes: [

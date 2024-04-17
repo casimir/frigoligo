@@ -18,4 +18,9 @@ class ArticleScrollPosition {
       ..readingTime = article.readingTime
       ..progress = progress;
   }
+
+  @override
+  String toString() {
+    return 'ArticleScrollPosition{id: $id, progress: $progress}';
+  }
 }
