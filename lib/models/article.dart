@@ -47,4 +47,9 @@ class Article {
       ..starredAt = entry.starredAt
       ..tags = entry.tags.map((e) => e.label).toList();
   }
+
+  @override
+  String toString() {
+    return 'Article{id: $id}';
+  }
 }
