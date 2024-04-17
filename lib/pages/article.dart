@@ -74,6 +74,7 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
     Widget? leading;
     if (toggler != null) {
       leading = IconButton(
+        key: const Key(wkArticleExpanderToggle),
         icon: Icon(
             toggler.expanded ? Icons.list : Icons.keyboard_double_arrow_left),
         onPressed: toggler.toggle,

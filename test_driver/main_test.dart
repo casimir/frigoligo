@@ -23,6 +23,8 @@ Future<void> main() async {
     _ => throw UnimplementedError('back tooltip not supported for $locale')
   };
 
+  final deviceType = Environment.getString('deviceType')!;
+
   final driver = await FlutterDriver.connect();
   final emulators = await Emulators.build();
   final screenshots = emulators.screenshotHelper(
@@ -87,20 +89,37 @@ Future<void> main() async {
       await takeScreenshot('listing-filters-dismissed');
     });
 
-    openArticleAndSettings() async {
+    openArticle() async {
+      await driver.tap(find.text('wallabag turns 10'));
+    }
+
+    toggleExpander() async {
+      await driver.tap(find.byValueKey(wkArticleExpanderToggle));
+    }
+
+    openReadingSettings() async {
       await driver.tap(find.text('wallabag turns 10'));
       await driver.tap(find.byValueKey(wkArticlePopupMenu));
       await driver.tap(find.byValueKey(wkArticlePopupMenuSettings));
     }
 
     test('reading settings', () async {
-      await openArticleAndSettings();
+      if (deviceType == 'phone') {
+        await openArticle();
+      } else {
+        await toggleExpander();
+      }
+      await openReadingSettings();
       await takeScreenshot('3-reading-settings', false);
 
       await driver.tap(find.byType('ModalBarrier'));
       await takeScreenshot('article-settings-dismissed');
 
-      await driver.tap(find.byTooltip(backTooltip));
+      if (deviceType == 'phone') {
+        await driver.tap(find.byTooltip(backTooltip));
+      } else {
+        await toggleExpander();
+      }
       await takeScreenshot('listing-back-from-article');
     });
 
@@ -117,7 +136,12 @@ Future<void> main() async {
     });
 
     test('reading settings (dark)', () async {
-      await openArticleAndSettings();
+      if (deviceType == 'phone') {
+        await openArticle();
+      } else {
+        await toggleExpander();
+      }
+      await openReadingSettings();
       await takeScreenshot('5-reading-settings-dark', false);
     });
   });
