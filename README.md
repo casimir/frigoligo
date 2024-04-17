@@ -32,7 +32,7 @@ A full history of changes is available in [CHANGELOG.md](./CHANGELOG.md).
 
 |                            Mobile                             |                         Desktop                         |                              Mobile (dark)                              |
 |:-------------------------------------------------------------:|:-------------------------------------------------------:|:-----------------------------------------------------------------------:|
-| ![android screenshot](./assets/screenshots/android_light.png) | ![desktop screenshot](./assets/screenshots/desktop.png) | ![android dark theme screenshot](./assets/screenshots/android_dark.png) |
+| ![mobile screenshot](./assets/screenshots/mobile.png) | ![desktop screenshot](./assets/screenshots/desktop.png) | ![mobile dark screenshot](./assets/screenshots/mobile-dark.png) |
 
 ## Deeplinks
 
