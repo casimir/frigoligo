@@ -45,6 +45,25 @@ class ListingPage extends ConsumerStatefulWidget {
 }
 
 class _ListingPageState extends ConsumerState<ListingPage> {
+  final ScrollController _scroller = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    final articleId = ref.read(currentArticleProvider)?.id;
+    if (articleId != null) {
+      final query = ref.read(queryProvider);
+      final scrollToIndex =
+          context.read<WallabagStorage>().indexOf(articleId, query);
+      if (scrollToIndex != null) {
+        WidgetsBinding.instance!.addPostFrameCallback((_) {
+          _scroller.jumpTo(scrollToIndex * listingHeight);
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final storage = context.watch<WallabagStorage>();
@@ -87,6 +106,7 @@ class _ListingPageState extends ConsumerState<ListingPage> {
                   child: RefreshIndicator.adaptive(
                     onRefresh: doRefresh,
                     child: ListView.separated(
+                      controller: _scroller,
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       itemBuilder: (context, index) {
                         final article = storage.index(index, query)!;
