@@ -1,28 +1,28 @@
-import 'package:flutter/foundation.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../constants.dart';
 import '../services/wallabag_storage.dart';
 
-class QueryProvider extends ChangeNotifier {
-  WQuery _query = WQuery(state: StateFilter.unread);
-  WQuery get query => _query;
-  set query(WQuery value) {
-    _query = value;
-    notifyListeners();
+part 'query.g.dart';
+
+@riverpod
+class Query extends _$Query {
+  @override
+  WQuery build() => WQuery(state: StateFilter.unread);
+
+  void set(WQuery value) {
+    state = value;
   }
 
   void overrideWith(WQuery value) {
-    _query = _query.override(value);
-    notifyListeners();
+    state = state.override(value);
   }
 
   void setTags(List<String> tags) {
-    _query = _query.dup()..tags = tags;
-    notifyListeners();
+    state = state.dup()..tags = tags;
   }
 
   void clearTags() {
-    _query = _query.dup()..tags = null;
-    notifyListeners();
+    state = state.dup()..tags = null;
   }
 }

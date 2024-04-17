@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart'
+    hide ChangeNotifierProvider;
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:popover/popover.dart';
@@ -11,7 +13,6 @@ import '../constants.dart';
 import '../models/article.dart';
 import '../providers/article.dart';
 import '../providers/query.dart';
-import '../providers/settings.dart';
 import '../services/remote_sync.dart';
 import '../services/remote_sync_actions/articles.dart';
 import '../services/wallabag_storage.dart';
@@ -26,35 +27,32 @@ final _log = Logger('frigoligo.listing');
 const listingHeight = 130.0;
 const idealListingWidth = 333.3;
 
-class ListingPage extends StatefulWidget {
+class ListingPage extends ConsumerStatefulWidget {
   const ListingPage({
     super.key,
-    required this.onItemSelect,
-    this.initialArticleId,
+    this.onItemSelect,
     this.withProgressIndicator = true,
   });
 
-  final void Function(int articleId) onItemSelect;
-  final int? initialArticleId;
+  final void Function(int articleId)? onItemSelect;
   final bool withProgressIndicator;
 
   @override
-  State<ListingPage> createState() => _ListingPageState();
+  ConsumerState<ListingPage> createState() => _ListingPageState();
 }
 
-class _ListingPageState extends State<ListingPage> {
+class _ListingPageState extends ConsumerState<ListingPage> {
   @override
   Widget build(BuildContext context) {
     final storage = context.watch<WallabagStorage>();
-    final settings = storage.settings;
-    final queryProvider = context.watch<QueryProvider>();
+    final query = ref.watch(queryProvider);
 
     Future<void> doRefresh() async {
       _log.info('triggered refresh');
       await context.read<RemoteSyncer>().synchronize(withFinalRefresh: true);
     }
 
-    final count = storage.count(queryProvider.query);
+    final count = storage.count(query);
 
     return Scaffold(
       appBar: AppBar(
@@ -86,13 +84,25 @@ class _ListingPageState extends State<ListingPage> {
                     onRefresh: doRefresh,
                     child: ListView.separated(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      itemBuilder: (context, index) => ArticleListItem(
-                        article: storage.index(index, queryProvider.query)!,
-                        onTap: (article) {
-                          settings[Sk.selectedArticleId] = article.id;
-                          widget.onItemSelect(article.id!);
-                        },
-                      ),
+                      itemBuilder: (context, index) {
+                        final article = storage.index(index, query)!;
+                        if (index == 0) {
+                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                            ref
+                                .read(currentArticleProvider.notifier)
+                                .maybeInit(article.id!);
+                          });
+                        }
+                        return ArticleListItem(
+                          article: article,
+                          onTap: (article) {
+                            ref
+                                .read(currentArticleProvider.notifier)
+                                .change(article.id!);
+                            widget.onItemSelect?.call(article.id!);
+                          },
+                        );
+                      },
                       separatorBuilder: (context, index) => const Divider(),
                       itemCount: count,
                     ),
@@ -122,25 +132,25 @@ Widget listOrEmpyPlaceholder(BuildContext context, int count, Widget child) {
   );
 }
 
-class TitleWidget extends StatefulWidget {
+class TitleWidget extends ConsumerStatefulWidget {
   const TitleWidget({super.key});
 
   @override
-  State<TitleWidget> createState() => _TitleWidgetState();
+  ConsumerState<TitleWidget> createState() => _TitleWidgetState();
 }
 
-class _TitleWidgetState extends State<TitleWidget> {
+class _TitleWidgetState extends ConsumerState<TitleWidget> {
   bool _showingFilters = false;
 
   @override
   Widget build(BuildContext context) {
-    final queryProvider = context.watch<QueryProvider>();
-    var text = switch (queryProvider.query.state!) {
+    final query = ref.watch(queryProvider);
+    var text = switch (query.state!) {
       StateFilter.unread => context.L.listing_articlesUnread,
       StateFilter.archived => context.L.listing_articlesArchived,
       StateFilter.all => context.L.listing_articlesAll,
     };
-    if (queryProvider.query.starred == StarredFilter.starred) {
+    if (query.starred == StarredFilter.starred) {
       text += ' (★)';
     }
 
@@ -164,7 +174,6 @@ class _TitleWidgetState extends State<TitleWidget> {
           bodyBuilder: (context) => MultiProvider(
               providers: [
                 ChangeNotifierProvider.value(value: storage),
-                ChangeNotifierProvider.value(value: queryProvider),
               ],
               builder: (context, child) {
                 return const FiltersPage();
@@ -182,20 +191,19 @@ class _TitleWidgetState extends State<TitleWidget> {
   }
 }
 
-class ArticleListItem extends StatelessWidget {
+class ArticleListItem extends ConsumerWidget {
   const ArticleListItem({super.key, required this.article, this.onTap});
 
   final Article article;
   final void Function(Article)? onTap;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     // TODO explore https://pub.dev/packages/flutter_slidable
     // TODO GestureDetector on iOS
 
     final syncer = context.read<RemoteSyncer>();
-    final queryProvider = context.watch<QueryProvider>();
-    final selectedId = context.read<ArticleProvider?>()?.articleId;
+    final selectedId = ref.watch(currentArticleProvider)?.id;
 
     return Ink(
       color: selectedId == article.id ? Theme.of(context).hoverColor : null,
@@ -259,8 +267,9 @@ class ArticleListItem extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 8.0),
                       child: TagList(
                         tags: article.tags,
-                        onTagPressed: (tag) =>
-                            queryProvider.overrideWith(WQuery(tags: [tag])),
+                        onTagPressed: (tag) => ref
+                            .read(queryProvider.notifier)
+                            .overrideWith(WQuery(tags: [tag])),
                       ),
                     ),
                   ),

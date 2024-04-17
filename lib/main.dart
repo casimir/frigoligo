@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart'
-    show ProviderScope, ConsumerWidget, WidgetRef;
+    hide ChangeNotifierProvider; // use ChangeNotifierProvider from provider
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:neat_periodic_task/neat_periodic_task.dart';
@@ -26,7 +26,6 @@ import 'providers/article.dart';
 import 'providers/deeplinks.dart';
 import 'providers/expander.dart';
 import 'providers/logconsole.dart';
-import 'providers/query.dart';
 import 'providers/settings.dart';
 import 'services/remote_sync.dart';
 import 'wallabag/wallabag.dart';
@@ -134,10 +133,9 @@ final _router = GoRouter(routes: [
     path: '/articles/:id',
     builder: (context, state) {
       final id = int.parse(state.pathParameters['id']!);
-      return ChangeNotifierProvider(
-        create: (_) => ArticleProvider(id),
-        builder: (context, _) => ArticlePage(articleId: id),
-      );
+      return (id > 0)
+          ? ArticlePage(changeToArticleId: id)
+          : const ArticlePage();
     },
   ),
   GoRoute(
@@ -216,35 +214,31 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final settings = ref.read(settingsProvider);
-    return _MainContainer(
-      initialArticleId: openArticleId ?? settings[Sk.selectedArticleId],
-      openArticle: openArticleId != null,
-    );
+    final initialArticleId = openArticleId ?? settings[Sk.selectedArticleId];
+    if (initialArticleId != null && initialArticleId > 0) {
+      ref.read(currentArticleProvider.notifier).change(initialArticleId);
+    }
+
+    return _MainContainer(openArticleId: openArticleId);
   }
 }
 
-class _MainContainer extends StatefulWidget {
-  const _MainContainer({this.initialArticleId, this.openArticle = false});
+class _MainContainer extends ConsumerStatefulWidget {
+  const _MainContainer({this.openArticleId});
 
-  final int? initialArticleId;
-  final bool openArticle;
+  final int? openArticleId;
 
   @override
-  State<_MainContainer> createState() => _MainContainerState();
+  ConsumerState<_MainContainer> createState() => _MainContainerState();
 }
 
-class _MainContainerState extends State<_MainContainer> {
+class _MainContainerState extends ConsumerState<_MainContainer> {
   bool isFirstInit = false;
-  int? deepLinkHandledFor;
-  int? _selectedId;
-
-  bool get deepLinkHandled =>
-      deepLinkHandledFor != null &&
-      deepLinkHandledFor == widget.initialArticleId;
 
   @override
   void initState() {
     super.initState();
+
     isFirstInit = true;
     if (!periodicSyncSupported) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -256,10 +250,10 @@ class _MainContainerState extends State<_MainContainer> {
   @override
   Widget build(BuildContext context) {
     final syncer = context.read<RemoteSyncer>();
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => syncer.wallabag!),
-        ChangeNotifierProvider(create: (_) => QueryProvider()),
       ],
       builder: (_, __) {
         switch (Layout.windowClass(context)) {
@@ -279,50 +273,26 @@ class _MainContainerState extends State<_MainContainer> {
       context.push('/articles/$articleId');
     }
 
-    _handleInitial(onItemSelect, false);
-
-    return ListingPage(
-      onItemSelect: onItemSelect,
-      initialArticleId: widget.initialArticleId,
-    );
+    return ListingPage(onItemSelect: onItemSelect);
   }
 
   Widget _buildWideLayout() {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<ArticleProvider>(
-            create: (_) => ArticleProvider(_selectedId ?? 0)),
         ChangeNotifierProvider<Expander>(create: (_) => Expander()),
       ],
       builder: (context, _) {
-        void onItemSelect(int articleId) {
-          if (context.mounted) {
-            setState(() {
-              _selectedId = articleId;
-              context.read<ArticleProvider>().updateId(_selectedId!);
-            });
-          }
-        }
-
-        _handleInitial(onItemSelect, true);
-
         final expander = context.watch<Expander>();
         return Row(
           children: [
             if (!expander.expanded)
-              Flexible(
+              const Flexible(
                 flex: 1,
-                child: ListingPage(
-                  onItemSelect: onItemSelect,
-                  initialArticleId: _selectedId,
-                ),
+                child: ListingPage(),
               ),
             Flexible(
               flex: 2,
-              child: ArticlePage(
-                articleId: _selectedId ?? 0,
-                withProgressIndicator: expander.expanded,
-              ),
+              child: ArticlePage(withProgressIndicator: expander.expanded),
             ),
           ],
         );
@@ -331,48 +301,21 @@ class _MainContainerState extends State<_MainContainer> {
   }
 
   Widget _buildDynamicLayout() {
-    return ChangeNotifierProvider(
-      create: (_) => ArticleProvider(_selectedId ?? 0),
-      builder: (context, _) {
-        void onItemSelect(int articleId) {
-          if (context.mounted) {
-            setState(() {
-              _selectedId = articleId;
-              context.read<ArticleProvider>().updateId(_selectedId!);
-            });
-            if (context.canPop()) {
-              context.pop();
-            }
-          }
-        }
-
-        _handleInitial(onItemSelect, true);
-        final forcedOpen = isFirstInit;
-        isFirstInit = false;
-
-        return ArticlePage(
-          articleId: _selectedId ?? 0,
-          drawer: SizedBox(
-            width: idealListingWidth,
-            child: ListingPage(
-              onItemSelect: onItemSelect,
-              initialArticleId: _selectedId,
-            ),
-          ),
-          forcedDrawerOpen: forcedOpen,
-        );
-      },
-    );
-  }
-
-  void _handleInitial(void Function(int) onItemSelect, bool forceOpen) {
-    if (widget.initialArticleId != null && (forceOpen || widget.openArticle)) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (!deepLinkHandled) {
-          onItemSelect(widget.initialArticleId!);
-          deepLinkHandledFor = widget.initialArticleId;
-        }
-      });
+    void onItemSelect(int articleId) {
+      if (context.canPop()) {
+        context.pop();
+      }
     }
+
+    final forcedOpen = isFirstInit;
+    isFirstInit = false;
+
+    return ArticlePage(
+      drawer: SizedBox(
+        width: idealListingWidth,
+        child: ListingPage(onItemSelect: onItemSelect),
+      ),
+      forcedDrawerOpen: forcedOpen,
+    );
   }
 }
