@@ -26,20 +26,18 @@ import 'reading_settings_configurator.dart';
 import 'tags_selector/dialog.dart';
 
 class ArticlePage extends ConsumerStatefulWidget {
-  // TODO articleId is not used but required to avoid triggering flutter caching
-  // maybe that's just a setState() missing somewhere
   const ArticlePage({
     super.key,
-    required this.articleId,
     this.drawer,
     this.forcedDrawerOpen = false,
     this.withProgressIndicator = true,
+    this.changeToArticleId,
   });
 
-  final int articleId;
   final Widget? drawer;
   final bool forcedDrawerOpen;
   final bool withProgressIndicator;
+  final int? changeToArticleId;
 
   @override
   ConsumerState<ArticlePage> createState() => _ArticlePageState();
@@ -52,18 +50,24 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
   @override
   void initState() {
     super.initState();
+
     if (widget.drawer != null && widget.forcedDrawerOpen) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _scaffoldKey.currentState?.openDrawer();
       });
+    }
+
+    if (widget.changeToArticleId != null) {
+      ref
+          .read(currentArticleProvider.notifier)
+          .change(widget.changeToArticleId!);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final syncer = RemoteSyncer.instance;
-    final provider = context.watch<ArticleProvider>();
-    final article = provider.article;
+    final article = ref.watch(currentArticleProvider);
 
     final toggler = context.watch<Expander?>();
     Widget? leading;
@@ -81,7 +85,7 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
     } else if (article.content == null) {
       body = _buildEmptyContent(Uri.parse(article.url));
     } else {
-      body = _buildArticleContent(article, provider);
+      body = _buildArticleContent(article);
     }
 
     final showRemoteSyncerWidgets = widget.withProgressIndicator &&
@@ -224,7 +228,7 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
     );
   }
 
-  Widget _buildArticleContent(Article article, ArticleProvider provider) {
+  Widget _buildArticleContent(Article article) {
     void showTagsDialog([_]) => showDialog(
           context: context,
           builder: (_) => TagsSelectorDialog(
@@ -246,8 +250,11 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
             if (notification is ScrollEndNotification) {
               final progress =
                   scroller.offset / scroller.position.maxScrollExtent;
+              // FIXME forbid to reset to 0, this is wrong
               if (progress > 0) {
-                provider.saveScrollProgress(progress);
+                ref
+                    .read(currentArticleProvider.notifier)
+                    .saveScrollProgress(progress);
               }
             }
             return false;
@@ -268,6 +275,7 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
                         ),
                   const Divider(),
                   _buildContent(article.content!, scrollPosition),
+                  // TODO use SafeArea instead?
                   // use the same padding as SafeArea.bottom
                   SizedBox(height: MediaQuery.paddingOf(context).bottom),
                 ],

@@ -13,7 +13,6 @@ import '../constants.dart';
 import '../models/article.dart';
 import '../providers/article.dart';
 import '../providers/query.dart';
-import '../providers/settings.dart';
 import '../services/remote_sync.dart';
 import '../services/remote_sync_actions/articles.dart';
 import '../services/wallabag_storage.dart';
@@ -31,13 +30,11 @@ const idealListingWidth = 333.3;
 class ListingPage extends ConsumerStatefulWidget {
   const ListingPage({
     super.key,
-    required this.onItemSelect,
-    this.initialArticleId,
+    this.onItemSelect,
     this.withProgressIndicator = true,
   });
 
-  final void Function(int articleId) onItemSelect;
-  final int? initialArticleId;
+  final void Function(int articleId)? onItemSelect;
   final bool withProgressIndicator;
 
   @override
@@ -48,7 +45,6 @@ class _ListingPageState extends ConsumerState<ListingPage> {
   @override
   Widget build(BuildContext context) {
     final storage = context.watch<WallabagStorage>();
-    final settings = storage.settings;
     final query = ref.watch(queryProvider);
 
     Future<void> doRefresh() async {
@@ -88,13 +84,25 @@ class _ListingPageState extends ConsumerState<ListingPage> {
                     onRefresh: doRefresh,
                     child: ListView.separated(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      itemBuilder: (context, index) => ArticleListItem(
-                        article: storage.index(index, query)!,
-                        onTap: (article) {
-                          settings[Sk.selectedArticleId] = article.id;
-                          widget.onItemSelect(article.id!);
-                        },
-                      ),
+                      itemBuilder: (context, index) {
+                        final article = storage.index(index, query)!;
+                        if (index == 0) {
+                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                            ref
+                                .read(currentArticleProvider.notifier)
+                                .maybeInit(article.id!);
+                          });
+                        }
+                        return ArticleListItem(
+                          article: article,
+                          onTap: (article) {
+                            ref
+                                .read(currentArticleProvider.notifier)
+                                .change(article.id!);
+                            widget.onItemSelect?.call(article.id!);
+                          },
+                        );
+                      },
                       separatorBuilder: (context, index) => const Divider(),
                       itemCount: count,
                     ),
@@ -195,7 +203,7 @@ class ArticleListItem extends ConsumerWidget {
     // TODO GestureDetector on iOS
 
     final syncer = context.read<RemoteSyncer>();
-    final selectedId = context.read<ArticleProvider?>()?.articleId;
+    final selectedId = ref.watch(currentArticleProvider)?.id;
 
     return Ink(
       color: selectedId == article.id ? Theme.of(context).hoverColor : null,
