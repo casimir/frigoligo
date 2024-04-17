@@ -101,7 +101,7 @@ Future<void> main() async {
 
   runApp(const ProviderScope(
     observers: [
-      if (kDebugMode) RiverpodObserver(),
+      if (enableDebugLogs) RiverpodObserver(),
     ],
     child: MyApp(),
   ));
