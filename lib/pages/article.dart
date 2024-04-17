@@ -250,12 +250,9 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
             if (notification is ScrollEndNotification) {
               final progress =
                   scroller.offset / scroller.position.maxScrollExtent;
-              // FIXME forbid to reset to 0, this is wrong
-              if (progress > 0) {
-                ref
-                    .read(currentArticleProvider.notifier)
-                    .saveScrollProgress(progress);
-              }
+              ref
+                  .read(currentArticleProvider.notifier)
+                  .saveScrollProgress(progress);
             }
             return false;
           },
