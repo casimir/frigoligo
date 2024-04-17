@@ -5,7 +5,7 @@ import '../services/wallabag_storage.dart';
 
 part 'query.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class Query extends _$Query {
   @override
   WQuery build() => WQuery(state: StateFilter.unread);
