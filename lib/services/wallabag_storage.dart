@@ -89,8 +89,17 @@ class WallabagStorage with ChangeNotifier {
 
   Article? index(int n, WQuery wq) {
     if (n < 0 || n >= count(wq)) return null;
-    var ids = _buildQuery(wq, sort: '-createdAt', property: 'id').findAllSync();
+    final ids =
+        _buildQuery(wq, sort: '-createdAt', property: 'id').findAllSync();
     return db.articles.getSync(ids[n])!;
+  }
+
+  int? indexOf(int articleId, WQuery wq) {
+    if (articleId <= 0) return null;
+    final ids =
+        _buildQuery(wq, sort: '-createdAt', property: 'id').findAllSync();
+    final index = ids.indexOf(articleId);
+    return index >= 0 ? index : null;
   }
 
   int count(WQuery wq) => _buildQuery(wq).countSync();

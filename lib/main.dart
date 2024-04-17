@@ -281,7 +281,7 @@ class _MainContainerState extends ConsumerState<_MainContainer> {
       context.push('/articles/$articleId');
     }
 
-    return ListingPage(onItemSelect: onItemSelect);
+    return ListingPage(onItemSelect: onItemSelect, showSelectedItem: false);
   }
 
   Widget _buildWideLayout() {

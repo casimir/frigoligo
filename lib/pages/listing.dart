@@ -33,16 +33,37 @@ class ListingPage extends ConsumerStatefulWidget {
     super.key,
     this.onItemSelect,
     this.withProgressIndicator = true,
+    this.showSelectedItem = true,
   });
 
   final void Function(int articleId)? onItemSelect;
   final bool withProgressIndicator;
+  final bool showSelectedItem;
 
   @override
   ConsumerState<ListingPage> createState() => _ListingPageState();
 }
 
 class _ListingPageState extends ConsumerState<ListingPage> {
+  final ScrollController _scroller = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    final articleId = ref.read(currentArticleProvider)?.id;
+    if (articleId != null) {
+      final query = ref.read(queryProvider);
+      final scrollToIndex =
+          context.read<WallabagStorage>().indexOf(articleId, query);
+      if (scrollToIndex != null) {
+        WidgetsBinding.instance!.addPostFrameCallback((_) {
+          _scroller.jumpTo(scrollToIndex * listingHeight);
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final storage = context.watch<WallabagStorage>();
@@ -85,6 +106,7 @@ class _ListingPageState extends ConsumerState<ListingPage> {
                   child: RefreshIndicator.adaptive(
                     onRefresh: doRefresh,
                     child: ListView.separated(
+                      controller: _scroller,
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       itemBuilder: (context, index) {
                         final article = storage.index(index, query)!;
@@ -103,6 +125,7 @@ class _ListingPageState extends ConsumerState<ListingPage> {
                                 .change(article.id!);
                             widget.onItemSelect?.call(article.id!);
                           },
+                          showSelection: widget.showSelectedItem,
                         );
                       },
                       separatorBuilder: (context, index) => const Divider(),
@@ -194,10 +217,16 @@ class _TitleWidgetState extends ConsumerState<TitleWidget> {
 }
 
 class ArticleListItem extends ConsumerWidget {
-  const ArticleListItem({super.key, required this.article, this.onTap});
+  const ArticleListItem({
+    super.key,
+    required this.article,
+    this.onTap,
+    required this.showSelection,
+  });
 
   final Article article;
   final void Function(Article)? onTap;
+  final bool showSelection;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -208,7 +237,9 @@ class ArticleListItem extends ConsumerWidget {
     final selectedId = ref.watch(currentArticleProvider)?.id;
 
     return Ink(
-      color: selectedId == article.id ? Theme.of(context).hoverColor : null,
+      color: showSelection && selectedId == article.id
+          ? Theme.of(context).highlightColor
+          : null,
       child: SizedBox(
         height: listingHeight,
         child: InkWell(
