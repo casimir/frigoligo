@@ -1,3 +1,3 @@
-Emportez vos liens partout et gardez-les bien frais ! Frigoligo est un client wallabag s'efforçant d'être simple mais aussi rapide et facile à utiliser.
+Emportez vos liens partout et gardez-les bien frais ! Frigoligo est un client wallabag s'efforçant d'être simple mais aussi rapide et facile à utiliser. Il est gratuit, sans publicité et open source.
 
-Vous avez besoin d'un compte actif sur un serveur wallabag pour utiliser cette application. Visitez https://wallabag.org/ pour plus d'informations.
+Vous avez besoin d'un compte sur une instance wallabag pour utiliser cette application. Par exemple, vous pouvez créer votre propre instance en l'installant sur votre serveur web. Visitez https://wallabag.org/ pour plus d'informations.
