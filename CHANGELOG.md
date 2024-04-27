@@ -1,3 +1,13 @@
+<a name="v1.0.1"></a>
+# [v1.0.1](https://github.com/casimir/frigoligo/releases/tag/v1.0.1) - 27 Apr 2024
+
+Just a few changes and tweaks for stores metadata.
+
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v1.0.0...v1.0.1
+
+[Changes][v1.0.1]
+
+
 <a name="v1.0.0"></a>
 # [v1.0.0](https://github.com/casimir/frigoligo/releases/tag/v1.0.0) - 17 Apr 2024
 
@@ -413,6 +423,7 @@ Let's begin! This is the very first release.
 [Changes][v0.1.0]
 
 
+[v1.0.1]: https://github.com/casimir/frigoligo/compare/v1.0.0...v1.0.1
 [v1.0.0]: https://github.com/casimir/frigoligo/compare/v0.8.1...v1.0.0
 [v0.8.1]: https://github.com/casimir/frigoligo/compare/v0.8.0...v0.8.1
 [v0.8.0]: https://github.com/casimir/frigoligo/compare/v0.7.2...v0.8.0
