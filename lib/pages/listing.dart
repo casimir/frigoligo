@@ -57,7 +57,7 @@ class _ListingPageState extends ConsumerState<ListingPage> {
       final scrollToIndex =
           context.read<WallabagStorage>().indexOf(articleId, query);
       if (scrollToIndex != null) {
-        WidgetsBinding.instance!.addPostFrameCallback((_) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
           _scroller.jumpTo(scrollToIndex * listingHeight);
         });
       }
