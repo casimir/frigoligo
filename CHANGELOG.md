@@ -1,3 +1,18 @@
+<a name="v1.0.2"></a>
+# [v1.0.2](https://github.com/casimir/frigoligo/releases/tag/v1.0.2) - 28 Apr 2024
+
+Another small release just for the store metadata.
+
+## What's Changed
+### Miscellaneous
+* Add an en-US alias for fdroid by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/168
+
+
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v1.0.1...v1.0.2
+
+[Changes][v1.0.2]
+
+
 <a name="v1.0.1"></a>
 # [v1.0.1](https://github.com/casimir/frigoligo/releases/tag/v1.0.1) - 27 Apr 2024
 
@@ -423,6 +438,7 @@ Let's begin! This is the very first release.
 [Changes][v0.1.0]
 
 
+[v1.0.2]: https://github.com/casimir/frigoligo/compare/v1.0.1...v1.0.2
 [v1.0.1]: https://github.com/casimir/frigoligo/compare/v1.0.0...v1.0.1
 [v1.0.0]: https://github.com/casimir/frigoligo/compare/v0.8.1...v1.0.0
 [v0.8.1]: https://github.com/casimir/frigoligo/compare/v0.8.0...v0.8.1
