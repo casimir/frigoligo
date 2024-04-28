@@ -24,7 +24,7 @@ jobs:
   build_apk:
     runs-on: ubuntu-latest
     env:
-      ARTIFACT: frigoligo-${{ github.head_ref ||  github.ref_name }}-unsigned.apk
+      ARTIFACT: frigoligo-${{ github.head_ref ||  github.ref_name }}.apk
     outputs:
       artifact: ${{ env.ARTIFACT }}
     steps:
@@ -41,11 +41,21 @@ jobs:
       - run: flutter pub get
       - run: flutter test
       - run: flutter build apk
-      - run: cp build/app/outputs/flutter-apk/app-release.apk $ARTIFACT
+        env:
+          NO_SIGNING: true
+      - name: Sign Release
+        uses: r0adkll/sign-android-release@v1
+        id: sign_release
+        with:
+          releaseDirectory: build/app/outputs/flutter-apk
+          signingKeyBase64: ${{ secrets.KEYSTORE_B64 }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ env.ARTIFACT }}
-          path: ${{ env.ARTIFACT }}
+          path: ${{ steps.sign_release.outputs.signedReleaseFile }}
       - if: ${{ github.ref_type == 'tag' }}
         run: gh release upload $VERSION $ARTIFACT --clobber
         env:
