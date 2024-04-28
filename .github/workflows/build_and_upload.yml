@@ -43,23 +43,19 @@ jobs:
       - run: flutter build apk
         env:
           NO_SIGNING: true
-      - name: Setup $BUILD_TOOLS_VERSION
-        run: echo "BUILD_TOOLS_VERSION=$(ls /usr/local/lib/android/sdk/build-tools/ | tail -n 1)" >> $GITHUB_ENV
       - name: Sign Release
-        uses: r0adkll/sign-android-release@v1
+        uses: ilharp/sign-android-release@v1
         id: sign_release
         with:
-          releaseDirectory: build/app/outputs/flutter-apk
-          signingKeyBase64: ${{ secrets.KEYSTORE_B64 }}
-          alias: ${{ secrets.ALIAS }}
+          releaseDir: build/app/outputs/flutter-apk
+          signingKey: ${{ secrets.KEYSTORE_B64 }}
+          keyAlias: ${{ secrets.ALIAS }}
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
-        env:
-          BUILD_TOOLS_VERSION: ${{ env.BUILD_TOOLS_VERSION }}
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ env.ARTIFACT }}
-          path: ${{ steps.sign_release.outputs.signedReleaseFile }}
+          path: ${{ steps.sign_release.outputs.signedFile }}
       - if: ${{ github.ref_type == 'tag' }}
         run: gh release upload $VERSION $ARTIFACT --clobber
         env:
