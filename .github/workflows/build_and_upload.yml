@@ -3,21 +3,6 @@ on:
   push:
     tags:
       - v*.*.*
-    branches:
-      - signed-apk # todo remove this line
-  workflow_call:
-    outputs:
-      run_id:
-        value: ${{ github.run_id}}
-      apk:
-        value: ${{ jobs.build_apk.outputs.artifact }}
-      linux:
-        value: ${{ jobs.build_linux.outputs.artifact }}
-      appimage:
-        value: ${{ jobs.build_appimage.outputs.artifact }}
-      windows:
-        value: ${{ jobs.build_windows.outputs.artifact }}
-  workflow_dispatch:
 
 env:
   VERSION: ${{ github.head_ref ||  github.ref_name }}
@@ -48,12 +33,6 @@ jobs:
       - name: Sign Release
         uses: ilharp/sign-android-release@v1
         id: sign_release
-        env:
-          ANDROID_RELEASE_DIR: build/app/outputs/flutter-apk
-          ANDROID_SIGNING_KEY: ${{ secrets.KEYSTORE_B64 }}
-          ANDROID_KEY_ALIAS: ${{ secrets.ALIAS }}
-          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-          ANDROID_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         with:
           releaseDir: build/app/outputs/flutter-apk
           signingKey: ${{ secrets.KEYSTORE_B64 }}
