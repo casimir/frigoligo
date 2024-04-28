@@ -1,3 +1,15 @@
+<a name="v1.0.5"></a>
+# [v1.0.5](https://github.com/casimir/frigoligo/releases/tag/v1.0.5) - 28 Apr 2024
+
+Fix version numbers and code in all artifacts.
+
+It was wrongly tagged 1.0.2 in the last release.
+
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v1.0.4...v1.0.5
+
+[Changes][v1.0.5]
+
+
 <a name="v1.0.4"></a>
 # [v1.0.4](https://github.com/casimir/frigoligo/releases/tag/v1.0.4) - 28 Apr 2024
 
@@ -466,6 +478,7 @@ Let's begin! This is the very first release.
 [Changes][v0.1.0]
 
 
+[v1.0.5]: https://github.com/casimir/frigoligo/compare/v1.0.4...v1.0.5
 [v1.0.4]: https://github.com/casimir/frigoligo/compare/v1.0.3...v1.0.4
 [v1.0.3]: https://github.com/casimir/frigoligo/compare/v1.0.2...v1.0.3
 [v1.0.2]: https://github.com/casimir/frigoligo/compare/v1.0.1...v1.0.2
