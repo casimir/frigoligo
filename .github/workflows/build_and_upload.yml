@@ -3,6 +3,8 @@ on:
   push:
     tags:
       - v*.*.*
+    branches:
+      - signed-apk # todo remove this line
   workflow_call:
     outputs:
       run_id:
