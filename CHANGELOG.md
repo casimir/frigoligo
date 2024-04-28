@@ -1,7 +1,7 @@
 <a name="v1.0.2"></a>
 # [v1.0.2](https://github.com/casimir/frigoligo/releases/tag/v1.0.2) - 28 Apr 2024
 
-Another small release just for the store metadata.
+Another maintenance release with store metadata fixes.
 
 ## What's Changed
 ### Miscellaneous
