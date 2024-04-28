@@ -3,8 +3,6 @@ on:
   push:
     tags:
       - v*.*.*
-    branches:
-      - signed-apk # todo remove this line
   workflow_call:
     outputs:
       run_id:
@@ -54,12 +52,6 @@ jobs:
           ANDROID_KEY_ALIAS: ${{ secrets.ALIAS }}
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           ANDROID_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-        with:
-          releaseDir: build/app/outputs/flutter-apk
-          signingKey: ${{ secrets.KEYSTORE_B64 }}
-          keyAlias: ${{ secrets.ALIAS }}
-          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ env.ARTIFACT }}
