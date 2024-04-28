@@ -3,19 +3,6 @@ on:
   push:
     tags:
       - v*.*.*
-  workflow_call:
-    outputs:
-      run_id:
-        value: ${{ github.run_id}}
-      apk:
-        value: ${{ jobs.build_apk.outputs.artifact }}
-      linux:
-        value: ${{ jobs.build_linux.outputs.artifact }}
-      appimage:
-        value: ${{ jobs.build_appimage.outputs.artifact }}
-      windows:
-        value: ${{ jobs.build_windows.outputs.artifact }}
-  workflow_dispatch:
 
 env:
   VERSION: ${{ github.head_ref ||  github.ref_name }}
@@ -24,7 +11,7 @@ jobs:
   build_apk:
     runs-on: ubuntu-latest
     env:
-      ARTIFACT: frigoligo-${{ github.head_ref ||  github.ref_name }}-unsigned.apk
+      ARTIFACT: frigoligo-${{ github.head_ref ||  github.ref_name }}.apk
     outputs:
       artifact: ${{ env.ARTIFACT }}
     steps:
@@ -41,7 +28,18 @@ jobs:
       - run: flutter pub get
       - run: flutter test
       - run: flutter build apk
-      - run: cp build/app/outputs/flutter-apk/app-release.apk $ARTIFACT
+        env:
+          NO_SIGNING: true
+      - name: Sign Release
+        uses: ilharp/sign-android-release@v1
+        id: sign_release
+        with:
+          releaseDir: build/app/outputs/flutter-apk
+          signingKey: ${{ secrets.KEYSTORE_B64 }}
+          keyAlias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+      - run: cp build/app/outputs/flutter-apk/app-release-signed.apk $ARTIFACT
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ env.ARTIFACT }}
