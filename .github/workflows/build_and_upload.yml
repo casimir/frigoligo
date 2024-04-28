@@ -52,10 +52,17 @@ jobs:
           ANDROID_KEY_ALIAS: ${{ secrets.ALIAS }}
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           ANDROID_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        with:
+          releaseDir: build/app/outputs/flutter-apk
+          signingKey: ${{ secrets.KEYSTORE_B64 }}
+          keyAlias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+      - run: cp build/app/outputs/flutter-apk/app-release-signed.apk $ARTIFACT
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ env.ARTIFACT }}
-          path: ${{ steps.sign_release.outputs.signedFile }}
+          path: ${{ env.ARTIFACT }}
       - if: ${{ github.ref_type == 'tag' }}
         run: gh release upload $VERSION $ARTIFACT --clobber
         env:
