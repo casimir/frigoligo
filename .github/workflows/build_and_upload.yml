@@ -3,6 +3,8 @@ on:
   push:
     tags:
       - v*.*.*
+    branches:
+      - signed-apk # todo remove this line
   workflow_call:
     outputs:
       run_id:
@@ -28,6 +30,9 @@ jobs:
     outputs:
       artifact: ${{ env.ARTIFACT }}
     steps:
+      - run: 'echo "alias: $SECRET_ALIAS" && exit 1'
+        env:
+          SECRET_ALIAS: ${{ secrets.ALIAS }}
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with:
