@@ -48,10 +48,6 @@ jobs:
         id: sign_release
         with:
           releaseDir: build/app/outputs/flutter-apk
-          signingKey: ${{ secrets.KEYSTORE_B64 }}
-          keyAlias: ${{ secrets.ALIAS }}
-          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ env.ARTIFACT }}
