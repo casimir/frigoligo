@@ -49,7 +49,6 @@ class ReadingSettings extends _$ReadingSettings {
   }
 }
 
-// TODO maybe embed fonts and ensure licenses are shown like the others packages
 const readingFonts = [
   'Lato',
   'Montserrat',
