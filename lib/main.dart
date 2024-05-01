@@ -8,6 +8,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart'
     hide ChangeNotifierProvider; // use ChangeNotifierProvider from provider
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:logging/logging.dart';
 import 'package:neat_periodic_task/neat_periodic_task.dart';
 import 'package:provider/provider.dart';
@@ -52,6 +53,9 @@ Future<void> main() async {
     FlutterError.presentError(errorDetails);
   };
   _log.info('starting app');
+
+  // prevent fetching fonts from the internet, only loads the ones in the assets
+  GoogleFonts.config.allowRuntimeFetching = false;
 
   // after this line using `await` is OK
   WidgetsFlutterBinding.ensureInitialized();
