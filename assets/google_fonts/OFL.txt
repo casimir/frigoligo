@@ -2,6 +2,8 @@ Copyright 2020 Braille Institute of America, Inc.
 Copyright (c) 2010-2014 by tyPoland Lukasz Dziedzic (team@latofonts.com) with Reserved Font Name "Lato"
 Copyright 2017 The Literata Project Authors (https://github.com/googlefonts/literata)
 Copyright 2011 The Montserrat Project Authors (https://github.com/JulietaUla/Montserrat)
+Copyright 2020 The Newsreader Project Authors (http://github.com/productiontype/Newsreader)
+
 
 This Font Software is licensed under the SIL Open Font License, Version 1.1.
 This license is copied below, and is also available with a FAQ at:
