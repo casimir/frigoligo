@@ -57,7 +57,6 @@ Future<void> main() async {
 
   // prevent fetching fonts from the internet, only loads the ones in the assets
   GoogleFonts.config.allowRuntimeFetching = false;
-
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString('google_fonts/OFL.txt');
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
