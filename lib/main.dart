@@ -4,6 +4,7 @@ import 'package:background_fetch/background_fetch.dart';
 import 'package:cadanse/layout.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart'
     hide ChangeNotifierProvider; // use ChangeNotifierProvider from provider
@@ -56,6 +57,11 @@ Future<void> main() async {
 
   // prevent fetching fonts from the internet, only loads the ones in the assets
   GoogleFonts.config.allowRuntimeFetching = false;
+
+  LicenseRegistry.addLicense(() async* {
+    final license = await rootBundle.loadString('google_fonts/OFL.txt');
+    yield LicenseEntryWithLineBreaks(['google_fonts'], license);
+  });
 
   // after this line using `await` is OK
   WidgetsFlutterBinding.ensureInitialized();
