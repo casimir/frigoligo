@@ -7,14 +7,16 @@ Future<void> main() async {
     'phone': [
       'iPhone 15 Plus',
       'iPhone 8 Plus',
+      'android_phone',
     ],
     'tablet': [
       'iPad Pro (12.9-inch) (6th generation)',
       'iPad Pro (12.9-inch) (2th generation)',
+      'android_tablet',
     ],
   };
   const configs = [
-    {'locale': 'en-GB'},
+    {'locale': 'en-US'},
     {'locale': 'fr-FR'},
   ];
 
