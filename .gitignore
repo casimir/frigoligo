@@ -50,5 +50,5 @@ app.*.map.json
 fastlane/metadata/android/*/images/
 !fastlane/metadata/android/en-US/images/
 fastlane/metadata/android/en-US/images/*
-!fastlane/metadata/android/en-US/images/icon.png
+!fastlane/metadata/android/en-US/images/*.png
 !fastlane/metadata/android/en-US/images/phoneScreenshots/
