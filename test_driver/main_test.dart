@@ -22,14 +22,25 @@ Future<void> main() async {
     'fr' => 'Retour',
     _ => throw UnimplementedError('back tooltip not supported for $locale')
   };
+  final okCancelLabel = switch (locale.split('-').first) {
+    'en' => 'OK',
+    'fr' => 'OK',
+    _ => throw UnimplementedError('ok/cancel label not supported for $locale')
+  };
 
+  final deviceName = Environment.getString('deviceName')!;
   final deviceType = Environment.getString('deviceType')!;
+  final deviceIsAndroid = deviceName.startsWith('android_');
 
   final driver = await FlutterDriver.connect();
   final emulators = await Emulators.build();
+
+  final androidImageDirectory =
+      deviceType == 'phone' ? 'phoneScreenshots' : 'tenInchScreenshots';
   final screenshots = emulators.screenshotHelper(
     iosPath: 'ios/fastlane/screenshots/$locale',
-    androidPath: 'screenshots/android/$locale',
+    androidPath:
+        'fastlane/metadata/android/$locale/images/$androidImageDirectory',
   );
 
   setUpAll(() async {
@@ -129,6 +140,9 @@ Future<void> main() async {
 
       await driver.tap(find.byValueKey(wkSettingsTheme));
       await driver.tap(find.text(darkModeLabel));
+      if (deviceIsAndroid) {
+        await driver.tap(find.text(okCancelLabel));
+      }
       await takeScreenshot('settings-dark-theme');
 
       await driver.tap(find.byTooltip(backTooltip));

@@ -15,29 +15,13 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## Android
 
-### android test
+### android upload_metadata
 
 ```sh
-[bundle exec] fastlane android test
+[bundle exec] fastlane android upload_metadata
 ```
 
-Runs all the tests
-
-### android beta
-
-```sh
-[bundle exec] fastlane android beta
-```
-
-Submit a new Beta Build to Crashlytics Beta
-
-### android deploy
-
-```sh
-[bundle exec] fastlane android deploy
-```
-
-Deploy a new version to the Google Play
+Upload metadata the Google Play Store
 
 ----
 

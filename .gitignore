@@ -44,3 +44,11 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# fastlane metadata
+# only keep the minimum of screenshots for F-Droid in the repo
+fastlane/metadata/android/*/images/
+!fastlane/metadata/android/en-US/images/
+fastlane/metadata/android/en-US/images/*
+!fastlane/metadata/android/en-US/images/icon.png
+!fastlane/metadata/android/en-US/images/phoneScreenshots/

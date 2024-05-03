@@ -1,0 +1,2 @@
+json_key_file("../pc-api-googleplay-devconsole.json") 
+package_name("net.casimirlab.frigoligo") 

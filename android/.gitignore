@@ -11,7 +11,3 @@ GeneratedPluginRegistrant.java
 key.properties
 **/*.keystore
 **/*.jks
-
-
-fastlane/Appfile
-fastlane/metadata/android/*/images
