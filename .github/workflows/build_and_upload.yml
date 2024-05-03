@@ -23,7 +23,6 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
-          flutter-version-file: pubspec.yaml
           cache: true
       - run: flutter --version
       - run: flutter pub get
@@ -62,7 +61,6 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
-          flutter-version-file: pubspec.yaml
           cache: true
       - run: |
           sudo apt-get update -y
@@ -139,7 +137,6 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
-          flutter-version-file: pubspec.yaml
           cache: true
       - run: flutter --version
       - run: flutter pub get
