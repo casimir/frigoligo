@@ -5,7 +5,7 @@ import 'package:emulators/emulators.dart';
 Future<void> main() async {
   const devices = [
     ('android_phone', 'pixel_6'),
-    ('android_tablet', '10.1in WXGA (Tablet)'),
+    ('android_tablet', 'Nexus 10'),
   ];
 
   final emulators = await Emulators.build();
@@ -19,8 +19,8 @@ Future<void> main() async {
       '--name',
       device.$1,
       '--package',
-      // 'system-images;android-34;google_apis;x86_64',
-      'system-images;android-34;google_apis;arm64-v8a',
+      'system-images;android-34;google_apis;x86_64',
+      // 'system-images;android-34;google_apis;arm64-v8a',
       '--device',
       device.$2,
     ]).process();
