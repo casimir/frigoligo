@@ -5,9 +5,16 @@ on:
       - main
     tags:
       - dependencies
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - ready_for_review
   workflow_dispatch:
 jobs:
   smoke-tests:
+    if: github.event.pull_request.draft == false
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
