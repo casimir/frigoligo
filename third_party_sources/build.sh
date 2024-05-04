@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
 SCRIPT_PATH="$(readlink -f $0)"
 TPS_DIR="$(dirname $SCRIPT_PATH)"
