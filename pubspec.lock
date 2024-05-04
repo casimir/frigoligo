@@ -45,10 +45,10 @@ packages:
     dependency: "direct main"
     description:
       name: app_links
-      sha256: "42dc15aecf2618ace4ffb74a2e58a50e45cd1b9f2c17c8f0cafe4c297f08c815"
+      sha256: f57cf3889e11f927fbc92ec1e74079614ff652179d0be06d34f2488873ca3a9f
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.1"
+    version: "6.0.0"
   appkit_ui_element_colors:
     dependency: transitive
     description:
