@@ -5,18 +5,28 @@ on:
       - main
     tags:
       - dependencies
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - ready_for_review
   workflow_dispatch:
 jobs:
   smoke-tests:
+    if: github.event.pull_request.draft == false
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
+      - run: echo "version=$(cat .flutter-version)" >> $GITHUB_OUTPUT
+        id: flutter-version
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
+          flutter-version: ${{ steps.flutter-version.outputs.version }}
           cache: true
       - run: flutter --version
       - run: flutter pub get
