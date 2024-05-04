@@ -1,6 +1,3 @@
 [submodule "isar"]
 	path = third_party_sources/isar
 	url = https://github.com/isar-community/isar.git
-[submodule "transistor-background-fetch"]
-	path = third_party_sources/transistor-background-fetch
-	url = https://github.com/transistorsoft/transistor-background-fetch.git

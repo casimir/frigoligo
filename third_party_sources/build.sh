@@ -23,10 +23,3 @@ mv libisar_android_armv7.so $ISAR_LIBS_DIR/armeabi-v7a/libisar.so
 mv libisar_android_arm64.so $ISAR_LIBS_DIR/arm64-v8a/libisar.so
 popd
 echo "> DONE"
-
-echo "> Building transistor-background-fetch artifact..."
-pushd $TPS_DIR/transistor-background-fetch/android/tsbackgroundfetch/
-gradle assembleRelease
-gradle publishToMavenLocal
-popd
-echo "> DONE"
