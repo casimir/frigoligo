@@ -1,7 +1,21 @@
+<a name="v1.0.7"></a>
+# [v1.0.7](https://github.com/casimir/frigoligo/releases/tag/v1.0.7) - 05 May 2024
+
+## What's Changed
+### Miscellaneous
+* Rebuild isar libs for the apk to allow reproducible builds by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/180
+
+
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v1.0.6...v1.0.7
+
+[Changes][v1.0.7]
+
+
 <a name="v1.0.6"></a>
 # [v1.0.6](https://github.com/casimir/frigoligo/releases/tag/v1.0.6) - 05 May 2024
 
-Nothing visible for the user. Lots of ops thing related to metadata management and stores deployment. 
+The reading fonts are now bundled into the application. It makes it a few MB bigger but it is only a one time download and never need an internet connection for that later.
+Also lots of ops thing related to metadata management and stores deployment. 
 
 ## What's Changed
 ### Features
@@ -501,6 +515,7 @@ Let's begin! This is the very first release.
 [Changes][v0.1.0]
 
 
+[v1.0.7]: https://github.com/casimir/frigoligo/compare/v1.0.6...v1.0.7
 [v1.0.6]: https://github.com/casimir/frigoligo/compare/v1.0.5...v1.0.6
 [v1.0.5]: https://github.com/casimir/frigoligo/compare/v1.0.4...v1.0.5
 [v1.0.4]: https://github.com/casimir/frigoligo/compare/v1.0.3...v1.0.4
