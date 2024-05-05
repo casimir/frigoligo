@@ -38,10 +38,7 @@ jobs:
         with:
           ndk-version: r26d
       - run: flutter pub get
-      - run: ./third_party_sources/build.sh
-        env:
-          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
-          PUB_CACHE: .pub-cache
+      - run: env PUB_CACHE=$(pwd)/.pub-cache ANDROID_NDK_HOME=${{ steps.setup-ndk.outputs.ndk-path }} ./third_party_sources/build.sh
       - run: flutter test
       - run: flutter build apk
         env:
