@@ -18,6 +18,8 @@ jobs:
       artifact: ${{ env.ARTIFACT }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
       - uses: actions/setup-java@v4
         with:
           distribution: zulu
