@@ -14,7 +14,7 @@ ISAR_LIBS_DIR=$PUB_CACHE/hosted/isar-community.dev/isar_flutter_libs-$ISAR_VERSI
 
 echo "================================================================================"
 echo "BEFORE PATCHING:"
-readlink --wide --notes $ISAR_LIBS_DIR/*/libisar.so
+readelf --wide --notes $ISAR_LIBS_DIR/*/libisar.so
 echo "================================================================================"
 
 pushd $TPS_DIR/isar
@@ -30,7 +30,7 @@ popd
 
 echo "================================================================================"
 echo "AFTER PATCHING:"
-readlink --wide --notes $ISAR_LIBS_DIR/*/libisar.so
+readelf --wide --notes $ISAR_LIBS_DIR/*/libisar.so
 echo "================================================================================"
 
 echo "> DONE"
