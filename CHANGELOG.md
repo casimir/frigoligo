@@ -1,9 +1,32 @@
+<a name="v1.0.6"></a>
+# [v1.0.6](https://github.com/casimir/frigoligo/releases/tag/v1.0.6) - 05 May 2024
+
+Nothing visible for the user. Lots of ops thing related to metadata management and stores deployment. 
+
+## What's Changed
+### Features
+* Bundle the reading fonts by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/172
+### Miscellaneous
+* Update dependency gradle to v7.6.4 by [@renovate](https://github.com/renovate) in https://github.com/casimir/frigoligo/pull/45
+* Rework fastlane metadata for android by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/173
+* Version the feature graphic for F-Droid by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/174
+* Update dependency fastlane to v2.220.0 by [@renovate](https://github.com/renovate) in https://github.com/casimir/frigoligo/pull/158
+* Pin flutter version by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/175
+* Pin flutter version by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/177
+* Build third party binaries from sources by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/178
+
+
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v1.0.5...v1.0.6
+
+[Changes][v1.0.6]
+
+
 <a name="v1.0.5"></a>
 # [v1.0.5](https://github.com/casimir/frigoligo/releases/tag/v1.0.5) - 28 Apr 2024
 
 Fix version numbers and code in all artifacts.
 
-It was wrongly tagged 1.0.2 in the last release.
+It was wrongly tagged `1.0.2` in the last release.
 
 **Full Changelog**: https://github.com/casimir/frigoligo/compare/v1.0.4...v1.0.5
 
@@ -11,7 +34,7 @@ It was wrongly tagged 1.0.2 in the last release.
 
 
 <a name="v1.0.4"></a>
-# [v1.0.4](https://github.com/casimir/frigoligo/releases/tag/v1.0.4) - 28 Apr 2024
+# [v1.0.4 - THIS IS BROKEN USE LATER VERSION](https://github.com/casimir/frigoligo/releases/tag/v1.0.4) - 28 Apr 2024
 
 Fix version numbers and code in all artifacts.
 
@@ -23,7 +46,7 @@ It was wrongly tagged `1.0.2` in the last release.
 
 
 <a name="v1.0.3"></a>
-# [v1.0.3](https://github.com/casimir/frigoligo/releases/tag/v1.0.3) - 28 Apr 2024
+# [v1.0.3 - THIS IS BROKEN USE LATER VERSION](https://github.com/casimir/frigoligo/releases/tag/v1.0.3) - 28 Apr 2024
 
 The apk provided in the release will now be signed so its source and integrity can be verified.
 
@@ -478,6 +501,7 @@ Let's begin! This is the very first release.
 [Changes][v0.1.0]
 
 
+[v1.0.6]: https://github.com/casimir/frigoligo/compare/v1.0.5...v1.0.6
 [v1.0.5]: https://github.com/casimir/frigoligo/compare/v1.0.4...v1.0.5
 [v1.0.4]: https://github.com/casimir/frigoligo/compare/v1.0.3...v1.0.4
 [v1.0.3]: https://github.com/casimir/frigoligo/compare/v1.0.2...v1.0.3
