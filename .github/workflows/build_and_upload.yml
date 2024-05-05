@@ -40,7 +40,6 @@ jobs:
         with:
           ndk-version: r26d
       - run: echo "ANDROID_NDK_HOME=${{ steps.setup-ndk.outputs.ndk-path }}" >> "$GITHUB_ENV"
-      - run: echo "PUB_CACHE=$(pwd)/.pub-cache" >> "$GITHUB_ENV"
       - run: flutter pub get
       - run: ./third_party_sources/build.sh
       - run: flutter test
