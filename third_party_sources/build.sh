@@ -11,12 +11,6 @@ fi
 echo "> Building Isar native libs..."
 ISAR_VERSION=$(awk '/isar_version: /{print $3}' $TPS_DIR/../pubspec.yaml)
 ISAR_LIBS_DIR=$PUB_CACHE/hosted/isar-community.dev/isar_flutter_libs-$ISAR_VERSION/android/src/main/jniLibs
-
-echo "================================================================================"
-echo "BEFORE PATCHING:"
-readelf --wide --notes $ISAR_LIBS_DIR/*/libisar.so
-echo "================================================================================"
-
 pushd $TPS_DIR/isar
 bash ./tool/build_android.sh x86
 mv libisar_android_x86.so $ISAR_LIBS_DIR/x86/libisar.so
@@ -27,10 +21,4 @@ mv libisar_android_armv7.so $ISAR_LIBS_DIR/armeabi-v7a/libisar.so
 bash ./tool/build_android.sh arm64
 mv libisar_android_arm64.so $ISAR_LIBS_DIR/arm64-v8a/libisar.so
 popd
-
-echo "================================================================================"
-echo "AFTER PATCHING:"
-readelf --wide --notes $ISAR_LIBS_DIR/*/libisar.so
-echo "================================================================================"
-
 echo "> DONE"

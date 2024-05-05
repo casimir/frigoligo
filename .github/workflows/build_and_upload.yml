@@ -3,8 +3,6 @@ on:
   push:
     tags:
       - v*.*.*
-    branches:
-      - build-isar
 
 env:
   VERSION: ${{ github.head_ref ||  github.ref_name }}
