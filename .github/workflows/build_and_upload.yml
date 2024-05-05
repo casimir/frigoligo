@@ -17,6 +17,7 @@ jobs:
     outputs:
       artifact: ${{ env.ARTIFACT }}
     steps:
+      - run: readlink --help && exit 1
       - uses: actions/checkout@v4
         with:
           submodules: recursive
