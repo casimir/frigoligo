@@ -3,6 +3,7 @@ on:
   push:
     tags:
       - v*.*.*
+  workflow_dispatch:
 
 env:
   VERSION: ${{ github.head_ref ||  github.ref_name }}
