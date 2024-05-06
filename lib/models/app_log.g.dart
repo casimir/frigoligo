@@ -64,7 +64,7 @@ const AppLogSchema = CollectionSchema(
   getId: _appLogGetId,
   getLinks: _appLogGetLinks,
   attach: _appLogAttach,
-  version: '3.1.4',
+  version: '3.1.7',
 );
 
 int _appLogEstimateSize(

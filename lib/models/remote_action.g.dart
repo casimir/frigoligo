@@ -49,7 +49,7 @@ const RemoteActionSchema = CollectionSchema(
   getId: _remoteActionGetId,
   getLinks: _remoteActionGetLinks,
   attach: _remoteActionAttach,
-  version: '3.1.4',
+  version: '3.1.7',
 );
 
 int _remoteActionEstimateSize(
