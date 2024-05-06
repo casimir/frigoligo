@@ -1,3 +1,19 @@
+<a name="v1.0.8"></a>
+# [v1.0.8](https://github.com/casimir/frigoligo/releases/tag/v1.0.8) - 06 May 2024
+
+Update most of the dependencies so most iOS native libs have a privacy manifest.
+
+## What's Changed
+### Miscellaneous
+* Update isar to 3.1.7 by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/181
+* Bump flutter dependencies by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/182
+
+
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v1.0.7...v1.0.8
+
+[Changes][v1.0.8]
+
+
 <a name="v1.0.7"></a>
 # [v1.0.7](https://github.com/casimir/frigoligo/releases/tag/v1.0.7) - 05 May 2024
 
@@ -515,6 +531,7 @@ Let's begin! This is the very first release.
 [Changes][v0.1.0]
 
 
+[v1.0.8]: https://github.com/casimir/frigoligo/compare/v1.0.7...v1.0.8
 [v1.0.7]: https://github.com/casimir/frigoligo/compare/v1.0.6...v1.0.7
 [v1.0.6]: https://github.com/casimir/frigoligo/compare/v1.0.5...v1.0.6
 [v1.0.5]: https://github.com/casimir/frigoligo/compare/v1.0.4...v1.0.5
