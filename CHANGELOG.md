@@ -1,3 +1,18 @@
+<a name="v1.0.9"></a>
+# [v1.0.9](https://github.com/casimir/frigoligo/releases/tag/v1.0.9) - 06 May 2024
+
+Fix apk build for releases.
+
+## What's Changed
+### Miscellaneous
+* Fix pub-cache path when building isar by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/183
+
+
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v1.0.8...v1.0.9
+
+[Changes][v1.0.9]
+
+
 <a name="v1.0.8"></a>
 # [v1.0.8](https://github.com/casimir/frigoligo/releases/tag/v1.0.8) - 06 May 2024
 
@@ -531,6 +546,7 @@ Let's begin! This is the very first release.
 [Changes][v0.1.0]
 
 
+[v1.0.9]: https://github.com/casimir/frigoligo/compare/v1.0.8...v1.0.9
 [v1.0.8]: https://github.com/casimir/frigoligo/compare/v1.0.7...v1.0.8
 [v1.0.7]: https://github.com/casimir/frigoligo/compare/v1.0.6...v1.0.7
 [v1.0.6]: https://github.com/casimir/frigoligo/compare/v1.0.5...v1.0.6
