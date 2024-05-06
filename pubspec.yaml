@@ -21,7 +21,7 @@ version: 1.0.7+28
 environment:
   sdk: ">=3.0.5 <4.0.0"
 
-isar_version: &isar_version 3.1.4
+isar_version: &isar_version 3.1.7
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -49,10 +49,10 @@ dependencies:
   logging: ^1.2.0
   isar:
     version: *isar_version
-    hosted: https://isar-community.dev/
+    hosted: https://pub.isar-community.dev/
   isar_flutter_libs:
     version: *isar_version
-    hosted: https://isar-community.dev/
+    hosted: https://pub.isar-community.dev/
   path_provider: ^2.0.15
   cached_network_image: ^3.2.3
   flutter_svg: ^2.0.7
@@ -85,10 +85,10 @@ dev_dependencies:
   custom_lint: ^0.6.2
   riverpod_lint: ^2.3.9
 
-  build_runner: ^2.4.8
+  build_runner: any
   isar_generator:
     version: *isar_version
-    hosted: https://isar-community.dev/
+    hosted: https://pub.isar-community.dev/
   json_serializable: ^6.7.0
   riverpod_generator: ^2.3.11
   emulators: ^0.5.1
