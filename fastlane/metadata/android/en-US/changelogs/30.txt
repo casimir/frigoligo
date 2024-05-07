@@ -1,0 +1,1 @@
+The reading fonts are now bundled in the application directly and won't be downloads afterwards anymore.

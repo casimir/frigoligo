@@ -1,0 +1,1 @@
+Les polices de lecture sont maintenant incluses directement dans l'application et ne seront plus téléchargées après coup.
