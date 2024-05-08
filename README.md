@@ -1,5 +1,6 @@
 # Frigoligo
 
+<!-- [![Chat on Matrix](https://img.shields.io/matrix/frigoligo:one.ems.host)](https://matrix.to/#/#frigoligo:one.ems.host) -->
 [![Chat on Matrix](https://matrix.to/img/matrix-badge.svg)](https://matrix.to/#/#frigoligo:one.ems.host)
 [![Translation status](https://hosted.weblate.org/widget/frigoligo/svg-badge.svg)](https://hosted.weblate.org/engage/frigoligo/)
 
