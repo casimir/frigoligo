@@ -12,15 +12,10 @@ Frigoligo is aiming at being:
 
 ## Installation
 
-| Platform        | Link                                                                                |
-|-----------------|-------------------------------------------------------------------------------------|
-| iOS             | [Testflight](https://testflight.apple.com/join/nYnbySd8)                            |
-| Android (store) | [PlayStore](https://play.google.com/store/apps/details?id=net.casimirlab.frigoligo) |
-| Android (apk)   | [see latest release](https://github.com/casimir/frigoligo/releases/latest)          |
-| macOS           | [Testflight](https://testflight.apple.com/join/nYnbySd8)                            |
-| Linux           | [see latest release](https://github.com/casimir/frigoligo/releases/latest)          |
-| AppImage        | [see latest release](https://github.com/casimir/frigoligo/releases/latest)          |
-| Windows         | [see latest release](https://github.com/casimir/frigoligo/releases/latest)          |
+[<img src="./assets/logos/badge_apple_app_store.svg" alt="Download on the App Store" height="60" />](https://apps.apple.com/us/app/frigoligo/id6451362294)
+[<img src="./assets/logos/badge_google_play_store.svg" alt="Get it on Google Play" height="60" />](https://play.google.com/store/apps/details?id=net.casimirlab.frigoligo)
+
+You can also download the installer from the [latest release](https://github.com/casimir/frigoligo/releases/latest) for the following platforms: Android (apk), Linux, AppImage and Windows.
 
 ## Features
 
