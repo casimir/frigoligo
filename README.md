@@ -1,4 +1,7 @@
-# Frigoligo [![Chat on Matrix](https://matrix.to/img/matrix-badge.svg)](https://matrix.to/#/#frigoligo:one.ems.host)
+# Frigoligo
+
+[![Chat on Matrix](https://matrix.to/img/matrix-badge.svg)](https://matrix.to/#/#frigoligo:one.ems.host)
+[![Translation status](https://hosted.weblate.org/widget/frigoligo/svg-badge.svg)](https://hosted.weblate.org/engage/frigoligo/)
 
 Frigoligo is a [wallabag](https://wallabag.org/) client crafted using [Flutter](https://flutter.dev/). Its core philosophy is to prioritize pragmatism and adhering to best practices when it makes sense.
 
@@ -83,4 +86,6 @@ Licensed under the MIT. See [LICENSE](./LICENSE) for details.
 
 ## Translations
 
-Translations are managed on [Weblate](https://hosted.weblate.org/projects/frigoligo/flutter/). Feel free to help!
+You can help translating Frigoligo in your language by using [Weblate](https://hosted.weblate.org/engage/frigoligo/). Please come and help!
+
+[![Translation status](https://hosted.weblate.org/widget/frigoligo/multi-auto.svg)](https://hosted.weblate.org/engage/frigoligo/)
