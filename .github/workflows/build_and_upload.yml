@@ -55,6 +55,7 @@ jobs:
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
       - run: cp build/app/outputs/flutter-apk/app-release-signed.apk $ARTIFACT
+      - run: ./tools/verify_apk_cert.sh $ARTIFACT
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ env.ARTIFACT }}
