@@ -15,6 +15,5 @@ $apksigner_bin >/dev/null || exit 1
 
 for f in "$@"; do
     fingerprint=$($apksigner_bin verify --print-certs $f 2>/dev/null | sed -n 's/^Signer #1 certificate SHA-256 digest: \(.*\)/\1/p')
-    [ "$fingerprint" = "$VALID_HASH" ] || (echo "$f: bad certificate: $fingerprint" && exit 1)
-    echo "$f: OK"
+    [ "$fingerprint" = "$VALID_HASH" ] || (echo "$f: bad certificate: $fingerprint" && exit 1) && echo "$f: OK"
 done
