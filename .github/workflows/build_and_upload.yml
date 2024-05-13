@@ -94,7 +94,21 @@ jobs:
       - run: flutter pub get
       - run: flutter test
       - run: flutter build apk --release --split-per-abi
-      # TODO for each APK, verify signature, upload it as an artifact and add it to the release
+      - name: Rename APKs to release format
+        run: |
+          for apk in build/app/outputs/flutter-apk/*-release.apk; do
+            abi=$(basename $apk | cut -d- -f2)
+            mv $apk build/app/outputs/flutter-apk/frigoligo-${{ github.head_ref ||  github.ref_name }}-$abi.apk
+          done
+      - run: ./tools/verify_apk_cert.sh build/app/outputs/flutter-apk/*.apk
+      - if: ${{ github.ref_type == 'tag' }}
+        name: Upload APKs to the release
+        run: |
+          for apk in build/app/outputs/flutter-apk/*.apk; do
+            gh release upload $VERSION $apk --clobber
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build_linux:
     runs-on: ubuntu-latest
