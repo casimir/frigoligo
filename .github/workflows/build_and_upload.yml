@@ -97,18 +97,22 @@ jobs:
       - name: Rename APKs to release format
         run: |
           for apk in build/app/outputs/flutter-apk/*-release.apk; do
-            abi=$(basename $apk | cut -d- -f2)
+            abi=$(basename $apk | sed -r 's/^app-(.+)-release.apk$/\1/')
             mv $apk build/app/outputs/flutter-apk/frigoligo-${{ github.head_ref ||  github.ref_name }}-$abi.apk
           done
       - run: ./tools/verify_apk_cert.sh build/app/outputs/flutter-apk/*.apk
+      - name: Upload APKs to the job release
+        uses: AButler/upload-release-assets@v3.0
+        with:
+          files: build/app/outputs/flutter-apk/*.apk
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
       - if: ${{ github.ref_type == 'tag' }}
-        name: Upload APKs to the release
-        run: |
-          for apk in build/app/outputs/flutter-apk/*.apk; do
-            gh release upload $VERSION $apk --clobber
-          done
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        name: Upload APKs to the tag release
+        uses: AButler/upload-release-assets@v3.0
+        with:
+          files: build/app/outputs/flutter-apk/*.apk
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          release-tag: ${{ env.VERSION }}
 
   build_linux:
     runs-on: ubuntu-latest
