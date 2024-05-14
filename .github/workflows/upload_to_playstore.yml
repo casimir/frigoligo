@@ -17,6 +17,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: timheuer/base64-to-file@v1.2
+        with:
+          fileName: "keystore.jks"
+          fileDir: "${{ github.workspace }}/"
+          encodedString: ${{ secrets.KEYSTORE_B64 }}
+      - name: Prepare keystore file
+        run: |
+          echo "storeFile=${{ github.workspace }}/keystore.jks" > $KEYSTORE_PROPERTIES_PATH
+          echo "keyAlias=frigoligo" >> $KEYSTORE_PROPERTIES_PATH
+          echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" >> $KEYSTORE_PROPERTIES_PATH
+          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> $KEYSTORE_PROPERTIES_PATH
+        env:
+          KEYSTORE_PROPERTIES_PATH: ${{ github.workspace }}/android/keystore.properties
       - uses: actions/setup-java@v4
         with:
           distribution: zulu
@@ -28,25 +41,14 @@ jobs:
           channel: stable
           flutter-version: ${{ steps.flutter-version.outputs.version }}
           cache: true
-      - run: flutter --version
+      - run: flutter config --no-analytics
       - run: flutter pub get
-      - run: flutter build appbundle
-        env:
-          NO_SIGNING: true
-      - name: Sign Release
-        uses: r0adkll/sign-android-release@v1
-        id: sign_release
-        with:
-          releaseDirectory: build/app/outputs/bundle/release
-          signingKeyBase64: ${{ secrets.KEYSTORE_B64 }}
-          alias: frigoligo
-          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
+      - run: flutter build appbundle --release
       - name: Deploy to beta channel
         uses: r0adkll/upload-google-play@v1
         with:
           serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           packageName: net.casimirlab.frigoligo
-          releaseFiles: ${{ steps.sign_release.outputs.signedReleaseFile }}
+          releaseFiles: build/app/outputs/bundle/release/app-release.aab
           track: beta
           status: draft
