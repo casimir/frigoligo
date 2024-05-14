@@ -49,7 +49,7 @@ jobs:
         with:
           releaseDir: build/app/outputs/flutter-apk
           signingKey: ${{ secrets.KEYSTORE_B64 }}
-          keyAlias: ${{ secrets.ALIAS }}
+          keyAlias: frigoligo
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
       - run: cp build/app/outputs/flutter-apk/app-release-signed.apk $ARTIFACT
@@ -74,7 +74,7 @@ jobs:
           encodedString: ${{ secrets.KEYSTORE_B64 }}
       - run: |
           echo "storeFile=${{ github.workspace }}/android-keystore.jks" > $KEYSTORE_PROPERTIES_PATH
-          echo "keyAlias=${{ secrets.ALIAS }}" >> $KEYSTORE_PROPERTIES_PATH
+          echo "keyAlias=frigoligo" >> $KEYSTORE_PROPERTIES_PATH
           echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" >> $KEYSTORE_PROPERTIES_PATH
           echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> $KEYSTORE_PROPERTIES_PATH
         env:

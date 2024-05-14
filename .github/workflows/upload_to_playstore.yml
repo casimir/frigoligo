@@ -39,7 +39,7 @@ jobs:
         with:
           releaseDirectory: build/app/outputs/bundle/release
           signingKeyBase64: ${{ secrets.KEYSTORE_B64 }}
-          alias: ${{ secrets.ALIAS }}
+          alias: frigoligo
           keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
       - name: Deploy to beta channel
