@@ -13,12 +13,23 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ARTIFACT: frigoligo-${{ github.head_ref ||  github.ref_name }}.apk
-    outputs:
-      artifact: ${{ env.ARTIFACT }}
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
+      - uses: timheuer/base64-to-file@v1.2
+        with:
+          fileName: "keystore.jks"
+          fileDir: "${{ github.workspace }}/"
+          encodedString: ${{ secrets.KEYSTORE_B64 }}
+      - name: Prepare keystore file
+        run: |
+          echo "storeFile=${{ github.workspace }}/keystore.jks" > $KEYSTORE_PROPERTIES_PATH
+          echo "keyAlias=frigoligo" >> $KEYSTORE_PROPERTIES_PATH
+          echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" >> $KEYSTORE_PROPERTIES_PATH
+          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> $KEYSTORE_PROPERTIES_PATH
+        env:
+          KEYSTORE_PROPERTIES_PATH: ${{ github.workspace }}/android/keystore.properties
       - uses: actions/setup-java@v4
         with:
           distribution: zulu
@@ -45,24 +56,72 @@ jobs:
       - run: flutter build apk
         env:
           NO_SIGNING: true
-      - name: Sign Release
-        uses: ilharp/sign-android-release@v1
-        id: sign_release
-        with:
-          releaseDir: build/app/outputs/flutter-apk
-          signingKey: ${{ secrets.KEYSTORE_B64 }}
-          keyAlias: ${{ secrets.ALIAS }}
-          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
-      - run: cp build/app/outputs/flutter-apk/app-release-signed.apk $ARTIFACT
-      - uses: actions/upload-artifact@v3
+      - run: cp build/app/outputs/flutter-apk/app-release.apk $ARTIFACT
+      - run: ./tools/verify_apk_cert.sh $ARTIFACT
+      - uses: actions/upload-artifact@v4
         with:
           name: ${{ env.ARTIFACT }}
           path: ${{ env.ARTIFACT }}
+          overwrite: true
       - if: ${{ github.ref_type == 'tag' }}
         run: gh release upload $VERSION $ARTIFACT --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build_abi_apks:
+    runs-on: ubuntu-latest
+    env:
+      ARTIFACT: frigoligo-${{ github.head_ref ||  github.ref_name }}-per-abi-apks
+    steps:
+      - uses: actions/checkout@v4
+      - uses: timheuer/base64-to-file@v1.2
+        with:
+          fileName: "keystore.jks"
+          fileDir: "${{ github.workspace }}/"
+          encodedString: ${{ secrets.KEYSTORE_B64 }}
+      - name: Prepare keystore file
+        run: |
+          echo "storeFile=${{ github.workspace }}/keystore.jks" > $KEYSTORE_PROPERTIES_PATH
+          echo "keyAlias=frigoligo" >> $KEYSTORE_PROPERTIES_PATH
+          echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" >> $KEYSTORE_PROPERTIES_PATH
+          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> $KEYSTORE_PROPERTIES_PATH
+        env:
+          KEYSTORE_PROPERTIES_PATH: ${{ github.workspace }}/android/keystore.properties
+      - uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: 17
+      - run: echo "version=$(cat .flutter-version)" >> $GITHUB_OUTPUT
+        id: flutter-version
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: ${{ steps.flutter-version.outputs.version }}
+          cache: true
+      - run: flutter config --no-analytics
+      - run: flutter pub get
+      - run: flutter test
+      - run: flutter build apk --release --split-per-abi
+      - name: Rename APKs to release format
+        run: |
+          for apk in build/app/outputs/flutter-apk/*-release.apk; do
+            abi=$(basename $apk | sed -r 's/^app-(.+)-release.apk$/\1/')
+            mv $apk build/app/outputs/flutter-apk/frigoligo-${{ github.head_ref ||  github.ref_name }}-$abi.apk
+          done
+      - run: ./tools/verify_apk_cert.sh build/app/outputs/flutter-apk/*.apk
+      - name: Upload APKs to the job artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.ARTIFACT }}
+          path: build/app/outputs/flutter-apk/*.apk
+          overwrite: true
+      - if: ${{ github.ref_type == 'tag' }}
+        name: Upload APKs to the tag release
+        uses: AButler/upload-release-assets@v3.0
+        with:
+          files: build/app/outputs/flutter-apk/*.apk
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          release-tag: ${{ env.VERSION }}
 
   build_linux:
     runs-on: ubuntu-latest
@@ -90,10 +149,11 @@ jobs:
       - run: cp -R build/linux/x64/release/bundle/ build/frigoligo/
       - run: tar czf ../$ARTIFACT frigoligo/
         working-directory: ./build
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: ${{ env.ARTIFACT }}
           path: ${{ env.ARTIFACT }}
+          overwrite: true
       - if: ${{ github.ref_type == 'tag' }}
         run: gh release upload $VERSION $ARTIFACT --clobber
         env:
@@ -105,8 +165,6 @@ jobs:
     env:
       ARTIFACT: Frigoligo-${{ github.head_ref ||  github.ref_name }}-x86_64.AppImage
       LINUX_ARTIFACT: ${{ needs.build_linux.outputs.artifact }}
-    outputs:
-      artifact: ${{ env.ARTIFACT }}
     steps:
       - name: Install native dependencies
         run: |
@@ -117,7 +175,7 @@ jobs:
           sparse-checkout: |
             appimage
             assets
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: ${{ env.LINUX_ARTIFACT }}
       - name: Prepare AppImage
@@ -134,10 +192,11 @@ jobs:
           chmod +x appimagetool-x86_64.AppImage
           ./appimagetool-x86_64.AppImage Frigoligo.AppDir $ARTIFACT
         working-directory: ./appimage
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: ${{ env.ARTIFACT }}
           path: appimage/${{ env.ARTIFACT }}
+          overwrite: true
       - if: ${{ github.ref_type == 'tag' }}
         run: gh release upload $VERSION $ARTIFACT --clobber
         working-directory: ./appimage
@@ -148,8 +207,6 @@ jobs:
     runs-on: windows-latest
     env:
       ARTIFACT: frigoligo-${{ github.head_ref ||  github.ref_name }}-win-x64.zip
-    outputs:
-      artifact: ${{ env.ARTIFACT }}
     steps:
       - uses: actions/checkout@v4
       - run: echo "version=$(cat .flutter-version)" >> $GITHUB_OUTPUT
@@ -166,10 +223,11 @@ jobs:
       - run: Copy-Item -Path build\windows\x64\runner\Release\ -Destination build\frigoligo\ -Recurse
       - run: Compress-Archive -Path frigoligo -DestinationPath ..\\$env:ARTIFACT
         working-directory: ./build
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: ${{ env.ARTIFACT }}
           path: ${{ env.ARTIFACT }}
+          overwrite: true
       - if: ${{ github.ref_type == 'tag' }}
         run: gh release upload $env:VERSION $env:ARTIFACT --clobber
         env:
