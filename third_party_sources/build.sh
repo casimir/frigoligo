@@ -12,7 +12,7 @@ echo "> Building Isar native libs..."
 ISAR_VERSION=$(awk '/isar_version: /{print $3}' $TPS_DIR/../pubspec.yaml)
 ISAR_LIBS_DIR=$PUB_CACHE/hosted/pub.isar-community.dev/isar_flutter_libs-$ISAR_VERSION/android/src/main/jniLibs
 echo "target directory: $ISAR_LIBS_DIR"
-cp $tps_dir/isar-Cargo.lock $tps_dir/isar/Cargo.lock
+cp $TPS_DIR/isar-Cargo.lock $TPS_DIR/isar/Cargo.lock
 pushd $TPS_DIR/isar
 bash ./tool/build_android.sh x86
 mv libisar_android_x86.so $ISAR_LIBS_DIR/x86/libisar.so
