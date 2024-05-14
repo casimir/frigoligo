@@ -79,7 +79,7 @@ jobs:
           echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" >> $KEYSTORE_PROPERTIES_PATH
           echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> $KEYSTORE_PROPERTIES_PATH
         env:
-          KEYSTORE_PROPERTIES_PATH: ${{ github.workspace }}/android/key.properties
+          KEYSTORE_PROPERTIES_PATH: ${{ github.workspace }}/android/keystore.properties
       - uses: actions/setup-java@v4
         with:
           distribution: zulu
