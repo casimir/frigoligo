@@ -74,7 +74,7 @@ jobs:
           encodedString: ${{ secrets.KEYSTORE_B64 }}
       - name: Prepare keystore file
         run: |
-          echo "storeFile=${{ github.workspace }}/android-keystore.jks" > $KEYSTORE_PROPERTIES_PATH
+          echo "storeFile=${{ github.workspace }}/keystore.jks" > $KEYSTORE_PROPERTIES_PATH
           echo "keyAlias=frigoligo" >> $KEYSTORE_PROPERTIES_PATH
           echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" >> $KEYSTORE_PROPERTIES_PATH
           echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> $KEYSTORE_PROPERTIES_PATH
