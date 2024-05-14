@@ -1,3 +1,18 @@
+<a name="v1.0.10"></a>
+# [v1.0.10](https://github.com/casimir/frigoligo/releases/tag/v1.0.10) - 14 May 2024
+
+## What's Changed
+### Miscellaneous
+* Release ABI specific APKs by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/187
+* Prevent error after fdroid signingConfig stripping by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/190
+* Use a lock file to have isar reproducible builds by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/189
+
+
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v1.0.9...v1.0.10
+
+[Changes][v1.0.10]
+
+
 <a name="v1.0.9"></a>
 # [v1.0.9](https://github.com/casimir/frigoligo/releases/tag/v1.0.9) - 06 May 2024
 
@@ -546,6 +561,7 @@ Let's begin! This is the very first release.
 [Changes][v0.1.0]
 
 
+[v1.0.10]: https://github.com/casimir/frigoligo/compare/v1.0.9...v1.0.10
 [v1.0.9]: https://github.com/casimir/frigoligo/compare/v1.0.8...v1.0.9
 [v1.0.8]: https://github.com/casimir/frigoligo/compare/v1.0.7...v1.0.8
 [v1.0.7]: https://github.com/casimir/frigoligo/compare/v1.0.6...v1.0.7
