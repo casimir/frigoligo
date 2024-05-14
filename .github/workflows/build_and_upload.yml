@@ -54,10 +54,11 @@ jobs:
           keyPassword: ${{ secrets.KEY_PASSWORD }}
       - run: cp build/app/outputs/flutter-apk/app-release-signed.apk $ARTIFACT
       - run: ./tools/verify_apk_cert.sh $ARTIFACT
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: ${{ env.ARTIFACT }}
           path: ${{ env.ARTIFACT }}
+          overwrite: true
       - if: ${{ github.ref_type == 'tag' }}
         run: gh release upload $VERSION $ARTIFACT --clobber
         env:
@@ -144,10 +145,11 @@ jobs:
       - run: cp -R build/linux/x64/release/bundle/ build/frigoligo/
       - run: tar czf ../$ARTIFACT frigoligo/
         working-directory: ./build
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: ${{ env.ARTIFACT }}
           path: ${{ env.ARTIFACT }}
+          overwrite: true
       - if: ${{ github.ref_type == 'tag' }}
         run: gh release upload $VERSION $ARTIFACT --clobber
         env:
@@ -169,7 +171,7 @@ jobs:
           sparse-checkout: |
             appimage
             assets
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: ${{ env.LINUX_ARTIFACT }}
       - name: Prepare AppImage
@@ -186,10 +188,11 @@ jobs:
           chmod +x appimagetool-x86_64.AppImage
           ./appimagetool-x86_64.AppImage Frigoligo.AppDir $ARTIFACT
         working-directory: ./appimage
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: ${{ env.ARTIFACT }}
           path: appimage/${{ env.ARTIFACT }}
+          overwrite: true
       - if: ${{ github.ref_type == 'tag' }}
         run: gh release upload $VERSION $ARTIFACT --clobber
         working-directory: ./appimage
@@ -216,10 +219,11 @@ jobs:
       - run: Copy-Item -Path build\windows\x64\runner\Release\ -Destination build\frigoligo\ -Recurse
       - run: Compress-Archive -Path frigoligo -DestinationPath ..\\$env:ARTIFACT
         working-directory: ./build
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: ${{ env.ARTIFACT }}
           path: ${{ env.ARTIFACT }}
+          overwrite: true
       - if: ${{ github.ref_type == 'tag' }}
         run: gh release upload $env:VERSION $env:ARTIFACT --clobber
         env:
