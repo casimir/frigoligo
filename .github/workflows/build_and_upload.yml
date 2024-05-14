@@ -62,7 +62,7 @@ jobs:
         run: gh release upload $VERSION $ARTIFACT --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            
+
   build_abi_apks:
     runs-on: ubuntu-latest
     steps:
@@ -102,11 +102,11 @@ jobs:
             mv $apk build/app/outputs/flutter-apk/frigoligo-${{ github.head_ref ||  github.ref_name }}-$abi.apk
           done
       - run: ./tools/verify_apk_cert.sh build/app/outputs/flutter-apk/*.apk
-      - name: Upload APKs to the job release
-        uses: AButler/upload-release-assets@v3.0
+      - name: Upload APKs to the job artifacts
+        uses: actions/upload-artifact@v3
         with:
-          files: build/app/outputs/flutter-apk/*.apk
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          name: frigoligo-per-abi-apks
+          path: build/app/outputs/flutter-apk/*.apk
       - if: ${{ github.ref_type == 'tag' }}
         name: Upload APKs to the tag release
         uses: AButler/upload-release-assets@v3.0
