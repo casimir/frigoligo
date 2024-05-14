@@ -51,8 +51,6 @@ android {
 
     defaultConfig {
         applicationId "net.casimirlab.frigoligo"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion flutter.minSdkVersion
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
@@ -70,7 +68,7 @@ android {
 
     buildTypes {
         release {
-            signingConfig signingConfigs.release.storeFile != null ? signingConfigs.release : null
+            signingConfig keystorePropertiesFile.exists() ? signingConfigs.release : null
         }
     }
 }
