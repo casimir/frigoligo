@@ -18,6 +18,7 @@ Frigoligo is aiming at being:
 
 [<img src="./assets/logos/badge_apple_app_store.svg" alt="Download on the App Store" height="60" />](https://apps.apple.com/us/app/frigoligo/id6451362294)
 [<img src="./assets/logos/badge_google_play_store.svg" alt="Get it on Google Play" height="60" />](https://play.google.com/store/apps/details?id=net.casimirlab.frigoligo)
+[<img src="./assets/logos/badge_izzyondroid.svg" alt="Download on F-Droid" height="60" />](https://apt.izzysoft.de/fdroid/index/apk/net.casimirlab.frigoligo)
 
 You can also download the installer from the [latest release](https://github.com/casimir/frigoligo/releases/latest) for the following platforms: Android (apk), Linux, AppImage and Windows.
 
