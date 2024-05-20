@@ -21,7 +21,20 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 [bundle exec] fastlane android upload_metadata
 ```
 
-Upload metadata the Google Play Store
+Upload metadata to the Google Play Store
+
+----
+
+
+## iOS
+
+### ios upload_metadata
+
+```sh
+[bundle exec] fastlane ios upload_metadata
+```
+
+Upload metadata to the App Store
 
 ----
 

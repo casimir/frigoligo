@@ -13,14 +13,28 @@
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
+before_all do |lane|
+  Dotenv.overload '../.env'
+end
+
 platform :android do
-  desc "Upload metadata the Google Play Store"
+  desc "Upload metadata to the Google Play Store"
   lane :upload_metadata do
     supply(
       skip_upload_apk: true,
       skip_upload_aab: true,
       skip_upload_changelogs: true,
       sync_image_upload: true
+    )
+  end
+end
+
+platform :ios do
+  desc "Upload metadata to the App Store"
+  lane :upload_metadata do
+    deliver(
+      metadata_path: "fastlane/metadata/ios/",
+      screenshots_path: "fastlane/screenshots/ios/"
     )
   end
 end
