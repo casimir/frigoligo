@@ -23,8 +23,12 @@ void main() {
       print('> ${f.path} <- ${target.path}');
 
       unlinkPath(f.path);
-      final relativeTarget = '../../android/$lang/${entry.value}';
-      Link(f.path).createSync(relativeTarget);
+      if (lang == 'fr-FR' && f.path.endsWith('subtitle.txt')) {
+        createStrippedFile('$androidMetadataRoot/$lang/${entry.value}', f.path);
+      } else {
+        final relativeTarget = '../../android/$lang/${entry.value}';
+        Link(f.path).createSync(relativeTarget);
+      }
     }
   }
 }
@@ -50,4 +54,11 @@ void unlinkPath(String path) {
   } on FileSystemException {
     // ignore
   }
+}
+
+void createStrippedFile(String source, String destination) {
+  print('creating stripped file for $destination');
+  final content = File(source).readAsStringSync();
+  final stripped = content.replaceAll('\u202f', ' ');
+  File(destination).writeAsStringSync(stripped);
 }

@@ -14,7 +14,7 @@
 # update_fastlane
 
 before_all do |lane|
-  Dotenv.overload '../.env'
+  Dotenv.overload "../.env"
 end
 
 platform :android do
