@@ -1,7 +1,7 @@
 PODS:
   - app_links (0.0.1):
     - Flutter
-  - background_fetch (1.3.1):
+  - background_fetch (1.3.4):
     - Flutter
   - Flutter (1.0.0)
   - flutter_app_badger (1.3.0):
@@ -68,14 +68,14 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   app_links: e70ca16b4b0f88253b3b3660200d4a10b4ea9795
-  background_fetch: b839bafac4d4d466b326e98db47cf17ac08b6e6a
+  background_fetch: d9364ca3f4ba37343c4ac1e8c24d4f4a93cb9ceb
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_app_badger: b87fc231847b03b92ce1412aa351842e7e97932f
-  isar_flutter_libs: b69f437aeab9c521821c3f376198c4371fa21073
+  isar_flutter_libs: fdf730ca925d05687f36d7f1d355e482529ed097
   package_info_plus: 58f0028419748fad15bf008b270aaa8e54380b1c
   path_provider_foundation: 3784922295ac71e43754bd15e0653ccfd36a147c
   share_plus: 8875f4f2500512ea181eef553c3e27dba5135aad
-  shared_preference_app_group: 83d2284f9e747839c40fc281403b5b60d83e2989
+  shared_preference_app_group: 46aee3873e1da581d4904bece9876596d7f66725
   shared_preferences_foundation: b4c3b4cddf1c21f02770737f147a3f5da9d39695
   sqflite: 673a0e54cc04b7d6dba8d24fb8095b31c3a99eec
   url_launcher_ios: 6116280ddcfe98ab8820085d8d76ae7449447586
