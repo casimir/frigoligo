@@ -37,10 +37,6 @@
   "@g_tag": {
     "description": "A tag can be attached to an article."
   },
-  "g_url": "URL",
-  "@g_url": {
-    "description": "An URL, as in a web address."
-  },
   "g_version": "Version",
   "@g_version": {
     "description": "A version, as in the application version."

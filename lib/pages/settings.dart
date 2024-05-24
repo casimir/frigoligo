@@ -6,14 +6,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
-import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../app_info.dart';
 import '../buildcontext_extension.dart';
 import '../constants.dart';
-import '../providers/deeplinks.dart';
 import '../providers/settings.dart';
 import '../services/remote_sync.dart';
 import '../widget_keys.dart';
@@ -204,24 +202,6 @@ class SettingsPage extends ConsumerWidget {
                     storage.clearArticles();
                     RemoteSyncer.instance.synchronize(withFinalRefresh: true);
                     context.go('/');
-                  }
-                },
-              ),
-              SettingsTile(
-                leading: const Icon(Icons.dataset_linked),
-                title: Text(context.L.settings_itemOpenDeeplink),
-                onPressed: (context) async {
-                  final urls =
-                      await showTextInputDialog(context: context, textFields: [
-                    DialogTextField(
-                      hintText: context.L.g_url,
-                      keyboardType: TextInputType.url,
-                      autocorrect: false,
-                    )
-                  ]);
-                  if (context.mounted && urls != null) {
-                    final uri = Uri.parse(urls.first);
-                    context.read<DeeplinksProvider>().receive(uri);
                   }
                 },
               ),

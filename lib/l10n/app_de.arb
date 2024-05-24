@@ -235,10 +235,6 @@
   "@login_fieldUsername": {
     "description": "The username field of the login form."
   },
-  "g_url": "URL",
-  "@g_url": {
-    "description": "An URL, as in a web address."
-  },
   "session_logoutDialogConfirm": "Ausloggen",
   "@session_logoutDialogConfirm": {
     "description": "Confirm the log out from the confirmation dialog."
