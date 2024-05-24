@@ -37,7 +37,7 @@ class DeeplinksProvider extends ChangeNotifier {
 
   void listen() {
     assert(_appLinksSubscription == null);
-    _appLinksSubscription = _appLinks.allUriLinkStream.listen((uri) {
+    _appLinksSubscription = _appLinks.uriLinkStream.listen((uri) {
       if (uri.scheme != 'frigoligo') {
         _log.info('converting bare URI to /save link');
         uri = Uri(path: '/save', queryParameters: {'url': uri.toString()});
