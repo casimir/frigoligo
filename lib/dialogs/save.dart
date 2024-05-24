@@ -29,6 +29,7 @@ Future<void> showSaveUrlDialog(BuildContext context) async {
         initialText: initial,
         validator: (value) =>
             validateURL(value) ? null : context.L.server_invalidUrl,
+        keyboardType: TextInputType.url,
         autocorrect: false,
       )
     ],
