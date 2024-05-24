@@ -28,6 +28,9 @@ class DB {
     await migrateDataLocation(devmode);
 
     final (dir, name) = await getDBPath(devmode);
+    if (!Directory(dir).existsSync()) {
+      Directory(dir).createSync(recursive: true);
+    }
     _instance = await Isar.open(
       [
         AppLogSchema,
