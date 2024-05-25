@@ -3,7 +3,6 @@ package net.casimirlab.frigoligo
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import io.flutter.embedding.android.FlutterActivity
 import java.net.URLEncoder
