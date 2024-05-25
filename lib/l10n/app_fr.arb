@@ -79,10 +79,6 @@
   "@g_delete": {
     "description": "A verb, as in to delete something."
   },
-  "g_url": "URL",
-  "@g_url": {
-    "description": "An URL, as in a web address."
-  },
   "article_browseOriginal": "Ouvrir l'original",
   "@article_browseOriginal": {
     "description": "The action to open the URL of the article in the web browser."
