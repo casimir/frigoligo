@@ -1,4 +1,5 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:cadanse/cadanse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -28,10 +29,8 @@ class _SavePageState extends ConsumerState<SavePage> {
     super.initState();
 
     if (widget.url == null) {
-      setState(() {
-        step = SaveStep.error;
-        errorMessage = context.L.save_noUrl;
-      });
+      step = SaveStep.error;
+      errorMessage = context.L.save_noUrl;
     } else {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         final settings = ref.read(settingsProvider);
@@ -107,7 +106,7 @@ class _SavePageState extends ConsumerState<SavePage> {
         widget.url.toString(),
         style: Theme.of(context).textTheme.headlineSmall,
       ),
-      const SizedBox(height: 16.0),
+      C.spacers.verticalContent,
       const CircularProgressIndicator.adaptive(),
     ];
   }
@@ -118,9 +117,9 @@ class _SavePageState extends ConsumerState<SavePage> {
         context.L.save_confirmationTitle,
         style: Theme.of(context).textTheme.headlineSmall,
       ),
-      const SizedBox(height: 16.0),
+      C.spacers.verticalContent,
       const Icon(Icons.check_circle_outline, size: 40),
-      const SizedBox(height: 16.0),
+      C.spacers.verticalContent,
       // TODO a preview card would be waaaay nicer
       ElevatedButton(
         onPressed: () => context.replace('/?articleId=$savedArticleId'),
@@ -135,7 +134,7 @@ class _SavePageState extends ConsumerState<SavePage> {
         errorMessage!,
         style: Theme.of(context).textTheme.headlineSmall,
       ),
-      const SizedBox(height: 16.0),
+      C.spacers.verticalContent,
       const Icon(Icons.error_outline, size: 40),
     ];
   }

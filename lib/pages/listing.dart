@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 
 import '../buildcontext_extension.dart';
 import '../constants.dart';
+import '../dialogs/save.dart';
 import '../models/article.dart';
 import '../providers/article.dart';
 import '../providers/query.dart';
@@ -86,6 +87,10 @@ class _ListingPageState extends ConsumerState<ListingPage> {
               icon: const Icon(Icons.refresh),
               onPressed: doRefresh,
             ),
+          IconButton(
+            icon: const Icon(Icons.add_link),
+            onPressed: () => showSaveUrlDialog(context),
+          ),
           IconButton(
             key: const Key(wkListingSettings),
             icon: const Icon(Icons.settings),
