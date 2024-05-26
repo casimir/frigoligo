@@ -19,7 +19,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.11+32
 
 environment:
-  sdk: ">=3.0.5 <4.0.0"
+  sdk: ">=3.4.0 <4.0.0"
 
 isar_version: &isar_version 3.1.7
 
