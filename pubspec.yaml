@@ -80,18 +80,18 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^3.0.0
+  flutter_lints: ^4.0.0
   custom_lint: ^0.6.2
-  riverpod_lint: ^2.3.9
+  riverpod_lint: ^2.3.10
 
   build_runner: any
   isar_generator:
     version: *isar_version
     hosted: https://pub.isar-community.dev/
   json_serializable: ^6.7.0
-  riverpod_generator: ^2.3.11
+  riverpod_generator: ^2.4.0
   emulators: ^0.5.1
-  test: ^1.24.9
+  test: ^1.25.2
 
 flutter:
   generate: true
