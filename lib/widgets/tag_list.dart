@@ -21,7 +21,7 @@ class TagList extends StatelessWidget {
       labelStyle: Theme.of(context).textTheme.labelSmall,
       onPressed: () => onTagPressed?.call(tag),
       padding: const EdgeInsets.all(2.0),
-      backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+      backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
     );
   }
 }
