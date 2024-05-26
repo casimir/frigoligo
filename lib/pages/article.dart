@@ -240,7 +240,7 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
     void showTagsDialog([_]) => showDialog(
           context: context,
           builder: (_) => TagsSelectorDialog(
-            tags: ref.read(remoteSyncerProvider.notifier).wallabag!.tags,
+            tags: ref.read(storageProvider).tags,
             initialValue: article.tags,
             onConfirm: (tags) {
               ref.read(remoteSyncerProvider.notifier)

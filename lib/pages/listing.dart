@@ -1,12 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart'
-    hide ChangeNotifierProvider;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:popover/popover.dart';
-import 'package:provider/provider.dart';
 
 import '../buildcontext_extension.dart';
 import '../constants.dart';
@@ -56,7 +54,7 @@ class _ListingPageState extends ConsumerState<ListingPage> {
     if (articleId != null) {
       final query = ref.read(queryProvider);
       final scrollToIndex =
-          context.read<WallabagStorage>().indexOf(articleId, query);
+          ref.read(storageProvider.notifier).indexOf(articleId, query);
       if (scrollToIndex != null) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           _scroller.jumpTo(scrollToIndex * listingHeight);
@@ -67,7 +65,7 @@ class _ListingPageState extends ConsumerState<ListingPage> {
 
   @override
   Widget build(BuildContext context) {
-    final storage = context.watch<WallabagStorage>();
+    final storage = ref.watch(storageProvider);
     final query = ref.watch(queryProvider);
 
     Future<void> doRefresh() async {
@@ -186,8 +184,6 @@ class _TitleWidgetState extends ConsumerState<TitleWidget> {
       text += ' (★)';
     }
 
-    final storage = context.watch<WallabagStorage>();
-
     return GestureDetector(
       child: Row(
         children: [
@@ -203,13 +199,7 @@ class _TitleWidgetState extends ConsumerState<TitleWidget> {
         });
         showPopover(
           context: context,
-          bodyBuilder: (context) => MultiProvider(
-              providers: [
-                ChangeNotifierProvider.value(value: storage),
-              ],
-              builder: (context, child) {
-                return const FiltersPage();
-              }),
+          bodyBuilder: (context) => const FiltersPage(),
           direction: PopoverDirection.top,
           backgroundColor: Theme.of(context).colorScheme.surface,
           transitionDuration: const Duration(milliseconds: 150),

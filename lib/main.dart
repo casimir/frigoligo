@@ -268,22 +268,11 @@ class _MainContainerState extends ConsumerState<_MainContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-            create: (_) => ref.read(remoteSyncerProvider.notifier).wallabag!),
-      ],
-      builder: (_, __) {
-        switch (Layout.windowClass(context)) {
-          case WindowClass.compact:
-            return _buildNarrowLayout();
-          case WindowClass.medium:
-            return _buildWideLayout();
-          case WindowClass.expanded:
-            return _buildDynamicLayout();
-        }
-      },
-    );
+    return switch (Layout.windowClass(context)) {
+      WindowClass.compact => _buildNarrowLayout(),
+      WindowClass.medium => _buildWideLayout(),
+      WindowClass.expanded => _buildDynamicLayout(),
+    };
   }
 
   Widget _buildNarrowLayout() {

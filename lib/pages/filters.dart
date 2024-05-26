@@ -2,12 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
 import '../buildcontext_extension.dart';
 import '../constants.dart';
 import '../providers/query.dart';
-import '../services/wallabag_storage.dart';
+import '../services/remote_sync.dart';
 import '../widget_keys.dart';
 import '../widgets/tag_list.dart';
 import 'tags_selector/dialog.dart';
@@ -26,7 +25,7 @@ class FiltersPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final storage = context.watch<WallabagStorage>();
+    final storage = ref.watch(storageProvider);
     final query = ref.watch(queryProvider);
 
     return Column(

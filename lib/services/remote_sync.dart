@@ -124,3 +124,5 @@ class RemoteSyncer with ChangeNotifier {
 
 final remoteSyncerProvider =
     ChangeNotifierProvider((ref) => RemoteSyncer.instance);
+final storageProvider =
+    ChangeNotifierProvider((ref) => RemoteSyncer.instance.wallabag!);
