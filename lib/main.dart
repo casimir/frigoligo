@@ -284,26 +284,22 @@ class _MainContainerState extends ConsumerState<_MainContainer> {
   }
 
   Widget _buildWideLayout() {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<Expander>(create: (_) => Expander()),
+    final expanded = ref.watch(expanderProvider);
+    return Row(
+      children: [
+        if (!expanded)
+          const Flexible(
+            flex: 1,
+            child: ListingPage(),
+          ),
+        Flexible(
+          flex: 2,
+          child: ArticlePage(
+            withExpander: true,
+            withProgressIndicator: expanded,
+          ),
+        ),
       ],
-      builder: (context, _) {
-        final expander = context.watch<Expander>();
-        return Row(
-          children: [
-            if (!expander.expanded)
-              const Flexible(
-                flex: 1,
-                child: ListingPage(),
-              ),
-            Flexible(
-              flex: 2,
-              child: ArticlePage(withProgressIndicator: expander.expanded),
-            ),
-          ],
-        );
-      },
     );
   }
 
