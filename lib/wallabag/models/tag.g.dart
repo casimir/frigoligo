@@ -7,7 +7,7 @@ part of 'tag.dart';
 // **************************************************************************
 
 WallabagTag _$WallabagTagFromJson(Map<String, dynamic> json) => WallabagTag(
-      json['id'] as int,
+      (json['id'] as num).toInt(),
       json['label'] as String,
       json['slug'] as String,
     );

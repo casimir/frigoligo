@@ -9,17 +9,17 @@ part of 'wallabag.dart';
 OAuthTokenBody _$OAuthTokenBodyFromJson(Map<String, dynamic> json) =>
     OAuthTokenBody(
       json['access_token'] as String,
-      json['expires_in'] as int,
+      (json['expires_in'] as num).toInt(),
       json['refresh_token'] as String,
     );
 
 WallabagPaginatedEntries _$WallabagPaginatedEntriesFromJson(
         Map<String, dynamic> json) =>
     WallabagPaginatedEntries(
-      json['page'] as int,
-      json['limit'] as int,
-      json['pages'] as int,
-      json['total'] as int,
+      (json['page'] as num).toInt(),
+      (json['limit'] as num).toInt(),
+      (json['pages'] as num).toInt(),
+      (json['total'] as num).toInt(),
       WallabagEmbeddedEntries.fromJson(
           json['_embedded'] as Map<String, dynamic>),
     );

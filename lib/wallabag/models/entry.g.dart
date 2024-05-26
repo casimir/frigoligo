@@ -8,20 +8,20 @@ part of 'entry.dart';
 
 WallabagEntry _$WallabagEntryFromJson(Map<String, dynamic> json) =>
     WallabagEntry(
-      json['id'] as int,
+      (json['id'] as num).toInt(),
       DateTime.parse(json['created_at'] as String),
       DateTime.parse(json['updated_at'] as String),
       json['title'] as String?,
       json['domain_name'] as String?,
       json['content'] as String?,
       json['language'] as String?,
-      json['reading_time'] as int,
+      (json['reading_time'] as num).toInt(),
       json['preview_picture'] as String?,
-      int2bool(json['is_archived'] as int),
+      int2bool((json['is_archived'] as num).toInt()),
       json['archived_at'] == null
           ? null
           : DateTime.parse(json['archived_at'] as String),
-      int2bool(json['is_starred'] as int),
+      int2bool((json['is_starred'] as num).toInt()),
       json['starred_at'] == null
           ? null
           : DateTime.parse(json['starred_at'] as String),
@@ -44,7 +44,7 @@ WallabagEntry _$WallabagEntryFromJson(Map<String, dynamic> json) =>
       (json['published_by'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      json['user_id'] as int,
+      (json['user_id'] as num).toInt(),
       json['user_name'] as String,
       json['user_email'] as String,
       json['mimetype'] as String?,

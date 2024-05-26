@@ -8,7 +8,7 @@ part of 'annotation.dart';
 
 WallabagAnnotation _$WallabagAnnotationFromJson(Map<String, dynamic> json) =>
     WallabagAnnotation(
-      json['id'] as int,
+      (json['id'] as num).toInt(),
       json['annotator_schema_version'] as String,
       DateTime.parse(json['created_at'] as String),
       DateTime.parse(json['updated_at'] as String),

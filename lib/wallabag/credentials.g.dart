@@ -25,7 +25,7 @@ Map<String, dynamic> _$CredentialsToJson(Credentials instance) =>
 
 OAuthToken _$OAuthTokenFromJson(Map<String, dynamic> json) => OAuthToken(
       json['accessToken'] as String,
-      json['expiresAt'] as int,
+      (json['expiresAt'] as num).toInt(),
       json['refreshToken'] as String,
     );
 
