@@ -200,7 +200,9 @@ class SettingsPage extends ConsumerWidget {
                   settings.remove(Sk.lastRefresh);
                   if (context.mounted) {
                     storage.clearArticles();
-                    RemoteSyncer.instance.synchronize(withFinalRefresh: true);
+                    ref
+                        .read(remoteSyncerProvider.notifier)
+                        .synchronize(withFinalRefresh: true);
                     context.go('/');
                   }
                 },

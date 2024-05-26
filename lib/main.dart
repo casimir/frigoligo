@@ -205,23 +205,16 @@ class _MyAppState extends ConsumerState<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => RemoteSyncer.instance),
-      ],
-      builder: (context, child) {
-        return MaterialApp.router(
-          routerConfig: _router,
-          title: 'Frigoligo',
-          theme: ThemeData(colorScheme: schemeLight, useMaterial3: true),
-          darkTheme: ThemeData(colorScheme: schemeDark, useMaterial3: true),
-          themeMode: ref.watch(themeModeProvider),
-          locale: ref.watch(languageProvider).locale,
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          restorationScopeId: 'app',
-        );
-      },
+    return MaterialApp.router(
+      routerConfig: _router,
+      title: 'Frigoligo',
+      theme: ThemeData(colorScheme: schemeLight, useMaterial3: true),
+      darkTheme: ThemeData(colorScheme: schemeDark, useMaterial3: true),
+      themeMode: ref.watch(themeModeProvider),
+      locale: ref.watch(languageProvider).locale,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      restorationScopeId: 'app',
     );
   }
 
@@ -275,11 +268,10 @@ class _MainContainerState extends ConsumerState<_MainContainer> {
 
   @override
   Widget build(BuildContext context) {
-    final syncer = context.read<RemoteSyncer>();
-
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => syncer.wallabag!),
+        ChangeNotifierProvider(
+            create: (_) => ref.read(remoteSyncerProvider.notifier).wallabag!),
       ],
       builder: (_, __) {
         switch (Layout.windowClass(context)) {

@@ -67,7 +67,6 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
 
   @override
   Widget build(BuildContext context) {
-    final syncer = RemoteSyncer.instance;
     final article = ref.watch(currentArticleProvider);
 
     final toggler = context.watch<Expander?>();
@@ -103,22 +102,26 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
             if (article != null)
               IconButton(
                 icon: stateIcons[article.stateValue]!,
-                onPressed: () => syncer
-                  ..add(EditArticleAction(
-                    article.id!,
-                    archive: article.archivedAt == null,
-                  ))
-                  ..synchronize(),
+                onPressed: () {
+                  ref.read(remoteSyncerProvider.notifier)
+                    ..add(EditArticleAction(
+                      article.id!,
+                      archive: article.archivedAt == null,
+                    ))
+                    ..synchronize();
+                },
               ),
             if (article != null)
               IconButton(
                 icon: starredIcons[article.starredValue]!,
-                onPressed: () => syncer
-                  ..add(EditArticleAction(
-                    article.id!,
-                    starred: article.starredAt == null,
-                  ))
-                  ..synchronize(),
+                onPressed: () {
+                  ref.read(remoteSyncerProvider.notifier)
+                    ..add(EditArticleAction(
+                      article.id!,
+                      starred: article.starredAt == null,
+                    ))
+                    ..synchronize();
+                },
               ),
             PopupMenuButton(
               key: const Key(wkArticlePopupMenu),
@@ -184,6 +187,7 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
                       isDestructiveAction: true,
                     );
                     if (result == OkCancelResult.cancel) return;
+                    final syncer = ref.read(remoteSyncerProvider.notifier);
                     syncer.add(DeleteArticleAction(article.id!));
                     await syncer.synchronize();
                     if (toggler == null && context.mounted) {
@@ -236,10 +240,10 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
     void showTagsDialog([_]) => showDialog(
           context: context,
           builder: (_) => TagsSelectorDialog(
-            tags: RemoteSyncer.instance.wallabag!.tags,
+            tags: ref.read(remoteSyncerProvider.notifier).wallabag!.tags,
             initialValue: article.tags,
             onConfirm: (tags) {
-              RemoteSyncer.instance
+              ref.read(remoteSyncerProvider.notifier)
                 ..add(EditArticleAction(article.id!, tags: tags))
                 ..synchronize();
             },

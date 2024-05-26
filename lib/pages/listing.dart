@@ -72,7 +72,9 @@ class _ListingPageState extends ConsumerState<ListingPage> {
 
     Future<void> doRefresh() async {
       _log.info('triggered refresh');
-      await context.read<RemoteSyncer>().synchronize(withFinalRefresh: true);
+      await ref
+          .read(remoteSyncerProvider.notifier)
+          .synchronize(withFinalRefresh: true);
     }
 
     final count = storage.count(query);
@@ -238,7 +240,6 @@ class ArticleListItem extends ConsumerWidget {
     // TODO explore https://pub.dev/packages/flutter_slidable
     // TODO GestureDetector on iOS
 
-    final syncer = context.read<RemoteSyncer>();
     final selectedId = ref.watch(currentArticleProvider)?.id;
 
     return Ink(
@@ -320,22 +321,26 @@ class ArticleListItem extends ConsumerWidget {
                         IconButton(
                           visualDensity: VisualDensity.compact,
                           icon: stateIcons[article.stateValue]!,
-                          onPressed: () => syncer
-                            ..add(EditArticleAction(
-                              article.id!,
-                              archive: article.archivedAt == null,
-                            ))
-                            ..synchronize(),
+                          onPressed: () {
+                            ref.read(remoteSyncerProvider.notifier)
+                              ..add(EditArticleAction(
+                                article.id!,
+                                archive: article.archivedAt == null,
+                              ))
+                              ..synchronize();
+                          },
                         ),
                         IconButton(
                           visualDensity: VisualDensity.compact,
                           icon: starredIcons[article.starredValue]!,
-                          onPressed: () => syncer
-                            ..add(EditArticleAction(
-                              article.id!,
-                              starred: article.starredAt == null,
-                            ))
-                            ..synchronize(),
+                          onPressed: () {
+                            ref.read(remoteSyncerProvider.notifier)
+                              ..add(EditArticleAction(
+                                article.id!,
+                                starred: article.starredAt == null,
+                              ))
+                              ..synchronize();
+                          },
                         ),
                       ],
                     ),
