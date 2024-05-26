@@ -50,7 +50,7 @@ dependencies:
 
   # networking & API
   http: ^1.0.0
-  json_annotation: ^4.8.1
+  json_annotation: ^4.9.0
   cached_network_image: ^3.2.3
 
   # data management
