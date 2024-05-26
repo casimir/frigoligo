@@ -3,17 +3,18 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../models/app_log.dart';
 import '../models/db.dart';
 
-class LogConsoleProvider extends ChangeNotifier {
+class LogConsole extends ChangeNotifier {
   final db = DB.get();
   StreamSubscription? _watcher;
 
-  LogConsoleProvider() {
+  LogConsole() {
     _watcher = db.appLogs.watchLazy().listen((_) => notifyListeners());
   }
 
@@ -60,3 +61,5 @@ class LogConsoleProvider extends ChangeNotifier {
     return filename;
   }
 }
+
+final logConsoleProvider = ChangeNotifierProvider((ref) => LogConsole());

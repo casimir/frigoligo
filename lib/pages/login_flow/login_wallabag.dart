@@ -164,7 +164,7 @@ class _LoginFlowWallabagState extends ConsumerState<LoginFlowWallabag> {
         final wallabag = await WallabagInstance.init(credentials: credentials);
         await wallabag.fetchToken(_formKey.currentState!.value['username'],
             _formKey.currentState!.value['password']);
-        RemoteSyncer.instance.invalidateWallabagInstance();
+        ref.read(remoteSyncerProvider.notifier).invalidateWallabagInstance();
         if (context.mounted) {
           context.go('/');
         }

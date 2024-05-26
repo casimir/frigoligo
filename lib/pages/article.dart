@@ -6,7 +6,6 @@ import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart
 import 'package:fwfh_cached_network_image/fwfh_cached_network_image.dart';
 import 'package:fwfh_url_launcher/fwfh_url_launcher.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -31,12 +30,14 @@ class ArticlePage extends ConsumerStatefulWidget {
     super.key,
     this.drawer,
     this.forcedDrawerOpen = false,
+    this.withExpander = false,
     this.withProgressIndicator = true,
     this.changeToArticleId,
   });
 
   final Widget? drawer;
   final bool forcedDrawerOpen;
+  final bool withExpander;
   final bool withProgressIndicator;
   final int? changeToArticleId;
 
@@ -67,17 +68,18 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
 
   @override
   Widget build(BuildContext context) {
-    final syncer = RemoteSyncer.instance;
     final article = ref.watch(currentArticleProvider);
 
-    final toggler = context.watch<Expander?>();
     Widget? leading;
-    if (toggler != null) {
+    if (widget.withExpander) {
       leading = IconButton(
         key: const Key(wkArticleExpanderToggle),
         icon: Icon(
-            toggler.expanded ? Icons.list : Icons.keyboard_double_arrow_left),
-        onPressed: toggler.toggle,
+          ref.watch(expanderProvider)
+              ? Icons.list
+              : Icons.keyboard_double_arrow_left,
+        ),
+        onPressed: () => ref.watch(expanderProvider.notifier).toggle(),
       );
     }
 
@@ -103,22 +105,26 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
             if (article != null)
               IconButton(
                 icon: stateIcons[article.stateValue]!,
-                onPressed: () => syncer
-                  ..add(EditArticleAction(
-                    article.id!,
-                    archive: article.archivedAt == null,
-                  ))
-                  ..synchronize(),
+                onPressed: () {
+                  ref.read(remoteSyncerProvider.notifier)
+                    ..add(EditArticleAction(
+                      article.id!,
+                      archive: article.archivedAt == null,
+                    ))
+                    ..synchronize();
+                },
               ),
             if (article != null)
               IconButton(
                 icon: starredIcons[article.starredValue]!,
-                onPressed: () => syncer
-                  ..add(EditArticleAction(
-                    article.id!,
-                    starred: article.starredAt == null,
-                  ))
-                  ..synchronize(),
+                onPressed: () {
+                  ref.read(remoteSyncerProvider.notifier)
+                    ..add(EditArticleAction(
+                      article.id!,
+                      starred: article.starredAt == null,
+                    ))
+                    ..synchronize();
+                },
               ),
             PopupMenuButton(
               key: const Key(wkArticlePopupMenu),
@@ -184,9 +190,10 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
                       isDestructiveAction: true,
                     );
                     if (result == OkCancelResult.cancel) return;
+                    final syncer = ref.read(remoteSyncerProvider.notifier);
                     syncer.add(DeleteArticleAction(article.id!));
                     await syncer.synchronize();
-                    if (toggler == null && context.mounted) {
+                    if (!widget.withExpander && context.mounted) {
                       context.go('/');
                     }
                 }
@@ -236,10 +243,10 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
     void showTagsDialog([_]) => showDialog(
           context: context,
           builder: (_) => TagsSelectorDialog(
-            tags: RemoteSyncer.instance.wallabag!.tags,
+            tags: ref.read(storageProvider).tags,
             initialValue: article.tags,
             onConfirm: (tags) {
-              RemoteSyncer.instance
+              ref.read(remoteSyncerProvider.notifier)
                 ..add(EditArticleAction(article.id!, tags: tags))
                 ..synchronize();
             },

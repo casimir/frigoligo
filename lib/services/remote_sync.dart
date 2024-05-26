@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:isar/isar.dart';
 import 'package:logging/logging.dart';
 
@@ -120,3 +121,8 @@ class RemoteSyncer with ChangeNotifier {
   static final _instance = RemoteSyncer();
   static RemoteSyncer get instance => _instance;
 }
+
+final remoteSyncerProvider =
+    ChangeNotifierProvider((ref) => RemoteSyncer.instance);
+final storageProvider =
+    ChangeNotifierProvider((ref) => RemoteSyncer.instance.wallabag!);

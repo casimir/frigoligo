@@ -1,26 +1,20 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:logging/logging.dart';
-import 'package:provider/provider.dart';
 
 import '../buildcontext_extension.dart';
 import '../services/remote_sync.dart';
 import '../wallabag/wallabag.dart';
 
-final _log = Logger('widgets.remote_sync_progress_reporter');
-
-class RemoteSyncProgressIndicator extends StatelessWidget {
+class RemoteSyncProgressIndicator extends ConsumerWidget {
   const RemoteSyncProgressIndicator({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final provider = context.watch<RemoteSyncer?>();
-    if (provider == null) {
-      _log.warning('RemoteSyncProgressReporter: provider is null');
-    }
+  Widget build(BuildContext context, WidgetRef ref) {
+    final syncer = ref.watch(remoteSyncerProvider);
 
-    final error = provider?.lastError;
+    final error = syncer.lastError;
     if (error != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         if (error is WallabagError && error.isInvalidTokenError) {
@@ -43,10 +37,10 @@ class RemoteSyncProgressIndicator extends StatelessWidget {
       });
     }
 
-    if (provider == null || error != null || !provider.isWorking) {
+    if (error != null || !syncer.isWorking) {
       return const SizedBox.shrink();
     } else {
-      return LinearProgressIndicator(value: provider.progressValue);
+      return LinearProgressIndicator(value: syncer.progressValue);
     }
   }
 }

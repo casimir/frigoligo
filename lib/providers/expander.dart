@@ -1,20 +1,13 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class Expander extends ChangeNotifier {
-  Expander({bool? expanded}) : _expanded = expanded ?? false;
-
-  bool _expanded;
-
-  bool get expanded => _expanded;
-  set expanded(bool value) {
-    if (_expanded != value) {
-      _expanded = value;
-      notifyListeners();
-    }
-  }
+class Expander extends StateNotifier<bool> {
+  Expander({bool? expanded}) : super(expanded ?? false);
 
   void toggle() {
-    expanded = !expanded;
-    notifyListeners();
+    state = !state;
   }
 }
+
+final expanderProvider = StateNotifierProvider<Expander, bool>((ref) {
+  return Expander();
+});
