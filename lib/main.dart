@@ -7,13 +7,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart'
-    hide ChangeNotifierProvider; // use ChangeNotifierProvider from provider
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logging/logging.dart';
 import 'package:neat_periodic_task/neat_periodic_task.dart';
-import 'package:provider/provider.dart';
 
 import 'app_info.dart';
 import 'applinks/handler.dart';
@@ -28,7 +26,6 @@ import 'pages/session_details.dart';
 import 'pages/settings.dart';
 import 'providers/article.dart';
 import 'providers/expander.dart';
-import 'providers/logconsole.dart';
 import 'providers/settings.dart';
 import 'providers/tools/observer.dart';
 import 'services/remote_sync.dart';
@@ -145,10 +142,7 @@ final _router = GoRouter(routes: [
   ),
   GoRoute(
     path: '/logs',
-    builder: (context, state) => ChangeNotifierProvider(
-      create: (_) => LogConsoleProvider(),
-      child: const LogConsolePage(),
-    ),
+    builder: (context, state) => const LogConsolePage(),
   ),
   GoRoute(
     path: '/articles/:id',

@@ -1,19 +1,19 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../buildcontext_extension.dart';
 import '../constants.dart';
 import '../providers/logconsole.dart';
 
-class LogConsolePage extends StatelessWidget {
+class LogConsolePage extends ConsumerWidget {
   const LogConsolePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final console = context.watch<LogConsoleProvider>();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final console = ref.watch(logConsoleProvider);
     return Scaffold(
       appBar: AppBar(
         title: Text(context.L.logconsole_title),
