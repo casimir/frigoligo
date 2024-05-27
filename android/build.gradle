@@ -1,20 +1,7 @@
-buildscript {
-    ext.kotlin_version = '1.7.21'
-    ext {
-        // background_fetch needs these but I couldn't find a way to load these from flutter...
-        compileSdkVersion = 34
-        targetSdkVersion = 34
-//        appCompatVersion = "1.4.2"
-    }
-    repositories {
-        google()
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
+ext {
+    // background_fetch needs these but I couldn't find a way to load these from flutter...
+    compileSdkVersion = 34
+    targetSdkVersion = 34
 }
 
 allprojects {
