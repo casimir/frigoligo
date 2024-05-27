@@ -539,10 +539,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: b465e99ce64ba75e61c8c0ce3d87b66d8ac07f0b35d0a7e0263fcfc10f99e836
+      sha256: "6ad5662b014c06c20fa46ab78715c96b2222a7fe4f87bf77e0289592c2539e86"
       url: "https://pub.dev"
     source: hosted
-    version: "13.2.5"
+    version: "14.1.3"
   google_fonts:
     dependency: "direct main"
     description:
@@ -643,7 +643,7 @@ packages:
     dependency: "direct main"
     description:
       name: isar
-      sha256: e7135ff16ae4e4624bce608757b2d22aeeeb09225d9f16ec3e3a5c9f3d05e66a
+      sha256: d06cca880885fe016d20a53847ce8605cde595e38de00a613b086fa8fd900790
       url: "https://pub.isar-community.dev"
     source: hosted
     version: "3.1.7"
@@ -651,7 +651,7 @@ packages:
     dependency: "direct main"
     description:
       name: isar_flutter_libs
-      sha256: cb2cc60aac929ca190c0332d10417cab405f666dc96773ab66eb2958866a5e20
+      sha256: d5036c0cb92b15025301fb7260e7a7557393c855ed2f9903f2b1fbb56f423bc5
       url: "https://pub.isar-community.dev"
     source: hosted
     version: "3.1.7"
@@ -659,7 +659,7 @@ packages:
     dependency: "direct dev"
     description:
       name: isar_generator
-      sha256: "9409d8c95abc67953165dea302f75d957cd40965fcbcd0134ab2b2e4c5e35042"
+      sha256: c88bcdfc4a6407ff9672364bf62330d0314e88753dd0b442179f2f802a5f2179
       url: "https://pub.isar-community.dev"
     source: hosted
     version: "3.1.7"
