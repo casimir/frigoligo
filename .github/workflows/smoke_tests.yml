@@ -13,7 +13,7 @@ on:
       - ready_for_review
   workflow_dispatch:
 jobs:
-  smoke-tests:
+  smoke-test:
     if: github.event.pull_request.draft == false
     strategy:
       matrix:
@@ -28,6 +28,26 @@ jobs:
           channel: stable
           flutter-version: ${{ steps.flutter-version.outputs.version }}
           cache: true
-      - run: flutter --version
+      - run: flutter config --no-analytics
       - run: flutter pub get
       - run: flutter test test/smoke_test.dart
+  smoke-build-android:
+    # for android we only validate the build process, running is too complicated
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: 17
+      - run: echo "version=$(cat .flutter-version)" >> $GITHUB_OUTPUT
+        id: flutter-version
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: ${{ steps.flutter-version.outputs.version }}
+          cache: true
+      - run: flutter config --no-analytics
+      - run: flutter pub get
+      - run: flutter build apk
