@@ -19,13 +19,9 @@ import 'constants.dart';
 import 'models/db.dart';
 import 'pages/article.dart';
 import 'pages/listing.dart';
-import 'pages/logconsole.dart';
-import 'pages/login.dart';
-import 'pages/save.dart';
-import 'pages/session_details.dart';
-import 'pages/settings.dart';
 import 'providers/article.dart';
 import 'providers/expander.dart';
+import 'providers/router.dart';
 import 'providers/settings.dart';
 import 'providers/tools/observer.dart';
 import 'services/remote_sync.dart';
@@ -117,49 +113,6 @@ Future<void> main() async {
   ));
 }
 
-final _router = GoRouter(routes: [
-  GoRoute(
-    path: '/',
-    redirect: (context, state) => !WallabagInstance.isReady ? '/login' : null,
-    builder: (context, state) {
-      final rawArticleId = state.uri.queryParameters['articleId'];
-      return HomePage(
-        openArticleId: rawArticleId != null ? int.tryParse(rawArticleId) : null,
-      );
-    },
-  ),
-  GoRoute(
-    path: '/login',
-    builder: (context, state) => LoginPage(initial: state.uri.queryParameters),
-  ),
-  GoRoute(
-    path: '/settings',
-    builder: (context, state) => const SettingsPage(),
-  ),
-  GoRoute(
-    path: '/session',
-    builder: (context, state) => const SessionDetailsPage(),
-  ),
-  GoRoute(
-    path: '/logs',
-    builder: (context, state) => const LogConsolePage(),
-  ),
-  GoRoute(
-    path: '/articles/:id',
-    builder: (context, state) {
-      final id = int.parse(state.pathParameters['id']!);
-      return (id > 0)
-          ? ArticlePage(changeToArticleId: id)
-          : const ArticlePage();
-    },
-  ),
-  GoRoute(
-    path: '/save',
-    builder: (context, state) =>
-        SavePage(url: state.uri.queryParameters['url']),
-  ),
-]);
-
 class MyApp extends ConsumerStatefulWidget {
   const MyApp({super.key});
 
@@ -174,25 +127,25 @@ class _MyAppState extends ConsumerState<MyApp> {
   void initState() {
     super.initState();
 
+    final router = ref.read(routerProvider);
+
     _deeplinksSubscription =
-        LinksHandler.listen(_router.configuration, (linkType, uri) {
+        LinksHandler.listen(router.configuration, (linkType, uri) {
       if (linkType == Deeplink.invalid) return;
 
       void pushOrGoLogin(Uri uri) {
         if (WallabagInstance.isReady) {
-          _router.push(uri.toString());
+          router.push(uri.toString());
         } else {
-          _router.go('/login');
+          router.go('/login');
         }
       }
 
       switch (linkType) {
-        case Deeplink.article:
-          _router.go('/?articleId=${uri.pathSegments.last}');
         case Deeplink.save:
           pushOrGoLogin(uri);
         default:
-          _router.go(uri.toString());
+          router.go(uri.toString());
       }
     });
   }
@@ -200,7 +153,7 @@ class _MyAppState extends ConsumerState<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      routerConfig: _router,
+      routerConfig: ref.watch(routerProvider),
       title: 'Frigoligo',
       theme: ThemeData(colorScheme: schemeLight, useMaterial3: true),
       darkTheme: ThemeData(colorScheme: schemeDark, useMaterial3: true),
@@ -270,11 +223,10 @@ class _MainContainerState extends ConsumerState<_MainContainer> {
   }
 
   Widget _buildNarrowLayout() {
-    void onItemSelect(int articleId) {
-      context.push('/articles/$articleId');
-    }
-
-    return ListingPage(onItemSelect: onItemSelect, showSelectedItem: false);
+    return ListingPage(
+      onItemSelect: (int articleId) => context.push('/article/current'),
+      showSelectedItem: false,
+    );
   }
 
   Widget _buildWideLayout() {
