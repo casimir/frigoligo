@@ -50,15 +50,17 @@ class _ListingPageState extends ConsumerState<ListingPage> {
   void initState() {
     super.initState();
 
-    final articleId = ref.read(currentArticleProvider)?.id;
-    if (articleId != null) {
-      final query = ref.read(queryProvider);
-      final scrollToIndex =
-          ref.read(storageProvider.notifier).indexOf(articleId, query);
-      if (scrollToIndex != null) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          _scroller.jumpTo(scrollToIndex * listingHeight);
-        });
+    if (widget.showSelectedItem) {
+      final articleId = ref.read(currentArticleProvider)?.id;
+      if (articleId != null) {
+        final query = ref.read(queryProvider);
+        final scrollToIndex =
+            ref.read(storageProvider.notifier).indexOf(articleId, query);
+        if (scrollToIndex != null) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            _scroller.jumpTo(scrollToIndex * listingHeight);
+          });
+        }
       }
     }
   }
