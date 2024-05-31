@@ -4,7 +4,6 @@ class OpenArticle extends StateNotifier<int?> {
   OpenArticle() : super(null);
 
   void schedule(int articleId) {
-    print('SCHEDULE $articleId');
     state = articleId;
   }
 
