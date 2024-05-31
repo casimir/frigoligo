@@ -122,7 +122,7 @@ class _SavePageState extends ConsumerState<SavePage> {
       C.spacers.verticalContent,
       // TODO a preview card would be waaaay nicer
       ElevatedButton(
-        onPressed: () => context.replace('/?articleId=$savedArticleId'),
+        onPressed: () => context.go('/articles/$savedArticleId'),
         child: Text(context.L.save_viewArticle),
       ),
     ];
