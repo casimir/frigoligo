@@ -1,5 +1,3 @@
-import 'package:logging/logging.dart';
-
 import 'base.dart';
 
 class RefreshArticlesAction extends RemoteSyncAction {
@@ -32,13 +30,8 @@ class DeleteArticleAction extends RemoteSyncAction {
 
   @override
   Future<void> execute(syncer) async {
-    final _log = Logger('DeleteArticleAction');
-    _log.severe('before request');
     await syncer.wallabag!.deleteArticle(articleId);
-    _log.severe('after request');
-    _log.severe('before update badge');
     await syncer.wallabag!.updateAppBadge();
-    _log.severe('after update badge');
   }
 }
 
