@@ -112,7 +112,7 @@ class RemoteSyncer with ChangeNotifier {
         await rsa.execute(this);
         _log.severe('end of execution: $rsa');
         final deleted =
-            db.writeTxnSync(() => db.remoteActions.deleteSync(action.id!));
+            await db.writeTxn(() => db.remoteActions.delete(action.id!));
         _log.severe('deletion result: $deleted');
         if (!deleted) {
           _log.severe('action not deleted after execution: $action');
