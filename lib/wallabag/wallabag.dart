@@ -276,7 +276,8 @@ class WallabagClient extends http.BaseClient {
 
   Future<http.Response> deleteEntry(int id) async {
     final response = await delete(_buildUri('/api/entries/$id.json'));
-    throwOnError(response);
+    // avoid blocking the syncer with a 404 status (nothing to delete)
+    throwOnError(response, expected: [200, 404]);
     return response;
   }
 
