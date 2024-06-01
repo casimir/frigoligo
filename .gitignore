@@ -52,3 +52,7 @@ fastlane/metadata/android/*/images/
 fastlane/metadata/android/en-US/images/*
 !fastlane/metadata/android/en-US/images/*.png
 !fastlane/metadata/android/en-US/images/phoneScreenshots/
+fastlane/metadata/ios/review_information/
+fastlane/screenshots/ios/
+fastlane/Preview.html
+fastlane/report.xml

@@ -1,2 +1,12 @@
-json_key_file("../pc-api-googleplay-devconsole.json") 
-package_name("net.casimirlab.frigoligo") 
+# Android
+
+json_key_file(ENV["FASTLANE_JSON_KEY_FILE"]) 
+package_name(ENV["FASTLANE_PACKAGE_NAME"]) 
+
+# iOS
+
+app_identifier(ENV["FASTLANE_APP_IDENTIFIER"])
+apple_id(ENV["FASTLANE_APPLE_ID"])
+
+itc_team_id(ENV["FASTLANE_ITC_TEAM_ID"])
+team_id(ENV["FASTLANE_TEAM_ID"])
