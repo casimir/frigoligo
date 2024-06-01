@@ -128,9 +128,14 @@ enum Sk {
 enum Language {
   system(null, ''),
   // values should be in alphabetical order as they are displayed in the UI
+  // FIXME this value is stored using its enum index, so only append for now
   de(Locale('de'), 'Deustch'),
   en(Locale('en'), 'English'),
-  fr(Locale('fr'), 'Français');
+  fr(Locale('fr'), 'Français'),
+  gl(Locale('gl'), 'Galego'),
+  ptBR(Locale('pt', 'BR'), 'Português (Brasil)'),
+  zh(Locale('zh'), '中文'),
+  ;
 
   const Language(this.locale, this.nativeName);
 
