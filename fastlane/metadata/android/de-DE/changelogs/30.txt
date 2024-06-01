@@ -1,0 +1,1 @@
+Die Schriften sind jetzt direkt in der Anwendung gebündelt und werden nicht mehr nachträglich heruntergeladen.

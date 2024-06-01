@@ -1,0 +1,4 @@
+Nimm deine Links überallhin mit und halte sie frisch! Frigoligo ist ein Wallabag-Client, der einfach, schnell und benutzerfreundlich sein möchte.
+Genau wie Wallabag ist Frigoligo kostenlos, werbefrei und quelloffen.
+
+Du benötigst eine Wallabag-Instanz, um diese Anwendung nutzen zu können.

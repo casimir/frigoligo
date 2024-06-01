@@ -1,0 +1,402 @@
+{
+  "g_check": "Comprobar",
+  "@g_check": {
+    "description": "A verb as in to check something."
+  },
+  "g_checking": "Comprobando…",
+  "@g_checking": {
+    "description": "Present participle of the verb to check."
+  },
+  "g_delete": "Eliminar",
+  "@g_delete": {
+    "description": "A verb, as in to delete something."
+  },
+  "g_search": "Buscar",
+  "@g_search": {
+    "description": "A verb, as in to search something."
+  },
+  "g_server": "Servidor",
+  "@g_server": {
+    "description": "A server, as in a computer providing a service."
+  },
+  "g_share": "Compartir",
+  "@g_share": {
+    "description": "A verb, as in to share something."
+  },
+  "g_sourceCode": "Código fonte",
+  "@g_sourceCode": {
+    "description": "The source code of a software."
+  },
+  "g_system": "Sistema",
+  "@g_system": {},
+  "g_tag": "Etiqueta",
+  "@g_tag": {
+    "description": "A tag can be attached to an article."
+  },
+  "g_version": "Versión",
+  "@g_version": {
+    "description": "A version, as in the application version."
+  },
+  "humanize_future": "en {duration}",
+  "@humanize_future": {
+    "description": "Describe a duration until a moment in the future.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "humanize_hours": "{n, plural, =1{1 hora} other{{n} horas}}",
+  "@humanize_hours": {},
+  "humanize_minutes": "{n, plural, =1{1 minuto} other{{n} minutos}}",
+  "@humanize_minutes": {},
+  "humanize_past": "fai {duration}",
+  "@humanize_past": {
+    "description": "Describe a duration since a moment in the past.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "humanize_seconds": "{n, plural, =1{1 segundo} other{{n} segundos}}",
+  "@humanize_seconds": {},
+  "article_addTags": "Engadir etiquetas",
+  "@article_addTags": {
+    "description": "The action to add tags to an article."
+  },
+  "article_browseOriginal": "Ir ao orixinal",
+  "@article_browseOriginal": {
+    "description": "The action to open the URL of the article in the web browser."
+  },
+  "article_delete": "Eliminar este artigo",
+  "@article_delete": {
+    "description": "The action to delete the article."
+  },
+  "article_noContentFetched": "Non se obtivo contido",
+  "@article_noContentFetched": {
+    "description": "Placeholder for when the article content is not available."
+  },
+  "article_openInBrowser": "Abrir no navegador",
+  "@article_openInBrowser": {
+    "description": "The action to open the article in the web browser."
+  },
+  "article_readingTime": "{minutes} min",
+  "@article_readingTime": {
+    "description": "The estimated reading time of the article.",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "filters_articleFavorite": "Favorito",
+  "@filters_articleFavorite": {
+    "description": "The favorite status of the article."
+  },
+  "login_fieldPassword": "Contrasinal",
+  "@login_fieldPassword": {
+    "description": "The password field of the login form."
+  },
+  "login_fieldUsername": "Identificador",
+  "@login_fieldUsername": {
+    "description": "The username field of the login form."
+  },
+  "login_openLogConsole": "Abrir a Consola do rexistro",
+  "@login_openLogConsole": {
+    "description": "The action to open the log console."
+  },
+  "readingsettings_fontFamily": "Tipo de letra",
+  "@readingsettings_fontFamily": {
+    "description": "The font family to display the content of the article."
+  },
+  "session_title": "Detalles da sesión",
+  "@session_title": {
+    "description": "The title of the session details screen."
+  },
+  "settings_bugReportLink": "Informar de problemas",
+  "@settings_bugReportLink": {
+    "description": "The action to open the bug report form."
+  },
+  "settings_clearCacheMessage": "Vaise eliminar a caché local e solicitar outra vez os datos ao servidor.",
+  "@settings_clearCacheMessage": {
+    "description": "The message of the confirmation dialog to clear the cache."
+  },
+  "settings_itemAppearance": "Aparencia",
+  "@settings_itemAppearance": {
+    "description": "Settings for the appearance of the application."
+  },
+  "settings_itemAbout": "Sobre",
+  "@settings_itemAbout": {
+    "description": "The action to display the about screen."
+  },
+  "settings_itemAppBadge": "Mostrar marca de non lido",
+  "@settings_itemAppBadge": {
+    "description": "The action to toggle the unread badge on the application icon."
+  },
+  "settings_itemClearCache": "Limpar caché",
+  "@settings_itemClearCache": {
+    "description": "The action to clear the offline cache."
+  },
+  "settings_itemLogConsole": "Consola de rexistro",
+  "@settings_itemLogConsole": {
+    "description": "The action to display the log console screen."
+  },
+  "settings_itemOpenDeeplink": "Abrir unha ligazón oculta",
+  "@settings_itemOpenDeeplink": {
+    "description": "The action to open a deep link."
+  },
+  "settings_itemLanguage": "Idioma",
+  "@settings_itemLanguage": {
+    "description": "The action to change the language of the application."
+  },
+  "settings_helpToTranslate": "Axuda a traducir",
+  "@settings_helpToTranslate": {
+    "description": "The action to open the Weblate project in a webview."
+  },
+  "settings_savedArticleTag": "Engadir etiqueta aos artigos gardados",
+  "@settings_savedArticleTag": {
+    "description": "The action to toggle the addition of a tag to saved articles."
+  },
+  "settings_savedArticleTagLabel": "Etiqueta para os artigos gardados",
+  "@settings_savedArticleTagLabel": {
+    "description": "The label of the tag to add to saved articles."
+  },
+  "settings_itemSessionDetails": "Detalles da sesión",
+  "@settings_itemSessionDetails": {
+    "description": "The action to display the session details screen."
+  },
+  "humanize_days": "{n, plural, =1{1 día} other{{n} días}}",
+  "@humanize_days": {},
+  "filters_articlesCount": "{count, plural, =1{atopado 1 artigo} other{atopados {count} artigos}}",
+  "@filters_articlesCount": {
+    "description": "The number of articles found with current filters values.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "filters_articleFavoriteAll": "Todo",
+  "@filters_articleFavoriteAll": {
+    "description": "Don't filter articles by favorite status."
+  },
+  "filters_articleFavoriteStarred": "Con estrela",
+  "@filters_articleFavoriteStarred": {
+    "description": "Filter starred articles."
+  },
+  "filters_articleState": "Estado",
+  "@filters_articleState": {
+    "description": "The state of the article."
+  },
+  "filters_articleStateUnread": "Sen ler",
+  "@filters_articleStateUnread": {
+    "description": "Filter articles with the state 'unread'."
+  },
+  "filters_articleStateArchived": "Arquivado",
+  "@filters_articleStateArchived": {
+    "description": "Filter articles with the state 'archived'."
+  },
+  "filters_articleStateAll": "Todo",
+  "@filters_articleStateAll": {
+    "description": "Don't filter articles by state."
+  },
+  "filters_articleTags": "Etiquetas",
+  "@filters_articleTags": {
+    "description": "The tags attached to the article."
+  },
+  "filters_clearTagsSelection": "Limpar selección",
+  "@filters_clearTagsSelection": {
+    "description": "The action to clear the selection of tags."
+  },
+  "filters_noTagsSelected": "Sen etiquetas escollidas",
+  "@filters_noTagsSelected": {
+    "description": "Placeholder for when no tags are selected."
+  },
+  "logconsole_title": "Consola do rexistro",
+  "@logconsole_title": {
+    "description": "The title of the log console screen."
+  },
+  "listing_noArticles": "Sen artigos",
+  "@listing_noArticles": {
+    "description": "Placeholder for when there are no articles to display."
+  },
+  "listing_articlesAll": "Todos os artigos",
+  "@listing_articlesAll": {
+    "description": "The title for the list of all the articles."
+  },
+  "listing_articlesArchived": "Artigos arquivados",
+  "@listing_articlesArchived": {
+    "description": "The title for the list of the articles with the state Archived."
+  },
+  "listing_articlesUnread": "Artigos sen ler",
+  "@listing_articlesUnread": {
+    "description": "The title for the list of the articles with the state Unread."
+  },
+  "login_actionLogin": "Acceder",
+  "@login_actionLogin": {
+    "description": "The action to log in."
+  },
+  "login_existingSessionDialogConfirm": "Pechar sesión",
+  "@login_existingSessionDialogConfirm": {
+    "description": "The action to log out from the existing session."
+  },
+  "login_existingSessionDialogMessage": "Queres pechar a sesión actual e abrir unha nova?",
+  "@login_existingSessionDialogMessage": {
+    "description": "The message of the dialog warning about an existing session."
+  },
+  "login_existingSessionDialogTitle": "Hai unha sesión activa",
+  "@login_existingSessionDialogTitle": {
+    "description": "The title of the dialog warning about an existing session."
+  },
+  "login_fieldClientId": "ID do cliente",
+  "@login_fieldClientId": {
+    "description": "The client ID field of the login form."
+  },
+  "login_fieldClientSecret": "Segreda do cliente",
+  "@login_fieldClientSecret": {
+    "description": "The client secret field of the login form."
+  },
+  "readingsettings_fontSize": "Tamaño da letra",
+  "@readingsettings_fontSize": {
+    "description": "The font size to display the content of the article."
+  },
+  "readingsettings_title": "Axustes da lectura",
+  "@readingsettings_title": {
+    "description": "The title of the reading settings screen."
+  },
+  "save_confirmationTitle": "Gardouse o artigo!",
+  "@save_confirmationTitle": {
+    "description": "The title of the confirmation screen after the article is saved. "
+  },
+  "save_dubiousUrlMessage": "Este URL non semella válido. Gardar igualmente?\n{url}",
+  "@save_dubiousUrlMessage": {
+    "description": "The message of the dubious URL warning dialog.",
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "save_dubiousUrlConfirm": "Gardalo",
+  "@save_dubiousUrlConfirm": {
+    "description": "The confirmation button of the dubious URL warning dialog."
+  },
+  "save_dubiousUrlTitle": "URL dubidoso",
+  "@save_dubiousUrlTitle": {
+    "description": "The title of the dubious URL warning dialog."
+  },
+  "save_noUrl": "Sen URL proporcionado",
+  "@save_noUrl": {
+    "description": "The URL was missing from the save request."
+  },
+  "save_title": "Gardar artigo",
+  "@save_title": {
+    "description": "The title of the save screen."
+  },
+  "save_viewArticle": "Ver artigo",
+  "@save_viewArticle": {
+    "description": "The action to view the article after it is saved."
+  },
+  "server_address": "Enderezo do servidor",
+  "@server_address": {
+    "description": "The address of the Wallabag instance."
+  },
+  "server_apiError": "Resposta incorrecta da API",
+  "@server_apiError": {
+    "description": "An error occurred while communicating with the Wallabag API."
+  },
+  "server_emptyField": "Escribe o teu {label}",
+  "@server_emptyField": {
+    "description": "A message for non-empty check fail on a form field.",
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "server_invalidUrl": "Enderezo non válido",
+  "@server_invalidUrl": {
+    "description": "The address of the Wallabag instance is invalid."
+  },
+  "server_unreachable": "Servidor non accesible",
+  "@server_unreachable": {
+    "description": "The Wallabag instance is unreachable."
+  },
+  "session_copiedToClipboard": "Copiado ao portapapeis",
+  "@session_copiedToClipboard": {
+    "description": "A message displayed when the value is copied to the clipboard."
+  },
+  "session_invalidToken": "non válido",
+  "@session_invalidToken": {
+    "description": "Placeholder for expiration date when the token is invalid."
+  },
+  "session_logoutDialogConfirm": "Pechar sesión",
+  "@session_logoutDialogConfirm": {
+    "description": "Confirm the log out from the confirmation dialog."
+  },
+  "session_logoutDialogMessage": "Vas ter que acceder de novo.",
+  "@session_logoutDialogMessage": {
+    "description": "The message of the confirmation dialog to log out."
+  },
+  "session_logoutDialogTitle": "Pechar sesión",
+  "@session_logoutDialogTitle": {
+    "description": "The title of the confirmation dialog to log out."
+  },
+  "session_logoutSession": "Pechar sesión",
+  "@session_logoutSession": {
+    "description": "The action to log out the session."
+  },
+  "session_fieldAccessToken": "Token de acceso",
+  "@session_fieldAccessToken": {
+    "description": "The label of the access token field in the session screen."
+  },
+  "session_fieldLastServerSync": "Última sincronización",
+  "@session_fieldLastServerSync": {
+    "description": "The label of the last server sync field in the session screen."
+  },
+  "session_fieldTokenExpiration": "Caducidade do token",
+  "@session_fieldTokenExpiration": {
+    "description": "The label of the token expiration field in the session screen."
+  },
+  "session_forceTokenResfresh": "Forzar actualización do token",
+  "@session_forceTokenResfresh": {
+    "description": "The action to force a token refresh."
+  },
+  "session_neverSynced": "nunca",
+  "@session_neverSynced": {
+    "description": "Default value for the last sync time."
+  },
+  "session_renewDialogMessage": "O servidor rexeita o token de sesión actual. Terás que acceder outra vez para continuar coa sincronización.",
+  "@session_renewDialogMessage": {
+    "description": "The message of the confirmation dialog to renew the session."
+  },
+  "session_renewDialogTitle": "Anovar a sesión",
+  "@session_renewDialogTitle": {
+    "description": "The title of the confirmation dialog to renew the session."
+  },
+  "settings_title": "Axustes",
+  "@settings_title": {
+    "description": "The title of the settings screen."
+  },
+  "settings_valueThemeDark": "Escuro",
+  "@settings_valueThemeDark": {
+    "description": "The label for the dark theme mode."
+  },
+  "settings_valueThemeLight": "Claro",
+  "@settings_valueThemeLight": {
+    "description": "The label for the light theme mode."
+  },
+  "syncer_pendingActions": "{count, plural, =1{1 acción} other{{count} accións}}",
+  "@syncer_pendingActions": {
+    "description": "Number of pending actions in the RemoteSyncer queue.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  }
+}
