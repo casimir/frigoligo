@@ -84,6 +84,7 @@ class RemoteSyncer with ChangeNotifier {
 
     try {
       await _executeActions();
+      _log.warning('actions executed');
       if (withFinalRefresh) {
         progressValue = null;
         _log.info('running action: $_refreshAction');
