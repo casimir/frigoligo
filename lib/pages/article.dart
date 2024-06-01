@@ -32,14 +32,12 @@ class ArticlePage extends ConsumerStatefulWidget {
     this.forcedDrawerOpen = false,
     this.withExpander = false,
     this.withProgressIndicator = true,
-    this.changeToArticleId,
   });
 
   final Widget? drawer;
   final bool forcedDrawerOpen;
   final bool withExpander;
   final bool withProgressIndicator;
-  final int? changeToArticleId;
 
   @override
   ConsumerState<ArticlePage> createState() => _ArticlePageState();
@@ -57,12 +55,6 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _scaffoldKey.currentState?.openDrawer();
       });
-    }
-
-    if (widget.changeToArticleId != null) {
-      ref
-          .read(currentArticleProvider.notifier)
-          .change(widget.changeToArticleId!);
     }
   }
 

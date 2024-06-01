@@ -67,7 +67,7 @@ Open the login page and prefills the given credentials. Be aware that such link 
 | `username`     | Your wallabag username.      | No       |
 | `password`     | Your wallabag password.      | No       |
 
-### `/logs`
+#### `/logs`
 
 Open the log console. Useful to debug issues when the application is soft lock.
 

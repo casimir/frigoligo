@@ -109,7 +109,11 @@ class RemoteSyncer with ChangeNotifier {
         final rsa = action.toRSA();
         _log.info('running action: $rsa');
         await rsa.execute(this);
-        db.writeTxnSync(() => db.remoteActions.deleteSync(action.id!));
+        final deleted =
+            db.writeTxnSync(() => db.remoteActions.deleteSync(action.id!));
+        if (!deleted) {
+          _log.severe('action not deleted after execution: $action');
+        }
         progressValue = i / actionsCount;
         i++;
       }

@@ -40,13 +40,8 @@ class LinksHandler {
 
   static StreamSubscription<Uri> listen(
       RouteConfiguration router, OnLinkData onLinkData) {
-    return appLinks.uriLinkStream.listen((uri) {
-      if (uri.scheme != 'frigoligo') {
-        _log.info('converting bare URI to /save link');
-        uri = Uri(path: '/save', queryParameters: {'url': uri.toString()});
-      }
-      _handle(router, uri, onLinkData);
-    });
+    return appLinks.uriLinkStream
+        .listen((uri) => _handle(router, uri, onLinkData));
   }
 }
 

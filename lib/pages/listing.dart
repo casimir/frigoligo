@@ -11,6 +11,7 @@ import '../constants.dart';
 import '../dialogs/save.dart';
 import '../models/article.dart';
 import '../providers/article.dart';
+import '../providers/open_article.dart';
 import '../providers/query.dart';
 import '../services/remote_sync.dart';
 import '../services/remote_sync_actions/articles.dart';
@@ -32,12 +33,12 @@ class ListingPage extends ConsumerStatefulWidget {
     super.key,
     this.onItemSelect,
     this.withProgressIndicator = true,
-    this.showSelectedItem = true,
+    this.sideBySideMode = true,
   });
 
   final void Function(int articleId)? onItemSelect;
   final bool withProgressIndicator;
-  final bool showSelectedItem;
+  final bool sideBySideMode;
 
   @override
   ConsumerState<ListingPage> createState() => _ListingPageState();
@@ -46,25 +47,40 @@ class ListingPage extends ConsumerStatefulWidget {
 class _ListingPageState extends ConsumerState<ListingPage> {
   final ScrollController _scroller = ScrollController();
 
+  void _openArticle(int articleId) {
+    ref.read(currentArticleProvider.notifier).change(articleId);
+    widget.onItemSelect?.call(articleId);
+  }
+
   @override
   void initState() {
     super.initState();
 
-    final articleId = ref.read(currentArticleProvider)?.id;
-    if (articleId != null) {
-      final query = ref.read(queryProvider);
-      final scrollToIndex =
-          ref.read(storageProvider.notifier).indexOf(articleId, query);
-      if (scrollToIndex != null) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          _scroller.jumpTo(scrollToIndex * listingHeight);
-        });
+    if (widget.sideBySideMode) {
+      final articleId = ref.read(currentArticleProvider)?.id;
+      if (articleId != null) {
+        final query = ref.read(queryProvider);
+        final scrollToIndex =
+            ref.read(storageProvider.notifier).indexOf(articleId, query);
+        if (scrollToIndex != null) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            _scroller.jumpTo(scrollToIndex * listingHeight);
+          });
+        }
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final pendingOpenArticleId = ref.watch(openArticleProvider);
+    if (pendingOpenArticleId != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ref.read(openArticleProvider.notifier).reset();
+        _openArticle(pendingOpenArticleId);
+      });
+    }
+
     final storage = ref.watch(storageProvider);
     final query = ref.watch(queryProvider);
 
@@ -124,13 +140,8 @@ class _ListingPageState extends ConsumerState<ListingPage> {
                         }
                         return ArticleListItem(
                           article: article,
-                          onTap: (article) {
-                            ref
-                                .read(currentArticleProvider.notifier)
-                                .change(article.id!);
-                            widget.onItemSelect?.call(article.id!);
-                          },
-                          showSelection: widget.showSelectedItem,
+                          onTap: (article) => _openArticle(article.id!),
+                          showSelection: widget.sideBySideMode,
                         );
                       },
                       separatorBuilder: (context, index) => const Divider(),
