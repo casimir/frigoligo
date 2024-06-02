@@ -17,6 +17,7 @@ const androidLocaleRewrite = {
 Future<void> main() async {
   final locale = Environment.getString('locale')!;
   final darkModeLabel = switch (locale.split('-').first) {
+    'de' => 'Dunkel',
     'en' => 'Dark',
     'fr' => 'Sombre',
     'zh' => '深色',
@@ -24,12 +25,14 @@ Future<void> main() async {
   };
   // Material localizations: https://github.com/flutter/flutter/tree/master/packages/flutter_localizations/lib/src/l10n
   final backTooltip = switch (locale.split('-').first) {
+    'de' => 'Zurück',
     'en' => 'Back',
     'fr' => 'Retour',
     'zh' => '返回',
     _ => throw UnimplementedError('back tooltip not supported for $locale')
   };
   final okCancelLabel = switch (locale.split('-').first) {
+    'de' => 'OK',
     'en' => 'OK',
     'fr' => 'OK',
     'zh' => '确定',
@@ -105,6 +108,8 @@ Future<void> main() async {
       // FIXME because flutter_drive...
       if (locale == 'zh-Hans') {
         await driver.tap(find.text('未读文章'));
+      } else if (locale == 'de-DE' && deviceName == 'iPhone 15 Plus') {
+        await driver.tap(find.text('Ungelesene'));
       } else {
         await driver.tap(find.byValueKey(wkListingFiltersButton));
       }

@@ -13,6 +13,8 @@ void main() {
   print('config: ${Environment.config}');
 
   switch (Environment.getString('locale')?.split('-').first) {
+    case 'de':
+      SettingsValues.initialLocaleOverride = Language.de;
     case 'en':
       SettingsValues.initialLocaleOverride = Language.en;
     case 'fr':
