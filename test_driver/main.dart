@@ -13,12 +13,14 @@ void main() {
   print('config: ${Environment.config}');
 
   switch (Environment.getString('locale')?.split('-').first) {
+    case 'de':
+      SettingsValues.initialLocaleOverride = Language.de;
     case 'en':
       SettingsValues.initialLocaleOverride = Language.en;
-      break;
     case 'fr':
       SettingsValues.initialLocaleOverride = Language.fr;
-      break;
+    case 'zh':
+      SettingsValues.initialLocaleOverride = Language.zh;
     default:
       throw 'unhandled locale';
   }
