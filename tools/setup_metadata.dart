@@ -5,12 +5,20 @@ import 'dart:io';
 const metadataRoot = 'fastlane/metadata';
 const androidMetadataRoot = '$metadataRoot/android';
 const iosMetadataRoot = '$metadataRoot/ios';
+
+// unsupported languages on Apple App Store
+const langSkips = ['gl-ES'];
+// different language codes for Apple App Store
+const langRewrite = {
+  'zh-CN': 'zh-Hans',
+};
+
+final versionRE = RegExp(r'version: \d+\.\d+\.\d+\+(\d+)');
 const linkTable = {
   'name.txt': 'title.txt',
   'subtitle.txt': 'short_description.txt',
   'description.txt': 'full_description.txt',
 };
-final versionRE = RegExp(r'version: \d+\.\d+\.\d+\+(\d+)');
 
 void main() {
   final langs = detectLanguages(androidMetadataRoot);
@@ -18,8 +26,9 @@ void main() {
   print('languages: ${langs.join(', ')}');
   print('app version: $version');
   for (final lang in langs) {
+    final iosLang = langRewrite[lang] ?? lang;
     final androidDir = Directory('$androidMetadataRoot/$lang');
-    final iosDir = Directory('$iosMetadataRoot/$lang');
+    final iosDir = Directory('$iosMetadataRoot/$iosLang');
     manageLinks(androidDir, iosDir, lang);
     manageChangelogs(androidDir, iosDir, lang, version);
   }
@@ -30,6 +39,7 @@ List<String> detectLanguages(String root) {
       .listSync()
       .whereType<Directory>()
       .map((e) => e.path.split('/').last)
+      .where((e) => !langSkips.contains(e))
       .toList();
   langs.sort();
   return langs;
