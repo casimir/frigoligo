@@ -108,7 +108,7 @@ Future<void> main() async {
       // FIXME because flutter_drive...
       if (locale == 'zh-Hans') {
         await driver.tap(find.text('未读文章'));
-      } else if (locale == 'de-DE' && deviceName == 'iPhone 15 Plus') {
+      } else if (locale == 'de-DE') {
         await driver.tap(find.text('Ungelesene'));
       } else {
         await driver.tap(find.byValueKey(wkListingFiltersButton));
