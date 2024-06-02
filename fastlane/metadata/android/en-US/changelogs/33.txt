@@ -1,0 +1,4 @@
+Added a button to save links from the main screen.
+Language support has been expanded to include Galician, Brazilian Portuguese, and Chinese.
+Several bugs have been fixed, including issues with article saving and syncing actions.
+The routing logic for article views has been refactored for a smoother experience. 
