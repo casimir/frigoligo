@@ -15,10 +15,10 @@ void main() {
   switch (Environment.getString('locale')?.split('-').first) {
     case 'en':
       SettingsValues.initialLocaleOverride = Language.en;
-      break;
     case 'fr':
       SettingsValues.initialLocaleOverride = Language.fr;
-      break;
+    case 'zh':
+      SettingsValues.initialLocaleOverride = Language.zh;
     default:
       throw 'unhandled locale';
   }

@@ -18,6 +18,7 @@ Future<void> main() async {
   const configs = [
     {'locale': 'en-US'},
     {'locale': 'fr-FR'},
+    {'locale': 'zh-Hans'},
   ];
 
   final emulators = await Emulators.build();
