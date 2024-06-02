@@ -22,6 +22,10 @@ void main() {
       final target = File('${androidDir.path}/${entry.value}');
       print('> ${f.path} <- ${target.path}');
 
+      if (!iosDir.existsSync()) {
+        iosDir.createSync(recursive: true);
+      }
+
       unlinkPath(f.path);
       if (lang == 'fr-FR' && f.path.endsWith('subtitle.txt')) {
         createStrippedFile('$androidMetadataRoot/$lang/${entry.value}', f.path);
@@ -57,7 +61,7 @@ void unlinkPath(String path) {
 }
 
 void createStrippedFile(String source, String destination) {
-  print('creating stripped file for $destination');
+  print('>> creating stripped file for $destination');
   final content = File(source).readAsStringSync();
   final stripped = content.replaceAll('\u202f', ' ');
   File(destination).writeAsStringSync(stripped);

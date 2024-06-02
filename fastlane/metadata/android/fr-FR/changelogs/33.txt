@@ -1,0 +1,4 @@
+Ajout d'un bouton pour enregistrer les liens depuis l'écran principal.
+De nouvelles langues ont été ajoutées, incluant le galicien, le portugais brésilien et le chinois.
+Plusieurs bugs ont été corrigés, notamment des problèmes avec l'enregistrement des articles et les actions de synchronisation.
+La logique de routage pour les vues d'articles a été revues pour avoir une expérience plus fluide.
