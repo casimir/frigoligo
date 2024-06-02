@@ -1,3 +1,38 @@
+<a name="v1.1.0"></a>
+# [v1.1.0](https://github.com/casimir/frigoligo/releases/tag/v1.1.0) - 02 Jun 2024
+
+A new button to save a link from inside the app, 3 new languages and also lot of bugfixes, especially regarding synchronization and navigation.
+
+## What's Changed
+### Features
+* Change local data location by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/196
+* Add a button to save a link from the listing screen by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/198
+* Refactor routing logic for the article view by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/207
+* Add 3 languages in settings: gl, pt_BR, zh by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/210
+### Bug Fixes
+* Fix DB initialization on some android devices by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/199
+* Upgrade app_links & fix android SEND intent handling by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/200
+* Avoid blocking the syncer with a 404 error on article deletion by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/208
+* Fix actions not syncing in some cases by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/209
+### Miscellaneous
+* A few adjustments after IzzyOnDroid inclusion by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/191
+* Finalize riverpod migration by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/202
+* Upgrade and organize deps by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/203
+* Update dependency go_router to v14 by [@renovate](https://github.com/renovate) in https://github.com/casimir/frigoligo/pull/176
+* Migrate to the new (gradle) android architecture by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/204
+* Add a smoke test for android too by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/206
+* Update dependency package_info_plus to v8 by [@renovate](https://github.com/renovate) in https://github.com/casimir/frigoligo/pull/166
+* Update dependency share_plus to v9 by [@renovate](https://github.com/renovate) in https://github.com/casimir/frigoligo/pull/167
+* Consolidate fastlane metadata by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/192
+* Translations update from Hosted Weblate by [@weblate](https://github.com/weblate) in https://github.com/casimir/frigoligo/pull/186
+* Translations update from Hosted Weblate by [@weblate](https://github.com/weblate) in https://github.com/casimir/frigoligo/pull/211
+
+
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v1.0.10...v1.1.0
+
+[Changes][v1.1.0]
+
+
 <a name="v1.0.10"></a>
 # [v1.0.10](https://github.com/casimir/frigoligo/releases/tag/v1.0.10) - 14 May 2024
 
@@ -561,6 +596,7 @@ Let's begin! This is the very first release.
 [Changes][v0.1.0]
 
 
+[v1.1.0]: https://github.com/casimir/frigoligo/compare/v1.0.10...v1.1.0
 [v1.0.10]: https://github.com/casimir/frigoligo/compare/v1.0.9...v1.0.10
 [v1.0.9]: https://github.com/casimir/frigoligo/compare/v1.0.8...v1.0.9
 [v1.0.8]: https://github.com/casimir/frigoligo/compare/v1.0.7...v1.0.8
