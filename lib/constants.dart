@@ -1,6 +1,5 @@
-import 'dart:io' show Platform;
-
 import 'package:flutter/material.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 // Themes
 
@@ -19,7 +18,7 @@ final ColorScheme schemeDark = ColorScheme.fromSeed(
 
 // Adaptive icons
 
-final Icon shareIcon = Platform.isIOS || Platform.isMacOS
+final Icon shareIcon = UniversalPlatform.isApple
     ? const Icon(Icons.ios_share)
     : const Icon(Icons.share);
 
@@ -46,15 +45,13 @@ const int logCountResetThreshold = 1000;
 
 // Features flags and constants
 
-final isDesktopPlatform =
-    Platform.isLinux || Platform.isMacOS || Platform.isWindows;
-final isMobilePlatform = Platform.isAndroid || Platform.isIOS;
-
-final appBadgeSupported = isMobilePlatform || Platform.isMacOS;
+final appBadgeSupported =
+    UniversalPlatform.isMobile || UniversalPlatform.isMacOS;
 const appGroupId = 'group.net.casimir-lab.frigoligo';
 
-final periodicSyncSupported = isDesktopPlatform;
+final periodicSyncSupported = UniversalPlatform.isDesktop; // TODO also web?
 const Duration periodicSyncInterval = Duration(minutes: 15);
 const Duration periodicSyncTimeout = Duration(minutes: 10);
 
-final pullToRefreshSupported = isMobilePlatform || Platform.isMacOS;
+final pullToRefreshSupported =
+    UniversalPlatform.isMobile || UniversalPlatform.isMacOS;

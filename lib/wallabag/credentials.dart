@@ -1,10 +1,10 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:shared_preference_app_group/shared_preference_app_group.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 import '../constants.dart';
 
@@ -47,7 +47,9 @@ class CredentialsManager {
   CredentialsManager({this.autoSync = true});
 
   Future<void> init({Credentials? initial}) async {
-    if (Platform.isIOS) await SharedPreferenceAppGroup.setAppGroup(appGroupId);
+    if (UniversalPlatform.isIOS) {
+      await SharedPreferenceAppGroup.setAppGroup(appGroupId);
+    }
     if (initial == null && autoSync) await load();
     if (initial != null) credentials = initial;
   }
@@ -72,7 +74,7 @@ class CredentialsManager {
   bool get tokenIsExpired => token!.isExpired;
 
   Future<String?> _loadString(key) async {
-    if (Platform.isIOS) {
+    if (UniversalPlatform.isIOS) {
       return await SharedPreferenceAppGroup.get(key);
     } else {
       return SharedPreferences.getInstance()
@@ -81,7 +83,7 @@ class CredentialsManager {
   }
 
   Future<void> _saveString(String key, String value) async {
-    if (Platform.isIOS) {
+    if (UniversalPlatform.isIOS) {
       await SharedPreferenceAppGroup.setString(key, value);
     } else {
       await SharedPreferences.getInstance()
@@ -104,7 +106,7 @@ class CredentialsManager {
 
   Future<void> clear() async {
     credentials = null;
-    if (Platform.isIOS) {
+    if (UniversalPlatform.isIOS) {
       await SharedPreferenceAppGroup.remove(credentialsKey);
     } else {
       final prefs = await SharedPreferences.getInstance();

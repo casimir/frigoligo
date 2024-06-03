@@ -1,10 +1,10 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 import '../services/remote_sync.dart';
 import 'ios/settings_syncer.dart';
@@ -17,13 +17,13 @@ class SettingsValues extends ChangeNotifier {
 
   static Future<void> init() async {
     _prefs = await SharedPreferences.getInstance();
-    if (Platform.isIOS) {
+    if (UniversalPlatform.isIOS) {
       await SettingsSyncer.init();
     }
   }
 
   SettingsValues({this.namespace}) {
-    if (Platform.isIOS) {
+    if (UniversalPlatform.isIOS) {
       _syncer = SettingsSyncer(this);
     }
 
