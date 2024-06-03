@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/retry.dart';
 import 'package:isar/isar.dart';
@@ -111,7 +112,9 @@ class WallabagClient extends http.BaseClient {
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) async {
     _credsManager.load(); // handle desync from external extensions
-    if (userAgent != null) request.headers['user-agent'] = userAgent!;
+    if (!kIsWeb && userAgent != null) {
+      request.headers['user-agent'] = userAgent!;
+    }
     if (!request.url.path.endsWith(tokenEnpointPath)) {
       if (canRefreshToken && tokenIsExpired) await refreshToken();
       final accessToken = credentials.token!.accessToken;
@@ -143,7 +146,9 @@ class WallabagClient extends http.BaseClient {
     };
     final response = await post(
       _buildUri(tokenEnpointPath),
-      headers: {'user-agent': await buildUserAgent()},
+      headers: {
+        if (!kIsWeb) 'user-agent': await buildUserAgent(),
+      },
       body: payload,
     );
     throwOnError(response);

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../models/article.dart';
@@ -46,10 +47,12 @@ class CurrentArticle extends _$CurrentArticle {
     if (_articleId == articleId) return;
 
     _articleId = articleId;
-    _watcher?.cancel();
-    _watcher = DB.get().articles.watchObjectLazy(articleId).listen((_) {
-      ref.invalidateSelf();
-    });
+    if (!kIsWeb) {
+      _watcher?.cancel();
+      _watcher = DB.get().articles.watchObjectLazy(articleId).listen((_) {
+        ref.invalidateSelf();
+      });
+    }
 
     ref.read(settingsProvider)[Sk.selectedArticleId] = articleId;
 
