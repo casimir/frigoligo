@@ -31,8 +31,8 @@ class DB {
     if (!Directory(dir).existsSync()) {
       Directory(dir).createSync(recursive: true);
     }
-    _instance = await Isar.open(
-      [
+    _instance = Isar.open(
+      schemas: [
         AppLogSchema,
         ArticleSchema,
         ArticleScrollPositionSchema,
@@ -53,7 +53,7 @@ class DB {
 
   static Future<void> clear() async {
     final db = get();
-    await db.writeTxn(() => db.clear());
+    await db.writeAsync((db) => db.clear());
   }
 
   static Future<void> _prepareAppLogs() async {
@@ -64,10 +64,8 @@ class DB {
 
     final db = get();
     // FIXME this is way to brutal and clunky at the same time
-    if (await db.appLogs.count() > logCountResetThreshold) {
-      await db.writeTxn(() async {
-        await db.appLogs.clear();
-      });
+    if (db.appLogs.count() > logCountResetThreshold) {
+      db.write((db) => db.appLogs.clear());
     }
   }
 
@@ -77,7 +75,7 @@ class DB {
       return;
     }
     final db = get();
-    await db.writeTxn(() => db.appLogs.put(AppLog.fromLogRecord(record)));
+    await db.writeAsync((db) => db.appLogs.put(AppLog.fromLogRecord(record)));
   }
 }
 
