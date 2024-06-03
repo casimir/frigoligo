@@ -8,20 +8,29 @@ part 'remote_action.g.dart';
 
 @collection
 class RemoteAction {
-  RemoteAction();
+  RemoteAction({
+    required this.id,
+    this.createdAt,
+    this.keyCode,
+    this.className,
+    this.jsonParams,
+  });
 
-  Id? id;
-  DateTime? createdAt;
-  int? key;
-  String? className;
-  String? jsonParams;
+  final int id;
+  final DateTime? createdAt;
+  final int? keyCode;
+  final String? className;
+  final String? jsonParams;
 
-  factory RemoteAction.fromRSA(RemoteSyncAction action) {
-    return RemoteAction()
-      ..key = action.hashCode
-      ..createdAt = DateTime.now()
-      ..className = action.runtimeType.toString()
-      ..jsonParams = jsonEncode(action.params());
+  factory RemoteAction.fromRSA(int id, RemoteSyncAction action) {
+    // TODO can't call isar.remoteActions.autoIncrement() here?
+    return RemoteAction(
+      id: id,
+      keyCode: action.hashCode,
+      createdAt: DateTime.now(),
+      className: action.runtimeType.toString(),
+      jsonParams: jsonEncode(action.params()),
+    );
   }
 
   RemoteSyncAction toRSA() {

@@ -3,232 +3,586 @@
 part of 'remote_action.dart';
 
 // **************************************************************************
-// IsarCollectionGenerator
+// _IsarCollectionGenerator
 // **************************************************************************
 
 // coverage:ignore-file
-// ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
+// ignore_for_file: duplicate_ignore, invalid_use_of_protected_member, lines_longer_than_80_chars, constant_identifier_names, avoid_js_rounded_ints, no_leading_underscores_for_local_identifiers, require_trailing_commas, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_in_if_null_operators, library_private_types_in_public_api, prefer_const_constructors
+// ignore_for_file: type=lint
 
 extension GetRemoteActionCollection on Isar {
-  IsarCollection<RemoteAction> get remoteActions => this.collection();
+  IsarCollection<int, RemoteAction> get remoteActions => this.collection();
 }
 
-const RemoteActionSchema = CollectionSchema(
-  name: r'RemoteAction',
-  id: -3509153609314200287,
-  properties: {
-    r'className': PropertySchema(
-      id: 0,
-      name: r'className',
-      type: IsarType.string,
-    ),
-    r'createdAt': PropertySchema(
-      id: 1,
-      name: r'createdAt',
-      type: IsarType.dateTime,
-    ),
-    r'jsonParams': PropertySchema(
-      id: 2,
-      name: r'jsonParams',
-      type: IsarType.string,
-    ),
-    r'key': PropertySchema(
-      id: 3,
-      name: r'key',
-      type: IsarType.long,
-    )
-  },
-  estimateSize: _remoteActionEstimateSize,
-  serialize: _remoteActionSerialize,
-  deserialize: _remoteActionDeserialize,
-  deserializeProp: _remoteActionDeserializeProp,
-  idName: r'id',
-  indexes: {},
-  links: {},
-  embeddedSchemas: {},
-  getId: _remoteActionGetId,
-  getLinks: _remoteActionGetLinks,
-  attach: _remoteActionAttach,
-  version: '3.1.7',
+const RemoteActionSchema = IsarGeneratedSchema(
+  schema: IsarSchema(
+    name: 'RemoteAction',
+    idName: 'id',
+    embedded: false,
+    properties: [
+      IsarPropertySchema(
+        name: 'createdAt',
+        type: IsarType.dateTime,
+      ),
+      IsarPropertySchema(
+        name: 'keyCode',
+        type: IsarType.long,
+      ),
+      IsarPropertySchema(
+        name: 'className',
+        type: IsarType.string,
+      ),
+      IsarPropertySchema(
+        name: 'jsonParams',
+        type: IsarType.string,
+      ),
+    ],
+    indexes: [],
+  ),
+  converter: IsarObjectConverter<int, RemoteAction>(
+    serialize: serializeRemoteAction,
+    deserialize: deserializeRemoteAction,
+    deserializeProperty: deserializeRemoteActionProp,
+  ),
+  embeddedSchemas: [],
 );
 
-int _remoteActionEstimateSize(
-  RemoteAction object,
-  List<int> offsets,
-  Map<Type, List<int>> allOffsets,
-) {
-  var bytesCount = offsets.last;
+@isarProtected
+int serializeRemoteAction(IsarWriter writer, RemoteAction object) {
+  IsarCore.writeLong(writer, 1,
+      object.createdAt?.toUtc().microsecondsSinceEpoch ?? -9223372036854775808);
+  IsarCore.writeLong(writer, 2, object.keyCode ?? -9223372036854775808);
   {
     final value = object.className;
-    if (value != null) {
-      bytesCount += 3 + value.length * 3;
+    if (value == null) {
+      IsarCore.writeNull(writer, 3);
+    } else {
+      IsarCore.writeString(writer, 3, value);
     }
   }
   {
     final value = object.jsonParams;
-    if (value != null) {
-      bytesCount += 3 + value.length * 3;
+    if (value == null) {
+      IsarCore.writeNull(writer, 4);
+    } else {
+      IsarCore.writeString(writer, 4, value);
     }
   }
-  return bytesCount;
+  return object.id;
 }
 
-void _remoteActionSerialize(
-  RemoteAction object,
-  IsarWriter writer,
-  List<int> offsets,
-  Map<Type, List<int>> allOffsets,
-) {
-  writer.writeString(offsets[0], object.className);
-  writer.writeDateTime(offsets[1], object.createdAt);
-  writer.writeString(offsets[2], object.jsonParams);
-  writer.writeLong(offsets[3], object.key);
-}
-
-RemoteAction _remoteActionDeserialize(
-  Id id,
-  IsarReader reader,
-  List<int> offsets,
-  Map<Type, List<int>> allOffsets,
-) {
-  final object = RemoteAction();
-  object.className = reader.readStringOrNull(offsets[0]);
-  object.createdAt = reader.readDateTimeOrNull(offsets[1]);
-  object.id = id;
-  object.jsonParams = reader.readStringOrNull(offsets[2]);
-  object.key = reader.readLongOrNull(offsets[3]);
+@isarProtected
+RemoteAction deserializeRemoteAction(IsarReader reader) {
+  final int _id;
+  _id = IsarCore.readId(reader);
+  final DateTime? _createdAt;
+  {
+    final value = IsarCore.readLong(reader, 1);
+    if (value == -9223372036854775808) {
+      _createdAt = null;
+    } else {
+      _createdAt =
+          DateTime.fromMicrosecondsSinceEpoch(value, isUtc: true).toLocal();
+    }
+  }
+  final int? _keyCode;
+  {
+    final value = IsarCore.readLong(reader, 2);
+    if (value == -9223372036854775808) {
+      _keyCode = null;
+    } else {
+      _keyCode = value;
+    }
+  }
+  final String? _className;
+  _className = IsarCore.readString(reader, 3);
+  final String? _jsonParams;
+  _jsonParams = IsarCore.readString(reader, 4);
+  final object = RemoteAction(
+    id: _id,
+    createdAt: _createdAt,
+    keyCode: _keyCode,
+    className: _className,
+    jsonParams: _jsonParams,
+  );
   return object;
 }
 
-P _remoteActionDeserializeProp<P>(
-  IsarReader reader,
-  int propertyId,
-  int offset,
-  Map<Type, List<int>> allOffsets,
-) {
-  switch (propertyId) {
+@isarProtected
+dynamic deserializeRemoteActionProp(IsarReader reader, int property) {
+  switch (property) {
     case 0:
-      return (reader.readStringOrNull(offset)) as P;
+      return IsarCore.readId(reader);
     case 1:
-      return (reader.readDateTimeOrNull(offset)) as P;
-    case 2:
-      return (reader.readStringOrNull(offset)) as P;
-    case 3:
-      return (reader.readLongOrNull(offset)) as P;
-    default:
-      throw IsarError('Unknown property with id $propertyId');
-  }
-}
-
-Id _remoteActionGetId(RemoteAction object) {
-  return object.id ?? Isar.autoIncrement;
-}
-
-List<IsarLinkBase<dynamic>> _remoteActionGetLinks(RemoteAction object) {
-  return [];
-}
-
-void _remoteActionAttach(
-    IsarCollection<dynamic> col, Id id, RemoteAction object) {
-  object.id = id;
-}
-
-extension RemoteActionQueryWhereSort
-    on QueryBuilder<RemoteAction, RemoteAction, QWhere> {
-  QueryBuilder<RemoteAction, RemoteAction, QAfterWhere> anyId() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(const IdWhereClause.any());
-    });
-  }
-}
-
-extension RemoteActionQueryWhere
-    on QueryBuilder<RemoteAction, RemoteAction, QWhereClause> {
-  QueryBuilder<RemoteAction, RemoteAction, QAfterWhereClause> idEqualTo(Id id) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IdWhereClause.between(
-        lower: id,
-        upper: id,
-      ));
-    });
-  }
-
-  QueryBuilder<RemoteAction, RemoteAction, QAfterWhereClause> idNotEqualTo(
-      Id id) {
-    return QueryBuilder.apply(this, (query) {
-      if (query.whereSort == Sort.asc) {
-        return query
-            .addWhereClause(
-              IdWhereClause.lessThan(upper: id, includeUpper: false),
-            )
-            .addWhereClause(
-              IdWhereClause.greaterThan(lower: id, includeLower: false),
-            );
-      } else {
-        return query
-            .addWhereClause(
-              IdWhereClause.greaterThan(lower: id, includeLower: false),
-            )
-            .addWhereClause(
-              IdWhereClause.lessThan(upper: id, includeUpper: false),
-            );
+      {
+        final value = IsarCore.readLong(reader, 1);
+        if (value == -9223372036854775808) {
+          return null;
+        } else {
+          return DateTime.fromMicrosecondsSinceEpoch(value, isUtc: true)
+              .toLocal();
+        }
       }
-    });
+    case 2:
+      {
+        final value = IsarCore.readLong(reader, 2);
+        if (value == -9223372036854775808) {
+          return null;
+        } else {
+          return value;
+        }
+      }
+    case 3:
+      return IsarCore.readString(reader, 3);
+    case 4:
+      return IsarCore.readString(reader, 4);
+    default:
+      throw ArgumentError('Unknown property: $property');
   }
+}
 
-  QueryBuilder<RemoteAction, RemoteAction, QAfterWhereClause> idGreaterThan(
-      Id id,
-      {bool include = false}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(
-        IdWhereClause.greaterThan(lower: id, includeLower: include),
-      );
-    });
-  }
+sealed class _RemoteActionUpdate {
+  bool call({
+    required int id,
+    DateTime? createdAt,
+    int? keyCode,
+    String? className,
+    String? jsonParams,
+  });
+}
 
-  QueryBuilder<RemoteAction, RemoteAction, QAfterWhereClause> idLessThan(Id id,
-      {bool include = false}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(
-        IdWhereClause.lessThan(upper: id, includeUpper: include),
-      );
-    });
-  }
+class _RemoteActionUpdateImpl implements _RemoteActionUpdate {
+  const _RemoteActionUpdateImpl(this.collection);
 
-  QueryBuilder<RemoteAction, RemoteAction, QAfterWhereClause> idBetween(
-    Id lowerId,
-    Id upperId, {
-    bool includeLower = true,
-    bool includeUpper = true,
+  final IsarCollection<int, RemoteAction> collection;
+
+  @override
+  bool call({
+    required int id,
+    Object? createdAt = ignore,
+    Object? keyCode = ignore,
+    Object? className = ignore,
+    Object? jsonParams = ignore,
   }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IdWhereClause.between(
-        lower: lowerId,
-        includeLower: includeLower,
-        upper: upperId,
-        includeUpper: includeUpper,
-      ));
+    return collection.updateProperties([
+          id
+        ], {
+          if (createdAt != ignore) 1: createdAt as DateTime?,
+          if (keyCode != ignore) 2: keyCode as int?,
+          if (className != ignore) 3: className as String?,
+          if (jsonParams != ignore) 4: jsonParams as String?,
+        }) >
+        0;
+  }
+}
+
+sealed class _RemoteActionUpdateAll {
+  int call({
+    required List<int> id,
+    DateTime? createdAt,
+    int? keyCode,
+    String? className,
+    String? jsonParams,
+  });
+}
+
+class _RemoteActionUpdateAllImpl implements _RemoteActionUpdateAll {
+  const _RemoteActionUpdateAllImpl(this.collection);
+
+  final IsarCollection<int, RemoteAction> collection;
+
+  @override
+  int call({
+    required List<int> id,
+    Object? createdAt = ignore,
+    Object? keyCode = ignore,
+    Object? className = ignore,
+    Object? jsonParams = ignore,
+  }) {
+    return collection.updateProperties(id, {
+      if (createdAt != ignore) 1: createdAt as DateTime?,
+      if (keyCode != ignore) 2: keyCode as int?,
+      if (className != ignore) 3: className as String?,
+      if (jsonParams != ignore) 4: jsonParams as String?,
     });
   }
+}
+
+extension RemoteActionUpdate on IsarCollection<int, RemoteAction> {
+  _RemoteActionUpdate get update => _RemoteActionUpdateImpl(this);
+
+  _RemoteActionUpdateAll get updateAll => _RemoteActionUpdateAllImpl(this);
+}
+
+sealed class _RemoteActionQueryUpdate {
+  int call({
+    DateTime? createdAt,
+    int? keyCode,
+    String? className,
+    String? jsonParams,
+  });
+}
+
+class _RemoteActionQueryUpdateImpl implements _RemoteActionQueryUpdate {
+  const _RemoteActionQueryUpdateImpl(this.query, {this.limit});
+
+  final IsarQuery<RemoteAction> query;
+  final int? limit;
+
+  @override
+  int call({
+    Object? createdAt = ignore,
+    Object? keyCode = ignore,
+    Object? className = ignore,
+    Object? jsonParams = ignore,
+  }) {
+    return query.updateProperties(limit: limit, {
+      if (createdAt != ignore) 1: createdAt as DateTime?,
+      if (keyCode != ignore) 2: keyCode as int?,
+      if (className != ignore) 3: className as String?,
+      if (jsonParams != ignore) 4: jsonParams as String?,
+    });
+  }
+}
+
+extension RemoteActionQueryUpdate on IsarQuery<RemoteAction> {
+  _RemoteActionQueryUpdate get updateFirst =>
+      _RemoteActionQueryUpdateImpl(this, limit: 1);
+
+  _RemoteActionQueryUpdate get updateAll => _RemoteActionQueryUpdateImpl(this);
+}
+
+class _RemoteActionQueryBuilderUpdateImpl implements _RemoteActionQueryUpdate {
+  const _RemoteActionQueryBuilderUpdateImpl(this.query, {this.limit});
+
+  final QueryBuilder<RemoteAction, RemoteAction, QOperations> query;
+  final int? limit;
+
+  @override
+  int call({
+    Object? createdAt = ignore,
+    Object? keyCode = ignore,
+    Object? className = ignore,
+    Object? jsonParams = ignore,
+  }) {
+    final q = query.build();
+    try {
+      return q.updateProperties(limit: limit, {
+        if (createdAt != ignore) 1: createdAt as DateTime?,
+        if (keyCode != ignore) 2: keyCode as int?,
+        if (className != ignore) 3: className as String?,
+        if (jsonParams != ignore) 4: jsonParams as String?,
+      });
+    } finally {
+      q.close();
+    }
+  }
+}
+
+extension RemoteActionQueryBuilderUpdate
+    on QueryBuilder<RemoteAction, RemoteAction, QOperations> {
+  _RemoteActionQueryUpdate get updateFirst =>
+      _RemoteActionQueryBuilderUpdateImpl(this, limit: 1);
+
+  _RemoteActionQueryUpdate get updateAll =>
+      _RemoteActionQueryBuilderUpdateImpl(this);
 }
 
 extension RemoteActionQueryFilter
     on QueryBuilder<RemoteAction, RemoteAction, QFilterCondition> {
+  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition> idEqualTo(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        EqualCondition(
+          property: 0,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition> idGreaterThan(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterCondition(
+          property: 0,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
+      idGreaterThanOrEqualTo(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterOrEqualCondition(
+          property: 0,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition> idLessThan(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessCondition(
+          property: 0,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
+      idLessThanOrEqualTo(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessOrEqualCondition(
+          property: 0,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition> idBetween(
+    int lower,
+    int upper,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        BetweenCondition(
+          property: 0,
+          lower: lower,
+          upper: upper,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
+      createdAtIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const IsNullCondition(property: 1));
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
+      createdAtIsNotNull() {
+    return QueryBuilder.apply(not(), (query) {
+      return query.addFilterCondition(const IsNullCondition(property: 1));
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
+      createdAtEqualTo(
+    DateTime? value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        EqualCondition(
+          property: 1,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
+      createdAtGreaterThan(
+    DateTime? value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterCondition(
+          property: 1,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
+      createdAtGreaterThanOrEqualTo(
+    DateTime? value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterOrEqualCondition(
+          property: 1,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
+      createdAtLessThan(
+    DateTime? value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessCondition(
+          property: 1,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
+      createdAtLessThanOrEqualTo(
+    DateTime? value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessOrEqualCondition(
+          property: 1,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
+      createdAtBetween(
+    DateTime? lower,
+    DateTime? upper,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        BetweenCondition(
+          property: 1,
+          lower: lower,
+          upper: upper,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
+      keyCodeIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const IsNullCondition(property: 2));
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
+      keyCodeIsNotNull() {
+    return QueryBuilder.apply(not(), (query) {
+      return query.addFilterCondition(const IsNullCondition(property: 2));
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
+      keyCodeEqualTo(
+    int? value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        EqualCondition(
+          property: 2,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
+      keyCodeGreaterThan(
+    int? value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterCondition(
+          property: 2,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
+      keyCodeGreaterThanOrEqualTo(
+    int? value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterOrEqualCondition(
+          property: 2,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
+      keyCodeLessThan(
+    int? value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessCondition(
+          property: 2,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
+      keyCodeLessThanOrEqualTo(
+    int? value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessOrEqualCondition(
+          property: 2,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
+      keyCodeBetween(
+    int? lower,
+    int? upper,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        BetweenCondition(
+          property: 2,
+          lower: lower,
+          upper: upper,
+        ),
+      );
+    });
+  }
+
   QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
       classNameIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'className',
-      ));
+      return query.addFilterCondition(const IsNullCondition(property: 3));
     });
   }
 
   QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
       classNameIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'className',
-      ));
+    return QueryBuilder.apply(not(), (query) {
+      return query.addFilterCondition(const IsNullCondition(property: 3));
     });
   }
 
@@ -238,43 +592,77 @@ extension RemoteActionQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'className',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        EqualCondition(
+          property: 3,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
       classNameGreaterThan(
     String? value, {
-    bool include = false,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'className',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        GreaterCondition(
+          property: 3,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
+      classNameGreaterThanOrEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterOrEqualCondition(
+          property: 3,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
       classNameLessThan(
     String? value, {
-    bool include = false,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'className',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        LessCondition(
+          property: 3,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
+      classNameLessThanOrEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessOrEqualCondition(
+          property: 3,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -282,19 +670,17 @@ extension RemoteActionQueryFilter
       classNameBetween(
     String? lower,
     String? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'className',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        BetweenCondition(
+          property: 3,
+          lower: lower,
+          upper: upper,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -304,11 +690,13 @@ extension RemoteActionQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'className',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        StartsWithCondition(
+          property: 3,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -318,215 +706,77 @@ extension RemoteActionQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'className',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        EndsWithCondition(
+          property: 3,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
       classNameContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'className',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        ContainsCondition(
+          property: 3,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
       classNameMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'className',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        MatchesCondition(
+          property: 3,
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
       classNameIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'className',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        const EqualCondition(
+          property: 3,
+          value: '',
+        ),
+      );
     });
   }
 
   QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
       classNameIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'className',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
-      createdAtIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'createdAt',
-      ));
-    });
-  }
-
-  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
-      createdAtIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'createdAt',
-      ));
-    });
-  }
-
-  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
-      createdAtEqualTo(DateTime? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'createdAt',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
-      createdAtGreaterThan(
-    DateTime? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'createdAt',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
-      createdAtLessThan(
-    DateTime? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'createdAt',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
-      createdAtBetween(
-    DateTime? lower,
-    DateTime? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'createdAt',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition> idIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'id',
-      ));
-    });
-  }
-
-  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
-      idIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'id',
-      ));
-    });
-  }
-
-  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition> idEqualTo(
-      Id? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'id',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition> idGreaterThan(
-    Id? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'id',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition> idLessThan(
-    Id? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'id',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition> idBetween(
-    Id? lower,
-    Id? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'id',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
+      return query.addFilterCondition(
+        const GreaterCondition(
+          property: 3,
+          value: '',
+        ),
+      );
     });
   }
 
   QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
       jsonParamsIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'jsonParams',
-      ));
+      return query.addFilterCondition(const IsNullCondition(property: 4));
     });
   }
 
   QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
       jsonParamsIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'jsonParams',
-      ));
+    return QueryBuilder.apply(not(), (query) {
+      return query.addFilterCondition(const IsNullCondition(property: 4));
     });
   }
 
@@ -536,43 +786,77 @@ extension RemoteActionQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'jsonParams',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        EqualCondition(
+          property: 4,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
       jsonParamsGreaterThan(
     String? value, {
-    bool include = false,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'jsonParams',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        GreaterCondition(
+          property: 4,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
+      jsonParamsGreaterThanOrEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterOrEqualCondition(
+          property: 4,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
       jsonParamsLessThan(
     String? value, {
-    bool include = false,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'jsonParams',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        LessCondition(
+          property: 4,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
+      jsonParamsLessThanOrEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessOrEqualCondition(
+          property: 4,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -580,19 +864,17 @@ extension RemoteActionQueryFilter
       jsonParamsBetween(
     String? lower,
     String? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'jsonParams',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        BetweenCondition(
+          property: 4,
+          lower: lower,
+          upper: upper,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -602,11 +884,13 @@ extension RemoteActionQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'jsonParams',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        StartsWithCondition(
+          property: 4,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -616,124 +900,63 @@ extension RemoteActionQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'jsonParams',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        EndsWithCondition(
+          property: 4,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
       jsonParamsContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'jsonParams',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        ContainsCondition(
+          property: 4,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
       jsonParamsMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'jsonParams',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        MatchesCondition(
+          property: 4,
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
       jsonParamsIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'jsonParams',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        const EqualCondition(
+          property: 4,
+          value: '',
+        ),
+      );
     });
   }
 
   QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
       jsonParamsIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'jsonParams',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition> keyIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'key',
-      ));
-    });
-  }
-
-  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
-      keyIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'key',
-      ));
-    });
-  }
-
-  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition> keyEqualTo(
-      int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'key',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition>
-      keyGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'key',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition> keyLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'key',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<RemoteAction, RemoteAction, QAfterFilterCondition> keyBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'key',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
+      return query.addFilterCondition(
+        const GreaterCondition(
+          property: 4,
+          value: '',
+        ),
+      );
     });
   }
 }
@@ -741,183 +964,284 @@ extension RemoteActionQueryFilter
 extension RemoteActionQueryObject
     on QueryBuilder<RemoteAction, RemoteAction, QFilterCondition> {}
 
-extension RemoteActionQueryLinks
-    on QueryBuilder<RemoteAction, RemoteAction, QFilterCondition> {}
-
 extension RemoteActionQuerySortBy
     on QueryBuilder<RemoteAction, RemoteAction, QSortBy> {
-  QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> sortByClassName() {
+  QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> sortById() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'className', Sort.asc);
+      return query.addSortBy(0);
     });
   }
 
-  QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> sortByClassNameDesc() {
+  QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> sortByIdDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'className', Sort.desc);
+      return query.addSortBy(0, sort: Sort.desc);
     });
   }
 
   QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> sortByCreatedAt() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'createdAt', Sort.asc);
+      return query.addSortBy(1);
     });
   }
 
   QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> sortByCreatedAtDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'createdAt', Sort.desc);
+      return query.addSortBy(1, sort: Sort.desc);
     });
   }
 
-  QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> sortByJsonParams() {
+  QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> sortByKeyCode() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'jsonParams', Sort.asc);
+      return query.addSortBy(2);
     });
   }
 
-  QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy>
-      sortByJsonParamsDesc() {
+  QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> sortByKeyCodeDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'jsonParams', Sort.desc);
+      return query.addSortBy(2, sort: Sort.desc);
     });
   }
 
-  QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> sortByKey() {
+  QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> sortByClassName(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'key', Sort.asc);
+      return query.addSortBy(
+        3,
+        caseSensitive: caseSensitive,
+      );
     });
   }
 
-  QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> sortByKeyDesc() {
+  QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> sortByClassNameDesc(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'key', Sort.desc);
+      return query.addSortBy(
+        3,
+        sort: Sort.desc,
+        caseSensitive: caseSensitive,
+      );
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> sortByJsonParams(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(
+        4,
+        caseSensitive: caseSensitive,
+      );
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> sortByJsonParamsDesc(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(
+        4,
+        sort: Sort.desc,
+        caseSensitive: caseSensitive,
+      );
     });
   }
 }
 
 extension RemoteActionQuerySortThenBy
     on QueryBuilder<RemoteAction, RemoteAction, QSortThenBy> {
-  QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> thenByClassName() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'className', Sort.asc);
-    });
-  }
-
-  QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> thenByClassNameDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'className', Sort.desc);
-    });
-  }
-
-  QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> thenByCreatedAt() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'createdAt', Sort.asc);
-    });
-  }
-
-  QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> thenByCreatedAtDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'createdAt', Sort.desc);
-    });
-  }
-
   QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.asc);
+      return query.addSortBy(0);
     });
   }
 
   QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.desc);
+      return query.addSortBy(0, sort: Sort.desc);
     });
   }
 
-  QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> thenByJsonParams() {
+  QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> thenByCreatedAt() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'jsonParams', Sort.asc);
+      return query.addSortBy(1);
     });
   }
 
-  QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy>
-      thenByJsonParamsDesc() {
+  QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> thenByCreatedAtDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'jsonParams', Sort.desc);
+      return query.addSortBy(1, sort: Sort.desc);
     });
   }
 
-  QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> thenByKey() {
+  QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> thenByKeyCode() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'key', Sort.asc);
+      return query.addSortBy(2);
     });
   }
 
-  QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> thenByKeyDesc() {
+  QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> thenByKeyCodeDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'key', Sort.desc);
+      return query.addSortBy(2, sort: Sort.desc);
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> thenByClassName(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(3, caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> thenByClassNameDesc(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(3, sort: Sort.desc, caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> thenByJsonParams(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(4, caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterSortBy> thenByJsonParamsDesc(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(4, sort: Sort.desc, caseSensitive: caseSensitive);
     });
   }
 }
 
 extension RemoteActionQueryWhereDistinct
     on QueryBuilder<RemoteAction, RemoteAction, QDistinct> {
-  QueryBuilder<RemoteAction, RemoteAction, QDistinct> distinctByClassName(
+  QueryBuilder<RemoteAction, RemoteAction, QAfterDistinct>
+      distinctByCreatedAt() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(1);
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterDistinct> distinctByKeyCode() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(2);
+    });
+  }
+
+  QueryBuilder<RemoteAction, RemoteAction, QAfterDistinct> distinctByClassName(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'className', caseSensitive: caseSensitive);
+      return query.addDistinctBy(3, caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<RemoteAction, RemoteAction, QDistinct> distinctByCreatedAt() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'createdAt');
-    });
-  }
-
-  QueryBuilder<RemoteAction, RemoteAction, QDistinct> distinctByJsonParams(
+  QueryBuilder<RemoteAction, RemoteAction, QAfterDistinct> distinctByJsonParams(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'jsonParams', caseSensitive: caseSensitive);
-    });
-  }
-
-  QueryBuilder<RemoteAction, RemoteAction, QDistinct> distinctByKey() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'key');
+      return query.addDistinctBy(4, caseSensitive: caseSensitive);
     });
   }
 }
 
-extension RemoteActionQueryProperty
-    on QueryBuilder<RemoteAction, RemoteAction, QQueryProperty> {
-  QueryBuilder<RemoteAction, int, QQueryOperations> idProperty() {
+extension RemoteActionQueryProperty1
+    on QueryBuilder<RemoteAction, RemoteAction, QProperty> {
+  QueryBuilder<RemoteAction, int, QAfterProperty> idProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'id');
+      return query.addProperty(0);
     });
   }
 
-  QueryBuilder<RemoteAction, String?, QQueryOperations> classNameProperty() {
+  QueryBuilder<RemoteAction, DateTime?, QAfterProperty> createdAtProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'className');
+      return query.addProperty(1);
     });
   }
 
-  QueryBuilder<RemoteAction, DateTime?, QQueryOperations> createdAtProperty() {
+  QueryBuilder<RemoteAction, int?, QAfterProperty> keyCodeProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'createdAt');
+      return query.addProperty(2);
     });
   }
 
-  QueryBuilder<RemoteAction, String?, QQueryOperations> jsonParamsProperty() {
+  QueryBuilder<RemoteAction, String?, QAfterProperty> classNameProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'jsonParams');
+      return query.addProperty(3);
     });
   }
 
-  QueryBuilder<RemoteAction, int?, QQueryOperations> keyProperty() {
+  QueryBuilder<RemoteAction, String?, QAfterProperty> jsonParamsProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'key');
+      return query.addProperty(4);
+    });
+  }
+}
+
+extension RemoteActionQueryProperty2<R>
+    on QueryBuilder<RemoteAction, R, QAfterProperty> {
+  QueryBuilder<RemoteAction, (R, int), QAfterProperty> idProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(0);
+    });
+  }
+
+  QueryBuilder<RemoteAction, (R, DateTime?), QAfterProperty>
+      createdAtProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(1);
+    });
+  }
+
+  QueryBuilder<RemoteAction, (R, int?), QAfterProperty> keyCodeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(2);
+    });
+  }
+
+  QueryBuilder<RemoteAction, (R, String?), QAfterProperty> classNameProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(3);
+    });
+  }
+
+  QueryBuilder<RemoteAction, (R, String?), QAfterProperty>
+      jsonParamsProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(4);
+    });
+  }
+}
+
+extension RemoteActionQueryProperty3<R1, R2>
+    on QueryBuilder<RemoteAction, (R1, R2), QAfterProperty> {
+  QueryBuilder<RemoteAction, (R1, R2, int), QOperations> idProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(0);
+    });
+  }
+
+  QueryBuilder<RemoteAction, (R1, R2, DateTime?), QOperations>
+      createdAtProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(1);
+    });
+  }
+
+  QueryBuilder<RemoteAction, (R1, R2, int?), QOperations> keyCodeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(2);
+    });
+  }
+
+  QueryBuilder<RemoteAction, (R1, R2, String?), QOperations>
+      classNameProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(3);
+    });
+  }
+
+  QueryBuilder<RemoteAction, (R1, R2, String?), QOperations>
+      jsonParamsProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(4);
     });
   }
 }

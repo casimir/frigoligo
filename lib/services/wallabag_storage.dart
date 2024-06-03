@@ -32,35 +32,30 @@ class WallabagStorage with ChangeNotifier {
     super.dispose();
   }
 
-  Query<R> _buildQuery<R>(WQuery wq, {String? sort, String? property}) {
-    List<FilterOperation> conditions = [];
+  IsarQuery<R> _buildQuery<R>(WQuery wq, {String? sort, String? property}) {
+    List<Filter> filters = [];
     if (wq.state != null && wq.state != StateFilter.all) {
-      conditions.add(wq.state == StateFilter.archived
-          ? const FilterCondition.isNotNull(property: 'archivedAt')
-          : const FilterCondition.isNull(property: 'archivedAt'));
+      final propertyIdx = db.articles.schema.getPropertyIndex('archivedAt');
+      filters.add(wq.state == StateFilter.archived
+          ? NotGroup(IsNullCondition(property: propertyIdx))
+          : IsNullCondition(property: propertyIdx));
     }
     if (wq.starred == StarredFilter.starred) {
-      conditions.add(const FilterCondition.isNotNull(property: 'starredAt'));
+      final propertyIdx = db.articles.schema.getPropertyIndex('starredAt');
+      filters.add(NotGroup(IsNullCondition(property: propertyIdx)));
     }
 
     if (wq.tags != null) {
+      final propertyIdx = db.articles.schema.getPropertyIndex('tags');
       if (wq.tags!.length == 1) {
-        conditions.add(
-            FilterCondition.contains(property: 'tags', value: wq.tags![0]));
+        filters
+            .add(ContainsCondition(property: propertyIdx, value: wq.tags![0]));
       } else {
-        List<FilterCondition> tagFilters = wq.tags!
-            .map(
-                (tag) => FilterCondition.contains(property: 'tags', value: tag))
-            .toList();
-        conditions.add(FilterGroup.or(tagFilters));
+        final tagFilters = OrGroup(wq.tags!
+            .map((tag) => ContainsCondition(property: propertyIdx, value: tag))
+            .toList());
+        filters.add(tagFilters);
       }
-    }
-
-    FilterOperation? filter;
-    if (conditions.length == 1) {
-      filter = conditions[0];
-    } else {
-      filter = FilterGroup.and(conditions);
     }
 
     List<SortProperty> sortBy = [];
@@ -74,41 +69,43 @@ class WallabagStorage with ChangeNotifier {
         property = sort;
         direction = Sort.asc;
       }
-      sortBy.add(SortProperty(property: property, sort: direction));
+      final propertyIdx = db.articles.schema.getPropertyIndex(property);
+      sortBy.add(SortProperty(property: propertyIdx, sort: direction));
     }
 
+    final propertiesIdx = property != null
+        ? [db.articles.schema.getPropertyIndex(property)]
+        : null;
     return db.articles.buildQuery(
-      filter: filter,
+      filter: AndGroup(filters),
       sortBy: sortBy,
-      property: property,
+      properties: propertiesIdx,
     );
   }
 
   List<Article> all(WQuery wq) =>
-      _buildQuery<Article>(wq, sort: '-createdAt').findAllSync();
+      _buildQuery<Article>(wq, sort: '-createdAt').findAll();
 
   Article? index(int n, WQuery wq) {
     if (n < 0 || n >= count(wq)) return null;
-    final ids =
-        _buildQuery(wq, sort: '-createdAt', property: 'id').findAllSync();
-    return db.articles.getSync(ids[n])!;
+    final ids = _buildQuery(wq, sort: '-createdAt', property: 'id').findAll();
+    return db.articles.get(ids[n])!;
   }
 
   int? indexOf(int articleId, WQuery wq) {
     if (articleId <= 0) return null;
-    final ids =
-        _buildQuery(wq, sort: '-createdAt', property: 'id').findAllSync();
+    final ids = _buildQuery(wq, sort: '-createdAt', property: 'id').findAll();
     final index = ids.indexOf(articleId);
     return index >= 0 ? index : null;
   }
 
-  int count(WQuery wq) => _buildQuery(wq).countSync();
+  int count(WQuery wq) => _buildQuery(wq).count();
 
   List<String> get tags {
     var tags = db.articles
         .where()
         .tagsProperty()
-        .findAllSync()
+        .findAll()
         .expand((it) => it)
         .toSet()
         .toList();
@@ -119,7 +116,7 @@ class WallabagStorage with ChangeNotifier {
   Future<int> _syncRemoteDeletes() async {
     _log.info('checking for server-side deletions');
     final remoteCount = await wallabag.fetchTotalEntriesCount();
-    var localIds = (await db.articles.where().idProperty().findAll()).toSet();
+    var localIds = (db.articles.where().idProperty().findAll()).toSet();
     final delta = localIds.length - remoteCount;
     if (delta <= 0) return 0;
     _log.info('server-side deletion detected: delta=$delta');
@@ -133,9 +130,9 @@ class WallabagStorage with ChangeNotifier {
       localIds = localIds.difference(entries.map((e) => e.id).toSet());
     }
 
-    final deletedCount = await db.writeTxn(() async {
-      final res = await db.articles.deleteAll(localIds.toList());
-      await db.articleScrollPositions.deleteAll(localIds.toList());
+    final deletedCount = db.write((db) {
+      final res = db.articles.deleteAll(localIds.toList());
+      db.articleScrollPositions.deleteAll(localIds.toList());
       return res;
     });
     _log.info('removed $deletedCount entries from database');
@@ -162,10 +159,10 @@ class WallabagStorage with ChangeNotifier {
   }
 
   Future<void> clearArticles({bool keepPositions = true}) async {
-    await db.writeTxn(() async {
-      await db.articles.clear();
-      if (!keepPositions) await db.articleScrollPositions.clear();
-      await db.remoteActions.clear();
+    db.write((db) {
+      db.articles.clear();
+      if (!keepPositions) db.articleScrollPositions.clear();
+      db.remoteActions.clear();
     });
     _log.info('cleared the whole articles collection');
     updateAppBadge();
@@ -189,17 +186,17 @@ class WallabagStorage with ChangeNotifier {
         for (var e in entries) e.id: Article.fromWallabagEntry(e)
       };
       final positions =
-          await db.articleScrollPositions.getAll(articles.keys.toList());
+          db.articleScrollPositions.getAll(articles.keys.toList());
       final invalidPositions = positions
           .whereType<ArticleScrollPosition>()
           .where((e) => e.readingTime != articles[e.id]?.readingTime)
-          .map((e) => e.id!)
+          .map((e) => e.id)
           .toList();
 
-      final putCount = await db.writeTxn(() async {
-        final res = await db.articles.putAll(articles.values.toList());
-        await db.articleScrollPositions.deleteAll(invalidPositions);
-        return res.length;
+      final putCount = db.write((db) {
+        db.articles.putAll(articles.values.toList());
+        db.articleScrollPositions.deleteAll(invalidPositions);
+        return articles.length;
       });
       _log.info('saved $putCount entries to the database');
 
@@ -233,21 +230,21 @@ class WallabagStorage with ChangeNotifier {
     return fullRefresh(since: since > 0 ? since : null, onProgress: onProgress);
   }
 
-  Future<void> persistArticle(Article article) async {
-    final scrollPosition = await db.articleScrollPositions.get(article.id!);
-    await db.writeTxn(() async {
-      await db.articles.put(article);
+  void persistArticle(Article article) {
+    final scrollPosition = db.articleScrollPositions.get(article.id);
+    db.write((db) {
+      db.articles.put(article);
       if (scrollPosition?.readingTime != article.readingTime) {
-        await db.articleScrollPositions.delete(article.id!);
+        db.articleScrollPositions.delete(article.id);
       }
     });
   }
 
   Future<void> deleteArticle(int articleId) async {
     await wallabag.deleteEntry(articleId);
-    await db.writeTxn(() async {
-      await db.articles.delete(articleId);
-      await db.articleScrollPositions.delete(articleId);
+    db.write((db) {
+      db.articles.delete(articleId);
+      db.articleScrollPositions.delete(articleId);
     });
   }
 
@@ -265,7 +262,7 @@ class WallabagStorage with ChangeNotifier {
     );
     final entry = await wallabag.getEntry(articleId);
     final article = Article.fromWallabagEntry(entry);
-    await persistArticle(article);
+    persistArticle(article);
   }
 }
 

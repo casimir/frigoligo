@@ -3,308 +3,465 @@
 part of 'article_scroll_position.dart';
 
 // **************************************************************************
-// IsarCollectionGenerator
+// _IsarCollectionGenerator
 // **************************************************************************
 
 // coverage:ignore-file
-// ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
+// ignore_for_file: duplicate_ignore, invalid_use_of_protected_member, lines_longer_than_80_chars, constant_identifier_names, avoid_js_rounded_ints, no_leading_underscores_for_local_identifiers, require_trailing_commas, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_in_if_null_operators, library_private_types_in_public_api, prefer_const_constructors
+// ignore_for_file: type=lint
 
 extension GetArticleScrollPositionCollection on Isar {
-  IsarCollection<ArticleScrollPosition> get articleScrollPositions =>
+  IsarCollection<int, ArticleScrollPosition> get articleScrollPositions =>
       this.collection();
 }
 
-const ArticleScrollPositionSchema = CollectionSchema(
-  name: r'ArticleScrollPosition',
-  id: -9173229516223812652,
-  properties: {
-    r'progress': PropertySchema(
-      id: 0,
-      name: r'progress',
-      type: IsarType.double,
-    ),
-    r'readingTime': PropertySchema(
-      id: 1,
-      name: r'readingTime',
-      type: IsarType.long,
-    )
-  },
-  estimateSize: _articleScrollPositionEstimateSize,
-  serialize: _articleScrollPositionSerialize,
-  deserialize: _articleScrollPositionDeserialize,
-  deserializeProp: _articleScrollPositionDeserializeProp,
-  idName: r'id',
-  indexes: {},
-  links: {},
-  embeddedSchemas: {},
-  getId: _articleScrollPositionGetId,
-  getLinks: _articleScrollPositionGetLinks,
-  attach: _articleScrollPositionAttach,
-  version: '3.1.7',
+const ArticleScrollPositionSchema = IsarGeneratedSchema(
+  schema: IsarSchema(
+    name: 'ArticleScrollPosition',
+    idName: 'id',
+    embedded: false,
+    properties: [
+      IsarPropertySchema(
+        name: 'readingTime',
+        type: IsarType.long,
+      ),
+      IsarPropertySchema(
+        name: 'progress',
+        type: IsarType.double,
+      ),
+    ],
+    indexes: [],
+  ),
+  converter: IsarObjectConverter<int, ArticleScrollPosition>(
+    serialize: serializeArticleScrollPosition,
+    deserialize: deserializeArticleScrollPosition,
+    deserializeProperty: deserializeArticleScrollPositionProp,
+  ),
+  embeddedSchemas: [],
 );
 
-int _articleScrollPositionEstimateSize(
-  ArticleScrollPosition object,
-  List<int> offsets,
-  Map<Type, List<int>> allOffsets,
-) {
-  var bytesCount = offsets.last;
-  return bytesCount;
+@isarProtected
+int serializeArticleScrollPosition(
+    IsarWriter writer, ArticleScrollPosition object) {
+  IsarCore.writeLong(writer, 1, object.readingTime);
+  IsarCore.writeDouble(writer, 2, object.progress);
+  return object.id;
 }
 
-void _articleScrollPositionSerialize(
-  ArticleScrollPosition object,
-  IsarWriter writer,
-  List<int> offsets,
-  Map<Type, List<int>> allOffsets,
-) {
-  writer.writeDouble(offsets[0], object.progress);
-  writer.writeLong(offsets[1], object.readingTime);
-}
-
-ArticleScrollPosition _articleScrollPositionDeserialize(
-  Id id,
-  IsarReader reader,
-  List<int> offsets,
-  Map<Type, List<int>> allOffsets,
-) {
-  final object = ArticleScrollPosition();
-  object.id = id;
-  object.progress = reader.readDouble(offsets[0]);
-  object.readingTime = reader.readLong(offsets[1]);
+@isarProtected
+ArticleScrollPosition deserializeArticleScrollPosition(IsarReader reader) {
+  final int _id;
+  _id = IsarCore.readId(reader);
+  final int _readingTime;
+  _readingTime = IsarCore.readLong(reader, 1);
+  final double _progress;
+  _progress = IsarCore.readDouble(reader, 2);
+  final object = ArticleScrollPosition(
+    id: _id,
+    readingTime: _readingTime,
+    progress: _progress,
+  );
   return object;
 }
 
-P _articleScrollPositionDeserializeProp<P>(
-  IsarReader reader,
-  int propertyId,
-  int offset,
-  Map<Type, List<int>> allOffsets,
-) {
-  switch (propertyId) {
+@isarProtected
+dynamic deserializeArticleScrollPositionProp(IsarReader reader, int property) {
+  switch (property) {
     case 0:
-      return (reader.readDouble(offset)) as P;
+      return IsarCore.readId(reader);
     case 1:
-      return (reader.readLong(offset)) as P;
+      return IsarCore.readLong(reader, 1);
+    case 2:
+      return IsarCore.readDouble(reader, 2);
     default:
-      throw IsarError('Unknown property with id $propertyId');
+      throw ArgumentError('Unknown property: $property');
   }
 }
 
-Id _articleScrollPositionGetId(ArticleScrollPosition object) {
-  return object.id ?? Isar.autoIncrement;
+sealed class _ArticleScrollPositionUpdate {
+  bool call({
+    required int id,
+    int? readingTime,
+    double? progress,
+  });
 }
 
-List<IsarLinkBase<dynamic>> _articleScrollPositionGetLinks(
-    ArticleScrollPosition object) {
-  return [];
-}
+class _ArticleScrollPositionUpdateImpl implements _ArticleScrollPositionUpdate {
+  const _ArticleScrollPositionUpdateImpl(this.collection);
 
-void _articleScrollPositionAttach(
-    IsarCollection<dynamic> col, Id id, ArticleScrollPosition object) {
-  object.id = id;
-}
+  final IsarCollection<int, ArticleScrollPosition> collection;
 
-extension ArticleScrollPositionQueryWhereSort
-    on QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QWhere> {
-  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QAfterWhere>
-      anyId() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(const IdWhereClause.any());
-    });
-  }
-}
-
-extension ArticleScrollPositionQueryWhere on QueryBuilder<ArticleScrollPosition,
-    ArticleScrollPosition, QWhereClause> {
-  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QAfterWhereClause>
-      idEqualTo(Id id) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IdWhereClause.between(
-        lower: id,
-        upper: id,
-      ));
-    });
-  }
-
-  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QAfterWhereClause>
-      idNotEqualTo(Id id) {
-    return QueryBuilder.apply(this, (query) {
-      if (query.whereSort == Sort.asc) {
-        return query
-            .addWhereClause(
-              IdWhereClause.lessThan(upper: id, includeUpper: false),
-            )
-            .addWhereClause(
-              IdWhereClause.greaterThan(lower: id, includeLower: false),
-            );
-      } else {
-        return query
-            .addWhereClause(
-              IdWhereClause.greaterThan(lower: id, includeLower: false),
-            )
-            .addWhereClause(
-              IdWhereClause.lessThan(upper: id, includeUpper: false),
-            );
-      }
-    });
-  }
-
-  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QAfterWhereClause>
-      idGreaterThan(Id id, {bool include = false}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(
-        IdWhereClause.greaterThan(lower: id, includeLower: include),
-      );
-    });
-  }
-
-  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QAfterWhereClause>
-      idLessThan(Id id, {bool include = false}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(
-        IdWhereClause.lessThan(upper: id, includeUpper: include),
-      );
-    });
-  }
-
-  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QAfterWhereClause>
-      idBetween(
-    Id lowerId,
-    Id upperId, {
-    bool includeLower = true,
-    bool includeUpper = true,
+  @override
+  bool call({
+    required int id,
+    Object? readingTime = ignore,
+    Object? progress = ignore,
   }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IdWhereClause.between(
-        lower: lowerId,
-        includeLower: includeLower,
-        upper: upperId,
-        includeUpper: includeUpper,
-      ));
+    return collection.updateProperties([
+          id
+        ], {
+          if (readingTime != ignore) 1: readingTime as int?,
+          if (progress != ignore) 2: progress as double?,
+        }) >
+        0;
+  }
+}
+
+sealed class _ArticleScrollPositionUpdateAll {
+  int call({
+    required List<int> id,
+    int? readingTime,
+    double? progress,
+  });
+}
+
+class _ArticleScrollPositionUpdateAllImpl
+    implements _ArticleScrollPositionUpdateAll {
+  const _ArticleScrollPositionUpdateAllImpl(this.collection);
+
+  final IsarCollection<int, ArticleScrollPosition> collection;
+
+  @override
+  int call({
+    required List<int> id,
+    Object? readingTime = ignore,
+    Object? progress = ignore,
+  }) {
+    return collection.updateProperties(id, {
+      if (readingTime != ignore) 1: readingTime as int?,
+      if (progress != ignore) 2: progress as double?,
     });
   }
+}
+
+extension ArticleScrollPositionUpdate
+    on IsarCollection<int, ArticleScrollPosition> {
+  _ArticleScrollPositionUpdate get update =>
+      _ArticleScrollPositionUpdateImpl(this);
+
+  _ArticleScrollPositionUpdateAll get updateAll =>
+      _ArticleScrollPositionUpdateAllImpl(this);
+}
+
+sealed class _ArticleScrollPositionQueryUpdate {
+  int call({
+    int? readingTime,
+    double? progress,
+  });
+}
+
+class _ArticleScrollPositionQueryUpdateImpl
+    implements _ArticleScrollPositionQueryUpdate {
+  const _ArticleScrollPositionQueryUpdateImpl(this.query, {this.limit});
+
+  final IsarQuery<ArticleScrollPosition> query;
+  final int? limit;
+
+  @override
+  int call({
+    Object? readingTime = ignore,
+    Object? progress = ignore,
+  }) {
+    return query.updateProperties(limit: limit, {
+      if (readingTime != ignore) 1: readingTime as int?,
+      if (progress != ignore) 2: progress as double?,
+    });
+  }
+}
+
+extension ArticleScrollPositionQueryUpdate on IsarQuery<ArticleScrollPosition> {
+  _ArticleScrollPositionQueryUpdate get updateFirst =>
+      _ArticleScrollPositionQueryUpdateImpl(this, limit: 1);
+
+  _ArticleScrollPositionQueryUpdate get updateAll =>
+      _ArticleScrollPositionQueryUpdateImpl(this);
+}
+
+class _ArticleScrollPositionQueryBuilderUpdateImpl
+    implements _ArticleScrollPositionQueryUpdate {
+  const _ArticleScrollPositionQueryBuilderUpdateImpl(this.query, {this.limit});
+
+  final QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QOperations>
+      query;
+  final int? limit;
+
+  @override
+  int call({
+    Object? readingTime = ignore,
+    Object? progress = ignore,
+  }) {
+    final q = query.build();
+    try {
+      return q.updateProperties(limit: limit, {
+        if (readingTime != ignore) 1: readingTime as int?,
+        if (progress != ignore) 2: progress as double?,
+      });
+    } finally {
+      q.close();
+    }
+  }
+}
+
+extension ArticleScrollPositionQueryBuilderUpdate
+    on QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QOperations> {
+  _ArticleScrollPositionQueryUpdate get updateFirst =>
+      _ArticleScrollPositionQueryBuilderUpdateImpl(this, limit: 1);
+
+  _ArticleScrollPositionQueryUpdate get updateAll =>
+      _ArticleScrollPositionQueryBuilderUpdateImpl(this);
 }
 
 extension ArticleScrollPositionQueryFilter on QueryBuilder<
     ArticleScrollPosition, ArticleScrollPosition, QFilterCondition> {
   QueryBuilder<ArticleScrollPosition, ArticleScrollPosition,
-      QAfterFilterCondition> idIsNull() {
+      QAfterFilterCondition> idEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'id',
-      ));
-    });
-  }
-
-  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition,
-      QAfterFilterCondition> idIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'id',
-      ));
-    });
-  }
-
-  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition,
-      QAfterFilterCondition> idEqualTo(Id? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'id',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        EqualCondition(
+          property: 0,
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<ArticleScrollPosition, ArticleScrollPosition,
       QAfterFilterCondition> idGreaterThan(
-    Id? value, {
-    bool include = false,
-  }) {
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'id',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        GreaterCondition(
+          property: 0,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition,
+      QAfterFilterCondition> idGreaterThanOrEqualTo(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterOrEqualCondition(
+          property: 0,
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<ArticleScrollPosition, ArticleScrollPosition,
       QAfterFilterCondition> idLessThan(
-    Id? value, {
-    bool include = false,
-  }) {
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'id',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        LessCondition(
+          property: 0,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition,
+      QAfterFilterCondition> idLessThanOrEqualTo(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessOrEqualCondition(
+          property: 0,
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<ArticleScrollPosition, ArticleScrollPosition,
       QAfterFilterCondition> idBetween(
-    Id? lower,
-    Id? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
+    int lower,
+    int upper,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'id',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
+      return query.addFilterCondition(
+        BetweenCondition(
+          property: 0,
+          lower: lower,
+          upper: upper,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition,
+      QAfterFilterCondition> readingTimeEqualTo(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        EqualCondition(
+          property: 1,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition,
+      QAfterFilterCondition> readingTimeGreaterThan(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterCondition(
+          property: 1,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition,
+      QAfterFilterCondition> readingTimeGreaterThanOrEqualTo(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterOrEqualCondition(
+          property: 1,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition,
+      QAfterFilterCondition> readingTimeLessThan(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessCondition(
+          property: 1,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition,
+      QAfterFilterCondition> readingTimeLessThanOrEqualTo(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessOrEqualCondition(
+          property: 1,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition,
+      QAfterFilterCondition> readingTimeBetween(
+    int lower,
+    int upper,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        BetweenCondition(
+          property: 1,
+          lower: lower,
+          upper: upper,
+        ),
+      );
     });
   }
 
   QueryBuilder<ArticleScrollPosition, ArticleScrollPosition,
       QAfterFilterCondition> progressEqualTo(
     double value, {
-    double epsilon = Query.epsilon,
+    double epsilon = Filter.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'progress',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        EqualCondition(
+          property: 2,
+          value: value,
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<ArticleScrollPosition, ArticleScrollPosition,
       QAfterFilterCondition> progressGreaterThan(
     double value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
+    double epsilon = Filter.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'progress',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        GreaterCondition(
+          property: 2,
+          value: value,
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition,
+      QAfterFilterCondition> progressGreaterThanOrEqualTo(
+    double value, {
+    double epsilon = Filter.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterOrEqualCondition(
+          property: 2,
+          value: value,
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
   QueryBuilder<ArticleScrollPosition, ArticleScrollPosition,
       QAfterFilterCondition> progressLessThan(
     double value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
+    double epsilon = Filter.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'progress',
-        value: value,
-        epsilon: epsilon,
-      ));
+      return query.addFilterCondition(
+        LessCondition(
+          property: 2,
+          value: value,
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition,
+      QAfterFilterCondition> progressLessThanOrEqualTo(
+    double value, {
+    double epsilon = Filter.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessOrEqualCondition(
+          property: 2,
+          value: value,
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 
@@ -312,75 +469,17 @@ extension ArticleScrollPositionQueryFilter on QueryBuilder<
       QAfterFilterCondition> progressBetween(
     double lower,
     double upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    double epsilon = Query.epsilon,
+    double epsilon = Filter.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'progress',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition,
-      QAfterFilterCondition> readingTimeEqualTo(int value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'readingTime',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition,
-      QAfterFilterCondition> readingTimeGreaterThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'readingTime',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition,
-      QAfterFilterCondition> readingTimeLessThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'readingTime',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition,
-      QAfterFilterCondition> readingTimeBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'readingTime',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
+      return query.addFilterCondition(
+        BetweenCondition(
+          property: 2,
+          lower: lower,
+          upper: upper,
+          epsilon: epsilon,
+        ),
+      );
     });
   }
 }
@@ -388,36 +487,47 @@ extension ArticleScrollPositionQueryFilter on QueryBuilder<
 extension ArticleScrollPositionQueryObject on QueryBuilder<
     ArticleScrollPosition, ArticleScrollPosition, QFilterCondition> {}
 
-extension ArticleScrollPositionQueryLinks on QueryBuilder<ArticleScrollPosition,
-    ArticleScrollPosition, QFilterCondition> {}
-
 extension ArticleScrollPositionQuerySortBy
     on QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QSortBy> {
   QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QAfterSortBy>
-      sortByProgress() {
+      sortById() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'progress', Sort.asc);
+      return query.addSortBy(0);
     });
   }
 
   QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QAfterSortBy>
-      sortByProgressDesc() {
+      sortByIdDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'progress', Sort.desc);
+      return query.addSortBy(0, sort: Sort.desc);
     });
   }
 
   QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QAfterSortBy>
       sortByReadingTime() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'readingTime', Sort.asc);
+      return query.addSortBy(1);
     });
   }
 
   QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QAfterSortBy>
       sortByReadingTimeDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'readingTime', Sort.desc);
+      return query.addSortBy(1, sort: Sort.desc);
+    });
+  }
+
+  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QAfterSortBy>
+      sortByProgress() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(2);
+    });
+  }
+
+  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QAfterSortBy>
+      sortByProgressDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(2, sort: Sort.desc);
     });
   }
 }
@@ -427,82 +537,128 @@ extension ArticleScrollPositionQuerySortThenBy
   QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QAfterSortBy>
       thenById() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.asc);
+      return query.addSortBy(0);
     });
   }
 
   QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QAfterSortBy>
       thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.desc);
-    });
-  }
-
-  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QAfterSortBy>
-      thenByProgress() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'progress', Sort.asc);
-    });
-  }
-
-  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QAfterSortBy>
-      thenByProgressDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'progress', Sort.desc);
+      return query.addSortBy(0, sort: Sort.desc);
     });
   }
 
   QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QAfterSortBy>
       thenByReadingTime() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'readingTime', Sort.asc);
+      return query.addSortBy(1);
     });
   }
 
   QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QAfterSortBy>
       thenByReadingTimeDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'readingTime', Sort.desc);
+      return query.addSortBy(1, sort: Sort.desc);
+    });
+  }
+
+  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QAfterSortBy>
+      thenByProgress() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(2);
+    });
+  }
+
+  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QAfterSortBy>
+      thenByProgressDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(2, sort: Sort.desc);
     });
   }
 }
 
 extension ArticleScrollPositionQueryWhereDistinct
     on QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QDistinct> {
-  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QDistinct>
-      distinctByProgress() {
+  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QAfterDistinct>
+      distinctByReadingTime() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'progress');
+      return query.addDistinctBy(1);
     });
   }
 
-  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QDistinct>
-      distinctByReadingTime() {
+  QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QAfterDistinct>
+      distinctByProgress() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'readingTime');
+      return query.addDistinctBy(2);
     });
   }
 }
 
-extension ArticleScrollPositionQueryProperty on QueryBuilder<
-    ArticleScrollPosition, ArticleScrollPosition, QQueryProperty> {
-  QueryBuilder<ArticleScrollPosition, int, QQueryOperations> idProperty() {
+extension ArticleScrollPositionQueryProperty1
+    on QueryBuilder<ArticleScrollPosition, ArticleScrollPosition, QProperty> {
+  QueryBuilder<ArticleScrollPosition, int, QAfterProperty> idProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'id');
+      return query.addProperty(0);
     });
   }
 
-  QueryBuilder<ArticleScrollPosition, double, QQueryOperations>
-      progressProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'progress');
-    });
-  }
-
-  QueryBuilder<ArticleScrollPosition, int, QQueryOperations>
+  QueryBuilder<ArticleScrollPosition, int, QAfterProperty>
       readingTimeProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'readingTime');
+      return query.addProperty(1);
+    });
+  }
+
+  QueryBuilder<ArticleScrollPosition, double, QAfterProperty>
+      progressProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(2);
+    });
+  }
+}
+
+extension ArticleScrollPositionQueryProperty2<R>
+    on QueryBuilder<ArticleScrollPosition, R, QAfterProperty> {
+  QueryBuilder<ArticleScrollPosition, (R, int), QAfterProperty> idProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(0);
+    });
+  }
+
+  QueryBuilder<ArticleScrollPosition, (R, int), QAfterProperty>
+      readingTimeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(1);
+    });
+  }
+
+  QueryBuilder<ArticleScrollPosition, (R, double), QAfterProperty>
+      progressProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(2);
+    });
+  }
+}
+
+extension ArticleScrollPositionQueryProperty3<R1, R2>
+    on QueryBuilder<ArticleScrollPosition, (R1, R2), QAfterProperty> {
+  QueryBuilder<ArticleScrollPosition, (R1, R2, int), QOperations> idProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(0);
+    });
+  }
+
+  QueryBuilder<ArticleScrollPosition, (R1, R2, int), QOperations>
+      readingTimeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(1);
+    });
+  }
+
+  QueryBuilder<ArticleScrollPosition, (R1, R2, double), QOperations>
+      progressProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(2);
     });
   }
 }
