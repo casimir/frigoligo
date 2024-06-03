@@ -1,5 +1,3 @@
-import 'dart:io' show Platform;
-
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'package:universal_platform/universal_platform.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../app_info.dart';
@@ -18,10 +17,11 @@ import '../widget_keys.dart';
 
 final _log = Logger('settings');
 
-final _settingsSectionSplitter =
-    Platform.isAndroid || Platform.isLinux || Platform.isFuchsia
-        ? const Text('')
-        : null;
+final _settingsSectionSplitter = UniversalPlatform.isAndroid ||
+        UniversalPlatform.isLinux ||
+        UniversalPlatform.isFuchsia
+    ? const Text('')
+    : null;
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});

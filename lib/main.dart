@@ -10,6 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logging/logging.dart';
 import 'package:neat_periodic_task/neat_periodic_task.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 import 'app_info.dart';
 import 'applinks/handler.dart';
@@ -62,8 +63,10 @@ Future<void> main() async {
   await SettingsValues.init();
 
   _log.info('app version: ${AppInfo.versionVerbose}');
-  _log.info('platform:    ${Platform.operatingSystem}');
-  _log.info('os version:  ${Platform.operatingSystemVersion}');
+  _log.info('platform:    ${UniversalPlatform.operatingSystem}');
+  if (!UniversalPlatform.isWeb) {
+    _log.info('os version:  ${Platform.operatingSystemVersion}');
+  }
 
   if (periodicSyncSupported) {
     _log.info('starting periodic sync');
@@ -74,7 +77,7 @@ Future<void> main() async {
       task: () async =>
           RemoteSyncer.instance.synchronize(withFinalRefresh: true),
     ).start();
-  } else if (isMobilePlatform) {
+  } else if (UniversalPlatform.isMobile) {
     BackgroundFetch.configure(
       BackgroundFetchConfig(
         minimumFetchInterval: periodicSyncInterval.inMinutes,

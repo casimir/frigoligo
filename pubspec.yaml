@@ -69,6 +69,7 @@ dependencies:
   flutter_app_badger: ^1.5.0
   neat_periodic_task: ^2.0.1
   package_info_plus: ^8.0.0
+  universal_platform: ^1.1.0
   url_launcher: ^6.1.12
   share_plus: ^9.0.0
 

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 import '../buildcontext_extension.dart';
-import '../constants.dart';
 import '../providers/reading_settings.dart';
 
 const defaultPadding = 10.0;
 const defaultSpacing = 16.0;
-final defaultRunSpacing = !isMobilePlatform ? 10.0 : 0.0;
+final defaultRunSpacing = !UniversalPlatform.isMobile ? 10.0 : 0.0;
 const leftAlignedInsets = EdgeInsets.only(
   left: defaultSpacing,
   top: defaultPadding,
