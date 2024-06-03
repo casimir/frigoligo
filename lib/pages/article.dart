@@ -100,7 +100,7 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
                 onPressed: () {
                   ref.read(remoteSyncerProvider.notifier)
                     ..add(EditArticleAction(
-                      article.id!,
+                      article.id,
                       archive: article.archivedAt == null,
                     ))
                     ..synchronize();
@@ -112,7 +112,7 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
                 onPressed: () {
                   ref.read(remoteSyncerProvider.notifier)
                     ..add(EditArticleAction(
-                      article.id!,
+                      article.id,
                       starred: article.starredAt == null,
                     ))
                     ..synchronize();
@@ -183,7 +183,7 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
                     );
                     if (result == OkCancelResult.cancel) return;
                     final syncer = ref.read(remoteSyncerProvider.notifier);
-                    syncer.add(DeleteArticleAction(article.id!));
+                    syncer.add(DeleteArticleAction(article.id));
                     await syncer.synchronize();
                     if (!widget.withExpander && context.mounted) {
                       context.go('/');
@@ -239,13 +239,13 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
             initialValue: article.tags,
             onConfirm: (tags) {
               ref.read(remoteSyncerProvider.notifier)
-                ..add(EditArticleAction(article.id!, tags: tags))
+                ..add(EditArticleAction(article.id, tags: tags))
                 ..synchronize();
             },
           ),
         );
 
-    final scrollPositionFetch = ref.watch(scrollPositionProvider(article.id!));
+    final scrollPositionFetch = ref.watch(scrollPositionProvider(article.id));
     return scrollPositionFetch.when(
       data: (scrollPosition) {
         return NotificationListener<ScrollNotification>(

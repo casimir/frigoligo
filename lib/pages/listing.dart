@@ -135,12 +135,17 @@ class _ListingPageState extends ConsumerState<ListingPage> {
                           WidgetsBinding.instance.addPostFrameCallback((_) {
                             ref
                                 .read(currentArticleProvider.notifier)
-                                .maybeInit(article.id!);
+                                .maybeInit(article.id);
                           });
                         }
                         return ArticleListItem(
                           article: article,
-                          onTap: (article) => _openArticle(article.id!),
+                          onTap: (article) {
+                            ref
+                                .read(currentArticleProvider.notifier)
+                                .change(article.id);
+                            widget.onItemSelect?.call(article.id);
+                          },
                           showSelection: widget.sideBySideMode,
                         );
                       },
@@ -325,7 +330,7 @@ class ArticleListItem extends ConsumerWidget {
                           onPressed: () {
                             ref.read(remoteSyncerProvider.notifier)
                               ..add(EditArticleAction(
-                                article.id!,
+                                article.id,
                                 archive: article.archivedAt == null,
                               ))
                               ..synchronize();
@@ -337,7 +342,7 @@ class ArticleListItem extends ConsumerWidget {
                           onPressed: () {
                             ref.read(remoteSyncerProvider.notifier)
                               ..add(EditArticleAction(
-                                article.id!,
+                                article.id,
                                 starred: article.starredAt == null,
                               ))
                               ..synchronize();

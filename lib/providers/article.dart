@@ -26,7 +26,7 @@ class CurrentArticle extends _$CurrentArticle {
     _articleId ??= ref.read(settingsProvider)[Sk.selectedArticleId];
 
     if (_articleId != null) {
-      return DB.get().articles.getSync(_articleId!);
+      return DB.get().articles.get(_articleId!);
     }
 
     final storage = RemoteSyncer.instance.wallabag;
@@ -67,9 +67,9 @@ class CurrentArticle extends _$CurrentArticle {
     if (_articleId == null) return;
 
     final db = DB.get();
-    final article = await db.articles.get(_articleId!);
-    await db.writeTxn(() async {
-      await db.articleScrollPositions.put(
+    final article = db.articles.get(_articleId!);
+    db.write((db) {
+      db.articleScrollPositions.put(
         ArticleScrollPosition.fromArticle(article!, progress),
       );
     });

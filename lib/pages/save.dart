@@ -63,7 +63,7 @@ class _SavePageState extends ConsumerState<SavePage> {
       final article = Article.fromWallabagEntry(entry);
 
       final db = DB.get();
-      await db.writeTxn(() async => await db.articles.put(article));
+      db.write((db) => db.articles.put(article));
 
       setState(() {
         step = SaveStep.success;
