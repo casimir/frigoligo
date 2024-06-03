@@ -1,1 +1,1 @@
-wallabag,lecture hors-ligne,pocket,read-it-later,open source
+wallabag,lecture hors-ligne,read-it-later,open source

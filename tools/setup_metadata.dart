@@ -94,10 +94,14 @@ void createStrippedFile(String source, String destination) {
 void manageChangelogs(
     Directory androidDir, Directory iosDir, String lang, int version) {
   final f = File('${iosDir.path}/release_notes.txt');
-  final targetSuffix = 'changelogs/$version.txt';
-  final target = File('${androidDir.path}/$targetSuffix');
+  var targetSuffix = 'changelogs/$version.txt';
+  var target = File('${androidDir.path}/$targetSuffix');
 
   unlinkPath(f.path);
+  if (!target.existsSync()) {
+    targetSuffix = 'changelogs/default.txt';
+    target = File('${androidDir.path}/$targetSuffix');
+  }
   if (!target.existsSync()) return;
 
   print('> ${f.path} <- ${target.path}');

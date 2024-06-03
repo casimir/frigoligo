@@ -23,8 +23,8 @@ platform :android do
     supply(
       skip_upload_apk: true,
       skip_upload_aab: true,
-      skip_upload_changelogs: true,
-      sync_image_upload: true
+      sync_image_upload: true,
+      # version_code: 33,
     )
   end
 end
@@ -35,6 +35,7 @@ platform :ios do
     deliver(
       metadata_path: "fastlane/metadata/ios/",
       screenshots_path: "fastlane/screenshots/ios/",
+      # force: true,
       # overwrite_screenshots: true
     )
   end

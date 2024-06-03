@@ -1,0 +1,1 @@
+wallabag,leitura offline,ler mais tarde,código aberto
