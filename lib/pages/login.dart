@@ -1,5 +1,6 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cadanse/layout.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -65,6 +66,34 @@ class _LoginPageState extends ConsumerState<LoginPage> {
             context.go('/');
           }
         }
+      });
+    }
+
+    if (kIsWeb) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Row(
+              children: [
+                Icon(Icons.warning),
+                SizedBox(width: 8),
+                Text('Behold!'),
+              ],
+            ),
+            content: const Text(
+              """
+This build is giga experimental. A lot of things don't work, including data 
+persistence and it will impose an additional load on your server.""",
+            ),
+            actions: [
+              TextButton(
+                child: const Text('I know, just let met go.'),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ],
+          ),
+        );
       });
     }
   }

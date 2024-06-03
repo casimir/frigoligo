@@ -18,7 +18,9 @@ final _log = Logger('wallabag.storage');
 
 class WallabagStorage with ChangeNotifier {
   WallabagStorage(this.settings) {
-    _watcher = db.articles.watchLazy().listen((_) => notifyListeners());
+    if (!kIsWeb) {
+      _watcher = db.articles.watchLazy().listen((_) => notifyListeners());
+    }
   }
 
   final DBInstance db = DB.get();

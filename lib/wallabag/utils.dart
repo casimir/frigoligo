@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -17,7 +18,9 @@ Future<String> buildUserAgent() async {
 Future<WallabagInfo?> _fetchWallabagInfo(Uri uri) async {
   final response = await http.get(
     Uri.https(uri.authority, '${uri.path}/api/info.json'),
-    headers: {'user-agent': await buildUserAgent()},
+    headers: {
+      if (!kIsWeb) 'user-agent': await buildUserAgent(),
+    },
   );
   if (response.statusCode != 200) {
     throw const WallabagCheckError(WallabagCheckErrorKind.apiError);
@@ -26,6 +29,7 @@ Future<WallabagInfo?> _fetchWallabagInfo(Uri uri) async {
 }
 
 Future<Uri?> _detectFavicon(Uri uri) async {
+  if (kIsWeb) return null;
   final faviconUri = Uri.https(uri.authority, '/favicon.ico');
   final response = await http.head(faviconUri);
   return response.statusCode == 200 ? faviconUri : null;
