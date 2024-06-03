@@ -6,7 +6,7 @@ isar_version=$(awk '/isar_version: /{print $3}' $tps_dir/../pubspec.yaml)
 checked_out_version=$(git -C $tps_dir/isar describe --tags)
 
 if [ "$isar_version" == "$checked_out_version" ]; then
-  echo "Version $version is up-to-date."
+  echo "Version $isar_version is up-to-date."
   exit 0
 fi
 echo "Updating from version $checked_out_version to $isar_version."
