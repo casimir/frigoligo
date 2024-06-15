@@ -1,0 +1,1 @@
+- Correction d'un problème empêchant d'ouvrir un lien depuis le contenu d'un article dans certains cas.

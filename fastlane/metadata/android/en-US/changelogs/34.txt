@@ -1,0 +1,1 @@
+- Fixed an issue that could prevent to open links in articles content.
