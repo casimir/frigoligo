@@ -9,7 +9,7 @@ part of 'info.dart';
 WallabagInfo _$WallabagInfoFromJson(Map<String, dynamic> json) => WallabagInfo(
       json['appname'] as String,
       json['version'] as String,
-      json['allowed_registration'] as bool,
+      json['allowed_registration'] as bool?,
     );
 
 Map<String, dynamic> _$WallabagInfoToJson(WallabagInfo instance) =>
