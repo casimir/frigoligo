@@ -1,0 +1,4 @@
+- Engadido un botón á páxina principal para gardar ligazóns.
+- Novos idiomas dispoñibles, entre eles o Galego, Portugués do Brasil e Chinés.
+- Arranxo de problemas, como os de sincronización e gardado de artigos.
+- Reescritura da lóxica para ver os artigos para unha experiencia de lectura máis fluída.
