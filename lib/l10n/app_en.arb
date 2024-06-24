@@ -339,6 +339,10 @@
   "@session_fieldAccessToken": {
     "description": "The label of the access token field in the session screen."
   },
+  "session_fieldApiToken": "API token",
+  "@session_fieldApiToken": {
+    "description": "The API token field name of in forms."
+  },
   "session_fieldLastServerSync": "Last server sync",
   "@session_fieldLastServerSync": {
     "description": "The label of the last server sync field in the session screen."

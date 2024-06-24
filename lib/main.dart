@@ -19,8 +19,9 @@ import 'models/db.dart';
 import 'providers/router.dart';
 import 'providers/settings.dart';
 import 'providers/tools/observer.dart';
+import 'server/client.dart';
+import 'server/session.dart';
 import 'services/remote_sync.dart';
-import 'wallabag/wallabag.dart';
 
 const enableDebugLogs = false;
 final _log = Logger('frigoligo');
@@ -59,8 +60,8 @@ Future<void> main() async {
 
   await AppInfo.init();
   await DB.init(kDebugMode);
-  await WallabagInstance.init();
   await SettingsValues.init();
+  await ServerInstance.init(await ServerSession.load());
 
   _log.info('app version: ${AppInfo.versionVerbose}');
   _log.info('platform:    ${UniversalPlatform.operatingSystem}');
@@ -131,7 +132,7 @@ class _MyAppState extends ConsumerState<MyApp> {
       if (linkType == Deeplink.invalid) return;
 
       void pushOrGoLogin(Uri uri) {
-        if (WallabagInstance.isReady) {
+        if (ServerInstance.isReady) {
           router.push(uri.toString());
         } else {
           router.go('/login');

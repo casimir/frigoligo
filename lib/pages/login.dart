@@ -8,9 +8,10 @@ import '../buildcontext_extension.dart';
 import '../models/db.dart';
 import '../providers/server_login_flow.dart';
 import '../providers/settings.dart';
+import '../server/client.dart';
 import '../wallabag/wallabag.dart';
 import 'login_flow/check_server.dart';
-import 'login_flow/login_wallabag.dart';
+import 'login_flow/login_credentials.dart';
 import 'login_flow/utils.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
@@ -33,8 +34,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     super.initState();
 
     // use server-level data if already configured
-    final wallabag = WallabagInstance.get();
-    if (!widget.hasInitialData && wallabag.hasCredentials) {
+    final wallabag = ServerInstance.get();
+    if (!widget.hasInitialData && wallabag is WallabagNativeClient) {
       _currentData = {
         'server': wallabag.credentials.server.toString(),
         'clientId': wallabag.credentials.clientId,
@@ -46,7 +47,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
     // ask for confirmation if there is an existing session
     // skip it if some initial data is provided (deeplink)
-    if (!widget.hasInitialData && WallabagInstance.isReady) {
+    if (!widget.hasInitialData && ServerInstance.isReady) {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         final settings = ref.read(settingsProvider);
         final result = await showOkCancelAlertDialog(
@@ -57,7 +58,10 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           isDestructiveAction: true,
         );
         if (result == OkCancelResult.ok) {
-          await WallabagInstance.get().resetTokenData();
+          final wallabag = ServerInstance.get();
+          if (wallabag is WallabagNativeClient) {
+            await wallabag.resetTokenData();
+          }
           settings.remove(Sk.lastRefresh);
           await DB.clear();
         } else {
@@ -91,7 +95,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           constraints: const BoxConstraints(maxWidth: mediumBreakpoint),
           child: serverCheck == null || !serverCheck.isValid
               ? LoginFlowServer(initial: _currentData?['server'])
-              : LoginFlowWallabag(
+              : LoginFlowCredentials(
                   serverCheck: serverCheck,
                   initial: _currentData ?? {},
                   onReset: () => setState(() {
