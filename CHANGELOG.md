@@ -1,3 +1,21 @@
+<a name="v1.1.1"></a>
+# [v1.1.1](https://github.com/casimir/frigoligo/releases/tag/v1.1.1) - 27 Jun 2024
+
+## What's Changed
+### Bug Fixes
+* Can't open links inside article on Android by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/218
+### Miscellaneous
+* Use universal_platform to simplify the web experimentation by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/215
+* Update dependency fastlane to v2.221.1 by [@renovate](https://github.com/renovate) in https://github.com/casimir/frigoligo/pull/219
+* Change for a more explicit short description by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/220
+* Translations update from Hosted Weblate by [@weblate](https://github.com/weblate) in https://github.com/casimir/frigoligo/pull/213
+
+
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v1.1.0...v1.1.1
+
+[Changes][v1.1.1]
+
+
 <a name="v1.1.0"></a>
 # [v1.1.0](https://github.com/casimir/frigoligo/releases/tag/v1.1.0) - 02 Jun 2024
 
@@ -596,6 +614,7 @@ Let's begin! This is the very first release.
 [Changes][v0.1.0]
 
 
+[v1.1.1]: https://github.com/casimir/frigoligo/compare/v1.1.0...v1.1.1
 [v1.1.0]: https://github.com/casimir/frigoligo/compare/v1.0.10...v1.1.0
 [v1.0.10]: https://github.com/casimir/frigoligo/compare/v1.0.9...v1.0.10
 [v1.0.9]: https://github.com/casimir/frigoligo/compare/v1.0.8...v1.0.9
