@@ -1,0 +1,1 @@
+- Arranxo do problema que non permitía abrir ligazóns do contido dos artigos.
