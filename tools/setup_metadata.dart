@@ -62,12 +62,8 @@ void manageLinks(Directory androidDir, Directory iosDir, String lang) {
     }
 
     unlinkPath(f.path);
-    if (lang == 'fr-FR' && f.path.endsWith('subtitle.txt')) {
-      createStrippedFile('$androidMetadataRoot/$lang/${entry.value}', f.path);
-    } else {
-      final relativeTarget = '../../android/$lang/${entry.value}';
-      Link(f.path).createSync(relativeTarget);
-    }
+    final relativeTarget = '../../android/$lang/${entry.value}';
+    Link(f.path).createSync(relativeTarget);
   }
 }
 
@@ -82,13 +78,6 @@ void unlinkPath(String path) {
   } on FileSystemException {
     // ignore
   }
-}
-
-void createStrippedFile(String source, String destination) {
-  print('>> creating stripped file for $destination');
-  final content = File(source).readAsStringSync();
-  final stripped = content.replaceAll('\u202f', ' ');
-  File(destination).writeAsStringSync(stripped);
 }
 
 void manageChangelogs(
