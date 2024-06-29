@@ -45,7 +45,6 @@ class WallabagNativeClient extends WallabagClient {
   Future<http.StreamedResponse> send(http.BaseRequest request) async {
     _credsManager.load(); // handle desync from external extensions
     request.headers.addAll({
-      'Content-Type': 'application/json',
       if (userAgent != null) 'User-Agent': userAgent!,
     });
     if (!request.url.path.endsWith(tokenEndpointPath)) {
