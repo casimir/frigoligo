@@ -7,10 +7,10 @@ import 'package:go_router/go_router.dart';
 
 import '../../buildcontext_extension.dart';
 import '../../providers/server_login_flow.dart';
+import '../../server/check.dart';
 import '../../services/remote_sync.dart';
 import '../../wallabag/client.dart';
 import '../../wallabag/credentials.dart';
-import '../../wallabag/utils.dart';
 import '../../wallabag/wallabag.dart';
 import '../../widget_keys.dart';
 import 'utils.dart';
@@ -23,7 +23,7 @@ class LoginFlowWallabag extends ConsumerStatefulWidget {
     this.onReset,
   });
 
-  final WallabagServerCheck serverCheck;
+  final ServerCheck serverCheck;
   final Map<String, String> initial;
   final void Function()? onReset;
 

@@ -6,12 +6,12 @@ part of 'server_login_flow.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$serverLoginFlowHash() => r'56b826987d8668dff2a088c4ba1c55d89474196e';
+String _$serverLoginFlowHash() => r'a2549e2a9f830bab4d151becebfe9e307489f9d1';
 
 /// See also [ServerLoginFlow].
 @ProviderFor(ServerLoginFlow)
 final serverLoginFlowProvider = AutoDisposeNotifierProvider<ServerLoginFlow,
-    (FlowState, WallabagServerCheck?)>.internal(
+    (FlowState, ServerCheck?)>.internal(
   ServerLoginFlow.new,
   name: r'serverLoginFlowProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -21,7 +21,6 @@ final serverLoginFlowProvider = AutoDisposeNotifierProvider<ServerLoginFlow,
   allTransitiveDependencies: null,
 );
 
-typedef _$ServerLoginFlow
-    = AutoDisposeNotifier<(FlowState, WallabagServerCheck?)>;
+typedef _$ServerLoginFlow = AutoDisposeNotifier<(FlowState, ServerCheck?)>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
