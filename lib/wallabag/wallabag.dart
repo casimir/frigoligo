@@ -33,6 +33,7 @@ class WallabagNativeClient extends WallabagClient {
   final http.Client _inner = RetryClient(http.Client());
   final CredentialsManager _credsManager;
 
+  bool get hasCredentials => _credsManager.credentials != null;
   Credentials get credentials => _credsManager.credentials!;
   bool get canRefreshToken => _credsManager.canRefreshToken;
   bool get tokenIsExpired => _credsManager.tokenIsExpired;

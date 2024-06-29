@@ -35,7 +35,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
     // use server-level data if already configured
     final wallabag = ServerInstance.get();
-    if (!widget.hasInitialData && wallabag is WallabagNativeClient) {
+    if (!widget.hasInitialData &&
+        wallabag is WallabagNativeClient &&
+        wallabag.hasCredentials) {
       _currentData = {
         'server': wallabag.credentials.server.toString(),
         'clientId': wallabag.credentials.clientId,
