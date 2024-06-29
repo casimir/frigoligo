@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../buildcontext_extension.dart';
 import '../services/remote_sync.dart';
+import '../wallabag/client.dart';
 import '../wallabag/wallabag.dart';
 
 class RemoteSyncProgressIndicator extends ConsumerWidget {
@@ -17,7 +18,7 @@ class RemoteSyncProgressIndicator extends ConsumerWidget {
     final error = syncer.lastError;
     if (error != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
-        if (error is WallabagError && error.isInvalidTokenError) {
+        if (error is ServerError && error.isInvalidTokenError) {
           final result = await showOkCancelAlertDialog(
             context: context,
             title: context.L.session_renewDialogTitle,

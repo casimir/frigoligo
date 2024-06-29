@@ -12,6 +12,7 @@ import '../models/article_scroll_position.dart';
 import '../models/db.dart';
 import '../models/remote_action.dart';
 import '../providers/settings.dart';
+import '../wallabag/client.dart';
 import '../wallabag/wallabag.dart';
 
 final _log = Logger('wallabag.storage');
@@ -22,7 +23,7 @@ class WallabagStorage with ChangeNotifier {
   }
 
   final DBInstance db = DB.get();
-  final WallabagClient wallabag = WallabagInstance.get();
+  final WallabagNativeClient wallabag = WallabagInstance.get();
   StreamSubscription? _watcher;
   final SettingsValues settings;
 

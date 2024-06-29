@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import '../../buildcontext_extension.dart';
 import '../../providers/server_login_flow.dart';
 import '../../services/remote_sync.dart';
+import '../../wallabag/client.dart';
 import '../../wallabag/credentials.dart';
 import '../../wallabag/utils.dart';
 import '../../wallabag/wallabag.dart';
@@ -170,7 +171,7 @@ class _LoginFlowWallabagState extends ConsumerState<LoginFlowWallabag> {
         }
       } catch (e) {
         setState(() => _gotAnError = true);
-        if (e is WallabagError) {
+        if (e is ServerError) {
           logger.warning('authentication failed', e.message);
           if (context.mounted) {
             showOkAlertDialog(context: context, message: e.message);
