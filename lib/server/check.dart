@@ -25,6 +25,7 @@ Future<WallabagInfo?> _fetchServerInfo(Uri uri) async {
 }
 
 Future<Uri?> _detectFavicon(Uri uri) async {
+  if (UniversalPlatform.isWeb) return null;
   final faviconUri = Uri.https(uri.authority, '/favicon.ico');
   final response = await http.head(faviconUri);
   return response.statusCode == 200 ? faviconUri : null;
