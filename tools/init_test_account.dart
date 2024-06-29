@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:frigoligo/wallabag/client.dart';
 import 'package:frigoligo/wallabag/credentials.dart';
 import 'package:frigoligo/wallabag/wallabag.dart';
 import 'package:http/http.dart' as http;
@@ -58,7 +59,7 @@ class _HomePageState extends State<HomePage> {
     final urls = await extractUrls();
     setState(() => _urlCount = urls.length);
 
-    final wallabag = await WallabagClient.build(
+    final wallabag = await WallabagNativeClient.build(
       credentials: Credentials(
         TestCredentials.server,
         TestCredentials.clientId,

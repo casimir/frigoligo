@@ -7,6 +7,13 @@ class AppInfo {
     _data = await PackageInfo.fromPlatform();
   }
 
-  static get data => _data!;
-  static get versionVerbose => '${data.version}+${data.buildNumber}';
+  static PackageInfo get data {
+    assert(_data != null, 'AppInfo not initialized call AppInfo.init() first');
+    return _data!;
+  }
+
+  static String get userAgent =>
+      '${data.appName}/${data.version}+${data.buildNumber}';
+
+  static String get versionVerbose => '${data.version}+${data.buildNumber}';
 }

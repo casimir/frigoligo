@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../buildcontext_extension.dart';
 import '../../providers/server_login_flow.dart';
-import '../../wallabag/utils.dart';
+import '../../server/check.dart';
 import 'utils.dart';
 
 class LoginFlowServer extends ConsumerStatefulWidget {
@@ -107,13 +107,13 @@ class _LoginFlowServerState extends ConsumerState<LoginFlowServer> {
     final (flowState, serverCheck) = ref.read(serverLoginFlowProvider);
     if (flowState == FlowState.checked) {
       switch (serverCheck!.errorKind) {
-        case WallabagCheckErrorKind.invalidUrl:
+        case ServerCheckErrorKind.invalidUrl:
           return context.L.server_invalidUrl;
-        case WallabagCheckErrorKind.unreachable:
+        case ServerCheckErrorKind.unreachable:
           return context.L.server_unreachable;
-        case WallabagCheckErrorKind.apiError:
+        case ServerCheckErrorKind.apiError:
           return context.L.server_apiError;
-        case WallabagCheckErrorKind.unknown:
+        case ServerCheckErrorKind.unknown:
           return '? ${serverCheck.error}';
         case null:
           return null;

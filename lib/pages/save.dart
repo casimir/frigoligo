@@ -8,6 +8,7 @@ import '../buildcontext_extension.dart';
 import '../models/article.dart';
 import '../models/db.dart';
 import '../providers/settings.dart';
+import '../wallabag/client.dart';
 import '../wallabag/wallabag.dart';
 
 class SavePage extends ConsumerStatefulWidget {
@@ -72,7 +73,7 @@ class _SavePageState extends ConsumerState<SavePage> {
     } catch (e) {
       setState(() {
         step = SaveStep.error;
-        if (e is WallabagError) {
+        if (e is ServerError) {
           errorMessage = e.message;
         } else {
           errorMessage = e.toString();
