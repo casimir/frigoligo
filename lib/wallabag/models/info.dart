@@ -6,7 +6,7 @@ part 'info.g.dart';
 class WallabagInfo {
   final String appname;
   final String version;
-  final bool allowedRegistration;
+  final bool? allowedRegistration;
 
   const WallabagInfo(this.appname, this.version, this.allowedRegistration);
 

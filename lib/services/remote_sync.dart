@@ -6,7 +6,7 @@ import 'package:logging/logging.dart';
 import '../models/db.dart';
 import '../models/remote_action.dart';
 import '../providers/settings.dart';
-import '../wallabag/wallabag.dart';
+import '../server/client.dart';
 import 'remote_sync_actions/articles.dart';
 import 'remote_sync_actions/base.dart';
 import 'wallabag_storage.dart';
@@ -22,7 +22,7 @@ class RemoteSyncer with ChangeNotifier {
 
   WallabagStorage? _storage;
   WallabagStorage? get wallabag {
-    if (_storage == null && WallabagInstance.isReady) {
+    if (_storage == null && ServerInstance.isReady) {
       _storage = WallabagStorage(settings);
     }
     return _storage;

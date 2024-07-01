@@ -130,6 +130,7 @@ class OAuthTokenBody {
       _$OAuthTokenBodyFromJson(json);
 }
 
+@Deprecated('use ServerInstance instead')
 class WallabagInstance {
   static WallabagNativeClient? _instance;
 

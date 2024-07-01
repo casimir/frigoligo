@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../buildcontext_extension.dart';
+import '../server/client.dart';
 import '../services/remote_sync.dart';
 import '../wallabag/client.dart';
 import '../wallabag/wallabag.dart';
@@ -26,7 +27,10 @@ class RemoteSyncProgressIndicator extends ConsumerWidget {
             okLabel: context.L.login_actionLogin,
           );
           if (result == OkCancelResult.ok) {
-            await WallabagInstance.get().resetTokenData();
+            final wallabag = ServerInstance.get();
+            if (wallabag is WallabagNativeClient) {
+              await wallabag.resetTokenData();
+            }
             if (context.mounted) {
               context.go('/login');
             }

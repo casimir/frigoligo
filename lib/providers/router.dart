@@ -9,7 +9,7 @@ import '../pages/login.dart';
 import '../pages/save.dart';
 import '../pages/session_details.dart';
 import '../pages/settings.dart';
-import '../wallabag/wallabag.dart';
+import '../server/client.dart';
 import 'article.dart';
 import 'open_article.dart';
 
@@ -21,8 +21,7 @@ GoRouter router(RouterRef ref) {
     routes: [
       GoRoute(
         path: '/',
-        redirect: (context, state) =>
-            !WallabagInstance.isReady ? '/login' : null,
+        redirect: (context, state) => !ServerInstance.isReady ? '/login' : null,
         builder: (context, state) {
           final rawArticleId = state.uri.queryParameters['articleId'];
           final articleId =

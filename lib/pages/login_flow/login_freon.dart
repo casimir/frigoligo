@@ -4,23 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../buildcontext_extension.dart';
 import '../../providers/server_login_flow.dart';
 import '../../server/check.dart';
-import '../../server/client.dart';
-import '../../server/session.dart';
+import '../../server/freon.dart';
 import '../../services/remote_sync.dart';
 import '../../wallabag/client.dart';
-import '../../wallabag/credentials.dart';
-import '../../wallabag/wallabag.dart';
 import '../../widget_keys.dart';
 import 'login_credentials.dart';
 import 'utils.dart';
 
-class LoginFlowWallabag extends ConsumerStatefulWidget
+class LoginFlowFreon extends ConsumerStatefulWidget
     implements LoginFlowCredentials {
-  const LoginFlowWallabag({
+  const LoginFlowFreon({
     super.key,
     required this.serverCheck,
     this.initial = const {},
@@ -32,10 +30,10 @@ class LoginFlowWallabag extends ConsumerStatefulWidget
   final void Function()? onReset;
 
   @override
-  ConsumerState<LoginFlowWallabag> createState() => _LoginFlowWallabagState();
+  ConsumerState<LoginFlowFreon> createState() => _LoginFlowFreonState();
 }
 
-class _LoginFlowWallabagState extends ConsumerState<LoginFlowWallabag> {
+class _LoginFlowFreonState extends ConsumerState<LoginFlowFreon> {
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   bool _gotAnError = false;
 
@@ -43,11 +41,8 @@ class _LoginFlowWallabagState extends ConsumerState<LoginFlowWallabag> {
   void initState() {
     super.initState();
 
-    final initialIsExhaustive = widget.initial.isNotEmpty &&
-        widget.initial.containsKey('clientId') &&
-        widget.initial.containsKey('clientSecret') &&
-        widget.initial.containsKey('username') &&
-        widget.initial.containsKey('password');
+    final initialIsExhaustive =
+        widget.initial.isNotEmpty && widget.initial.containsKey('apiToken');
     if (initialIsExhaustive) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         attemptLogin(context);
@@ -92,49 +87,15 @@ class _LoginFlowWallabagState extends ConsumerState<LoginFlowWallabag> {
                 child: Column(
                   children: [
                     FormBuilderTextField(
-                      key: const Key(wkLoginFlowClientId),
-                      name: 'clientId',
+                      name: 'apiToken',
                       validator: (value) => notEmptyValidator(
-                          context, value, context.L.login_fieldClientId),
+                          context, value, context.L.session_fieldApiToken),
                       decoration: InputDecoration(
-                        icon: const Icon(Icons.key),
-                        labelText: context.L.login_fieldClientId,
+                        icon: const Icon(Icons.token),
+                        labelText: context.L.session_fieldApiToken,
                       ),
                       autofocus: true,
                       autocorrect: false,
-                    ),
-                    FormBuilderTextField(
-                      name: 'clientSecret',
-                      validator: (value) => notEmptyValidator(
-                          context, value, context.L.login_fieldClientSecret),
-                      decoration: InputDecoration(
-                        icon: const Icon(Icons.lock),
-                        labelText: context.L.login_fieldClientSecret,
-                      ),
-                      autocorrect: false,
-                    ),
-                    FormBuilderTextField(
-                      name: 'username',
-                      validator: (value) => notEmptyValidator(
-                          context, value, context.L.login_fieldUsername),
-                      decoration: InputDecoration(
-                        icon: const Icon(Icons.person),
-                        labelText: context.L.login_fieldUsername,
-                      ),
-                      autocorrect: false,
-                      autofillHints: const [AutofillHints.username],
-                    ),
-                    FormBuilderTextField(
-                      name: 'password',
-                      validator: (value) => notEmptyValidator(
-                          context, value, context.L.login_fieldPassword),
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        icon: const Icon(Icons.password),
-                        labelText: context.L.login_fieldPassword,
-                      ),
-                      autocorrect: false,
-                      autofillHints: const [AutofillHints.password],
                     ),
                     C.spacers.verticalContent,
                     ElevatedButton(
@@ -160,17 +121,15 @@ class _LoginFlowWallabagState extends ConsumerState<LoginFlowWallabag> {
 
   Future<void> attemptLogin(BuildContext context) async {
     if (_formKey.currentState!.saveAndValidate()) {
-      final credentials = Credentials(
+      final credentials = FreonCredentials(
         widget.serverCheck.uri!,
-        _formKey.currentState!.value['clientId'],
-        _formKey.currentState!.value['clientSecret'],
+        _formKey.currentState!.value['apiToken'],
       );
-      final session = ServerSession(ServerType.wallabag, wallabag: credentials);
       try {
-        final wallabag =
-            await ServerInstance.init(session) as WallabagNativeClient;
-        await wallabag.fetchToken(_formKey.currentState!.value['username'],
-            _formKey.currentState!.value['password']);
+        final freon = FreonClient(credentials);
+        await freon.wallabag.getInfo();
+        FreonCredentialsManager(await SharedPreferences.getInstance())
+            .credentials = credentials;
         ref.read(remoteSyncerProvider.notifier).invalidateWallabagInstance();
         if (context.mounted) {
           context.go('/');
