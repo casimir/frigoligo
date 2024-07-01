@@ -1,0 +1,68 @@
+{
+  "g_version": "Версия",
+  "@g_version": {
+    "description": "A version, as in the application version."
+  },
+  "g_share": "Поделиться",
+  "@g_share": {
+    "description": "A verb, as in to share something."
+  },
+  "g_system": "Система",
+  "@g_system": {},
+  "article_openInBrowser": "Открыть в браузере",
+  "@article_openInBrowser": {
+    "description": "The action to open the article in the web browser."
+  },
+  "listing_articlesAll": "Все статьи",
+  "@listing_articlesAll": {
+    "description": "The title for the list of all the articles."
+  },
+  "settings_itemClearCache": "Очистить кэш",
+  "@settings_itemClearCache": {
+    "description": "The action to clear the offline cache."
+  },
+  "settings_itemLanguage": "Язык",
+  "@settings_itemLanguage": {
+    "description": "The action to change the language of the application."
+  },
+  "g_delete": "Удалить",
+  "@g_delete": {
+    "description": "A verb, as in to delete something."
+  },
+  "g_server": "Сервер",
+  "@g_server": {
+    "description": "A server, as in a computer providing a service."
+  },
+  "g_sourceCode": "Исходный код",
+  "@g_sourceCode": {
+    "description": "The source code of a software."
+  },
+  "filters_articleFavoriteAll": "Все",
+  "@filters_articleFavoriteAll": {
+    "description": "Don't filter articles by favorite status."
+  },
+  "filters_articleStateUnread": "Не прочитанные",
+  "@filters_articleStateUnread": {
+    "description": "Filter articles with the state 'unread'."
+  },
+  "filters_articleStateAll": "Все",
+  "@filters_articleStateAll": {
+    "description": "Don't filter articles by state."
+  },
+  "login_fieldPassword": "Пароль",
+  "@login_fieldPassword": {
+    "description": "The password field of the login form."
+  },
+  "login_fieldUsername": "Имя пользователя",
+  "@login_fieldUsername": {
+    "description": "The username field of the login form."
+  },
+  "settings_title": "Настройки",
+  "@settings_title": {
+    "description": "The title of the settings screen."
+  },
+  "session_neverSynced": "никогда",
+  "@session_neverSynced": {
+    "description": "Default value for the last sync time."
+  }
+}
