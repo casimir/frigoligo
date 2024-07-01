@@ -1,0 +1,4 @@
+將你的連結帶到任何地方並且保持它們新鮮！Frigoligo 是一個 wallabag 用戶端，力求簡單、快速，而且易於使用。
+就像 wallabag 一樣，Frigoligo 可以免費使用、無廣告，而且開源。
+
+你需要一個 wallabag 實例才能使用此應用程式。
