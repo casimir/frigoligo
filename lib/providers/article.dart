@@ -49,7 +49,7 @@ class CurrentArticle extends _$CurrentArticle {
       ref.invalidateSelf();
     });
 
-    ref.read(settingsProvider.notifier)[Sk.selectedArticleId] = articleId;
+    ref.read(settingsProvider.notifier).set(Sk.selectedArticleId, articleId);
 
     ref.invalidateSelf();
   }

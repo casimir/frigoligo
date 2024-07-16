@@ -59,7 +59,11 @@ class SettingsPage extends ConsumerWidget {
                       build(ThemeMode.dark),
                     ],
                   );
-                  if (choice != null) settings[Sk.themeMode] = choice;
+                  if (choice != null) {
+                    ref
+                        .read(settingsProvider.notifier)
+                        .set(Sk.themeMode, choice);
+                  }
                 },
               ),
               if (appBadgeSupported)
@@ -76,14 +80,16 @@ class SettingsPage extends ConsumerWidget {
                       // disabled -> enabled
                       ref.read(wStorageProvider.notifier).updateAppBadge();
                     }
-                    settings[Sk.appBadge] = value;
+                    ref.read(settingsProvider.notifier).set(Sk.appBadge, value);
                   },
                 ),
               SettingsTile.switchTile(
                 leading: const Icon(Icons.tag),
                 title: Text(context.L.settings_savedArticleTag),
                 initialValue: settings[Sk.tagSaveEnabled],
-                onToggle: (value) => settings[Sk.tagSaveEnabled] = value,
+                onToggle: (value) => ref
+                    .read(settingsProvider.notifier)
+                    .set(Sk.tagSaveEnabled, value),
               ),
               SettingsTile.navigation(
                 leading: const Icon(Icons.tag),
@@ -102,7 +108,9 @@ class SettingsPage extends ConsumerWidget {
                     ],
                   );
                   if (result != null) {
-                    settings[Sk.tagSaveLabel] = result.first;
+                    ref
+                        .read(settingsProvider.notifier)
+                        .set(Sk.tagSaveLabel, result.first);
                   }
                 },
                 enabled: settings[Sk.tagSaveEnabled],
@@ -124,7 +132,11 @@ class SettingsPage extends ConsumerWidget {
                     title: context.L.settings_itemLanguage,
                     actions: Language.values.map(build).toList(),
                   );
-                  if (choice != null) settings[Sk.language] = choice;
+                  if (choice != null) {
+                    ref
+                        .read(settingsProvider.notifier)
+                        .set(Sk.language, choice);
+                  }
                 },
               ),
               SettingsTile(

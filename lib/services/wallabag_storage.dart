@@ -147,7 +147,7 @@ class WStorage extends _$WStorage {
   }
 
   Future<void> updateAppBadge() async {
-    final settings = ref.read(settingsProvider.notifier);
+    final settings = ref.read(settingsProvider);
     if (!appBadgeSupported || !settings[Sk.appBadge]) return;
 
     final unread =
@@ -186,7 +186,6 @@ class WStorage extends _$WStorage {
     }
 
     final db = DB.get();
-    final settings = ref.read(settingsProvider.notifier);
 
     var count = 0;
     final sinceRepr = since != null
@@ -224,7 +223,7 @@ class WStorage extends _$WStorage {
         'completed refresh of $count entries in ${stopwatch.elapsed.inSeconds} s');
 
     final now = DateTime.now().millisecondsSinceEpoch / 1000;
-    settings[Sk.lastRefresh] = now.toInt();
+    ref.read(settingsProvider.notifier).set(Sk.lastRefresh, now.toInt());
 
     _syncRemoteDeletes();
 
@@ -235,8 +234,7 @@ class WStorage extends _$WStorage {
 
   Future<int> incrementalRefresh(
       {int? threshold, void Function(double)? onProgress}) async {
-    final settings = ref.read(settingsProvider.notifier);
-    final int since = settings[Sk.lastRefresh];
+    final int since = ref.read(settingsProvider)[Sk.lastRefresh];
     if (threshold != null && since > 0) {
       final now = DateTime.now().millisecondsSinceEpoch / 1000;
       final elapsed = now - since;

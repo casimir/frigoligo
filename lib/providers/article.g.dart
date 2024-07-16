@@ -6,7 +6,7 @@ part of 'article.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$currentArticleHash() => r'96964b35da7af89cea4a21ca371f42a59ace41a5';
+String _$currentArticleHash() => r'24c356e040e69f43d04d3ed17a61b6b41c9f93bc';
 
 /// See also [CurrentArticle].
 @ProviderFor(CurrentArticle)

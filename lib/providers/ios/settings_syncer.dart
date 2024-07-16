@@ -8,17 +8,17 @@ final _log = Logger('settings.ios.syncer');
 class SettingsSyncer {
   SettingsSyncer(this.settings);
 
-  final SettingsValues settings;
+  final Settings settings;
 
   Future<bool> _isSet() async =>
       await SharedPreferenceAppGroup.get(Sk.tagSaveLabel.key) != null;
 
   Future<void> onChange(Sk skey, dynamic value) async {
     if (skey == Sk.tagSaveEnabled || skey == Sk.tagSaveLabel) {
-      if (settings[Sk.tagSaveEnabled]) {
-        _log.info('saving tag label: ${settings[Sk.tagSaveLabel]}');
+      if (settings.get(Sk.tagSaveEnabled)) {
+        _log.info('saving tag label: ${settings.get(Sk.tagSaveLabel)}');
         SharedPreferenceAppGroup.setString(
-            Sk.tagSaveLabel.key, settings[Sk.tagSaveLabel]);
+            Sk.tagSaveLabel.key, settings.get(Sk.tagSaveLabel));
       } else if (await _isSet()) {
         _log.info('clearing tag label');
         SharedPreferenceAppGroup.remove(Sk.tagSaveLabel.key);

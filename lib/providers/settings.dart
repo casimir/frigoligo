@@ -2,51 +2,49 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:universal_platform/universal_platform.dart';
 
 import 'ios/settings_syncer.dart';
 
+part 'settings.g.dart';
+
 final _log = Logger('settings');
 
-class SettingsValues extends ChangeNotifier {
+@riverpod
+class Settings extends _$Settings {
   static Language? initialLocaleOverride;
+  static String? namespace = kDebugMode ? 'debug' : null;
   static late SharedPreferences _prefs;
 
   static Future<void> init() async {
     _prefs = await SharedPreferences.getInstance();
   }
 
-  SettingsValues({this.namespace}) {
+  Settings() {
     if (UniversalPlatform.isIOS) {
       _syncer = SettingsSyncer(this);
     }
 
     if (initialLocaleOverride != null) {
       _log.info('initial locale override: $initialLocaleOverride');
-      this[Sk.language] = initialLocaleOverride;
+      set(Sk.language, initialLocaleOverride);
       initialLocaleOverride = null;
     }
   }
 
-  final String? namespace;
   SettingsSyncer? _syncer;
+
+  @override
+  Map<Sk, dynamic> build() {
+    return Map.unmodifiable({for (final it in Sk.values) it: get(it)});
+  }
 
   String _k(String key) => namespace != null ? '\$$namespace.$key' : key;
 
-  operator [](Sk skey) => _getValue(skey);
-  operator []=(Sk skey, dynamic value) {
-    _log.info('updating $skey to $value');
-    _setValue(skey, value);
-    _syncer?.onChange(skey, value);
-    notifyListeners();
-  }
-
-  Set<String> get keys => _prefs.getKeys();
-
-  dynamic _getValue(Sk skey) {
+  dynamic get(Sk skey) {
     final key = _k(skey.key);
     if (skey.items != null) {
       final index = _prefs.getInt(_k(skey.key));
@@ -67,6 +65,13 @@ class SettingsValues extends ChangeNotifier {
         if (raw == null) return skey.initial;
         return jsonDecode(raw);
     }
+  }
+
+  void set(Sk skey, dynamic value) {
+    _log.info('updating $skey to $value');
+    _setValue(skey, value);
+    _syncer?.onChange(skey, value);
+    ref.invalidateSelf();
   }
 
   Future<bool> _setValue(Sk skey, dynamic value) {
@@ -91,13 +96,13 @@ class SettingsValues extends ChangeNotifier {
   Future<bool> clear() async {
     final ret = await _prefs.clear();
     _syncer?.onClear();
-    notifyListeners();
+    ref.invalidateSelf();
     return ret;
   }
 
   Future<bool> remove(Sk skey) async {
     final ret = await _prefs.remove(_k(skey.key));
-    notifyListeners();
+    ref.invalidateSelf();
     return ret;
   }
 }
@@ -139,7 +144,3 @@ enum Language {
   final Locale? locale;
   final String nativeName;
 }
-
-// TODO rewrite with the decorator syntax
-final settingsProvider = ChangeNotifierProvider(
-    (ref) => SettingsValues(namespace: kDebugMode ? 'debug' : null));

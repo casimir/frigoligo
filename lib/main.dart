@@ -64,7 +64,7 @@ Future<void> main() async {
 
   await AppInfo.init();
   await DB.init(kDebugMode);
-  await SettingsValues.init();
+  await Settings.init();
 
   _log.info('app version: ${AppInfo.versionVerbose}');
   _log.info('platform:    ${UniversalPlatform.operatingSystem}');
