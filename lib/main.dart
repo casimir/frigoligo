@@ -109,13 +109,16 @@ class _MyAppState extends ConsumerState<MyApp> {
     // one shot providers
     ref.watch(backgroundSyncProvider);
 
+    final lang = ref.watch(settingsProvider.select((it) => it[Sk.language]));
+    final theme = ref.watch(settingsProvider.select((it) => it[Sk.themeMode]));
+
     return MaterialApp.router(
       routerConfig: ref.watch(routerProvider),
       title: 'Frigoligo',
       theme: ThemeData(colorScheme: schemeLight, useMaterial3: true),
       darkTheme: ThemeData(colorScheme: schemeDark, useMaterial3: true),
-      themeMode: ref.watch(themeModeProvider),
-      locale: ref.watch(languageProvider).locale,
+      themeMode: theme,
+      locale: lang.locale,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       restorationScopeId: 'app',

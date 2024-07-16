@@ -23,7 +23,8 @@ class CurrentArticle extends _$CurrentArticle {
 
   @override
   Article? build() {
-    _articleId ??= ref.watch(selectedArticleIdProvider);
+    _articleId ??=
+        ref.watch(settingsProvider.select((it) => it[Sk.selectedArticleId]));
 
     if (_articleId != null) {
       return DB.get().articles.getSync(_articleId!);

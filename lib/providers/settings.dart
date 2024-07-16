@@ -4,13 +4,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:universal_platform/universal_platform.dart';
 
 import 'ios/settings_syncer.dart';
-
-part 'settings.g.dart';
 
 final _log = Logger('settings');
 
@@ -146,11 +143,3 @@ enum Language {
 // TODO rewrite with the decorator syntax
 final settingsProvider = ChangeNotifierProvider(
     (ref) => SettingsValues(namespace: kDebugMode ? 'debug' : null));
-final languageProvider =
-    Provider<Language>((ref) => ref.watch(settingsProvider)[Sk.language]);
-final themeModeProvider =
-    Provider<ThemeMode>((ref) => ref.watch(settingsProvider)[Sk.themeMode]);
-
-@riverpod
-int? selectedArticleId(SelectedArticleIdRef ref) =>
-    ref.watch(settingsProvider.select((it) => it[Sk.selectedArticleId]));
