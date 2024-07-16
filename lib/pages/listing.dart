@@ -11,7 +11,6 @@ import '../constants.dart';
 import '../dialogs/save.dart';
 import '../models/article.dart';
 import '../providers/article.dart';
-import '../providers/open_article.dart';
 import '../providers/query.dart';
 import '../services/remote_sync.dart';
 import '../services/remote_sync_actions/articles.dart';

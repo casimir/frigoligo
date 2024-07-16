@@ -73,3 +73,17 @@ class CurrentArticle extends _$CurrentArticle {
     });
   }
 }
+
+@riverpod
+class OpenArticle extends _$OpenArticle {
+  @override
+  int? build() => null;
+
+  void schedule(int articleId) {
+    state = articleId;
+  }
+
+  void reset() {
+    state = null;
+  }
+}

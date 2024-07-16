@@ -11,7 +11,6 @@ import '../pages/session_details.dart';
 import '../pages/settings.dart';
 import '../server/providers/wallabag_client.dart';
 import 'article.dart';
-import 'open_article.dart';
 import 'server_login_flow.dart';
 
 part 'router.g.dart';
