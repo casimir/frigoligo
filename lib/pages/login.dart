@@ -8,17 +8,12 @@ import '../buildcontext_extension.dart';
 import '../models/db.dart';
 import '../providers/server_login_flow.dart';
 import '../providers/settings.dart';
-import '../wallabag/wallabag.dart';
+import '../server/providers/wallabag_client.dart';
 import 'login_flow/check_server.dart';
 import 'login_flow/login_wallabag.dart';
-import 'login_flow/utils.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
-  const LoginPage({super.key, this.initial});
-
-  final Map<String, String>? initial;
-
-  bool get hasInitialData => initial != null && initial!.isNotEmpty;
+  const LoginPage({super.key});
 
   @override
   ConsumerState<LoginPage> createState() => _LoginPageState();
@@ -26,81 +21,72 @@ class LoginPage extends ConsumerStatefulWidget {
 
 class _LoginPageState extends ConsumerState<LoginPage> {
   late Map<String, String>? _currentData;
-  bool _hasBeenReset = false;
-
-  @override
-  void initState() {
-    super.initState();
-
-    // use server-level data if already configured
-    final wallabag = WallabagInstance.get();
-    if (!widget.hasInitialData && wallabag.hasCredentials) {
-      _currentData = {
-        'server': wallabag.credentials.server.toString(),
-        'clientId': wallabag.credentials.clientId,
-        'clientSecret': wallabag.credentials.clientSecret,
-      };
-    } else {
-      _currentData = widget.initial;
-    }
-
-    // ask for confirmation if there is an existing session
-    // skip it if some initial data is provided (deeplink)
-    if (!widget.hasInitialData && WallabagInstance.isReady) {
-      WidgetsBinding.instance.addPostFrameCallback((_) async {
-        final settings = ref.read(settingsProvider);
-        final result = await showOkCancelAlertDialog(
-          context: context,
-          title: context.L.login_existingSessionDialogTitle,
-          message: context.L.login_existingSessionDialogMessage,
-          okLabel: context.L.login_existingSessionDialogConfirm,
-          isDestructiveAction: true,
-        );
-        if (result == OkCancelResult.ok) {
-          await WallabagInstance.get().resetTokenData();
-          settings.remove(Sk.lastRefresh);
-          await DB.clear();
-        } else {
-          if (context.mounted) {
-            context.go('/');
-          }
-        }
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.hasInitialData &&
-        !_hasBeenReset &&
-        _currentData != widget.initial) {
-      // when a deeplink is opened and the login page is already shown
-      logger.info('override initial data');
-      _currentData = widget.initial;
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        ref.read(serverLoginFlowProvider.notifier).reset();
-      });
-    }
-
-    final serverCheck =
-        ref.watch(serverLoginFlowProvider.select((value) => value.$2));
-
     return Scaffold(
       body: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: mediumBreakpoint),
-          child: serverCheck == null || !serverCheck.isValid
-              ? LoginFlowServer(initial: _currentData?['server'])
-              : LoginFlowWallabag(
-                  serverCheck: serverCheck,
-                  initial: _currentData ?? {},
-                  onReset: () => setState(() {
-                    _currentData = null;
-                    _hasBeenReset = true;
-                  }),
-                ),
+          child: _buildBody(),
         ),
       ),
     );
+  }
+
+  Widget _buildBody() {
+    final flowState = ref.watch(serverLoginFlowProvider);
+
+    if (flowState case FSReady(initial: final initial)) {
+      _currentData = initial;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        // ask for confirmation if there is an existing session
+        // skip it if some initial data is provided (deeplink)
+        if (initial == null) {
+          ref.read(sessionProvider.future).then((session) {
+            if (session != null) {
+              _triggerConfirmationDialog();
+            }
+          });
+        }
+      });
+    }
+
+    final flowServer = LoginFlowServer(initial: _currentData?['server']);
+    final body = switch (flowState) {
+      FSInitializing() =>
+        const Center(child: CircularProgressIndicator.adaptive()),
+      FSReady() || FSChecking() => flowServer,
+      FSChecked(check: final check) when !check.isValid => flowServer,
+      FSChecked() => null,
+    };
+    if (body != null) return body;
+
+    return LoginFlowWallabag(
+      serverCheck: (flowState as FSChecked).check,
+      initial: _currentData ?? {},
+      onReset: () => setState(() {
+        _currentData = null;
+      }),
+    );
+  }
+
+  Future<void> _triggerConfirmationDialog() async {
+    final result = await showOkCancelAlertDialog(
+      context: context,
+      title: context.L.login_existingSessionDialogTitle,
+      message: context.L.login_existingSessionDialogMessage,
+      okLabel: context.L.login_existingSessionDialogConfirm,
+      isDestructiveAction: true,
+    );
+    if (result == OkCancelResult.ok) {
+      await ref.read(sessionProvider.notifier).logout();
+      await ref.read(settingsProvider.notifier).remove(Sk.lastRefresh);
+      await DB.clear();
+    } else {
+      if (context.mounted) {
+        context.go('/');
+      }
+    }
   }
 }

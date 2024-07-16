@@ -6,7 +6,7 @@ import 'package:frigoligo/widget_keys.dart';
 import 'package:test/test.dart';
 
 // this is obviously not versioned
-import '../tools/test_credentials.local.dart';
+import 'test_credentials.local.dart';
 
 const captureDebug = false;
 
@@ -81,18 +81,18 @@ Future<void> main() async {
     });
 
     test('login', () async {
-      await driver.enterText(TestCredentials.server.toString());
+      await driver.enterText(testCredentials.server.toString());
       await driver.sendTextInputAction(TextInputAction.done);
       await takeScreenshot('loginflow-server');
 
       await driver.waitFor(find.byValueKey(wkLoginFlowClientId));
-      await driver.enterText(TestCredentials.clientId);
+      await driver.enterText(testCredentials.clientId);
       await driver.sendTextInputAction(TextInputAction.next);
-      await driver.enterText(TestCredentials.clientSecret);
+      await driver.enterText(testCredentials.clientSecret);
       await driver.sendTextInputAction(TextInputAction.next);
-      await driver.enterText(TestCredentials.user);
+      await driver.enterText(testCredentials.user);
       await driver.sendTextInputAction(TextInputAction.next);
-      await driver.enterText(TestCredentials.password);
+      await driver.enterText(testCredentials.password);
       await driver.sendTextInputAction(TextInputAction.next);
       await takeScreenshot('loginflow-credentials');
       await driver.tap(find.byValueKey(wkLoginFlowLogIn));

@@ -1,4 +1,5 @@
 import '../remote_sync.dart';
+import '../wallabag_storage.dart';
 import 'articles.dart';
 
 typedef ActionParams = Map<String, dynamic>;
@@ -24,7 +25,7 @@ abstract class RemoteSyncAction {
     return actionBuilderRegistry[className]!(params);
   }
 
-  Future<void> execute(RemoteSyncer syncer);
+  Future<void> execute(RemoteSyncer syncer, WStorage storage);
 
   @override
   String toString() {
@@ -33,6 +34,7 @@ abstract class RemoteSyncAction {
 }
 
 // TODO could not find a way to do it in dart without importing the other file
+// TODO look into freezed union types
 Map<String, RemoteSyncAction Function(ActionParams)> actionBuilderRegistry = {
   'RefreshArticlesAction': RefreshArticlesAction.fromParams,
   'DeleteArticleAction': DeleteArticleAction.fromParams,

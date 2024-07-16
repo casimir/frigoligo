@@ -1,26 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'article.dart';
+part of 'background_sync.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$currentArticleHash() => r'fad6198d708d6b038f54c37e4955fab7f57a52c1';
+String _$backgroundSyncHash() => r'fca95164a2e0b118347b94a0323561bd51b34598';
 
-/// See also [CurrentArticle].
-@ProviderFor(CurrentArticle)
-final currentArticleProvider =
-    AutoDisposeNotifierProvider<CurrentArticle, Article?>.internal(
-  CurrentArticle.new,
-  name: r'currentArticleProvider',
+/// See also [backgroundSync].
+@ProviderFor(backgroundSync)
+final backgroundSyncProvider = AutoDisposeProvider<void>.internal(
+  backgroundSync,
+  name: r'backgroundSyncProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$currentArticleHash,
+      : _$backgroundSyncHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$CurrentArticle = AutoDisposeNotifier<Article?>;
+typedef BackgroundSyncRef = AutoDisposeProviderRef<void>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

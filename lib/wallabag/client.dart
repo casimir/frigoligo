@@ -78,9 +78,7 @@ abstract class WallabagClient extends http.BaseClient {
   Logger get logger => _log;
   String? get userAgent => UniversalPlatform.isWeb ? null : AppInfo.userAgent;
 
-  bool get isReady;
-
-  Uri buildUri(String path, [Map<String, dynamic>? queryParameters]);
+  Future<Uri> buildUri(String path, [Map<String, dynamic>? queryParameters]);
 }
 
 extension WallabagClientEndpoints on WallabagClient {
@@ -110,7 +108,7 @@ extension WallabagClientEndpoints on WallabagClient {
       'detail': detail?.name,
       'domain_name': domainName,
     }..removeWhere((_, value) => value == null);
-    final response = await get(buildUri(
+    final response = await get(await buildUri(
       '/api/entries',
       params.map((key, value) => MapEntry(key, value.toString())),
     ));
@@ -119,7 +117,7 @@ extension WallabagClientEndpoints on WallabagClient {
   }
 
   Future<WallabagEntry> getEntry(int id) async {
-    final response = await get(buildUri('/api/entries/$id'));
+    final response = await get(await buildUri('/api/entries/$id'));
     throwOnError(response);
     return safeDecode(response, WallabagEntry.fromJson);
   }
@@ -153,7 +151,7 @@ extension WallabagClientEndpoints on WallabagClient {
       if (originUrl != null) 'origin_url': originUrl,
     };
     final response = await post(
-      buildUri('/api/entries'),
+      await buildUri('/api/entries'),
       body: params.map((key, value) => MapEntry(key, value.toString())),
     );
     throwOnError(response);
@@ -172,7 +170,7 @@ extension WallabagClientEndpoints on WallabagClient {
       if (tags != null) 'tags': tags.join(','),
     };
     final response = await patch(
-      buildUri('/api/entries/$id'),
+      await buildUri('/api/entries/$id'),
       body: params.map((key, value) => MapEntry(key, value.toString())),
     );
     throwOnError(response);
@@ -180,14 +178,14 @@ extension WallabagClientEndpoints on WallabagClient {
   }
 
   Future<http.Response> deleteEntry(int id) async {
-    final response = await delete(buildUri('/api/entries/$id'));
+    final response = await delete(await buildUri('/api/entries/$id'));
     // avoid blocking the syncer with a 404 status (nothing to delete)
     throwOnError(response, expected: [200, 404]);
     return response;
   }
 
   Future<WallabagInfo> getInfo() async {
-    final response = await get(buildUri('/api/info'));
+    final response = await get(await buildUri('/api/info'));
     throwOnError(response);
     return safeDecode(response, WallabagInfo.fromJson);
   }

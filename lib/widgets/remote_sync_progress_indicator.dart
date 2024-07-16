@@ -4,18 +4,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../buildcontext_extension.dart';
+import '../server/providers/wallabag_client.dart';
 import '../services/remote_sync.dart';
 import '../wallabag/client.dart';
-import '../wallabag/wallabag.dart';
 
 class RemoteSyncProgressIndicator extends ConsumerWidget {
   const RemoteSyncProgressIndicator({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final syncer = ref.watch(remoteSyncerProvider);
+    final syncState = ref.watch(remoteSyncerProvider);
 
-    final error = syncer.lastError;
+    final error = syncState.lastError;
     if (error != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         if (error is ServerError && error.isInvalidTokenError) {
@@ -26,7 +26,7 @@ class RemoteSyncProgressIndicator extends ConsumerWidget {
             okLabel: context.L.login_actionLogin,
           );
           if (result == OkCancelResult.ok) {
-            await WallabagInstance.get().resetTokenData();
+            await ref.read(sessionProvider.notifier).invalidate();
             if (context.mounted) {
               context.go('/login');
             }
@@ -38,10 +38,10 @@ class RemoteSyncProgressIndicator extends ConsumerWidget {
       });
     }
 
-    if (error != null || !syncer.isWorking) {
+    if (error != null || !syncState.isWorking) {
       return const SizedBox.shrink();
     } else {
-      return LinearProgressIndicator(value: syncer.progressValue);
+      return LinearProgressIndicator(value: syncState.progressValue);
     }
   }
 }

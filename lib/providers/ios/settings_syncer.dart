@@ -1,16 +1,11 @@
 import 'package:logging/logging.dart';
 import 'package:shared_preference_app_group/shared_preference_app_group.dart';
 
-import '../../constants.dart';
 import '../settings.dart';
 
 final _log = Logger('settings.ios.syncer');
 
 class SettingsSyncer {
-  static Future<void> init() async {
-    await SharedPreferenceAppGroup.setAppGroup(appGroupId);
-  }
-
   SettingsSyncer(this.settings);
 
   final SettingsValues settings;

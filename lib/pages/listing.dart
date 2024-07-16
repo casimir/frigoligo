@@ -61,7 +61,7 @@ class _ListingPageState extends ConsumerState<ListingPage> {
       if (articleId != null) {
         final query = ref.read(queryProvider);
         final scrollToIndex =
-            ref.read(storageProvider.notifier).indexOf(articleId, query);
+            ref.read(wStorageProvider.notifier).indexOf(articleId, query);
         if (scrollToIndex != null) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             _scroller.jumpTo(scrollToIndex * listingHeight);
@@ -73,6 +73,8 @@ class _ListingPageState extends ConsumerState<ListingPage> {
 
   @override
   Widget build(BuildContext context) {
+    ref.watch(wStorageProvider);
+
     final pendingOpenArticleId = ref.watch(openArticleProvider);
     if (pendingOpenArticleId != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -81,7 +83,7 @@ class _ListingPageState extends ConsumerState<ListingPage> {
       });
     }
 
-    final storage = ref.watch(storageProvider);
+    final storage = ref.watch(wStorageProvider.notifier);
     final query = ref.watch(queryProvider);
 
     Future<void> doRefresh() async {

@@ -26,7 +26,9 @@ class _HomePageState extends ConsumerState<HomePage> {
     isFirstInit = true;
     if (!periodicSyncSupported) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        RemoteSyncer.instance.synchronize(withFinalRefresh: true);
+        ref
+            .read(remoteSyncerProvider.notifier)
+            .synchronize(withFinalRefresh: true);
       });
     }
   }

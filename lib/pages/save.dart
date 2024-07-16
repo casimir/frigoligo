@@ -8,8 +8,8 @@ import '../buildcontext_extension.dart';
 import '../models/article.dart';
 import '../models/db.dart';
 import '../providers/settings.dart';
+import '../server/providers/wallabag_client.dart';
 import '../wallabag/client.dart';
-import '../wallabag/wallabag.dart';
 
 class SavePage extends ConsumerStatefulWidget {
   const SavePage({super.key, required this.url});
@@ -59,8 +59,9 @@ class _SavePageState extends ConsumerState<SavePage> {
     }
 
     try {
-      final entry =
-          await WallabagInstance.get().createEntry(widget.url!, tags: tags);
+      // TODO use WStorage or RSA instead of local implementation
+      final wallabag = await ref.read(clientProvider.future);
+      final entry = await wallabag!.createEntry(widget.url!, tags: tags);
       final article = Article.fromWallabagEntry(entry);
 
       final db = DB.get();

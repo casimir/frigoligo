@@ -11,13 +11,15 @@ class RemoteSyncFAB extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final syncer = ref.watch(remoteSyncerProvider);
-    final showButton = showIf && !syncer.isWorking && syncer.pendingCount > 0;
+    final syncState = ref.watch(remoteSyncerProvider);
+    final syncer = ref.read(remoteSyncerProvider.notifier);
+    final showButton =
+        showIf && !syncState.isWorking && syncer.getPendingCount() > 0;
 
     if (showButton) {
       return FloatingActionButton.extended(
         icon: const Icon(Icons.sync),
-        label: Text(context.L.syncer_pendingActions(syncer.pendingCount)),
+        label: Text(context.L.syncer_pendingActions(syncer.getPendingCount())),
         onPressed: () => syncer.synchronize(),
       );
     } else {

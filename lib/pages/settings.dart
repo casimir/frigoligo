@@ -13,6 +13,7 @@ import '../buildcontext_extension.dart';
 import '../constants.dart';
 import '../providers/settings.dart';
 import '../services/remote_sync.dart';
+import '../services/wallabag_storage.dart';
 import '../widget_keys.dart';
 
 final _log = Logger('settings');
@@ -29,7 +30,6 @@ class SettingsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final settings = ref.watch(settingsProvider);
-    final storage = RemoteSyncer.instance.wallabag!;
 
     return Scaffold(
       appBar: AppBar(
@@ -71,10 +71,10 @@ class SettingsPage extends ConsumerWidget {
                     final previous = settings[Sk.appBadge];
                     if (previous && !value) {
                       // enabled -> disabled
-                      storage.removeAppBadge();
+                      ref.read(wStorageProvider.notifier).removeAppBadge();
                     } else if (!previous && value) {
                       // disabled -> enabled
-                      storage.updateAppBadge();
+                      ref.read(wStorageProvider.notifier).updateAppBadge();
                     }
                     settings[Sk.appBadge] = value;
                   },
@@ -199,7 +199,7 @@ class SettingsPage extends ConsumerWidget {
                   _log.info('user action > cache rebuild');
                   settings.remove(Sk.lastRefresh);
                   if (context.mounted) {
-                    storage.clearArticles();
+                    ref.read(wStorageProvider.notifier).clearArticles();
                     ref
                         .read(remoteSyncerProvider.notifier)
                         .synchronize(withFinalRefresh: true);

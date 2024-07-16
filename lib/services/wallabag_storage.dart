@@ -1,10 +1,9 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:isar/isar.dart';
 import 'package:logging/logging.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../constants.dart';
 import '../models/article.dart';
@@ -12,25 +11,23 @@ import '../models/article_scroll_position.dart';
 import '../models/db.dart';
 import '../models/remote_action.dart';
 import '../providers/settings.dart';
+import '../server/providers/wallabag_client.dart';
 import '../wallabag/client.dart';
-import '../wallabag/wallabag.dart';
+
+part 'wallabag_storage.g.dart';
 
 final _log = Logger('wallabag.storage');
 
-class WallabagStorage with ChangeNotifier {
-  WallabagStorage(this.settings) {
-    _watcher = db.articles.watchLazy().listen((_) => notifyListeners());
-  }
-
-  final DBInstance db = DB.get();
-  final WallabagNativeClient wallabag = WallabagInstance.get();
+@riverpod
+class WStorage extends _$WStorage {
   StreamSubscription? _watcher;
-  final SettingsValues settings;
 
   @override
-  void dispose() {
+  void build() async {
     _watcher?.cancel();
-    super.dispose();
+    _watcher =
+        DB.get().articles.watchLazy().listen((_) => ref.invalidateSelf());
+    ref.onDispose(() => _watcher?.cancel());
   }
 
   Query<R> _buildQuery<R>(WQuery wq, {String? sort, String? property}) {
@@ -78,11 +75,11 @@ class WallabagStorage with ChangeNotifier {
       sortBy.add(SortProperty(property: property, sort: direction));
     }
 
-    return db.articles.buildQuery(
-      filter: filter,
-      sortBy: sortBy,
-      property: property,
-    );
+    return DB.get().articles.buildQuery(
+          filter: filter,
+          sortBy: sortBy,
+          property: property,
+        );
   }
 
   List<Article> all(WQuery wq) =>
@@ -92,7 +89,7 @@ class WallabagStorage with ChangeNotifier {
     if (n < 0 || n >= count(wq)) return null;
     final ids =
         _buildQuery(wq, sort: '-createdAt', property: 'id').findAllSync();
-    return db.articles.getSync(ids[n])!;
+    return DB.get().articles.getSync(ids[n])!;
   }
 
   int? indexOf(int articleId, WQuery wq) {
@@ -105,8 +102,10 @@ class WallabagStorage with ChangeNotifier {
 
   int count(WQuery wq) => _buildQuery(wq).countSync();
 
-  List<String> get tags {
-    var tags = db.articles
+  List<String> getTags() {
+    var tags = DB
+        .get()
+        .articles
         .where()
         .tagsProperty()
         .findAllSync()
@@ -119,6 +118,9 @@ class WallabagStorage with ChangeNotifier {
 
   Future<int> _syncRemoteDeletes() async {
     _log.info('checking for server-side deletions');
+    final wallabag = (await ref.read(clientProvider.future))!;
+    final db = DB.get();
+
     final remoteCount = await wallabag.fetchTotalEntriesCount();
     var localIds = (await db.articles.where().idProperty().findAll()).toSet();
     final delta = localIds.length - remoteCount;
@@ -145,6 +147,7 @@ class WallabagStorage with ChangeNotifier {
   }
 
   Future<void> updateAppBadge() async {
+    final settings = ref.read(settingsProvider.notifier);
     if (!appBadgeSupported || !settings[Sk.appBadge]) return;
 
     final unread =
@@ -163,6 +166,8 @@ class WallabagStorage with ChangeNotifier {
   }
 
   Future<void> clearArticles({bool keepPositions = true}) async {
+    final db = DB.get();
+
     await db.writeTxn(() async {
       await db.articles.clear();
       if (!keepPositions) await db.articleScrollPositions.clear();
@@ -174,6 +179,10 @@ class WallabagStorage with ChangeNotifier {
 
   Future<int> fullRefresh(
       {int? since, void Function(double)? onProgress}) async {
+    final db = DB.get();
+    final wallabag = (await ref.read(clientProvider.future))!;
+    final settings = ref.read(settingsProvider.notifier);
+
     var count = 0;
     final sinceRepr = since != null
         ? DateTime.fromMillisecondsSinceEpoch(since * 1000).toIso8601String()
@@ -221,6 +230,7 @@ class WallabagStorage with ChangeNotifier {
 
   Future<int> incrementalRefresh(
       {int? threshold, void Function(double)? onProgress}) async {
+    final settings = ref.read(settingsProvider.notifier);
     final int since = settings[Sk.lastRefresh];
     if (threshold != null && since > 0) {
       final now = DateTime.now().millisecondsSinceEpoch / 1000;
@@ -235,6 +245,8 @@ class WallabagStorage with ChangeNotifier {
   }
 
   Future<void> persistArticle(Article article) async {
+    final db = DB.get();
+
     final scrollPosition = await db.articleScrollPositions.get(article.id!);
     await db.writeTxn(() async {
       await db.articles.put(article);
@@ -245,6 +257,9 @@ class WallabagStorage with ChangeNotifier {
   }
 
   Future<void> deleteArticle(int articleId) async {
+    final db = DB.get();
+    final wallabag = (await ref.read(clientProvider.future))!;
+
     await wallabag.deleteEntry(articleId);
     await db.writeTxn(() async {
       await db.articles.delete(articleId);
@@ -258,6 +273,7 @@ class WallabagStorage with ChangeNotifier {
     bool? starred,
     List<String>? tags,
   }) async {
+    final wallabag = (await ref.read(clientProvider.future))!;
     await wallabag.patchEntry(
       articleId,
       archive: archive,
