@@ -53,7 +53,7 @@ class _SavePageState extends ConsumerState<SavePage> {
         okLabel: context.L.save_dubiousUrlConfirm,
       );
       if (res == OkCancelResult.cancel) {
-        if (context.mounted) context.pop();
+        if (mounted) context.pop();
         return;
       }
     }

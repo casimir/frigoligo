@@ -84,9 +84,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       await ref.read(settingsProvider.notifier).remove(Sk.lastRefresh);
       await DB.clear();
     } else {
-      if (context.mounted) {
-        context.go('/');
-      }
+      if (mounted) context.go('/');
     }
   }
 }
