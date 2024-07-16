@@ -59,7 +59,9 @@ class ServerError implements Exception {
     if (response?.body == null) return false;
     try {
       final json = jsonDecode(response!.body);
-      return json['error'] == 'invalid_grant';
+      final description = json['error_description'] as String;
+      return json['error'] == 'invalid_grant' &&
+          description.toLowerCase().contains('refresh token');
     } catch (_) {
       return false;
     }
