@@ -23,7 +23,7 @@ class WStorage extends _$WStorage {
   StreamSubscription? _watcher;
 
   @override
-  void build() async {
+  void build() {
     _watcher?.cancel();
     _watcher =
         DB.get().articles.watchLazy().listen((_) => ref.invalidateSelf());
