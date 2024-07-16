@@ -26,9 +26,14 @@ class RemoteSyncProgressIndicator extends ConsumerWidget {
             okLabel: context.L.login_actionLogin,
           );
           if (result == OkCancelResult.ok) {
+            final session = await ref.read(sessionProvider.future);
             await ref.read(sessionProvider.notifier).invalidate();
             if (context.mounted) {
-              context.go('/login');
+              final uri = Uri(
+                path: '/login',
+                queryParameters: session!.wallabag!.toJson(),
+              );
+              context.go(uri.toString());
             }
           }
         } else {

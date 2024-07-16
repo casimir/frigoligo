@@ -20,11 +20,17 @@ void throwOnError(http.Response response, {List<int> expected = const [200]}) {
 }
 
 class ServerError implements Exception {
-  const ServerError(this.message, {this.source, this.response});
+  const ServerError(
+    this.message, {
+    this.source,
+    this.response,
+    this.manuallyInvalidated = false,
+  });
 
   final String message;
   final Exception? source;
   final http.Response? response;
+  final bool manuallyInvalidated;
 
   @override
   String toString() {
@@ -48,6 +54,8 @@ class ServerError implements Exception {
       ServerError('unknown error', source: e, response: response);
 
   bool get isInvalidTokenError {
+    if (manuallyInvalidated) return true;
+
     if (response?.body == null) return false;
     try {
       final json = jsonDecode(response!.body);

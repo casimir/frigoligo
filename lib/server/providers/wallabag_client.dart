@@ -31,7 +31,7 @@ class Client extends _$Client {
   @override
   Future<WallabagClient?> build() async {
     final session = await ref.watch(sessionProvider.future);
-    if (session == null) return null;
+    if (session == null || !session.isValid) return null;
 
     switch (session.type) {
       case ServerType.wallabag:

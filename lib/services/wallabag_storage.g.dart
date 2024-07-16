@@ -6,7 +6,7 @@ part of 'wallabag_storage.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$wStorageHash() => r'7f9b9f8bcb0ef5b8e7912b9d4ace25fb8a9dd345';
+String _$wStorageHash() => r'bfec766aed52644743b124bbdf7798814b486b05';
 
 /// See also [WStorage].
 @ProviderFor(WStorage)

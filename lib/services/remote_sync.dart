@@ -77,8 +77,8 @@ class RemoteSyncer extends _$RemoteSyncer {
         _log.info('running action: $_refreshAction');
         await _refreshAction.execute(this, ref.read(wStorageProvider.notifier));
       }
-    } on Exception catch (e, st) {
-      _log.severe('error while executing actions', e, st);
+    } on Exception catch (e) {
+      _log.severe('error while executing actions', e);
       _error = e;
     } finally {
       state = SyncState(

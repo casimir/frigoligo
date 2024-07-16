@@ -36,7 +36,9 @@ class WallabagNativeClient extends WallabagClient {
       if (userAgent != null) 'User-Agent': userAgent!,
     });
     if (!request.url.path.endsWith(tokenEndpointPath)) {
-      if (credentials.token?.isExpired ?? false) await refreshToken();
+      if (credentials.token?.isExpired ?? true) {
+        await refreshToken();
+      }
       final accessToken = credentials.token!.accessToken;
       request.headers['Authorization'] = 'Bearer $accessToken';
     }

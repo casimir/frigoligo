@@ -33,7 +33,10 @@ Future<void> main() async {
     if (record.error != null) {
       line += ' (${record.error})';
     }
-    debugPrint(line);
+    if (record.stackTrace != null) {
+      line += '\n${record.stackTrace}';
+    }
+    debugPrint(line.trimRight());
   });
   FlutterError.onError = (errorDetails) {
     final repr = errorDetails.exceptionAsString();

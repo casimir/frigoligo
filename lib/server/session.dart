@@ -28,6 +28,11 @@ class ServerSession {
   String? raw;
   Credentials? wallabag;
 
+  bool get isValid => switch (type) {
+        ServerType.wallabag => wallabag?.token != null,
+        _ => true,
+      };
+
   factory ServerSession.fromJson(Map<String, dynamic> json) =>
       _$ServerSessionFromJson(json);
   Map<String, dynamic> toJson() => _$ServerSessionToJson(this);

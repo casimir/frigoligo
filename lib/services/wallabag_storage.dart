@@ -179,8 +179,13 @@ class WStorage extends _$WStorage {
 
   Future<int> fullRefresh(
       {int? since, void Function(double)? onProgress}) async {
+    final wallabag = await ref.read(clientProvider.future);
+    if (wallabag == null) {
+      // at this point the session can't be null, it must have been invalidated
+      throw const ServerError('invalid session', manuallyInvalidated: true);
+    }
+
     final db = DB.get();
-    final wallabag = (await ref.read(clientProvider.future))!;
     final settings = ref.read(settingsProvider.notifier);
 
     var count = 0;
