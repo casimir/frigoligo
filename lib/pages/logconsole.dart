@@ -13,7 +13,9 @@ class LogConsolePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final console = ref.watch(logConsoleProvider);
+    ref.watch(logConsoleProvider);
+
+    final console = ref.watch(logConsoleProvider.notifier);
     return Scaffold(
       appBar: AppBar(
         title: Text(context.L.logconsole_title),
@@ -34,7 +36,7 @@ class LogConsolePage extends ConsumerWidget {
           ),
           IconButton(
             icon: const Icon(Icons.delete),
-            onPressed: () => console.clear(),
+            onPressed: () => ref.read(logConsoleProvider.notifier).clear(),
           ),
         ],
       ),
