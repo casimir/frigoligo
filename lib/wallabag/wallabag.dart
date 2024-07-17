@@ -30,7 +30,7 @@ class WallabagNativeClient extends WallabagClient {
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) async {
     // loaded every time to handle desync from external extensions
-    final credentials = await _getCredentials();
+    var credentials = await _getCredentials();
 
     request.headers.addAll({
       if (userAgent != null) 'User-Agent': userAgent!,
@@ -38,6 +38,7 @@ class WallabagNativeClient extends WallabagClient {
     if (!request.url.path.endsWith(tokenEndpointPath)) {
       if (credentials.token?.isExpired ?? true) {
         await refreshToken();
+        credentials = await _getCredentials();
       }
       final accessToken = credentials.token!.accessToken;
       request.headers['Authorization'] = 'Bearer $accessToken';
