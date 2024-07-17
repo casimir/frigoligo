@@ -11,15 +11,18 @@ import '../models/db.dart';
 
 part 'logconsole.g.dart';
 
+class LogConsoleToken {}
+
 @riverpod
 class LogConsole extends _$LogConsole {
   StreamSubscription? _watcher;
 
   @override
-  void build() {
+  LogConsoleToken build() {
     _watcher?.cancel();
     _watcher = DB.get().appLogs.watchLazy().listen((_) => ref.invalidateSelf());
     ref.onDispose(() => _watcher?.cancel());
+    return LogConsoleToken();
   }
 
   int getCount() => DB.get().appLogs.countSync();

@@ -81,7 +81,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     );
     if (result == OkCancelResult.ok) {
       await ref.read(sessionProvider.notifier).logout();
-      await ref.read(settingsProvider.notifier).remove(Sk.lastRefresh);
+      await ref.read(settingsProvider.notifier).unset(Sk.lastRefresh);
       await DB.clear();
     } else {
       if (mounted) context.go('/');

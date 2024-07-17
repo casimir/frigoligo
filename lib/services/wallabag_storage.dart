@@ -18,16 +18,19 @@ part 'wallabag_storage.g.dart';
 
 final _log = Logger('wallabag.storage');
 
+class WStorageToken {}
+
 @riverpod
 class WStorage extends _$WStorage {
   StreamSubscription? _watcher;
 
   @override
-  void build() {
+  WStorageToken build() {
     _watcher?.cancel();
     _watcher =
         DB.get().articles.watchLazy().listen((_) => ref.invalidateSelf());
     ref.onDispose(() => _watcher?.cancel());
+    return WStorageToken();
   }
 
   Query<R> _buildQuery<R>(WQuery wq, {String? sort, String? property}) {

@@ -67,10 +67,10 @@ class Settings extends _$Settings {
     }
   }
 
-  void set(Sk skey, dynamic value) {
+  Future<void> set(Sk skey, dynamic value) async {
     _log.info('updating $skey to $value');
-    _setValue(skey, value);
-    _syncer?.onChange(skey, value);
+    await _setValue(skey, value);
+    await _syncer?.onChange(skey, value);
     ref.invalidateSelf();
   }
 
@@ -100,7 +100,7 @@ class Settings extends _$Settings {
     return ret;
   }
 
-  Future<bool> remove(Sk skey) async {
+  Future<bool> unset(Sk skey) async {
     final ret = await _prefs.remove(_k(skey.key));
     ref.invalidateSelf();
     return ret;
