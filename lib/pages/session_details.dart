@@ -10,7 +10,7 @@ import '../buildcontext_extension.dart';
 import '../datetime_extension.dart';
 import '../models/db.dart';
 import '../providers/settings.dart';
-import '../server/providers/wallabag_client.dart';
+import '../server/providers/client.dart';
 import '../wallabag/credentials.dart';
 import '../wallabag/wallabag.dart';
 

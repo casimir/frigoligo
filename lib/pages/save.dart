@@ -8,7 +8,7 @@ import '../buildcontext_extension.dart';
 import '../models/article.dart';
 import '../models/db.dart';
 import '../providers/settings.dart';
-import '../server/providers/wallabag_client.dart';
+import '../server/providers/client.dart';
 import '../wallabag/client.dart';
 
 class SavePage extends ConsumerStatefulWidget {

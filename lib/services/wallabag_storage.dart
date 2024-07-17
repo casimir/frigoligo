@@ -11,7 +11,7 @@ import '../models/article_scroll_position.dart';
 import '../models/db.dart';
 import '../models/remote_action.dart';
 import '../providers/settings.dart';
-import '../server/providers/wallabag_client.dart';
+import '../server/providers/client.dart';
 import '../wallabag/client.dart';
 
 part 'wallabag_storage.g.dart';

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'wallabag_client.dart';
+part of 'client.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -21,7 +21,7 @@ final sessionProvider =
 );
 
 typedef _$Session = AutoDisposeAsyncNotifier<ServerSession?>;
-String _$clientHash() => r'2007e72047c868bfbb3fb656a064b611fac5377a';
+String _$clientHash() => r'6b0202b4e6a8d39da5379dd6ec273fd0dab60448';
 
 /// See also [Client].
 @ProviderFor(Client)

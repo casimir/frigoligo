@@ -2,7 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../server/check.dart';
-import '../server/providers/wallabag_client.dart';
+import '../server/providers/client.dart';
 
 part 'server_login_flow.freezed.dart';
 part 'server_login_flow.g.dart';
