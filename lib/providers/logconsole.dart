@@ -22,7 +22,7 @@ class LogConsole extends _$LogConsole {
     ref.onDispose(() => _watcher?.cancel());
   }
 
-  int get count => DB.get().appLogs.countSync();
+  int getCount() => DB.get().appLogs.countSync();
   AppLog? index(int n) {
     final db = DB.get();
     final ids =

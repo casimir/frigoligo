@@ -41,7 +41,7 @@ class LogConsolePage extends ConsumerWidget {
         ],
       ),
       body: ListView.builder(
-        itemCount: console.count,
+        itemCount: console.getCount(),
         itemBuilder: (context, index) {
           final record = console.index(index)!;
           var message = record.message;
