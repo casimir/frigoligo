@@ -58,10 +58,13 @@ class ServerError implements Exception {
 
     if (response?.body == null) return false;
     try {
+      // wallabag access tokens expired after 14 days (default) it implies a
+      // username/password re-login.
+      // The alternative would be to store the credentials, but no.
       final json = jsonDecode(response!.body);
       final description = json['error_description'] as String;
       return json['error'] == 'invalid_grant' &&
-          description.toLowerCase().contains('refresh token');
+          description.toLowerCase().contains('access token');
     } catch (_) {
       return false;
     }
