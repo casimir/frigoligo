@@ -10,9 +10,9 @@ class RefreshArticlesAction extends RemoteSyncAction {
       const RefreshArticlesAction();
 
   @override
-  Future<void> execute(syncer) async {
-    await syncer.wallabag!.incrementalRefresh(
-      onProgress: (progress) => syncer.progressValue = progress,
+  Future<void> execute(syncer, storage) async {
+    await storage.incrementalRefresh(
+      onProgress: (progress) => syncer.setProgress(progress),
     );
   }
 }
@@ -29,9 +29,9 @@ class DeleteArticleAction extends RemoteSyncAction {
       DeleteArticleAction(params['articleId'] as int);
 
   @override
-  Future<void> execute(syncer) async {
-    await syncer.wallabag!.deleteArticle(articleId);
-    await syncer.wallabag!.updateAppBadge();
+  Future<void> execute(syncer, storage) async {
+    await storage.deleteArticle(articleId);
+    await storage.updateAppBadge();
   }
 }
 
@@ -65,8 +65,8 @@ class EditArticleAction extends RemoteSyncAction {
       );
 
   @override
-  Future<void> execute(syncer) async {
-    await syncer.wallabag!
-        .editArticle(articleId, archive: archive, starred: starred, tags: tags);
+  Future<void> execute(syncer, storage) async {
+    await storage.editArticle(articleId,
+        archive: archive, starred: starred, tags: tags);
   }
 }

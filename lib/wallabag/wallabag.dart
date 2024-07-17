@@ -14,41 +14,31 @@ part 'wallabag.g.dart';
 class WallabagNativeClient extends WallabagClient {
   static String tokenEndpointPath = '/oauth/v2/token';
 
-  static Future<WallabagNativeClient> build({
-    Credentials? credentials,
-    bool? autoSyncCredentials,
-  }) async {
-    late final CredentialsManager credsManager;
-    if (autoSyncCredentials != null) {
-      credsManager = CredentialsManager(autoSync: autoSyncCredentials);
-    } else {
-      credsManager = CredentialsManager();
-    }
-    await credsManager.init(initial: credentials);
-    return WallabagNativeClient(credsManager);
-  }
-
-  WallabagNativeClient(this._credsManager);
+  WallabagNativeClient(this._credsAdapter);
 
   final http.Client _inner = RetryClient(http.Client());
-  final CredentialsManager _credsManager;
+  final UpdatableCredentialsAdapter _credsAdapter;
 
-  bool get hasCredentials => _credsManager.credentials != null;
-  Credentials get credentials => _credsManager.credentials!;
-  bool get canRefreshToken => _credsManager.canRefreshToken;
-  bool get tokenIsExpired => _credsManager.tokenIsExpired;
-
-  @override
-  bool get isReady => canRefreshToken;
+  Future<Credentials> _getCredentials() async {
+    final credentials = await _credsAdapter.read();
+    if (credentials == null) {
+      throw const ServerError('No credentials found');
+    }
+    return credentials;
+  }
 
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) async {
-    _credsManager.load(); // handle desync from external extensions
+    // loaded every time to handle desync from external extensions
+    final credentials = await _getCredentials();
+
     request.headers.addAll({
       if (userAgent != null) 'User-Agent': userAgent!,
     });
     if (!request.url.path.endsWith(tokenEndpointPath)) {
-      if (_credsManager.canRefreshToken && tokenIsExpired) await refreshToken();
+      if (credentials.token?.isExpired ?? true) {
+        await refreshToken();
+      }
       final accessToken = credentials.token!.accessToken;
       request.headers['Authorization'] = 'Bearer $accessToken';
     }
@@ -61,7 +51,9 @@ class WallabagNativeClient extends WallabagClient {
   }
 
   @override
-  Uri buildUri(String path, [Map<String, dynamic>? queryParameters]) {
+  Future<Uri> buildUri(String path,
+      [Map<String, dynamic>? queryParameters]) async {
+    final credentials = await _getCredentials();
     return Uri.https(
       credentials.server.authority,
       credentials.server.path + path,
@@ -72,13 +64,14 @@ class WallabagNativeClient extends WallabagClient {
   Future<http.Response> authenticate(Map<String, String> grantData) async {
     logger.info(
         'authentication attempt (grant_type: ${grantData['grant_type']})');
+    final credentials = await _getCredentials();
     final payload = {
       'client_id': credentials.clientId,
       'client_secret': credentials.clientSecret,
       ...grantData,
     };
     final response = await post(
-      buildUri(tokenEndpointPath),
+      await buildUri(tokenEndpointPath),
       headers: {
         if (userAgent != null) 'User-Agent': userAgent!,
       },
@@ -87,20 +80,15 @@ class WallabagNativeClient extends WallabagClient {
     throwOnError(response);
 
     final tokenData = safeDecode(response, OAuthTokenBody.fromJson);
-    _credsManager.token = OAuthToken(
+    credentials.token = OAuthToken(
       tokenData.accessToken,
       DateTime.now().millisecondsSinceEpoch ~/ 1000 + tokenData.expiresIn,
       tokenData.refreshToken,
     );
+    _credsAdapter.write(credentials);
 
     return response;
   }
-
-  Future<void> resetTokenData() async {
-    _credsManager.token = null;
-  }
-
-  Future<void> resetSession() => _credsManager.clear();
 
   Future<http.Response> fetchToken(String username, String password) {
     return authenticate({
@@ -110,7 +98,8 @@ class WallabagNativeClient extends WallabagClient {
     });
   }
 
-  Future<http.Response> refreshToken() {
+  Future<http.Response> refreshToken() async {
+    final credentials = await _getCredentials();
     return authenticate({
       'grant_type': 'refresh_token',
       'refresh_token': credentials.token!.refreshToken,
@@ -128,20 +117,4 @@ class OAuthTokenBody {
 
   factory OAuthTokenBody.fromJson(Map<String, dynamic> json) =>
       _$OAuthTokenBodyFromJson(json);
-}
-
-class WallabagInstance {
-  static WallabagNativeClient? _instance;
-
-  static Future<WallabagNativeClient> init({Credentials? credentials}) async {
-    _instance = await WallabagNativeClient.build(credentials: credentials);
-    return _instance!;
-  }
-
-  static WallabagNativeClient get() {
-    assert(_instance != null);
-    return _instance!;
-  }
-
-  static bool get isReady => _instance != null && _instance!.canRefreshToken;
 }

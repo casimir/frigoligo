@@ -1,1 +1,1 @@
-../../android/fr-FR/changelogs/34.txt
+../../android/fr-FR/changelogs/35.txt

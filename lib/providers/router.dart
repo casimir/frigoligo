@@ -9,20 +9,23 @@ import '../pages/login.dart';
 import '../pages/save.dart';
 import '../pages/session_details.dart';
 import '../pages/settings.dart';
-import '../wallabag/wallabag.dart';
+import '../server/providers/wallabag_client.dart';
 import 'article.dart';
-import 'open_article.dart';
+import 'server_login_flow.dart';
 
 part 'router.g.dart';
 
 @riverpod
 GoRouter router(RouterRef ref) {
+  Future<String?> loginRedirect(context, state) => ref
+      .read(sessionProvider.future)
+      .then((session) => session == null ? '/login' : null);
+
   return GoRouter(
     routes: [
       GoRoute(
         path: '/',
-        redirect: (context, state) =>
-            !WallabagInstance.isReady ? '/login' : null,
+        redirect: loginRedirect,
         builder: (context, state) {
           final rawArticleId = state.uri.queryParameters['articleId'];
           final articleId =
@@ -36,8 +39,15 @@ GoRouter router(RouterRef ref) {
       ),
       GoRoute(
         path: '/login',
-        builder: (context, state) =>
-            LoginPage(initial: state.uri.queryParameters),
+        builder: (context, state) {
+          final fields = state.uri.queryParameters;
+          if (fields.isNotEmpty) {
+            ref
+                .read(serverLoginFlowProvider.notifier)
+                .reset(fieldsData: fields);
+          }
+          return const LoginPage();
+        },
       ),
       GoRoute(
         path: '/settings',
@@ -68,6 +78,7 @@ GoRouter router(RouterRef ref) {
       ),
       GoRoute(
         path: '/save',
+        redirect: loginRedirect,
         builder: (context, state) =>
             SavePage(url: state.uri.queryParameters['url']),
       ),

@@ -2,38 +2,45 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../models/app_log.dart';
 import '../models/db.dart';
 
-class LogConsole extends ChangeNotifier {
-  final db = DB.get();
+part 'logconsole.g.dart';
+
+class LogConsoleToken {}
+
+@riverpod
+class LogConsole extends _$LogConsole {
   StreamSubscription? _watcher;
 
-  LogConsole() {
-    _watcher = db.appLogs.watchLazy().listen((_) => notifyListeners());
-  }
-
   @override
-  void dispose() {
+  LogConsoleToken build() {
     _watcher?.cancel();
-    super.dispose();
+    _watcher = DB.get().appLogs.watchLazy().listen((_) => ref.invalidateSelf());
+    ref.onDispose(() => _watcher?.cancel());
+    return LogConsoleToken();
   }
 
-  int get count => db.appLogs.countSync();
+  int getCount() => DB.get().appLogs.countSync();
   AppLog? index(int n) {
+    final db = DB.get();
     final ids =
         db.appLogs.where().sortByTimeDesc().isarIdProperty().findAllSync();
     return db.appLogs.getSync(ids[n])!;
   }
 
-  void clear() => db.writeTxnSync(() => db.appLogs.clearSync());
+  void clear() {
+    final db = DB.get();
+    db.writeTxnSync(() => db.appLogs.clearSync());
+  }
 
   String exportCurrentRun() {
+    final db = DB.get();
+
     final firstRecord = db.appLogs
         .filter()
         .messageEqualTo('starting app')
@@ -61,5 +68,3 @@ class LogConsole extends ChangeNotifier {
     return filename;
   }
 }
-
-final logConsoleProvider = ChangeNotifierProvider((ref) => LogConsole());

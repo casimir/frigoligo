@@ -13,6 +13,7 @@ import '../buildcontext_extension.dart';
 import '../constants.dart';
 import '../providers/settings.dart';
 import '../services/remote_sync.dart';
+import '../services/wallabag_storage.dart';
 import '../widget_keys.dart';
 
 final _log = Logger('settings');
@@ -29,7 +30,6 @@ class SettingsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final settings = ref.watch(settingsProvider);
-    final storage = RemoteSyncer.instance.wallabag!;
 
     return Scaffold(
       appBar: AppBar(
@@ -59,7 +59,11 @@ class SettingsPage extends ConsumerWidget {
                       build(ThemeMode.dark),
                     ],
                   );
-                  if (choice != null) settings[Sk.themeMode] = choice;
+                  if (choice != null) {
+                    ref
+                        .read(settingsProvider.notifier)
+                        .set(Sk.themeMode, choice);
+                  }
                 },
               ),
               if (appBadgeSupported)
@@ -71,19 +75,21 @@ class SettingsPage extends ConsumerWidget {
                     final previous = settings[Sk.appBadge];
                     if (previous && !value) {
                       // enabled -> disabled
-                      storage.removeAppBadge();
+                      ref.read(wStorageProvider.notifier).removeAppBadge();
                     } else if (!previous && value) {
                       // disabled -> enabled
-                      storage.updateAppBadge();
+                      ref.read(wStorageProvider.notifier).updateAppBadge();
                     }
-                    settings[Sk.appBadge] = value;
+                    ref.read(settingsProvider.notifier).set(Sk.appBadge, value);
                   },
                 ),
               SettingsTile.switchTile(
                 leading: const Icon(Icons.tag),
                 title: Text(context.L.settings_savedArticleTag),
                 initialValue: settings[Sk.tagSaveEnabled],
-                onToggle: (value) => settings[Sk.tagSaveEnabled] = value,
+                onToggle: (value) => ref
+                    .read(settingsProvider.notifier)
+                    .set(Sk.tagSaveEnabled, value),
               ),
               SettingsTile.navigation(
                 leading: const Icon(Icons.tag),
@@ -102,7 +108,9 @@ class SettingsPage extends ConsumerWidget {
                     ],
                   );
                   if (result != null) {
-                    settings[Sk.tagSaveLabel] = result.first;
+                    ref
+                        .read(settingsProvider.notifier)
+                        .set(Sk.tagSaveLabel, result.first);
                   }
                 },
                 enabled: settings[Sk.tagSaveEnabled],
@@ -124,7 +132,11 @@ class SettingsPage extends ConsumerWidget {
                     title: context.L.settings_itemLanguage,
                     actions: Language.values.map(build).toList(),
                   );
-                  if (choice != null) settings[Sk.language] = choice;
+                  if (choice != null) {
+                    ref
+                        .read(settingsProvider.notifier)
+                        .set(Sk.language, choice);
+                  }
                 },
               ),
               SettingsTile(
@@ -197,9 +209,11 @@ class SettingsPage extends ConsumerWidget {
                   );
                   if (result == OkCancelResult.cancel) return;
                   _log.info('user action > cache rebuild');
-                  settings.remove(Sk.lastRefresh);
+                  await ref
+                      .read(settingsProvider.notifier)
+                      .unset(Sk.lastRefresh);
                   if (context.mounted) {
-                    storage.clearArticles();
+                    ref.read(wStorageProvider.notifier).clearArticles();
                     ref
                         .read(remoteSyncerProvider.notifier)
                         .synchronize(withFinalRefresh: true);

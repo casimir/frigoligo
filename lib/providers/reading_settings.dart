@@ -14,7 +14,8 @@ final _log = Logger('readingsettings');
 class ReadingSettings extends _$ReadingSettings {
   @override
   ReaderSettingsValues build() {
-    final values = ref.read(settingsProvider)[Sk.readingSettings];
+    final values =
+        ref.watch(settingsProvider.select((it) => it[Sk.readingSettings]));
     try {
       return ReaderSettingsValues.fromJson(values);
     } catch (e) {
@@ -24,7 +25,7 @@ class ReadingSettings extends _$ReadingSettings {
   }
 
   void _commit() {
-    ref.read(settingsProvider)[Sk.readingSettings] = state.toJson();
+    ref.read(settingsProvider.notifier).set(Sk.readingSettings, state.toJson());
     ref.notifyListeners();
   }
 

@@ -1,67 +1,59 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:isar/isar.dart';
 import 'package:logging/logging.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../models/db.dart';
 import '../models/remote_action.dart';
-import '../providers/settings.dart';
-import '../wallabag/wallabag.dart';
 import 'remote_sync_actions/articles.dart';
 import 'remote_sync_actions/base.dart';
 import 'wallabag_storage.dart';
 
+part 'remote_sync.freezed.dart';
+part 'remote_sync.g.dart';
+
 final _log = Logger('remote.sync');
 
-class RemoteSyncer with ChangeNotifier {
+@freezed
+class SyncState with _$SyncState {
+  const factory SyncState({
+    required bool isWorking,
+    required double? progressValue,
+    @Default(null) Exception? lastError,
+  }) = _SyncState;
+}
+
+@riverpod
+class RemoteSyncer extends _$RemoteSyncer {
   static const _refreshAction = RefreshArticlesAction();
 
-  final DBInstance db = DB.get();
-  final SettingsValues settings =
-      SettingsValues(namespace: kDebugMode ? 'debug' : null);
-
-  WallabagStorage? _storage;
-  WallabagStorage? get wallabag {
-    if (_storage == null && WallabagInstance.isReady) {
-      _storage = WallabagStorage(settings);
-    }
-    return _storage;
+  @override
+  SyncState build() {
+    return SyncState(
+      isWorking: false,
+      progressValue: null,
+      lastError: _popLastError(),
+    );
   }
 
-  void invalidateWallabagInstance() => _storage = null;
+  int getPendingCount() => DB.get().remoteActions.countSync();
 
-  int get pendingCount => db.remoteActions.countSync();
-
-  bool _isWorking = false;
-  bool get isWorking => _isWorking;
-  set isWorking(bool value) {
-    if (value == _isWorking) return;
-    _isWorking = value;
-    notifyListeners();
-  }
-
-  double? _progressValue;
-  double? get progressValue => _progressValue;
-  set progressValue(double? value) {
-    if (value == _progressValue) return;
-    _progressValue = value;
-    notifyListeners();
-  }
-
-  void _resetWorkingState() {
-    isWorking = false;
-    _progressValue = null;
-    notifyListeners();
+  bool setProgress(double? value) {
+    if (value == state.progressValue) return false;
+    state = state.copyWith(progressValue: value);
+    return true;
   }
 
   Exception? _error;
-  Exception? get lastError {
+  Exception? _popLastError() {
     final error = _error;
     _error = null;
     return error;
   }
 
   void add(RemoteSyncAction action) {
+    final db = DB.get();
+
     final existing =
         db.remoteActions.filter().keyEqualTo(action.hashCode).findFirstSync();
     if (existing == null) {
@@ -72,34 +64,35 @@ class RemoteSyncer with ChangeNotifier {
 
   Future<void> synchronize({bool withFinalRefresh = false}) async {
     _log.info('starting remote synchronization');
-    if (wallabag == null) {
-      _log.info('still in intialization mode, skipping...');
-      return;
-    }
-    if (isWorking) {
+    if (state.isWorking) {
       _log.info('sync already in progress, skipping...');
       return;
     }
-    isWorking = true;
+    state = const SyncState(isWorking: true, progressValue: null);
 
     try {
       await _executeActions();
       if (withFinalRefresh) {
-        progressValue = null;
+        setProgress(null);
         _log.info('running action: $_refreshAction');
-        await _refreshAction.execute(this);
+        await _refreshAction.execute(this, ref.read(wStorageProvider.notifier));
       }
-    } on Exception catch (e, st) {
-      _log.severe('error while executing actions', e, st);
+    } on Exception catch (e) {
+      _log.severe('error while executing actions', e);
       _error = e;
     } finally {
-      _resetWorkingState();
+      state = SyncState(
+        isWorking: false,
+        progressValue: null,
+        lastError: _popLastError(),
+      );
     }
   }
 
   Future<void> _executeActions() async {
-    progressValue = null;
+    final db = DB.get();
 
+    setProgress(null);
     int i = 1;
     int actionsCount = 0;
     do {
@@ -108,25 +101,17 @@ class RemoteSyncer with ChangeNotifier {
       for (final action in actions) {
         final rsa = action.toRSA();
         _log.info('running action: $rsa');
-        await rsa.execute(this);
+        await rsa.execute(this, ref.read(wStorageProvider.notifier));
         final deleted =
             await db.writeTxn(() => db.remoteActions.delete(action.id!));
         if (!deleted) {
           _log.severe('action not deleted after execution: $action');
         }
-        progressValue = i / actionsCount;
+        state = state.copyWith(progressValue: i / actionsCount);
         i++;
       }
       // new actions might be added while the current batch was processed
-      actionsCount += pendingCount;
+      actionsCount += getPendingCount();
     } while (i < actionsCount);
   }
-
-  static final _instance = RemoteSyncer();
-  static RemoteSyncer get instance => _instance;
 }
-
-final remoteSyncerProvider =
-    ChangeNotifierProvider((ref) => RemoteSyncer.instance);
-final storageProvider =
-    ChangeNotifierProvider((ref) => RemoteSyncer.instance.wallabag!);

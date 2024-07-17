@@ -8,7 +8,8 @@ import 'package:go_router/go_router.dart';
 import '../../buildcontext_extension.dart';
 import '../../providers/server_login_flow.dart';
 import '../../server/check.dart';
-import '../../services/remote_sync.dart';
+import '../../server/providers/wallabag_client.dart';
+import '../../server/session.dart';
 import '../../wallabag/client.dart';
 import '../../wallabag/credentials.dart';
 import '../../wallabag/wallabag.dart';
@@ -156,16 +157,21 @@ class _LoginFlowWallabagState extends ConsumerState<LoginFlowWallabag> {
 
   Future<void> attemptLogin(BuildContext context) async {
     if (_formKey.currentState!.saveAndValidate()) {
-      final credentials = Credentials(
-        widget.serverCheck.uri!,
-        _formKey.currentState!.value['clientId'],
-        _formKey.currentState!.value['clientSecret'],
+      final session = ServerSession(
+        ServerType.wallabag,
+        wallabag: Credentials(
+          widget.serverCheck.uri!,
+          _formKey.currentState!.value['clientId'],
+          _formKey.currentState!.value['clientSecret'],
+        ),
       );
       try {
-        final wallabag = await WallabagInstance.init(credentials: credentials);
+        final wallabag =
+            WallabagNativeClient(InMemoryCredentials(session.wallabag!));
         await wallabag.fetchToken(_formKey.currentState!.value['username'],
             _formKey.currentState!.value['password']);
-        ref.read(remoteSyncerProvider.notifier).invalidateWallabagInstance();
+        await session.save();
+        ref.invalidate(sessionProvider);
         if (context.mounted) {
           context.go('/');
         }

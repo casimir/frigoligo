@@ -14,13 +14,13 @@ void main() {
 
   switch (Environment.getString('locale')?.split('-').first) {
     case 'de':
-      SettingsValues.initialLocaleOverride = Language.de;
+      Settings.initialLocaleOverride = Language.de;
     case 'en':
-      SettingsValues.initialLocaleOverride = Language.en;
+      Settings.initialLocaleOverride = Language.en;
     case 'fr':
-      SettingsValues.initialLocaleOverride = Language.fr;
+      Settings.initialLocaleOverride = Language.fr;
     case 'zh':
-      SettingsValues.initialLocaleOverride = Language.zh;
+      Settings.initialLocaleOverride = Language.zh;
     default:
       throw 'unhandled locale';
   }

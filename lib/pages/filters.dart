@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../buildcontext_extension.dart';
 import '../constants.dart';
 import '../providers/query.dart';
-import '../services/remote_sync.dart';
+import '../services/wallabag_storage.dart';
 import '../widget_keys.dart';
 import '../widgets/tag_list.dart';
 import 'tags_selector/dialog.dart';
@@ -25,7 +25,9 @@ class FiltersPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final storage = ref.watch(storageProvider);
+    ref.watch(wStorageProvider);
+
+    final storage = ref.watch(wStorageProvider.notifier);
     final query = ref.watch(queryProvider);
 
     return Column(
@@ -43,7 +45,7 @@ class FiltersPage extends ConsumerWidget {
         _buildFilterHeader(context, context.L.filters_articleFavorite),
         _buildFilterChoices(_buildStarredFilterChoices(context, ref)),
         _buildFilterHeader(context, context.L.filters_articleTags),
-        _buildTagsSelector(context, ref, storage.tags),
+        _buildTagsSelector(context, ref, storage.getTags()),
         const SizedBox(height: defaultPadding),
       ],
     );

@@ -47,8 +47,7 @@ class _LoginFlowServerState extends ConsumerState<LoginFlowServer> {
       }
     }
 
-    final flowState =
-        ref.watch(serverLoginFlowProvider.select((value) => value.$1));
+    final flowState = ref.watch(serverLoginFlowProvider);
 
     return Padding(
       padding: C.paddings.defaultPadding,
@@ -64,11 +63,11 @@ class _LoginFlowServerState extends ConsumerState<LoginFlowServer> {
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: _serverValidator,
                 onChanged: (_) {
-                  if (flowState == FlowState.checked) {
+                  if (flowState is FSChecked) {
                     ref.read(serverLoginFlowProvider.notifier).reset();
                   }
                 },
-                enabled: flowState != FlowState.checking,
+                enabled: flowState is FSReady,
                 decoration: InputDecoration(
                   icon: const Icon(Icons.home),
                   labelText: context.L.server_address,
@@ -83,12 +82,12 @@ class _LoginFlowServerState extends ConsumerState<LoginFlowServer> {
             C.spacers.verticalContent,
             ElevatedButton(
               onPressed: () {
-                if (flowState != FlowState.checking) {
+                if (flowState is FSChecking) {
                   _validateAndCheck();
                 }
               },
               child: Text(
-                flowState == FlowState.checking
+                flowState is FSChecking
                     ? context.L.g_checking
                     : context.L.g_check,
               ),
@@ -104,29 +103,21 @@ class _LoginFlowServerState extends ConsumerState<LoginFlowServer> {
         notEmptyValidator(context, value, context.L.server_address);
     if (emptyCheck != null) return emptyCheck;
 
-    final (flowState, serverCheck) = ref.read(serverLoginFlowProvider);
-    if (flowState == FlowState.checked) {
-      switch (serverCheck!.errorKind) {
-        case ServerCheckErrorKind.invalidUrl:
-          return context.L.server_invalidUrl;
-        case ServerCheckErrorKind.unreachable:
-          return context.L.server_unreachable;
-        case ServerCheckErrorKind.apiError:
-          return context.L.server_apiError;
-        case ServerCheckErrorKind.unknown:
-          return '? ${serverCheck.error}';
-        case null:
-          return null;
-      }
-    }
-
-    return null;
+    return ref.read(serverLoginFlowProvider).maybeWhen(
+        checked: (check) => switch (check.errorKind) {
+              ServerCheckErrorKind.invalidUrl => context.L.server_invalidUrl,
+              ServerCheckErrorKind.unreachable => context.L.server_unreachable,
+              ServerCheckErrorKind.apiError => context.L.server_apiError,
+              ServerCheckErrorKind.unknown => '? ${check.error}',
+              _ => null,
+            },
+        orElse: () => null);
   }
 
   void _validateAndCheck() {
     if (_formKey.currentState!.saveAndValidate()) {
       final server = _formKey.currentState!.value['server'];
-      ref.read(serverLoginFlowProvider.notifier).startCheckFor(server);
+      ref.read(serverLoginFlowProvider.notifier).checkFor(server);
     }
   }
 }

@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../models/article.dart';
 import '../models/article_scroll_position.dart';
 import '../models/db.dart';
-import '../services/remote_sync.dart';
+import '../services/wallabag_storage.dart';
 import 'query.dart';
 import 'settings.dart';
 
@@ -23,17 +23,15 @@ class CurrentArticle extends _$CurrentArticle {
 
   @override
   Article? build() {
-    _articleId ??= ref.read(settingsProvider)[Sk.selectedArticleId];
+    _articleId ??=
+        ref.watch(settingsProvider.select((it) => it[Sk.selectedArticleId]));
 
     if (_articleId != null) {
       return DB.get().articles.getSync(_articleId!);
     }
 
-    final storage = RemoteSyncer.instance.wallabag;
-    if (storage == null) return null;
-
-    final query = ref.read(queryProvider);
-    final article = storage.index(0, query);
+    final query = ref.watch(queryProvider);
+    final article = ref.read(wStorageProvider.notifier).index(0, query);
     if (article != null) {
       _articleId = article.id;
       return article;
@@ -51,7 +49,7 @@ class CurrentArticle extends _$CurrentArticle {
       ref.invalidateSelf();
     });
 
-    ref.read(settingsProvider)[Sk.selectedArticleId] = articleId;
+    ref.read(settingsProvider.notifier).set(Sk.selectedArticleId, articleId);
 
     ref.invalidateSelf();
   }
@@ -73,5 +71,19 @@ class CurrentArticle extends _$CurrentArticle {
         ArticleScrollPosition.fromArticle(article!, progress),
       );
     });
+  }
+}
+
+@riverpod
+class OpenArticle extends _$OpenArticle {
+  @override
+  int? build() => null;
+
+  void schedule(int articleId) {
+    state = articleId;
+  }
+
+  void reset() {
+    state = null;
   }
 }

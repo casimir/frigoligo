@@ -18,10 +18,11 @@ func devLog(_ message: String) {
 }
 
 let frigoligoColor = Color(UIColor(red: 0.31372550129999999, green: 0.61960786580000005, blue: 0.7607843876, alpha: 1.0))
+let _sessionKeyPath = "server.session"
 #if DEBUG
-let credentialsKey = "debug.wallabag.credentials"
+let sessionKey = "debug.\(_sessionKeyPath)"
 #else
-let credentialsKey = "wallabag.credentials"
+let sessionKey = _sessionKeyPath
 #endif
 
 class ShareViewController: UIViewController {
@@ -76,10 +77,11 @@ class ShareViewController: UIViewController {
     }
     
     private func doSave() async throws {
-        let raw = userDefaults.string(forKey: credentialsKey)?.data(using: .utf8)
+        let raw = userDefaults.string(forKey: sessionKey)?.data(using: .utf8)
         if let data = raw {
             do {
-                credentials = try JSONDecoder().decode(Credentials.self, from: data)
+                let session = try JSONDecoder().decode(ServerSession.self, from: data)
+                credentials = session.wallabag
             } catch {
                 throw CompletionError.description("credentials loading error: \(error)")
             }
@@ -148,9 +150,10 @@ class ShareViewController: UIViewController {
             devLog("got a new token!")
             
             self.credentials!.token = buildTokenData(payload)
+            let session = ServerSession(type: "wallabag", wallabag: credentials)
             let encoder = JSONEncoder()
-            let rawCredentials = String(data: try encoder.encode(self.credentials), encoding: .utf8)
-            self.userDefaults.set(rawCredentials, forKey: credentialsKey)
+            let rawSession = String(data: try encoder.encode(session), encoding: .utf8)
+            self.userDefaults.set(rawSession, forKey: sessionKey)
             devLog("updated the OAuth token")
             return token
         } catch let error as CompletionError {

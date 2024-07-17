@@ -28,7 +28,7 @@ Map<String, dynamic> _$ReaderSettingsValuesToJson(
 // RiverpodGenerator
 // **************************************************************************
 
-String _$readingSettingsHash() => r'82c1517673ee9ddd63d4bb043faabd6be53e61e1';
+String _$readingSettingsHash() => r'fcc24a957e4a9a9f4a0457dfa4f32065fe6e6785';
 
 /// See also [ReadingSettings].
 @ProviderFor(ReadingSettings)
