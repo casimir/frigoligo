@@ -7,6 +7,11 @@
 
 import Foundation
 
+struct ServerSession : Codable {
+    var type: String
+    var wallabag: Credentials?
+}
+
 struct Credentials : Codable {
     var server: URL
     var clientId: String
