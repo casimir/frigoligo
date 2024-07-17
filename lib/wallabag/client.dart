@@ -63,8 +63,10 @@ class ServerError implements Exception {
       // The alternative would be to store the credentials, but no.
       final json = jsonDecode(response!.body);
       final description = json['error_description'] as String;
+      // TODO IIRC the status code are different for the 2 tokens and would be a
+      // better way to check the state. I need an expired device to validated that.
       return json['error'] == 'invalid_grant' &&
-          description.toLowerCase().contains('access token');
+          description.toLowerCase().contains('refresh token');
     } catch (_) {
       return false;
     }
