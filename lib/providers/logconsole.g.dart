@@ -6,12 +6,12 @@ part of 'logconsole.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$logConsoleHash() => r'518a2dc4b201ff0c4f8dcc5d5220d8e45f012636';
+String _$logConsoleHash() => r'0406bc1dbdb275a74f0a19e269e511bf862019bb';
 
 /// See also [LogConsole].
 @ProviderFor(LogConsole)
 final logConsoleProvider =
-    AutoDisposeNotifierProvider<LogConsole, void>.internal(
+    AutoDisposeNotifierProvider<LogConsole, LogConsoleToken>.internal(
   LogConsole.new,
   name: r'logConsoleProvider',
   debugGetCreateSourceHash:
@@ -20,6 +20,6 @@ final logConsoleProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$LogConsole = AutoDisposeNotifier<void>;
+typedef _$LogConsole = AutoDisposeNotifier<LogConsoleToken>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

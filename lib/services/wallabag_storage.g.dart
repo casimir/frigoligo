@@ -6,11 +6,12 @@ part of 'wallabag_storage.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$wStorageHash() => r'431134a3c2d8484781be8c4c0c06cc3491ebc5c3';
+String _$wStorageHash() => r'dc2d9c14e7e5ec3326baefe92126b44fe457837a';
 
 /// See also [WStorage].
 @ProviderFor(WStorage)
-final wStorageProvider = AutoDisposeNotifierProvider<WStorage, void>.internal(
+final wStorageProvider =
+    AutoDisposeNotifierProvider<WStorage, WStorageToken>.internal(
   WStorage.new,
   name: r'wStorageProvider',
   debugGetCreateSourceHash:
@@ -19,6 +20,6 @@ final wStorageProvider = AutoDisposeNotifierProvider<WStorage, void>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef _$WStorage = AutoDisposeNotifier<void>;
+typedef _$WStorage = AutoDisposeNotifier<WStorageToken>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
