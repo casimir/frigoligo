@@ -1,0 +1,1 @@
+As fontes de leitura agora são agrupadas diretamente na aplicação e não serão descarregadas mais tarde.

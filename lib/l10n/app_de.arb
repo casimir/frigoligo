@@ -378,5 +378,25 @@
   "g_version": "Version",
   "@g_version": {
     "description": "A version, as in the application version."
+  },
+  "session_fieldApiToken": "API Token",
+  "@session_fieldApiToken": {
+    "description": "The API token field name of in forms."
+  },
+  "readingsettings_fontSize": "Schriftgröße",
+  "@readingsettings_fontSize": {
+    "description": "The font size to display the content of the article."
+  },
+  "settings_bugReportLink": "Fehler melden",
+  "@settings_bugReportLink": {
+    "description": "The action to open the bug report form."
+  },
+  "readingsettings_fontFamily": "Schriftfamilie",
+  "@readingsettings_fontFamily": {
+    "description": "The font family to display the content of the article."
+  },
+  "settings_helpToTranslate": "Beim Übersetzen helfen",
+  "@settings_helpToTranslate": {
+    "description": "The action to open the Weblate project in a webview."
   }
 }
