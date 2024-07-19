@@ -1,5 +1,4 @@
 import 'package:http/http.dart' as http;
-import 'package:http/retry.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'client.dart';
@@ -16,7 +15,6 @@ class WallabagNativeClient extends WallabagClient {
 
   WallabagNativeClient(this._credsAdapter);
 
-  final http.Client _inner = RetryClient(http.Client());
   final UpdatableCredentialsAdapter _credsAdapter;
 
   Future<Credentials> _getCredentials() async {
@@ -44,7 +42,7 @@ class WallabagNativeClient extends WallabagClient {
       request.headers['Authorization'] = 'Bearer $accessToken';
     }
     final stopwatch = Stopwatch()..start();
-    return _inner.send(request).then((response) {
+    return innerClient.send(request).then((response) {
       logger.info(
           '${request.method} ${request.url} ${response.statusCode} (${stopwatch.elapsed.inMilliseconds} ms)');
       return response;

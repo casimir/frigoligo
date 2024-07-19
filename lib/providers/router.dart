@@ -9,7 +9,7 @@ import '../pages/login.dart';
 import '../pages/save.dart';
 import '../pages/session_details.dart';
 import '../pages/settings.dart';
-import '../server/providers/wallabag_client.dart';
+import '../server/providers/client.dart';
 import 'article.dart';
 import 'server_login_flow.dart';
 

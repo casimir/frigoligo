@@ -1,10 +1,14 @@
+import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../wallabag/client.dart';
 import '../../wallabag/wallabag.dart';
+import '../freon.dart';
 import '../session.dart';
 
-part 'wallabag_client.g.dart';
+part 'client.g.dart';
+
+final _log = Logger('server.client');
 
 @riverpod
 class Session extends _$Session {
@@ -34,11 +38,13 @@ class Client extends _$Client {
     if (session == null || !session.isValid) return null;
 
     switch (session.type) {
+      case ServerType.freon:
+        return FreonWallabagClient(session.freon!);
       case ServerType.wallabag:
         // `session` is not used here because this client as its own session management.
         return WallabagNativeClient(NativeSessionWrapper());
       case ServerType.unknown:
-        // TODO throw an error or at least log a warning
+        _log.warning('unknown server type: ${session.type}: ${session.raw}');
         return null;
     }
   }

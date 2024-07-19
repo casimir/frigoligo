@@ -10,8 +10,8 @@ import '../buildcontext_extension.dart';
 import '../datetime_extension.dart';
 import '../models/db.dart';
 import '../providers/settings.dart';
-import '../server/providers/wallabag_client.dart';
-import '../wallabag/credentials.dart';
+import '../server/providers/client.dart';
+import '../server/session.dart';
 import '../wallabag/wallabag.dart';
 
 Widget _copyText(BuildContext context, String text, [bool obfuscate = false]) {
@@ -44,7 +44,7 @@ class SessionDetailsPage extends ConsumerWidget {
         title: Text(context.L.session_title),
       ),
       body: ref.watch(sessionProvider).when(
-            data: (it) => _buildDetails(context, ref, it!.wallabag!),
+            data: (it) => _buildDetails(context, ref, it),
             error: (error, _) => ErrorScreen(error: error as Exception),
             loading: () =>
                 const Center(child: CircularProgressIndicator.adaptive()),
@@ -54,7 +54,13 @@ class SessionDetailsPage extends ConsumerWidget {
 }
 
 Widget _buildDetails(
-    BuildContext context, WidgetRef ref, Credentials credentials) {
+    BuildContext context, WidgetRef ref, ServerSession? session) {
+  final sessionFields = switch (session?.type) {
+    ServerType.freon => _buildFreonSession(context, session!),
+    ServerType.wallabag => _buildWallabagSession(context, session!),
+    _ => const <Widget>[],
+  };
+
   String sinceLastSync = context.L.session_neverSynced;
   final lastSync =
       ref.watch(settingsProvider.select((it) => it[Sk.lastRefresh]));
@@ -64,7 +70,7 @@ Widget _buildDetails(
   }
 
   return ListView(
-    children: _buildWallabagSession(context, credentials) +
+    children: sessionFields +
         [
           ListTile(
             title: Text(context.L.session_fieldLastServerSync),
@@ -107,10 +113,23 @@ Widget _buildDetails(
   );
 }
 
+List<Widget> _buildFreonSession(BuildContext context, ServerSession session) {
+  final credentials = session.freon!;
+  return [
+    ListTile(
+      title: Text(context.L.g_server),
+      subtitle: _copyText(context, credentials.server.toString()),
+    ),
+    ListTile(
+      title: Text(context.L.session_fieldApiToken),
+      subtitle: _copyText(context, credentials.apiToken, true),
+    ),
+  ];
+}
+
 List<Widget> _buildWallabagSession(
-  BuildContext context,
-  Credentials credentials,
-) {
+    BuildContext context, ServerSession session) {
+  final credentials = session.wallabag!;
   final token = credentials.token;
   final accessToken = token?.accessToken;
   final nextTokenExpiration =

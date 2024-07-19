@@ -8,9 +8,9 @@ import '../buildcontext_extension.dart';
 import '../models/db.dart';
 import '../providers/server_login_flow.dart';
 import '../providers/settings.dart';
-import '../server/providers/wallabag_client.dart';
+import '../server/providers/client.dart';
 import 'login_flow/check_server.dart';
-import 'login_flow/login_wallabag.dart';
+import 'login_flow/login_credentials.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
@@ -62,7 +62,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     };
     if (body != null) return body;
 
-    return LoginFlowWallabag(
+    return LoginFlowCredentials(
       serverCheck: (flowState as FSChecked).check,
       initial: _currentData ?? {},
       onReset: () => setState(() {

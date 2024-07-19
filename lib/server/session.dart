@@ -7,10 +7,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:universal_platform/universal_platform.dart';
 
 import '../wallabag/credentials.dart';
+import 'freon.dart';
 
 part 'session.g.dart';
 
 enum ServerType {
+  freon,
   wallabag,
   unknown,
 }
@@ -21,11 +23,12 @@ const legacyCredentialsKey = '${_keyPrefix}wallabag.credentials';
 
 @JsonSerializable()
 class ServerSession {
-  ServerSession(this.type, {this.wallabag});
+  ServerSession(this.type, {this.freon, this.wallabag});
 
   final ServerType type;
   @JsonKey(includeFromJson: false, includeToJson: false)
   String? raw;
+  final FreonCredentials? freon;
   Credentials? wallabag;
 
   bool get isValid => switch (type) {

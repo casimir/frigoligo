@@ -42,6 +42,7 @@ class InMemoryCredentials extends UpdatableCredentialsAdapter {
   InMemoryCredentials(this._credentials);
 
   Credentials? _credentials;
+  Credentials? get credentials => _credentials;
 
   @override
   Future<Credentials?> read() async => _credentials;

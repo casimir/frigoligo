@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:http/retry.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:logging/logging.dart';
 import 'package:universal_platform/universal_platform.dart';
@@ -90,6 +91,7 @@ T safeDecode<T>(http.Response response, Decoder<T> decoder) {
 }
 
 abstract class WallabagClient extends http.BaseClient {
+  http.Client get innerClient => RetryClient(http.Client());
   Logger get logger => _log;
   String? get userAgent => UniversalPlatform.isWeb ? null : AppInfo.userAgent;
 
