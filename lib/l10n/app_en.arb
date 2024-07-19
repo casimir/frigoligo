@@ -30,7 +30,7 @@
     "description": "The source code of a software."
   },
   "g_system": "System",
-  "@g_system": {
+  "@system": {
     "description": "A name, as in the default configuration (System configuration)."
   },
   "g_tag": "Tag",
@@ -43,7 +43,7 @@
   },
   "@_HUMANIZE": {},
   "humanize_days": "{n, plural, =1{1 day} other{{n} days}}",
-  "@humanize_days": {
+  "@humanize_day": {
     "placeholders": {
       "n": {
         "type": "int",
@@ -61,7 +61,7 @@
     }
   },
   "humanize_hours": "{n, plural, =1{1 hour} other{{n} hours}}",
-  "@humanize_hours": {
+  "@humanize_hour": {
     "placeholders": {
       "n": {
         "type": "int",
@@ -70,7 +70,7 @@
     }
   },
   "humanize_minutes": "{n, plural, =1{1 minute} other{{n} minutes}}",
-  "@humanize_minutes": {
+  "@humanize_minute": {
     "placeholders": {
       "n": {
         "type": "int",
@@ -88,7 +88,7 @@
     }
   },
   "humanize_seconds": "{n, plural, =1{1 second} other{{n} seconds}}",
-  "@humanize_seconds": {
+  "@humanize_second": {
     "placeholders": {
       "n": {
         "type": "int",
