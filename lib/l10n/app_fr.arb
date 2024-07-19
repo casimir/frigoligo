@@ -398,5 +398,9 @@
   "settings_helpToTranslate": "Aider à traduire",
   "@settings_helpToTranslate": {
     "description": "The action to open the Weblate project in a webview."
+  },
+  "session_fieldApiToken": "Jeton d’API",
+  "@session_fieldApiToken": {
+    "description": "The API token field name of in forms."
   }
 }
