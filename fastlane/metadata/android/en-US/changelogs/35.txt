@@ -1,1 +1,2 @@
 - More robust and snappier communication with the server.
+- New languages: traditional Chinese (漢文) and russian (Русский язык).
