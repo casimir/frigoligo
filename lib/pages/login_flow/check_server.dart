@@ -70,7 +70,7 @@ class _LoginFlowServerState extends ConsumerState<LoginFlowServer> {
                     ref.read(serverLoginFlowProvider.notifier).reset();
                   }
                 },
-                enabled: flowState is FSReady,
+                enabled: flowState is! FSChecking,
                 decoration: InputDecoration(
                   icon: const Icon(Icons.home),
                   labelText: context.L.server_address,
@@ -85,7 +85,7 @@ class _LoginFlowServerState extends ConsumerState<LoginFlowServer> {
             C.spacers.verticalContent,
             ElevatedButton(
               onPressed: () {
-                if (flowState is FSChecking) {
+                if (flowState is! FSChecking) {
                   _validateAndCheck();
                 }
               },
