@@ -62,7 +62,8 @@ class MaterialLocalizationLoader extends LocalizationLoader {
   @override
   String rewriteLocale(String locale) {
     final rewrites = {
-      'zh-Hant': 'zh_TW',
+      // flutter logic with zh is unclear
+      // 'zh-Hant': 'zh_TW',
     };
     return rewrites[locale] ?? super.rewriteLocale(locale);
   }
