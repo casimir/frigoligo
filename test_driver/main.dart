@@ -12,15 +12,17 @@ void main() {
   print('device: ${Environment.device}');
   print('config: ${Environment.config}');
 
-  switch (Environment.getString('locale')?.split('-').first) {
-    case 'de':
+  switch (Environment.getString('locale')) {
+    case 'de-DE':
       Settings.initialLocaleOverride = Language.de;
-    case 'en':
+    case 'en-US':
       Settings.initialLocaleOverride = Language.en;
-    case 'fr':
+    case 'fr-FR':
       Settings.initialLocaleOverride = Language.fr;
-    case 'zh':
+    case 'zh-Hans':
       Settings.initialLocaleOverride = Language.zh;
+    case 'zh-Hant':
+      Settings.initialLocaleOverride = Language.zhHant;
     default:
       throw 'unhandled locale';
   }
