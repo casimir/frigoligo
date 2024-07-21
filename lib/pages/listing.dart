@@ -97,7 +97,7 @@ class _ListingPageState extends ConsumerState<ListingPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const TitleWidget(key: Key(wkListingFiltersButton)),
+        title: const TitleWidget(),
         actions: [
           if (!pullToRefreshSupported)
             IconButton(
