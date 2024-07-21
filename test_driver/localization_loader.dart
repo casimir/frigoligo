@@ -44,10 +44,12 @@ class ProjectLocalizationLoader extends LocalizationLoader {
 /// Online version: https://github.com/flutter/flutter/tree/master/packages/flutter_localizations/lib/src/l10n
 class MaterialLocalizationLoader extends LocalizationLoader {
   String _getFlutterPath() {
-    final String whichOutput = Process.runSync('which', ['flutter']).stdout;
+    var bin = (Process.runSync('which', ['flutter']).stdout as String).trim();
+    try {
+      bin = File(bin).resolveSymbolicLinksSync();
+    } catch (_) {}
     const suffix = '/bin/flutter';
-    final cleaned =
-        whichOutput.trim().substring(0, whichOutput.length - suffix.length);
+    final cleaned = bin.substring(0, bin.length - suffix.length);
     return cleaned;
   }
 
