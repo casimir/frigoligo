@@ -5,39 +5,24 @@ import 'package:flutter_driver/flutter_driver.dart';
 import 'package:frigoligo/widget_keys.dart';
 import 'package:test/test.dart';
 
-// this is obviously not versioned
-import 'test_credentials.local.dart';
+import 'localization_loader.dart';
+import 'test_credentials.local.dart'; // this is obviously not versioned
 
 const captureDebug = false;
 
 const androidLocaleRewrite = {
   'zh-Hans': 'zh-CN',
+  'zh-Hant': 'zh-TW',
 };
+
+final projectLabels = ProjectLocalizationLoader();
+final materialLabels = MaterialLocalizationLoader();
 
 Future<void> main() async {
   final locale = Environment.getString('locale')!;
-  final darkModeLabel = switch (locale.split('-').first) {
-    'de' => 'Dunkel',
-    'en' => 'Dark',
-    'fr' => 'Sombre',
-    'zh' => '深色',
-    _ => throw UnimplementedError('dark mode not supported for $locale')
-  };
-  // Material localizations: https://github.com/flutter/flutter/tree/master/packages/flutter_localizations/lib/src/l10n
-  final backTooltip = switch (locale.split('-').first) {
-    'de' => 'Zurück',
-    'en' => 'Back',
-    'fr' => 'Retour',
-    'zh' => '返回',
-    _ => throw UnimplementedError('back tooltip not supported for $locale')
-  };
-  final okCancelLabel = switch (locale.split('-').first) {
-    'de' => 'OK',
-    'en' => 'OK',
-    'fr' => 'OK',
-    'zh' => '确定',
-    _ => throw UnimplementedError('ok/cancel label not supported for $locale')
-  };
+  final darkModeLabel =
+      projectLabels.getValue(locale, 'settings_valueThemeDark');
+  final backTooltip = materialLabels.getValue(locale, 'backButtonTooltip');
 
   final deviceName = Environment.getString('deviceName')!;
   final deviceType = Environment.getString('deviceType')!;
@@ -105,14 +90,11 @@ Future<void> main() async {
       await Future.delayed(const Duration(seconds: 10));
       await takeScreenshot('1-listing', false);
 
-      // FIXME because flutter_drive...
-      if (locale == 'zh-Hans') {
-        await driver.tap(find.text('未读文章'));
-      } else if (locale == 'de-DE') {
-        await driver.tap(find.text('Ungelesene'));
-      } else {
-        await driver.tap(find.byValueKey(wkListingFiltersButton));
-      }
+      final appBarTitleFinder = find.descendant(
+        of: find.byType('AppBar'),
+        matching: find.byType('Text'),
+      );
+      await driver.tap(appBarTitleFinder);
       await takeScreenshot('2-filters', false);
 
       await driver.tap(find.byValueKey(wkListingFiltersCount));
@@ -160,7 +142,8 @@ Future<void> main() async {
       await driver.tap(find.byValueKey(wkSettingsTheme));
       await driver.tap(find.text(darkModeLabel));
       if (deviceIsAndroid) {
-        await driver.tap(find.text(okCancelLabel));
+        final okButtonLabel = materialLabels.getValue(locale, 'okButtonLabel');
+        await driver.tap(find.text(okButtonLabel));
       }
       await takeScreenshot('settings-dark-theme');
 

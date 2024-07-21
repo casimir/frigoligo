@@ -20,6 +20,7 @@ Future<void> main() async {
     // {'locale': 'en-US'},
     // {'locale': 'fr-FR'},
     // {'locale': 'zh-Hans'},
+    // {'locale': 'zh-Hant'},
   ];
 
   final emulators = await Emulators.build();

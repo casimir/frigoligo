@@ -127,6 +127,7 @@ enum Sk {
   String get key => 'settings.$_key';
 }
 
+// see https://www.omniglot.com/language/names.htm for native names
 enum Language {
   system(null, ''),
   // values should be in alphabetical order as they are displayed in the UI
@@ -137,6 +138,8 @@ enum Language {
   gl(Locale('gl'), 'Galego'),
   ptBR(Locale('pt', 'BR'), 'Português (Brasil)'),
   zh(Locale('zh'), '中文'),
+  zhHant(Locale('zh', 'Hant'), '漢文'),
+  ru(Locale('ru'), 'Русский язык'),
   ;
 
   const Language(this.locale, this.nativeName);
