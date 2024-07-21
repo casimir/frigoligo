@@ -90,14 +90,11 @@ Future<void> main() async {
       await Future.delayed(const Duration(seconds: 10));
       await takeScreenshot('1-listing', false);
 
-      // FIXME because flutter_drive...
-      if (['de-DE', 'zh-Hans', 'zh-Hant'].contains(locale)) {
-        final defaultAppTitle =
-            projectLabels.getValue(locale, 'listing_articlesUnread');
-        await driver.tap(find.text(defaultAppTitle));
-      } else {
-        await driver.tap(find.byValueKey(wkListingFiltersButton));
-      }
+      final appBarTitleFinder = find.descendant(
+        of: find.byType('AppBar'),
+        matching: find.byType('Text'),
+      );
+      await driver.tap(appBarTitleFinder);
       await takeScreenshot('2-filters', false);
 
       await driver.tap(find.byValueKey(wkListingFiltersCount));
