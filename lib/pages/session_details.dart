@@ -60,6 +60,7 @@ Widget _buildDetails(
     ServerType.wallabag => _buildWallabagSession(context, session!),
     _ => const <Widget>[],
   };
+  final showRefreshToken = session?.type == ServerType.wallabag;
 
   String sinceLastSync = context.L.session_neverSynced;
   final lastSync =
@@ -98,17 +99,16 @@ Widget _buildDetails(
             icon: const Icon(Icons.logout),
             label: Text(context.L.session_logoutSession),
           ),
-          C.spacers.verticalContent,
-          ElevatedButton.icon(
-            onPressed: () async {
-              final client = await ref.read(clientProvider.future);
-              if (client is WallabagNativeClient) {
-                await client.refreshToken();
-              }
-            },
-            icon: const Icon(Icons.restart_alt),
-            label: Text(context.L.session_forceTokenResfresh),
-          ),
+          if (showRefreshToken) C.spacers.verticalContent,
+          if (showRefreshToken)
+            ElevatedButton.icon(
+              onPressed: () async {
+                final client = await ref.read(clientProvider.future);
+                await (client as WallabagNativeClient).refreshToken();
+              },
+              icon: const Icon(Icons.restart_alt),
+              label: Text(context.L.session_forceTokenResfresh),
+            ),
         ],
   );
 }
