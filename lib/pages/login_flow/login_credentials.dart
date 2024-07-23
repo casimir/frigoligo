@@ -150,7 +150,7 @@ class _LoginFlowCredentialsState extends ConsumerState<LoginFlowCredentials> {
         if (mounted) {
           context.go('/');
         }
-      } catch (e) {
+      } catch (e, st) {
         setState(() => _gotAnError = true);
         if (e is ServerError) {
           _log.warning('authentication failed', e.message);
@@ -158,7 +158,7 @@ class _LoginFlowCredentialsState extends ConsumerState<LoginFlowCredentials> {
             showOkAlertDialog(context: context, message: e.message);
           }
         } else {
-          _log.severe('unexpected error', e);
+          _log.severe('unexpected error', e, st);
           if (mounted) {
             showOkAlertDialog(context: context, message: e.toString());
           }

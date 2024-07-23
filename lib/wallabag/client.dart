@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:http/io_client.dart';
 import 'package:http/retry.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:logging/logging.dart';
@@ -90,8 +92,27 @@ T safeDecode<T>(http.Response response, Decoder<T> decoder) {
   }
 }
 
+http.Client newClient({String? selfSignedHost}) {
+  if (selfSignedHost == null) {
+    return http.Client();
+  }
+  return IOClient(
+    HttpClient()
+      ..badCertificateCallback = (cert, host, port) => host == selfSignedHost,
+  );
+}
+
 abstract class WallabagClient extends http.BaseClient {
-  http.Client get innerClient => RetryClient(http.Client());
+  WallabagClient({String? selfSignedHost}) : _selfSignedHost = selfSignedHost;
+
+  final String? _selfSignedHost;
+  http.Client? _inner;
+
+  http.Client get innerClient {
+    _inner ??= RetryClient(newClient(selfSignedHost: _selfSignedHost));
+    return _inner!;
+  }
+
   Logger get logger => _log;
   String? get userAgent => UniversalPlatform.isWeb ? null : AppInfo.userAgent;
 

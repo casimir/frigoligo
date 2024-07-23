@@ -23,13 +23,20 @@ const legacyCredentialsKey = '${_keyPrefix}wallabag.credentials';
 
 @JsonSerializable()
 class ServerSession {
-  ServerSession(this.type, {this.freon, this.wallabag});
+  ServerSession(
+    this.type, {
+    useSelfSigned = false,
+    this.freon,
+    this.wallabag,
+  }) : selfSignedHost =
+            useSelfSigned ? freon?.server.host ?? wallabag?.server.host : null;
 
-  final ServerType type;
   @JsonKey(includeFromJson: false, includeToJson: false)
   String? raw;
+  final ServerType type;
   final FreonCredentials? freon;
   Credentials? wallabag;
+  final String? selfSignedHost;
 
   bool get isValid => switch (type) {
         ServerType.wallabag => wallabag?.token != null,
