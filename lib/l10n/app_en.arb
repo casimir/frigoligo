@@ -203,7 +203,7 @@
   "@_LOGIN": {},
   "login_acceptSelfSigned": "Accept self-signed certificates",
   "@login_acceptSelfSigned": {
-    "description": "Wether or not to accept self-signed certificates when connecting to the Wallabag instance."
+    "description": "Wether or not to accept self-signed certificates when connecting to the wallabag instance."
   },
   "login_actionLogin": "Log in",
   "@login_actionLogin": {
@@ -291,11 +291,11 @@
   "@_SERVER": {},
   "server_address": "Server address",
   "@server_address": {
-    "description": "The address of the Wallabag instance."
+    "description": "The address of the wallabag instance."
   },
   "server_apiError": "Invalid API response",
   "@server_apiError": {
-    "description": "An error occurred while communicating with the Wallabag API."
+    "description": "An error occurred while communicating with the wallabag API."
   },
   "server_emptyField": "Enter your {label}",
   "@server_emptyField": {
@@ -308,11 +308,11 @@
   },
   "server_invalidUrl": "Invalid address",
   "@server_invalidUrl": {
-    "description": "The address of the Wallabag instance is invalid."
+    "description": "The address of the wallabag instance is invalid."
   },
   "server_unreachable": "Server unreachable",
   "@server_unreachable": {
-    "description": "The Wallabag instance is unreachable."
+    "description": "The wallabag instance is unreachable."
   },
   "@_SESSION": {},
   "session_copiedToClipboard": "Copied to clipboard",
