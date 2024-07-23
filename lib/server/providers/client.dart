@@ -39,10 +39,12 @@ class Client extends _$Client {
 
     switch (session.type) {
       case ServerType.freon:
-        return FreonWallabagClient(session.freon!);
+        return FreonWallabagClient(session.freon!,
+            selfSignedHost: session.selfSignedHost);
       case ServerType.wallabag:
         // `session` is not used here because this client as its own session management.
-        return WallabagNativeClient(NativeSessionWrapper());
+        return WallabagNativeClient(NativeSessionWrapper(),
+            selfSignedHost: session.selfSignedHost);
       case ServerType.unknown:
         _log.warning('unknown server type: ${session.type}: ${session.raw}');
         return null;

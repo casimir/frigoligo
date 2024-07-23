@@ -13,7 +13,7 @@ part 'wallabag.g.dart';
 class WallabagNativeClient extends WallabagClient {
   static String tokenEndpointPath = '/oauth/v2/token';
 
-  WallabagNativeClient(this._credsAdapter);
+  WallabagNativeClient(this._credsAdapter, {super.selfSignedHost});
 
   final UpdatableCredentialsAdapter _credsAdapter;
 

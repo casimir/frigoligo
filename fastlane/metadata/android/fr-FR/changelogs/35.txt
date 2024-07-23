@@ -1,2 +1,3 @@
 - Communication avec le serveur plus robuste et plus réactive.
 - Nouvelles langues: chinois traditionel (漢文) and russe (Русский язык).
+- Permet l'utilisation d'un certificat auto-signé pour le serveur.

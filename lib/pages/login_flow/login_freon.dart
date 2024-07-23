@@ -27,6 +27,7 @@ class FreonLoginFlowController implements LoginFlowController {
       ServerCheck check, Map<String, dynamic> values) async {
     final session = ServerSession(
       ServerType.freon,
+      useSelfSigned: check.selfSigned,
       freon: FreonCredentials(check.uri!, values['apiToken']),
     );
     final freon = FreonClient(session.freon!);
