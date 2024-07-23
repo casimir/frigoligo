@@ -1,2 +1,3 @@
 - More robust and snappier communication with the server.
 - New languages: traditional Chinese (漢文) and Russian (Русский язык).
+- Allow self-signed certificates for the server.
