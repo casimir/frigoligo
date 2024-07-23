@@ -6,12 +6,14 @@ import 'package:logging/logging.dart';
 import 'package:universal_platform/universal_platform.dart';
 
 import '../app_info.dart';
+import '../wallabag/client.dart';
 import '../wallabag/models/info.dart';
 
 final _log = Logger('server.check');
 
-Future<WallabagInfo?> _fetchServerInfo(Uri uri) async {
-  final response = await http.get(
+Future<WallabagInfo?> _fetchServerInfo(Uri uri, bool selfSigned) async {
+  final client = newClient(selfSignedHost: selfSigned ? uri.host : null);
+  final response = await client.get(
     Uri.https(uri.authority, '${uri.path}/api/info'),
     headers: {
       'Content-Type': 'application/json',
@@ -31,7 +33,7 @@ Future<Uri?> _detectFavicon(Uri uri) async {
   return response.statusCode == 200 ? faviconUri : null;
 }
 
-Future<ServerCheck> checkServerState(String serverUrl) async {
+Future<ServerCheck> checkServerState(String serverUrl, bool selfSigned) async {
   _log.info("starting server check for '$serverUrl'");
   late final ServerCheck check;
   try {
@@ -40,26 +42,28 @@ Future<ServerCheck> checkServerState(String serverUrl) async {
         ? trimmed.substring(0, trimmed.length - 1)
         : trimmed;
     final uri = Uri.parse('https://$trimmed');
-    final info = await _fetchServerInfo(uri);
+    final info = await _fetchServerInfo(uri, selfSigned);
     final faviconUri = await _detectFavicon(uri);
-    check = ServerCheck(uri, info, faviconUri, null);
+    check = ServerCheck(uri, info, faviconUri, null, selfSigned);
   } on http.ClientException catch (e) {
     final exc = ServerCheckUnknownError(e.message);
-    check = ServerCheck(null, null, null, exc);
+    check = ServerCheck(null, null, null, exc, selfSigned);
   } on Exception catch (e) {
-    check = ServerCheck(null, null, null, e);
+    check = ServerCheck(null, null, null, e, selfSigned);
   }
   _log.info("server check for '$serverUrl' completed: $check");
   return check;
 }
 
 class ServerCheck {
-  const ServerCheck(this.uri, this.info, this.faviconUri, this.error);
+  const ServerCheck(
+      this.uri, this.info, this.faviconUri, this.error, this.selfSigned);
 
   final Uri? uri;
   final WallabagInfo? info;
   final Uri? faviconUri;
   final Exception? error;
+  final bool selfSigned;
 
   bool get isValid => info != null && error == null;
   ServerCheckErrorKind? get errorKind {

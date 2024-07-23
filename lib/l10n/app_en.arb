@@ -201,6 +201,10 @@
     "description": "The title for the list of the articles with the state Unread."
   },
   "@_LOGIN": {},
+  "login_acceptSelfSigned": "Accept self-signed certificates",
+  "@login_acceptSelfSigned": {
+    "description": "Wether or not to accept self-signed certificates when connecting to the Wallabag instance."
+  },
   "login_actionLogin": "Log in",
   "@login_actionLogin": {
     "description": "The action to log in."

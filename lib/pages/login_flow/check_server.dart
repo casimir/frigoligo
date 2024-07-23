@@ -82,6 +82,19 @@ class _LoginFlowServerState extends ConsumerState<LoginFlowServer> {
                 initialValue: widget.initial,
               ),
             ),
+            FormBuilderCheckbox(
+              name: 'selfSigned',
+              contentPadding: EdgeInsets.symmetric(
+                  horizontal: C.paddings.defaultPadding.horizontal),
+              title: Text(context.L.login_acceptSelfSigned),
+              onChanged: (_) {
+                if (flowState is FSChecked) {
+                  ref.read(serverLoginFlowProvider.notifier).reset();
+                }
+              },
+              enabled: flowState is! FSChecking,
+              initialValue: false,
+            ),
             C.spacers.verticalContent,
             ElevatedButton(
               onPressed: () {
@@ -120,7 +133,8 @@ class _LoginFlowServerState extends ConsumerState<LoginFlowServer> {
   void _validateAndCheck() {
     if (_formKey.currentState!.saveAndValidate()) {
       final server = _formKey.currentState!.value['server'];
-      ref.read(serverLoginFlowProvider.notifier).checkFor(server);
+      final selfSigned = _formKey.currentState!.value['selfSigned'] ?? false;
+      ref.read(serverLoginFlowProvider.notifier).checkFor(server, selfSigned);
     }
   }
 }

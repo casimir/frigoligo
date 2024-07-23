@@ -24,9 +24,9 @@ class ServerLoginFlow extends _$ServerLoginFlow {
     return const FlowState.ready();
   }
 
-  Future<void> checkFor(String server) async {
+  Future<void> checkFor(String server, bool selfSigned) async {
     state = const FlowState.checking();
-    final check = await checkServerState(server);
+    final check = await checkServerState(server, selfSigned);
     state = FlowState.checked(check);
   }
 
