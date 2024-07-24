@@ -22,16 +22,8 @@ class WStorageToken {}
 
 @riverpod
 class WStorage extends _$WStorage {
-  StreamSubscription? _watcher;
-
   @override
-  WStorageToken build() {
-    _watcher?.cancel();
-    _watcher =
-        DB.get().articles.watchLazy().listen((_) => ref.invalidateSelf());
-    ref.onDispose(() => _watcher?.cancel());
-    return WStorageToken();
-  }
+  WStorageToken build() => WStorageToken();
 
   Query<R> _buildQuery<R>(WQuery wq, {String? sort, String? property}) {
     List<FilterOperation> conditions = [];
@@ -140,11 +132,13 @@ class WStorage extends _$WStorage {
     }
 
     final deletedCount = await db.writeTxn(() async {
-      final res = await db.articles.deleteAll(localIds.toList());
-      await db.articleScrollPositions.deleteAll(localIds.toList());
-      return res;
+      var count = 0;
+      count += await db.articles.deleteAll(localIds.toList());
+      count += await db.articleScrollPositions.deleteAll(localIds.toList());
+      return count;
     });
     _log.info('removed $deletedCount entries from database');
+    if (deletedCount > 0) ref.invalidateSelf();
 
     return deletedCount;
   }
@@ -177,6 +171,7 @@ class WStorage extends _$WStorage {
       await db.remoteActions.clear();
     });
     _log.info('cleared the whole articles collection');
+    ref.invalidateSelf();
     updateAppBadge();
   }
 
@@ -219,6 +214,7 @@ class WStorage extends _$WStorage {
         return res.length;
       });
       _log.info('saved $putCount entries to the database');
+      if (putCount > 0) ref.invalidateSelf();
 
       count += entries.length;
     }
@@ -254,12 +250,15 @@ class WStorage extends _$WStorage {
     final db = DB.get();
 
     final scrollPosition = await db.articleScrollPositions.get(article.id!);
-    await db.writeTxn(() async {
-      await db.articles.put(article);
+    final writeCount = await db.writeTxn(() async {
+      var count = 0;
+      count += await db.articles.put(article);
       if (scrollPosition?.readingTime != article.readingTime) {
-        await db.articleScrollPositions.delete(article.id!);
+        count += await db.articleScrollPositions.delete(article.id!) ? 1 : 0;
       }
+      return count;
     });
+    if (writeCount > 0) ref.invalidateSelf();
   }
 
   Future<void> deleteArticle(int articleId) async {
@@ -267,10 +266,13 @@ class WStorage extends _$WStorage {
     final wallabag = (await ref.read(clientProvider.future))!;
 
     await wallabag.deleteEntry(articleId);
-    await db.writeTxn(() async {
-      await db.articles.delete(articleId);
-      await db.articleScrollPositions.delete(articleId);
+    final deleted = await db.writeTxn(() async {
+      var deleted = false;
+      deleted |= await db.articles.delete(articleId);
+      deleted |= await db.articleScrollPositions.delete(articleId);
+      return deleted;
     });
+    if (deleted) ref.invalidateSelf();
   }
 
   Future<void> editArticle(
