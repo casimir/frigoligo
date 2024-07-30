@@ -100,7 +100,7 @@ class _MyAppState extends ConsumerState<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    // one shot providers and actions
+    // one shot providers
     ref.watch(backgroundSyncProvider);
 
     final lang = ref.watch(settingsProvider.select((it) => it[Sk.language]));
