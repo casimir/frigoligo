@@ -6,7 +6,7 @@ part of 'article.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$currentArticleHash() => r'4350c4e8ef986748106be676d07998d04ca8479f';
+String _$currentArticleHash() => r'e03498cc2b44c93aa2ff76d7a479b58efe71b03b';
 
 /// See also [CurrentArticle].
 @ProviderFor(CurrentArticle)
@@ -22,7 +22,7 @@ final currentArticleProvider =
 );
 
 typedef _$CurrentArticle = AutoDisposeAsyncNotifier<Article?>;
-String _$scrollPositionHash() => r'f9996d33ef0861a1ad4036938c375b94f8b6d3f3';
+String _$scrollPositionHash() => r'131a51ee271c6410822f31a3dcc6fc53a9bb0955';
 
 /// Copied from Dart SDK
 class _SystemHash {
