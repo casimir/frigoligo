@@ -1,15 +1,13 @@
 import 'dart:async';
 
+import 'package:drift/drift.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
-import 'package:isar/isar.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../constants.dart';
-import '../models/article.dart';
-import '../models/article_scroll_position.dart';
-import '../models/db.dart';
-import '../models/remote_action.dart';
+import '../db/database.dart';
+import '../db/extensions/article.dart';
 import '../providers/settings.dart';
 import '../server/providers/client.dart';
 import '../wallabag/client.dart';
@@ -25,88 +23,63 @@ class WStorage extends _$WStorage {
   @override
   WStorageToken build() => WStorageToken();
 
-  Query<R> _buildQuery<R>(WQuery wq, {String? sort, String? property}) {
-    List<FilterOperation> conditions = [];
+  Expression<bool> _buildFilters($ArticlesTable t, WQuery wq) {
+    final filters = <Expression<bool>>[];
+
     if (wq.state != null && wq.state != StateFilter.all) {
-      conditions.add(wq.state == StateFilter.archived
-          ? const FilterCondition.isNotNull(property: 'archivedAt')
-          : const FilterCondition.isNull(property: 'archivedAt'));
+      filters.add(wq.state == StateFilter.archived
+          ? t.archivedAt.isNotNull()
+          : t.archivedAt.isNull());
     }
+
     if (wq.starred == StarredFilter.starred) {
-      conditions.add(const FilterCondition.isNotNull(property: 'starredAt'));
+      filters.add(t.starredAt.isNotNull());
     }
 
     if (wq.tags != null) {
-      if (wq.tags!.length == 1) {
-        conditions.add(
-            FilterCondition.contains(property: 'tags', value: wq.tags![0]));
-      } else {
-        List<FilterCondition> tagFilters = wq.tags!
-            .map(
-                (tag) => FilterCondition.contains(property: 'tags', value: tag))
-            .toList();
-        conditions.add(FilterGroup.or(tagFilters));
-      }
+      filters.add(Expression.or(wq.tags!.map((tag) => t.tags.contains(tag))));
     }
 
-    FilterOperation? filter;
-    if (conditions.length == 1) {
-      filter = conditions[0];
-    } else {
-      filter = FilterGroup.and(conditions);
-    }
-
-    List<SortProperty> sortBy = [];
-    if (sort != null) {
-      final String property;
-      final Sort direction;
-      if (sort.startsWith('-')) {
-        property = sort.substring(1);
-        direction = Sort.desc;
-      } else {
-        property = sort;
-        direction = Sort.asc;
-      }
-      sortBy.add(SortProperty(property: property, sort: direction));
-    }
-
-    return DB.get().articles.buildQuery(
-          filter: filter,
-          sortBy: sortBy,
-          property: property,
-        );
+    return Expression.and(filters);
   }
 
-  List<Article> all(WQuery wq) =>
-      _buildQuery<Article>(wq, sort: '-createdAt').findAllSync();
+  Future<Article?> index(int n, WQuery wq) async {
+    if (n < 0 || n >= await count(wq)) return null;
 
-  Article? index(int n, WQuery wq) {
-    if (n < 0 || n >= count(wq)) return null;
-    final ids =
-        _buildQuery(wq, sort: '-createdAt', property: 'id').findAllSync();
-    return DB.get().articles.getSync(ids[n])!;
+    final db = DB.get();
+    final t1 = db.articles;
+    final ids = await (t1.selectOnly()
+          ..addColumns([t1.id])
+          ..where(_buildFilters(t1, wq))
+          ..orderBy([OrderingTerm.desc(t1.createdAt)]))
+        .map((row) => row.read(t1.id)!)
+        .get();
+    return db.managers.articles
+        .filter((f) => f.id.equals(ids[n]))
+        .getSingleOrNull();
   }
 
-  int? indexOf(int articleId, WQuery wq) {
+  Future<int?> indexOf(int articleId, WQuery wq) async {
     if (articleId <= 0) return null;
-    final ids =
-        _buildQuery(wq, sort: '-createdAt', property: 'id').findAllSync();
+    final t1 = DB.get().articles;
+    final ids = await (DB.get().articles.selectOnly()
+          ..addColumns([t1.id])
+          ..where(_buildFilters(t1, wq))
+          ..orderBy([OrderingTerm.desc(t1.createdAt)]))
+        .map((row) => row.read(t1.id)!)
+        .get();
     final index = ids.indexOf(articleId);
     return index >= 0 ? index : null;
   }
 
-  int count(WQuery wq) => _buildQuery(wq).countSync();
+  Future<int> count(WQuery wq) =>
+      DB.get().articles.count(where: (t) => _buildFilters(t, wq)).getSingle();
 
-  List<String> getTags() {
-    var tags = DB
-        .get()
-        .articles
-        .where()
-        .tagsProperty()
-        .findAllSync()
-        .expand((it) => it)
-        .toSet()
-        .toList();
+  Future<List<String>> getTags() async {
+    final t1 = DB.get().articles;
+    final tagLists = await (t1.selectOnly()..addColumns([t1.tags])).get()
+        as List<List<String>>;
+    final tags = tagLists.expand((it) => it).toSet().toList();
     tags.sort();
     return tags;
   }
@@ -114,10 +87,15 @@ class WStorage extends _$WStorage {
   Future<int> _syncRemoteDeletes() async {
     _log.info('checking for server-side deletions');
     final wallabag = (await ref.read(clientProvider.future))!;
-    final db = DB.get();
 
     final remoteCount = await wallabag.fetchTotalEntriesCount();
-    var localIds = (await db.articles.where().idProperty().findAll()).toSet();
+
+    final t1 = DB.get().articles;
+    var localIds = (await (t1.selectOnly()..addColumns([t1.id]))
+            .map((row) => row.read(t1.id)!)
+            .get())
+        .toSet();
+
     final delta = localIds.length - remoteCount;
     if (delta <= 0) return 0;
     _log.info('server-side deletion detected: delta=$delta');
@@ -131,10 +109,20 @@ class WStorage extends _$WStorage {
       localIds = localIds.difference(entries.map((e) => e.id).toSet());
     }
 
-    final deletedCount = await db.writeTxn(() async {
+    final deletedCount = await DB.get().transaction(() async {
       var count = 0;
-      count += await db.articles.deleteAll(localIds.toList());
-      count += await db.articleScrollPositions.deleteAll(localIds.toList());
+      count += await DB
+          .get()
+          .managers
+          .articles
+          .filter((f) => f.id.isIn(localIds))
+          .delete();
+      count += await DB
+          .get()
+          .managers
+          .articleScrollPositions
+          .filter((f) => f.id.isIn(localIds))
+          .delete();
       return count;
     });
     _log.info('removed $deletedCount entries from database');
@@ -147,8 +135,8 @@ class WStorage extends _$WStorage {
     final settings = ref.read(settingsProvider);
     if (!appBadgeSupported || !settings[Sk.appBadge]) return;
 
-    final unread =
-        count(WQuery(state: StateFilter.unread, starred: StarredFilter.all));
+    final unread = await count(
+        WQuery(state: StateFilter.unread, starred: StarredFilter.all));
     if (unread == 0) {
       return FlutterAppBadger.removeBadge();
     } else {
@@ -163,14 +151,8 @@ class WStorage extends _$WStorage {
   }
 
   Future<void> clearArticles({bool keepPositions = true}) async {
-    final db = DB.get();
-
-    await db.writeTxn(() async {
-      await db.articles.clear();
-      if (!keepPositions) await db.articleScrollPositions.clear();
-      await db.remoteActions.clear();
-    });
-    _log.info('cleared the whole articles collection');
+    DB.get().clear(keepPositions: keepPositions);
+    _log.info('cleared the local cache (articles and pending actions)');
     ref.invalidateSelf();
     updateAppBadge();
   }
@@ -191,30 +173,31 @@ class WStorage extends _$WStorage {
         : null;
     _log.info('starting refresh with since=$sinceRepr');
 
-    if (since == null) clearArticles();
+    if (since == null) await clearArticles();
 
     final stopwatch = Stopwatch()..start();
     var entriesStream =
         wallabag.fetchAllEntries(since: since, onProgress: onProgress);
     await for (final entries in entriesStream) {
-      final articles = {
-        for (var e in entries) e.id: Article.fromWallabagEntry(e)
-      };
-      final positions =
-          await db.articleScrollPositions.getAll(articles.keys.toList());
+      final articles = {for (var e in entries) e.id: e.toArticle()};
+      final positions = await db.managers.articleScrollPositions
+          .filter((f) => f.id.isIn(articles.keys))
+          .get();
       final invalidPositions = positions
-          .whereType<ArticleScrollPosition>()
           .where((e) => e.readingTime != articles[e.id]?.readingTime)
-          .map((e) => e.id!)
+          .map((e) => e.id)
           .toList();
 
-      final putCount = await db.writeTxn(() async {
-        final res = await db.articles.putAll(articles.values.toList());
-        await db.articleScrollPositions.deleteAll(invalidPositions);
-        return res.length;
+      await db.transaction(() async {
+        await db.batch((batch) {
+          batch.insertAll(db.articles, articles.values);
+        });
+        await db.managers.articleScrollPositions
+            .filter((f) => f.id.isIn(invalidPositions))
+            .delete();
       });
-      _log.info('saved $putCount entries to the database');
-      if (putCount > 0) ref.invalidateSelf();
+      _log.info('saved ${articles.length} entries to the database');
+      ref.invalidateSelf();
 
       count += entries.length;
     }
@@ -249,12 +232,16 @@ class WStorage extends _$WStorage {
   Future<void> persistArticle(Article article) async {
     final db = DB.get();
 
-    final scrollPosition = await db.articleScrollPositions.get(article.id!);
-    final writeCount = await db.writeTxn(() async {
+    final scrollPosition = await db.managers.articleScrollPositions
+        .filter((f) => f.id.equals(article.id))
+        .getSingleOrNull();
+    final writeCount = await db.transaction(() async {
       var count = 0;
-      count += await db.articles.put(article);
+      count += await db.articles.insertOnConflictUpdate(article);
       if (scrollPosition?.readingTime != article.readingTime) {
-        count += await db.articleScrollPositions.delete(article.id!) ? 1 : 0;
+        count += await db.managers.articleScrollPositions
+            .filter((f) => f.id.equals(article.id))
+            .delete();
       }
       return count;
     });
@@ -266,13 +253,17 @@ class WStorage extends _$WStorage {
     final wallabag = (await ref.read(clientProvider.future))!;
 
     await wallabag.deleteEntry(articleId);
-    final deleted = await db.writeTxn(() async {
-      var deleted = false;
-      deleted |= await db.articles.delete(articleId);
-      deleted |= await db.articleScrollPositions.delete(articleId);
+    final deleted = await db.transaction(() async {
+      var deleted = 0;
+      deleted += await db.managers.articles
+          .filter((f) => f.id.equals(articleId))
+          .delete();
+      deleted += await db.managers.articleScrollPositions
+          .filter((f) => f.id.equals(articleId))
+          .delete();
       return deleted;
     });
-    if (deleted) ref.invalidateSelf();
+    if (deleted > 0) ref.invalidateSelf();
   }
 
   Future<void> editArticle(
@@ -289,8 +280,7 @@ class WStorage extends _$WStorage {
       tags: tags,
     );
     final entry = await wallabag.getEntry(articleId);
-    final article = Article.fromWallabagEntry(entry);
-    await persistArticle(article);
+    await persistArticle(entry.toArticle());
   }
 }
 

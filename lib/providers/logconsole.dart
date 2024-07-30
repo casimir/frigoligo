@@ -2,12 +2,12 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:isar/isar.dart';
+import 'package:drift/drift.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../models/app_log.dart';
-import '../models/db.dart';
+import '../constants.dart';
+import '../db/database.dart';
 
 part 'logconsole.g.dart';
 
@@ -19,41 +19,55 @@ class LogConsole extends _$LogConsole {
 
   @override
   LogConsoleToken build() {
+    final db = DB.get();
     _watcher?.cancel();
-    _watcher = DB.get().appLogs.watchLazy().listen((_) => ref.invalidateSelf());
+    _watcher = db.appLogs.select().watch().listen((_) => ref.invalidateSelf());
     ref.onDispose(() => _watcher?.cancel());
     return LogConsoleToken();
   }
 
-  int getCount() => DB.get().appLogs.countSync();
-  AppLog? index(int n) {
+  Future<int> getCount() => DB.get().managers.appLogs.count();
+  Future<AppLog?> index(int n) async {
     final db = DB.get();
-    final ids =
-        db.appLogs.where().sortByTimeDesc().isarIdProperty().findAllSync();
-    return db.appLogs.getSync(ids[n])!;
+    final t1 = db.appLogs;
+    final ids = await (t1.selectOnly()
+          ..addColumns([t1.id])
+          ..orderBy([OrderingTerm.desc(t1.time)]))
+        .get() as List<int>;
+    return (t1.select()..where((e) => e.id.equals(ids[n]))).getSingleOrNull();
   }
 
-  void clear() {
+  Future<int> clear() => DB.get().appLogs.deleteAll();
+
+  Future<int?> truncate() async {
     final db = DB.get();
-    db.writeTxnSync(() => db.appLogs.clearSync());
+    // FIXME this is way to brutal and clunky at the same time
+    if (await getCount() > logCountResetThreshold) {
+      return db.appLogs.deleteAll();
+    }
+    return null;
   }
 
-  String exportCurrentRun() {
+  Future<String> exportCurrentRun() async {
     final db = DB.get();
 
-    final firstRecord = db.appLogs
-        .filter()
-        .messageEqualTo('starting app')
-        .sortByTimeDesc()
-        .findFirstSync();
+    final firstRecord = await (db.appLogs.select()
+          ..where((e) => e.message.equals('starting app'))
+          ..orderBy([
+            (e) => OrderingTerm(expression: e.time, mode: OrderingMode.desc),
+          ])
+          ..limit(1))
+        .getSingleOrNull();
     if (firstRecord == null) return '';
 
-    final records = db.appLogs
-        .filter()
-        .timeGreaterThan(firstRecord.time)
-        .sortByTime()
-        .findAllSync();
-    final lines = records.map((r) => r.logline).toList();
+    final t1 = db.appLogs;
+    final lines = await (db.appLogs.selectOnly()
+          ..addColumns([t1.logline])
+          ..where(t1.time.isBiggerOrEqualValue(firstRecord.time))
+          ..orderBy([
+            OrderingTerm(expression: t1.time, mode: OrderingMode.asc),
+          ]))
+        .get();
     return lines.join('\n');
   }
 
@@ -62,7 +76,7 @@ class LogConsole extends _$LogConsole {
     final filename = '${tempDir.path}/frigoligo.log';
 
     final file = await File(filename).create();
-    final data = utf8.encode(exportCurrentRun());
+    final data = utf8.encode(await exportCurrentRun());
     file.writeAsBytesSync(data);
 
     return filename;
