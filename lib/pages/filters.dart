@@ -8,6 +8,7 @@ import '../constants.dart';
 import '../providers/query.dart';
 import '../services/wallabag_storage.dart';
 import '../widget_keys.dart';
+import '../widgets/async/text.dart';
 import '../widgets/tag_list.dart';
 import 'tags_selector/dialog.dart';
 
@@ -45,18 +46,20 @@ class FiltersPage extends ConsumerWidget {
         _buildFilterHeader(context, context.L.filters_articleFavorite),
         _buildFilterChoices(_buildStarredFilterChoices(context, ref)),
         _buildFilterHeader(context, context.L.filters_articleTags),
-        _buildTagsSelector(context, ref, storage.getTags()),
+        _buildTagsSelector(context, ref),
         const SizedBox(height: defaultPadding),
       ],
     );
   }
 }
 
-Widget _buildCount(BuildContext context, int count) {
+Widget _buildCount(BuildContext context, Future<int> count) {
   final widget = Padding(
     key: const ValueKey(wkListingFiltersCount),
     padding: const EdgeInsets.only(right: 8.0),
-    child: Text(context.L.filters_articlesCount(count)),
+    child: AText(
+      builder: (context) async => context.L.filters_articlesCount(await count),
+    ),
   );
   // allow to close the dialog by tapping the count in debug mode for automation
   return kDebugMode
@@ -157,13 +160,12 @@ List<ChoiceChip> _buildStarredFilterChoices(
   ];
 }
 
-Widget _buildTagsSelector(
-    BuildContext context, WidgetRef ref, List<String> tags) {
+Widget _buildTagsSelector(BuildContext context, WidgetRef ref) {
   final query = ref.watch(queryProvider);
   final selection = query.tags?.isNotEmpty ?? false
       ? TagList(
           tags: query.tags!,
-          onTagPressed: (_) => _showTagsSelectionDialog(context, ref, tags),
+          onTagPressed: (_) => _showTagsSelectionDialog(context, ref),
         )
       : Padding(
           // make the Card at least the same height than the others
@@ -187,7 +189,7 @@ Widget _buildTagsSelector(
                 const Icon(Icons.keyboard_arrow_right),
               ],
             ),
-            onTap: () => _showTagsSelectionDialog(context, ref, tags),
+            onTap: () => _showTagsSelectionDialog(context, ref),
           ),
           if (query.tags?.isNotEmpty ?? false)
             TextButton(
@@ -200,15 +202,17 @@ Widget _buildTagsSelector(
   );
 }
 
-void _showTagsSelectionDialog(
-    BuildContext context, WidgetRef ref, List<String> tags) {
+void _showTagsSelectionDialog(BuildContext context, WidgetRef ref) async {
+  final tags = await ref.read(wStorageProvider.notifier).getTags();
   final query = ref.read(queryProvider);
-  showDialog(
-    context: context,
-    builder: (ctx) => TagsSelectorDialog(
-      tags: tags,
-      initialValue: query.tags ?? [],
-      onConfirm: ref.read(queryProvider.notifier).setTags,
-    ),
-  );
+  if (context.mounted) {
+    showDialog(
+      context: context,
+      builder: (_) => TagsSelectorDialog(
+        tags: tags,
+        initialValue: query.tags ?? [],
+        onConfirm: ref.read(queryProvider.notifier).setTags,
+      ),
+    );
+  }
 }

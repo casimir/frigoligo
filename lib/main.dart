@@ -15,11 +15,13 @@ import 'package:universal_platform/universal_platform.dart';
 import 'app_info.dart';
 import 'applinks/handler.dart';
 import 'constants.dart';
-import 'models/db.dart';
+import 'db/database.dart';
 import 'providers/background_sync.dart';
+import 'providers/logconsole.dart';
 import 'providers/router.dart';
 import 'providers/settings.dart';
 import 'providers/tools/observer.dart';
+import 'utils.dart';
 
 const enableDebugLogs = false;
 final _log = Logger('main');
@@ -28,26 +30,14 @@ final _log = Logger('main');
 Future<void> main() async {
   Logger.root.level = enableDebugLogs ? Level.FINE : Level.INFO;
   Logger.root.onRecord.listen((record) {
-    DB.appendLog(record);
-    var line =
-        '[${record.time}] ${record.level.name} ${record.loggerName} ${record.message}';
-    if (record.error != null) {
-      line += ' (${record.error})';
-    }
-    if (record.stackTrace != null) {
-      line += '\n${record.stackTrace}';
-    }
-    debugPrint(line.trimRight());
+    DB.get().appendLog(record);
+    debugPrint(loglineFromRecord(record));
   });
   FlutterError.onError = (errorDetails) {
     final repr = errorDetails.exceptionAsString();
     _log.severe('uncaught error', repr, errorDetails.stack);
     FlutterError.presentError(errorDetails);
   };
-
-  _log.info('starting app');
-
-  LinksHandler.init();
 
   // prevent fetching fonts from the internet, only loads the ones in the assets
   GoogleFonts.config.allowRuntimeFetching = false;
@@ -59,12 +49,15 @@ Future<void> main() async {
   // after this line using `await` is OK
   WidgetsFlutterBinding.ensureInitialized();
 
+  _log.info('starting app');
+
+  LinksHandler.init();
+
   if (UniversalPlatform.isIOS) {
     await SharedPreferenceAppGroup.setAppGroup(appGroupId);
   }
 
   await AppInfo.init();
-  await DB.init(kDebugMode);
   await Settings.init();
 
   _log.info('app version: ${AppInfo.versionVerbose}');
@@ -107,8 +100,9 @@ class _MyAppState extends ConsumerState<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    // one shot providers
+    // one shot providers and actions
     ref.watch(backgroundSyncProvider);
+    ref.watch(logConsoleProvider.notifier).truncate();
 
     final lang = ref.watch(settingsProvider.select((it) => it[Sk.language]));
     final theme = ref.watch(settingsProvider.select((it) => it[Sk.themeMode]));

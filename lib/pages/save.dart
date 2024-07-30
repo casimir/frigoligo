@@ -5,8 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../buildcontext_extension.dart';
-import '../models/article.dart';
-import '../models/db.dart';
+import '../db/database.dart';
+import '../db/extensions/article.dart';
 import '../providers/settings.dart';
 import '../server/providers/client.dart';
 import '../wallabag/client.dart';
@@ -62,14 +62,13 @@ class _SavePageState extends ConsumerState<SavePage> {
       // TODO use WStorage or RSA instead of local implementation
       final wallabag = await ref.read(clientProvider.future);
       final entry = await wallabag!.createEntry(widget.url!, tags: tags);
-      final article = Article.fromWallabagEntry(entry);
 
       final db = DB.get();
-      await db.writeTxn(() async => await db.articles.put(article));
+      await db.into(db.articles).insert(entry.toArticle());
 
       setState(() {
         step = SaveStep.success;
-        savedArticleId = article.id;
+        savedArticleId = entry.id;
       });
     } catch (e) {
       setState(() {

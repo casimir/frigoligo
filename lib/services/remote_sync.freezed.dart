@@ -19,6 +19,7 @@ mixin _$SyncState {
   bool get isWorking => throw _privateConstructorUsedError;
   double? get progressValue => throw _privateConstructorUsedError;
   Exception? get lastError => throw _privateConstructorUsedError;
+  int get pendingCount => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SyncStateCopyWith<SyncState> get copyWith =>
@@ -30,7 +31,11 @@ abstract class $SyncStateCopyWith<$Res> {
   factory $SyncStateCopyWith(SyncState value, $Res Function(SyncState) then) =
       _$SyncStateCopyWithImpl<$Res, SyncState>;
   @useResult
-  $Res call({bool isWorking, double? progressValue, Exception? lastError});
+  $Res call(
+      {bool isWorking,
+      double? progressValue,
+      Exception? lastError,
+      int pendingCount});
 }
 
 /// @nodoc
@@ -49,6 +54,7 @@ class _$SyncStateCopyWithImpl<$Res, $Val extends SyncState>
     Object? isWorking = null,
     Object? progressValue = freezed,
     Object? lastError = freezed,
+    Object? pendingCount = null,
   }) {
     return _then(_value.copyWith(
       isWorking: null == isWorking
@@ -63,6 +69,10 @@ class _$SyncStateCopyWithImpl<$Res, $Val extends SyncState>
           ? _value.lastError
           : lastError // ignore: cast_nullable_to_non_nullable
               as Exception?,
+      pendingCount: null == pendingCount
+          ? _value.pendingCount
+          : pendingCount // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -75,7 +85,11 @@ abstract class _$$SyncStateImplCopyWith<$Res>
       __$$SyncStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isWorking, double? progressValue, Exception? lastError});
+  $Res call(
+      {bool isWorking,
+      double? progressValue,
+      Exception? lastError,
+      int pendingCount});
 }
 
 /// @nodoc
@@ -92,6 +106,7 @@ class __$$SyncStateImplCopyWithImpl<$Res>
     Object? isWorking = null,
     Object? progressValue = freezed,
     Object? lastError = freezed,
+    Object? pendingCount = null,
   }) {
     return _then(_$SyncStateImpl(
       isWorking: null == isWorking
@@ -106,6 +121,10 @@ class __$$SyncStateImplCopyWithImpl<$Res>
           ? _value.lastError
           : lastError // ignore: cast_nullable_to_non_nullable
               as Exception?,
+      pendingCount: null == pendingCount
+          ? _value.pendingCount
+          : pendingCount // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -116,7 +135,8 @@ class _$SyncStateImpl implements _SyncState {
   const _$SyncStateImpl(
       {required this.isWorking,
       required this.progressValue,
-      this.lastError = null});
+      this.lastError = null,
+      required this.pendingCount});
 
   @override
   final bool isWorking;
@@ -125,10 +145,12 @@ class _$SyncStateImpl implements _SyncState {
   @override
   @JsonKey()
   final Exception? lastError;
+  @override
+  final int pendingCount;
 
   @override
   String toString() {
-    return 'SyncState(isWorking: $isWorking, progressValue: $progressValue, lastError: $lastError)';
+    return 'SyncState(isWorking: $isWorking, progressValue: $progressValue, lastError: $lastError, pendingCount: $pendingCount)';
   }
 
   @override
@@ -141,12 +163,14 @@ class _$SyncStateImpl implements _SyncState {
             (identical(other.progressValue, progressValue) ||
                 other.progressValue == progressValue) &&
             (identical(other.lastError, lastError) ||
-                other.lastError == lastError));
+                other.lastError == lastError) &&
+            (identical(other.pendingCount, pendingCount) ||
+                other.pendingCount == pendingCount));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, isWorking, progressValue, lastError);
+  int get hashCode => Object.hash(
+      runtimeType, isWorking, progressValue, lastError, pendingCount);
 
   @JsonKey(ignore: true)
   @override
@@ -159,7 +183,8 @@ abstract class _SyncState implements SyncState {
   const factory _SyncState(
       {required final bool isWorking,
       required final double? progressValue,
-      final Exception? lastError}) = _$SyncStateImpl;
+      final Exception? lastError,
+      required final int pendingCount}) = _$SyncStateImpl;
 
   @override
   bool get isWorking;
@@ -167,6 +192,8 @@ abstract class _SyncState implements SyncState {
   double? get progressValue;
   @override
   Exception? get lastError;
+  @override
+  int get pendingCount;
   @override
   @JsonKey(ignore: true)
   _$$SyncStateImplCopyWith<_$SyncStateImpl> get copyWith =>

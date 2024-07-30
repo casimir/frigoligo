@@ -8,10 +8,10 @@ import 'package:go_router/go_router.dart';
 
 import '../buildcontext_extension.dart';
 import '../datetime_extension.dart';
-import '../models/db.dart';
 import '../providers/settings.dart';
 import '../server/providers/client.dart';
 import '../server/session.dart';
+import '../services/wallabag_storage.dart';
 import '../wallabag/wallabag.dart';
 
 Widget _copyText(BuildContext context, String text, [bool obfuscate = false]) {
@@ -45,7 +45,7 @@ class SessionDetailsPage extends ConsumerWidget {
       ),
       body: ref.watch(sessionProvider).when(
             data: (it) => _buildDetails(context, ref, it),
-            error: (error, _) => ErrorScreen(error: error as Exception),
+            error: (error, _) => ErrorScreen(error: error),
             loading: () =>
                 const Center(child: CircularProgressIndicator.adaptive()),
           ),
@@ -91,7 +91,9 @@ Widget _buildDetails(
 
               await ref.read(sessionProvider.notifier).logout();
               await ref.read(settingsProvider.notifier).clear();
-              await DB.clear();
+              await ref
+                  .read(wStorageProvider.notifier)
+                  .clearArticles(keepPositions: false);
               if (context.mounted) {
                 context.go('/login');
               }

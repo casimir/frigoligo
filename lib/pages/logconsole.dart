@@ -7,6 +7,7 @@ import 'package:share_plus/share_plus.dart';
 import '../buildcontext_extension.dart';
 import '../constants.dart';
 import '../providers/logconsole.dart';
+import '../widgets/async/list.dart';
 
 class LogConsolePage extends ConsumerWidget {
   const LogConsolePage({super.key});
@@ -40,16 +41,16 @@ class LogConsolePage extends ConsumerWidget {
           ),
         ],
       ),
-      body: ListView.builder(
+      body: AListView.builder(
         itemCount: console.getCount(),
-        itemBuilder: (context, index) {
-          final record = console.index(index)!;
-          var message = record.message;
+        itemBuilder: (context, index) async {
+          final record = (await console.index(index))!;
+          var message = '${record.id} ${record.message}';
           if (record.error != null) {
             message += ' (${record.error})';
           }
           return Container(
-            color: index.isEven
+            color: index.isEven && context.mounted
                 ? Theme.of(context).colorScheme.secondaryContainer
                 : null,
             child: Text(
@@ -64,6 +65,7 @@ class LogConsolePage extends ConsumerWidget {
 }
 
 Color levelColor(String level) {
+// FIXME doesn't always work in dark mode
   switch (level) {
     case 'INFO':
       return Colors.black;

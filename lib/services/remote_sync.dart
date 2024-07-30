@@ -1,10 +1,11 @@
+import 'dart:convert';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:isar/isar.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../models/db.dart';
-import '../models/remote_action.dart';
+import '../db/database.dart';
+import '../db/extensions/remote_action.dart';
 import 'remote_sync_actions/articles.dart';
 import 'remote_sync_actions/base.dart';
 import 'wallabag_storage.dart';
@@ -20,6 +21,7 @@ class SyncState with _$SyncState {
     required bool isWorking,
     required double? progressValue,
     @Default(null) Exception? lastError,
+    required int pendingCount,
   }) = _SyncState;
 }
 
@@ -33,10 +35,9 @@ class RemoteSyncer extends _$RemoteSyncer {
       isWorking: false,
       progressValue: null,
       lastError: _popLastError(),
+      pendingCount: 0,
     );
   }
-
-  int getPendingCount() => DB.get().remoteActions.countSync();
 
   bool setProgress(double? value) {
     if (value == state.progressValue) return false;
@@ -51,14 +52,21 @@ class RemoteSyncer extends _$RemoteSyncer {
     return error;
   }
 
-  void add(RemoteSyncAction action) {
+  Future<int> _fetchPendingCount() => DB.get().managers.remoteActions.count();
+
+  Future<void> add(RemoteSyncAction action) async {
     final db = DB.get();
 
-    final existing =
-        db.remoteActions.filter().keyEqualTo(action.hashCode).findFirstSync();
-    if (existing == null) {
-      db.writeTxnSync(
-          () => db.remoteActions.putSync(RemoteAction.fromRSA(action)));
+    final exists = await db.managers.remoteActions
+        .filter((f) => f.key.equals(action.hashCode))
+        .exists();
+    if (!exists) {
+      await db.managers.remoteActions.create((o) => o(
+            key: action.hashCode,
+            createdAt: DateTime.now(),
+            className: action.runtimeType.toString(),
+            jsonParams: jsonEncode(action.params()),
+          ));
     }
   }
 
@@ -68,7 +76,11 @@ class RemoteSyncer extends _$RemoteSyncer {
       _log.info('sync already in progress, skipping...');
       return;
     }
-    state = const SyncState(isWorking: true, progressValue: null);
+    state = SyncState(
+      isWorking: true,
+      progressValue: null,
+      pendingCount: await _fetchPendingCount(),
+    );
 
     try {
       await _executeActions();
@@ -85,6 +97,7 @@ class RemoteSyncer extends _$RemoteSyncer {
         isWorking: false,
         progressValue: null,
         lastError: _popLastError(),
+        pendingCount: await _fetchPendingCount(),
       );
     }
   }
@@ -96,22 +109,28 @@ class RemoteSyncer extends _$RemoteSyncer {
     int i = 1;
     int actionsCount = 0;
     do {
-      final actions = db.remoteActions.where().sortByCreatedAt().findAllSync();
+      final actions = await (db.managers.remoteActions
+            ..orderBy((o) => o.createdAt.asc()))
+          .get();
       actionsCount += actions.length;
       for (final action in actions) {
         final rsa = action.toRSA();
         _log.info('running action: $rsa');
         await rsa.execute(this, ref.read(wStorageProvider.notifier));
-        final deleted =
-            await db.writeTxn(() => db.remoteActions.delete(action.id!));
-        if (!deleted) {
+        final deleted = await db.managers.remoteActions
+            .filter((f) => f.id.equals(action.id))
+            .delete();
+        if (deleted == 0) {
           _log.severe('action not deleted after execution: $action');
         }
-        state = state.copyWith(progressValue: i / actionsCount);
+        state = state.copyWith(
+          progressValue: i / actionsCount,
+          pendingCount: state.pendingCount - 1,
+        );
         i++;
       }
       // new actions might be added while the current batch was processed
-      actionsCount += getPendingCount();
+      actionsCount += await _fetchPendingCount();
     } while (i < actionsCount);
   }
 }
