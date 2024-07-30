@@ -1,0 +1,4 @@
+- Ein Button zum Speichern von Links vom Hauptbildschirm wurde hinzugefügt.
+- Die Sprachen wurden erweitert und umfassen jetzt Galicisch, Brasilianisch Portugiesisch und Chinesisch.
+- Mehrere Fehler wurden behoben, einschließlich Probleme beim Speichern und Synchronisieren von Artikeln.
+- Die Routing-Logik für Artikelansichten wurde überarbeitet, um eine reibungslosere Erfahrung zu gewährleisten.

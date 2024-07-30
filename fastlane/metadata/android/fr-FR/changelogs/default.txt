@@ -1,1 +1,1 @@
-Amélioration de la stabilité et correction de bugs.
+Stabilité améliorée et corrections de bugs.
