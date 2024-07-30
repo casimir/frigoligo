@@ -1,3 +1,28 @@
+<a name="v1.2.0"></a>
+# [v1.2.0 (v1.2.0)](https://github.com/casimir/frigoligo/releases/tag/v1.2.0) - 30 Jul 2024
+
+## What's Changed
+### Features
+* Allow connection to the server with a self-signed certificate by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/230
+### Bug Fixes
+* Fix wallabag refresh token update by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/226
+* Fix typo in language label (DE) by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/234
+### Miscellaneous
+* Change wallabag client architecture by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/224
+* Rework session handling and providers architecture by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/225
+* Add early support for freon by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/227
+* Translations update from Hosted Weblate by [@weblate](https://github.com/weblate) in https://github.com/casimir/frigoligo/pull/222
+* New locales (zh-Hant & ru) by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/228
+* Update dependency flutter_widget_from_html_core to ^0.15.0 by [@renovate](https://github.com/renovate) in https://github.com/casimir/frigoligo/pull/216
+* Update dependency fastlane to v2.222.0 by [@renovate](https://github.com/renovate) in https://github.com/casimir/frigoligo/pull/231
+* Translations update from Hosted Weblate by [@weblate](https://github.com/weblate) in https://github.com/casimir/frigoligo/pull/229
+
+
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v1.1.1...v1.2.0
+
+[Changes][v1.2.0]
+
+
 <a name="v1.1.1"></a>
 # [v1.1.1](https://github.com/casimir/frigoligo/releases/tag/v1.1.1) - 27 Jun 2024
 
@@ -614,6 +639,7 @@ Let's begin! This is the very first release.
 [Changes][v0.1.0]
 
 
+[v1.2.0]: https://github.com/casimir/frigoligo/compare/v1.1.1...v1.2.0
 [v1.1.1]: https://github.com/casimir/frigoligo/compare/v1.1.0...v1.1.1
 [v1.1.0]: https://github.com/casimir/frigoligo/compare/v1.0.10...v1.1.0
 [v1.0.10]: https://github.com/casimir/frigoligo/compare/v1.0.9...v1.0.10
