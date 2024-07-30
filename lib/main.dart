@@ -17,7 +17,6 @@ import 'applinks/handler.dart';
 import 'constants.dart';
 import 'db/database.dart';
 import 'providers/background_sync.dart';
-import 'providers/logconsole.dart';
 import 'providers/router.dart';
 import 'providers/settings.dart';
 import 'providers/tools/observer.dart';
