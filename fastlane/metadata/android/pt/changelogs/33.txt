@@ -1,0 +1,4 @@
+- Adicionado um botão para salvar links da tela principal.
+- O suporte linguístico foi expandido para incluir galego, português do Brasil e chinês.
+- Vários bugs foram corrigidos, incluindo problemas com ações de salvar e sincronizar artigos.
+- A lógica de roteamento para visualizações de artigos foi reformulada para uma experiência mais suave.

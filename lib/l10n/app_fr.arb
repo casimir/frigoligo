@@ -402,5 +402,9 @@
   "session_fieldApiToken": "Jeton d’API",
   "@session_fieldApiToken": {
     "description": "The API token field name of in forms."
+  },
+  "login_acceptSelfSigned": "Autoriser les certificats auto-signés",
+  "@login_acceptSelfSigned": {
+    "description": "Wether or not to accept self-signed certificates when connecting to the wallabag instance."
   }
 }

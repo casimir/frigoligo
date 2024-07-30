@@ -239,7 +239,7 @@
   "@login_actionLogin": {
     "description": "The action to log in."
   },
-  "login_existingSessionDialogConfirm": "Pechar sesión",
+  "login_existingSessionDialogConfirm": "Saír",
   "@login_existingSessionDialogConfirm": {
     "description": "The action to log out from the existing session."
   },
@@ -333,7 +333,7 @@
   "@session_invalidToken": {
     "description": "Placeholder for expiration date when the token is invalid."
   },
-  "session_logoutDialogConfirm": "Pechar sesión",
+  "session_logoutDialogConfirm": "Saír",
   "@session_logoutDialogConfirm": {
     "description": "Confirm the log out from the confirmation dialog."
   },
@@ -398,5 +398,13 @@
         "format": "compact"
       }
     }
+  },
+  "session_fieldApiToken": "Token da API",
+  "@session_fieldApiToken": {
+    "description": "The API token field name of in forms."
+  },
+  "login_acceptSelfSigned": "Aceptar certificados auto-asinados",
+  "@login_acceptSelfSigned": {
+    "description": "Wether or not to accept self-signed certificates when connecting to the wallabag instance."
   }
 }

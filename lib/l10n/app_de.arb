@@ -121,7 +121,7 @@
   },
   "humanize_hours": "{n, plural, =1{1 Stunde} other{{n} Stunden}}",
   "@humanize_hours": {},
-  "session_fieldTokenExpiration": "Gültigkeit des Tokens",
+  "session_fieldTokenExpiration": "Ablauf des Tokens",
   "@session_fieldTokenExpiration": {
     "description": "The label of the token expiration field in the session screen."
   },
@@ -193,7 +193,7 @@
   "@article_delete": {
     "description": "The action to delete the article."
   },
-  "settings_itemAppearance": "Aussehen",
+  "settings_itemAppearance": "Design",
   "@settings_itemAppearance": {
     "description": "Settings for the appearance of the application."
   },
@@ -271,7 +271,7 @@
   "@settings_clearCacheMessage": {
     "description": "The message of the confirmation dialog to clear the cache."
   },
-  "logconsole_title": "Log Konsole",
+  "logconsole_title": "Konsolen-Log",
   "@logconsole_title": {
     "description": "The title of the log console screen."
   },
@@ -387,7 +387,7 @@
   "@readingsettings_fontSize": {
     "description": "The font size to display the content of the article."
   },
-  "settings_bugReportLink": "Fehler melden",
+  "settings_bugReportLink": "Einen Fehler melden",
   "@settings_bugReportLink": {
     "description": "The action to open the bug report form."
   },
@@ -398,5 +398,13 @@
   "settings_helpToTranslate": "Beim Übersetzen helfen",
   "@settings_helpToTranslate": {
     "description": "The action to open the Weblate project in a webview."
+  },
+  "login_acceptSelfSigned": "Erlaube selbst signierte Zertifikate",
+  "@login_acceptSelfSigned": {
+    "description": "Wether or not to accept self-signed certificates when connecting to the wallabag instance."
+  },
+  "readingsettings_title": "Lese-Einstellungen",
+  "@readingsettings_title": {
+    "description": "The title of the reading settings screen."
   }
 }
