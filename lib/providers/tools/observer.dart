@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
 
@@ -30,7 +31,9 @@ class RiverpodObserver extends ProviderObserver {
     Object? newValue,
     ProviderContainer container,
   ) {
-    _log.fine('UPDATE $provider [$previousValue] -> [$newValue]');
+    final before = previousValue?.toString().characters.take(200);
+    final after = newValue?.toString().characters.take(200);
+    _log.fine('UPDATE $provider [$before] -> [$after]');
   }
 
   @override
