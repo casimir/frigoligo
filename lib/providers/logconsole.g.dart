@@ -6,7 +6,7 @@ part of 'logconsole.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$logConsoleHash() => r'ede8412446a0e51b344e5272f9e229389462db52';
+String _$logConsoleHash() => r'b4a51f0116bb124182a7ed7b1f0c6f6c913f0b2b';
 
 /// See also [LogConsole].
 @ProviderFor(LogConsole)

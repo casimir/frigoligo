@@ -1616,6 +1616,7 @@ abstract class _$DB extends GeneratedDatabase {
   late final $ArticleScrollPositionsTable articleScrollPositions =
       $ArticleScrollPositionsTable(this);
   late final $RemoteActionsTable remoteActions = $RemoteActionsTable(this);
+  late final AppLogsDao appLogsDao = AppLogsDao(this as DB);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();

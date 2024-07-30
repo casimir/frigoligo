@@ -9,6 +9,7 @@ import 'package:sqlite3/sqlite3.dart';
 
 import '../utils.dart';
 import 'converters/containers.dart';
+import 'daos/app_logs.dart';
 import 'models/app_log.dart';
 import 'models/article.dart';
 import 'models/remote_action.dart';
@@ -21,12 +22,17 @@ Future<(String, String)> getDBPath(bool devmode) async {
   return (dir, 'data');
 }
 
-@DriftDatabase(tables: [
-  AppLogs,
-  Articles,
-  ArticleScrollPositions,
-  RemoteActions,
-])
+@DriftDatabase(
+  tables: [
+    AppLogs,
+    Articles,
+    ArticleScrollPositions,
+    RemoteActions,
+  ],
+  daos: [
+    AppLogsDao,
+  ],
+)
 class DB extends _$DB {
   DB() : super(_openConnection());
 
