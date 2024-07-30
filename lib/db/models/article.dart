@@ -3,7 +3,7 @@ import 'package:drift/drift.dart';
 import '../converters/containers.dart';
 
 class Articles extends Table {
-  IntColumn get id => integer()();
+  IntColumn get id => integer().unique()();
   DateTimeColumn get createdAt => dateTime()();
   DateTimeColumn get updatedAt => dateTime()();
   TextColumn get title => text()();
@@ -21,7 +21,7 @@ class Articles extends Table {
 }
 
 class ArticleScrollPositions extends Table {
-  IntColumn get id => integer()();
+  IntColumn get id => integer().unique()();
   IntColumn get readingTime => integer()();
   RealColumn get progress => real()();
 }
