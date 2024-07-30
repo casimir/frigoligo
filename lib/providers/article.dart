@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:drift/drift.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../db/database.dart';
@@ -65,11 +66,14 @@ class CurrentArticle extends _$CurrentArticle {
           (f) => f.id.equals(_articleId!),
         )
         .getSingle();
-    await db.managers.articleScrollPositions.create((o) => o(
-          id: article.id,
-          readingTime: article.readingTime,
-          progress: progress,
-        ));
+    await db.managers.articleScrollPositions.create(
+      (o) => o(
+        id: article.id,
+        readingTime: article.readingTime,
+        progress: progress,
+      ),
+      mode: InsertMode.insertOrReplace,
+    );
   }
 }
 
@@ -86,8 +90,9 @@ class ScrollPosition extends _$ScrollPosition {
         .filter((f) => f.id.equals(articleId));
 
     _watcher?.cancel();
-    _watcher = q.watchSingle().listen((_) {
-      ref.invalidateSelf();
+    _watcher = q.watchSingleOrNull().listen((value) {
+      final current = state.maybeWhen(orElse: () => null, data: (asp) => asp);
+      if (value != current) state = AsyncValue.data(value);
     });
 
     return q.getSingleOrNull();

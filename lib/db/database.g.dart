@@ -426,7 +426,9 @@ class $ArticlesTable extends Articles with TableInfo<$ArticlesTable, Article> {
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
   static const VerificationMeta _createdAtMeta =
       const VerificationMeta('createdAt');
   @override
@@ -1076,7 +1078,9 @@ class $ArticleScrollPositionsTable extends ArticleScrollPositions
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
   static const VerificationMeta _readingTimeMeta =
       const VerificationMeta('readingTime');
   @override
