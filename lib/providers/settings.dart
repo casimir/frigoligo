@@ -132,7 +132,7 @@ enum Language {
   system(null, ''),
   // values should be in alphabetical order as they are displayed in the UI
   // FIXME this value is stored using its enum index, so only append for now
-  de(Locale('de'), 'Deustch'),
+  de(Locale('de'), 'Deutsch'),
   en(Locale('en'), 'English'),
   fr(Locale('fr'), 'Français'),
   gl(Locale('gl'), 'Galego'),
