@@ -102,7 +102,6 @@ class _MyAppState extends ConsumerState<MyApp> {
   Widget build(BuildContext context) {
     // one shot providers and actions
     ref.watch(backgroundSyncProvider);
-    ref.watch(logConsoleProvider.notifier).truncate();
 
     final lang = ref.watch(settingsProvider.select((it) => it[Sk.language]));
     final theme = ref.watch(settingsProvider.select((it) => it[Sk.themeMode]));
