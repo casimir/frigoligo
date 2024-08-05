@@ -1,1 +1,0 @@
-../../android/pt/short_description.txt

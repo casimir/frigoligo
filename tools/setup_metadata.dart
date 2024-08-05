@@ -10,7 +10,9 @@ const iosMetadataRoot = '$metadataRoot/ios';
 const langSkips = ['gl-ES'];
 // different language codes for Apple App Store
 const langRewrite = {
+  'pt': 'pt-PT',
   'zh-CN': 'zh-Hans',
+  'zh-TW': 'zh-Hant',
 };
 
 final versionRE = RegExp(r'version: \d+\.\d+\.\d+\+(\d+)');
