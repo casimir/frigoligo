@@ -1,13 +1,9 @@
-import 'dart:io';
-
 import 'package:drift/drift.dart';
-import 'package:drift/native.dart';
-import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:sqlite3/sqlite3.dart';
 
 import '../utils.dart';
+import 'connection/connection.dart';
 import 'converters/containers.dart';
 import 'daos/app_logs.dart';
 import 'models/app_log.dart';
@@ -15,12 +11,6 @@ import 'models/article.dart';
 import 'models/remote_action.dart';
 
 part 'database.g.dart';
-
-Future<(String, String)> getDBPath(bool devmode) async {
-  final supportDir = await getApplicationSupportDirectory();
-  final dir = '${supportDir.path}/offline${devmode ? '-dev' : ''}';
-  return (dir, 'data');
-}
 
 @DriftDatabase(
   tables: [
@@ -34,7 +24,7 @@ Future<(String, String)> getDBPath(bool devmode) async {
   ],
 )
 class DB extends _$DB {
-  DB() : super(_openConnection());
+  DB() : super(openConnection());
 
   @override
   int get schemaVersion => 1;
@@ -64,21 +54,4 @@ class DB extends _$DB {
     _instance ??= DB();
     return _instance!;
   }
-}
-
-QueryExecutor _openConnection() {
-  // TODO delete old db files
-  // TODO handle web https://drift.simonbinder.eu/web/
-  return LazyDatabase(() async {
-    // make sqlite use a sandboxed temp directory
-    final cachebase = (await getTemporaryDirectory()).path;
-    sqlite3.tempDirectory = cachebase;
-
-    final (dir, name) = await getDBPath(kDebugMode);
-    final dbFile = File('$dir/$name.sqlite');
-    if (kDebugMode) {
-      print('DEBUG: database path: "${dbFile.path}"');
-    }
-    return NativeDatabase.createInBackground(dbFile);
-  });
 }
