@@ -1,6 +1,5 @@
 import 'package:drift/drift.dart';
 import 'package:logging/logging.dart';
-import 'package:path_provider/path_provider.dart';
 
 import '../utils.dart';
 import 'connection/connection.dart';
