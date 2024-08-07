@@ -14,6 +14,7 @@ Future<(String, String)> getDBPath(bool devmode) async {
 
 QueryExecutor openConnection() {
   // TODO delete old db files
+  // TODO reset Sk.lastRefresh
   return LazyDatabase(() async {
     // make sqlite use a sandboxed temp directory
     final cachebase = (await getTemporaryDirectory()).path;
