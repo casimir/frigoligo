@@ -6,6 +6,8 @@ import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqlite3/sqlite3.dart';
 
+import '../../constants.dart';
+
 Future<(String, String)> getDBPath(bool devmode) async {
   final supportDir = await getApplicationSupportDirectory();
   final dir = '${supportDir.path}/offline${devmode ? '-dev' : ''}';
@@ -25,6 +27,9 @@ QueryExecutor openConnection() {
     if (kDebugMode) {
       print('DEBUG: database path: "${dbFile.path}"');
     }
-    return NativeDatabase.createInBackground(dbFile);
+    return NativeDatabase.createInBackground(
+      dbFile,
+      logStatements: enableSqlLogs,
+    );
   });
 }

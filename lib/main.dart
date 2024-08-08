@@ -21,7 +21,6 @@ import 'providers/settings.dart';
 import 'providers/tools/observer.dart';
 import 'utils.dart';
 
-const enableDebugLogs = false;
 final _log = Logger('main');
 
 // TODO factorize init steps
