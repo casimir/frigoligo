@@ -46,7 +46,7 @@ const int logCountThreshold = 1000;
 // Features flags and constants
 
 const enableDebugLogs = false;
-const enableSqlLogs = true;
+const enableSqlLogs = false;
 
 final appBadgeSupported =
     UniversalPlatform.isMobile || UniversalPlatform.isMacOS;
