@@ -1,6 +1,9 @@
 import 'package:cadanse/components/widgets/error.dart';
 import 'package:flutter/material.dart';
 
+typedef WrapperBuilder = Widget Function(BuildContext context, Widget child);
+typedef AIndexedWidgetBuilder = Future<Widget> Function(BuildContext, int);
+
 const Widget spinner = Center(child: CircularProgressIndicator.adaptive());
 
 class AListView extends StatelessWidget {
@@ -8,18 +11,18 @@ class AListView extends StatelessWidget {
     super.key,
     required this.itemCount,
     required this.itemBuilder,
-    this.itemHeight,
+    this.itemExtent,
     this.separatorBuilder,
     this.create,
     this.emptyBuilder,
   });
 
   final Future<int> itemCount;
-  final Widget Function(BuildContext context, int index) itemBuilder;
-  final double? itemHeight;
-  final Widget Function(BuildContext context, int index)? separatorBuilder;
-  final Widget Function(BuildContext context, Widget child)? create;
-  final Widget Function(BuildContext context)? emptyBuilder;
+  final IndexedWidgetBuilder itemBuilder;
+  final double? itemExtent;
+  final IndexedWidgetBuilder? separatorBuilder;
+  final WrapperBuilder? create;
+  final WidgetBuilder? emptyBuilder;
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +46,7 @@ class AListView extends StatelessWidget {
         late final ListView list;
         if (separatorBuilder == null) {
           list = ListView.builder(
+            itemExtent: itemExtent,
             itemCount: count,
             itemBuilder: (context, index) => itemBuilder(context, index),
           );
@@ -62,10 +66,10 @@ class AListView extends StatelessWidget {
   factory AListView.builder({
     Key? key,
     required Future<int> itemCount,
-    required AItemBuilderFunc itemBuilder,
-    double? itemHeight,
-    Widget Function(BuildContext, Widget)? create,
-    Widget Function(BuildContext)? emptyBuilder,
+    required AIndexedWidgetBuilder itemBuilder,
+    double? itemExtent,
+    WrapperBuilder? create,
+    WidgetBuilder? emptyBuilder,
   }) {
     return AListView(
       key: key,
@@ -73,9 +77,8 @@ class AListView extends StatelessWidget {
       itemBuilder: (context, index) => AListItemBuilder(
         builder: itemBuilder,
         index: index,
-        height: itemHeight,
       ),
-      itemHeight: itemHeight,
+      itemExtent: itemExtent,
       create: create,
       emptyBuilder: emptyBuilder,
     );
@@ -84,11 +87,11 @@ class AListView extends StatelessWidget {
   factory AListView.separated({
     Key? key,
     required Future<int> itemCount,
-    required AItemBuilderFunc itemBuilder,
+    required AIndexedWidgetBuilder itemBuilder,
     double? itemHeight,
-    required Widget Function(BuildContext, int) separatorBuilder,
-    Widget Function(BuildContext, Widget)? create,
-    Widget Function(BuildContext)? emptyBuilder,
+    required IndexedWidgetBuilder separatorBuilder,
+    WrapperBuilder? create,
+    WidgetBuilder? emptyBuilder,
   }) {
     return AListView(
       key: key,
@@ -98,15 +101,12 @@ class AListView extends StatelessWidget {
         index: index,
         height: itemHeight,
       ),
-      itemHeight: itemHeight,
       separatorBuilder: separatorBuilder,
       create: create,
       emptyBuilder: emptyBuilder,
     );
   }
 }
-
-typedef AItemBuilderFunc = Future<Widget> Function(BuildContext, int);
 
 class AListItemBuilder extends StatelessWidget {
   const AListItemBuilder({
@@ -116,7 +116,7 @@ class AListItemBuilder extends StatelessWidget {
     this.height,
   });
 
-  final AItemBuilderFunc builder;
+  final AIndexedWidgetBuilder builder;
   final int index;
   final double? height;
 
