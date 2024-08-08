@@ -133,13 +133,10 @@ class _ListingPageState extends ConsumerState<ListingPage> {
                       .maybeInit(article!.id));
                 });
               }
-              final article = (await storage.index(index, query))!;
-              final selected = await ref.watch(currentArticleProvider.future);
               return ArticleListItem(
-                article: article,
+                article: (await storage.index(index, query))!,
                 onTap: (article) => _openArticle(article.id),
                 showSelection: widget.sideBySideMode,
-                isSelected: article.id == selected?.id,
               );
             },
             itemHeight: listingHeight,
@@ -236,7 +233,6 @@ class AsyncArticleItem extends ConsumerWidget {
                 article: article,
                 onTap: onTap,
                 showSelection: showSelection,
-                isSelected: selected?.id == article.id,
               ),
           error: (e, st) => throw Exception('unreachable branch but $e'),
           loading: () => const SizedBox(
@@ -245,32 +241,40 @@ class AsyncArticleItem extends ConsumerWidget {
               ));
 }
 
-class ArticleListItem extends ConsumerWidget {
+class ArticleListItem extends ConsumerStatefulWidget {
   const ArticleListItem({
     super.key,
     required this.article,
     this.onTap,
     required this.showSelection,
-    required this.isSelected,
   });
 
   final Article article;
   final void Function(Article)? onTap;
   final bool showSelection;
-  final bool isSelected;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ArticleListItem> createState() => _ArticleListItemState();
+}
+
+class _ArticleListItemState extends ConsumerState<ArticleListItem> {
+  bool _isSelected = false;
+
+  @override
+  Widget build(BuildContext context) {
     // TODO explore https://pub.dev/packages/flutter_slidable
     // TODO GestureDetector on iOS
 
+    _listenToSelectionChange(ref);
+
     return Ink(
-      color:
-          showSelection && isSelected ? Theme.of(context).highlightColor : null,
+      color: widget.showSelection && _isSelected
+          ? Theme.of(context).highlightColor
+          : null,
       child: SizedBox(
         height: listingHeight,
         child: InkWell(
-          onTap: () => onTap?.call(article),
+          onTap: () => widget.onTap?.call(widget.article),
           child: Column(
             children: [
               Row(
@@ -287,7 +291,8 @@ class ArticleListItem extends ConsumerWidget {
                             children: [
                               Expanded(
                                 child: Text(
-                                  article.domainName ?? article.url,
+                                  widget.article.domainName ??
+                                      widget.article.url,
                                   style:
                                       Theme.of(context).textTheme.labelMedium,
                                   softWrap: false,
@@ -295,15 +300,15 @@ class ArticleListItem extends ConsumerWidget {
                                 ),
                               ),
                               Text(
-                                context.L
-                                    .article_readingTime(article.readingTime),
+                                context.L.article_readingTime(
+                                    widget.article.readingTime),
                                 style: Theme.of(context).textTheme.labelMedium,
                               ),
                             ],
                           ),
                           const SizedBox(height: 4.0),
                           Text(
-                            article.title,
+                            widget.article.title,
                             style: const TextStyle(fontWeight: FontWeight.bold),
                             maxLines: 3,
                             overflow: TextOverflow.ellipsis,
@@ -312,8 +317,8 @@ class ArticleListItem extends ConsumerWidget {
                       ),
                     ),
                   ),
-                  if (article.previewPicture != null)
-                    ArticleImagePreview(article: article)
+                  if (widget.article.previewPicture != null)
+                    ArticleImagePreview(article: widget.article)
                 ],
               ),
               const Spacer(),
@@ -326,7 +331,7 @@ class ArticleListItem extends ConsumerWidget {
                       scrollDirection: Axis.horizontal,
                       padding: const EdgeInsets.only(left: 8.0),
                       child: TagList(
-                        tags: article.tags,
+                        tags: widget.article.tags,
                         onTagPressed: (tag) => ref
                             .read(queryProvider.notifier)
                             .overrideWith(WQuery(tags: [tag])),
@@ -341,26 +346,26 @@ class ArticleListItem extends ConsumerWidget {
                       children: [
                         IconButton(
                           visualDensity: VisualDensity.compact,
-                          icon: stateIcons[article.stateValue]!,
+                          icon: stateIcons[widget.article.stateValue]!,
                           onPressed: () async {
                             final syncer =
                                 ref.read(remoteSyncerProvider.notifier);
                             await syncer.add(EditArticleAction(
-                              article.id,
-                              archive: article.archivedAt == null,
+                              widget.article.id,
+                              archive: widget.article.archivedAt == null,
                             ));
                             await syncer.synchronize();
                           },
                         ),
                         IconButton(
                           visualDensity: VisualDensity.compact,
-                          icon: starredIcons[article.starredValue]!,
+                          icon: starredIcons[widget.article.starredValue]!,
                           onPressed: () async {
                             final syncer =
                                 ref.read(remoteSyncerProvider.notifier);
                             await syncer.add(EditArticleAction(
-                              article.id,
-                              starred: article.starredAt == null,
+                              widget.article.id,
+                              starred: widget.article.starredAt == null,
                             ));
                             await syncer.synchronize();
                           },
@@ -375,5 +380,13 @@ class ArticleListItem extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  void _listenToSelectionChange(WidgetRef ref) async {
+    final currentArticleId =
+        await ref.watch(currentArticleProvider.selectAsync((it) => it?.id));
+    setState(() {
+      _isSelected = currentArticleId == widget.article.id;
+    });
   }
 }
