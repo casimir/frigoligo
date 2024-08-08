@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../models/article.dart';
+import '../db/database.dart';
 
 class ArticleImagePreview extends StatelessWidget {
   const ArticleImagePreview({super.key, required this.article});

@@ -41,9 +41,12 @@ final Map<StarredFilter, Icon> starredIcons = {
 // Behavior constants
 
 const int autoSyncThrottleSeconds = 15 * 60;
-const int logCountResetThreshold = 1000;
+const int logCountThreshold = 1000;
 
 // Features flags and constants
+
+const enableDebugLogs = false;
+const enableSqlLogs = false;
 
 final appBadgeSupported =
     UniversalPlatform.isMobile || UniversalPlatform.isMacOS;

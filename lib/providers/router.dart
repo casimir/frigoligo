@@ -30,10 +30,12 @@ GoRouter router(RouterRef ref) {
           final rawArticleId = state.uri.queryParameters['articleId'];
           final articleId =
               rawArticleId != null ? int.tryParse(rawArticleId) : null;
-          final currentId = ref.read(currentArticleProvider)?.id;
-          if (articleId != null && articleId != currentId) {
-            ref.read(openArticleProvider.notifier).schedule(articleId);
-          }
+          ref.read(currentArticleProvider.future).then((article) {
+            final currentId = article?.id;
+            if (articleId != null && articleId != currentId) {
+              ref.read(openArticleProvider.notifier).schedule(articleId);
+            }
+          });
           return const HomePage();
         },
       ),

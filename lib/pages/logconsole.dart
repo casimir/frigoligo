@@ -6,7 +6,9 @@ import 'package:share_plus/share_plus.dart';
 
 import '../buildcontext_extension.dart';
 import '../constants.dart';
+import '../db/database.dart';
 import '../providers/logconsole.dart';
+import '../widgets/async/list.dart';
 
 class LogConsolePage extends ConsumerWidget {
   const LogConsolePage({super.key});
@@ -15,41 +17,41 @@ class LogConsolePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(logConsoleProvider);
 
-    final console = ref.watch(logConsoleProvider.notifier);
+    final logs = DB.get().appLogsDao;
     return Scaffold(
       appBar: AppBar(
         title: Text(context.L.logconsole_title),
         actions: [
           IconButton(
             icon: shareIcon,
-            onPressed: () {
-              console.exportCurrentRunToFile().then((filename) {
-                final box = context.findRenderObject() as RenderBox?;
-                Share.shareXFiles(
-                  [XFile(filename)],
-                  subject: filename.split(Platform.pathSeparator).last,
-                  sharePositionOrigin:
-                      box!.localToGlobal(Offset.zero) & box.size,
-                );
-              });
+            onPressed: () async {
+              final box = context.findRenderObject() as RenderBox?;
+              final filename = await ref
+                  .watch(logConsoleProvider.notifier)
+                  .exportCurrentRunToFile();
+              Share.shareXFiles(
+                [XFile(filename)],
+                subject: filename.split(Platform.pathSeparator).last,
+                sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+              );
             },
           ),
           IconButton(
             icon: const Icon(Icons.delete),
-            onPressed: () => ref.read(logConsoleProvider.notifier).clear(),
+            onPressed: () => logs.clear(),
           ),
         ],
       ),
-      body: ListView.builder(
-        itemCount: console.getCount(),
-        itemBuilder: (context, index) {
-          final record = console.index(index)!;
-          var message = record.message;
+      body: AListView.builder(
+        itemCount: logs.count(),
+        itemBuilder: (context, index) async {
+          final record = (await logs.index(index))!;
+          var message = '${record.loggerName}: ${record.message}';
           if (record.error != null) {
             message += ' (${record.error})';
           }
           return Container(
-            color: index.isEven
+            color: index.isEven && context.mounted
                 ? Theme.of(context).colorScheme.secondaryContainer
                 : null,
             child: Text(
@@ -64,6 +66,7 @@ class LogConsolePage extends ConsumerWidget {
 }
 
 Color levelColor(String level) {
+// FIXME doesn't always work in dark mode
   switch (level) {
     case 'INFO':
       return Colors.black;
