@@ -45,6 +45,9 @@ const int logCountThreshold = 1000;
 
 // Features flags and constants
 
+const enableDebugLogs = false;
+const enableSqlLogs = true;
+
 final appBadgeSupported =
     UniversalPlatform.isMobile || UniversalPlatform.isMacOS;
 const appGroupId = 'group.net.casimir-lab.frigoligo';
