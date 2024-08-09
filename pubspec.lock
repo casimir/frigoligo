@@ -365,18 +365,18 @@ packages:
     dependency: transitive
     description:
       name: elemental
-      sha256: b3c1cd34f6e833bf51768f6bbb0b584886e0f3fd7223566b5953c11d8e106c2e
+      sha256: d93d4e4216e46513b8130fa5a521e97bf6028dcea52841e091cd27a6727a190f
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.2"
+    version: "0.2.1"
   emulators:
     dependency: "direct dev"
     description:
       name: emulators
-      sha256: "4d8492934ddfa6f42b63045a823c8284d1467c62d4bf3c3cb0b54191356a112a"
+      sha256: c539bbd1e0928060f09f748dfc161505a7c3c4255d794d4386763d8bc005396e
       url: "https://pub.dev"
     source: hosted
-    version: "0.5.1"
+    version: "0.6.1"
   equatable:
     dependency: transitive
     description:
@@ -506,14 +506,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.15.1"
-  fpdart:
-    dependency: transitive
-    description:
-      name: fpdart
-      sha256: "7413acc5a6569a3fe8277928fc7487f3198530f0c4e635d0baef199ea36e8ee9"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.0"
   freezed:
     dependency: "direct dev"
     description:

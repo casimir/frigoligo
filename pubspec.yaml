@@ -95,7 +95,7 @@ dev_dependencies:
   riverpod_generator: ^2.4.0
 
   # automated testing
-  emulators: ^0.5.1
+  emulators: ^0.6.1
   test: ^1.25.2
 
 flutter:
