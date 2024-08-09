@@ -7,6 +7,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:l10n_esperanto/l10n_esperanto.dart';
 import 'package:logging/logging.dart';
 import 'package:shared_preference_app_group/shared_preference_app_group.dart';
 import 'package:universal_platform/universal_platform.dart';
@@ -119,7 +120,11 @@ class _MyAppState extends ConsumerState<MyApp> {
       darkTheme: ThemeData(colorScheme: schemeDark, useMaterial3: true),
       themeMode: theme,
       locale: lang.locale,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      localizationsDelegates: AppLocalizations.localizationsDelegates +
+          const [
+            MaterialLocalizationsEo.delegate,
+            CupertinoLocalizationsEo.delegate,
+          ],
       supportedLocales: AppLocalizations.supportedLocales,
       restorationScopeId: 'app',
     );

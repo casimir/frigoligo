@@ -140,6 +140,7 @@ enum Language {
   zh(Locale('zh'), '中文'),
   zhHant(Locale('zh', 'Hant'), '漢文'),
   ru(Locale('ru'), 'Русский язык'),
+  eo(Locale('eo'), 'Esperanto'),
   ;
 
   const Language(this.locale, this.nativeName);
