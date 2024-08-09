@@ -1,0 +1,440 @@
+{
+  "g_check": "Kontroli",
+  "@g_check": {
+    "description": "A verb as in to check something."
+  },
+  "g_checking": "Kontrolante …",
+  "@g_checking": {
+    "description": "Present participle of the verb to check."
+  },
+  "g_delete": "Forigi",
+  "@g_delete": {
+    "description": "A verb, as in to delete something."
+  },
+  "g_search": "Serĉi",
+  "@g_search": {
+    "description": "A verb, as in to search something."
+  },
+  "g_server": "Servilo",
+  "@g_server": {
+    "description": "A server, as in a computer providing a service."
+  },
+  "g_share": "Kunhavigi",
+  "@g_share": {
+    "description": "A verb, as in to share something."
+  },
+  "humanize_days": "{n, plural,=1{1 tago} other{{n} tagoj}}",
+  "@humanize_days": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "humanize_past": "antaŭ {duration}",
+  "@humanize_past": {
+    "description": "Describe a duration since a moment in the past.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "article_addTags": "Aldoni etikedojn",
+  "@article_addTags": {
+    "description": "The action to add tags to an article."
+  },
+  "article_browseOriginal": "Esplori la originalon",
+  "@article_browseOriginal": {
+    "description": "The action to open the URL of the article in the web browser."
+  },
+  "article_delete": "Forigi ĉi tiun artikolon",
+  "@article_delete": {
+    "description": "The action to delete the article."
+  },
+  "article_noContentFetched": "Neniu enhavo ŝargita",
+  "@article_noContentFetched": {
+    "description": "Placeholder for when the article content is not available."
+  },
+  "filters_articleFavorite": "Markita",
+  "@filters_articleFavorite": {
+    "description": "The favorite status of the article."
+  },
+  "filters_articleFavoriteAll": "Ĉiuj",
+  "@filters_articleFavoriteAll": {
+    "description": "Don't filter articles by favorite status."
+  },
+  "filters_articleFavoriteStarred": "Markitaj",
+  "@filters_articleFavoriteStarred": {
+    "description": "Filter starred articles."
+  },
+  "filters_articleState": "Stato",
+  "@filters_articleState": {
+    "description": "The state of the article."
+  },
+  "filters_articleStateUnread": "Nelegitaj",
+  "@filters_articleStateUnread": {
+    "description": "Filter articles with the state 'unread'."
+  },
+  "filters_clearTagsSelection": "Vakigi la elekton",
+  "@filters_clearTagsSelection": {
+    "description": "The action to clear the selection of tags."
+  },
+  "filters_noTagsSelected": "Neniu etikedo elektita",
+  "@filters_noTagsSelected": {
+    "description": "Placeholder for when no tags are selected."
+  },
+  "logconsole_title": "Protokolkonzolo",
+  "@logconsole_title": {
+    "description": "The title of the log console screen."
+  },
+  "listing_noArticles": "Neniu artikolo",
+  "@listing_noArticles": {
+    "description": "Placeholder for when there are no articles to display."
+  },
+  "listing_articlesAll": "Ĉiuj artikoloj",
+  "@listing_articlesAll": {
+    "description": "The title for the list of all the articles."
+  },
+  "listing_articlesArchived": "Arkivigitaj artikoloj",
+  "@listing_articlesArchived": {
+    "description": "The title for the list of the articles with the state Archived."
+  },
+  "login_acceptSelfSigned": "Akcepti memsubskribitajn atestilojn",
+  "@login_acceptSelfSigned": {
+    "description": "Wether or not to accept self-signed certificates when connecting to the wallabag instance."
+  },
+  "login_actionLogin": "Ensaluti",
+  "@login_actionLogin": {
+    "description": "The action to log in."
+  },
+  "login_existingSessionDialogConfirm": "Elsaluti",
+  "@login_existingSessionDialogConfirm": {
+    "description": "The action to log out from the existing session."
+  },
+  "login_existingSessionDialogMessage": "Ĉu vi volas elsaluti el la nuna sesio kaj malfermi novan?",
+  "@login_existingSessionDialogMessage": {
+    "description": "The message of the dialog warning about an existing session."
+  },
+  "login_existingSessionDialogTitle": "Jam existas aktiva sesio",
+  "@login_existingSessionDialogTitle": {
+    "description": "The title of the dialog warning about an existing session."
+  },
+  "login_fieldPassword": "Pasvorto",
+  "@login_fieldPassword": {
+    "description": "The password field of the login form."
+  },
+  "login_fieldUsername": "Uzantnomo",
+  "@login_fieldUsername": {
+    "description": "The username field of the login form."
+  },
+  "login_openLogConsole": "Malfermi la protokolkonzolon",
+  "@login_openLogConsole": {
+    "description": "The action to open the log console."
+  },
+  "readingsettings_fontFamily": "Tipara familio",
+  "@readingsettings_fontFamily": {
+    "description": "The font family to display the content of the article."
+  },
+  "readingsettings_fontSize": "Tipara grando",
+  "@readingsettings_fontSize": {
+    "description": "The font size to display the content of the article."
+  },
+  "readingsettings_title": "Legaj agordoj",
+  "@readingsettings_title": {
+    "description": "The title of the reading settings screen."
+  },
+  "save_confirmationTitle": "Artikolo konservita!",
+  "@save_confirmationTitle": {
+    "description": "The title of the confirmation screen after the article is saved. "
+  },
+  "save_dubiousUrlMessage": "Tiu URL ne aspektas valida. Konservi ĝin ĉiukaze?\n{url}",
+  "@save_dubiousUrlMessage": {
+    "description": "The message of the dubious URL warning dialog.",
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "save_dubiousUrlConfirm": "Konservi",
+  "@save_dubiousUrlConfirm": {
+    "description": "The confirmation button of the dubious URL warning dialog."
+  },
+  "save_dubiousUrlTitle": "Malklara URL",
+  "@save_dubiousUrlTitle": {
+    "description": "The title of the dubious URL warning dialog."
+  },
+  "save_noUrl": "Neniu URL donita",
+  "@save_noUrl": {
+    "description": "The URL was missing from the save request."
+  },
+  "save_title": "Konservi artikolon",
+  "@save_title": {
+    "description": "The title of the save screen."
+  },
+  "save_viewArticle": "Rigardi artikolon",
+  "@save_viewArticle": {
+    "description": "The action to view the article after it is saved."
+  },
+  "server_address": "Adreso de la servilo",
+  "@server_address": {
+    "description": "The address of the wallabag instance."
+  },
+  "server_apiError": "Nevalida API respondo",
+  "@server_apiError": {
+    "description": "An error occurred while communicating with the wallabag API."
+  },
+  "server_emptyField": "Enigi vian {label}",
+  "@server_emptyField": {
+    "description": "A message for non-empty check fail on a form field.",
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "server_invalidUrl": "Nevalida adreso",
+  "@server_invalidUrl": {
+    "description": "The address of the wallabag instance is invalid."
+  },
+  "server_unreachable": "Servilo neatingebla",
+  "@server_unreachable": {
+    "description": "The wallabag instance is unreachable."
+  },
+  "session_copiedToClipboard": "Kopiita al la tondobufro",
+  "@session_copiedToClipboard": {
+    "description": "A message displayed when the value is copied to the clipboard."
+  },
+  "session_invalidToken": "nevalida",
+  "@session_invalidToken": {
+    "description": "Placeholder for expiration date when the token is invalid."
+  },
+  "session_logoutDialogConfirm": "Elsaluti",
+  "@session_logoutDialogConfirm": {
+    "description": "Confirm the log out from the confirmation dialog."
+  },
+  "session_logoutDialogMessage": "Vi devos denove ensaluti.",
+  "@session_logoutDialogMessage": {
+    "description": "The message of the confirmation dialog to log out."
+  },
+  "session_logoutDialogTitle": "Elsaluti el la sesio",
+  "@session_logoutDialogTitle": {
+    "description": "The title of the confirmation dialog to log out."
+  },
+  "session_fieldLastServerSync": "Lasta sinkronigo kun la servilo",
+  "@session_fieldLastServerSync": {
+    "description": "The label of the last server sync field in the session screen."
+  },
+  "session_fieldTokenExpiration": "Eksvalidiĝo de la ĵetono",
+  "@session_fieldTokenExpiration": {
+    "description": "The label of the token expiration field in the session screen."
+  },
+  "session_renewDialogMessage": "La servilo rifuzas la nunan sesioĵetonon. Vi devos ensaluti denove por rekomenci la sinkronigon.",
+  "@session_renewDialogMessage": {
+    "description": "The message of the confirmation dialog to renew the session."
+  },
+  "session_renewDialogTitle": "Renovigi la sesion",
+  "@session_renewDialogTitle": {
+    "description": "The title of the confirmation dialog to renew the session."
+  },
+  "session_title": "Sesiodetaloj",
+  "@session_title": {
+    "description": "The title of the session details screen."
+  },
+  "settings_bugReportLink": "Raporti cimon",
+  "@settings_bugReportLink": {
+    "description": "The action to open the bug report form."
+  },
+  "settings_clearCacheMessage": "La loka kaŝmemoro estos forigita kaj denove elŝutita de la servilo.",
+  "@settings_clearCacheMessage": {
+    "description": "The message of the confirmation dialog to clear the cache."
+  },
+  "settings_itemAppearance": "Aspekto",
+  "@settings_itemAppearance": {
+    "description": "Settings for the appearance of the application."
+  },
+  "settings_itemAbout": "Pri-paĝo",
+  "@settings_itemAbout": {
+    "description": "The action to display the about screen."
+  },
+  "settings_itemAppBadge": "Montri nelegitaŝildon",
+  "@settings_itemAppBadge": {
+    "description": "The action to toggle the unread badge on the application icon."
+  },
+  "settings_itemClearCache": "Vakigi la kaŝmemoron",
+  "@settings_itemClearCache": {
+    "description": "The action to clear the offline cache."
+  },
+  "settings_itemOpenDeeplink": "Malfermi profundan ligon",
+  "@settings_itemOpenDeeplink": {
+    "description": "The action to open a deep link."
+  },
+  "settings_itemLanguage": "Lingvo",
+  "@settings_itemLanguage": {
+    "description": "The action to change the language of the application."
+  },
+  "settings_helpToTranslate": "Helpi traduki",
+  "@settings_helpToTranslate": {
+    "description": "The action to open the Weblate project in a webview."
+  },
+  "settings_savedArticleTag": "Aldoni etikedon al konservitaj artikoloj",
+  "@settings_savedArticleTag": {
+    "description": "The action to toggle the addition of a tag to saved articles."
+  },
+  "settings_savedArticleTagLabel": "Etikedo por konservitaj atikoloj",
+  "@settings_savedArticleTagLabel": {
+    "description": "The label of the tag to add to saved articles."
+  },
+  "settings_itemSessionDetails": "Sesiodetaloj",
+  "@settings_itemSessionDetails": {
+    "description": "The action to display the session details screen."
+  },
+  "settings_title": "Agordoj",
+  "@settings_title": {
+    "description": "The title of the settings screen."
+  },
+  "settings_valueThemeDark": "Malhela",
+  "@settings_valueThemeDark": {
+    "description": "The label for the dark theme mode."
+  },
+  "settings_valueThemeLight": "Hela",
+  "@settings_valueThemeLight": {
+    "description": "The label for the light theme mode."
+  },
+  "syncer_pendingActions": "{count, plural, =1{1 ago} other{{count} agoj}}",
+  "@syncer_pendingActions": {
+    "description": "Number of pending actions in the RemoteSyncer queue.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "g_tag": "Etikedo",
+  "@g_tag": {
+    "description": "A tag can be attached to an article."
+  },
+  "g_version": "Versio",
+  "@g_version": {
+    "description": "A version, as in the application version."
+  },
+  "humanize_future": "post {duration}",
+  "@humanize_future": {
+    "description": "Describe a duration until a moment in the future.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "humanize_hours": "{n, plural, =1{1 horo} other {{n} horoj}}",
+  "@humanize_hours": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "g_sourceCode": "Fontkodo",
+  "@g_sourceCode": {
+    "description": "The source code of a software."
+  },
+  "g_system": "Sistemo",
+  "@g_system": {
+    "description": "A name, as in the default configuration (System configuration)."
+  },
+  "humanize_minutes": "{n, plural, =1{1 minuto} other {{n} minutoj}}",
+  "@humanize_minutes": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "humanize_seconds": "{n, plural, =1{1 sekundo} other {{n} sekundoj}}",
+  "@humanize_seconds": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "article_openInBrowser": "Malfermi en retumilo",
+  "@article_openInBrowser": {
+    "description": "The action to open the article in the web browser."
+  },
+  "article_readingTime": "{minutes} minutoj",
+  "@article_readingTime": {
+    "description": "The estimated reading time of the article.",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "filters_articleStateAll": "Ĉiuj",
+  "@filters_articleStateAll": {
+    "description": "Don't filter articles by state."
+  },
+  "filters_articleTags": "Etikedoj",
+  "@filters_articleTags": {
+    "description": "The tags attached to the article."
+  },
+  "filters_articleStateArchived": "Arkivigitaj",
+  "@filters_articleStateArchived": {
+    "description": "Filter articles with the state 'archived'."
+  },
+  "listing_articlesUnread": "Nelegitaj artikoloj",
+  "@listing_articlesUnread": {
+    "description": "The title for the list of the articles with the state Unread."
+  },
+  "login_fieldClientId": "Klientidentigo",
+  "@login_fieldClientId": {
+    "description": "The client ID field of the login form."
+  },
+  "login_fieldClientSecret": "Klientsekreto",
+  "@login_fieldClientSecret": {
+    "description": "The client secret field of the login form."
+  },
+  "session_logoutSession": "Elsaluti el la sesio",
+  "@session_logoutSession": {
+    "description": "The action to log out the session."
+  },
+  "session_fieldApiToken": "API ĵetono",
+  "@session_fieldApiToken": {
+    "description": "The API token field name of in forms."
+  },
+  "session_fieldAccessToken": "Atingoĵetono",
+  "@session_fieldAccessToken": {
+    "description": "The label of the access token field in the session screen."
+  },
+  "session_forceTokenResfresh": "Devigi aktualigon de la ĵetono",
+  "@session_forceTokenResfresh": {
+    "description": "The action to force a token refresh."
+  },
+  "session_neverSynced": "neniam",
+  "@session_neverSynced": {
+    "description": "Default value for the last sync time."
+  },
+  "settings_itemLogConsole": "Protokolkonzolo",
+  "@settings_itemLogConsole": {
+    "description": "The action to display the log console screen."
+  },
+  "filters_articlesCount": "{count, plural, =1{1 artikolo trovita} other{{count} artikoloj trovitaj}}",
+  "@filters_articlesCount": {
+    "description": "The number of articles found with current filters values.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  }
+}
