@@ -15,9 +15,10 @@ Future<(String, String)> getDBPath(bool devmode) async {
 }
 
 QueryExecutor openConnection() {
-  // TODO delete old db files
-  // TODO reset Sk.lastRefresh
   return LazyDatabase(() async {
+    // clean old db files in the background
+    _cleanOldDBs();
+
     // make sqlite use a sandboxed temp directory
     final cachebase = (await getTemporaryDirectory()).path;
     sqlite3.tempDirectory = cachebase;
@@ -32,4 +33,16 @@ QueryExecutor openConnection() {
       logStatements: enableSqlLogs,
     );
   });
+}
+
+Future<void> _cleanOldDBs() async {
+  final (dir, _) = await getDBPath(kDebugMode);
+  final dbFile = File('$dir/data.isar');
+  final lockFile = File('$dir/data.isar.lock');
+
+  for (final file in [dbFile, lockFile]) {
+    if (await file.exists()) {
+      await file.delete();
+    }
+  }
 }
