@@ -197,7 +197,7 @@ class WStorage extends _$WStorage {
             .delete();
       });
       _log.info('saved ${articles.length} entries to the database');
-      ref.invalidateSelf();
+      if (articles.isNotEmpty) ref.invalidateSelf();
 
       count += entries.length;
     }

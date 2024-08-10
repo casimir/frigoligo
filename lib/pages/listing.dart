@@ -124,6 +124,7 @@ class _ListingPageState extends ConsumerState<ListingPage> {
         children: [
           if (widget.withProgressIndicator) const RemoteSyncProgressIndicator(),
           AListView.separated(
+            controller: _scroller,
             itemCount: count,
             itemBuilder: (context, index) async {
               if (index == 0) {
@@ -154,6 +155,7 @@ class _ListingPageState extends ConsumerState<ListingPage> {
                 ),
               ),
             ),
+            restorationId: 'listing.listview',
           ),
         ],
       ),
@@ -385,8 +387,10 @@ class _ArticleListItemState extends ConsumerState<ArticleListItem> {
   void _listenToSelectionChange(WidgetRef ref) async {
     final currentArticleId =
         await ref.watch(currentArticleProvider.selectAsync((it) => it?.id));
-    setState(() {
-      _isSelected = currentArticleId == widget.article.id;
-    });
+    if (mounted) {
+      setState(() {
+        _isSelected = currentArticleId == widget.article.id;
+      });
+    }
   }
 }

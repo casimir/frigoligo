@@ -9,20 +9,24 @@ const Widget spinner = Center(child: CircularProgressIndicator.adaptive());
 class AListView extends StatelessWidget {
   const AListView({
     super.key,
+    this.controller,
     required this.itemCount,
     required this.itemBuilder,
     this.itemExtent,
     this.separatorBuilder,
     this.create,
     this.emptyBuilder,
+    this.restorationId,
   });
 
+  final ScrollController? controller;
   final Future<int> itemCount;
   final IndexedWidgetBuilder itemBuilder;
   final double? itemExtent;
   final IndexedWidgetBuilder? separatorBuilder;
   final WrapperBuilder? create;
   final WidgetBuilder? emptyBuilder;
+  final String? restorationId;
 
   @override
   Widget build(BuildContext context) {
@@ -46,16 +50,20 @@ class AListView extends StatelessWidget {
         late final ListView list;
         if (separatorBuilder == null) {
           list = ListView.builder(
+            controller: controller,
             itemExtent: itemExtent,
             itemCount: count,
             itemBuilder: (context, index) => itemBuilder(context, index),
+            restorationId: restorationId,
           );
         } else {
           list = ListView.separated(
+            controller: controller,
             itemCount: count,
             itemBuilder: (context, index) => itemBuilder(context, index),
             separatorBuilder: (context, index) =>
                 separatorBuilder!(context, index),
+            restorationId: restorationId,
           );
         }
         return create != null ? create!(context, list) : list;
@@ -65,14 +73,17 @@ class AListView extends StatelessWidget {
 
   factory AListView.builder({
     Key? key,
+    ScrollController? controller,
     required Future<int> itemCount,
     required AIndexedWidgetBuilder itemBuilder,
     double? itemExtent,
     WrapperBuilder? create,
     WidgetBuilder? emptyBuilder,
+    String? restorationId,
   }) {
     return AListView(
       key: key,
+      controller: controller,
       itemCount: itemCount,
       itemBuilder: (context, index) => AListItemBuilder(
         builder: itemBuilder,
@@ -81,20 +92,24 @@ class AListView extends StatelessWidget {
       itemExtent: itemExtent,
       create: create,
       emptyBuilder: emptyBuilder,
+      restorationId: restorationId,
     );
   }
 
   factory AListView.separated({
     Key? key,
+    ScrollController? controller,
     required Future<int> itemCount,
     required AIndexedWidgetBuilder itemBuilder,
     double? itemHeight,
     required IndexedWidgetBuilder separatorBuilder,
     WrapperBuilder? create,
     WidgetBuilder? emptyBuilder,
+    String? restorationId,
   }) {
     return AListView(
       key: key,
+      controller: controller,
       itemCount: itemCount,
       itemBuilder: (context, index) => AListItemBuilder(
         builder: itemBuilder,
@@ -104,6 +119,7 @@ class AListView extends StatelessWidget {
       separatorBuilder: separatorBuilder,
       create: create,
       emptyBuilder: emptyBuilder,
+      restorationId: restorationId,
     );
   }
 }
