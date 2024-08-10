@@ -193,7 +193,7 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
                     final syncer = ref.read(remoteSyncerProvider.notifier);
                     await syncer.add(DeleteArticleAction(article.id));
                     await syncer.synchronize();
-                    if (!widget.withExpander && context.mounted) {
+                    if (!widget.withExpander && mounted) {
                       context.go('/');
                     }
                 }
