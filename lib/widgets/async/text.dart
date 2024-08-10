@@ -49,30 +49,31 @@ class _AnimatedEllipsisState extends State<AnimatedEllipsis>
   }
 
   void _registerAnimatedDot(int index) {
-    _controllers[index] = AnimationController(
+    _controllers.add(AnimationController(
       duration: const Duration(milliseconds: 200),
       vsync: this,
-    );
+    ));
 
     const tweenEnd = 8.0;
-    _animations[index] =
-        Tween(begin: 0.0, end: tweenEnd).animate(_controllers[index])
-          ..addStatusListener((status) {
-            if (status == AnimationStatus.completed) {
-              _controllers[index].reverse();
-            }
-            if (index == 2 && status == AnimationStatus.dismissed) {
-              _controllers[0].forward();
-            }
-            if (_animations[index].value > tweenEnd / 2 && index < 2) {
-              _controllers[index + 1].forward();
-            }
-          });
+    _animations.add(
+      Tween(begin: 0.0, end: tweenEnd).animate(_controllers[index])
+        ..addStatusListener((status) {
+          if (status == AnimationStatus.completed) {
+            _controllers[index].reverse();
+          }
+          if (index == 2 && status == AnimationStatus.dismissed) {
+            _controllers[0].forward();
+          }
+          if (_animations[index].value > tweenEnd / 2 && index < 2) {
+            _controllers[index + 1].forward();
+          }
+        }),
+    );
 
-    _dots[index] = _EllipseDot(
+    _dots.add(_EllipseDot(
       listenable: _animations[index],
       style: widget.style,
-    );
+    ));
   }
 
   @override
