@@ -1307,6 +1307,222 @@ class ArticleScrollPositionsCompanion
   }
 }
 
+class $MetadataTable extends Metadata
+    with TableInfo<$MetadataTable, MetadataData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $MetadataTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _keyMeta = const VerificationMeta('key');
+  @override
+  late final GeneratedColumn<String> key = GeneratedColumn<String>(
+      'key', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
+  static const VerificationMeta _valueMeta = const VerificationMeta('value');
+  @override
+  late final GeneratedColumn<String> value = GeneratedColumn<String>(
+      'value', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [id, key, value];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'metadata';
+  @override
+  VerificationContext validateIntegrity(Insertable<MetadataData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('key')) {
+      context.handle(
+          _keyMeta, key.isAcceptableOrUnknown(data['key']!, _keyMeta));
+    } else if (isInserting) {
+      context.missing(_keyMeta);
+    }
+    if (data.containsKey('value')) {
+      context.handle(
+          _valueMeta, value.isAcceptableOrUnknown(data['value']!, _valueMeta));
+    } else if (isInserting) {
+      context.missing(_valueMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  MetadataData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return MetadataData(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      key: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}key'])!,
+      value: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}value'])!,
+    );
+  }
+
+  @override
+  $MetadataTable createAlias(String alias) {
+    return $MetadataTable(attachedDatabase, alias);
+  }
+}
+
+class MetadataData extends DataClass implements Insertable<MetadataData> {
+  final int id;
+  final String key;
+  final String value;
+  const MetadataData(
+      {required this.id, required this.key, required this.value});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['key'] = Variable<String>(key);
+    map['value'] = Variable<String>(value);
+    return map;
+  }
+
+  MetadataCompanion toCompanion(bool nullToAbsent) {
+    return MetadataCompanion(
+      id: Value(id),
+      key: Value(key),
+      value: Value(value),
+    );
+  }
+
+  factory MetadataData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return MetadataData(
+      id: serializer.fromJson<int>(json['id']),
+      key: serializer.fromJson<String>(json['key']),
+      value: serializer.fromJson<String>(json['value']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'key': serializer.toJson<String>(key),
+      'value': serializer.toJson<String>(value),
+    };
+  }
+
+  MetadataData copyWith({int? id, String? key, String? value}) => MetadataData(
+        id: id ?? this.id,
+        key: key ?? this.key,
+        value: value ?? this.value,
+      );
+  MetadataData copyWithCompanion(MetadataCompanion data) {
+    return MetadataData(
+      id: data.id.present ? data.id.value : this.id,
+      key: data.key.present ? data.key.value : this.key,
+      value: data.value.present ? data.value.value : this.value,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MetadataData(')
+          ..write('id: $id, ')
+          ..write('key: $key, ')
+          ..write('value: $value')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, key, value);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is MetadataData &&
+          other.id == this.id &&
+          other.key == this.key &&
+          other.value == this.value);
+}
+
+class MetadataCompanion extends UpdateCompanion<MetadataData> {
+  final Value<int> id;
+  final Value<String> key;
+  final Value<String> value;
+  const MetadataCompanion({
+    this.id = const Value.absent(),
+    this.key = const Value.absent(),
+    this.value = const Value.absent(),
+  });
+  MetadataCompanion.insert({
+    this.id = const Value.absent(),
+    required String key,
+    required String value,
+  })  : key = Value(key),
+        value = Value(value);
+  static Insertable<MetadataData> custom({
+    Expression<int>? id,
+    Expression<String>? key,
+    Expression<String>? value,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (key != null) 'key': key,
+      if (value != null) 'value': value,
+    });
+  }
+
+  MetadataCompanion copyWith(
+      {Value<int>? id, Value<String>? key, Value<String>? value}) {
+    return MetadataCompanion(
+      id: id ?? this.id,
+      key: key ?? this.key,
+      value: value ?? this.value,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (key.present) {
+      map['key'] = Variable<String>(key.value);
+    }
+    if (value.present) {
+      map['value'] = Variable<String>(value.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('MetadataCompanion(')
+          ..write('id: $id, ')
+          ..write('key: $key, ')
+          ..write('value: $value')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $RemoteActionsTable extends RemoteActions
     with TableInfo<$RemoteActionsTable, RemoteAction> {
   @override
@@ -1615,14 +1831,16 @@ abstract class _$DB extends GeneratedDatabase {
   late final $ArticlesTable articles = $ArticlesTable(this);
   late final $ArticleScrollPositionsTable articleScrollPositions =
       $ArticleScrollPositionsTable(this);
+  late final $MetadataTable metadata = $MetadataTable(this);
   late final $RemoteActionsTable remoteActions = $RemoteActionsTable(this);
   late final AppLogsDao appLogsDao = AppLogsDao(this as DB);
+  late final MetadataDao metadataDao = MetadataDao(this as DB);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [appLogs, articles, articleScrollPositions, remoteActions];
+      [appLogs, articles, articleScrollPositions, metadata, remoteActions];
 }
 
 typedef $$AppLogsTableCreateCompanionBuilder = AppLogsCompanion Function({
@@ -2145,6 +2363,94 @@ class $$ArticleScrollPositionsTableOrderingComposer
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
+typedef $$MetadataTableCreateCompanionBuilder = MetadataCompanion Function({
+  Value<int> id,
+  required String key,
+  required String value,
+});
+typedef $$MetadataTableUpdateCompanionBuilder = MetadataCompanion Function({
+  Value<int> id,
+  Value<String> key,
+  Value<String> value,
+});
+
+class $$MetadataTableTableManager extends RootTableManager<
+    _$DB,
+    $MetadataTable,
+    MetadataData,
+    $$MetadataTableFilterComposer,
+    $$MetadataTableOrderingComposer,
+    $$MetadataTableCreateCompanionBuilder,
+    $$MetadataTableUpdateCompanionBuilder> {
+  $$MetadataTableTableManager(_$DB db, $MetadataTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$MetadataTableFilterComposer(ComposerState(db, table)),
+          orderingComposer:
+              $$MetadataTableOrderingComposer(ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String> key = const Value.absent(),
+            Value<String> value = const Value.absent(),
+          }) =>
+              MetadataCompanion(
+            id: id,
+            key: key,
+            value: value,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required String key,
+            required String value,
+          }) =>
+              MetadataCompanion.insert(
+            id: id,
+            key: key,
+            value: value,
+          ),
+        ));
+}
+
+class $$MetadataTableFilterComposer
+    extends FilterComposer<_$DB, $MetadataTable> {
+  $$MetadataTableFilterComposer(super.$state);
+  ColumnFilters<int> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get key => $state.composableBuilder(
+      column: $state.table.key,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get value => $state.composableBuilder(
+      column: $state.table.value,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+}
+
+class $$MetadataTableOrderingComposer
+    extends OrderingComposer<_$DB, $MetadataTable> {
+  $$MetadataTableOrderingComposer(super.$state);
+  ColumnOrderings<int> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get key => $state.composableBuilder(
+      column: $state.table.key,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get value => $state.composableBuilder(
+      column: $state.table.value,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+}
+
 typedef $$RemoteActionsTableCreateCompanionBuilder = RemoteActionsCompanion
     Function({
   Value<int> id,
@@ -2277,6 +2583,8 @@ class $DBManager {
   $$ArticleScrollPositionsTableTableManager get articleScrollPositions =>
       $$ArticleScrollPositionsTableTableManager(
           _db, _db.articleScrollPositions);
+  $$MetadataTableTableManager get metadata =>
+      $$MetadataTableTableManager(_db, _db.metadata);
   $$RemoteActionsTableTableManager get remoteActions =>
       $$RemoteActionsTableTableManager(_db, _db.remoteActions);
 }

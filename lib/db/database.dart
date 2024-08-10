@@ -5,8 +5,10 @@ import '../utils.dart';
 import 'connection/connection.dart';
 import 'converters/containers.dart';
 import 'daos/app_logs.dart';
+import 'daos/metadata.dart';
 import 'models/app_log.dart';
 import 'models/article.dart';
+import 'models/metadata.dart';
 import 'models/remote_action.dart';
 
 part 'database.g.dart';
@@ -16,14 +18,16 @@ part 'database.g.dart';
     AppLogs,
     Articles,
     ArticleScrollPositions,
+    Metadata,
     RemoteActions,
   ],
   daos: [
     AppLogsDao,
+    MetadataDao,
   ],
 )
 class DB extends _$DB {
-  DB() : super(openConnection());
+  DB._() : super(openConnection());
 
   @override
   int get schemaVersion => 1;
@@ -43,6 +47,7 @@ class DB extends _$DB {
   Future<void> clear({bool keepPositions = false}) {
     return transaction(() async {
       await articles.deleteAll();
+      await metadata.deleteAll();
       if (!keepPositions) await articleScrollPositions.deleteAll();
       await remoteActions.deleteAll();
     });
@@ -50,7 +55,7 @@ class DB extends _$DB {
 
   static DB? _instance;
   static DB get() {
-    _instance ??= DB();
+    _instance ??= DB._();
     return _instance!;
   }
 }

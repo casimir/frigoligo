@@ -8,11 +8,13 @@ import 'package:go_router/go_router.dart';
 
 import '../buildcontext_extension.dart';
 import '../datetime_extension.dart';
+import '../db/database.dart';
 import '../providers/settings.dart';
 import '../server/providers/client.dart';
 import '../server/session.dart';
 import '../services/wallabag_storage.dart';
 import '../wallabag/wallabag.dart';
+import '../widgets/async/text.dart';
 
 Widget _copyText(BuildContext context, String text, [bool obfuscate = false]) {
   var content = text;
@@ -62,21 +64,10 @@ Widget _buildDetails(
   };
   final showRefreshToken = session?.type == ServerType.wallabag;
 
-  String sinceLastSync = context.L.session_neverSynced;
-  final lastSync =
-      ref.watch(settingsProvider.select((it) => it[Sk.lastRefresh]));
-  if (lastSync > 0) {
-    sinceLastSync = DateTime.fromMillisecondsSinceEpoch(lastSync * 1000)
-        .toHumanizedString(context);
-  }
-
   return ListView(
     children: sessionFields +
         [
-          ListTile(
-            title: Text(context.L.session_fieldLastServerSync),
-            subtitle: Text(sinceLastSync),
-          ),
+          _buildLastSync(context),
           C.spacers.verticalContent,
           ElevatedButton.icon(
             onPressed: () async {
@@ -160,4 +151,20 @@ List<Widget> _buildWallabagSession(
       subtitle: Text(nextTokenExpiration),
     ),
   ];
+}
+
+ListTile _buildLastSync(BuildContext context) {
+  return ListTile(
+    title: Text(context.L.session_fieldLastServerSync),
+    subtitle: AText(builder: (context) async {
+      String sinceLastSync = context.L.session_neverSynced;
+      final lastSync = await DB.get().metadataDao.getLastSyncTS();
+      if (lastSync != null) {
+        sinceLastSync = DateTime.fromMillisecondsSinceEpoch(lastSync * 1000)
+            // ignore: use_build_context_synchronously
+            .toHumanizedString(context);
+      }
+      return sinceLastSync;
+    }),
+  );
 }

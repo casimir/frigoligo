@@ -205,7 +205,7 @@ class WStorage extends _$WStorage {
         'completed refresh of $count entries in ${stopwatch.elapsed.inSeconds} s');
 
     final now = DateTime.now().millisecondsSinceEpoch / 1000;
-    ref.read(settingsProvider.notifier).set(Sk.lastRefresh, now.toInt());
+    await DB.get().metadataDao.setLastSyncTS(now.toInt());
 
     _syncRemoteDeletes();
 
@@ -216,8 +216,8 @@ class WStorage extends _$WStorage {
 
   Future<int> incrementalRefresh(
       {int? threshold, void Function(double)? onProgress}) async {
-    final int since = ref.read(settingsProvider)[Sk.lastRefresh];
-    if (threshold != null && since > 0) {
+    final int? since = await DB.get().metadataDao.getLastSyncTS();
+    if (threshold != null && since != null) {
       final now = DateTime.now().millisecondsSinceEpoch / 1000;
       final elapsed = now - since;
       if (elapsed < threshold) {
@@ -226,7 +226,7 @@ class WStorage extends _$WStorage {
         return 0;
       }
     }
-    return fullRefresh(since: since > 0 ? since : null, onProgress: onProgress);
+    return fullRefresh(since: since, onProgress: onProgress);
   }
 
   Future<void> persistArticle(Article article) async {

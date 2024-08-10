@@ -209,9 +209,6 @@ class SettingsPage extends ConsumerWidget {
                   );
                   if (result == OkCancelResult.cancel) return;
                   _log.info('user action > cache rebuild');
-                  await ref
-                      .read(settingsProvider.notifier)
-                      .unset(Sk.lastRefresh);
                   if (context.mounted) {
                     ref.read(wStorageProvider.notifier).clearArticles();
                     ref

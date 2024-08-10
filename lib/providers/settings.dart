@@ -110,7 +110,6 @@ class Settings extends _$Settings {
 // Settings Keys
 enum Sk {
   appBadge('appBadge', false),
-  lastRefresh('lastRefresh', -1),
   language('locale', Language.system, Language.values),
   selectedArticleId('selectedArticleId', -1),
   readingSettings('readingSettings', Object()),
