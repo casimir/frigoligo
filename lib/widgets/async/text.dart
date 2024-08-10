@@ -91,10 +91,7 @@ class _AnimatedEllipsisState extends State<AnimatedEllipsis>
         widget.style?.fontSize ?? DefaultTextStyle.of(context).style.fontSize!;
     return SizedBox(
       height: fontSize * 1.5,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: _dots,
-      ),
+      child: Row(children: _dots),
     );
   }
 }
