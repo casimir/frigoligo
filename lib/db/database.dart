@@ -30,7 +30,16 @@ class DB extends _$DB {
   DB._() : super(openConnection());
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
+
+  @override
+  MigrationStrategy get migration => MigrationStrategy(
+        onUpgrade: (m, from, to) async {
+          if (from < 2) {
+            await m.createAll();
+          }
+        },
+      );
 
   Future<int> appendLog(LogRecord record) {
     return into(appLogs).insert(AppLogsCompanion.insert(
