@@ -2,7 +2,7 @@ name: gh-pages
 on:
   push:
     branches:
-      - drift
+      - main
 jobs:
   deploy:
     runs-on: ubuntu-latest
