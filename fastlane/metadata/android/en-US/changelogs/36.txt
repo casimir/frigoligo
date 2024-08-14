@@ -1,1 +1,2 @@
+- Rebuilt the storage system completly for a more consistent and reliable experience accross all platforms.
 - New language: Esperanto.

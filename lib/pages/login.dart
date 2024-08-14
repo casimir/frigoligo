@@ -5,9 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../buildcontext_extension.dart';
-import '../models/db.dart';
+import '../db/database.dart';
 import '../providers/server_login_flow.dart';
-import '../providers/settings.dart';
 import '../server/providers/client.dart';
 import 'login_flow/check_server.dart';
 import 'login_flow/login_credentials.dart';
@@ -81,8 +80,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     );
     if (result == OkCancelResult.ok) {
       await ref.read(sessionProvider.notifier).logout();
-      await ref.read(settingsProvider.notifier).unset(Sk.lastRefresh);
-      await DB.clear();
+      await DB.get().clear();
     } else {
       if (mounted) context.go('/');
     }

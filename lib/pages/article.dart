@@ -11,8 +11,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../buildcontext_extension.dart';
 import '../constants.dart';
-import '../models/article.dart';
-import '../models/article_scroll_position.dart';
+import '../db/database.dart';
+import '../db/extensions/article.dart';
 import '../providers/article.dart';
 import '../providers/expander.dart';
 import '../providers/reading_settings.dart';
@@ -61,8 +61,15 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
 
   @override
   Widget build(BuildContext context) {
-    final article = ref.watch(currentArticleProvider);
+    return ref.watch(currentArticleProvider).when(
+          data: (it) => _build(it),
+          error: (error, _) => ErrorScreen(error: error),
+          loading: () =>
+              const Center(child: CircularProgressIndicator.adaptive()),
+        );
+  }
 
+  Widget _build(Article? article) {
     Widget? leading;
     if (widget.withExpander) {
       leading = IconButton(
@@ -98,25 +105,25 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
             if (article != null)
               IconButton(
                 icon: stateIcons[article.stateValue]!,
-                onPressed: () {
-                  ref.read(remoteSyncerProvider.notifier)
-                    ..add(EditArticleAction(
-                      article.id!,
-                      archive: article.archivedAt == null,
-                    ))
-                    ..synchronize();
+                onPressed: () async {
+                  final syncer = ref.read(remoteSyncerProvider.notifier);
+                  await syncer.add(EditArticleAction(
+                    article.id,
+                    archive: article.archivedAt == null,
+                  ));
+                  await syncer.synchronize();
                 },
               ),
             if (article != null)
               IconButton(
                 icon: starredIcons[article.starredValue]!,
-                onPressed: () {
-                  ref.read(remoteSyncerProvider.notifier)
-                    ..add(EditArticleAction(
-                      article.id!,
-                      starred: article.starredAt == null,
-                    ))
-                    ..synchronize();
+                onPressed: () async {
+                  final syncer = ref.read(remoteSyncerProvider.notifier);
+                  await syncer.add(EditArticleAction(
+                    article.id,
+                    starred: article.starredAt == null,
+                  ));
+                  await syncer.synchronize();
                 },
               ),
             PopupMenuButton(
@@ -184,9 +191,9 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
                     );
                     if (result == OkCancelResult.cancel) return;
                     final syncer = ref.read(remoteSyncerProvider.notifier);
-                    syncer.add(DeleteArticleAction(article.id!));
+                    await syncer.add(DeleteArticleAction(article.id));
                     await syncer.synchronize();
-                    if (!widget.withExpander && context.mounted) {
+                    if (!widget.withExpander && mounted) {
                       context.go('/');
                     }
                 }
@@ -233,20 +240,7 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
   }
 
   Widget _buildArticleContent(Article article) {
-    void showTagsDialog([_]) => showDialog(
-          context: context,
-          builder: (_) => TagsSelectorDialog(
-            tags: ref.read(wStorageProvider.notifier).getTags(),
-            initialValue: article.tags,
-            onConfirm: (tags) {
-              ref.read(remoteSyncerProvider.notifier)
-                ..add(EditArticleAction(article.id!, tags: tags))
-                ..synchronize();
-            },
-          ),
-        );
-
-    final scrollPositionFetch = ref.watch(scrollPositionProvider(article.id!));
+    final scrollPositionFetch = ref.watch(scrollPositionProvider(article.id));
     return scrollPositionFetch.when(
       data: (scrollPosition) {
         return NotificationListener<ScrollNotification>(
@@ -269,9 +263,12 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
                   _buildHeader(article),
                   article.tags.isNotEmpty
                       ? TagList(
-                          tags: article.tags, onTagPressed: showTagsDialog)
+                          tags: article.tags,
+                          onTagPressed: (_) =>
+                              _showTagsDialog(context, ref, article))
                       : TextButton(
-                          onPressed: showTagsDialog,
+                          onPressed: () =>
+                              _showTagsDialog(context, ref, article),
                           child: Text(context.L.article_addTags),
                         ),
                   const Divider(),
@@ -285,7 +282,7 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
           ),
         );
       },
-      error: (e, _) => Center(child: ErrorScreen(error: e as Exception)),
+      error: (e, _) => Center(child: ErrorScreen(error: e)),
       loading: () => const Center(child: CircularProgressIndicator.adaptive()),
     );
   }
@@ -331,6 +328,25 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
           }),
         ),
         textStyle: values.textStyle,
+      ),
+    );
+  }
+}
+
+void _showTagsDialog(
+    BuildContext context, WidgetRef ref, Article article) async {
+  final tags = await ref.read(wStorageProvider.notifier).getTags();
+  if (context.mounted) {
+    showDialog(
+      context: context,
+      builder: (_) => TagsSelectorDialog(
+        tags: tags,
+        initialValue: article.tags,
+        onConfirm: (tags) async {
+          final syncer = ref.read(remoteSyncerProvider.notifier);
+          await syncer.add(EditArticleAction(article.id, tags: tags));
+          await syncer.synchronize();
+        },
       ),
     );
   }

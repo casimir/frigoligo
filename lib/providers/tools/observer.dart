@@ -1,7 +1,7 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:logging/logging.dart';
+// ignore_for_file: avoid_print
 
-final _log = Logger('riverpod.observer');
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class RiverpodObserver extends ProviderObserver {
   const RiverpodObserver();
@@ -12,7 +12,7 @@ class RiverpodObserver extends ProviderObserver {
     Object? value,
     ProviderContainer container,
   ) {
-    _log.fine('ADD $provider [$value]');
+    print('RIVERPOD.ADD $provider [$value]');
   }
 
   @override
@@ -20,7 +20,7 @@ class RiverpodObserver extends ProviderObserver {
     ProviderBase<Object?> provider,
     ProviderContainer container,
   ) {
-    _log.fine('DISPOSE $provider');
+    print('RIVERPOD.DISPOSE $provider');
   }
 
   @override
@@ -30,7 +30,9 @@ class RiverpodObserver extends ProviderObserver {
     Object? newValue,
     ProviderContainer container,
   ) {
-    _log.fine('UPDATE $provider [$previousValue] -> [$newValue]');
+    final before = previousValue?.toString().characters.take(200);
+    final after = newValue?.toString().characters.take(200);
+    print('RIVERPOD.UPDATE $provider [$before] -> [$after]');
   }
 
   @override
@@ -40,6 +42,6 @@ class RiverpodObserver extends ProviderObserver {
     StackTrace stackTrace,
     ProviderContainer container,
   ) {
-    _log.fine('FAIL $provider $error at $stackTrace');
+    print('RIVERPOD.FAIL $provider $error at $stackTrace');
   }
 }

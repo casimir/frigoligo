@@ -8,8 +8,9 @@ import 'package:popover/popover.dart';
 
 import '../buildcontext_extension.dart';
 import '../constants.dart';
+import '../db/database.dart';
+import '../db/extensions/article.dart';
 import '../dialogs/save.dart';
-import '../models/article.dart';
 import '../providers/article.dart';
 import '../providers/query.dart';
 import '../services/remote_sync.dart';
@@ -17,6 +18,7 @@ import '../services/remote_sync_actions/articles.dart';
 import '../services/wallabag_storage.dart';
 import '../widget_keys.dart';
 import '../widgets/article_image_preview.dart';
+import '../widgets/async/list.dart';
 import '../widgets/remote_sync_fab.dart';
 import '../widgets/remote_sync_progress_indicator.dart';
 import '../widgets/tag_list.dart';
@@ -56,17 +58,20 @@ class _ListingPageState extends ConsumerState<ListingPage> {
     super.initState();
 
     if (widget.sideBySideMode) {
-      final articleId = ref.read(currentArticleProvider)?.id;
-      if (articleId != null) {
-        final query = ref.read(queryProvider);
-        final scrollToIndex =
-            ref.read(wStorageProvider.notifier).indexOf(articleId, query);
-        if (scrollToIndex != null) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            _scroller.jumpTo(scrollToIndex * listingHeight);
-          });
+      () async {
+        final article = await ref.read(currentArticleProvider.future);
+        if (article?.id != null) {
+          final query = ref.read(queryProvider);
+          final scrollToIndex = await ref
+              .read(wStorageProvider.notifier)
+              .indexOf(article!.id, query);
+          if (scrollToIndex != null) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              _scroller.jumpTo(scrollToIndex * listingHeight);
+            });
+          }
         }
-      }
+      }();
     }
   }
 
@@ -118,40 +123,39 @@ class _ListingPageState extends ConsumerState<ListingPage> {
       body: Column(
         children: [
           if (widget.withProgressIndicator) const RemoteSyncProgressIndicator(),
-          listOrEmpyPlaceholder(
-            context,
-            count,
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: RefreshIndicator.adaptive(
-                    onRefresh: doRefresh,
-                    child: ListView.separated(
-                      controller: _scroller,
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      itemBuilder: (context, index) {
-                        final article = storage.index(index, query)!;
-                        if (index == 0) {
-                          WidgetsBinding.instance.addPostFrameCallback((_) {
-                            ref
-                                .read(currentArticleProvider.notifier)
-                                .maybeInit(article.id!);
-                          });
-                        }
-                        return ArticleListItem(
-                          article: article,
-                          onTap: (article) => _openArticle(article.id!),
-                          showSelection: widget.sideBySideMode,
-                        );
-                      },
-                      separatorBuilder: (context, index) => const Divider(),
-                      itemCount: count,
-                    ),
-                  ),
+          AListView.separated(
+            controller: _scroller,
+            itemCount: count,
+            itemBuilder: (context, index) async {
+              if (index == 0) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  storage.index(index, query).then((article) => ref
+                      .read(currentArticleProvider.notifier)
+                      .maybeInit(article!.id));
+                });
+              }
+              return ArticleListItem(
+                article: (await storage.index(index, query))!,
+                onTap: (article) => _openArticle(article.id),
+                showSelection: widget.sideBySideMode,
+              );
+            },
+            itemHeight: listingHeight,
+            separatorBuilder: (context, index) => const Divider(),
+            create: (context, child) => Expanded(
+                child: RefreshIndicator.adaptive(
+              onRefresh: doRefresh,
+              child: child,
+            )),
+            emptyBuilder: (context) => Expanded(
+              child: Center(
+                child: Text(
+                  context.L.listing_noArticles,
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
-              ],
+              ),
             ),
+            restorationId: 'listing.listview',
           ),
         ],
       ),
@@ -159,19 +163,6 @@ class _ListingPageState extends ConsumerState<ListingPage> {
       restorationId: 'listing.scaffold',
     );
   }
-}
-
-Widget listOrEmpyPlaceholder(BuildContext context, int count, Widget child) {
-  return Expanded(
-    child: count == 0
-        ? Center(
-            child: Text(
-              context.L.listing_noArticles,
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          )
-        : child,
-  );
 }
 
 class TitleWidget extends ConsumerStatefulWidget {
@@ -225,7 +216,34 @@ class _TitleWidgetState extends ConsumerState<TitleWidget> {
   }
 }
 
-class ArticleListItem extends ConsumerWidget {
+class AsyncArticleItem extends ConsumerWidget {
+  const AsyncArticleItem({
+    super.key,
+    required this.article,
+    this.onTap,
+    required this.showSelection,
+  });
+
+  final Article article;
+  final void Function(Article)? onTap;
+  final bool showSelection;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) =>
+      ref.watch(currentArticleProvider).when(
+          data: (selected) => ArticleListItem(
+                article: article,
+                onTap: onTap,
+                showSelection: showSelection,
+              ),
+          error: (e, st) => throw Exception('unreachable branch but $e'),
+          loading: () => const SizedBox(
+                height: listingHeight,
+                child: Center(child: CircularProgressIndicator.adaptive()),
+              ));
+}
+
+class ArticleListItem extends ConsumerStatefulWidget {
   const ArticleListItem({
     super.key,
     required this.article,
@@ -238,20 +256,27 @@ class ArticleListItem extends ConsumerWidget {
   final bool showSelection;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ArticleListItem> createState() => _ArticleListItemState();
+}
+
+class _ArticleListItemState extends ConsumerState<ArticleListItem> {
+  bool _isSelected = false;
+
+  @override
+  Widget build(BuildContext context) {
     // TODO explore https://pub.dev/packages/flutter_slidable
     // TODO GestureDetector on iOS
 
-    final selectedId = ref.watch(currentArticleProvider)?.id;
+    _listenToSelectionChange(ref);
 
     return Ink(
-      color: showSelection && selectedId == article.id
+      color: widget.showSelection && _isSelected
           ? Theme.of(context).highlightColor
           : null,
       child: SizedBox(
         height: listingHeight,
         child: InkWell(
-          onTap: () => onTap?.call(article),
+          onTap: () => widget.onTap?.call(widget.article),
           child: Column(
             children: [
               Row(
@@ -268,7 +293,8 @@ class ArticleListItem extends ConsumerWidget {
                             children: [
                               Expanded(
                                 child: Text(
-                                  article.domainName ?? article.url,
+                                  widget.article.domainName ??
+                                      widget.article.url,
                                   style:
                                       Theme.of(context).textTheme.labelMedium,
                                   softWrap: false,
@@ -276,15 +302,15 @@ class ArticleListItem extends ConsumerWidget {
                                 ),
                               ),
                               Text(
-                                context.L
-                                    .article_readingTime(article.readingTime),
+                                context.L.article_readingTime(
+                                    widget.article.readingTime),
                                 style: Theme.of(context).textTheme.labelMedium,
                               ),
                             ],
                           ),
                           const SizedBox(height: 4.0),
                           Text(
-                            article.title,
+                            widget.article.title,
                             style: const TextStyle(fontWeight: FontWeight.bold),
                             maxLines: 3,
                             overflow: TextOverflow.ellipsis,
@@ -293,8 +319,8 @@ class ArticleListItem extends ConsumerWidget {
                       ),
                     ),
                   ),
-                  if (article.previewPicture != null)
-                    ArticleImagePreview(article: article)
+                  if (widget.article.previewPicture != null)
+                    ArticleImagePreview(article: widget.article)
                 ],
               ),
               const Spacer(),
@@ -307,7 +333,7 @@ class ArticleListItem extends ConsumerWidget {
                       scrollDirection: Axis.horizontal,
                       padding: const EdgeInsets.only(left: 8.0),
                       child: TagList(
-                        tags: article.tags,
+                        tags: widget.article.tags,
                         onTagPressed: (tag) => ref
                             .read(queryProvider.notifier)
                             .overrideWith(WQuery(tags: [tag])),
@@ -322,26 +348,28 @@ class ArticleListItem extends ConsumerWidget {
                       children: [
                         IconButton(
                           visualDensity: VisualDensity.compact,
-                          icon: stateIcons[article.stateValue]!,
-                          onPressed: () {
-                            ref.read(remoteSyncerProvider.notifier)
-                              ..add(EditArticleAction(
-                                article.id!,
-                                archive: article.archivedAt == null,
-                              ))
-                              ..synchronize();
+                          icon: stateIcons[widget.article.stateValue]!,
+                          onPressed: () async {
+                            final syncer =
+                                ref.read(remoteSyncerProvider.notifier);
+                            await syncer.add(EditArticleAction(
+                              widget.article.id,
+                              archive: widget.article.archivedAt == null,
+                            ));
+                            await syncer.synchronize();
                           },
                         ),
                         IconButton(
                           visualDensity: VisualDensity.compact,
-                          icon: starredIcons[article.starredValue]!,
-                          onPressed: () {
-                            ref.read(remoteSyncerProvider.notifier)
-                              ..add(EditArticleAction(
-                                article.id!,
-                                starred: article.starredAt == null,
-                              ))
-                              ..synchronize();
+                          icon: starredIcons[widget.article.starredValue]!,
+                          onPressed: () async {
+                            final syncer =
+                                ref.read(remoteSyncerProvider.notifier);
+                            await syncer.add(EditArticleAction(
+                              widget.article.id,
+                              starred: widget.article.starredAt == null,
+                            ));
+                            await syncer.synchronize();
                           },
                         ),
                       ],
@@ -354,5 +382,15 @@ class ArticleListItem extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  void _listenToSelectionChange(WidgetRef ref) async {
+    final currentArticleId =
+        await ref.watch(currentArticleProvider.selectAsync((it) => it?.id));
+    if (mounted) {
+      setState(() {
+        _isSelected = currentArticleId == widget.article.id;
+      });
+    }
   }
 }
