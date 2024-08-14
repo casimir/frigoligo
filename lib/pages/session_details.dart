@@ -1,5 +1,6 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cadanse/cadanse.dart';
+import 'package:cadanse/components/layouts/container.dart';
 import 'package:cadanse/components/widgets/error.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -64,45 +65,30 @@ Widget _buildDetails(
   };
   final showRefreshToken = session?.type == ServerType.wallabag;
 
-  return ListView(
-    children: sessionFields +
-        [
-          _buildLastSync(context),
-          C.spacers.verticalContent,
-          ElevatedButton.icon(
-            onPressed: () async {
-              final result = await showOkCancelAlertDialog(
-                context: context,
-                title: context.L.session_logoutDialogTitle,
-                message: context.L.session_logoutDialogMessage,
-                okLabel: context.L.session_logoutDialogConfirm,
-                isDestructiveAction: true,
-              );
-              if (result == OkCancelResult.cancel) return;
-
-              await ref.read(sessionProvider.notifier).logout();
-              await ref.read(settingsProvider.notifier).clear();
-              await ref
-                  .read(wStorageProvider.notifier)
-                  .clearArticles(keepPositions: false);
-              if (context.mounted) {
-                context.go('/login');
-              }
-            },
-            icon: const Icon(Icons.logout),
-            label: Text(context.L.session_logoutSession),
-          ),
-          if (showRefreshToken) C.spacers.verticalContent,
-          if (showRefreshToken)
+  return ResponsiveContainer(
+    padding: C.paddings.defaultPadding,
+    child: ListView(
+      children: sessionFields +
+          [
+            _buildLastSync(context),
+            C.spacers.verticalContent,
             ElevatedButton.icon(
-              onPressed: () async {
-                final client = await ref.read(clientProvider.future);
-                await (client as WallabagNativeClient).refreshToken();
-              },
-              icon: const Icon(Icons.restart_alt),
-              label: Text(context.L.session_forceTokenResfresh),
+              onPressed: () => _logout(context, ref),
+              icon: const Icon(Icons.logout),
+              label: Text(context.L.session_logoutSession),
             ),
-        ],
+            if (showRefreshToken) C.spacers.verticalContent,
+            if (showRefreshToken)
+              ElevatedButton.icon(
+                onPressed: () async {
+                  final client = await ref.read(clientProvider.future);
+                  await (client as WallabagNativeClient).refreshToken();
+                },
+                icon: const Icon(Icons.restart_alt),
+                label: Text(context.L.session_forceTokenResfresh),
+              ),
+          ],
+    ),
   );
 }
 
@@ -167,4 +153,22 @@ ListTile _buildLastSync(BuildContext context) {
       return sinceLastSync;
     }),
   );
+}
+
+void _logout(BuildContext context, WidgetRef ref) async {
+  final result = await showOkCancelAlertDialog(
+    context: context,
+    title: context.L.session_logoutDialogTitle,
+    message: context.L.session_logoutDialogMessage,
+    okLabel: context.L.session_logoutDialogConfirm,
+    isDestructiveAction: true,
+  );
+  if (result == OkCancelResult.cancel) return;
+
+  await ref.read(sessionProvider.notifier).logout();
+  await ref.read(settingsProvider.notifier).clear();
+  await ref.read(wStorageProvider.notifier).clearArticles(keepPositions: false);
+  if (context.mounted) {
+    context.go('/login');
+  }
 }
