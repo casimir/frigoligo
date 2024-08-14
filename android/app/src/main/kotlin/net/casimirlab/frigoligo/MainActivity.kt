@@ -5,10 +5,18 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import io.flutter.embedding.android.FlutterActivity
+import io.flutter.embedding.engine.FlutterEngine
 import java.net.URLEncoder
 
 class MainActivity : FlutterActivity() {
-  private val TAG = "MainActivity"
+  companion object {
+    const val TAG = "MainActivity"
+  }
+
+  override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
+    super.configureFlutterEngine(flutterEngine)
+    flutterEngine.plugins.add(AppBadgePlugin())
+  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
