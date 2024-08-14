@@ -78,6 +78,7 @@ class _LoginFlowCredentialsState extends ConsumerState<LoginFlowCredentials> {
               icon: e.icon,
               labelText: e.label,
             ),
+            obscureText: e.obscureText,
             autofocus: true,
             autocorrect: false,
           ) as Widget,
