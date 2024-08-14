@@ -48,8 +48,6 @@ const int logCountThreshold = 1000;
 const enableDebugLogs = false;
 const enableSqlLogs = false;
 
-final appBadgeSupported =
-    UniversalPlatform.isMobile || UniversalPlatform.isMacOS;
 const appGroupId = 'group.net.casimir-lab.frigoligo';
 
 final periodicSyncSupported = UniversalPlatform.isDesktop; // TODO also web?

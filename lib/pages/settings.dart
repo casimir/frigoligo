@@ -10,7 +10,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 import '../app_info.dart';
 import '../buildcontext_extension.dart';
-import '../constants.dart';
+import '../native/appbadge.dart';
 import '../providers/settings.dart';
 import '../services/remote_sync.dart';
 import '../services/wallabag_storage.dart';
@@ -66,21 +66,27 @@ class SettingsPage extends ConsumerWidget {
                   }
                 },
               ),
-              if (appBadgeSupported)
+              if (AppBadge.isSupportedSync)
                 SettingsTile.switchTile(
                   leading: const Icon(Icons.markunread_mailbox),
                   title: Text(context.L.settings_itemAppBadge),
                   initialValue: settings[Sk.appBadge],
-                  onToggle: (value) {
+                  onToggle: (value) async {
+                    await ref
+                        .read(settingsProvider.notifier)
+                        .set(Sk.appBadge, value);
                     final previous = settings[Sk.appBadge];
                     if (previous && !value) {
                       // enabled -> disabled
-                      ref.read(wStorageProvider.notifier).removeAppBadge();
+                      await ref
+                          .read(wStorageProvider.notifier)
+                          .removeAppBadge();
                     } else if (!previous && value) {
                       // disabled -> enabled
-                      ref.read(wStorageProvider.notifier).updateAppBadge();
+                      await ref
+                          .read(wStorageProvider.notifier)
+                          .updateAppBadge();
                     }
-                    ref.read(settingsProvider.notifier).set(Sk.appBadge, value);
                   },
                 ),
               SettingsTile.switchTile(

@@ -1,2 +1,3 @@
-- Rebuilt the storage system completly for a more consistent and reliable experience accross all platforms.
+- Rebuilt the storage system completely for a more consistent and reliable experience across all platforms.
+- Rebuilt the logic around app badge counts to be more reliable.
 - New language: Esperanto.
