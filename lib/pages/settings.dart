@@ -71,16 +71,22 @@ class SettingsPage extends ConsumerWidget {
                   leading: const Icon(Icons.markunread_mailbox),
                   title: Text(context.L.settings_itemAppBadge),
                   initialValue: settings[Sk.appBadge],
-                  onToggle: (value) {
+                  onToggle: (value) async {
+                    await ref
+                        .read(settingsProvider.notifier)
+                        .set(Sk.appBadge, value);
                     final previous = settings[Sk.appBadge];
                     if (previous && !value) {
                       // enabled -> disabled
-                      ref.read(wStorageProvider.notifier).removeAppBadge();
+                      await ref
+                          .read(wStorageProvider.notifier)
+                          .removeAppBadge();
                     } else if (!previous && value) {
                       // disabled -> enabled
-                      ref.read(wStorageProvider.notifier).updateAppBadge();
+                      await ref
+                          .read(wStorageProvider.notifier)
+                          .updateAppBadge();
                     }
-                    ref.read(settingsProvider.notifier).set(Sk.appBadge, value);
                   },
                 ),
               SettingsTile.switchTile(
