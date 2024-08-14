@@ -5343,7 +5343,6 @@ ci
 --------------------------------------------------------------------------------
 clock
 fake_async
-flutter_app_badger
 neat_periodic_task
 retry
 slugid
