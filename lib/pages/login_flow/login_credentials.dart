@@ -81,6 +81,7 @@ class _LoginFlowCredentialsState extends ConsumerState<LoginFlowCredentials> {
             obscureText: e.obscureText,
             autofocus: true,
             autocorrect: false,
+            autofillHints: e.autofillHints,
           ) as Widget,
         )
         .toList();
