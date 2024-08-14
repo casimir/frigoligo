@@ -42,16 +42,7 @@ jobs:
           flutter-version: ${{ steps.flutter-version.outputs.version }}
           cache: true
       - run: flutter config --no-analytics
-      - uses: dtolnay/rust-toolchain@stable
-        with:
-          toolchain: 1.75.0
-      - uses: nttld/setup-ndk@v1
-        id: setup-ndk
-        with:
-          ndk-version: r26d
-      - run: echo "ANDROID_NDK_HOME=${{ steps.setup-ndk.outputs.ndk-path }}" >> "$GITHUB_ENV"
       - run: flutter pub get
-      - run: ./third_party_sources/build.sh
       - run: flutter test
       - run: flutter build apk
         env:
