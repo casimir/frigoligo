@@ -1,13 +1,13 @@
 import 'dart:async';
 
 import 'package:drift/drift.dart';
-import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../constants.dart';
 import '../db/database.dart';
 import '../db/extensions/article.dart';
+import '../native/appbadge.dart';
 import '../providers/settings.dart';
 import '../server/providers/client.dart';
 import '../wallabag/client.dart';
@@ -133,21 +133,21 @@ class WStorage extends _$WStorage {
 
   Future<void> updateAppBadge() async {
     final settings = ref.read(settingsProvider);
-    if (!appBadgeSupported || !settings[Sk.appBadge]) return;
+    if (!AppBadge.isSupportedSync || !settings[Sk.appBadge]) return;
 
     final unread = await count(
         WQuery(state: StateFilter.unread, starred: StarredFilter.all));
     if (unread == 0) {
-      return FlutterAppBadger.removeBadge();
+      return AppBadge.remove();
     } else {
       _log.info('updating app badge to $unread');
-      return FlutterAppBadger.updateBadgeCount(unread);
+      return AppBadge.update(unread);
     }
   }
 
   Future<void> removeAppBadge() async {
-    if (!appBadgeSupported) return;
-    return FlutterAppBadger.removeBadge();
+    if (!AppBadge.isSupportedSync) return;
+    return AppBadge.remove();
   }
 
   Future<void> clearArticles({bool keepPositions = true}) async {

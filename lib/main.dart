@@ -16,6 +16,7 @@ import 'app_info.dart';
 import 'applinks/handler.dart';
 import 'constants.dart';
 import 'db/database.dart';
+import 'native/appbadge.dart';
 import 'providers/background_sync.dart';
 import 'providers/router.dart';
 import 'providers/settings.dart';
@@ -55,6 +56,7 @@ Future<void> main() async {
     await SharedPreferenceAppGroup.setAppGroup(appGroupId);
   }
 
+  await AppBadge.init();
   await AppInfo.init();
   await Settings.init();
 
