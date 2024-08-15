@@ -190,7 +190,7 @@ extension WallabagClientEndpoints on WallabagClient {
     };
     final response = await post(
       await buildUri('/api/entries'),
-      body: params.map((key, value) => MapEntry(key, value.toString())),
+      body: jsonEncode(params),
     );
     throwOnError(response);
     return safeDecode(response, WallabagEntry.fromJson);
@@ -202,14 +202,14 @@ extension WallabagClientEndpoints on WallabagClient {
     bool? starred,
     List<String>? tags,
   }) async {
-    var params = {
+    final params = {
       if (archive != null) 'archive': archive ? 1 : 0,
       if (starred != null) 'starred': starred ? 1 : 0,
       if (tags != null) 'tags': tags.join(','),
     };
     final response = await patch(
       await buildUri('/api/entries/$id'),
-      body: params.map((key, value) => MapEntry(key, value.toString())),
+      body: jsonEncode(params),
     );
     throwOnError(response);
     return response;
