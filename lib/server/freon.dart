@@ -29,11 +29,6 @@ class FreonWallabagClient extends WallabagClient {
       'Content-Type': 'application/json',
       if (userAgent != null) 'User-Agent': userAgent!,
     });
-    print('>' * 80);
-    print('${request.method} ${request.url}');
-    print(request.headers);
-    print((request as http.Request).body);
-    print('<' * 80);
     final stopwatch = Stopwatch()..start();
     try {
       final response = await innerClient.send(request);
