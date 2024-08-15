@@ -237,7 +237,8 @@ class WStorage extends _$WStorage {
         .getSingleOrNull();
     final writeCount = await db.transaction(() async {
       var count = 0;
-      count += await db.articles.insertOnConflictUpdate(article);
+      count += await db.articles
+          .insertOne(article, mode: InsertMode.insertOrReplace);
       if (scrollPosition?.readingTime != article.readingTime) {
         count += await db.managers.articleScrollPositions
             .filter((f) => f.id.equals(article.id))

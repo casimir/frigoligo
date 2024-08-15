@@ -22,7 +22,7 @@ class MetadataDao extends DatabaseAccessor<DB> with _$MetadataDaoMixin {
         key: mkLastRefreshTS,
         value: ts.toString(),
       ),
-      mode: InsertMode.replace,
+      mode: InsertMode.insertOrReplace,
     );
   }
 }
