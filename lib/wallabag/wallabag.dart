@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:http/http.dart' as http;
 import 'package:json_annotation/json_annotation.dart';
 
@@ -31,7 +33,8 @@ class WallabagNativeClient extends WallabagClient {
     var credentials = await _getCredentials();
 
     request.headers.addAll({
-      if (userAgent != null) 'User-Agent': userAgent!,
+      HttpHeaders.contentTypeHeader: 'application/json',
+      if (userAgent != null) HttpHeaders.userAgentHeader: userAgent!,
     });
     if (!request.url.path.endsWith(tokenEndpointPath)) {
       if (credentials.token?.isExpired ?? true) {
@@ -39,9 +42,10 @@ class WallabagNativeClient extends WallabagClient {
         credentials = await _getCredentials();
       }
       final accessToken = credentials.token!.accessToken;
-      request.headers['Authorization'] = 'Bearer $accessToken';
+      request.headers[HttpHeaders.authorizationHeader] = 'Bearer $accessToken';
     }
     final stopwatch = Stopwatch()..start();
+    logRequest(request as http.Request);
     return innerClient.send(request).then((response) {
       logger.info(
           '${request.method} ${request.url} ${response.statusCode} (${stopwatch.elapsed.inMilliseconds} ms)');

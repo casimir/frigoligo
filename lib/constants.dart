@@ -46,6 +46,7 @@ const int logCountThreshold = 1000;
 // Features flags and constants
 
 const enableDebugLogs = false;
+const enableHttpLogs = false;
 const enableSqlLogs = false;
 
 const appGroupId = 'group.net.casimir-lab.frigoligo';

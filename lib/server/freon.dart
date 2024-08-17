@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:http/http.dart' as http;
 import 'package:json_annotation/json_annotation.dart';
 
@@ -25,13 +27,14 @@ class FreonWallabagClient extends WallabagClient {
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) async {
     request.headers.addAll({
-      'Authorization': _credentials.apiToken,
-      'Content-Type': 'application/json',
-      if (userAgent != null) 'User-Agent': userAgent!,
+      HttpHeaders.authorizationHeader: _credentials.apiToken,
+      HttpHeaders.contentTypeHeader: 'application/json',
+      if (userAgent != null) HttpHeaders.userAgentHeader: userAgent!,
     });
     final stopwatch = Stopwatch()..start();
     try {
       final response = await innerClient.send(request);
+      logRequest(request as http.Request);
       logger.info(
           '${request.method} ${request.url} ${response.statusCode} (${stopwatch.elapsed.inMilliseconds} ms)');
       return response;

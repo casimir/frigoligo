@@ -9,6 +9,7 @@ import 'package:logging/logging.dart';
 import 'package:universal_platform/universal_platform.dart';
 
 import '../app_info.dart';
+import '../constants.dart';
 import 'models/entry.dart';
 import 'models/info.dart';
 
@@ -117,6 +118,23 @@ abstract class WallabagClient extends http.BaseClient {
   String? get userAgent => UniversalPlatform.isWeb ? null : AppInfo.userAgent;
 
   Future<Uri> buildUri(String path, [Map<String, dynamic>? queryParameters]);
+
+  void logRequest(http.Request request) {
+    if (!enableHttpLogs) return;
+
+    final lines = [
+          '>' * 80,
+          '${request.method} ${request.url}',
+        ] +
+        request.headers.entries.map((e) => 'H ${e.key}=${e.value}').toList() +
+        [
+          '-' * 80,
+          request.body,
+          '>' * 80,
+        ];
+
+    logger.info('outbound request:\n${lines.join('\n')}');
+  }
 }
 
 extension WallabagClientEndpoints on WallabagClient {
