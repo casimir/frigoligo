@@ -83,6 +83,9 @@ class _$FlowStateCopyWithImpl<$Res, $Val extends FlowState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of FlowState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -99,6 +102,9 @@ class __$$FSInitializingImplCopyWithImpl<$Res>
   __$$FSInitializingImplCopyWithImpl(
       _$FSInitializingImpl _value, $Res Function(_$FSInitializingImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of FlowState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -216,6 +222,8 @@ class __$$FSReadyImplCopyWithImpl<$Res>
       _$FSReadyImpl _value, $Res Function(_$FSReadyImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of FlowState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -263,7 +271,9 @@ class _$FSReadyImpl implements FSReady {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(_initial));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of FlowState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FSReadyImplCopyWith<_$FSReadyImpl> get copyWith =>
@@ -348,7 +358,10 @@ abstract class FSReady implements FlowState {
   const factory FSReady([final Map<String, String>? initial]) = _$FSReadyImpl;
 
   Map<String, String>? get initial;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of FlowState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FSReadyImplCopyWith<_$FSReadyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -367,6 +380,9 @@ class __$$FSCheckingImplCopyWithImpl<$Res>
   __$$FSCheckingImplCopyWithImpl(
       _$FSCheckingImpl _value, $Res Function(_$FSCheckingImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of FlowState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -484,6 +500,8 @@ class __$$FSCheckedImplCopyWithImpl<$Res>
       _$FSCheckedImpl _value, $Res Function(_$FSCheckedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of FlowState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -522,7 +540,9 @@ class _$FSCheckedImpl implements FSChecked {
   @override
   int get hashCode => Object.hash(runtimeType, check);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of FlowState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FSCheckedImplCopyWith<_$FSCheckedImpl> get copyWith =>
@@ -607,7 +627,10 @@ abstract class FSChecked implements FlowState {
   const factory FSChecked(final ServerCheck check) = _$FSCheckedImpl;
 
   ServerCheck get check;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of FlowState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FSCheckedImplCopyWith<_$FSCheckedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
