@@ -41,8 +41,10 @@ class CurrentArticle extends _$CurrentArticle {
     _articleId = articleId;
     _watcher?.cancel();
     final q = DB.get().managers.articles.filter((f) => f.id.equals(articleId));
-    _watcher = q.watchSingle().listen((_) {
-      ref.invalidateSelf();
+    _watcher = q.watchSingleOrNull().listen((article) {
+      if (AsyncValue.data(article) != state) {
+        ref.invalidateSelf();
+      }
     });
 
     ref.read(settingsProvider.notifier).set(Sk.selectedArticleId, articleId);
