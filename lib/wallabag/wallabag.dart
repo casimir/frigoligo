@@ -33,7 +33,6 @@ class WallabagNativeClient extends WallabagClient {
     var credentials = await _getCredentials();
 
     request.headers.addAll({
-      HttpHeaders.contentTypeHeader: 'application/json',
       if (userAgent != null) HttpHeaders.userAgentHeader: userAgent!,
     });
     if (!request.url.path.endsWith(tokenEndpointPath)) {
@@ -43,6 +42,7 @@ class WallabagNativeClient extends WallabagClient {
       }
       final accessToken = credentials.token!.accessToken;
       request.headers[HttpHeaders.authorizationHeader] = 'Bearer $accessToken';
+      request.headers[HttpHeaders.contentTypeHeader] = 'application/json';
     }
     final stopwatch = Stopwatch()..start();
     logRequest(request as http.Request);
