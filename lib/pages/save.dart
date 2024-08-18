@@ -5,10 +5,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../buildcontext_extension.dart';
-import '../db/database.dart';
 import '../db/extensions/article.dart';
 import '../providers/settings.dart';
 import '../server/providers/client.dart';
+import '../services/wallabag_storage.dart';
 import '../wallabag/client.dart';
 
 class SavePage extends ConsumerStatefulWidget {
@@ -59,12 +59,12 @@ class _SavePageState extends ConsumerState<SavePage> {
     }
 
     try {
-      // TODO use WStorage or RSA instead of local implementation
       final wallabag = await ref.read(clientProvider.future);
       final entry = await wallabag!.createEntry(widget.url!, tags: tags);
 
-      final db = DB.get();
-      await db.into(db.articles).insert(entry.toArticle());
+      await ref
+          .read(wStorageProvider.notifier)
+          .persistArticle(entry.toArticle());
 
       setState(() {
         step = SaveStep.success;

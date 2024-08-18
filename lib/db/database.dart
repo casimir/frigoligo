@@ -30,12 +30,15 @@ class DB extends _$DB {
   DB._() : super(openConnection());
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
         onUpgrade: (m, from, to) async {
-          if (from < 2) {
+          if (from < 3) {
+            await m.deleteTable('articles');
+            await m.deleteTable('article_scroll_positions');
+            await m.deleteTable('metadata');
             await m.createAll();
           }
         },

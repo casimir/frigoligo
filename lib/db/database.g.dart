@@ -427,7 +427,7 @@ class $ArticlesTable extends Articles with TableInfo<$ArticlesTable, Article> {
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
       type: DriftSqlType.int,
-      requiredDuringInsert: true,
+      requiredDuringInsert: false,
       defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
   static const VerificationMeta _createdAtMeta =
       const VerificationMeta('createdAt');
@@ -527,8 +527,6 @@ class $ArticlesTable extends Articles with TableInfo<$ArticlesTable, Article> {
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    } else if (isInserting) {
-      context.missing(_idMeta);
     }
     if (data.containsKey('created_at')) {
       context.handle(_createdAtMeta,
@@ -597,7 +595,7 @@ class $ArticlesTable extends Articles with TableInfo<$ArticlesTable, Article> {
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => const {};
+  Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Article map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
@@ -891,7 +889,6 @@ class ArticlesCompanion extends UpdateCompanion<Article> {
   final Value<DateTime?> archivedAt;
   final Value<DateTime?> starredAt;
   final Value<List<String>> tags;
-  final Value<int> rowid;
   const ArticlesCompanion({
     this.id = const Value.absent(),
     this.createdAt = const Value.absent(),
@@ -906,10 +903,9 @@ class ArticlesCompanion extends UpdateCompanion<Article> {
     this.archivedAt = const Value.absent(),
     this.starredAt = const Value.absent(),
     this.tags = const Value.absent(),
-    this.rowid = const Value.absent(),
   });
   ArticlesCompanion.insert({
-    required int id,
+    this.id = const Value.absent(),
     required DateTime createdAt,
     required DateTime updatedAt,
     required String title,
@@ -922,9 +918,7 @@ class ArticlesCompanion extends UpdateCompanion<Article> {
     this.archivedAt = const Value.absent(),
     this.starredAt = const Value.absent(),
     required List<String> tags,
-    this.rowid = const Value.absent(),
-  })  : id = Value(id),
-        createdAt = Value(createdAt),
+  })  : createdAt = Value(createdAt),
         updatedAt = Value(updatedAt),
         title = Value(title),
         url = Value(url),
@@ -944,7 +938,6 @@ class ArticlesCompanion extends UpdateCompanion<Article> {
     Expression<DateTime>? archivedAt,
     Expression<DateTime>? starredAt,
     Expression<String>? tags,
-    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -960,7 +953,6 @@ class ArticlesCompanion extends UpdateCompanion<Article> {
       if (archivedAt != null) 'archived_at': archivedAt,
       if (starredAt != null) 'starred_at': starredAt,
       if (tags != null) 'tags': tags,
-      if (rowid != null) 'rowid': rowid,
     });
   }
 
@@ -977,8 +969,7 @@ class ArticlesCompanion extends UpdateCompanion<Article> {
       Value<String?>? previewPicture,
       Value<DateTime?>? archivedAt,
       Value<DateTime?>? starredAt,
-      Value<List<String>>? tags,
-      Value<int>? rowid}) {
+      Value<List<String>>? tags}) {
     return ArticlesCompanion(
       id: id ?? this.id,
       createdAt: createdAt ?? this.createdAt,
@@ -993,7 +984,6 @@ class ArticlesCompanion extends UpdateCompanion<Article> {
       archivedAt: archivedAt ?? this.archivedAt,
       starredAt: starredAt ?? this.starredAt,
       tags: tags ?? this.tags,
-      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -1040,9 +1030,6 @@ class ArticlesCompanion extends UpdateCompanion<Article> {
       map['tags'] =
           Variable<String>($ArticlesTable.$convertertags.toSql(tags.value));
     }
-    if (rowid.present) {
-      map['rowid'] = Variable<int>(rowid.value);
-    }
     return map;
   }
 
@@ -1061,8 +1048,7 @@ class ArticlesCompanion extends UpdateCompanion<Article> {
           ..write('previewPicture: $previewPicture, ')
           ..write('archivedAt: $archivedAt, ')
           ..write('starredAt: $starredAt, ')
-          ..write('tags: $tags, ')
-          ..write('rowid: $rowid')
+          ..write('tags: $tags')
           ..write(')'))
         .toString();
   }
@@ -1079,7 +1065,7 @@ class $ArticleScrollPositionsTable extends ArticleScrollPositions
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
       type: DriftSqlType.int,
-      requiredDuringInsert: true,
+      requiredDuringInsert: false,
       defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
   static const VerificationMeta _readingTimeMeta =
       const VerificationMeta('readingTime');
@@ -1108,8 +1094,6 @@ class $ArticleScrollPositionsTable extends ArticleScrollPositions
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    } else if (isInserting) {
-      context.missing(_idMeta);
     }
     if (data.containsKey('reading_time')) {
       context.handle(
@@ -1129,7 +1113,7 @@ class $ArticleScrollPositionsTable extends ArticleScrollPositions
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => const {};
+  Set<GeneratedColumn> get $primaryKey => {id};
   @override
   ArticleScrollPosition map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
@@ -1235,45 +1219,35 @@ class ArticleScrollPositionsCompanion
   final Value<int> id;
   final Value<int> readingTime;
   final Value<double> progress;
-  final Value<int> rowid;
   const ArticleScrollPositionsCompanion({
     this.id = const Value.absent(),
     this.readingTime = const Value.absent(),
     this.progress = const Value.absent(),
-    this.rowid = const Value.absent(),
   });
   ArticleScrollPositionsCompanion.insert({
-    required int id,
+    this.id = const Value.absent(),
     required int readingTime,
     required double progress,
-    this.rowid = const Value.absent(),
-  })  : id = Value(id),
-        readingTime = Value(readingTime),
+  })  : readingTime = Value(readingTime),
         progress = Value(progress);
   static Insertable<ArticleScrollPosition> custom({
     Expression<int>? id,
     Expression<int>? readingTime,
     Expression<double>? progress,
-    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (readingTime != null) 'reading_time': readingTime,
       if (progress != null) 'progress': progress,
-      if (rowid != null) 'rowid': rowid,
     });
   }
 
   ArticleScrollPositionsCompanion copyWith(
-      {Value<int>? id,
-      Value<int>? readingTime,
-      Value<double>? progress,
-      Value<int>? rowid}) {
+      {Value<int>? id, Value<int>? readingTime, Value<double>? progress}) {
     return ArticleScrollPositionsCompanion(
       id: id ?? this.id,
       readingTime: readingTime ?? this.readingTime,
       progress: progress ?? this.progress,
-      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -1289,9 +1263,6 @@ class ArticleScrollPositionsCompanion
     if (progress.present) {
       map['progress'] = Variable<double>(progress.value);
     }
-    if (rowid.present) {
-      map['rowid'] = Variable<int>(rowid.value);
-    }
     return map;
   }
 
@@ -1300,8 +1271,7 @@ class ArticleScrollPositionsCompanion
     return (StringBuffer('ArticleScrollPositionsCompanion(')
           ..write('id: $id, ')
           ..write('readingTime: $readingTime, ')
-          ..write('progress: $progress, ')
-          ..write('rowid: $rowid')
+          ..write('progress: $progress')
           ..write(')'))
         .toString();
   }
@@ -2011,7 +1981,7 @@ class $$AppLogsTableOrderingComposer
 }
 
 typedef $$ArticlesTableCreateCompanionBuilder = ArticlesCompanion Function({
-  required int id,
+  Value<int> id,
   required DateTime createdAt,
   required DateTime updatedAt,
   required String title,
@@ -2024,7 +1994,6 @@ typedef $$ArticlesTableCreateCompanionBuilder = ArticlesCompanion Function({
   Value<DateTime?> archivedAt,
   Value<DateTime?> starredAt,
   required List<String> tags,
-  Value<int> rowid,
 });
 typedef $$ArticlesTableUpdateCompanionBuilder = ArticlesCompanion Function({
   Value<int> id,
@@ -2040,7 +2009,6 @@ typedef $$ArticlesTableUpdateCompanionBuilder = ArticlesCompanion Function({
   Value<DateTime?> archivedAt,
   Value<DateTime?> starredAt,
   Value<List<String>> tags,
-  Value<int> rowid,
 });
 
 class $$ArticlesTableTableManager extends RootTableManager<
@@ -2073,7 +2041,6 @@ class $$ArticlesTableTableManager extends RootTableManager<
             Value<DateTime?> archivedAt = const Value.absent(),
             Value<DateTime?> starredAt = const Value.absent(),
             Value<List<String>> tags = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
           }) =>
               ArticlesCompanion(
             id: id,
@@ -2089,10 +2056,9 @@ class $$ArticlesTableTableManager extends RootTableManager<
             archivedAt: archivedAt,
             starredAt: starredAt,
             tags: tags,
-            rowid: rowid,
           ),
           createCompanionCallback: ({
-            required int id,
+            Value<int> id = const Value.absent(),
             required DateTime createdAt,
             required DateTime updatedAt,
             required String title,
@@ -2105,7 +2071,6 @@ class $$ArticlesTableTableManager extends RootTableManager<
             Value<DateTime?> archivedAt = const Value.absent(),
             Value<DateTime?> starredAt = const Value.absent(),
             required List<String> tags,
-            Value<int> rowid = const Value.absent(),
           }) =>
               ArticlesCompanion.insert(
             id: id,
@@ -2121,7 +2086,6 @@ class $$ArticlesTableTableManager extends RootTableManager<
             archivedAt: archivedAt,
             starredAt: starredAt,
             tags: tags,
-            rowid: rowid,
           ),
         ));
 }
@@ -2268,17 +2232,15 @@ class $$ArticlesTableOrderingComposer
 
 typedef $$ArticleScrollPositionsTableCreateCompanionBuilder
     = ArticleScrollPositionsCompanion Function({
-  required int id,
+  Value<int> id,
   required int readingTime,
   required double progress,
-  Value<int> rowid,
 });
 typedef $$ArticleScrollPositionsTableUpdateCompanionBuilder
     = ArticleScrollPositionsCompanion Function({
   Value<int> id,
   Value<int> readingTime,
   Value<double> progress,
-  Value<int> rowid,
 });
 
 class $$ArticleScrollPositionsTableTableManager extends RootTableManager<
@@ -2302,25 +2264,21 @@ class $$ArticleScrollPositionsTableTableManager extends RootTableManager<
             Value<int> id = const Value.absent(),
             Value<int> readingTime = const Value.absent(),
             Value<double> progress = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
           }) =>
               ArticleScrollPositionsCompanion(
             id: id,
             readingTime: readingTime,
             progress: progress,
-            rowid: rowid,
           ),
           createCompanionCallback: ({
-            required int id,
+            Value<int> id = const Value.absent(),
             required int readingTime,
             required double progress,
-            Value<int> rowid = const Value.absent(),
           }) =>
               ArticleScrollPositionsCompanion.insert(
             id: id,
             readingTime: readingTime,
             progress: progress,
-            rowid: rowid,
           ),
         ));
 }

@@ -18,10 +18,16 @@ class Articles extends Table {
   DateTimeColumn get archivedAt => dateTime().nullable()();
   DateTimeColumn get starredAt => dateTime().nullable()();
   TextColumn get tags => text().map(const StringListConverter())();
+
+  @override
+  Set<Column> get primaryKey => {id};
 }
 
 class ArticleScrollPositions extends Table {
   IntColumn get id => integer().unique()();
   IntColumn get readingTime => integer()();
   RealColumn get progress => real()();
+
+  @override
+  Set<Column> get primaryKey => {id};
 }

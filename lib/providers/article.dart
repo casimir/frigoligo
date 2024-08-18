@@ -70,7 +70,7 @@ class CurrentArticle extends _$CurrentArticle {
         .getSingle();
     await db.managers.articleScrollPositions.create(
       (o) => o(
-        id: article.id,
+        id: Value(article.id),
         readingTime: article.readingTime,
         progress: progress,
       ),
