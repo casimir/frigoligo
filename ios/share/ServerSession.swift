@@ -9,10 +9,11 @@ import Foundation
 
 struct ServerSession : Codable {
     var type: String
-    var wallabag: Credentials?
+    var wallabag: WallabagCredentials?
+    var freon: FreonCredentials?
 }
 
-struct Credentials : Codable {
+struct WallabagCredentials : Codable {
     var server: URL
     var clientId: String
     var clientSecret: String
@@ -37,4 +38,9 @@ func buildTokenData(_ source: OAuthTokenBody) -> TokenData {
         expiresAt: Int(Date.now.timeIntervalSince1970) + source.expires_in,
         refreshToken: source.refresh_token
     )
+}
+
+struct FreonCredentials : Codable {
+    var server: URL
+    var apiToken: String
 }
