@@ -27,7 +27,7 @@ let sessionKey = _sessionKeyPath
 
 class ShareViewController: UIViewController {
     let userDefaults = UserDefaults(suiteName: "group.net.casimir-lab.frigoligo")!
-    var credentials: Credentials?
+    var session: ServerSession?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,8 +80,7 @@ class ShareViewController: UIViewController {
         let raw = userDefaults.string(forKey: sessionKey)?.data(using: .utf8)
         if let data = raw {
             do {
-                let session = try JSONDecoder().decode(ServerSession.self, from: data)
-                credentials = session.wallabag
+                session = try JSONDecoder().decode(ServerSession.self, from: data)
             } catch {
                 throw CompletionError.description("credentials loading error: \(error)")
             }
@@ -99,7 +98,7 @@ class ShareViewController: UIViewController {
         }
         do {
             let url = try await attachment.loadItem(forTypeIdentifier: UTType.url.identifier)
-            try await self.sendSaveRequest(url: url as! URL)
+            try await sendSaveRequest(url: url as! URL)
         } catch let error as CompletionError {
             throw error
         } catch {
@@ -108,7 +107,13 @@ class ShareViewController: UIViewController {
     }
     
     private func prepareServerRequest(path: String, payload: [String: String]?) -> URLRequest {
-        var request = URLRequest(url: URL(string: path, relativeTo: credentials!.server)!)
+        var baseURL: URL
+        if session!.type == "wallabag" {
+            baseURL = session!.wallabag!.server
+        } else {
+            baseURL = session!.freon!.server.appendingPathComponent("wallabag", isDirectory: false)
+        }
+        var request = URLRequest(url: baseURL.appendingPathComponent(path))
         request.setValue("frigoligo/ios-extension", forHTTPHeaderField: "user-agent")
         if payload != nil {
             request.httpMethod = "POST"
@@ -120,6 +125,7 @@ class ShareViewController: UIViewController {
     }
     
     private func getToken() async throws -> String {
+        let credentials = session!.wallabag
         let tokenDeadline =  Double(credentials!.token.expiresAt) - Date.now.timeIntervalSince1970
         let formatter = DateComponentsFormatter()
         formatter.unitsStyle = .abbreviated
@@ -149,8 +155,7 @@ class ShareViewController: UIViewController {
             let token = payload.access_token
             devLog("got a new token!")
             
-            self.credentials!.token = buildTokenData(payload)
-            let session = ServerSession(type: "wallabag", wallabag: credentials)
+            session!.wallabag!.token = buildTokenData(payload)
             let encoder = JSONEncoder()
             let rawSession = String(data: try encoder.encode(session), encoding: .utf8)
             self.userDefaults.set(rawSession, forKey: sessionKey)
@@ -172,8 +177,13 @@ class ShareViewController: UIViewController {
             payload["tags"] = tag
         }
         var request = prepareServerRequest(path: "/api/entries", payload: payload)
-        let token = try await getToken()
-        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        if session!.type == "wallabag" {
+            let token = try await getToken()
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        } else {
+            let token = session!.freon!.apiToken
+            request.setValue(token, forHTTPHeaderField: "Authorization")
+        }
         
         devLog("sending save request...")
         let (data, response) = try await URLSession.shared.data(for: request)
