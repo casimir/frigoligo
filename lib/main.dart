@@ -60,8 +60,9 @@ Future<void> main() async {
   await AppInfo.init();
   await Settings.init();
 
-  _log.info('app version: ${AppInfo.versionVerbose}');
   _log.info('platform:    ${UniversalPlatform.operatingSystem}');
+  _log.info('app version: ${AppInfo.versionVerbose}');
+  _log.info('db version: ${DB.get().schemaVersion}');
   if (!UniversalPlatform.isWeb) {
     _log.info('os version:  ${Platform.operatingSystemVersion}');
   }
