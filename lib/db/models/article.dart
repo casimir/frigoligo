@@ -3,7 +3,10 @@ import 'package:drift/drift.dart';
 import '../converters/containers.dart';
 
 class Articles extends Table {
-  IntColumn get id => integer().unique()();
+  @override
+  Set<Column> get primaryKey => {id};
+
+  IntColumn get id => integer()();
   DateTimeColumn get createdAt => dateTime()();
   DateTimeColumn get updatedAt => dateTime()();
   TextColumn get title => text()();
@@ -18,16 +21,13 @@ class Articles extends Table {
   DateTimeColumn get archivedAt => dateTime().nullable()();
   DateTimeColumn get starredAt => dateTime().nullable()();
   TextColumn get tags => text().map(const StringListConverter())();
-
-  @override
-  Set<Column> get primaryKey => {id};
 }
 
 class ArticleScrollPositions extends Table {
-  IntColumn get id => integer().unique()();
-  IntColumn get readingTime => integer()();
-  RealColumn get progress => real()();
-
   @override
   Set<Column> get primaryKey => {id};
+
+  IntColumn get id => integer()();
+  IntColumn get readingTime => integer()();
+  RealColumn get progress => real()();
 }
