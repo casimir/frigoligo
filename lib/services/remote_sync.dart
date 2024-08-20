@@ -52,7 +52,8 @@ class RemoteSyncer extends _$RemoteSyncer {
     return error;
   }
 
-  Future<int> _fetchPendingCount() => DB.get().managers.remoteActions.count();
+  Future<int> _fetchPendingCount() =>
+      DB.get().managers.remoteActions.count(distinct: false);
 
   Future<void> add(RemoteSyncAction action) async {
     final db = DB.get();

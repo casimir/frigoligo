@@ -6,7 +6,7 @@ part of 'remote_sync.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$remoteSyncerHash() => r'900c8f0679b3b63bcb3131f4464d7cd1ff6151de';
+String _$remoteSyncerHash() => r'130587e9400b686745d9e5407ad87ef125af79d3';
 
 /// See also [RemoteSyncer].
 @ProviderFor(RemoteSyncer)

@@ -56,7 +56,7 @@ class WStorage extends _$WStorage {
         .get();
     return db.managers.articles
         .filter((f) => f.id.equals(ids[n]))
-        .getSingleOrNull();
+        .getSingleOrNull(distinct: false);
   }
 
   Future<int?> indexOf(int articleId, WQuery wq) async {
