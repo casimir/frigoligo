@@ -5,6 +5,7 @@ import '../utils.dart';
 import 'connection/connection.dart';
 import 'converters/containers.dart';
 import 'daos/app_logs.dart';
+import 'daos/articles.dart';
 import 'daos/metadata.dart';
 import 'models/app_log.dart';
 import 'models/article.dart';
@@ -23,6 +24,7 @@ part 'database.g.dart';
   ],
   daos: [
     AppLogsDao,
+    ArticlesDao,
     MetadataDao,
   ],
 )

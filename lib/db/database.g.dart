@@ -1800,6 +1800,7 @@ abstract class _$DB extends GeneratedDatabase {
   late final $MetadataTable metadata = $MetadataTable(this);
   late final $RemoteActionsTable remoteActions = $RemoteActionsTable(this);
   late final AppLogsDao appLogsDao = AppLogsDao(this as DB);
+  late final ArticlesDao articlesDao = ArticlesDao(this as DB);
   late final MetadataDao metadataDao = MetadataDao(this as DB);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
