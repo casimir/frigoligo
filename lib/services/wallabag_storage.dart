@@ -234,13 +234,12 @@ class WStorage extends _$WStorage {
     List<String>? tags,
   }) async {
     final wallabag = (await ref.read(clientProvider.future))!;
-    await wallabag.patchEntry(
+    final entry = await wallabag.patchEntry(
       articleId,
       archive: archive,
       starred: starred,
       tags: tags,
     );
-    final entry = await wallabag.getEntry(articleId);
     await persistArticle(entry.toArticle());
   }
 }
