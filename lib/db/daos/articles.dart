@@ -11,7 +11,8 @@ class ArticlesDao extends DatabaseAccessor<DB> with _$ArticlesDaoMixin {
 
   Future<int> updateOne(Article article) {
     return db.transaction(() async {
-      var count = await articles.insertOnConflictUpdate(article);
+      var count =
+          await articles.insertOnConflictUpdate(article.toCompanion(false));
 
       final position = await db.managers.articleScrollPositions
           .filter((f) => f.id.equals(article.id))
@@ -26,7 +27,7 @@ class ArticlesDao extends DatabaseAccessor<DB> with _$ArticlesDaoMixin {
   }
 
   Future<void> updateAll(Iterable<Article> allArticles) async {
-    final index = {for (final it in allArticles) it.id: it};
+    final index = {for (final it in allArticles) it.id: it.toCompanion(false)};
 
     return db.transaction(() async {
       final t1 = db.articleScrollPositions;
