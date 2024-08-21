@@ -77,8 +77,9 @@ class WStorage extends _$WStorage {
 
   Future<List<String>> getTags() async {
     final t1 = DB.get().articles;
-    final tagLists = await (t1.selectOnly()..addColumns([t1.tags])).get()
-        as List<List<String>>;
+    final tagLists = await (t1.selectOnly()..addColumns([t1.tags]))
+        .map((row) => row.readWithConverter(t1.tags)!)
+        .get();
     final tags = tagLists.expand((it) => it).toSet().toList();
     tags.sort();
     return tags;
