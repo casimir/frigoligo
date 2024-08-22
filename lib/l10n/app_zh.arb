@@ -398,5 +398,13 @@
         "format": "compact"
       }
     }
+  },
+  "login_acceptSelfSigned": "接受自签名证书",
+  "@login_acceptSelfSigned": {
+    "description": "Wether or not to accept self-signed certificates when connecting to the wallabag instance."
+  },
+  "session_fieldApiToken": "API 令牌",
+  "@session_fieldApiToken": {
+    "description": "The API token field name of in forms."
   }
 }
