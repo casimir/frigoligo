@@ -56,7 +56,7 @@ class WStorage extends _$WStorage {
         .get();
     return db.managers.articles
         .filter((f) => f.id.equals(ids[n]))
-        .getSingleOrNull();
+        .getSingleOrNull(distinct: false);
   }
 
   Future<int?> indexOf(int articleId, WQuery wq) async {
@@ -77,8 +77,9 @@ class WStorage extends _$WStorage {
 
   Future<List<String>> getTags() async {
     final t1 = DB.get().articles;
-    final tagLists = await (t1.selectOnly()..addColumns([t1.tags])).get()
-        as List<List<String>>;
+    final tagLists = await (t1.selectOnly()..addColumns([t1.tags]))
+        .map((row) => row.readWithConverter(t1.tags)!)
+        .get();
     final tags = tagLists.expand((it) => it).toSet().toList();
     tags.sort();
     return tags;
@@ -179,25 +180,9 @@ class WStorage extends _$WStorage {
     var entriesStream =
         wallabag.fetchAllEntries(since: since, onProgress: onProgress);
     await for (final entries in entriesStream) {
-      final articles = {for (var e in entries) e.id: e.toArticle()};
-      final positions = await db.managers.articleScrollPositions
-          .filter((f) => f.id.isIn(articles.keys))
-          .get();
-      final invalidPositions = positions
-          .where((e) => e.readingTime != articles[e.id]?.readingTime)
-          .map((e) => e.id)
-          .toList();
-
-      await db.transaction(() async {
-        await db.batch((batch) {
-          batch.insertAll(db.articles, articles.values);
-        });
-        await db.managers.articleScrollPositions
-            .filter((f) => f.id.isIn(invalidPositions))
-            .delete();
-      });
-      _log.info('saved ${articles.length} entries to the database');
-      if (articles.isNotEmpty) ref.invalidateSelf();
+      await db.articlesDao.updateAll(entries.map((e) => e.toArticle()));
+      _log.info('saved ${entries.length} entries to the database');
+      if (entries.isNotEmpty) ref.invalidateSelf();
 
       count += entries.length;
     }
@@ -230,22 +215,7 @@ class WStorage extends _$WStorage {
   }
 
   Future<void> persistArticle(Article article) async {
-    final db = DB.get();
-
-    final scrollPosition = await db.managers.articleScrollPositions
-        .filter((f) => f.id.equals(article.id))
-        .getSingleOrNull();
-    final writeCount = await db.transaction(() async {
-      var count = 0;
-      count += await db.articles
-          .insertOne(article, mode: InsertMode.insertOrReplace);
-      if (scrollPosition?.readingTime != article.readingTime) {
-        count += await db.managers.articleScrollPositions
-            .filter((f) => f.id.equals(article.id))
-            .delete();
-      }
-      return count;
-    });
+    final writeCount = await DB.get().articlesDao.updateOne(article);
     if (writeCount > 0) ref.invalidateSelf();
   }
 
@@ -254,16 +224,7 @@ class WStorage extends _$WStorage {
     final wallabag = (await ref.read(clientProvider.future))!;
 
     await wallabag.deleteEntry(articleId);
-    final deleted = await db.transaction(() async {
-      var deleted = 0;
-      deleted += await db.managers.articles
-          .filter((f) => f.id.equals(articleId))
-          .delete();
-      deleted += await db.managers.articleScrollPositions
-          .filter((f) => f.id.equals(articleId))
-          .delete();
-      return deleted;
-    });
+    final deleted = await db.articlesDao.deleteOne(articleId);
     if (deleted > 0) ref.invalidateSelf();
   }
 
@@ -274,13 +235,12 @@ class WStorage extends _$WStorage {
     List<String>? tags,
   }) async {
     final wallabag = (await ref.read(clientProvider.future))!;
-    await wallabag.patchEntry(
+    final entry = await wallabag.patchEntry(
       articleId,
       archive: archive,
       starred: starred,
       tags: tags,
     );
-    final entry = await wallabag.getEntry(articleId);
     await persistArticle(entry.toArticle());
   }
 }

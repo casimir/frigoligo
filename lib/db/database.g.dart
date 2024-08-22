@@ -426,9 +426,7 @@ class $ArticlesTable extends Articles with TableInfo<$ArticlesTable, Article> {
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
+      type: DriftSqlType.int, requiredDuringInsert: false);
   static const VerificationMeta _createdAtMeta =
       const VerificationMeta('createdAt');
   @override
@@ -1064,9 +1062,7 @@ class $ArticleScrollPositionsTable extends ArticleScrollPositions
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
+      type: DriftSqlType.int, requiredDuringInsert: false);
   static const VerificationMeta _readingTimeMeta =
       const VerificationMeta('readingTime');
   @override
@@ -1804,6 +1800,7 @@ abstract class _$DB extends GeneratedDatabase {
   late final $MetadataTable metadata = $MetadataTable(this);
   late final $RemoteActionsTable remoteActions = $RemoteActionsTable(this);
   late final AppLogsDao appLogsDao = AppLogsDao(this as DB);
+  late final ArticlesDao articlesDao = ArticlesDao(this as DB);
   late final MetadataDao metadataDao = MetadataDao(this as DB);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>

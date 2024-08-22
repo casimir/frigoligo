@@ -214,7 +214,7 @@ extension WallabagClientEndpoints on WallabagClient {
     return safeDecode(response, WallabagEntry.fromJson);
   }
 
-  Future<http.Response> patchEntry(
+  Future<WallabagEntry> patchEntry(
     int id, {
     bool? archive,
     bool? starred,
@@ -230,7 +230,7 @@ extension WallabagClientEndpoints on WallabagClient {
       body: jsonEncode(params),
     );
     throwOnError(response);
-    return response;
+    return safeDecode(response, WallabagEntry.fromJson);
   }
 
   Future<http.Response> deleteEntry(int id) async {

@@ -5,6 +5,7 @@ import '../utils.dart';
 import 'connection/connection.dart';
 import 'converters/containers.dart';
 import 'daos/app_logs.dart';
+import 'daos/articles.dart';
 import 'daos/metadata.dart';
 import 'models/app_log.dart';
 import 'models/article.dart';
@@ -23,6 +24,7 @@ part 'database.g.dart';
   ],
   daos: [
     AppLogsDao,
+    ArticlesDao,
     MetadataDao,
   ],
 )
@@ -30,15 +32,19 @@ class DB extends _$DB {
   DB._() : super(openConnection());
 
   @override
-  int get schemaVersion => 3;
+  int get schemaVersion => 4;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
+        // The migration strategy is pretty simple: the DB is just a local cache.
+        // If the schema version changes, let's just restart from a clean slate.
         onUpgrade: (m, from, to) async {
-          if (from < 3) {
-            await m.deleteTable('articles');
-            await m.deleteTable('article_scroll_positions');
-            await m.deleteTable('metadata');
+          if (from != to) {
+            final keepTables = [appLogs.actualTableName];
+            for (final table in m.database.allTables.toList().reversed) {
+              if (keepTables.contains(table.actualTableName)) continue;
+              await m.deleteTable(table.actualTableName);
+            }
             await m.createAll();
           }
         },
