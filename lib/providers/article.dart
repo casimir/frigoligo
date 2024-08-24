@@ -17,7 +17,6 @@ class CurrentArticle extends _$CurrentArticle {
 
   @override
   Future<Article?> build() async {
-    print('CurrentArticle.build');
     _watcher?.cancel();
 
     _articleId ??=
