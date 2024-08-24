@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../buildcontext_extension.dart';
-import '../constants.dart';
-import '../providers/query.dart';
-import '../services/wallabag_storage.dart';
-import '../widget_keys.dart';
-import '../widgets/async/text.dart';
-import '../widgets/tag_list.dart';
-import 'tags_selector/dialog.dart';
+import '../../buildcontext_extension.dart';
+import '../../constants.dart';
+import '../../providers/query.dart';
+import '../../services/wallabag_storage.dart';
+import '../../widget_keys.dart';
+import '../../widgets/async/text.dart';
+import '../../widgets/tag_list.dart';
+import '../tags_selector/dialog.dart';
 
 const defaultPadding = 10.0;
 const defaultSpacing = 16.0;
