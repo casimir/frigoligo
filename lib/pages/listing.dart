@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cadanse/cadanse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -16,7 +17,7 @@ import '../widget_keys.dart';
 import '../widgets/remote_sync_fab.dart';
 import '../widgets/remote_sync_progress_indicator.dart';
 import 'listing/article_list.dart';
-import 'listing/filters.dart';
+import 'listing/search.dart';
 
 final _log = Logger('frigoligo.listing');
 
@@ -50,6 +51,9 @@ class _ListingPageState extends ConsumerState<ListingPage> {
           .synchronize(withFinalRefresh: true);
     }
 
+    // https://api.flutter.dev/flutter/widgets/PinnedHeaderSliver-class.html
+    // https://api.flutter.dev/flutter/material/SearchBar-class.html
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -71,13 +75,28 @@ class _ListingPageState extends ConsumerState<ListingPage> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          if (widget.withProgressIndicator) const RemoteSyncProgressIndicator(),
-          ArticleListView(
-            doRefresh: doRefresh,
-            onItemSelect: widget.onItemSelect,
-            sideBySideMode: widget.sideBySideMode,
+      body: CustomScrollView(
+        slivers: [
+          PinnedHeaderSliver(
+            child: Padding(
+              padding: C.paddings.defaultPadding,
+              child: ListView(shrinkWrap: true, children: [
+                if (widget.withProgressIndicator)
+                  const RemoteSyncProgressIndicator(),
+                SearchBar(
+                  leading: const Icon(Icons.search),
+                ),
+                C.spacers.verticalContent,
+                const SearchFilters(),
+              ]),
+            ),
+          ),
+          SliverFillRemaining(
+            child: ArticleListView(
+              doRefresh: doRefresh,
+              onItemSelect: widget.onItemSelect,
+              sideBySideMode: widget.sideBySideMode,
+            ),
           ),
         ],
       ),

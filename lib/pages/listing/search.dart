@@ -9,6 +9,7 @@ import '../../providers/query.dart';
 import '../../services/wallabag_storage.dart';
 import '../../widget_keys.dart';
 import '../../widgets/async/text.dart';
+import '../../widgets/chip_filter_menu.dart';
 import '../../widgets/tag_list.dart';
 import '../tags_selector/dialog.dart';
 
@@ -20,6 +21,8 @@ const leftAlignedInsets = EdgeInsets.only(
   right: defaultPadding,
   bottom: defaultPadding,
 );
+// TODO move to cadanse
+const spaceHorizontalInGroup = SizedBox(width: 8);
 
 class FiltersPage extends ConsumerWidget {
   const FiltersPage({super.key});
@@ -213,6 +216,60 @@ void _showTagsSelectionDialog(BuildContext context, WidgetRef ref) async {
         initialValue: query.tags ?? [],
         onConfirm: ref.read(queryProvider.notifier).setTags,
       ),
+    );
+  }
+}
+
+class SearchFilters extends ConsumerWidget {
+  const SearchFilters({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(children: [
+        _buildState(context, ref),
+        spaceHorizontalInGroup,
+        _buildStarred(context, ref),
+      ]),
+    );
+  }
+
+  Widget _buildState(BuildContext context, WidgetRef ref) {
+    final entries = [
+      DropdownMenuEntry(
+        value: StateFilter.unread,
+        label: context.L.filters_articleStateUnread,
+        leadingIcon: const Icon(Icons.inbox),
+      ),
+      DropdownMenuEntry(
+        value: StateFilter.archived,
+        label: context.L.filters_articleStateArchived,
+        leadingIcon: const Icon(Icons.archive),
+      ),
+      DropdownMenuEntry(
+        value: StateFilter.all,
+        label: context.L.filters_articleStateAll,
+        leadingIcon: const Icon(Icons.filter_none),
+      ),
+    ];
+    return ChipFilterMenu(
+      initialSelection: StateFilter.all,
+      onSelected: (entry) => ref
+          .read(queryProvider.notifier)
+          .overrideWith(WQuery(state: entry.value)),
+      entries: entries,
+      value: ref.watch(queryProvider.select((q) => q.state)),
+    );
+  }
+
+  Widget _buildStarred(BuildContext context, WidgetRef ref) {
+    return FilterChip(
+      label: Text(context.L.filters_articleFavoriteStarred),
+      selected: ref.watch(
+          queryProvider.select((q) => q.starred == StarredFilter.starred)),
+      onSelected: (value) => ref.read(queryProvider.notifier).overrideWith(
+          WQuery(starred: value ? StarredFilter.starred : StarredFilter.all)),
     );
   }
 }

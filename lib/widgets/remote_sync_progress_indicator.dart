@@ -45,7 +45,9 @@ class RemoteSyncProgressIndicator extends ConsumerWidget {
     }
 
     if (error != null || !syncState.isWorking) {
-      return const SizedBox.shrink();
+      return SizedBox(
+        height: Theme.of(context).progressIndicatorTheme.linearMinHeight,
+      );
     } else {
       return LinearProgressIndicator(value: syncState.progressValue);
     }
