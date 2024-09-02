@@ -264,12 +264,14 @@ class SearchFilters extends ConsumerWidget {
   }
 
   Widget _buildStarred(BuildContext context, WidgetRef ref) {
-    return FilterChip(
+    return FilterChip.elevated(
       label: Text(context.L.filters_articleFavoriteStarred),
       selected: ref.watch(
           queryProvider.select((q) => q.starred == StarredFilter.starred)),
       onSelected: (value) => ref.read(queryProvider.notifier).overrideWith(
           WQuery(starred: value ? StarredFilter.starred : StarredFilter.all)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+      elevation: 6.0,
     );
   }
 }

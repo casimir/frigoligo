@@ -38,7 +38,7 @@ class _ChipFilterMenuState<T> extends State<ChipFilterMenu<T>> {
               ))
           .toList(),
       builder: (context, controller, child) {
-        return FilterChip(
+        return FilterChip.elevated(
           label: Text(selected.label),
           selected: selected.value != widget.initialSelection,
           onSelected: (_) {
@@ -48,6 +48,9 @@ class _ChipFilterMenuState<T> extends State<ChipFilterMenu<T>> {
               controller.open();
             }
           },
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          elevation: 6.0,
         );
       },
     );
