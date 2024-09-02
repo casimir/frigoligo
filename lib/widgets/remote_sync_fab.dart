@@ -5,9 +5,10 @@ import '../buildcontext_extension.dart';
 import '../services/remote_sync.dart';
 
 class RemoteSyncFAB extends ConsumerWidget {
-  const RemoteSyncFAB({super.key, this.showIf = true});
+  const RemoteSyncFAB({super.key, this.showIf = true, this.alternativeChild});
 
   final bool showIf;
+  final Widget? alternativeChild;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,7 +24,7 @@ class RemoteSyncFAB extends ConsumerWidget {
         onPressed: () => syncer.synchronize(),
       );
     } else {
-      return const SizedBox.shrink();
+      return alternativeChild ?? const SizedBox.shrink();
     }
   }
 }

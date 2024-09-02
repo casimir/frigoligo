@@ -22,7 +22,11 @@ const leftAlignedInsets = EdgeInsets.only(
   bottom: defaultPadding,
 );
 // TODO move to cadanse
-const spaceHorizontalInGroup = SizedBox(width: 8);
+const spaceHorizontalInGroup = SizedBox(width: 8.0);
+
+final chipShape =
+    RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0));
+const searchWidgetElevation = 6.0;
 
 class FiltersPage extends ConsumerWidget {
   const FiltersPage({super.key});
@@ -231,6 +235,8 @@ class SearchFilters extends ConsumerWidget {
         _buildState(context, ref),
         spaceHorizontalInGroup,
         _buildStarred(context, ref),
+        spaceHorizontalInGroup,
+        _buildTags(context, ref),
       ]),
     );
   }
@@ -260,6 +266,8 @@ class SearchFilters extends ConsumerWidget {
           .overrideWith(WQuery(state: entry.value)),
       entries: entries,
       value: ref.watch(queryProvider.select((q) => q.state)),
+      chipShape: chipShape,
+      chipElevation: searchWidgetElevation,
     );
   }
 
@@ -270,8 +278,27 @@ class SearchFilters extends ConsumerWidget {
           queryProvider.select((q) => q.starred == StarredFilter.starred)),
       onSelected: (value) => ref.read(queryProvider.notifier).overrideWith(
           WQuery(starred: value ? StarredFilter.starred : StarredFilter.all)),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-      elevation: 6.0,
+      shape: chipShape,
+      elevation: searchWidgetElevation,
+    );
+  }
+
+  Widget _buildTags(BuildContext context, WidgetRef ref) {
+    final selection = ref.watch(queryProvider.select((q) => q.tags));
+    final hasSelection = selection?.isNotEmpty ?? false;
+    return FilterChip.elevated(
+      label: hasSelection
+          ? Text('${selection!.length} tags')
+          : Row(children: [
+              Text(context.L.filters_articleTags),
+              const Icon(Icons.expand_more),
+            ]),
+      selected: hasSelection,
+      onSelected: (_) => _showTagsSelectionDialog(context, ref),
+      onDeleted:
+          hasSelection ? ref.read(queryProvider.notifier).clearTags : null,
+      shape: chipShape,
+      elevation: searchWidgetElevation,
     );
   }
 }

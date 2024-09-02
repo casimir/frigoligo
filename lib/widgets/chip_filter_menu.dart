@@ -7,12 +7,16 @@ class ChipFilterMenu<T> extends StatefulWidget {
     this.onSelected,
     this.value,
     required this.entries,
+    this.chipShape,
+    this.chipElevation,
   });
 
   final T initialSelection;
   final void Function(DropdownMenuEntry<T>)? onSelected;
   final T? value;
   final List<DropdownMenuEntry<T>> entries;
+  final OutlinedBorder? chipShape;
+  final double? chipElevation;
 
   @override
   State<ChipFilterMenu<T>> createState() => _ChipFilterMenuState<T>();
@@ -48,9 +52,8 @@ class _ChipFilterMenuState<T> extends State<ChipFilterMenu<T>> {
               controller.open();
             }
           },
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-          elevation: 6.0,
+          shape: widget.chipShape,
+          elevation: widget.chipElevation,
         );
       },
     );

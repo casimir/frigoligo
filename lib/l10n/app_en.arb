@@ -178,6 +178,10 @@
   "@filters_noTagsSelected": {
     "description": "Placeholder for when no tags are selected."
   },
+  "filters_searchbarHint": "Search in articles",
+  "@filters_searchbarHint": {
+    "description": "Search bar hint in the home screen."
+  },
   "@_LOGCONSOLE": {},
   "logconsole_title": "Log Console",
   "@logconsole_title": {
