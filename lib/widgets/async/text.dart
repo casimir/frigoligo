@@ -17,7 +17,7 @@ class AText extends StatelessWidget {
         if (snapshot.hasError) {
           throw snapshot.error!;
         }
-        return Text(snapshot.data!);
+        return Text(snapshot.data!, style: style);
       },
     );
   }
