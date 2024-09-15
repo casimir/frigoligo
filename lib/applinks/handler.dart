@@ -17,12 +17,14 @@ class LinksHandler {
 
     // TODO register custom protocol (on Windows)
     // https://github.com/llfbandit/app_links/blob/0ba03114bde67dc2ee5db484a83bfced82cef5a5/example/lib/main.dart#L34
+    // OR even better
+    // https://github.com/llfbandit/app_links/blob/master/doc/README_windows.md
   }
 
   static Deeplink _handle(
       RouteConfiguration router, Uri uri, OnLinkData onData) {
     _log.info('trying to open $uri');
-    final matches = router.findMatch(uri.toString());
+    final matches = router.findMatch(uri);
     if (matches.isEmpty) return Deeplink.invalid;
     final linkType = switch (uri.pathSegments.first) {
       'articles' => Deeplink.article,
