@@ -128,6 +128,20 @@
     }
   },
   "@_FILTERS": {},
+  "filters_articleDomains": "Domains",
+  "@filters_articleDomains": {
+    "description": "Filter the domains from where the articles have been fetched."
+  },
+  "filters_articleDomainsCount": "{count, plural, =1{1 domain} other{{count} domains}}",
+  "@filters_articleDomainsCount": {
+    "description": "The number of articles domains used in filters.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
   "filters_articleFavoriteStarred": "Starred",
   "@filters_articleFavoriteStarred": {
     "description": "Filter starred articles."
@@ -146,7 +160,17 @@
   },
   "filters_articleTags": "Tags",
   "@filters_articleTags": {
-    "description": "The tags attached to the article."
+    "description": "Filter articles with the given tag values."
+  },
+  "filters_articleTagsCount": "{count, plural, =1{1 tag} other{{count} tags}}",
+  "@filters_articleTagsCount": {
+    "description": "The number of tags used in filters.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
   },
   "filters_searchbarHint": "Search in articles",
   "@filters_searchbarHint": {

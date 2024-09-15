@@ -90,7 +90,7 @@ class SearchFilters extends ConsumerWidget {
     final hasSelection = selection?.isNotEmpty ?? false;
     return FilterChip.elevated(
       label: hasSelection
-          ? Text('${selection!.length} tags') // TODO translate
+          ? Text(context.L.filters_articleTagsCount(selection!.length))
           : Row(children: [
               Text(context.L.filters_articleTags),
               const Icon(Icons.expand_more),
@@ -125,16 +125,16 @@ class SearchFilters extends ConsumerWidget {
     final hasSelection = selection?.isNotEmpty ?? false;
     return FilterChip.elevated(
       label: hasSelection
-          ? Text('${selection!.length} domains') // TODO translate
+          ? Text(context.L.filters_articleDomainsCount(selection!.length))
           : Row(children: [
-              Text('Domains'), // TODO translate
+              Text(context.L.filters_articleDomains),
               const Icon(Icons.expand_more),
             ]),
       selected: hasSelection,
       onSelected: (_) async {
         final selected = await showBottomSheetSelector(
           context: context,
-          title: 'Domains', // TODO translate
+          title: context.L.filters_articleDomains,
           entriesBuilder: DB.get().articlesDao.listAllDomains(),
           initialSelection: selection?.toSet(),
         );
