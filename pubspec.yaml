@@ -55,8 +55,8 @@ dependencies:
   cached_network_image: ^3.2.3
 
   # data management
-  drift: ^2.19.1
-  drift_flutter: ^0.1.0
+  drift: ^2.20.2
+  drift_flutter: ^0.2.0
   shared_preferences: ^2.1.2
   shared_preference_app_group: ^1.0.0+1
 
@@ -67,7 +67,7 @@ dependencies:
   package_info_plus: ^8.0.0
   universal_platform: ^1.1.0
   url_launcher: ^6.1.12
-  share_plus: ^9.0.0
+  share_plus: ^10.0.2
 
 dev_dependencies:
   flutter_driver:
@@ -82,7 +82,7 @@ dev_dependencies:
 
   # code generation
   build_runner: any
-  drift_dev: ^2.19.1
+  drift_dev: ^2.20.3
   freezed: ^2.5.2
   json_serializable: ^6.7.0
   riverpod_generator: ^2.4.0
