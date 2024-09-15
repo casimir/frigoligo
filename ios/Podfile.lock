@@ -1,7 +1,7 @@
 PODS:
-  - app_links (0.0.1):
+  - app_links (0.0.2):
     - Flutter
-  - background_fetch (1.3.5):
+  - background_fetch (1.3.7):
     - Flutter
   - Flutter (1.0.0)
   - package_info_plus (0.4.5):
@@ -82,8 +82,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
 
 SPEC CHECKSUMS:
-  app_links: e70ca16b4b0f88253b3b3660200d4a10b4ea9795
-  background_fetch: f73d045fee3d313ea8c0afa205317bff8a6bf8d2
+  app_links: e7a6750a915a9e161c58d91bc610e8cd1d4d0ad0
+  background_fetch: 39f11371c0dce04b001c4bfd5e782bcccb0a85e2
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   package_info_plus: 58f0028419748fad15bf008b270aaa8e54380b1c
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
