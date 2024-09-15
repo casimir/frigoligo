@@ -11,11 +11,13 @@ class MultiSelect<T> extends StatefulWidget {
     super.key,
     required this.title,
     required this.entries,
+    this.initialSelection,
     this.onConfirm,
   });
 
   final String title;
   final List<DropdownMenuEntry<T>> entries;
+  final Set<T>? initialSelection;
   final void Function(Iterable<T>)? onConfirm;
 
   @override
@@ -24,13 +26,14 @@ class MultiSelect<T> extends StatefulWidget {
 
 class _MultiSelectState<T> extends State<MultiSelect<T>> {
   late final Map<String, DropdownMenuEntry<T>> _index;
+  late final Set<T> _selected;
   final TextEditingController _searchController = TextEditingController();
-  final Set<T> _selected = {};
 
   @override
   void initState() {
     super.initState();
     _index = {for (final it in widget.entries) it.label: it};
+    _selected = widget.initialSelection ?? {};
   }
 
   @override
@@ -154,6 +157,7 @@ Future<Iterable<T>?> showBottomSheetSelector<T>({
   required BuildContext context,
   required String title,
   required Future<Iterable<T>> entriesBuilder,
+  Set<T>? initialSelection,
 }) {
   return showModalBottomSheet(
     context: context,
@@ -173,6 +177,7 @@ Future<Iterable<T>?> showBottomSheetSelector<T>({
             entries: snapshot.data!
                 .map((it) => DropdownMenuEntry(value: it, label: it.toString()))
                 .toList(),
+            initialSelection: initialSelection,
           );
         }),
     isScrollControlled: true,

@@ -323,6 +323,7 @@ class SearchFilters extends ConsumerWidget {
           context: context,
           title: 'Domains', // TODO translate
           entriesBuilder: DB.get().articlesDao.listAllDomains(),
+          initialSelection: selection?.toSet(),
         );
         if (selected != null) {
           if (selected.isNotEmpty) {
