@@ -40,21 +40,6 @@ void _toClean(BuildContext context) {
   context.L.filters_noTagsSelected;
 }
 
-void _showTagsSelectionDialog(BuildContext context, WidgetRef ref) async {
-  final tags = await ref.read(wStorageProvider.notifier).getTags();
-  final query = ref.read(queryProvider);
-  if (context.mounted) {
-    showDialog(
-      context: context,
-      builder: (_) => TagsSelectorDialog(
-        tags: tags,
-        initialValue: query.tags ?? [],
-        onConfirm: ref.read(queryProvider.notifier).setTags,
-      ),
-    );
-  }
-}
-
 class SearchFilters extends ConsumerWidget {
   const SearchFilters({super.key});
 
@@ -127,7 +112,23 @@ class SearchFilters extends ConsumerWidget {
               const Icon(Icons.expand_more),
             ]),
       selected: hasSelection,
-      onSelected: (_) => _showTagsSelectionDialog(context, ref),
+      onSelected: (_) async {
+        final selected = await showBottomSheetSelector(
+          context: context,
+          title: context.L.filters_articleTags,
+          entriesBuilder: ref.read(wStorageProvider.notifier).getTags(),
+          initialSelection: selection?.toSet(),
+        );
+        if (selected != null) {
+          if (selected.isNotEmpty) {
+            ref
+                .read(queryProvider.notifier)
+                .overrideWith(WQuery(tags: selected.toList()));
+          } else {
+            ref.read(queryProvider.notifier).clearTags();
+          }
+        }
+      },
       onDeleted:
           hasSelection ? ref.read(queryProvider.notifier).clearTags : null,
       shape: chipShape,
