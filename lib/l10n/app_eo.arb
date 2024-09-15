@@ -57,33 +57,13 @@
   "@article_noContentFetched": {
     "description": "Placeholder for when the article content is not available."
   },
-  "filters_articleFavorite": "Markita",
-  "@filters_articleFavorite": {
-    "description": "The favorite status of the article."
-  },
-  "filters_articleFavoriteAll": "Ĉiuj",
-  "@filters_articleFavoriteAll": {
-    "description": "Don't filter articles by favorite status."
-  },
   "filters_articleFavoriteStarred": "Markitaj",
   "@filters_articleFavoriteStarred": {
     "description": "Filter starred articles."
   },
-  "filters_articleState": "Stato",
-  "@filters_articleState": {
-    "description": "The state of the article."
-  },
   "filters_articleStateUnread": "Nelegitaj",
   "@filters_articleStateUnread": {
     "description": "Filter articles with the state 'unread'."
-  },
-  "filters_clearTagsSelection": "Vakigi la elekton",
-  "@filters_clearTagsSelection": {
-    "description": "The action to clear the selection of tags."
-  },
-  "filters_noTagsSelected": "Neniu etikedo elektita",
-  "@filters_noTagsSelected": {
-    "description": "Placeholder for when no tags are selected."
   },
   "logconsole_title": "Protokolkonzolo",
   "@logconsole_title": {
@@ -426,15 +406,5 @@
   "settings_itemLogConsole": "Protokolkonzolo",
   "@settings_itemLogConsole": {
     "description": "The action to display the log console screen."
-  },
-  "filters_articlesCount": "{count, plural, =1{1 artikolo trovita} other{{count} artikoloj trovitaj}}",
-  "@filters_articlesCount": {
-    "description": "The number of articles found with current filters values.",
-    "placeholders": {
-      "count": {
-        "type": "int",
-        "format": "compact"
-      }
-    }
   }
 }

@@ -58,23 +58,9 @@
   "@article_openInBrowser": {
     "description": "The action to open the article in the web browser."
   },
-  "filters_articlesCount": "{count, plural, =1{找到 1 篇文章} other{找到 {count} 篇文章}}",
-  "@filters_articlesCount": {
-    "description": "The number of articles found with current filters values.",
-    "placeholders": {
-      "count": {
-        "type": "int",
-        "format": "compact"
-      }
-    }
-  },
   "article_noContentFetched": "沒有獲取內容",
   "@article_noContentFetched": {
     "description": "Placeholder for when the article content is not available."
-  },
-  "filters_articleState": "狀態",
-  "@filters_articleState": {
-    "description": "The state of the article."
   },
   "filters_articleStateUnread": "未讀",
   "@filters_articleStateUnread": {
@@ -87,10 +73,6 @@
   "filters_articleStateAll": "全部",
   "@filters_articleStateAll": {
     "description": "Don't filter articles by state."
-  },
-  "filters_articleFavorite": "收藏",
-  "@filters_articleFavorite": {
-    "description": "The favorite status of the article."
   },
   "filters_articleFavoriteStarred": "已收藏",
   "@filters_articleFavoriteStarred": {
@@ -265,21 +247,9 @@
       }
     }
   },
-  "filters_articleFavoriteAll": "全部",
-  "@filters_articleFavoriteAll": {
-    "description": "Don't filter articles by favorite status."
-  },
   "filters_articleTags": "標籤",
   "@filters_articleTags": {
     "description": "The tags attached to the article."
-  },
-  "filters_clearTagsSelection": "清除選擇",
-  "@filters_clearTagsSelection": {
-    "description": "The action to clear the selection of tags."
-  },
-  "filters_noTagsSelected": "未選擇標籤",
-  "@filters_noTagsSelected": {
-    "description": "Placeholder for when no tags are selected."
   },
   "logconsole_title": "日誌控制台",
   "@logconsole_title": {

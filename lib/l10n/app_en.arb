@@ -128,31 +128,9 @@
     }
   },
   "@_FILTERS": {},
-  "filters_articlesCount": "{count, plural, =1{1 article found} other{{count} articles found}}",
-  "@filters_articlesCount": {
-    "description": "The number of articles found with current filters values.",
-    "placeholders": {
-      "count": {
-        "type": "int",
-        "format": "compact"
-      }
-    }
-  },
-  "filters_articleFavorite": "Favorite",
-  "@filters_articleFavorite": {
-    "description": "The favorite status of the article."
-  },
-  "filters_articleFavoriteAll": "All",
-  "@filters_articleFavoriteAll": {
-    "description": "Don't filter articles by favorite status."
-  },
   "filters_articleFavoriteStarred": "Starred",
   "@filters_articleFavoriteStarred": {
     "description": "Filter starred articles."
-  },
-  "filters_articleState": "State",
-  "@filters_articleState": {
-    "description": "The state of the article."
   },
   "filters_articleStateUnread": "Unread",
   "@filters_articleStateUnread": {
@@ -169,14 +147,6 @@
   "filters_articleTags": "Tags",
   "@filters_articleTags": {
     "description": "The tags attached to the article."
-  },
-  "filters_clearTagsSelection": "Clear selection",
-  "@filters_clearTagsSelection": {
-    "description": "The action to clear the selection of tags."
-  },
-  "filters_noTagsSelected": "No tags selected",
-  "@filters_noTagsSelected": {
-    "description": "Placeholder for when no tags are selected."
   },
   "filters_searchbarHint": "Search in articles",
   "@filters_searchbarHint": {

@@ -8,7 +8,6 @@ import '../../providers/query.dart';
 import '../../services/wallabag_storage.dart';
 import '../../widgets/chip_filter_menu.dart';
 import '../../widgets/selectors.dart';
-import '../tags_selector/dialog.dart';
 
 const defaultPadding = 10.0;
 const defaultSpacing = 16.0;
@@ -24,21 +23,6 @@ const spaceHorizontalInGroup = SizedBox(width: 8.0);
 final chipShape =
     RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0));
 const searchWidgetElevation = 6.0;
-
-// TODO clean translatable strings
-void _toClean(BuildContext context) {
-  context.L.filters_articleFavorite;
-  context.L.filters_articleFavoriteAll;
-  context.L.filters_articleFavoriteStarred;
-  context.L.filters_articleState;
-  context.L.filters_articleStateAll;
-  context.L.filters_articleStateArchived;
-  context.L.filters_articleStateUnread;
-  context.L.filters_articleTags;
-  context.L.filters_articlesCount(1);
-  context.L.filters_clearTagsSelection;
-  context.L.filters_noTagsSelected;
-}
 
 class SearchFilters extends ConsumerWidget {
   const SearchFilters({super.key});
