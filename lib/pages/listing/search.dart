@@ -325,9 +325,13 @@ class SearchFilters extends ConsumerWidget {
           entriesBuilder: DB.get().articlesDao.listAllDomains(),
         );
         if (selected != null) {
-          ref
-              .read(queryProvider.notifier)
-              .overrideWith(WQuery(domains: selected.toList()));
+          if (selected.isNotEmpty) {
+            ref
+                .read(queryProvider.notifier)
+                .overrideWith(WQuery(domains: selected.toList()));
+          } else {
+            ref.read(queryProvider.notifier).clearDomains();
+          }
         }
       },
       onDeleted:
