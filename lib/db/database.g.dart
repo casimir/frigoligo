@@ -1831,65 +1831,6 @@ typedef $$AppLogsTableUpdateCompanionBuilder = AppLogsCompanion Function({
   Value<String> logline,
 });
 
-class $$AppLogsTableTableManager extends RootTableManager<
-    _$DB,
-    $AppLogsTable,
-    AppLog,
-    $$AppLogsTableFilterComposer,
-    $$AppLogsTableOrderingComposer,
-    $$AppLogsTableCreateCompanionBuilder,
-    $$AppLogsTableUpdateCompanionBuilder> {
-  $$AppLogsTableTableManager(_$DB db, $AppLogsTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer:
-              $$AppLogsTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$AppLogsTableOrderingComposer(ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<DateTime> time = const Value.absent(),
-            Value<String> level = const Value.absent(),
-            Value<String> loggerName = const Value.absent(),
-            Value<String> message = const Value.absent(),
-            Value<String?> error = const Value.absent(),
-            Value<String?> stackTrace = const Value.absent(),
-            Value<String> logline = const Value.absent(),
-          }) =>
-              AppLogsCompanion(
-            id: id,
-            time: time,
-            level: level,
-            loggerName: loggerName,
-            message: message,
-            error: error,
-            stackTrace: stackTrace,
-            logline: logline,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required DateTime time,
-            required String level,
-            required String loggerName,
-            required String message,
-            Value<String?> error = const Value.absent(),
-            Value<String?> stackTrace = const Value.absent(),
-            required String logline,
-          }) =>
-              AppLogsCompanion.insert(
-            id: id,
-            time: time,
-            level: level,
-            loggerName: loggerName,
-            message: message,
-            error: error,
-            stackTrace: stackTrace,
-            logline: logline,
-          ),
-        ));
-}
-
 class $$AppLogsTableFilterComposer extends FilterComposer<_$DB, $AppLogsTable> {
   $$AppLogsTableFilterComposer(super.$state);
   ColumnFilters<int> get id => $state.composableBuilder(
@@ -1977,6 +1918,83 @@ class $$AppLogsTableOrderingComposer
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
+class $$AppLogsTableTableManager extends RootTableManager<
+    _$DB,
+    $AppLogsTable,
+    AppLog,
+    $$AppLogsTableFilterComposer,
+    $$AppLogsTableOrderingComposer,
+    $$AppLogsTableCreateCompanionBuilder,
+    $$AppLogsTableUpdateCompanionBuilder,
+    (AppLog, BaseReferences<_$DB, $AppLogsTable, AppLog>),
+    AppLog,
+    PrefetchHooks Function()> {
+  $$AppLogsTableTableManager(_$DB db, $AppLogsTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$AppLogsTableFilterComposer(ComposerState(db, table)),
+          orderingComposer:
+              $$AppLogsTableOrderingComposer(ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<DateTime> time = const Value.absent(),
+            Value<String> level = const Value.absent(),
+            Value<String> loggerName = const Value.absent(),
+            Value<String> message = const Value.absent(),
+            Value<String?> error = const Value.absent(),
+            Value<String?> stackTrace = const Value.absent(),
+            Value<String> logline = const Value.absent(),
+          }) =>
+              AppLogsCompanion(
+            id: id,
+            time: time,
+            level: level,
+            loggerName: loggerName,
+            message: message,
+            error: error,
+            stackTrace: stackTrace,
+            logline: logline,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required DateTime time,
+            required String level,
+            required String loggerName,
+            required String message,
+            Value<String?> error = const Value.absent(),
+            Value<String?> stackTrace = const Value.absent(),
+            required String logline,
+          }) =>
+              AppLogsCompanion.insert(
+            id: id,
+            time: time,
+            level: level,
+            loggerName: loggerName,
+            message: message,
+            error: error,
+            stackTrace: stackTrace,
+            logline: logline,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$AppLogsTableProcessedTableManager = ProcessedTableManager<
+    _$DB,
+    $AppLogsTable,
+    AppLog,
+    $$AppLogsTableFilterComposer,
+    $$AppLogsTableOrderingComposer,
+    $$AppLogsTableCreateCompanionBuilder,
+    $$AppLogsTableUpdateCompanionBuilder,
+    (AppLog, BaseReferences<_$DB, $AppLogsTable, AppLog>),
+    AppLog,
+    PrefetchHooks Function()>;
 typedef $$ArticlesTableCreateCompanionBuilder = ArticlesCompanion Function({
   Value<int> id,
   required DateTime createdAt,
@@ -2007,85 +2025,6 @@ typedef $$ArticlesTableUpdateCompanionBuilder = ArticlesCompanion Function({
   Value<DateTime?> starredAt,
   Value<List<String>> tags,
 });
-
-class $$ArticlesTableTableManager extends RootTableManager<
-    _$DB,
-    $ArticlesTable,
-    Article,
-    $$ArticlesTableFilterComposer,
-    $$ArticlesTableOrderingComposer,
-    $$ArticlesTableCreateCompanionBuilder,
-    $$ArticlesTableUpdateCompanionBuilder> {
-  $$ArticlesTableTableManager(_$DB db, $ArticlesTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer:
-              $$ArticlesTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$ArticlesTableOrderingComposer(ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<DateTime> createdAt = const Value.absent(),
-            Value<DateTime> updatedAt = const Value.absent(),
-            Value<String> title = const Value.absent(),
-            Value<String?> domainName = const Value.absent(),
-            Value<String> url = const Value.absent(),
-            Value<String?> content = const Value.absent(),
-            Value<String?> language = const Value.absent(),
-            Value<int> readingTime = const Value.absent(),
-            Value<String?> previewPicture = const Value.absent(),
-            Value<DateTime?> archivedAt = const Value.absent(),
-            Value<DateTime?> starredAt = const Value.absent(),
-            Value<List<String>> tags = const Value.absent(),
-          }) =>
-              ArticlesCompanion(
-            id: id,
-            createdAt: createdAt,
-            updatedAt: updatedAt,
-            title: title,
-            domainName: domainName,
-            url: url,
-            content: content,
-            language: language,
-            readingTime: readingTime,
-            previewPicture: previewPicture,
-            archivedAt: archivedAt,
-            starredAt: starredAt,
-            tags: tags,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required DateTime createdAt,
-            required DateTime updatedAt,
-            required String title,
-            Value<String?> domainName = const Value.absent(),
-            required String url,
-            Value<String?> content = const Value.absent(),
-            Value<String?> language = const Value.absent(),
-            required int readingTime,
-            Value<String?> previewPicture = const Value.absent(),
-            Value<DateTime?> archivedAt = const Value.absent(),
-            Value<DateTime?> starredAt = const Value.absent(),
-            required List<String> tags,
-          }) =>
-              ArticlesCompanion.insert(
-            id: id,
-            createdAt: createdAt,
-            updatedAt: updatedAt,
-            title: title,
-            domainName: domainName,
-            url: url,
-            content: content,
-            language: language,
-            readingTime: readingTime,
-            previewPicture: previewPicture,
-            archivedAt: archivedAt,
-            starredAt: starredAt,
-            tags: tags,
-          ),
-        ));
-}
 
 class $$ArticlesTableFilterComposer
     extends FilterComposer<_$DB, $ArticlesTable> {
@@ -2227,6 +2166,103 @@ class $$ArticlesTableOrderingComposer
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
+class $$ArticlesTableTableManager extends RootTableManager<
+    _$DB,
+    $ArticlesTable,
+    Article,
+    $$ArticlesTableFilterComposer,
+    $$ArticlesTableOrderingComposer,
+    $$ArticlesTableCreateCompanionBuilder,
+    $$ArticlesTableUpdateCompanionBuilder,
+    (Article, BaseReferences<_$DB, $ArticlesTable, Article>),
+    Article,
+    PrefetchHooks Function()> {
+  $$ArticlesTableTableManager(_$DB db, $ArticlesTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$ArticlesTableFilterComposer(ComposerState(db, table)),
+          orderingComposer:
+              $$ArticlesTableOrderingComposer(ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<DateTime> updatedAt = const Value.absent(),
+            Value<String> title = const Value.absent(),
+            Value<String?> domainName = const Value.absent(),
+            Value<String> url = const Value.absent(),
+            Value<String?> content = const Value.absent(),
+            Value<String?> language = const Value.absent(),
+            Value<int> readingTime = const Value.absent(),
+            Value<String?> previewPicture = const Value.absent(),
+            Value<DateTime?> archivedAt = const Value.absent(),
+            Value<DateTime?> starredAt = const Value.absent(),
+            Value<List<String>> tags = const Value.absent(),
+          }) =>
+              ArticlesCompanion(
+            id: id,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            title: title,
+            domainName: domainName,
+            url: url,
+            content: content,
+            language: language,
+            readingTime: readingTime,
+            previewPicture: previewPicture,
+            archivedAt: archivedAt,
+            starredAt: starredAt,
+            tags: tags,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required DateTime createdAt,
+            required DateTime updatedAt,
+            required String title,
+            Value<String?> domainName = const Value.absent(),
+            required String url,
+            Value<String?> content = const Value.absent(),
+            Value<String?> language = const Value.absent(),
+            required int readingTime,
+            Value<String?> previewPicture = const Value.absent(),
+            Value<DateTime?> archivedAt = const Value.absent(),
+            Value<DateTime?> starredAt = const Value.absent(),
+            required List<String> tags,
+          }) =>
+              ArticlesCompanion.insert(
+            id: id,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            title: title,
+            domainName: domainName,
+            url: url,
+            content: content,
+            language: language,
+            readingTime: readingTime,
+            previewPicture: previewPicture,
+            archivedAt: archivedAt,
+            starredAt: starredAt,
+            tags: tags,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$ArticlesTableProcessedTableManager = ProcessedTableManager<
+    _$DB,
+    $ArticlesTable,
+    Article,
+    $$ArticlesTableFilterComposer,
+    $$ArticlesTableOrderingComposer,
+    $$ArticlesTableCreateCompanionBuilder,
+    $$ArticlesTableUpdateCompanionBuilder,
+    (Article, BaseReferences<_$DB, $ArticlesTable, Article>),
+    Article,
+    PrefetchHooks Function()>;
 typedef $$ArticleScrollPositionsTableCreateCompanionBuilder
     = ArticleScrollPositionsCompanion Function({
   Value<int> id,
@@ -2239,46 +2275,6 @@ typedef $$ArticleScrollPositionsTableUpdateCompanionBuilder
   Value<int> readingTime,
   Value<double> progress,
 });
-
-class $$ArticleScrollPositionsTableTableManager extends RootTableManager<
-    _$DB,
-    $ArticleScrollPositionsTable,
-    ArticleScrollPosition,
-    $$ArticleScrollPositionsTableFilterComposer,
-    $$ArticleScrollPositionsTableOrderingComposer,
-    $$ArticleScrollPositionsTableCreateCompanionBuilder,
-    $$ArticleScrollPositionsTableUpdateCompanionBuilder> {
-  $$ArticleScrollPositionsTableTableManager(
-      _$DB db, $ArticleScrollPositionsTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer: $$ArticleScrollPositionsTableFilterComposer(
-              ComposerState(db, table)),
-          orderingComposer: $$ArticleScrollPositionsTableOrderingComposer(
-              ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<int> readingTime = const Value.absent(),
-            Value<double> progress = const Value.absent(),
-          }) =>
-              ArticleScrollPositionsCompanion(
-            id: id,
-            readingTime: readingTime,
-            progress: progress,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required int readingTime,
-            required double progress,
-          }) =>
-              ArticleScrollPositionsCompanion.insert(
-            id: id,
-            readingTime: readingTime,
-            progress: progress,
-          ),
-        ));
-}
 
 class $$ArticleScrollPositionsTableFilterComposer
     extends FilterComposer<_$DB, $ArticleScrollPositionsTable> {
@@ -2318,6 +2314,72 @@ class $$ArticleScrollPositionsTableOrderingComposer
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
+class $$ArticleScrollPositionsTableTableManager extends RootTableManager<
+    _$DB,
+    $ArticleScrollPositionsTable,
+    ArticleScrollPosition,
+    $$ArticleScrollPositionsTableFilterComposer,
+    $$ArticleScrollPositionsTableOrderingComposer,
+    $$ArticleScrollPositionsTableCreateCompanionBuilder,
+    $$ArticleScrollPositionsTableUpdateCompanionBuilder,
+    (
+      ArticleScrollPosition,
+      BaseReferences<_$DB, $ArticleScrollPositionsTable, ArticleScrollPosition>
+    ),
+    ArticleScrollPosition,
+    PrefetchHooks Function()> {
+  $$ArticleScrollPositionsTableTableManager(
+      _$DB db, $ArticleScrollPositionsTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$ArticleScrollPositionsTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$ArticleScrollPositionsTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int> readingTime = const Value.absent(),
+            Value<double> progress = const Value.absent(),
+          }) =>
+              ArticleScrollPositionsCompanion(
+            id: id,
+            readingTime: readingTime,
+            progress: progress,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required int readingTime,
+            required double progress,
+          }) =>
+              ArticleScrollPositionsCompanion.insert(
+            id: id,
+            readingTime: readingTime,
+            progress: progress,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$ArticleScrollPositionsTableProcessedTableManager
+    = ProcessedTableManager<
+        _$DB,
+        $ArticleScrollPositionsTable,
+        ArticleScrollPosition,
+        $$ArticleScrollPositionsTableFilterComposer,
+        $$ArticleScrollPositionsTableOrderingComposer,
+        $$ArticleScrollPositionsTableCreateCompanionBuilder,
+        $$ArticleScrollPositionsTableUpdateCompanionBuilder,
+        (
+          ArticleScrollPosition,
+          BaseReferences<_$DB, $ArticleScrollPositionsTable,
+              ArticleScrollPosition>
+        ),
+        ArticleScrollPosition,
+        PrefetchHooks Function()>;
 typedef $$MetadataTableCreateCompanionBuilder = MetadataCompanion Function({
   Value<int> id,
   required String key,
@@ -2328,45 +2390,6 @@ typedef $$MetadataTableUpdateCompanionBuilder = MetadataCompanion Function({
   Value<String> key,
   Value<String> value,
 });
-
-class $$MetadataTableTableManager extends RootTableManager<
-    _$DB,
-    $MetadataTable,
-    MetadataData,
-    $$MetadataTableFilterComposer,
-    $$MetadataTableOrderingComposer,
-    $$MetadataTableCreateCompanionBuilder,
-    $$MetadataTableUpdateCompanionBuilder> {
-  $$MetadataTableTableManager(_$DB db, $MetadataTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer:
-              $$MetadataTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$MetadataTableOrderingComposer(ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<String> key = const Value.absent(),
-            Value<String> value = const Value.absent(),
-          }) =>
-              MetadataCompanion(
-            id: id,
-            key: key,
-            value: value,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required String key,
-            required String value,
-          }) =>
-              MetadataCompanion.insert(
-            id: id,
-            key: key,
-            value: value,
-          ),
-        ));
-}
 
 class $$MetadataTableFilterComposer
     extends FilterComposer<_$DB, $MetadataTable> {
@@ -2406,6 +2429,63 @@ class $$MetadataTableOrderingComposer
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
+class $$MetadataTableTableManager extends RootTableManager<
+    _$DB,
+    $MetadataTable,
+    MetadataData,
+    $$MetadataTableFilterComposer,
+    $$MetadataTableOrderingComposer,
+    $$MetadataTableCreateCompanionBuilder,
+    $$MetadataTableUpdateCompanionBuilder,
+    (MetadataData, BaseReferences<_$DB, $MetadataTable, MetadataData>),
+    MetadataData,
+    PrefetchHooks Function()> {
+  $$MetadataTableTableManager(_$DB db, $MetadataTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$MetadataTableFilterComposer(ComposerState(db, table)),
+          orderingComposer:
+              $$MetadataTableOrderingComposer(ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String> key = const Value.absent(),
+            Value<String> value = const Value.absent(),
+          }) =>
+              MetadataCompanion(
+            id: id,
+            key: key,
+            value: value,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required String key,
+            required String value,
+          }) =>
+              MetadataCompanion.insert(
+            id: id,
+            key: key,
+            value: value,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$MetadataTableProcessedTableManager = ProcessedTableManager<
+    _$DB,
+    $MetadataTable,
+    MetadataData,
+    $$MetadataTableFilterComposer,
+    $$MetadataTableOrderingComposer,
+    $$MetadataTableCreateCompanionBuilder,
+    $$MetadataTableUpdateCompanionBuilder,
+    (MetadataData, BaseReferences<_$DB, $MetadataTable, MetadataData>),
+    MetadataData,
+    PrefetchHooks Function()>;
 typedef $$RemoteActionsTableCreateCompanionBuilder = RemoteActionsCompanion
     Function({
   Value<int> id,
@@ -2422,53 +2502,6 @@ typedef $$RemoteActionsTableUpdateCompanionBuilder = RemoteActionsCompanion
   Value<String> className,
   Value<String> jsonParams,
 });
-
-class $$RemoteActionsTableTableManager extends RootTableManager<
-    _$DB,
-    $RemoteActionsTable,
-    RemoteAction,
-    $$RemoteActionsTableFilterComposer,
-    $$RemoteActionsTableOrderingComposer,
-    $$RemoteActionsTableCreateCompanionBuilder,
-    $$RemoteActionsTableUpdateCompanionBuilder> {
-  $$RemoteActionsTableTableManager(_$DB db, $RemoteActionsTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer:
-              $$RemoteActionsTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$RemoteActionsTableOrderingComposer(ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<DateTime> createdAt = const Value.absent(),
-            Value<int> key = const Value.absent(),
-            Value<String> className = const Value.absent(),
-            Value<String> jsonParams = const Value.absent(),
-          }) =>
-              RemoteActionsCompanion(
-            id: id,
-            createdAt: createdAt,
-            key: key,
-            className: className,
-            jsonParams: jsonParams,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required DateTime createdAt,
-            required int key,
-            required String className,
-            required String jsonParams,
-          }) =>
-              RemoteActionsCompanion.insert(
-            id: id,
-            createdAt: createdAt,
-            key: key,
-            className: className,
-            jsonParams: jsonParams,
-          ),
-        ));
-}
 
 class $$RemoteActionsTableFilterComposer
     extends FilterComposer<_$DB, $RemoteActionsTable> {
@@ -2527,6 +2560,72 @@ class $$RemoteActionsTableOrderingComposer
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
+
+class $$RemoteActionsTableTableManager extends RootTableManager<
+    _$DB,
+    $RemoteActionsTable,
+    RemoteAction,
+    $$RemoteActionsTableFilterComposer,
+    $$RemoteActionsTableOrderingComposer,
+    $$RemoteActionsTableCreateCompanionBuilder,
+    $$RemoteActionsTableUpdateCompanionBuilder,
+    (RemoteAction, BaseReferences<_$DB, $RemoteActionsTable, RemoteAction>),
+    RemoteAction,
+    PrefetchHooks Function()> {
+  $$RemoteActionsTableTableManager(_$DB db, $RemoteActionsTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$RemoteActionsTableFilterComposer(ComposerState(db, table)),
+          orderingComposer:
+              $$RemoteActionsTableOrderingComposer(ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+            Value<int> key = const Value.absent(),
+            Value<String> className = const Value.absent(),
+            Value<String> jsonParams = const Value.absent(),
+          }) =>
+              RemoteActionsCompanion(
+            id: id,
+            createdAt: createdAt,
+            key: key,
+            className: className,
+            jsonParams: jsonParams,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required DateTime createdAt,
+            required int key,
+            required String className,
+            required String jsonParams,
+          }) =>
+              RemoteActionsCompanion.insert(
+            id: id,
+            createdAt: createdAt,
+            key: key,
+            className: className,
+            jsonParams: jsonParams,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$RemoteActionsTableProcessedTableManager = ProcessedTableManager<
+    _$DB,
+    $RemoteActionsTable,
+    RemoteAction,
+    $$RemoteActionsTableFilterComposer,
+    $$RemoteActionsTableOrderingComposer,
+    $$RemoteActionsTableCreateCompanionBuilder,
+    $$RemoteActionsTableUpdateCompanionBuilder,
+    (RemoteAction, BaseReferences<_$DB, $RemoteActionsTable, RemoteAction>),
+    RemoteAction,
+    PrefetchHooks Function()>;
 
 class $DBManager {
   final _$DB _db;
