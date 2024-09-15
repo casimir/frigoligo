@@ -29,9 +29,10 @@ class RemoteSyncProgressIndicator extends ConsumerWidget {
             final session = await ref.read(sessionProvider.future);
             await ref.read(sessionProvider.notifier).invalidate();
             if (context.mounted) {
+              final params = session!.wallabag!..token = null;
               final uri = Uri(
                 path: '/login',
-                queryParameters: session!.wallabag!.toJson(),
+                queryParameters: params.toJson(),
               );
               context.go(uri.toString());
             }
