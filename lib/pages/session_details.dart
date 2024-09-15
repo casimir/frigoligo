@@ -66,7 +66,7 @@ Widget _buildDetails(
   final showRefreshToken = session?.type == ServerType.wallabag;
 
   return ResponsiveContainer(
-    padding: C.paddings.defaultPadding,
+    padding: C.paddings.group,
     child: ListView(
       children: sessionFields +
           [

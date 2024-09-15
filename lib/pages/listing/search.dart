@@ -1,3 +1,4 @@
+import 'package:cadanse/cadanse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -8,17 +9,6 @@ import '../../providers/query.dart';
 import '../../services/wallabag_storage.dart';
 import '../../widgets/chip_filter_menu.dart';
 import '../../widgets/selectors.dart';
-
-const defaultPadding = 10.0;
-const defaultSpacing = 16.0;
-const leftAlignedInsets = EdgeInsets.only(
-  left: defaultSpacing,
-  top: defaultPadding,
-  right: defaultPadding,
-  bottom: defaultPadding,
-);
-// TODO move to cadanse
-const spaceHorizontalInGroup = SizedBox(width: 8.0);
 
 final chipShape =
     RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0));
@@ -33,11 +23,11 @@ class SearchFilters extends ConsumerWidget {
       scrollDirection: Axis.horizontal,
       child: Row(children: [
         _buildState(context, ref),
-        spaceHorizontalInGroup,
+        C.spacers.horizontalComponent,
         _buildStarred(context, ref),
-        spaceHorizontalInGroup,
+        C.spacers.horizontalComponent,
         _buildTags(context, ref),
-        spaceHorizontalInGroup,
+        C.spacers.horizontalComponent,
         _buildDomains(context, ref),
       ]),
     );

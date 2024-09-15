@@ -1,5 +1,6 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cadanse/cadanse.dart';
+import 'package:cadanse/components/layouts/grouping.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -110,8 +111,7 @@ class _LoginFlowCredentialsState extends ConsumerState<LoginFlowCredentials> {
             ),
           ),
           C.spacers.verticalContent,
-          Padding(
-            padding: C.paddings.defaultPadding,
+          PaddedGroup(
             child: FormBuilder(
               key: _formKey,
               initialValue: widget.initial,

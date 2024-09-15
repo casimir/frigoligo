@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cadanse/cadanse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -19,9 +20,6 @@ import 'listing/article_list.dart';
 import 'listing/search.dart';
 
 final _log = Logger('frigoligo.listing');
-
-// TODO move to cadanse
-const spacerVerticalInGroup = SizedBox(height: 8.0);
 
 class ListingPage extends ConsumerStatefulWidget {
   const ListingPage({
@@ -51,9 +49,6 @@ class _ListingPageState extends ConsumerState<ListingPage> {
           .synchronize(withFinalRefresh: true);
     }
 
-    // https://api.flutter.dev/flutter/widgets/PinnedHeaderSliver-class.html
-    // https://api.flutter.dev/flutter/material/SearchBar-class.html
-
     return Scaffold(
       body: SafeArea(
         child: CustomScrollView(
@@ -62,7 +57,6 @@ class _ListingPageState extends ConsumerState<ListingPage> {
               const SliverToBoxAdapter(child: RemoteSyncProgressIndicator()),
             PinnedHeaderSliver(
               child: Padding(
-                // TODO use cadanse constants
                 padding:
                     const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
                 child: Column(children: [
@@ -94,7 +88,7 @@ class _ListingPageState extends ConsumerState<ListingPage> {
                       ),
                     ],
                   ),
-                  spacerVerticalInGroup,
+                  C.spacers.verticalComponent,
                   const SearchFilters(),
                 ]),
               ),

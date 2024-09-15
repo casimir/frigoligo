@@ -1,10 +1,9 @@
 import 'package:cadanse/cadanse.dart';
+import 'package:cadanse/components/layouts/grouping.dart';
 import 'package:cadanse/components/widgets/error.dart';
 import 'package:flutter/material.dart';
 
 import '../buildcontext_extension.dart';
-import '../pages/listing.dart';
-import '../pages/listing/search.dart';
 
 class MultiSelect<T> extends StatefulWidget {
   const MultiSelect({
@@ -58,8 +57,7 @@ class _MultiSelectState<T> extends State<MultiSelect<T>> {
           )
         ],
       ),
-      body: Padding(
-        padding: C.paddings.defaultPadding,
+      body: PaddedGroup(
         child: Column(
           children: [
             Row(children: [
@@ -74,7 +72,7 @@ class _MultiSelectState<T> extends State<MultiSelect<T>> {
                   autocorrect: false,
                 ),
               ),
-              spaceHorizontalInGroup,
+              C.spacers.horizontalComponent,
               IconButton(
                   icon: const Icon(Icons.refresh),
                   onPressed: () {
@@ -83,7 +81,7 @@ class _MultiSelectState<T> extends State<MultiSelect<T>> {
                     setState(() {});
                   })
             ]),
-            spacerVerticalInGroup,
+            C.spacers.verticalComponent,
             Expanded(
               child: ListView(
                   children: search(_searchController.text, _index.keys.toList())

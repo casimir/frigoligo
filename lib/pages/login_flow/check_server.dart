@@ -1,4 +1,6 @@
 import 'package:cadanse/cadanse.dart';
+import 'package:cadanse/components/layouts/grouping.dart';
+import 'package:cadanse/tokens/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -52,8 +54,7 @@ class _LoginFlowServerState extends ConsumerState<LoginFlowServer> {
 
     final flowState = ref.watch(serverLoginFlowProvider);
 
-    return Padding(
-      padding: C.paddings.defaultPadding,
+    return PaddedGroup(
       child: FormBuilder(
         key: _formKey,
         child: Column(
@@ -84,8 +85,8 @@ class _LoginFlowServerState extends ConsumerState<LoginFlowServer> {
             ),
             FormBuilderCheckbox(
               name: 'selfSigned',
-              contentPadding: EdgeInsets.symmetric(
-                  horizontal: C.paddings.defaultPadding.horizontal),
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: kSpacingBetweenGroups),
               title: Text(context.L.login_acceptSelfSigned),
               onChanged: (_) {
                 if (flowState is FSChecked) {
