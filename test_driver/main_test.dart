@@ -97,7 +97,7 @@ Future<void> main() async {
       await driver.tap(appBarTitleFinder);
       await takeScreenshot('2-filters', false);
 
-      await driver.tap(find.byValueKey(wkListingFiltersCount));
+      // await driver.tap(find.byValueKey(wkListingFiltersCount));
       await takeScreenshot('listing-filters-dismissed');
     });
 
