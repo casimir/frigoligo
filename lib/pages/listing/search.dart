@@ -5,11 +5,13 @@ import 'package:go_router/go_router.dart';
 
 import '../../buildcontext_extension.dart';
 import '../../constants.dart';
+import '../../db/database.dart';
 import '../../providers/query.dart';
 import '../../services/wallabag_storage.dart';
 import '../../widget_keys.dart';
 import '../../widgets/async/text.dart';
 import '../../widgets/chip_filter_menu.dart';
+import '../../widgets/selectors.dart';
 import '../../widgets/tag_list.dart';
 import '../tags_selector/dialog.dart';
 
@@ -28,6 +30,7 @@ final chipShape =
     RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0));
 const searchWidgetElevation = 6.0;
 
+// TODO delete unused
 class FiltersPage extends ConsumerWidget {
   const FiltersPage({super.key});
 
@@ -237,6 +240,8 @@ class SearchFilters extends ConsumerWidget {
         _buildStarred(context, ref),
         spaceHorizontalInGroup,
         _buildTags(context, ref),
+        spaceHorizontalInGroup,
+        _buildDomains(context, ref),
       ]),
     );
   }
@@ -288,7 +293,7 @@ class SearchFilters extends ConsumerWidget {
     final hasSelection = selection?.isNotEmpty ?? false;
     return FilterChip.elevated(
       label: hasSelection
-          ? Text('${selection!.length} tags')
+          ? Text('${selection!.length} tags') // TODO translate
           : Row(children: [
               Text(context.L.filters_articleTags),
               const Icon(Icons.expand_more),
@@ -297,6 +302,36 @@ class SearchFilters extends ConsumerWidget {
       onSelected: (_) => _showTagsSelectionDialog(context, ref),
       onDeleted:
           hasSelection ? ref.read(queryProvider.notifier).clearTags : null,
+      shape: chipShape,
+      elevation: searchWidgetElevation,
+    );
+  }
+
+  Widget _buildDomains(BuildContext context, WidgetRef ref) {
+    final selection = ref.watch(queryProvider.select((q) => q.domains));
+    final hasSelection = selection?.isNotEmpty ?? false;
+    return FilterChip.elevated(
+      label: hasSelection
+          ? Text('${selection!.length} domains') // TODO translate
+          : Row(children: [
+              Text('Domains'), // TODO translate
+              const Icon(Icons.expand_more),
+            ]),
+      selected: hasSelection,
+      onSelected: (_) async {
+        final selected = await showBottomSheetSelector(
+          context: context,
+          title: 'Domains', // TODO translate
+          entriesBuilder: DB.get().articlesDao.listAllDomains(),
+        );
+        if (selected != null) {
+          ref
+              .read(queryProvider.notifier)
+              .overrideWith(WQuery(domains: selected.toList()));
+        }
+      },
+      onDeleted:
+          hasSelection ? ref.read(queryProvider.notifier).clearDomains : null,
       shape: chipShape,
       elevation: searchWidgetElevation,
     );

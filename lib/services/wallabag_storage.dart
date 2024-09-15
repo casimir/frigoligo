@@ -40,6 +40,11 @@ class WStorage extends _$WStorage {
       filters.add(Expression.or(wq.tags!.map((tag) => t.tags.contains(tag))));
     }
 
+    if (wq.domains != null) {
+      filters.add(Expression.or(
+          wq.domains!.map((domain) => t.domainName.contains(domain))));
+    }
+
     return Expression.and(filters);
   }
 
@@ -246,21 +251,24 @@ class WStorage extends _$WStorage {
 }
 
 class WQuery {
-  WQuery({this.state, this.starred, this.tags});
+  WQuery({this.state, this.starred, this.tags, this.domains});
 
   StateFilter? state;
   StarredFilter? starred;
   List<String>? tags;
+  List<String>? domains;
 
   WQuery dup() => WQuery(
         state: state,
         starred: starred,
         tags: tags,
+        domains: domains,
       );
 
   WQuery override(WQuery wq) => WQuery(
         state: wq.state ?? state,
         starred: wq.starred ?? starred,
         tags: wq.tags ?? tags,
+        domains: wq.domains ?? domains,
       );
 }

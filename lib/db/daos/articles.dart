@@ -57,4 +57,13 @@ class ArticlesDao extends DatabaseAccessor<DB> with _$ArticlesDaoMixin {
       return count;
     });
   }
+
+  Future<List<String>> listAllDomains() {
+    return (selectOnly(articles, distinct: true)
+          ..addColumns([articles.domainName])
+          ..where(articles.domainName.isNotNull())
+          ..orderBy([OrderingTerm.asc(articles.domainName)]))
+        .map((row) => row.read(articles.domainName)!)
+        .get();
+  }
 }

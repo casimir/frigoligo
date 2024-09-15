@@ -25,4 +25,8 @@ class Query extends _$Query {
   void clearTags() {
     state = state.dup()..tags = null;
   }
+
+  void clearDomains() {
+    state = state.dup()..domains = null;
+  }
 }
