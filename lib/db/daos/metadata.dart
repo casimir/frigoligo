@@ -2,11 +2,11 @@ import 'package:drift/drift.dart';
 
 import '../database.dart';
 import '../models/metadata.dart';
-
-part 'metadata.g.dart';
+import '../models/metadata.drift.dart';
+import 'metadata.drift.dart';
 
 @DriftAccessor(tables: [Metadata])
-class MetadataDao extends DatabaseAccessor<DB> with _$MetadataDaoMixin {
+class MetadataDao extends DatabaseAccessor<DB> with $MetadataDaoMixin {
   MetadataDao(super.db);
 
   Future<int?> getLastSyncTS() async {

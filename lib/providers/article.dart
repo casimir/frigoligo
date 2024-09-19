@@ -4,6 +4,7 @@ import 'package:drift/drift.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../db/database.dart';
+import '../db/models/article.drift.dart';
 import '../services/wallabag_storage.dart';
 import 'query.dart';
 import 'settings.dart';
@@ -17,7 +18,6 @@ class CurrentArticle extends _$CurrentArticle {
 
   @override
   Future<Article?> build() async {
-    print('CurrentArticle.build');
     _watcher?.cancel();
 
     _articleId ??=

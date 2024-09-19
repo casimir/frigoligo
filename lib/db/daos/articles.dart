@@ -2,11 +2,11 @@ import 'package:drift/drift.dart';
 
 import '../database.dart';
 import '../models/article.dart';
-
-part 'articles.g.dart';
+import '../models/article.drift.dart';
+import 'articles.drift.dart';
 
 @DriftAccessor(tables: [Articles])
-class ArticlesDao extends DatabaseAccessor<DB> with _$ArticlesDaoMixin {
+class ArticlesDao extends DatabaseAccessor<DB> with $ArticlesDaoMixin {
   ArticlesDao(super.db);
 
   Future<int> updateOne(Article article) {

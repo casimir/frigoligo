@@ -7,6 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../constants.dart';
 import '../db/database.dart';
 import '../db/extensions/article.dart';
+import '../db/models/article.drift.dart';
 import '../native/appbadge.dart';
 import '../providers/settings.dart';
 import '../server/providers/client.dart';

@@ -3,3 +3,24 @@ global_options:
     runs_before:
       - drift_dev
       - riverpod_generator
+
+targets:
+  $default:
+    builders:
+      drift_dev:
+        # Disable the default builder in favor of the modular builders configured
+        # below.
+        enabled: false
+      drift_dev:analyzer:
+        enabled: true
+        options: &options
+          # disable integrity checks in release mode?
+          # skip_verification_code: true
+          sql:
+            dialect: sqlite
+            options:
+              modules:
+                - fts5
+      drift_dev:modular:
+        enabled: true
+        options: *options

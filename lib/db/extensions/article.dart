@@ -1,6 +1,6 @@
 import '../../constants.dart';
 import '../../wallabag/models/entry.dart';
-import '../database.dart';
+import '../models/article.drift.dart';
 
 extension ArticleExtension on Article {
   StateFilter get stateValue =>
