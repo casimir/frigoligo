@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../buildcontext_extension.dart';
 import '../../constants.dart';
-import '../../db/database.dart';
 import '../../db/extensions/article.dart';
+import '../../db/models/article.drift.dart';
 import '../../providers/article.dart';
 import '../../providers/query.dart';
 import '../../services/remote_sync.dart';

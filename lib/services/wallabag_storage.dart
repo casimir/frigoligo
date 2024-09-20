@@ -7,6 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../constants.dart';
 import '../db/database.dart';
 import '../db/extensions/article.dart';
+import '../db/models/article.drift.dart';
 import '../native/appbadge.dart';
 import '../providers/settings.dart';
 import '../server/providers/client.dart';
@@ -23,7 +24,7 @@ class WStorage extends _$WStorage {
   @override
   WStorageToken build() => WStorageToken();
 
-  Expression<bool> _buildFilters($ArticlesTable t, WQuery wq) {
+  Expression<bool> _buildFilters(Articles t, WQuery wq) {
     final filters = <Expression<bool>>[];
 
     if (wq.state != null && wq.state != StateFilter.all) {

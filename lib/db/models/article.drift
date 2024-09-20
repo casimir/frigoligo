@@ -1,0 +1,27 @@
+
+import '../converters/containers.dart';
+
+CREATE TABLE articles (
+    id INTEGER PRIMARY KEY,
+    created_at DATETIME NOT NULL,
+    updated_at DATETIME NOT NULL,
+    title TEXT NOT NULL,
+    domain_name TEXT,
+    url TEXT NOT NULL,
+
+    content TEXT,
+    language TEXT,
+    reading_time INTEGER NOT NULL,
+    preview_picture TEXT,
+
+    archived_at DATETIME,
+    starred_at DATETIME,
+    tags TEXT NOT NULL MAPPED BY `const StringListConverter()`
+);
+
+
+CREATE TABLE article_scroll_positions (
+    id INTEGER PRIMARY KEY,
+    reading_time INTEGER NOT NULL,
+    progress REAL NOT NULL
+);
