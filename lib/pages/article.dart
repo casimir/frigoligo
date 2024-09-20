@@ -11,8 +11,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../buildcontext_extension.dart';
 import '../constants.dart';
-import '../db/database.dart';
 import '../db/extensions/article.dart';
+import '../db/models/article.drift.dart';
 import '../providers/article.dart';
 import '../providers/expander.dart';
 import '../providers/reading_settings.dart';

@@ -1,13 +1,12 @@
 import 'package:drift/drift.dart';
 
 import '../database.dart';
-import '../models/app_log.dart';
+import '../models/app_log.drift.dart';
+import 'app_logs.drift.dart';
 
-part 'app_logs.g.dart';
-
-@DriftAccessor(tables: [AppLogs])
-class AppLogsDao extends DatabaseAccessor<DB> with _$AppLogsDaoMixin {
-  AppLogsDao(super.db);
+@DriftAccessor(include: {'../models/app_log.drift'})
+class AppLogsDao extends DatabaseAccessor<DB> with $AppLogsDaoMixin {
+  AppLogsDao(super.attachedDatabase);
 
   Future<int> count() => appLogs.count().getSingle();
 
