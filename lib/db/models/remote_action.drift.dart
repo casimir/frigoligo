@@ -1,46 +1,47 @@
 // ignore_for_file: type=lint
 import 'package:drift/drift.dart' as i0;
 import 'package:frigoligo/db/models/remote_action.drift.dart' as i1;
-import 'package:frigoligo/db/models/remote_action.dart' as i2;
 
-class $RemoteActionsTable extends i2.RemoteActions
-    with i0.TableInfo<$RemoteActionsTable, i1.RemoteAction> {
+class RemoteActions extends i0.Table
+    with i0.TableInfo<RemoteActions, i1.RemoteAction> {
   @override
   final i0.GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $RemoteActionsTable(this.attachedDatabase, [this._alias]);
+  RemoteActions(this.attachedDatabase, [this._alias]);
   static const i0.VerificationMeta _idMeta = const i0.VerificationMeta('id');
-  @override
   late final i0.GeneratedColumn<int> id = i0.GeneratedColumn<int>(
       'id', aliasedName, false,
       hasAutoIncrement: true,
       type: i0.DriftSqlType.int,
       requiredDuringInsert: false,
-      defaultConstraints:
-          i0.GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+      $customConstraints: 'PRIMARY KEY AUTOINCREMENT');
   static const i0.VerificationMeta _createdAtMeta =
       const i0.VerificationMeta('createdAt');
-  @override
   late final i0.GeneratedColumn<DateTime> createdAt =
       i0.GeneratedColumn<DateTime>('created_at', aliasedName, false,
-          type: i0.DriftSqlType.dateTime, requiredDuringInsert: true);
+          type: i0.DriftSqlType.dateTime,
+          requiredDuringInsert: true,
+          $customConstraints: 'NOT NULL');
   static const i0.VerificationMeta _keyMeta = const i0.VerificationMeta('key');
-  @override
   late final i0.GeneratedColumn<int> key = i0.GeneratedColumn<int>(
       'key', aliasedName, false,
-      type: i0.DriftSqlType.int, requiredDuringInsert: true);
+      type: i0.DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   static const i0.VerificationMeta _classNameMeta =
       const i0.VerificationMeta('className');
-  @override
   late final i0.GeneratedColumn<String> className = i0.GeneratedColumn<String>(
       'class_name', aliasedName, false,
-      type: i0.DriftSqlType.string, requiredDuringInsert: true);
+      type: i0.DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   static const i0.VerificationMeta _jsonParamsMeta =
       const i0.VerificationMeta('jsonParams');
-  @override
   late final i0.GeneratedColumn<String> jsonParams = i0.GeneratedColumn<String>(
       'json_params', aliasedName, false,
-      type: i0.DriftSqlType.string, requiredDuringInsert: true);
+      type: i0.DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   @override
   List<i0.GeneratedColumn> get $columns =>
       [id, createdAt, key, className, jsonParams];
@@ -107,9 +108,12 @@ class $RemoteActionsTable extends i2.RemoteActions
   }
 
   @override
-  $RemoteActionsTable createAlias(String alias) {
-    return $RemoteActionsTable(attachedDatabase, alias);
+  RemoteActions createAlias(String alias) {
+    return RemoteActions(attachedDatabase, alias);
   }
+
+  @override
+  bool get dontWriteConstraints => true;
 }
 
 class RemoteAction extends i0.DataClass
@@ -151,10 +155,10 @@ class RemoteAction extends i0.DataClass
     serializer ??= i0.driftRuntimeOptions.defaultSerializer;
     return RemoteAction(
       id: serializer.fromJson<int>(json['id']),
-      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      createdAt: serializer.fromJson<DateTime>(json['created_at']),
       key: serializer.fromJson<int>(json['key']),
-      className: serializer.fromJson<String>(json['className']),
-      jsonParams: serializer.fromJson<String>(json['jsonParams']),
+      className: serializer.fromJson<String>(json['class_name']),
+      jsonParams: serializer.fromJson<String>(json['json_params']),
     );
   }
   @override
@@ -162,10 +166,10 @@ class RemoteAction extends i0.DataClass
     serializer ??= i0.driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'created_at': serializer.toJson<DateTime>(createdAt),
       'key': serializer.toJson<int>(key),
-      'className': serializer.toJson<String>(className),
-      'jsonParams': serializer.toJson<String>(jsonParams),
+      'class_name': serializer.toJson<String>(className),
+      'json_params': serializer.toJson<String>(jsonParams),
     };
   }
 
@@ -306,7 +310,7 @@ class RemoteActionsCompanion extends i0.UpdateCompanion<i1.RemoteAction> {
   }
 }
 
-typedef $$RemoteActionsTableCreateCompanionBuilder = i1.RemoteActionsCompanion
+typedef $RemoteActionsCreateCompanionBuilder = i1.RemoteActionsCompanion
     Function({
   i0.Value<int> id,
   required DateTime createdAt,
@@ -314,7 +318,7 @@ typedef $$RemoteActionsTableCreateCompanionBuilder = i1.RemoteActionsCompanion
   required String className,
   required String jsonParams,
 });
-typedef $$RemoteActionsTableUpdateCompanionBuilder = i1.RemoteActionsCompanion
+typedef $RemoteActionsUpdateCompanionBuilder = i1.RemoteActionsCompanion
     Function({
   i0.Value<int> id,
   i0.Value<DateTime> createdAt,
@@ -323,9 +327,9 @@ typedef $$RemoteActionsTableUpdateCompanionBuilder = i1.RemoteActionsCompanion
   i0.Value<String> jsonParams,
 });
 
-class $$RemoteActionsTableFilterComposer
-    extends i0.FilterComposer<i0.GeneratedDatabase, i1.$RemoteActionsTable> {
-  $$RemoteActionsTableFilterComposer(super.$state);
+class $RemoteActionsFilterComposer
+    extends i0.FilterComposer<i0.GeneratedDatabase, i1.RemoteActions> {
+  $RemoteActionsFilterComposer(super.$state);
   i0.ColumnFilters<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -352,9 +356,9 @@ class $$RemoteActionsTableFilterComposer
           i0.ColumnFilters(column, joinBuilders: joinBuilders));
 }
 
-class $$RemoteActionsTableOrderingComposer
-    extends i0.OrderingComposer<i0.GeneratedDatabase, i1.$RemoteActionsTable> {
-  $$RemoteActionsTableOrderingComposer(super.$state);
+class $RemoteActionsOrderingComposer
+    extends i0.OrderingComposer<i0.GeneratedDatabase, i1.RemoteActions> {
+  $RemoteActionsOrderingComposer(super.$state);
   i0.ColumnOrderings<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -381,30 +385,28 @@ class $$RemoteActionsTableOrderingComposer
           i0.ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
-class $$RemoteActionsTableTableManager extends i0.RootTableManager<
+class $RemoteActionsTableManager extends i0.RootTableManager<
     i0.GeneratedDatabase,
-    i1.$RemoteActionsTable,
+    i1.RemoteActions,
     i1.RemoteAction,
-    i1.$$RemoteActionsTableFilterComposer,
-    i1.$$RemoteActionsTableOrderingComposer,
-    $$RemoteActionsTableCreateCompanionBuilder,
-    $$RemoteActionsTableUpdateCompanionBuilder,
+    i1.$RemoteActionsFilterComposer,
+    i1.$RemoteActionsOrderingComposer,
+    $RemoteActionsCreateCompanionBuilder,
+    $RemoteActionsUpdateCompanionBuilder,
     (
       i1.RemoteAction,
-      i0.BaseReferences<i0.GeneratedDatabase, i1.$RemoteActionsTable,
-          i1.RemoteAction>
+      i0.BaseReferences<i0.GeneratedDatabase, i1.RemoteActions, i1.RemoteAction>
     ),
     i1.RemoteAction,
     i0.PrefetchHooks Function()> {
-  $$RemoteActionsTableTableManager(
-      i0.GeneratedDatabase db, i1.$RemoteActionsTable table)
+  $RemoteActionsTableManager(i0.GeneratedDatabase db, i1.RemoteActions table)
       : super(i0.TableManagerState(
           db: db,
           table: table,
-          filteringComposer: i1
-              .$$RemoteActionsTableFilterComposer(i0.ComposerState(db, table)),
-          orderingComposer: i1.$$RemoteActionsTableOrderingComposer(
-              i0.ComposerState(db, table)),
+          filteringComposer:
+              i1.$RemoteActionsFilterComposer(i0.ComposerState(db, table)),
+          orderingComposer:
+              i1.$RemoteActionsOrderingComposer(i0.ComposerState(db, table)),
           updateCompanionCallback: ({
             i0.Value<int> id = const i0.Value.absent(),
             i0.Value<DateTime> createdAt = const i0.Value.absent(),
@@ -440,18 +442,17 @@ class $$RemoteActionsTableTableManager extends i0.RootTableManager<
         ));
 }
 
-typedef $$RemoteActionsTableProcessedTableManager = i0.ProcessedTableManager<
+typedef $RemoteActionsProcessedTableManager = i0.ProcessedTableManager<
     i0.GeneratedDatabase,
-    i1.$RemoteActionsTable,
+    i1.RemoteActions,
     i1.RemoteAction,
-    i1.$$RemoteActionsTableFilterComposer,
-    i1.$$RemoteActionsTableOrderingComposer,
-    $$RemoteActionsTableCreateCompanionBuilder,
-    $$RemoteActionsTableUpdateCompanionBuilder,
+    i1.$RemoteActionsFilterComposer,
+    i1.$RemoteActionsOrderingComposer,
+    $RemoteActionsCreateCompanionBuilder,
+    $RemoteActionsUpdateCompanionBuilder,
     (
       i1.RemoteAction,
-      i0.BaseReferences<i0.GeneratedDatabase, i1.$RemoteActionsTable,
-          i1.RemoteAction>
+      i0.BaseReferences<i0.GeneratedDatabase, i1.RemoteActions, i1.RemoteAction>
     ),
     i1.RemoteAction,
     i0.PrefetchHooks Function()>;

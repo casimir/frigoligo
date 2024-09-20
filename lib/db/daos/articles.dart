@@ -1,13 +1,12 @@
 import 'package:drift/drift.dart';
 
 import '../database.dart';
-import '../models/article.dart';
 import '../models/article.drift.dart';
 import 'articles.drift.dart';
 
-@DriftAccessor(tables: [Articles])
+@DriftAccessor(include: {'../models/article.drift'})
 class ArticlesDao extends DatabaseAccessor<DB> with $ArticlesDaoMixin {
-  ArticlesDao(super.db);
+  ArticlesDao(super.attachedDatabase);
 
   Future<int> updateOne(Article article) {
     return db.transaction(() async {
@@ -18,7 +17,7 @@ class ArticlesDao extends DatabaseAccessor<DB> with $ArticlesDaoMixin {
           .filter((f) => f.id.equals(article.id))
           .getSingleOrNull();
       if (position != null && position.readingTime != article.readingTime) {
-        count += await db.articleScrollPositions
+        count += await articleScrollPositions
             .deleteWhere((f) => f.id.equals(article.id));
       }
 
@@ -30,8 +29,8 @@ class ArticlesDao extends DatabaseAccessor<DB> with $ArticlesDaoMixin {
     final index = {for (final it in allArticles) it.id: it.toCompanion(false)};
 
     return db.transaction(() async {
-      final t1 = db.articleScrollPositions;
-      final t2 = db.articles;
+      final t1 = articleScrollPositions;
+      final t2 = articles;
 
       final invalidPositions = await (selectOnly(t1)
               .join([leftOuterJoin(t2, t1.id.equalsExp(t2.id))])
@@ -51,8 +50,8 @@ class ArticlesDao extends DatabaseAccessor<DB> with $ArticlesDaoMixin {
   Future<int> deleteOne(int articleId) {
     return db.transaction(() async {
       var count = 0;
-      count += await db.articles.deleteWhere((f) => f.id.equals(articleId));
-      count += await db.articleScrollPositions
+      count += await articles.deleteWhere((f) => f.id.equals(articleId));
+      count += await articleScrollPositions
           .deleteWhere((f) => f.id.equals(articleId));
       return count;
     });

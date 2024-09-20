@@ -24,7 +24,7 @@ class WStorage extends _$WStorage {
   @override
   WStorageToken build() => WStorageToken();
 
-  Expression<bool> _buildFilters($ArticlesTable t, WQuery wq) {
+  Expression<bool> _buildFilters(Articles t, WQuery wq) {
     final filters = <Expression<bool>>[];
 
     if (wq.state != null && wq.state != StateFilter.all) {

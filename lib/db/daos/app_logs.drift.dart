@@ -5,6 +5,6 @@ import 'package:frigoligo/db/models/app_log.drift.dart' as i2;
 import 'package:drift/internal/modular.dart' as i3;
 
 mixin $AppLogsDaoMixin on i0.DatabaseAccessor<i1.DB> {
-  i2.$AppLogsTable get appLogs => i3.ReadDatabaseContainer(attachedDatabase)
-      .resultSet<i2.$AppLogsTable>('app_logs');
+  i2.AppLogs get appLogs => i3.ReadDatabaseContainer(attachedDatabase)
+      .resultSet<i2.AppLogs>('app_logs');
 }

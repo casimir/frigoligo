@@ -7,20 +7,15 @@ import 'daos/app_logs.dart';
 import 'daos/articles.dart';
 import 'daos/metadata.dart';
 import 'database.drift.dart';
-import 'models/app_log.dart';
 import 'models/app_log.drift.dart';
-import 'models/article.dart';
-import 'models/metadata.dart';
-import 'models/remote_action.dart';
 
 @DriftDatabase(
-  tables: [
-    AppLogs,
-    Articles,
-    ArticleScrollPositions,
-    Metadata,
-    RemoteActions,
-  ],
+  include: {
+    'models/app_log.drift',
+    'models/article.drift',
+    'models/metadata.drift',
+    'models/remote_action.drift',
+  },
   daos: [
     AppLogsDao,
     ArticlesDao,

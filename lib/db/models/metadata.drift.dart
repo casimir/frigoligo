@@ -1,36 +1,32 @@
 // ignore_for_file: type=lint
 import 'package:drift/drift.dart' as i0;
 import 'package:frigoligo/db/models/metadata.drift.dart' as i1;
-import 'package:frigoligo/db/models/metadata.dart' as i2;
 
-class $MetadataTable extends i2.Metadata
-    with i0.TableInfo<$MetadataTable, i1.MetadataData> {
+class Metadata extends i0.Table with i0.TableInfo<Metadata, i1.MetadataData> {
   @override
   final i0.GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $MetadataTable(this.attachedDatabase, [this._alias]);
+  Metadata(this.attachedDatabase, [this._alias]);
   static const i0.VerificationMeta _idMeta = const i0.VerificationMeta('id');
-  @override
   late final i0.GeneratedColumn<int> id = i0.GeneratedColumn<int>(
       'id', aliasedName, false,
       hasAutoIncrement: true,
       type: i0.DriftSqlType.int,
       requiredDuringInsert: false,
-      defaultConstraints:
-          i0.GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+      $customConstraints: 'PRIMARY KEY AUTOINCREMENT');
   static const i0.VerificationMeta _keyMeta = const i0.VerificationMeta('key');
-  @override
   late final i0.GeneratedColumn<String> key = i0.GeneratedColumn<String>(
       'key', aliasedName, false,
       type: i0.DriftSqlType.string,
       requiredDuringInsert: true,
-      defaultConstraints: i0.GeneratedColumn.constraintIsAlways('UNIQUE'));
+      $customConstraints: 'NOT NULL UNIQUE');
   static const i0.VerificationMeta _valueMeta =
       const i0.VerificationMeta('value');
-  @override
   late final i0.GeneratedColumn<String> value = i0.GeneratedColumn<String>(
       'value', aliasedName, false,
-      type: i0.DriftSqlType.string, requiredDuringInsert: true);
+      type: i0.DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   @override
   List<i0.GeneratedColumn> get $columns => [id, key, value];
   @override
@@ -78,9 +74,12 @@ class $MetadataTable extends i2.Metadata
   }
 
   @override
-  $MetadataTable createAlias(String alias) {
-    return $MetadataTable(attachedDatabase, alias);
+  Metadata createAlias(String alias) {
+    return Metadata(attachedDatabase, alias);
   }
+
+  @override
+  bool get dontWriteConstraints => true;
 }
 
 class MetadataData extends i0.DataClass
@@ -223,20 +222,20 @@ class MetadataCompanion extends i0.UpdateCompanion<i1.MetadataData> {
   }
 }
 
-typedef $$MetadataTableCreateCompanionBuilder = i1.MetadataCompanion Function({
+typedef $MetadataCreateCompanionBuilder = i1.MetadataCompanion Function({
   i0.Value<int> id,
   required String key,
   required String value,
 });
-typedef $$MetadataTableUpdateCompanionBuilder = i1.MetadataCompanion Function({
+typedef $MetadataUpdateCompanionBuilder = i1.MetadataCompanion Function({
   i0.Value<int> id,
   i0.Value<String> key,
   i0.Value<String> value,
 });
 
-class $$MetadataTableFilterComposer
-    extends i0.FilterComposer<i0.GeneratedDatabase, i1.$MetadataTable> {
-  $$MetadataTableFilterComposer(super.$state);
+class $MetadataFilterComposer
+    extends i0.FilterComposer<i0.GeneratedDatabase, i1.Metadata> {
+  $MetadataFilterComposer(super.$state);
   i0.ColumnFilters<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -253,9 +252,9 @@ class $$MetadataTableFilterComposer
           i0.ColumnFilters(column, joinBuilders: joinBuilders));
 }
 
-class $$MetadataTableOrderingComposer
-    extends i0.OrderingComposer<i0.GeneratedDatabase, i1.$MetadataTable> {
-  $$MetadataTableOrderingComposer(super.$state);
+class $MetadataOrderingComposer
+    extends i0.OrderingComposer<i0.GeneratedDatabase, i1.Metadata> {
+  $MetadataOrderingComposer(super.$state);
   i0.ColumnOrderings<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -272,29 +271,28 @@ class $$MetadataTableOrderingComposer
           i0.ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
-class $$MetadataTableTableManager extends i0.RootTableManager<
+class $MetadataTableManager extends i0.RootTableManager<
     i0.GeneratedDatabase,
-    i1.$MetadataTable,
+    i1.Metadata,
     i1.MetadataData,
-    i1.$$MetadataTableFilterComposer,
-    i1.$$MetadataTableOrderingComposer,
-    $$MetadataTableCreateCompanionBuilder,
-    $$MetadataTableUpdateCompanionBuilder,
+    i1.$MetadataFilterComposer,
+    i1.$MetadataOrderingComposer,
+    $MetadataCreateCompanionBuilder,
+    $MetadataUpdateCompanionBuilder,
     (
       i1.MetadataData,
-      i0
-      .BaseReferences<i0.GeneratedDatabase, i1.$MetadataTable, i1.MetadataData>
+      i0.BaseReferences<i0.GeneratedDatabase, i1.Metadata, i1.MetadataData>
     ),
     i1.MetadataData,
     i0.PrefetchHooks Function()> {
-  $$MetadataTableTableManager(i0.GeneratedDatabase db, i1.$MetadataTable table)
+  $MetadataTableManager(i0.GeneratedDatabase db, i1.Metadata table)
       : super(i0.TableManagerState(
           db: db,
           table: table,
           filteringComposer:
-              i1.$$MetadataTableFilterComposer(i0.ComposerState(db, table)),
+              i1.$MetadataFilterComposer(i0.ComposerState(db, table)),
           orderingComposer:
-              i1.$$MetadataTableOrderingComposer(i0.ComposerState(db, table)),
+              i1.$MetadataOrderingComposer(i0.ComposerState(db, table)),
           updateCompanionCallback: ({
             i0.Value<int> id = const i0.Value.absent(),
             i0.Value<String> key = const i0.Value.absent(),
@@ -322,18 +320,17 @@ class $$MetadataTableTableManager extends i0.RootTableManager<
         ));
 }
 
-typedef $$MetadataTableProcessedTableManager = i0.ProcessedTableManager<
+typedef $MetadataProcessedTableManager = i0.ProcessedTableManager<
     i0.GeneratedDatabase,
-    i1.$MetadataTable,
+    i1.Metadata,
     i1.MetadataData,
-    i1.$$MetadataTableFilterComposer,
-    i1.$$MetadataTableOrderingComposer,
-    $$MetadataTableCreateCompanionBuilder,
-    $$MetadataTableUpdateCompanionBuilder,
+    i1.$MetadataFilterComposer,
+    i1.$MetadataOrderingComposer,
+    $MetadataCreateCompanionBuilder,
+    $MetadataUpdateCompanionBuilder,
     (
       i1.MetadataData,
-      i0
-      .BaseReferences<i0.GeneratedDatabase, i1.$MetadataTable, i1.MetadataData>
+      i0.BaseReferences<i0.GeneratedDatabase, i1.Metadata, i1.MetadataData>
     ),
     i1.MetadataData,
     i0.PrefetchHooks Function()>;

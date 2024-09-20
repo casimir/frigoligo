@@ -1,92 +1,103 @@
 // ignore_for_file: type=lint
 import 'package:drift/drift.dart' as i0;
 import 'package:frigoligo/db/models/article.drift.dart' as i1;
-import 'package:frigoligo/db/models/article.dart' as i2;
-import 'package:frigoligo/db/converters/containers.dart' as i3;
+import 'package:frigoligo/db/converters/containers.dart' as i2;
 
-class $ArticlesTable extends i2.Articles
-    with i0.TableInfo<$ArticlesTable, i1.Article> {
+class Articles extends i0.Table with i0.TableInfo<Articles, i1.Article> {
   @override
   final i0.GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $ArticlesTable(this.attachedDatabase, [this._alias]);
+  Articles(this.attachedDatabase, [this._alias]);
   static const i0.VerificationMeta _idMeta = const i0.VerificationMeta('id');
-  @override
   late final i0.GeneratedColumn<int> id = i0.GeneratedColumn<int>(
       'id', aliasedName, false,
-      type: i0.DriftSqlType.int, requiredDuringInsert: false);
+      type: i0.DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'PRIMARY KEY');
   static const i0.VerificationMeta _createdAtMeta =
       const i0.VerificationMeta('createdAt');
-  @override
   late final i0.GeneratedColumn<DateTime> createdAt =
       i0.GeneratedColumn<DateTime>('created_at', aliasedName, false,
-          type: i0.DriftSqlType.dateTime, requiredDuringInsert: true);
+          type: i0.DriftSqlType.dateTime,
+          requiredDuringInsert: true,
+          $customConstraints: 'NOT NULL');
   static const i0.VerificationMeta _updatedAtMeta =
       const i0.VerificationMeta('updatedAt');
-  @override
   late final i0.GeneratedColumn<DateTime> updatedAt =
       i0.GeneratedColumn<DateTime>('updated_at', aliasedName, false,
-          type: i0.DriftSqlType.dateTime, requiredDuringInsert: true);
+          type: i0.DriftSqlType.dateTime,
+          requiredDuringInsert: true,
+          $customConstraints: 'NOT NULL');
   static const i0.VerificationMeta _titleMeta =
       const i0.VerificationMeta('title');
-  @override
   late final i0.GeneratedColumn<String> title = i0.GeneratedColumn<String>(
       'title', aliasedName, false,
-      type: i0.DriftSqlType.string, requiredDuringInsert: true);
+      type: i0.DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   static const i0.VerificationMeta _domainNameMeta =
       const i0.VerificationMeta('domainName');
-  @override
   late final i0.GeneratedColumn<String> domainName = i0.GeneratedColumn<String>(
       'domain_name', aliasedName, true,
-      type: i0.DriftSqlType.string, requiredDuringInsert: false);
+      type: i0.DriftSqlType.string,
+      requiredDuringInsert: false,
+      $customConstraints: '');
   static const i0.VerificationMeta _urlMeta = const i0.VerificationMeta('url');
-  @override
   late final i0.GeneratedColumn<String> url = i0.GeneratedColumn<String>(
       'url', aliasedName, false,
-      type: i0.DriftSqlType.string, requiredDuringInsert: true);
+      type: i0.DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   static const i0.VerificationMeta _contentMeta =
       const i0.VerificationMeta('content');
-  @override
   late final i0.GeneratedColumn<String> content = i0.GeneratedColumn<String>(
       'content', aliasedName, true,
-      type: i0.DriftSqlType.string, requiredDuringInsert: false);
+      type: i0.DriftSqlType.string,
+      requiredDuringInsert: false,
+      $customConstraints: '');
   static const i0.VerificationMeta _languageMeta =
       const i0.VerificationMeta('language');
-  @override
   late final i0.GeneratedColumn<String> language = i0.GeneratedColumn<String>(
       'language', aliasedName, true,
-      type: i0.DriftSqlType.string, requiredDuringInsert: false);
+      type: i0.DriftSqlType.string,
+      requiredDuringInsert: false,
+      $customConstraints: '');
   static const i0.VerificationMeta _readingTimeMeta =
       const i0.VerificationMeta('readingTime');
-  @override
   late final i0.GeneratedColumn<int> readingTime = i0.GeneratedColumn<int>(
       'reading_time', aliasedName, false,
-      type: i0.DriftSqlType.int, requiredDuringInsert: true);
+      type: i0.DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   static const i0.VerificationMeta _previewPictureMeta =
       const i0.VerificationMeta('previewPicture');
-  @override
   late final i0.GeneratedColumn<String> previewPicture =
       i0.GeneratedColumn<String>('preview_picture', aliasedName, true,
-          type: i0.DriftSqlType.string, requiredDuringInsert: false);
+          type: i0.DriftSqlType.string,
+          requiredDuringInsert: false,
+          $customConstraints: '');
   static const i0.VerificationMeta _archivedAtMeta =
       const i0.VerificationMeta('archivedAt');
-  @override
   late final i0.GeneratedColumn<DateTime> archivedAt =
       i0.GeneratedColumn<DateTime>('archived_at', aliasedName, true,
-          type: i0.DriftSqlType.dateTime, requiredDuringInsert: false);
+          type: i0.DriftSqlType.dateTime,
+          requiredDuringInsert: false,
+          $customConstraints: '');
   static const i0.VerificationMeta _starredAtMeta =
       const i0.VerificationMeta('starredAt');
-  @override
   late final i0.GeneratedColumn<DateTime> starredAt =
       i0.GeneratedColumn<DateTime>('starred_at', aliasedName, true,
-          type: i0.DriftSqlType.dateTime, requiredDuringInsert: false);
+          type: i0.DriftSqlType.dateTime,
+          requiredDuringInsert: false,
+          $customConstraints: '');
   static const i0.VerificationMeta _tagsMeta =
       const i0.VerificationMeta('tags');
-  @override
   late final i0.GeneratedColumnWithTypeConverter<List<String>, String> tags =
       i0.GeneratedColumn<String>('tags', aliasedName, false,
-              type: i0.DriftSqlType.string, requiredDuringInsert: true)
-          .withConverter<List<String>>(i1.$ArticlesTable.$convertertags);
+              type: i0.DriftSqlType.string,
+              requiredDuringInsert: true,
+              $customConstraints: 'NOT NULL')
+          .withConverter<List<String>>(i1.Articles.$convertertags);
   @override
   List<i0.GeneratedColumn> get $columns => [
         id,
@@ -212,19 +223,20 @@ class $ArticlesTable extends i2.Articles
           i0.DriftSqlType.dateTime, data['${effectivePrefix}archived_at']),
       starredAt: attachedDatabase.typeMapping
           .read(i0.DriftSqlType.dateTime, data['${effectivePrefix}starred_at']),
-      tags: i1.$ArticlesTable.$convertertags.fromSql(attachedDatabase
-          .typeMapping
+      tags: i1.Articles.$convertertags.fromSql(attachedDatabase.typeMapping
           .read(i0.DriftSqlType.string, data['${effectivePrefix}tags'])!),
     );
   }
 
   @override
-  $ArticlesTable createAlias(String alias) {
-    return $ArticlesTable(attachedDatabase, alias);
+  Articles createAlias(String alias) {
+    return Articles(attachedDatabase, alias);
   }
 
   static i0.TypeConverter<List<String>, String> $convertertags =
-      const i3.StringListConverter();
+      const i2.StringListConverter();
+  @override
+  bool get dontWriteConstraints => true;
 }
 
 class Article extends i0.DataClass implements i0.Insertable<i1.Article> {
@@ -283,8 +295,7 @@ class Article extends i0.DataClass implements i0.Insertable<i1.Article> {
       map['starred_at'] = i0.Variable<DateTime>(starredAt);
     }
     {
-      map['tags'] =
-          i0.Variable<String>(i1.$ArticlesTable.$convertertags.toSql(tags));
+      map['tags'] = i0.Variable<String>(i1.Articles.$convertertags.toSql(tags));
     }
     return map;
   }
@@ -324,17 +335,17 @@ class Article extends i0.DataClass implements i0.Insertable<i1.Article> {
     serializer ??= i0.driftRuntimeOptions.defaultSerializer;
     return Article(
       id: serializer.fromJson<int>(json['id']),
-      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
-      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+      createdAt: serializer.fromJson<DateTime>(json['created_at']),
+      updatedAt: serializer.fromJson<DateTime>(json['updated_at']),
       title: serializer.fromJson<String>(json['title']),
-      domainName: serializer.fromJson<String?>(json['domainName']),
+      domainName: serializer.fromJson<String?>(json['domain_name']),
       url: serializer.fromJson<String>(json['url']),
       content: serializer.fromJson<String?>(json['content']),
       language: serializer.fromJson<String?>(json['language']),
-      readingTime: serializer.fromJson<int>(json['readingTime']),
-      previewPicture: serializer.fromJson<String?>(json['previewPicture']),
-      archivedAt: serializer.fromJson<DateTime?>(json['archivedAt']),
-      starredAt: serializer.fromJson<DateTime?>(json['starredAt']),
+      readingTime: serializer.fromJson<int>(json['reading_time']),
+      previewPicture: serializer.fromJson<String?>(json['preview_picture']),
+      archivedAt: serializer.fromJson<DateTime?>(json['archived_at']),
+      starredAt: serializer.fromJson<DateTime?>(json['starred_at']),
       tags: serializer.fromJson<List<String>>(json['tags']),
     );
   }
@@ -343,17 +354,17 @@ class Article extends i0.DataClass implements i0.Insertable<i1.Article> {
     serializer ??= i0.driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'createdAt': serializer.toJson<DateTime>(createdAt),
-      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+      'created_at': serializer.toJson<DateTime>(createdAt),
+      'updated_at': serializer.toJson<DateTime>(updatedAt),
       'title': serializer.toJson<String>(title),
-      'domainName': serializer.toJson<String?>(domainName),
+      'domain_name': serializer.toJson<String?>(domainName),
       'url': serializer.toJson<String>(url),
       'content': serializer.toJson<String?>(content),
       'language': serializer.toJson<String?>(language),
-      'readingTime': serializer.toJson<int>(readingTime),
-      'previewPicture': serializer.toJson<String?>(previewPicture),
-      'archivedAt': serializer.toJson<DateTime?>(archivedAt),
-      'starredAt': serializer.toJson<DateTime?>(starredAt),
+      'reading_time': serializer.toJson<int>(readingTime),
+      'preview_picture': serializer.toJson<String?>(previewPicture),
+      'archived_at': serializer.toJson<DateTime?>(archivedAt),
+      'starred_at': serializer.toJson<DateTime?>(starredAt),
       'tags': serializer.toJson<List<String>>(tags),
     };
   }
@@ -617,8 +628,8 @@ class ArticlesCompanion extends i0.UpdateCompanion<i1.Article> {
       map['starred_at'] = i0.Variable<DateTime>(starredAt.value);
     }
     if (tags.present) {
-      map['tags'] = i0.Variable<String>(
-          i1.$ArticlesTable.$convertertags.toSql(tags.value));
+      map['tags'] =
+          i0.Variable<String>(i1.Articles.$convertertags.toSql(tags.value));
     }
     return map;
   }
@@ -644,7 +655,7 @@ class ArticlesCompanion extends i0.UpdateCompanion<i1.Article> {
   }
 }
 
-typedef $$ArticlesTableCreateCompanionBuilder = i1.ArticlesCompanion Function({
+typedef $ArticlesCreateCompanionBuilder = i1.ArticlesCompanion Function({
   i0.Value<int> id,
   required DateTime createdAt,
   required DateTime updatedAt,
@@ -659,7 +670,7 @@ typedef $$ArticlesTableCreateCompanionBuilder = i1.ArticlesCompanion Function({
   i0.Value<DateTime?> starredAt,
   required List<String> tags,
 });
-typedef $$ArticlesTableUpdateCompanionBuilder = i1.ArticlesCompanion Function({
+typedef $ArticlesUpdateCompanionBuilder = i1.ArticlesCompanion Function({
   i0.Value<int> id,
   i0.Value<DateTime> createdAt,
   i0.Value<DateTime> updatedAt,
@@ -675,9 +686,9 @@ typedef $$ArticlesTableUpdateCompanionBuilder = i1.ArticlesCompanion Function({
   i0.Value<List<String>> tags,
 });
 
-class $$ArticlesTableFilterComposer
-    extends i0.FilterComposer<i0.GeneratedDatabase, i1.$ArticlesTable> {
-  $$ArticlesTableFilterComposer(super.$state);
+class $ArticlesFilterComposer
+    extends i0.FilterComposer<i0.GeneratedDatabase, i1.Articles> {
+  $ArticlesFilterComposer(super.$state);
   i0.ColumnFilters<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -746,9 +757,9 @@ class $$ArticlesTableFilterComposer
               joinBuilders: joinBuilders));
 }
 
-class $$ArticlesTableOrderingComposer
-    extends i0.OrderingComposer<i0.GeneratedDatabase, i1.$ArticlesTable> {
-  $$ArticlesTableOrderingComposer(super.$state);
+class $ArticlesOrderingComposer
+    extends i0.OrderingComposer<i0.GeneratedDatabase, i1.Articles> {
+  $ArticlesOrderingComposer(super.$state);
   i0.ColumnOrderings<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -815,28 +826,28 @@ class $$ArticlesTableOrderingComposer
           i0.ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
-class $$ArticlesTableTableManager extends i0.RootTableManager<
+class $ArticlesTableManager extends i0.RootTableManager<
     i0.GeneratedDatabase,
-    i1.$ArticlesTable,
+    i1.Articles,
     i1.Article,
-    i1.$$ArticlesTableFilterComposer,
-    i1.$$ArticlesTableOrderingComposer,
-    $$ArticlesTableCreateCompanionBuilder,
-    $$ArticlesTableUpdateCompanionBuilder,
+    i1.$ArticlesFilterComposer,
+    i1.$ArticlesOrderingComposer,
+    $ArticlesCreateCompanionBuilder,
+    $ArticlesUpdateCompanionBuilder,
     (
       i1.Article,
-      i0.BaseReferences<i0.GeneratedDatabase, i1.$ArticlesTable, i1.Article>
+      i0.BaseReferences<i0.GeneratedDatabase, i1.Articles, i1.Article>
     ),
     i1.Article,
     i0.PrefetchHooks Function()> {
-  $$ArticlesTableTableManager(i0.GeneratedDatabase db, i1.$ArticlesTable table)
+  $ArticlesTableManager(i0.GeneratedDatabase db, i1.Articles table)
       : super(i0.TableManagerState(
           db: db,
           table: table,
           filteringComposer:
-              i1.$$ArticlesTableFilterComposer(i0.ComposerState(db, table)),
+              i1.$ArticlesFilterComposer(i0.ComposerState(db, table)),
           orderingComposer:
-              i1.$$ArticlesTableOrderingComposer(i0.ComposerState(db, table)),
+              i1.$ArticlesOrderingComposer(i0.ComposerState(db, table)),
           updateCompanionCallback: ({
             i0.Value<int> id = const i0.Value.absent(),
             i0.Value<DateTime> createdAt = const i0.Value.absent(),
@@ -904,44 +915,47 @@ class $$ArticlesTableTableManager extends i0.RootTableManager<
         ));
 }
 
-typedef $$ArticlesTableProcessedTableManager = i0.ProcessedTableManager<
+typedef $ArticlesProcessedTableManager = i0.ProcessedTableManager<
     i0.GeneratedDatabase,
-    i1.$ArticlesTable,
+    i1.Articles,
     i1.Article,
-    i1.$$ArticlesTableFilterComposer,
-    i1.$$ArticlesTableOrderingComposer,
-    $$ArticlesTableCreateCompanionBuilder,
-    $$ArticlesTableUpdateCompanionBuilder,
+    i1.$ArticlesFilterComposer,
+    i1.$ArticlesOrderingComposer,
+    $ArticlesCreateCompanionBuilder,
+    $ArticlesUpdateCompanionBuilder,
     (
       i1.Article,
-      i0.BaseReferences<i0.GeneratedDatabase, i1.$ArticlesTable, i1.Article>
+      i0.BaseReferences<i0.GeneratedDatabase, i1.Articles, i1.Article>
     ),
     i1.Article,
     i0.PrefetchHooks Function()>;
 
-class $ArticleScrollPositionsTable extends i2.ArticleScrollPositions
-    with i0.TableInfo<$ArticleScrollPositionsTable, i1.ArticleScrollPosition> {
+class ArticleScrollPositions extends i0.Table
+    with i0.TableInfo<ArticleScrollPositions, i1.ArticleScrollPosition> {
   @override
   final i0.GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $ArticleScrollPositionsTable(this.attachedDatabase, [this._alias]);
+  ArticleScrollPositions(this.attachedDatabase, [this._alias]);
   static const i0.VerificationMeta _idMeta = const i0.VerificationMeta('id');
-  @override
   late final i0.GeneratedColumn<int> id = i0.GeneratedColumn<int>(
       'id', aliasedName, false,
-      type: i0.DriftSqlType.int, requiredDuringInsert: false);
+      type: i0.DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'PRIMARY KEY');
   static const i0.VerificationMeta _readingTimeMeta =
       const i0.VerificationMeta('readingTime');
-  @override
   late final i0.GeneratedColumn<int> readingTime = i0.GeneratedColumn<int>(
       'reading_time', aliasedName, false,
-      type: i0.DriftSqlType.int, requiredDuringInsert: true);
+      type: i0.DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   static const i0.VerificationMeta _progressMeta =
       const i0.VerificationMeta('progress');
-  @override
   late final i0.GeneratedColumn<double> progress = i0.GeneratedColumn<double>(
       'progress', aliasedName, false,
-      type: i0.DriftSqlType.double, requiredDuringInsert: true);
+      type: i0.DriftSqlType.double,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   @override
   List<i0.GeneratedColumn> get $columns => [id, readingTime, progress];
   @override
@@ -992,9 +1006,12 @@ class $ArticleScrollPositionsTable extends i2.ArticleScrollPositions
   }
 
   @override
-  $ArticleScrollPositionsTable createAlias(String alias) {
-    return $ArticleScrollPositionsTable(attachedDatabase, alias);
+  ArticleScrollPositions createAlias(String alias) {
+    return ArticleScrollPositions(attachedDatabase, alias);
   }
+
+  @override
+  bool get dontWriteConstraints => true;
 }
 
 class ArticleScrollPosition extends i0.DataClass
@@ -1026,7 +1043,7 @@ class ArticleScrollPosition extends i0.DataClass
     serializer ??= i0.driftRuntimeOptions.defaultSerializer;
     return ArticleScrollPosition(
       id: serializer.fromJson<int>(json['id']),
-      readingTime: serializer.fromJson<int>(json['readingTime']),
+      readingTime: serializer.fromJson<int>(json['reading_time']),
       progress: serializer.fromJson<double>(json['progress']),
     );
   }
@@ -1035,7 +1052,7 @@ class ArticleScrollPosition extends i0.DataClass
     serializer ??= i0.driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'readingTime': serializer.toJson<int>(readingTime),
+      'reading_time': serializer.toJson<int>(readingTime),
       'progress': serializer.toJson<double>(progress),
     };
   }
@@ -1143,22 +1160,22 @@ class ArticleScrollPositionsCompanion
   }
 }
 
-typedef $$ArticleScrollPositionsTableCreateCompanionBuilder
+typedef $ArticleScrollPositionsCreateCompanionBuilder
     = i1.ArticleScrollPositionsCompanion Function({
   i0.Value<int> id,
   required int readingTime,
   required double progress,
 });
-typedef $$ArticleScrollPositionsTableUpdateCompanionBuilder
+typedef $ArticleScrollPositionsUpdateCompanionBuilder
     = i1.ArticleScrollPositionsCompanion Function({
   i0.Value<int> id,
   i0.Value<int> readingTime,
   i0.Value<double> progress,
 });
 
-class $$ArticleScrollPositionsTableFilterComposer extends i0
-    .FilterComposer<i0.GeneratedDatabase, i1.$ArticleScrollPositionsTable> {
-  $$ArticleScrollPositionsTableFilterComposer(super.$state);
+class $ArticleScrollPositionsFilterComposer
+    extends i0.FilterComposer<i0.GeneratedDatabase, i1.ArticleScrollPositions> {
+  $ArticleScrollPositionsFilterComposer(super.$state);
   i0.ColumnFilters<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -1175,9 +1192,9 @@ class $$ArticleScrollPositionsTableFilterComposer extends i0
           i0.ColumnFilters(column, joinBuilders: joinBuilders));
 }
 
-class $$ArticleScrollPositionsTableOrderingComposer extends i0
-    .OrderingComposer<i0.GeneratedDatabase, i1.$ArticleScrollPositionsTable> {
-  $$ArticleScrollPositionsTableOrderingComposer(super.$state);
+class $ArticleScrollPositionsOrderingComposer extends i0
+    .OrderingComposer<i0.GeneratedDatabase, i1.ArticleScrollPositions> {
+  $ArticleScrollPositionsOrderingComposer(super.$state);
   i0.ColumnOrderings<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -1194,29 +1211,29 @@ class $$ArticleScrollPositionsTableOrderingComposer extends i0
           i0.ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
-class $$ArticleScrollPositionsTableTableManager extends i0.RootTableManager<
+class $ArticleScrollPositionsTableManager extends i0.RootTableManager<
     i0.GeneratedDatabase,
-    i1.$ArticleScrollPositionsTable,
+    i1.ArticleScrollPositions,
     i1.ArticleScrollPosition,
-    i1.$$ArticleScrollPositionsTableFilterComposer,
-    i1.$$ArticleScrollPositionsTableOrderingComposer,
-    $$ArticleScrollPositionsTableCreateCompanionBuilder,
-    $$ArticleScrollPositionsTableUpdateCompanionBuilder,
+    i1.$ArticleScrollPositionsFilterComposer,
+    i1.$ArticleScrollPositionsOrderingComposer,
+    $ArticleScrollPositionsCreateCompanionBuilder,
+    $ArticleScrollPositionsUpdateCompanionBuilder,
     (
       i1.ArticleScrollPosition,
-      i0.BaseReferences<i0.GeneratedDatabase, i1.$ArticleScrollPositionsTable,
+      i0.BaseReferences<i0.GeneratedDatabase, i1.ArticleScrollPositions,
           i1.ArticleScrollPosition>
     ),
     i1.ArticleScrollPosition,
     i0.PrefetchHooks Function()> {
-  $$ArticleScrollPositionsTableTableManager(
-      i0.GeneratedDatabase db, i1.$ArticleScrollPositionsTable table)
+  $ArticleScrollPositionsTableManager(
+      i0.GeneratedDatabase db, i1.ArticleScrollPositions table)
       : super(i0.TableManagerState(
           db: db,
           table: table,
-          filteringComposer: i1.$$ArticleScrollPositionsTableFilterComposer(
+          filteringComposer: i1.$ArticleScrollPositionsFilterComposer(
               i0.ComposerState(db, table)),
-          orderingComposer: i1.$$ArticleScrollPositionsTableOrderingComposer(
+          orderingComposer: i1.$ArticleScrollPositionsOrderingComposer(
               i0.ComposerState(db, table)),
           updateCompanionCallback: ({
             i0.Value<int> id = const i0.Value.absent(),
@@ -1245,19 +1262,18 @@ class $$ArticleScrollPositionsTableTableManager extends i0.RootTableManager<
         ));
 }
 
-typedef $$ArticleScrollPositionsTableProcessedTableManager
-    = i0.ProcessedTableManager<
-        i0.GeneratedDatabase,
-        i1.$ArticleScrollPositionsTable,
-        i1.ArticleScrollPosition,
-        i1.$$ArticleScrollPositionsTableFilterComposer,
-        i1.$$ArticleScrollPositionsTableOrderingComposer,
-        $$ArticleScrollPositionsTableCreateCompanionBuilder,
-        $$ArticleScrollPositionsTableUpdateCompanionBuilder,
-        (
-          i1.ArticleScrollPosition,
-          i0.BaseReferences<i0.GeneratedDatabase,
-              i1.$ArticleScrollPositionsTable, i1.ArticleScrollPosition>
-        ),
-        i1.ArticleScrollPosition,
-        i0.PrefetchHooks Function()>;
+typedef $ArticleScrollPositionsProcessedTableManager = i0.ProcessedTableManager<
+    i0.GeneratedDatabase,
+    i1.ArticleScrollPositions,
+    i1.ArticleScrollPosition,
+    i1.$ArticleScrollPositionsFilterComposer,
+    i1.$ArticleScrollPositionsOrderingComposer,
+    $ArticleScrollPositionsCreateCompanionBuilder,
+    $ArticleScrollPositionsUpdateCompanionBuilder,
+    (
+      i1.ArticleScrollPosition,
+      i0.BaseReferences<i0.GeneratedDatabase, i1.ArticleScrollPositions,
+          i1.ArticleScrollPosition>
+    ),
+    i1.ArticleScrollPosition,
+    i0.PrefetchHooks Function()>;
