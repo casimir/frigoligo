@@ -26,6 +26,7 @@ class LogConsole extends _$LogConsole {
     _watcher?.cancel();
     _watcher = (t1.selectOnly()..addColumns([t1.id])).watch().listen((ids) {
       () async {
+        // FIXME logs should be truncated without then need to open the console
         var count = ids.length;
         if (count > logCountThreshold) {
           final deletedCount = await db.appLogsDao.truncate();

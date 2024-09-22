@@ -57,6 +57,23 @@ class ArticlesDao extends DatabaseAccessor<DB> with $ArticlesDaoMixin {
     });
   }
 
+  Selectable<int> selectArticleIdsForText(
+    String text, {
+    SearchTextMode mode = SearchTextMode.all,
+    Expression<bool> Function(Articles t)? where,
+  }) {
+    final columnFilter = switch (mode) {
+      SearchTextMode.all => '',
+      SearchTextMode.title => 'title : ',
+      SearchTextMode.content => 'content : ',
+    };
+    final cleanedText = text.trim().split(RegExp(r'\s+')).join(' AND ');
+    final query = columnFilter + cleanedText;
+    final predicate = where != null ? (_, t) => where(t) : null;
+    return attachedDatabase.articleDrift
+        .articleIdsForText(query, predicate: predicate);
+  }
+
   Future<List<String>> listAllDomains() {
     return (selectOnly(articles, distinct: true)
           ..addColumns([articles.domainName])
@@ -66,3 +83,5 @@ class ArticlesDao extends DatabaseAccessor<DB> with $ArticlesDaoMixin {
         .get();
   }
 }
+
+enum SearchTextMode { all, title, content }

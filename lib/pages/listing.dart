@@ -87,6 +87,15 @@ class _ListingPageState extends ConsumerState<ListingPage> {
                         onPressed: () => context.push('/settings'),
                       ),
                     ],
+                    onChanged: (value) {
+                      if (value.length <= 1) {
+                        ref.read(queryProvider.notifier).clearText();
+                      } else {
+                        ref
+                            .read(queryProvider.notifier)
+                            .overrideWith(WQuery(text: value));
+                      }
+                    },
                   ),
                   C.spacers.verticalComponent,
                   const SearchFilters(),

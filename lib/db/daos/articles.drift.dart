@@ -10,4 +10,8 @@ mixin $ArticlesDaoMixin on i0.DatabaseAccessor<i1.DB> {
   i2.ArticleScrollPositions get articleScrollPositions =>
       i3.ReadDatabaseContainer(attachedDatabase)
           .resultSet<i2.ArticleScrollPositions>('article_scroll_positions');
+  i2.ArticlesFts get articlesFts => i3.ReadDatabaseContainer(attachedDatabase)
+      .resultSet<i2.ArticlesFts>('articles_fts');
+  i2.ArticleDrift get articleDrift => i3.ReadDatabaseContainer(attachedDatabase)
+      .accessor<i2.ArticleDrift>(i2.ArticleDrift.new);
 }

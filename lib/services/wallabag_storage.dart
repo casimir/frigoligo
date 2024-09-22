@@ -49,17 +49,29 @@ class WStorage extends _$WStorage {
     return Expression.and(filters);
   }
 
+  Selectable<int> _selectFilterIds(WQuery wq) {
+    final db = DB.get();
+    if (wq.text != null) {
+      // TODO add a UI option for the search mode
+      return db.articlesDao.selectArticleIdsForText(
+        wq.text!,
+        where: (t) => _buildFilters(t, wq),
+      );
+    } else {
+      final t1 = db.articles;
+      return (t1.selectOnly()
+            ..addColumns([t1.id])
+            ..where(_buildFilters(t1, wq))
+            ..orderBy([OrderingTerm.desc(t1.createdAt)]))
+          .map((row) => row.read(t1.id)!);
+    }
+  }
+
   Future<Article?> index(int n, WQuery wq) async {
     if (n < 0 || n >= await count(wq)) return null;
 
+    final ids = await _selectFilterIds(wq).get();
     final db = DB.get();
-    final t1 = db.articles;
-    final ids = await (t1.selectOnly()
-          ..addColumns([t1.id])
-          ..where(_buildFilters(t1, wq))
-          ..orderBy([OrderingTerm.desc(t1.createdAt)]))
-        .map((row) => row.read(t1.id)!)
-        .get();
     return db.managers.articles
         .filter((f) => f.id.equals(ids[n]))
         .getSingleOrNull(distinct: false);
@@ -67,19 +79,16 @@ class WStorage extends _$WStorage {
 
   Future<int?> indexOf(int articleId, WQuery wq) async {
     if (articleId <= 0) return null;
-    final t1 = DB.get().articles;
-    final ids = await (DB.get().articles.selectOnly()
-          ..addColumns([t1.id])
-          ..where(_buildFilters(t1, wq))
-          ..orderBy([OrderingTerm.desc(t1.createdAt)]))
-        .map((row) => row.read(t1.id)!)
-        .get();
+
+    final ids = await _selectFilterIds(wq).get();
     final index = ids.indexOf(articleId);
     return index >= 0 ? index : null;
   }
 
   Future<int> count(WQuery wq) =>
-      DB.get().articles.count(where: (t) => _buildFilters(t, wq)).getSingle();
+      // a count query should be faster but fetching and counting PKs should be
+      // fast enough and avoid duplicating code
+      _selectFilterIds(wq).get().then((ids) => ids.length);
 
   Future<List<String>> getTags() async {
     final t1 = DB.get().articles;
@@ -251,15 +260,18 @@ class WStorage extends _$WStorage {
   }
 }
 
+// FIXME use sentinel values to avoid needing clear*() methods
 class WQuery {
-  WQuery({this.state, this.starred, this.tags, this.domains});
+  WQuery({this.text, this.state, this.starred, this.tags, this.domains});
 
+  String? text;
   StateFilter? state;
   StarredFilter? starred;
   List<String>? tags;
   List<String>? domains;
 
   WQuery dup() => WQuery(
+        text: text,
         state: state,
         starred: starred,
         tags: tags,
@@ -267,6 +279,7 @@ class WQuery {
       );
 
   WQuery override(WQuery wq) => WQuery(
+        text: wq.text ?? text,
         state: wq.state ?? state,
         starred: wq.starred ?? starred,
         tags: wq.tags ?? tags,

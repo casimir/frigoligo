@@ -1,4 +1,3 @@
-
 import '../converters/containers.dart';
 
 CREATE TABLE articles (
@@ -19,9 +18,36 @@ CREATE TABLE articles (
     tags TEXT NOT NULL MAPPED BY `const StringListConverter()`
 );
 
+-- Ultimately it will be incorporated into `articles` or at least FK'd
 
 CREATE TABLE article_scroll_positions (
     id INTEGER PRIMARY KEY,
     reading_time INTEGER NOT NULL,
     progress REAL NOT NULL
 );
+
+-- Full text search index
+
+CREATE VIRTUAL TABLE articles_fts USING fts5(
+  title,
+  content,
+  content=articles,
+  content_rowid=id
+);
+
+CREATE TRIGGER articles_ai AFTER INSERT ON articles BEGIN
+  INSERT INTO articles_fts(rowid, title, content) VALUES (new.id, new.title, new.content);
+END;
+CREATE TRIGGER articles_ad AFTER DELETE ON articles BEGIN
+  INSERT INTO articles_fts(articles_fts, rowid, title, content) VALUES ('delete', old.id, old.title, old.content);
+END;
+CREATE TRIGGER articles_au AFTER UPDATE ON articles BEGIN
+  INSERT INTO articles_fts(articles_fts, rowid, title, content) VALUES ('delete', old.id, old.title, old.content);
+  INSERT INTO articles_fts(rowid, title, content) VALUES (new.id, new.title, new.content);
+END;
+
+articleIdsForText ($predicate = TRUE): SELECT articles.id FROM articles_fts
+    JOIN articles ON articles.id = articles_fts.rowid
+    WHERE articles_fts MATCH :query
+      AND $predicate
+    ORDER BY rank;
