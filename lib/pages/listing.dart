@@ -88,7 +88,8 @@ class _ListingPageState extends ConsumerState<ListingPage> {
                       ),
                     ],
                     onChanged: (value) {
-                      if (value.length <= 1) {
+                      if (value.length < 3) value = '';
+                      if (value.isEmpty) {
                         ref.read(queryProvider.notifier).clearText();
                       } else {
                         ref
