@@ -23,7 +23,11 @@ import 'models/app_log.drift.dart';
   ],
 )
 class DB extends $DB {
+  static final DB _instance = DB._();
+
   DB._() : super(openConnection());
+
+  factory DB() => _instance;
 
   @override
   int get schemaVersion => 6;
@@ -63,11 +67,5 @@ class DB extends $DB {
       if (!keepPositions) await articleScrollPositions.deleteAll();
       await remoteActions.deleteAll();
     });
-  }
-
-  static DB? _instance;
-  static DB get() {
-    _instance ??= DB._();
-    return _instance!;
   }
 }

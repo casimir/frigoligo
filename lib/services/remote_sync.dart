@@ -53,10 +53,10 @@ class RemoteSyncer extends _$RemoteSyncer {
   }
 
   Future<int> _fetchPendingCount() =>
-      DB.get().managers.remoteActions.count(distinct: false);
+      DB().managers.remoteActions.count(distinct: false);
 
   Future<void> add(RemoteSyncAction action) async {
-    final db = DB.get();
+    final db = DB();
 
     final exists = await db.managers.remoteActions
         .filter((f) => f.key.equals(action.hashCode))
@@ -104,7 +104,7 @@ class RemoteSyncer extends _$RemoteSyncer {
   }
 
   Future<void> _executeActions() async {
-    final db = DB.get();
+    final db = DB();
 
     setProgress(null);
     int i = 1;

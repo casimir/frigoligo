@@ -25,7 +25,7 @@ class CurrentArticle extends _$CurrentArticle {
 
     if (_articleId != null) {
       _watch();
-      final t1 = DB.get().managers.articles;
+      final t1 = DB().managers.articles;
       return t1.filter((f) => f.id.equals(_articleId!)).getSingleOrNull();
     }
 
@@ -41,8 +41,7 @@ class CurrentArticle extends _$CurrentArticle {
   }
 
   void _watch() {
-    final q =
-        DB.get().managers.articles.filter((f) => f.id.equals(_articleId!));
+    final q = DB().managers.articles.filter((f) => f.id.equals(_articleId!));
     _watcher = q.watchSingleOrNull(distinct: false).listen((article) {
       if (article == null) {
         _articleId = null;
@@ -83,7 +82,7 @@ class CurrentArticle extends _$CurrentArticle {
   Future<void> saveScrollProgress(double progress) async {
     if (_articleId == null) return;
 
-    final db = DB.get();
+    final db = DB();
     final article = await db.managers.articles
         .filter(
           (f) => f.id.equals(_articleId!),
@@ -106,8 +105,7 @@ class ScrollPosition extends _$ScrollPosition {
 
   @override
   Future<ArticleScrollPosition?> build(int articleId) {
-    final q = DB
-        .get()
+    final q = DB()
         .managers
         .articleScrollPositions
         .filter((f) => f.id.equals(articleId));

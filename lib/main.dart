@@ -29,7 +29,7 @@ final _log = Logger('main');
 Future<void> main() async {
   Logger.root.level = enableDebugLogs ? Level.FINE : Level.INFO;
   Logger.root.onRecord.listen((record) {
-    DB.get().appendLog(record);
+    DB().appendLog(record);
     debugPrint(loglineFromRecord(record));
   });
   FlutterError.onError = (errorDetails) {
@@ -61,7 +61,7 @@ Future<void> main() async {
   await Settings.init();
 
   _log.info('app version: ${AppInfo.versionVerbose}');
-  _log.info('db version: ${DB.get().schemaVersion}');
+  _log.info('db version: ${DB().schemaVersion}');
   _log.info('platform:    ${UniversalPlatform.operatingSystem}');
   if (!UniversalPlatform.isWeb) {
     _log.info('os version:  ${Platform.operatingSystemVersion}');

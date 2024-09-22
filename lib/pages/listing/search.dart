@@ -125,7 +125,7 @@ class SearchFilters extends ConsumerWidget {
         final selected = await showBottomSheetSelector(
           context: context,
           title: context.L.filters_articleDomains,
-          entriesBuilder: DB.get().articlesDao.listAllDomains(),
+          entriesBuilder: DB().articlesDao.listAllDomains(),
           initialSelection: selection?.toSet(),
         );
         if (selected != null) {

@@ -50,15 +50,14 @@ class WStorage extends _$WStorage {
   }
 
   Selectable<int> _selectFilterIds(WQuery wq) {
-    final db = DB.get();
     if (wq.text != null) {
       // TODO add a UI option for the search mode
-      return db.articlesDao.selectArticleIdsForText(
-        wq.text!,
-        where: (t) => _buildFilters(t, wq),
-      );
+      return DB().articlesDao.selectArticleIdsForText(
+            wq.text!,
+            where: (t) => _buildFilters(t, wq),
+          );
     } else {
-      final t1 = db.articles;
+      final t1 = DB().articles;
       return (t1.selectOnly()
             ..addColumns([t1.id])
             ..where(_buildFilters(t1, wq))
@@ -71,7 +70,7 @@ class WStorage extends _$WStorage {
     if (n < 0 || n >= await count(wq)) return null;
 
     final ids = await _selectFilterIds(wq).get();
-    final db = DB.get();
+    final db = DB();
     return db.managers.articles
         .filter((f) => f.id.equals(ids[n]))
         .getSingleOrNull(distinct: false);
@@ -91,7 +90,7 @@ class WStorage extends _$WStorage {
       _selectFilterIds(wq).get().then((ids) => ids.length);
 
   Future<List<String>> getTags() async {
-    final t1 = DB.get().articles;
+    final t1 = DB().articles;
     final tagLists = await (t1.selectOnly()..addColumns([t1.tags]))
         .map((row) => row.readWithConverter(t1.tags)!)
         .get();
@@ -106,7 +105,7 @@ class WStorage extends _$WStorage {
 
     final remoteCount = await wallabag.fetchTotalEntriesCount();
 
-    final t1 = DB.get().articles;
+    final t1 = DB().articles;
     var localIds = (await (t1.selectOnly()..addColumns([t1.id]))
             .map((row) => row.read(t1.id)!)
             .get())
@@ -125,16 +124,14 @@ class WStorage extends _$WStorage {
       localIds = localIds.difference(entries.map((e) => e.id).toSet());
     }
 
-    final deletedCount = await DB.get().transaction(() async {
+    final deletedCount = await DB().transaction(() async {
       var count = 0;
-      count += await DB
-          .get()
+      count += await DB()
           .managers
           .articles
           .filter((f) => f.id.isIn(localIds))
           .delete();
-      count += await DB
-          .get()
+      count += await DB()
           .managers
           .articleScrollPositions
           .filter((f) => f.id.isIn(localIds))
@@ -167,7 +164,7 @@ class WStorage extends _$WStorage {
   }
 
   Future<void> clearArticles({bool keepPositions = true}) async {
-    DB.get().clear(keepPositions: keepPositions);
+    DB().clear(keepPositions: keepPositions);
     _log.info('cleared the local cache (articles and pending actions)');
     ref.invalidateSelf();
     updateAppBadge();
@@ -181,8 +178,6 @@ class WStorage extends _$WStorage {
       throw const ServerError('invalid session', manuallyInvalidated: true);
     }
 
-    final db = DB.get();
-
     var count = 0;
     final sinceRepr = since != null
         ? DateTime.fromMillisecondsSinceEpoch(since * 1000).toIso8601String()
@@ -195,7 +190,7 @@ class WStorage extends _$WStorage {
     var entriesStream =
         wallabag.fetchAllEntries(since: since, onProgress: onProgress);
     await for (final entries in entriesStream) {
-      await db.articlesDao.updateAll(entries.map((e) => e.toArticle()));
+      await DB().articlesDao.updateAll(entries.map((e) => e.toArticle()));
       _log.info('saved ${entries.length} entries to the database');
       if (entries.isNotEmpty) ref.invalidateSelf();
 
@@ -205,7 +200,7 @@ class WStorage extends _$WStorage {
         'completed refresh of $count entries in ${stopwatch.elapsed.inSeconds} s');
 
     final now = DateTime.now().millisecondsSinceEpoch / 1000;
-    await DB.get().metadataDao.setLastSyncTS(now.toInt());
+    await DB().metadataDao.setLastSyncTS(now.toInt());
 
     _syncRemoteDeletes();
 
@@ -216,7 +211,7 @@ class WStorage extends _$WStorage {
 
   Future<int> incrementalRefresh(
       {int? threshold, void Function(double)? onProgress}) async {
-    final int? since = await DB.get().metadataDao.getLastSyncTS();
+    final int? since = await DB().metadataDao.getLastSyncTS();
     if (threshold != null && since != null) {
       final now = DateTime.now().millisecondsSinceEpoch / 1000;
       final elapsed = now - since;
@@ -230,16 +225,15 @@ class WStorage extends _$WStorage {
   }
 
   Future<void> persistArticle(Article article) async {
-    final writeCount = await DB.get().articlesDao.updateOne(article);
+    final writeCount = await DB().articlesDao.updateOne(article);
     if (writeCount > 0) ref.invalidateSelf();
   }
 
   Future<void> deleteArticle(int articleId) async {
-    final db = DB.get();
     final wallabag = (await ref.read(clientProvider.future))!;
 
     await wallabag.deleteEntry(articleId);
-    final deleted = await db.articlesDao.deleteOne(articleId);
+    final deleted = await DB().articlesDao.deleteOne(articleId);
     if (deleted > 0) ref.invalidateSelf();
   }
 
