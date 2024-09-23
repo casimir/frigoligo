@@ -286,6 +286,17 @@
   "@save_viewArticle": {
     "description": "The action to view the article after it is saved."
   },
+  "@_SELECTOR": {},
+  "selector_selectbuttonlabel": "Select {numberOfItems}",
+  "@selector_selectbuttonlabel": {
+    "description": "The label of the select button in a selector screen.",
+    "placeholders": {
+      "numberOfItems": {
+        "type": "String",
+        "example": "3 items"
+      }
+    }
+  },
   "@_SERVER": {},
   "server_address": "Server address",
   "@server_address": {

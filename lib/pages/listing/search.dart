@@ -90,6 +90,7 @@ class SearchFilters extends ConsumerWidget {
         final selected = await showBottomSheetSelector(
           context: context,
           title: context.L.filters_articleTags,
+          selectionLabelizer: context.L.filters_articleTagsCount,
           entriesBuilder: ref.read(wStorageProvider.notifier).getTags(),
           initialSelection: selection?.toSet(),
         );
@@ -125,6 +126,7 @@ class SearchFilters extends ConsumerWidget {
         final selected = await showBottomSheetSelector(
           context: context,
           title: context.L.filters_articleDomains,
+          selectionLabelizer: context.L.filters_articleDomainsCount,
           entriesBuilder: DB().articlesDao.listAllDomains(),
           initialSelection: selection?.toSet(),
         );

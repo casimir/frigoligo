@@ -9,12 +9,14 @@ class MultiSelect<T> extends StatefulWidget {
   const MultiSelect({
     super.key,
     required this.title,
+    required this.selectionLabelizer,
     required this.entries,
     this.initialSelection,
     this.onConfirm,
   });
 
   final String title;
+  final SelectButtonSelectionLabelizer selectionLabelizer;
   final List<DropdownMenuEntry<T>> entries;
   final Set<T>? initialSelection;
   final void Function(Iterable<T>)? onConfirm;
@@ -47,15 +49,6 @@ class _MultiSelectState<T> extends State<MultiSelect<T>> {
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(widget.title),
-        actions: [
-          TextButton(
-            child: Text(MaterialLocalizations.of(context).okButtonLabel),
-            onPressed: () {
-              widget.onConfirm?.call(_selected);
-              Navigator.of(context).pop(_selected);
-            },
-          )
-        ],
       ),
       body: PaddedGroup(
         child: Column(
@@ -87,7 +80,23 @@ class _MultiSelectState<T> extends State<MultiSelect<T>> {
                   children: search(_searchController.text, _index.keys.toList())
                       .map((m) => _buildItem(context, _index[m.entry]!))
                       .toList()),
-            )
+            ),
+            C.spacers.verticalComponent,
+            Row(children: [
+              Expanded(
+                child: FilledButton(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(context.L.selector_selectbuttonlabel(
+                        widget.selectionLabelizer(_selected.length))),
+                  ),
+                  onPressed: () {
+                    widget.onConfirm?.call(_selected);
+                    Navigator.of(context).pop(_selected);
+                  },
+                ),
+              ),
+            ]),
           ],
         ),
       ),
@@ -113,6 +122,10 @@ class _MultiSelectState<T> extends State<MultiSelect<T>> {
     );
   }
 }
+
+/// A function that returns a label for the number of selected items.
+/// It is used to display the number of selected items in the confirmation button.
+typedef SelectButtonSelectionLabelizer = String Function(int);
 
 class EntryScore {
   EntryScore(this.entry, this.score);
@@ -154,6 +167,7 @@ double _computeScore(Iterable<RegExpMatch> matches) {
 Future<Iterable<T>?> showBottomSheetSelector<T>({
   required BuildContext context,
   required String title,
+  required SelectButtonSelectionLabelizer selectionLabelizer,
   required Future<Iterable<T>> entriesBuilder,
   Set<T>? initialSelection,
 }) {
@@ -172,6 +186,7 @@ Future<Iterable<T>?> showBottomSheetSelector<T>({
 
           return MultiSelect(
             title: title,
+            selectionLabelizer: selectionLabelizer,
             entries: snapshot.data!
                 .map((it) => DropdownMenuEntry(value: it, label: it.toString()))
                 .toList(),
