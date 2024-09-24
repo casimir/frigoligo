@@ -71,7 +71,7 @@ class _MultiSelectState<T> extends State<MultiSelect<T>> {
               ),
               C.spacers.horizontalComponent,
               IconButton(
-                  icon: const Icon(Icons.refresh),
+                  icon: const Icon(Icons.restart_alt),
                   onPressed: () {
                     _selected.clear();
                     _searchController.clear();
