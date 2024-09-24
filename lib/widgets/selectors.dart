@@ -1,6 +1,7 @@
 import 'package:cadanse/cadanse.dart';
 import 'package:cadanse/components/layouts/grouping.dart';
 import 'package:cadanse/components/widgets/error.dart';
+import 'package:cadanse/tokens/constants.dart';
 import 'package:flutter/material.dart';
 
 import '../buildcontext_extension.dart';
@@ -50,16 +51,19 @@ class _MultiSelectState<T> extends State<MultiSelect<T>> {
         ),
         title: Text(widget.title),
       ),
-      body: PaddedGroup(
-        child: Column(
-          children: [
-            Row(children: [
+      body: Column(
+        children: [
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: kSpacingBetweenGroups),
+            child: Row(children: [
               Expanded(
                 child: TextField(
                   controller: _searchController,
                   decoration: InputDecoration(
                     icon: const Icon(Icons.search),
                     hintText: context.L.g_search,
+                    border: InputBorder.none,
                   ),
                   onChanged: (_) => setState(() {}),
                   autocorrect: false,
@@ -74,15 +78,17 @@ class _MultiSelectState<T> extends State<MultiSelect<T>> {
                     setState(() {});
                   })
             ]),
-            C.spacers.verticalComponent,
-            Expanded(
-              child: ListView(
-                  children: search(_searchController.text, _index.keys.toList())
-                      .map((m) => _buildItem(context, _index[m.entry]!))
-                      .toList()),
-            ),
-            C.spacers.verticalComponent,
-            Row(children: [
+          ),
+          const Divider(),
+          Expanded(
+            child: ListView(
+                children: search(_searchController.text, _index.keys.toList())
+                    .map((m) => _buildItem(context, _index[m.entry]!))
+                    .toList()),
+          ),
+          C.spacers.verticalComponent,
+          PaddedGroup(
+            child: Row(children: [
               Expanded(
                 child: FilledButton(
                   child: Padding(
@@ -97,9 +103,9 @@ class _MultiSelectState<T> extends State<MultiSelect<T>> {
                 ),
               ),
             ]),
-            C.spacers.verticalComponent,
-          ],
-        ),
+          ),
+          C.spacers.verticalComponent,
+        ],
       ),
     );
   }
@@ -170,6 +176,7 @@ Future<Iterable<T>?> showBottomSheetSelector<T>({
   required String title,
   required SelectButtonSelectionLabelizer selectionLabelizer,
   required Future<Iterable<T>> entriesBuilder,
+  Icon? leadingIcon,
   Set<T>? initialSelection,
 }) {
   return showModalBottomSheet(
@@ -189,7 +196,11 @@ Future<Iterable<T>?> showBottomSheetSelector<T>({
             title: title,
             selectionLabelizer: selectionLabelizer,
             entries: snapshot.data!
-                .map((it) => DropdownMenuEntry(value: it, label: it.toString()))
+                .map((it) => DropdownMenuEntry(
+                      value: it,
+                      label: it.toString(),
+                      leadingIcon: leadingIcon,
+                    ))
                 .toList(),
             initialSelection: initialSelection,
           );

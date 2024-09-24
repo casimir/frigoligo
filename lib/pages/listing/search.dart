@@ -93,6 +93,7 @@ class SearchFilters extends ConsumerWidget {
           selectionLabelizer: context.L.filters_articleTagsCount,
           entriesBuilder: ref.read(wStorageProvider.notifier).getTags(),
           initialSelection: selection?.toSet(),
+          leadingIcon: const Icon(Icons.label),
         );
         if (selected != null) {
           if (selected.isNotEmpty) {
@@ -129,6 +130,7 @@ class SearchFilters extends ConsumerWidget {
           selectionLabelizer: context.L.filters_articleDomainsCount,
           entriesBuilder: DB().articlesDao.listAllDomains(),
           initialSelection: selection?.toSet(),
+          leadingIcon: const Icon(Icons.web),
         );
         if (selected != null) {
           if (selected.isNotEmpty) {
