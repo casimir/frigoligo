@@ -97,6 +97,7 @@ class _MultiSelectState<T> extends State<MultiSelect<T>> {
                 ),
               ),
             ]),
+            C.spacers.verticalComponent,
           ],
         ),
       ),
