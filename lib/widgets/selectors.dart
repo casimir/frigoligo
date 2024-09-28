@@ -50,6 +50,7 @@ class _MultiSelectState<T> extends State<MultiSelect<T>> {
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(widget.title),
+        centerTitle: false,
       ),
       body: Column(
         children: [
