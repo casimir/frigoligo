@@ -8,8 +8,12 @@ import '../server/providers/client.dart';
 import '../services/remote_sync.dart';
 import '../wallabag/client.dart';
 
+const kM3LinearProgressIndicatorHeight = 4.0;
+
 class RemoteSyncProgressIndicator extends ConsumerWidget {
-  const RemoteSyncProgressIndicator({super.key});
+  const RemoteSyncProgressIndicator({super.key, this.idleWidget});
+
+  final Widget? idleWidget;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -45,9 +49,8 @@ class RemoteSyncProgressIndicator extends ConsumerWidget {
     }
 
     if (error != null || !syncState.isWorking) {
-      return SizedBox(
-        height: Theme.of(context).progressIndicatorTheme.linearMinHeight,
-      );
+      return idleWidget ??
+          const SizedBox(height: kM3LinearProgressIndicatorHeight);
     } else {
       return LinearProgressIndicator(value: syncState.progressValue);
     }

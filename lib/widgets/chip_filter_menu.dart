@@ -42,7 +42,7 @@ class _ChipFilterMenuState<T> extends State<ChipFilterMenu<T>> {
               ))
           .toList(),
       builder: (context, controller, child) {
-        return FilterChip.elevated(
+        return FilterChip(
           label: Text(selected.label),
           selected: selected.value != widget.initialSelection,
           onSelected: (_) {

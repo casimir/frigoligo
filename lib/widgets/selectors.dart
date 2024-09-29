@@ -17,7 +17,7 @@ class MultiSelect<T> extends StatefulWidget {
   });
 
   final String title;
-  final SelectButtonSelectionLabelizer selectionLabelizer;
+  final SelectionLabelizer selectionLabelizer;
   final List<DropdownMenuEntry<T>> entries;
   final Set<T>? initialSelection;
   final void Function(Iterable<T>)? onConfirm;
@@ -132,8 +132,7 @@ class _MultiSelectState<T> extends State<MultiSelect<T>> {
 }
 
 /// A function that returns a label for the number of selected items.
-/// It is used to display the number of selected items in the confirmation button.
-typedef SelectButtonSelectionLabelizer = String Function(int);
+typedef SelectionLabelizer = String Function(int);
 
 class EntryScore {
   EntryScore(this.entry, this.score);
@@ -175,7 +174,7 @@ double _computeScore(Iterable<RegExpMatch> matches) {
 Future<Iterable<T>?> showBottomSheetSelector<T>({
   required BuildContext context,
   required String title,
-  required SelectButtonSelectionLabelizer selectionLabelizer,
+  required SelectionLabelizer selectionLabelizer,
   required Future<Iterable<T>> entriesBuilder,
   Icon? leadingIcon,
   Set<T>? initialSelection,
@@ -209,4 +208,32 @@ Future<Iterable<T>?> showBottomSheetSelector<T>({
     isScrollControlled: true,
     useSafeArea: true,
   );
+}
+
+class SelectorChip<T> extends StatelessWidget {
+  const SelectorChip({
+    super.key,
+    required this.selection,
+    required this.onTap,
+    required this.onDeleted,
+    required this.labelizer,
+  });
+
+  final List<T>? selection;
+  final void Function() onTap;
+  final void Function() onDeleted;
+  final SelectionLabelizer labelizer;
+
+  @override
+  Widget build(BuildContext context) {
+    final hasSelection = selection?.isNotEmpty ?? false;
+    return FilterChip(
+      label: Text(labelizer(selection?.length ?? 0)),
+      selected: hasSelection,
+      onSelected: (_) => onTap(),
+      deleteIcon: hasSelection ? null : const Icon(Icons.arrow_drop_down),
+      deleteButtonTooltipMessage: hasSelection ? null : '',
+      onDeleted: hasSelection ? onDeleted : onTap,
+    );
+  }
 }
