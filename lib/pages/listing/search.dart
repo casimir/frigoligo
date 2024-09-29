@@ -189,7 +189,6 @@ class SearchBarWithFilters extends ConsumerWidget {
                 ),
               ],
               onChanged: (value) {
-                if (value.length < 3) value = '';
                 if (value.isEmpty) {
                   ref.read(queryProvider.notifier).clearText();
                 } else {
