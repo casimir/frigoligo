@@ -2,11 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 
+import '../buildcontext_extension.dart';
 import '../dialogs/save.dart';
 import '../services/remote_sync.dart';
 import '../services/wallabag_storage.dart';
+import '../widget_keys.dart';
 import '../widgets/remote_sync_fab.dart';
 import '../widgets/remote_sync_progress_indicator.dart';
 import 'listing/article_list.dart';
@@ -31,34 +34,61 @@ class ListingPage extends ConsumerStatefulWidget {
 }
 
 class _ListingPageState extends ConsumerState<ListingPage> {
+  late final ScrollController _scroller;
+  bool _showElevation = false;
+
+  void onTopScrolled() {
+    if (_showElevation && _scroller.position.pixels == 0.0) {
+      setState(() {
+        _showElevation = false;
+      });
+    } else if (!_showElevation && _scroller.position.pixels > 0.0) {
+      setState(() {
+        _showElevation = true;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _scroller = ScrollController();
+    _scroller.addListener(onTopScrolled);
+  }
+
+  @override
+  void dispose() {
+    _scroller.removeListener(onTopScrolled);
+    _scroller.dispose();
+
+    super.dispose();
+  }
+
+  @override
   @override
   Widget build(BuildContext context) {
     ref.watch(wStorageProvider);
-
-    Future<void> doRefresh() async {
-      _log.info('triggered refresh');
-      await ref
-          .read(remoteSyncerProvider.notifier)
-          .synchronize(withFinalRefresh: true);
-    }
 
     return Scaffold(
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
             PinnedHeaderSliver(
-              child: SearchBarWithFilters(doRefresh: doRefresh),
+              child: Material(
+                elevation: _showElevation ? 2.0 : 0.0,
+                child: SearchBarWithFilters(
+                  doRefresh: () => doRefresh(ref),
+                  menu: _buildMenu(context, ref),
+                ),
+              ),
             ),
-            SliverToBoxAdapter(
-              child: widget.withProgressIndicator
-                  ? const RemoteSyncProgressIndicator(
-                      idleWidget:
-                          Divider(height: kM3LinearProgressIndicatorHeight))
-                  : const Divider(height: kM3LinearProgressIndicatorHeight),
-            ),
+            if (widget.withProgressIndicator)
+              const SliverToBoxAdapter(child: RemoteSyncProgressIndicator()),
             SliverFillRemaining(
               child: ArticleListView(
-                doRefresh: doRefresh,
+                controller: _scroller,
+                doRefresh: () => doRefresh(ref),
                 onItemSelect: widget.onItemSelect,
                 sideBySideMode: widget.sideBySideMode,
               ),
@@ -66,15 +96,50 @@ class _ListingPageState extends ConsumerState<ListingPage> {
           ],
         ),
       ),
-      floatingActionButton: RemoteSyncFAB(
-        showIf: widget.withProgressIndicator,
-        alternativeChild: FloatingActionButton(
-          onPressed: () => showSaveUrlDialog(context),
-          shape: const CircleBorder(),
-          child: const Icon(Icons.add_link),
-        ),
-      ),
+      floatingActionButton: RemoteSyncFAB(showIf: widget.withProgressIndicator),
       restorationId: 'listing.scaffold',
     );
   }
 }
+
+Future<void> doRefresh(WidgetRef ref) async {
+  _log.info('triggered refresh');
+  await ref
+      .read(remoteSyncerProvider.notifier)
+      .synchronize(withFinalRefresh: true);
+}
+
+enum MenuAction { synchronize, saveLink, settings }
+
+PopupMenuButton _buildMenu(BuildContext context, WidgetRef ref) =>
+    PopupMenuButton(
+      itemBuilder: (context) => [
+        PopupMenuItem(
+          value: MenuAction.saveLink,
+          child: ListTile(
+            leading: const Icon(Icons.add_link),
+            title: Text(context.L.g_saveLink),
+          ),
+        ),
+        PopupMenuItem(
+          value: MenuAction.synchronize,
+          child: ListTile(
+            leading: const Icon(Icons.sync),
+            title: Text(context.L.g_synchronize),
+          ),
+        ),
+        PopupMenuItem(
+          value: MenuAction.settings,
+          child: ListTile(
+            key: const Key(wkListingSettings),
+            leading: const Icon(Icons.settings),
+            title: Text(context.L.g_settings),
+          ),
+        ),
+      ],
+      onSelected: (action) => switch (action as MenuAction) {
+        MenuAction.saveLink => showSaveUrlDialog(context),
+        MenuAction.synchronize => doRefresh(ref),
+        MenuAction.settings => context.push('/settings'),
+      },
+    );

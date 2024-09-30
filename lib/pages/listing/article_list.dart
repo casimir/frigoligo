@@ -13,11 +13,13 @@ const listingHeight = 130.0;
 class ArticleListView extends ConsumerStatefulWidget {
   const ArticleListView({
     super.key,
+    this.controller,
     required this.doRefresh,
     required this.onItemSelect,
     required this.sideBySideMode,
   });
 
+  final ScrollController? controller;
   final Future<void> Function() doRefresh;
   final void Function(int articleId)? onItemSelect;
   final bool sideBySideMode;
@@ -27,11 +29,13 @@ class ArticleListView extends ConsumerStatefulWidget {
 }
 
 class _ArticleListState extends ConsumerState<ArticleListView> {
-  final ScrollController _scroller = ScrollController();
+  late final ScrollController _scroller;
 
   @override
   void initState() {
     super.initState();
+
+    _scroller = widget.controller ?? ScrollController();
 
     if (widget.sideBySideMode) {
       () async {

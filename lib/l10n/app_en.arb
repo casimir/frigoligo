@@ -13,6 +13,10 @@
   "@g_delete": {
     "description": "A verb, as in to delete something."
   },
+  "g_saveLink": "Save link",
+  "@g_saveLink": {
+    "description": "A verb, as in to save a link."
+  },
   "g_search": "Search",
   "@g_search": {
     "description": "A verb, as in to search something."
@@ -21,6 +25,10 @@
   "@g_server": {
     "description": "A server, as in a computer providing a service."
   },
+  "g_settings": "Settings",
+  "@g_settings": {
+    "description": "The settings of the application."
+  },
   "g_share": "Share",
   "@g_share": {
     "description": "A verb, as in to share something."
@@ -28,6 +36,10 @@
   "g_sourceCode": "Source code",
   "@g_sourceCode": {
     "description": "The source code of a software."
+  },
+  "g_synchronize": "Synchronize",
+  "@g_synchronize": {
+    "description": "A verb, as in to synchronize with the server."
   },
   "g_system": "System",
   "@g_system": {

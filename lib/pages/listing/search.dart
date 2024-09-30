@@ -3,14 +3,12 @@ import 'package:cadanse/components/layouts/grouping.dart';
 import 'package:cadanse/tokens/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../buildcontext_extension.dart';
 import '../../constants.dart';
 import '../../db/database.dart';
 import '../../providers/query.dart';
 import '../../services/wallabag_storage.dart';
-import '../../widget_keys.dart';
 import '../../widgets/async/text.dart';
 import '../../widgets/chip_filter_menu.dart';
 import '../../widgets/selectors.dart';
@@ -20,27 +18,17 @@ class SearchFilters extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ChipTheme(
-      data: ChipTheme.of(context).copyWith(
-        side: WidgetStateBorderSide.resolveWith(
-          (states) => states.isEmpty
-              ? BorderSide(
-                  color: Theme.of(context).colorScheme.surfaceContainerHighest)
-              : null,
-        ),
-      ),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(children: [
-          _buildState(context, ref),
-          C.spacers.horizontalComponent,
-          _buildStarred(context, ref),
-          C.spacers.horizontalComponent,
-          _buildTags(context, ref),
-          C.spacers.horizontalComponent,
-          _buildDomains(context, ref),
-        ]),
-      ),
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(children: [
+        _buildState(context, ref),
+        C.spacers.horizontalComponent,
+        _buildStarred(context, ref),
+        C.spacers.horizontalComponent,
+        _buildTags(context, ref),
+        C.spacers.horizontalComponent,
+        _buildDomains(context, ref),
+      ]),
     );
   }
 
@@ -147,15 +135,20 @@ class SearchFilters extends ConsumerWidget {
   }
 }
 
-class SearchBarWithFilters extends ConsumerWidget {
-  const SearchBarWithFilters({super.key, required this.doRefresh});
+class SearchBarWithFilters<T> extends ConsumerWidget {
+  const SearchBarWithFilters({
+    super.key,
+    required this.doRefresh,
+    this.menu,
+  });
 
   final void Function()? doRefresh;
+  final PopupMenuButton<T>? menu;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-      color: Theme.of(context).colorScheme.surface,
+      color: Theme.of(context).colorScheme.surfaceContainerLow,
       child: PaddedGroup(
         padding: C.paddings.group.copyWith(bottom: kSpacingInGroup),
         child: Column(
@@ -175,18 +168,17 @@ class SearchBarWithFilters extends ConsumerWidget {
                         .count(ref.watch(queryProvider));
                     return count.toString();
                   },
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-                if (!pullToRefreshSupported)
-                  IconButton(
-                    icon: const Icon(Icons.refresh),
-                    onPressed: doRefresh,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
-                IconButton(
-                  key: const Key(wkListingSettings),
-                  icon: const Icon(Icons.settings),
-                  onPressed: () => context.push('/settings'),
                 ),
+                IconButton(
+                  icon: const Icon(Icons.manage_search),
+                  onPressed: () => {
+                    // TODO implement column search configuration
+                  },
+                ),
+                if (menu != null) menu!,
               ],
               onChanged: (value) {
                 if (value.isEmpty) {
@@ -201,9 +193,7 @@ class SearchBarWithFilters extends ConsumerWidget {
               backgroundColor: WidgetStateProperty.all(
                   Theme.of(context).colorScheme.surface),
               side: WidgetStatePropertyAll(
-                BorderSide(
-                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                ),
+                BorderSide(color: Theme.of(context).colorScheme.onSurface),
               ),
               shape: const WidgetStatePropertyAll(ContinuousRectangleBorder(
                 // Freely inspired by the FilterChip shape (height / 4)
