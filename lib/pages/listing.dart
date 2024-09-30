@@ -66,34 +66,33 @@ class _ListingPageState extends ConsumerState<ListingPage> {
   }
 
   @override
-  @override
   Widget build(BuildContext context) {
     ref.watch(wStorageProvider);
 
     return Scaffold(
       body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            PinnedHeaderSliver(
-              child: Material(
-                elevation: _showElevation ? 2.0 : 0.0,
-                child: SearchBarWithFilters(
-                  doRefresh: () => doRefresh(ref),
-                  menu: _buildMenu(context, ref),
+        child: NestedScrollView(
+          headerSliverBuilder: (context, innerBoxIsScrolled) {
+            return [
+              PinnedHeaderSliver(
+                child: Material(
+                  elevation: _showElevation ? 2.0 : 0.0,
+                  child: SearchBarWithFilters(
+                    doRefresh: () => doRefresh(ref),
+                    menu: _buildMenu(context, ref),
+                  ),
                 ),
               ),
-            ),
-            if (widget.withProgressIndicator)
-              const SliverToBoxAdapter(child: RemoteSyncProgressIndicator()),
-            SliverFillRemaining(
-              child: ArticleListView(
-                controller: _scroller,
-                doRefresh: () => doRefresh(ref),
-                onItemSelect: widget.onItemSelect,
-                sideBySideMode: widget.sideBySideMode,
-              ),
-            ),
-          ],
+              if (widget.withProgressIndicator)
+                const SliverToBoxAdapter(child: RemoteSyncProgressIndicator()),
+            ];
+          },
+          body: ArticleListView(
+            controller: _scroller,
+            doRefresh: () => doRefresh(ref),
+            onItemSelect: widget.onItemSelect,
+            sideBySideMode: widget.sideBySideMode,
+          ),
         ),
       ),
       floatingActionButton: RemoteSyncFAB(showIf: widget.withProgressIndicator),
