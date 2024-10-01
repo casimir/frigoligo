@@ -35,33 +35,16 @@ class ListingPage extends ConsumerStatefulWidget {
 
 class _ListingPageState extends ConsumerState<ListingPage> {
   late final ScrollController _scroller;
-  bool _showElevation = false;
-
-  void onTopScrolled() {
-    if (_showElevation && _scroller.position.pixels == 0.0) {
-      setState(() {
-        _showElevation = false;
-      });
-    } else if (!_showElevation && _scroller.position.pixels > 0.0) {
-      setState(() {
-        _showElevation = true;
-      });
-    }
-  }
 
   @override
   void initState() {
     super.initState();
-
     _scroller = ScrollController();
-    _scroller.addListener(onTopScrolled);
   }
 
   @override
   void dispose() {
-    _scroller.removeListener(onTopScrolled);
     _scroller.dispose();
-
     super.dispose();
   }
 
@@ -71,29 +54,25 @@ class _ListingPageState extends ConsumerState<ListingPage> {
 
     return Scaffold(
       body: SafeArea(
-        child: NestedScrollView(
-          headerSliverBuilder: (context, innerBoxIsScrolled) {
-            return [
-              PinnedHeaderSliver(
-                child: Material(
-                  elevation: _showElevation ? 2.0 : 0.0,
-                  child: SearchBarWithFilters(
-                    doRefresh: () => doRefresh(ref),
-                    menu: _buildMenu(context, ref),
-                  ),
-                ),
-              ),
-              if (widget.withProgressIndicator)
-                const SliverToBoxAdapter(child: RemoteSyncProgressIndicator()),
-            ];
-          },
-          body: ArticleListView(
-            controller: _scroller,
-            doRefresh: () => doRefresh(ref),
-            onItemSelect: widget.onItemSelect,
-            sideBySideMode: widget.sideBySideMode,
+        child: CustomScrollView(slivers: [
+          ElevatedPinnedHeaderSliver(
+            bodyScrollController: _scroller,
+            child: SearchBarWithFilters(
+              doRefresh: () => doRefresh(ref),
+              menu: _buildMenu(context, ref),
+            ),
           ),
-        ),
+          if (widget.withProgressIndicator)
+            const SliverToBoxAdapter(child: RemoteSyncProgressIndicator()),
+          SliverFillRemaining(
+            child: ArticleListView(
+              controller: _scroller,
+              doRefresh: () => doRefresh(ref),
+              onItemSelect: widget.onItemSelect,
+              sideBySideMode: widget.sideBySideMode,
+            ),
+          )
+        ]),
       ),
       floatingActionButton: RemoteSyncFAB(showIf: widget.withProgressIndicator),
       restorationId: 'listing.scaffold',
@@ -142,3 +121,58 @@ PopupMenuButton _buildMenu(BuildContext context, WidgetRef ref) =>
         MenuAction.settings => context.push('/settings'),
       },
     );
+
+class ElevatedPinnedHeaderSliver extends StatefulWidget {
+  const ElevatedPinnedHeaderSliver({
+    super.key,
+    this.bodyScrollController,
+    required this.child,
+  });
+
+  final ScrollController? bodyScrollController;
+  final Widget child;
+
+  @override
+  State<ElevatedPinnedHeaderSliver> createState() =>
+      _ElevatedPinnedHeaderSliverState();
+}
+
+class _ElevatedPinnedHeaderSliverState
+    extends State<ElevatedPinnedHeaderSliver> {
+  bool _showElevation = false;
+
+  void onTopScrolled() {
+    if (_showElevation && widget.bodyScrollController!.position.pixels == 0.0) {
+      setState(() {
+        _showElevation = false;
+      });
+    } else if (!_showElevation &&
+        widget.bodyScrollController!.position.pixels > 0.0) {
+      setState(() {
+        _showElevation = true;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    widget.bodyScrollController?.addListener(onTopScrolled);
+  }
+
+  @override
+  void dispose() {
+    widget.bodyScrollController?.removeListener(onTopScrolled);
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return PinnedHeaderSliver(
+      child: Material(
+        elevation: _showElevation ? 2.0 : 0.0,
+        child: widget.child,
+      ),
+    );
+  }
+}
