@@ -89,17 +89,15 @@ class _ArticleListState extends ConsumerState<ArticleListView> {
       },
       itemHeight: listingHeight,
       separatorBuilder: (context, index) => const Divider(),
-      create: (context, child) => Expanded(
+      create: (context, child) => Center(
           child: RefreshIndicator.adaptive(
         onRefresh: widget.doRefresh,
         child: child,
       )),
-      emptyBuilder: (context) => Expanded(
-        child: Center(
-          child: Text(
-            context.L.listing_noArticles,
-            style: Theme.of(context).textTheme.headlineMedium,
-          ),
+      emptyBuilder: (context) => Center(
+        child: Text(
+          context.L.listing_noArticles,
+          style: Theme.of(context).textTheme.headlineMedium,
         ),
       ),
       restorationId: 'listing.listview',
