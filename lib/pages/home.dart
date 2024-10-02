@@ -9,6 +9,8 @@ import '../services/remote_sync.dart';
 import 'article.dart';
 import 'listing.dart';
 
+const idealListingWidth = 333.3;
+
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 

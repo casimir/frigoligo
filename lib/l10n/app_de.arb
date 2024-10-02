@@ -13,10 +13,6 @@
   "@session_title": {
     "description": "The title of the session details screen."
   },
-  "filters_articleState": "Status",
-  "@filters_articleState": {
-    "description": "The state of the article."
-  },
   "g_server": "Server",
   "@g_server": {
     "description": "A server, as in a computer providing a service."
@@ -34,14 +30,6 @@
       }
     }
   },
-  "filters_clearTagsSelection": "Auswahl leeren",
-  "@filters_clearTagsSelection": {
-    "description": "The action to clear the selection of tags."
-  },
-  "filters_noTagsSelected": "Keine Schlagwörter ausgewählt",
-  "@filters_noTagsSelected": {
-    "description": "Placeholder for when no tags are selected."
-  },
   "article_noContentFetched": "Kein Inhalt abgerufen",
   "@article_noContentFetched": {
     "description": "Placeholder for when the article content is not available."
@@ -57,16 +45,6 @@
   "g_checking": "Prüfen…",
   "@g_checking": {
     "description": "Present participle of the verb to check."
-  },
-  "filters_articlesCount": "{count, plural, =1{1 Artikel gefunden} other{{count} Artikel gefunden}}",
-  "@filters_articlesCount": {
-    "description": "The number of articles found with current filters values.",
-    "placeholders": {
-      "count": {
-        "type": "int",
-        "format": "compact"
-      }
-    }
   },
   "settings_itemOpenDeeplink": "Einen tiefen Link öffnen",
   "@settings_itemOpenDeeplink": {
@@ -168,10 +146,6 @@
   "login_fieldClientSecret": "Client Secret",
   "@login_fieldClientSecret": {
     "description": "The client secret field of the login form."
-  },
-  "filters_articleFavorite": "Favorisiert",
-  "@filters_articleFavorite": {
-    "description": "The favorite status of the article."
   },
   "g_tag": "Schlagwort",
   "@g_tag": {
@@ -366,10 +340,6 @@
   "listing_articlesUnread": "Ungelesene",
   "@listing_articlesUnread": {
     "description": "The title for the list of the articles with the state Unread."
-  },
-  "filters_articleFavoriteAll": "Alle",
-  "@filters_articleFavoriteAll": {
-    "description": "Don't filter articles by favorite status."
   },
   "g_sourceCode": "Quellcode",
   "@g_sourceCode": {

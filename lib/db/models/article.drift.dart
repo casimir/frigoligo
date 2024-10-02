@@ -2,6 +2,7 @@
 import 'package:drift/drift.dart' as i0;
 import 'package:frigoligo/db/models/article.drift.dart' as i1;
 import 'package:frigoligo/db/converters/containers.dart' as i2;
+import 'package:drift/internal/modular.dart' as i3;
 
 class Articles extends i0.Table with i0.TableInfo<Articles, i1.Article> {
   @override
@@ -1277,3 +1278,353 @@ typedef $ArticleScrollPositionsProcessedTableManager = i0.ProcessedTableManager<
     ),
     i1.ArticleScrollPosition,
     i0.PrefetchHooks Function()>;
+
+class ArticlesFts extends i0.Table
+    with
+        i0.TableInfo<ArticlesFts, i1.ArticlesFt>,
+        i0.VirtualTableInfo<ArticlesFts, i1.ArticlesFt> {
+  @override
+  final i0.GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  ArticlesFts(this.attachedDatabase, [this._alias]);
+  static const i0.VerificationMeta _titleMeta =
+      const i0.VerificationMeta('title');
+  late final i0.GeneratedColumn<String> title = i0.GeneratedColumn<String>(
+      'title', aliasedName, false,
+      type: i0.DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: '');
+  static const i0.VerificationMeta _contentMeta =
+      const i0.VerificationMeta('content');
+  late final i0.GeneratedColumn<String> content = i0.GeneratedColumn<String>(
+      'content', aliasedName, false,
+      type: i0.DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: '');
+  @override
+  List<i0.GeneratedColumn> get $columns => [title, content];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'articles_fts';
+  @override
+  i0.VerificationContext validateIntegrity(
+      i0.Insertable<i1.ArticlesFt> instance,
+      {bool isInserting = false}) {
+    final context = i0.VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('title')) {
+      context.handle(
+          _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+    } else if (isInserting) {
+      context.missing(_titleMeta);
+    }
+    if (data.containsKey('content')) {
+      context.handle(_contentMeta,
+          content.isAcceptableOrUnknown(data['content']!, _contentMeta));
+    } else if (isInserting) {
+      context.missing(_contentMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<i0.GeneratedColumn> get $primaryKey => const {};
+  @override
+  i1.ArticlesFt map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return i1.ArticlesFt(
+      title: attachedDatabase.typeMapping
+          .read(i0.DriftSqlType.string, data['${effectivePrefix}title'])!,
+      content: attachedDatabase.typeMapping
+          .read(i0.DriftSqlType.string, data['${effectivePrefix}content'])!,
+    );
+  }
+
+  @override
+  ArticlesFts createAlias(String alias) {
+    return ArticlesFts(attachedDatabase, alias);
+  }
+
+  @override
+  bool get dontWriteConstraints => true;
+  @override
+  String get moduleAndArgs =>
+      'fts5(title, content, content=articles, content_rowid=id)';
+}
+
+class ArticlesFt extends i0.DataClass implements i0.Insertable<i1.ArticlesFt> {
+  final String title;
+  final String content;
+  const ArticlesFt({required this.title, required this.content});
+  @override
+  Map<String, i0.Expression> toColumns(bool nullToAbsent) {
+    final map = <String, i0.Expression>{};
+    map['title'] = i0.Variable<String>(title);
+    map['content'] = i0.Variable<String>(content);
+    return map;
+  }
+
+  i1.ArticlesFtsCompanion toCompanion(bool nullToAbsent) {
+    return i1.ArticlesFtsCompanion(
+      title: i0.Value(title),
+      content: i0.Value(content),
+    );
+  }
+
+  factory ArticlesFt.fromJson(Map<String, dynamic> json,
+      {i0.ValueSerializer? serializer}) {
+    serializer ??= i0.driftRuntimeOptions.defaultSerializer;
+    return ArticlesFt(
+      title: serializer.fromJson<String>(json['title']),
+      content: serializer.fromJson<String>(json['content']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({i0.ValueSerializer? serializer}) {
+    serializer ??= i0.driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'title': serializer.toJson<String>(title),
+      'content': serializer.toJson<String>(content),
+    };
+  }
+
+  i1.ArticlesFt copyWith({String? title, String? content}) => i1.ArticlesFt(
+        title: title ?? this.title,
+        content: content ?? this.content,
+      );
+  ArticlesFt copyWithCompanion(i1.ArticlesFtsCompanion data) {
+    return ArticlesFt(
+      title: data.title.present ? data.title.value : this.title,
+      content: data.content.present ? data.content.value : this.content,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ArticlesFt(')
+          ..write('title: $title, ')
+          ..write('content: $content')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(title, content);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is i1.ArticlesFt &&
+          other.title == this.title &&
+          other.content == this.content);
+}
+
+class ArticlesFtsCompanion extends i0.UpdateCompanion<i1.ArticlesFt> {
+  final i0.Value<String> title;
+  final i0.Value<String> content;
+  final i0.Value<int> rowid;
+  const ArticlesFtsCompanion({
+    this.title = const i0.Value.absent(),
+    this.content = const i0.Value.absent(),
+    this.rowid = const i0.Value.absent(),
+  });
+  ArticlesFtsCompanion.insert({
+    required String title,
+    required String content,
+    this.rowid = const i0.Value.absent(),
+  })  : title = i0.Value(title),
+        content = i0.Value(content);
+  static i0.Insertable<i1.ArticlesFt> custom({
+    i0.Expression<String>? title,
+    i0.Expression<String>? content,
+    i0.Expression<int>? rowid,
+  }) {
+    return i0.RawValuesInsertable({
+      if (title != null) 'title': title,
+      if (content != null) 'content': content,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  i1.ArticlesFtsCompanion copyWith(
+      {i0.Value<String>? title,
+      i0.Value<String>? content,
+      i0.Value<int>? rowid}) {
+    return i1.ArticlesFtsCompanion(
+      title: title ?? this.title,
+      content: content ?? this.content,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, i0.Expression> toColumns(bool nullToAbsent) {
+    final map = <String, i0.Expression>{};
+    if (title.present) {
+      map['title'] = i0.Variable<String>(title.value);
+    }
+    if (content.present) {
+      map['content'] = i0.Variable<String>(content.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = i0.Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ArticlesFtsCompanion(')
+          ..write('title: $title, ')
+          ..write('content: $content, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+typedef $ArticlesFtsCreateCompanionBuilder = i1.ArticlesFtsCompanion Function({
+  required String title,
+  required String content,
+  i0.Value<int> rowid,
+});
+typedef $ArticlesFtsUpdateCompanionBuilder = i1.ArticlesFtsCompanion Function({
+  i0.Value<String> title,
+  i0.Value<String> content,
+  i0.Value<int> rowid,
+});
+
+class $ArticlesFtsFilterComposer
+    extends i0.FilterComposer<i0.GeneratedDatabase, i1.ArticlesFts> {
+  $ArticlesFtsFilterComposer(super.$state);
+  i0.ColumnFilters<String> get title => $state.composableBuilder(
+      column: $state.table.title,
+      builder: (column, joinBuilders) =>
+          i0.ColumnFilters(column, joinBuilders: joinBuilders));
+
+  i0.ColumnFilters<String> get content => $state.composableBuilder(
+      column: $state.table.content,
+      builder: (column, joinBuilders) =>
+          i0.ColumnFilters(column, joinBuilders: joinBuilders));
+}
+
+class $ArticlesFtsOrderingComposer
+    extends i0.OrderingComposer<i0.GeneratedDatabase, i1.ArticlesFts> {
+  $ArticlesFtsOrderingComposer(super.$state);
+  i0.ColumnOrderings<String> get title => $state.composableBuilder(
+      column: $state.table.title,
+      builder: (column, joinBuilders) =>
+          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  i0.ColumnOrderings<String> get content => $state.composableBuilder(
+      column: $state.table.content,
+      builder: (column, joinBuilders) =>
+          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
+}
+
+class $ArticlesFtsTableManager extends i0.RootTableManager<
+    i0.GeneratedDatabase,
+    i1.ArticlesFts,
+    i1.ArticlesFt,
+    i1.$ArticlesFtsFilterComposer,
+    i1.$ArticlesFtsOrderingComposer,
+    $ArticlesFtsCreateCompanionBuilder,
+    $ArticlesFtsUpdateCompanionBuilder,
+    (
+      i1.ArticlesFt,
+      i0.BaseReferences<i0.GeneratedDatabase, i1.ArticlesFts, i1.ArticlesFt>
+    ),
+    i1.ArticlesFt,
+    i0.PrefetchHooks Function()> {
+  $ArticlesFtsTableManager(i0.GeneratedDatabase db, i1.ArticlesFts table)
+      : super(i0.TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              i1.$ArticlesFtsFilterComposer(i0.ComposerState(db, table)),
+          orderingComposer:
+              i1.$ArticlesFtsOrderingComposer(i0.ComposerState(db, table)),
+          updateCompanionCallback: ({
+            i0.Value<String> title = const i0.Value.absent(),
+            i0.Value<String> content = const i0.Value.absent(),
+            i0.Value<int> rowid = const i0.Value.absent(),
+          }) =>
+              i1.ArticlesFtsCompanion(
+            title: title,
+            content: content,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String title,
+            required String content,
+            i0.Value<int> rowid = const i0.Value.absent(),
+          }) =>
+              i1.ArticlesFtsCompanion.insert(
+            title: title,
+            content: content,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), i0.BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $ArticlesFtsProcessedTableManager = i0.ProcessedTableManager<
+    i0.GeneratedDatabase,
+    i1.ArticlesFts,
+    i1.ArticlesFt,
+    i1.$ArticlesFtsFilterComposer,
+    i1.$ArticlesFtsOrderingComposer,
+    $ArticlesFtsCreateCompanionBuilder,
+    $ArticlesFtsUpdateCompanionBuilder,
+    (
+      i1.ArticlesFt,
+      i0.BaseReferences<i0.GeneratedDatabase, i1.ArticlesFts, i1.ArticlesFt>
+    ),
+    i1.ArticlesFt,
+    i0.PrefetchHooks Function()>;
+i0.Trigger get articlesAi => i0.Trigger(
+    'CREATE TRIGGER articles_ai AFTER INSERT ON articles BEGIN INSERT INTO articles_fts ("rowid", title, content) VALUES (new.id, new.title, new.content);END',
+    'articles_ai');
+i0.Trigger get articlesAd => i0.Trigger(
+    'CREATE TRIGGER articles_ad AFTER DELETE ON articles BEGIN INSERT INTO articles_fts (articles_fts, "rowid", title, content) VALUES (\'delete\', old.id, old.title, old.content);END',
+    'articles_ad');
+i0.Trigger get articlesAu => i0.Trigger(
+    'CREATE TRIGGER articles_au AFTER UPDATE ON articles BEGIN INSERT INTO articles_fts (articles_fts, "rowid", title, content) VALUES (\'delete\', old.id, old.title, old.content);INSERT INTO articles_fts ("rowid", title, content) VALUES (new.id, new.title, new.content);END',
+    'articles_au');
+
+class ArticleDrift extends i3.ModularAccessor {
+  ArticleDrift(i0.GeneratedDatabase db) : super(db);
+  i0.Selectable<int> articleIdsForText(String query,
+      {ArticleIdsForText$predicate? predicate}) {
+    var $arrayStartIndex = 2;
+    final generatedpredicate = $write(
+        predicate?.call(this.articlesFts, this.articles) ??
+            const i0.CustomExpression('(TRUE)'),
+        hasMultipleTables: true,
+        startIndex: $arrayStartIndex);
+    $arrayStartIndex += generatedpredicate.amountOfVariables;
+    return customSelect(
+        'SELECT articles.id FROM articles_fts JOIN articles ON articles.id = articles_fts."rowid" WHERE articles_fts MATCH ?1 AND ${generatedpredicate.sql} ORDER BY rank',
+        variables: [
+          i0.Variable<String>(query),
+          ...generatedpredicate.introducedVariables
+        ],
+        readsFrom: {
+          articles,
+          articlesFts,
+          ...generatedpredicate.watchedTables,
+        }).map((i0.QueryRow row) => row.read<int>('id'));
+  }
+
+  i1.ArticlesFts get articlesFts => i3.ReadDatabaseContainer(attachedDatabase)
+      .resultSet<i1.ArticlesFts>('articles_fts');
+  i1.Articles get articles => i3.ReadDatabaseContainer(attachedDatabase)
+      .resultSet<i1.Articles>('articles');
+}
+
+typedef ArticleIdsForText$predicate = i0.Expression<bool> Function(
+    i1.ArticlesFts articles_fts, i1.Articles articles);

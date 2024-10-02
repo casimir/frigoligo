@@ -105,31 +105,9 @@
       }
     }
   },
-  "filters_articlesCount": "找到 {count} 篇文章",
-  "@filters_articlesCount": {
-    "description": "The number of articles found with current filters values.",
-    "placeholders": {
-      "count": {
-        "type": "int",
-        "format": "compact"
-      }
-    }
-  },
-  "filters_articleFavorite": "收藏",
-  "@filters_articleFavorite": {
-    "description": "The favorite status of the article."
-  },
-  "filters_articleFavoriteAll": "全部",
-  "@filters_articleFavoriteAll": {
-    "description": "Don't filter articles by favorite status."
-  },
   "filters_articleFavoriteStarred": "已收藏",
   "@filters_articleFavoriteStarred": {
     "description": "Filter starred articles."
-  },
-  "filters_articleState": "状态",
-  "@filters_articleState": {
-    "description": "The state of the article."
   },
   "filters_articleStateUnread": "未读",
   "@filters_articleStateUnread": {
@@ -146,14 +124,6 @@
   "filters_articleTags": "标签",
   "@filters_articleTags": {
     "description": "The tags attached to the article."
-  },
-  "filters_clearTagsSelection": "清除选择",
-  "@filters_clearTagsSelection": {
-    "description": "The action to clear the selection of tags."
-  },
-  "filters_noTagsSelected": "未选择标签",
-  "@filters_noTagsSelected": {
-    "description": "Placeholder for when no tags are selected."
   },
   "logconsole_title": "日志控制台",
   "@logconsole_title": {

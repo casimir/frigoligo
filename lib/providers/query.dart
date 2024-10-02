@@ -18,11 +18,15 @@ class Query extends _$Query {
     state = state.override(value);
   }
 
-  void setTags(List<String> tags) {
-    state = state.dup()..tags = tags;
-  }
-
   void clearTags() {
     state = state.dup()..tags = null;
+  }
+
+  void clearText() {
+    state = state.dup()..text = null;
+  }
+
+  void clearDomains() {
+    state = state.dup()..domains = null;
   }
 }

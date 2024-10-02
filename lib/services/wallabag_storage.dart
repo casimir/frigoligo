@@ -5,6 +5,7 @@ import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../constants.dart';
+import '../db/daos/articles.dart';
 import '../db/database.dart';
 import '../db/extensions/article.dart';
 import '../db/models/article.drift.dart';
@@ -41,20 +42,36 @@ class WStorage extends _$WStorage {
       filters.add(Expression.or(wq.tags!.map((tag) => t.tags.contains(tag))));
     }
 
+    if (wq.domains != null) {
+      filters.add(Expression.or(
+          wq.domains!.map((domain) => t.domainName.contains(domain))));
+    }
+
     return Expression.and(filters);
+  }
+
+  Selectable<int> _selectFilterIds(WQuery wq) {
+    if (wq.text != null) {
+      return DB().articlesDao.selectArticleIdsForText(
+            wq.text!,
+            mode: wq.textMode ?? SearchTextMode.all,
+            where: (t) => _buildFilters(t, wq),
+          );
+    } else {
+      final t1 = DB().articles;
+      return (t1.selectOnly()
+            ..addColumns([t1.id])
+            ..where(_buildFilters(t1, wq))
+            ..orderBy([OrderingTerm.desc(t1.createdAt)]))
+          .map((row) => row.read(t1.id)!);
+    }
   }
 
   Future<Article?> index(int n, WQuery wq) async {
     if (n < 0 || n >= await count(wq)) return null;
 
-    final db = DB.get();
-    final t1 = db.articles;
-    final ids = await (t1.selectOnly()
-          ..addColumns([t1.id])
-          ..where(_buildFilters(t1, wq))
-          ..orderBy([OrderingTerm.desc(t1.createdAt)]))
-        .map((row) => row.read(t1.id)!)
-        .get();
+    final ids = await _selectFilterIds(wq).get();
+    final db = DB();
     return db.managers.articles
         .filter((f) => f.id.equals(ids[n]))
         .getSingleOrNull(distinct: false);
@@ -62,22 +79,19 @@ class WStorage extends _$WStorage {
 
   Future<int?> indexOf(int articleId, WQuery wq) async {
     if (articleId <= 0) return null;
-    final t1 = DB.get().articles;
-    final ids = await (DB.get().articles.selectOnly()
-          ..addColumns([t1.id])
-          ..where(_buildFilters(t1, wq))
-          ..orderBy([OrderingTerm.desc(t1.createdAt)]))
-        .map((row) => row.read(t1.id)!)
-        .get();
+
+    final ids = await _selectFilterIds(wq).get();
     final index = ids.indexOf(articleId);
     return index >= 0 ? index : null;
   }
 
   Future<int> count(WQuery wq) =>
-      DB.get().articles.count(where: (t) => _buildFilters(t, wq)).getSingle();
+      // a count query should be faster but fetching and counting PKs should be
+      // fast enough and avoid duplicating code
+      _selectFilterIds(wq).get().then((ids) => ids.length);
 
   Future<List<String>> getTags() async {
-    final t1 = DB.get().articles;
+    final t1 = DB().articles;
     final tagLists = await (t1.selectOnly()..addColumns([t1.tags]))
         .map((row) => row.readWithConverter(t1.tags)!)
         .get();
@@ -92,7 +106,7 @@ class WStorage extends _$WStorage {
 
     final remoteCount = await wallabag.fetchTotalEntriesCount();
 
-    final t1 = DB.get().articles;
+    final t1 = DB().articles;
     var localIds = (await (t1.selectOnly()..addColumns([t1.id]))
             .map((row) => row.read(t1.id)!)
             .get())
@@ -111,16 +125,14 @@ class WStorage extends _$WStorage {
       localIds = localIds.difference(entries.map((e) => e.id).toSet());
     }
 
-    final deletedCount = await DB.get().transaction(() async {
+    final deletedCount = await DB().transaction(() async {
       var count = 0;
-      count += await DB
-          .get()
+      count += await DB()
           .managers
           .articles
           .filter((f) => f.id.isIn(localIds))
           .delete();
-      count += await DB
-          .get()
+      count += await DB()
           .managers
           .articleScrollPositions
           .filter((f) => f.id.isIn(localIds))
@@ -153,7 +165,7 @@ class WStorage extends _$WStorage {
   }
 
   Future<void> clearArticles({bool keepPositions = true}) async {
-    DB.get().clear(keepPositions: keepPositions);
+    DB().clear(keepPositions: keepPositions);
     _log.info('cleared the local cache (articles and pending actions)');
     ref.invalidateSelf();
     updateAppBadge();
@@ -167,8 +179,6 @@ class WStorage extends _$WStorage {
       throw const ServerError('invalid session', manuallyInvalidated: true);
     }
 
-    final db = DB.get();
-
     var count = 0;
     final sinceRepr = since != null
         ? DateTime.fromMillisecondsSinceEpoch(since * 1000).toIso8601String()
@@ -181,7 +191,7 @@ class WStorage extends _$WStorage {
     var entriesStream =
         wallabag.fetchAllEntries(since: since, onProgress: onProgress);
     await for (final entries in entriesStream) {
-      await db.articlesDao.updateAll(entries.map((e) => e.toArticle()));
+      await DB().articlesDao.updateAll(entries.map((e) => e.toArticle()));
       _log.info('saved ${entries.length} entries to the database');
       if (entries.isNotEmpty) ref.invalidateSelf();
 
@@ -191,7 +201,7 @@ class WStorage extends _$WStorage {
         'completed refresh of $count entries in ${stopwatch.elapsed.inSeconds} s');
 
     final now = DateTime.now().millisecondsSinceEpoch / 1000;
-    await DB.get().metadataDao.setLastSyncTS(now.toInt());
+    await DB().metadataDao.setLastSyncTS(now.toInt());
 
     _syncRemoteDeletes();
 
@@ -202,7 +212,7 @@ class WStorage extends _$WStorage {
 
   Future<int> incrementalRefresh(
       {int? threshold, void Function(double)? onProgress}) async {
-    final int? since = await DB.get().metadataDao.getLastSyncTS();
+    final int? since = await DB().metadataDao.getLastSyncTS();
     if (threshold != null && since != null) {
       final now = DateTime.now().millisecondsSinceEpoch / 1000;
       final elapsed = now - since;
@@ -216,16 +226,15 @@ class WStorage extends _$WStorage {
   }
 
   Future<void> persistArticle(Article article) async {
-    final writeCount = await DB.get().articlesDao.updateOne(article);
+    final writeCount = await DB().articlesDao.updateOne(article);
     if (writeCount > 0) ref.invalidateSelf();
   }
 
   Future<void> deleteArticle(int articleId) async {
-    final db = DB.get();
     final wallabag = (await ref.read(clientProvider.future))!;
 
     await wallabag.deleteEntry(articleId);
-    final deleted = await db.articlesDao.deleteOne(articleId);
+    final deleted = await DB().articlesDao.deleteOne(articleId);
     if (deleted > 0) ref.invalidateSelf();
   }
 
@@ -246,22 +255,39 @@ class WStorage extends _$WStorage {
   }
 }
 
+// FIXME use sentinel values to avoid needing clear*() methods
 class WQuery {
-  WQuery({this.state, this.starred, this.tags});
+  WQuery({
+    this.text,
+    this.textMode,
+    this.state,
+    this.starred,
+    this.tags,
+    this.domains,
+  });
 
+  String? text;
+  SearchTextMode? textMode;
   StateFilter? state;
   StarredFilter? starred;
   List<String>? tags;
+  List<String>? domains;
 
   WQuery dup() => WQuery(
+        text: text,
+        textMode: textMode,
         state: state,
         starred: starred,
         tags: tags,
+        domains: domains,
       );
 
   WQuery override(WQuery wq) => WQuery(
+        text: wq.text ?? text,
+        textMode: wq.textMode ?? textMode,
         state: wq.state ?? state,
         starred: wq.starred ?? starred,
         tags: wq.tags ?? tags,
+        domains: wq.domains ?? domains,
       );
 }

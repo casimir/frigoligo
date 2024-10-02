@@ -66,7 +66,7 @@ Widget _buildDetails(
   final showRefreshToken = session?.type == ServerType.wallabag;
 
   return ResponsiveContainer(
-    padding: C.paddings.defaultPadding,
+    padding: C.paddings.group,
     child: ListView(
       children: sessionFields +
           [
@@ -144,7 +144,7 @@ ListTile _buildLastSync(BuildContext context) {
     title: Text(context.L.session_fieldLastServerSync),
     subtitle: AText(builder: (context) async {
       String sinceLastSync = context.L.session_neverSynced;
-      final lastSync = await DB.get().metadataDao.getLastSyncTS();
+      final lastSync = await DB().metadataDao.getLastSyncTS();
       if (lastSync != null) {
         sinceLastSync = DateTime.fromMillisecondsSinceEpoch(lastSync * 1000)
             // ignore: use_build_context_synchronously

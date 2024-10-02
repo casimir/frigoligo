@@ -37,10 +37,6 @@
   "@g_sourceCode": {
     "description": "The source code of a software."
   },
-  "filters_articleFavoriteAll": "Все",
-  "@filters_articleFavoriteAll": {
-    "description": "Don't filter articles by favorite status."
-  },
   "filters_articleStateUnread": "Не прочитанные",
   "@filters_articleStateUnread": {
     "description": "Filter articles with the state 'unread'."

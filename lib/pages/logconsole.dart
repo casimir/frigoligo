@@ -17,7 +17,7 @@ class LogConsolePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(logConsoleProvider);
 
-    final logs = DB.get().appLogsDao;
+    final logs = DB().appLogsDao;
     return Scaffold(
       appBar: AppBar(
         title: Text(context.L.logconsole_title),

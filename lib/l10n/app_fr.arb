@@ -1,8 +1,4 @@
 {
-  "filters_articleState": "Statut",
-  "@filters_articleState": {
-    "description": "The state of the article."
-  },
   "g_server": "Serveur",
   "@g_server": {
     "description": "A server, as in a computer providing a service."
@@ -14,16 +10,6 @@
   "g_checking": "Vérification…",
   "@g_checking": {
     "description": "Present participle of the verb to check."
-  },
-  "filters_articlesCount": "{count, plural, =0{0 article trouvé} =1{1 article trouvé} other{{count} articles trouvés}}",
-  "@filters_articlesCount": {
-    "description": "The number of articles found with current filters values.",
-    "placeholders": {
-      "count": {
-        "type": "int",
-        "format": "compact"
-      }
-    }
   },
   "article_openInBrowser": "Ouvrir dans le navigateur",
   "@article_openInBrowser": {
@@ -52,10 +38,6 @@
   "article_addTags": "Ajouter des labels",
   "@article_addTags": {
     "description": "The action to add tags to an article."
-  },
-  "filters_articleFavorite": "Favoris",
-  "@filters_articleFavorite": {
-    "description": "The favorite status of the article."
   },
   "g_tag": "Label",
   "@g_tag": {
@@ -127,14 +109,6 @@
         "type": "String"
       }
     }
-  },
-  "filters_clearTagsSelection": "Réinitialiser la sélection",
-  "@filters_clearTagsSelection": {
-    "description": "The action to clear the selection of tags."
-  },
-  "filters_noTagsSelected": "Aucun tag sélectionné",
-  "@filters_noTagsSelected": {
-    "description": "Placeholder for when no tags are selected."
   },
   "save_confirmationTitle": "Article sauvegardé !",
   "@save_confirmationTitle": {
@@ -338,10 +312,6 @@
   "g_search": "Rechercher",
   "@g_search": {
     "description": "A verb, as in to search something."
-  },
-  "filters_articleFavoriteAll": "Tous",
-  "@filters_articleFavoriteAll": {
-    "description": "Don't filter articles by favorite status."
   },
   "filters_articleFavoriteStarred": "Favori",
   "@filters_articleFavoriteStarred": {

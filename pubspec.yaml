@@ -46,7 +46,6 @@ dependencies:
   fwfh_cached_network_image: ^0.14.0
   fwfh_url_launcher: ^0.9.0
   google_fonts: ^6.2.1
-  popover: ^0.3.0
   settings_ui: ^2.0.2
 
   # networking & API

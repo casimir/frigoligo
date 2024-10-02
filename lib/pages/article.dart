@@ -22,9 +22,9 @@ import '../services/wallabag_storage.dart';
 import '../widget_keys.dart';
 import '../widgets/remote_sync_fab.dart';
 import '../widgets/remote_sync_progress_indicator.dart';
+import '../widgets/selectors.dart';
 import '../widgets/tag_list.dart';
 import 'reading_settings_configurator.dart';
-import 'tags_selector/dialog.dart';
 
 class ArticlePage extends ConsumerStatefulWidget {
   const ArticlePage({
@@ -335,20 +335,18 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
 
 void _showTagsDialog(
     BuildContext context, WidgetRef ref, Article article) async {
-  final tags = await ref.read(wStorageProvider.notifier).getTags();
-  if (context.mounted) {
-    showDialog(
-      context: context,
-      builder: (_) => TagsSelectorDialog(
-        tags: tags,
-        initialValue: article.tags,
-        onConfirm: (tags) async {
-          final syncer = ref.read(remoteSyncerProvider.notifier);
-          await syncer.add(EditArticleAction(article.id, tags: tags));
-          await syncer.synchronize();
-        },
-      ),
-    );
+  final tags = await showBottomSheetSelector(
+    context: context,
+    title: context.L.filters_articleTags,
+    selectionLabelizer: context.L.filters_articleTagsCount,
+    entriesBuilder: ref.read(wStorageProvider.notifier).getTags(),
+    initialSelection: article.tags.toSet(),
+    leadingIcon: const Icon(Icons.label),
+  );
+  if (tags != null) {
+    final syncer = ref.read(remoteSyncerProvider.notifier);
+    await syncer.add(EditArticleAction(article.id, tags: tags.toList()));
+    await syncer.synchronize();
   }
 }
 

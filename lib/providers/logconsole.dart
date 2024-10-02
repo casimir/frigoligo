@@ -20,15 +20,15 @@ class LogConsole extends _$LogConsole {
 
   @override
   LogConsoleToken build() {
-    final db = DB.get();
-    final t1 = db.appLogs;
+    final t1 = DB().appLogs;
 
     _watcher?.cancel();
     _watcher = (t1.selectOnly()..addColumns([t1.id])).watch().listen((ids) {
       () async {
+        // FIXME logs should be truncated without then need to open the console
         var count = ids.length;
         if (count > logCountThreshold) {
-          final deletedCount = await db.appLogsDao.truncate();
+          final deletedCount = await DB().appLogsDao.truncate();
           count -= deletedCount;
         }
 
@@ -46,7 +46,7 @@ class LogConsole extends _$LogConsole {
     final tempDir = await getTemporaryDirectory();
     final filename = '${tempDir.path}/frigoligo.log';
 
-    final lines = await DB.get().appLogsDao.currentRunLoglines();
+    final lines = await DB().appLogsDao.currentRunLoglines();
     final data = utf8.encode(lines.join('\n'));
     final file = await File(filename).create();
     file.writeAsBytesSync(data);

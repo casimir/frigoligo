@@ -9,7 +9,9 @@ import '../services/remote_sync.dart';
 import '../wallabag/client.dart';
 
 class RemoteSyncProgressIndicator extends ConsumerWidget {
-  const RemoteSyncProgressIndicator({super.key});
+  const RemoteSyncProgressIndicator({super.key, this.idleWidget});
+
+  final Widget? idleWidget;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -45,7 +47,7 @@ class RemoteSyncProgressIndicator extends ConsumerWidget {
     }
 
     if (error != null || !syncState.isWorking) {
-      return const SizedBox.shrink();
+      return idleWidget ?? const SizedBox(height: 4.0);
     } else {
       return LinearProgressIndicator(value: syncState.progressValue);
     }

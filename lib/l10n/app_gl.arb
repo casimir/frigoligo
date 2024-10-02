@@ -91,10 +91,6 @@
       }
     }
   },
-  "filters_articleFavorite": "Favorito",
-  "@filters_articleFavorite": {
-    "description": "The favorite status of the article."
-  },
   "login_fieldPassword": "Contrasinal",
   "@login_fieldPassword": {
     "description": "The password field of the login form."
@@ -169,27 +165,9 @@
   },
   "humanize_days": "{n, plural, =1{1 día} other{{n} días}}",
   "@humanize_days": {},
-  "filters_articlesCount": "{count, plural, =1{atopado 1 artigo} other{atopados {count} artigos}}",
-  "@filters_articlesCount": {
-    "description": "The number of articles found with current filters values.",
-    "placeholders": {
-      "count": {
-        "type": "int",
-        "format": "compact"
-      }
-    }
-  },
-  "filters_articleFavoriteAll": "Todo",
-  "@filters_articleFavoriteAll": {
-    "description": "Don't filter articles by favorite status."
-  },
   "filters_articleFavoriteStarred": "Con estrela",
   "@filters_articleFavoriteStarred": {
     "description": "Filter starred articles."
-  },
-  "filters_articleState": "Estado",
-  "@filters_articleState": {
-    "description": "The state of the article."
   },
   "filters_articleStateUnread": "Sen ler",
   "@filters_articleStateUnread": {
@@ -206,14 +184,6 @@
   "filters_articleTags": "Etiquetas",
   "@filters_articleTags": {
     "description": "The tags attached to the article."
-  },
-  "filters_clearTagsSelection": "Limpar selección",
-  "@filters_clearTagsSelection": {
-    "description": "The action to clear the selection of tags."
-  },
-  "filters_noTagsSelected": "Sen etiquetas escollidas",
-  "@filters_noTagsSelected": {
-    "description": "Placeholder for when no tags are selected."
   },
   "logconsole_title": "Consola do rexistro",
   "@logconsole_title": {

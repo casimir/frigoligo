@@ -13,6 +13,10 @@
   "@g_delete": {
     "description": "A verb, as in to delete something."
   },
+  "g_saveLink": "Save link",
+  "@g_saveLink": {
+    "description": "A verb, as in to save a link."
+  },
   "g_search": "Search",
   "@g_search": {
     "description": "A verb, as in to search something."
@@ -21,6 +25,10 @@
   "@g_server": {
     "description": "A server, as in a computer providing a service."
   },
+  "g_settings": "Settings",
+  "@g_settings": {
+    "description": "The settings of the application."
+  },
   "g_share": "Share",
   "@g_share": {
     "description": "A verb, as in to share something."
@@ -28,6 +36,10 @@
   "g_sourceCode": "Source code",
   "@g_sourceCode": {
     "description": "The source code of a software."
+  },
+  "g_synchronize": "Synchronize",
+  "@g_synchronize": {
+    "description": "A verb, as in to synchronize with the server."
   },
   "g_system": "System",
   "@g_system": {
@@ -128,23 +140,19 @@
     }
   },
   "@_FILTERS": {},
-  "filters_articlesCount": "{count, plural, =1{1 article found} other{{count} articles found}}",
-  "@filters_articlesCount": {
-    "description": "The number of articles found with current filters values.",
+  "filters_articleDomains": "Domains",
+  "@filters_articleDomains": {
+    "description": "Filter the domains from where the articles have been fetched."
+  },
+  "filters_articleDomainsCount": "{count, plural, =1{1 domain} other{{count} domains}}",
+  "@filters_articleDomainsCount": {
+    "description": "The number of articles domains used in filters.",
     "placeholders": {
       "count": {
         "type": "int",
         "format": "compact"
       }
     }
-  },
-  "filters_articleFavorite": "Favorite",
-  "@filters_articleFavorite": {
-    "description": "The favorite status of the article."
-  },
-  "filters_articleFavoriteAll": "All",
-  "@filters_articleFavoriteAll": {
-    "description": "Don't filter articles by favorite status."
   },
   "filters_articleFavoriteStarred": "Starred",
   "@filters_articleFavoriteStarred": {
@@ -162,21 +170,43 @@
   "@filters_articleStateArchived": {
     "description": "Filter articles with the state 'archived'."
   },
-  "filters_articleStateAll": "All",
+  "filters_articleStateAll": "All states",
   "@filters_articleStateAll": {
     "description": "Don't filter articles by state."
   },
   "filters_articleTags": "Tags",
   "@filters_articleTags": {
-    "description": "The tags attached to the article."
+    "description": "Filter articles with the given tag values."
   },
-  "filters_clearTagsSelection": "Clear selection",
-  "@filters_clearTagsSelection": {
-    "description": "The action to clear the selection of tags."
+  "filters_articleTagsCount": "{count, plural, =1{1 tag} other{{count} tags}}",
+  "@filters_articleTagsCount": {
+    "description": "The number of tags used in filters.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
   },
-  "filters_noTagsSelected": "No tags selected",
-  "@filters_noTagsSelected": {
-    "description": "Placeholder for when no tags are selected."
+  "filters_searchbarHint": "Search in articles",
+  "@filters_searchbarHint": {
+    "description": "Search bar hint in the home screen."
+  },
+  "filters_searchMode": "Search mode",
+  "@filters_searchMode": {
+    "description": "The title of the search mode screen (which fields to search text into)."
+  },
+  "filters_searchModeAll": "All fields",
+  "@filters_searchModeAll": {
+    "description": "Search text in all fields."
+  },
+  "filters_searchModeContent": "Content",
+  "@filters_searchModeContent": {
+    "description": "Search text only in the content field."
+  },
+  "filters_searchModeTitle": "Title",
+  "@filters_searchModeTitle": {
+    "description": "Search text only in the title field."
   },
   "@_LOGCONSOLE": {},
   "logconsole_title": "Log Console",
@@ -287,6 +317,17 @@
   "save_viewArticle": "View article",
   "@save_viewArticle": {
     "description": "The action to view the article after it is saved."
+  },
+  "@_SELECTOR": {},
+  "selector_selectbuttonlabel": "Select {numberOfItems}",
+  "@selector_selectbuttonlabel": {
+    "description": "The label of the select button in a selector screen.",
+    "placeholders": {
+      "numberOfItems": {
+        "type": "String",
+        "example": "3 items"
+      }
+    }
   },
   "@_SERVER": {},
   "server_address": "Server address",
