@@ -52,6 +52,11 @@ class _ListingPageState extends ConsumerState<ListingPage> {
   Widget build(BuildContext context) {
     ref.watch(wStorageProvider);
 
+    // CustomerScrollView works perfectly on mobile but creates 2 scrollbar on
+    // SideBySide mode.
+    // NestedScrollView works perfectly on SideBySide mode but the list scrolls
+    // under the header (at least on mobile).
+
     return Scaffold(
       body: SafeArea(
         child: CustomScrollView(slivers: [

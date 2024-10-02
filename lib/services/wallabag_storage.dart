@@ -5,6 +5,7 @@ import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../constants.dart';
+import '../db/daos/articles.dart';
 import '../db/database.dart';
 import '../db/extensions/article.dart';
 import '../db/models/article.drift.dart';
@@ -51,9 +52,9 @@ class WStorage extends _$WStorage {
 
   Selectable<int> _selectFilterIds(WQuery wq) {
     if (wq.text != null) {
-      // TODO add a UI option for the search mode
       return DB().articlesDao.selectArticleIdsForText(
             wq.text!,
+            mode: wq.textMode,
             where: (t) => _buildFilters(t, wq),
           );
     } else {
@@ -256,9 +257,17 @@ class WStorage extends _$WStorage {
 
 // FIXME use sentinel values to avoid needing clear*() methods
 class WQuery {
-  WQuery({this.text, this.state, this.starred, this.tags, this.domains});
+  WQuery({
+    this.text,
+    this.textMode = SearchTextMode.all,
+    this.state,
+    this.starred,
+    this.tags,
+    this.domains,
+  });
 
   String? text;
+  SearchTextMode textMode;
   StateFilter? state;
   StarredFilter? starred;
   List<String>? tags;
@@ -266,6 +275,7 @@ class WQuery {
 
   WQuery dup() => WQuery(
         text: text,
+        textMode: textMode,
         state: state,
         starred: starred,
         tags: tags,
@@ -274,6 +284,7 @@ class WQuery {
 
   WQuery override(WQuery wq) => WQuery(
         text: wq.text ?? text,
+        textMode: wq.textMode,
         state: wq.state ?? state,
         starred: wq.starred ?? starred,
         tags: wq.tags ?? tags,

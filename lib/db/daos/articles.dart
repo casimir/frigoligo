@@ -71,8 +71,7 @@ class ArticlesDao extends DatabaseAccessor<DB> with $ArticlesDaoMixin {
     final suffix = cleanedText.endsWith('*') ? '' : '*'; // ensure some matches
     final query = columnFilter + cleanedText + suffix;
     final predicate = where != null ? (_, t) => where(t) : null;
-    return attachedDatabase.articleDrift
-        .articleIdsForText(query, predicate: predicate);
+    return articleDrift.articleIdsForText(query, predicate: predicate);
   }
 
   Future<List<String>> listAllDomains() {

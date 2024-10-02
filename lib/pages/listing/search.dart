@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../buildcontext_extension.dart';
 import '../../constants.dart';
+import '../../db/daos/articles.dart';
 import '../../db/database.dart';
 import '../../providers/query.dart';
 import '../../services/wallabag_storage.dart';
@@ -172,12 +173,7 @@ class SearchBarWithFilters<T> extends ConsumerWidget {
                     color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
                 ),
-                IconButton(
-                  icon: const Icon(Icons.manage_search),
-                  onPressed: () => {
-                    // TODO implement column search configuration
-                  },
-                ),
+                _buildTextMode(context, ref),
                 if (menu != null) menu!,
               ],
               onChanged: (value) {
@@ -205,6 +201,50 @@ class SearchBarWithFilters<T> extends ConsumerWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildTextMode(BuildContext context, WidgetRef ref) {
+    final textMode = ref.watch(queryProvider.select((q) => q.textMode));
+
+    Future<void> onTap() async {
+      final value = await showModalBottomSheet(
+        context: context,
+        builder: (context) => Select(
+          title: context.L.filters_searchMode,
+          entries: [
+            DropdownMenuEntry(
+              value: SearchTextMode.all,
+              label: context.L.filters_searchModeAll,
+              leadingIcon: const Icon(Icons.text_fields),
+            ),
+            DropdownMenuEntry(
+              value: SearchTextMode.title,
+              label: context.L.filters_searchModeTitle,
+              leadingIcon: const Icon(Icons.title),
+            ),
+            DropdownMenuEntry(
+              value: SearchTextMode.content,
+              label: context.L.filters_searchModeContent,
+              leadingIcon: const Icon(Icons.article),
+            ),
+          ],
+          initial: textMode,
+        ),
+      );
+      if (value != null) {
+        ref.read(queryProvider.notifier).overrideWith(WQuery(textMode: value));
+      }
+    }
+
+    final iconData = switch (textMode) {
+      SearchTextMode.all => Icons.text_fields,
+      SearchTextMode.title => Icons.title,
+      SearchTextMode.content => Icons.article,
+    };
+    return IconButton(
+      icon: Icon(iconData),
+      onPressed: onTap,
     );
   }
 }

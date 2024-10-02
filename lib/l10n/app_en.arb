@@ -188,6 +188,22 @@
   "@filters_searchbarHint": {
     "description": "Search bar hint in the home screen."
   },
+  "filters_searchMode": "Search mode",
+  "@filters_searchMode": {
+    "description": "The title of the search mode screen (which fields to search text into)."
+  },
+  "filters_searchModeAll": "All fields",
+  "@filters_searchModeAll": {
+    "description": "Search text in all fields."
+  },
+  "filters_searchModeContent": "Content",
+  "@filters_searchModeContent": {
+    "description": "Search text only in the content field."
+  },
+  "filters_searchModeTitle": "Title",
+  "@filters_searchModeTitle": {
+    "description": "Search text only in the title field."
+  },
   "@_LOGCONSOLE": {},
   "logconsole_title": "Log Console",
   "@logconsole_title": {

@@ -6,6 +6,36 @@ import 'package:flutter/material.dart';
 
 import '../buildcontext_extension.dart';
 
+class _BottomSheet extends StatelessWidget {
+  const _BottomSheet({super.key, required this.title, required this.child});
+
+  final String title;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        C.spacers.verticalComponent,
+        AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.close),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          title: Text(title),
+          centerTitle: false,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+          ),
+          backgroundColor: Theme.of(context).colorScheme.surfaceContainerLow,
+          primary: false,
+        ),
+        Expanded(child: child),
+      ],
+    );
+  }
+}
+
 class MultiSelect<T> extends StatefulWidget {
   const MultiSelect({
     super.key,
@@ -114,8 +144,8 @@ class _MultiSelectState<T> extends State<MultiSelect<T>> {
   Widget _buildItem(BuildContext context, DropdownMenuEntry<T> entry) {
     final isSelected = _selected.contains(entry.value);
     return ListTile(
-      title: Text(entry.label),
       leading: entry.leadingIcon,
+      title: Text(entry.label),
       onTap: () {
         if (_selected.contains(entry.value)) {
           _selected.remove(entry.value);
@@ -234,6 +264,47 @@ class SelectorChip<T> extends StatelessWidget {
       deleteIcon: hasSelection ? null : const Icon(Icons.arrow_drop_down),
       deleteButtonTooltipMessage: hasSelection ? null : '',
       onDeleted: hasSelection ? onDeleted : onTap,
+    );
+  }
+}
+
+class Select<T> extends StatelessWidget {
+  const Select({
+    super.key,
+    required this.title,
+    required this.entries,
+    this.initial,
+  });
+
+  final String title;
+  final List<DropdownMenuEntry<T>> entries;
+  final T? initial;
+
+  @override
+  Widget build(BuildContext context) {
+    Widget buildItem(DropdownMenuEntry<T> entry) {
+      final isSelected = entry.value == initial;
+      return ListTile(
+        leading: entry.leadingIcon,
+        title: Text(entry.label),
+        onTap: () => Navigator.of(context).pop(entry.value),
+        trailing: isSelected ? const Icon(Icons.check) : const SizedBox(),
+        iconColor: isSelected ? Theme.of(context).colorScheme.primary : null,
+        textColor: isSelected ? Theme.of(context).colorScheme.primary : null,
+      );
+    }
+
+    return _BottomSheet(
+      title: title,
+      child: Column(
+        children: [
+          const Divider(),
+          ListView(
+            shrinkWrap: true,
+            children: entries.map(buildItem).toList(),
+          ),
+        ],
+      ),
     );
   }
 }
