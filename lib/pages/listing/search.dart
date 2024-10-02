@@ -208,7 +208,7 @@ class SearchBarWithFilters<T> extends ConsumerWidget {
     final textMode = ref.watch(queryProvider.select((q) => q.textMode));
 
     Future<void> onTap() async {
-      final value = await showModalBottomSheet(
+      final value = await showBottomSheetSelect(
         context: context,
         builder: (context) => Select(
           title: context.L.filters_searchMode,

@@ -6,11 +6,15 @@ import 'package:flutter/material.dart';
 
 import '../buildcontext_extension.dart';
 
-class _BottomSheet extends StatelessWidget {
-  const _BottomSheet({super.key, required this.title, required this.child});
+class SelectorBottomSheet extends StatelessWidget {
+  const SelectorBottomSheet({
+    super.key,
+    required this.title,
+    required this.children,
+  });
 
   final String title;
-  final Widget child;
+  final List<Widget> children;
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +31,10 @@ class _BottomSheet extends StatelessWidget {
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
           ),
-          backgroundColor: Theme.of(context).colorScheme.surfaceContainerLow,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           primary: false,
         ),
-        Expanded(child: child),
+        ...children
       ],
     );
   }
@@ -69,75 +73,66 @@ class _MultiSelectState<T> extends State<MultiSelect<T>> {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      Dialog.fullscreen(child: _buildChild(context));
+  Widget build(BuildContext context) => _buildChild(context);
+  // Dialog.fullscreen(child: _buildChild(context));
 
   Widget _buildChild(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.close),
-          onPressed: () => Navigator.of(context).pop(),
+    return SelectorBottomSheet(
+      title: widget.title,
+      children: [
+        Padding(
+          padding:
+              const EdgeInsets.symmetric(horizontal: kSpacingBetweenGroups),
+          child: Row(children: [
+            Expanded(
+              child: TextField(
+                controller: _searchController,
+                decoration: InputDecoration(
+                  icon: const Icon(Icons.search),
+                  hintText: context.L.g_search,
+                  border: InputBorder.none,
+                ),
+                onChanged: (_) => setState(() {}),
+                autocorrect: false,
+              ),
+            ),
+            C.spacers.horizontalComponent,
+            IconButton(
+                icon: const Icon(Icons.restart_alt),
+                onPressed: () {
+                  _selected.clear();
+                  _searchController.clear();
+                  setState(() {});
+                })
+          ]),
         ),
-        title: Text(widget.title),
-        centerTitle: false,
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: kSpacingBetweenGroups),
-            child: Row(children: [
-              Expanded(
-                child: TextField(
-                  controller: _searchController,
-                  decoration: InputDecoration(
-                    icon: const Icon(Icons.search),
-                    hintText: context.L.g_search,
-                    border: InputBorder.none,
-                  ),
-                  onChanged: (_) => setState(() {}),
-                  autocorrect: false,
+        const Divider(),
+        Expanded(
+          child: ListView(
+              children: search(_searchController.text, _index.keys.toList())
+                  .map((m) => _buildItem(context, _index[m.entry]!))
+                  .toList()),
+        ),
+        C.spacers.verticalComponent,
+        PaddedGroup(
+          child: Row(children: [
+            Expanded(
+              child: FilledButton(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(context.L.selector_selectbuttonlabel(
+                      widget.selectionLabelizer(_selected.length))),
                 ),
+                onPressed: () {
+                  widget.onConfirm?.call(_selected);
+                  Navigator.of(context).pop(_selected);
+                },
               ),
-              C.spacers.horizontalComponent,
-              IconButton(
-                  icon: const Icon(Icons.restart_alt),
-                  onPressed: () {
-                    _selected.clear();
-                    _searchController.clear();
-                    setState(() {});
-                  })
-            ]),
-          ),
-          const Divider(),
-          Expanded(
-            child: ListView(
-                children: search(_searchController.text, _index.keys.toList())
-                    .map((m) => _buildItem(context, _index[m.entry]!))
-                    .toList()),
-          ),
-          C.spacers.verticalComponent,
-          PaddedGroup(
-            child: Row(children: [
-              Expanded(
-                child: FilledButton(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(context.L.selector_selectbuttonlabel(
-                        widget.selectionLabelizer(_selected.length))),
-                  ),
-                  onPressed: () {
-                    widget.onConfirm?.call(_selected);
-                    Navigator.of(context).pop(_selected);
-                  },
-                ),
-              ),
-            ]),
-          ),
-          C.spacers.verticalComponent,
-        ],
-      ),
+            ),
+          ]),
+        ),
+        C.spacers.verticalComponent,
+      ],
     );
   }
 
@@ -235,6 +230,7 @@ Future<Iterable<T>?> showBottomSheetSelector<T>({
             initialSelection: initialSelection,
           );
         }),
+    backgroundColor: Theme.of(context).colorScheme.surface,
     isScrollControlled: true,
     useSafeArea: true,
   );
@@ -294,17 +290,26 @@ class Select<T> extends StatelessWidget {
       );
     }
 
-    return _BottomSheet(
+    return SelectorBottomSheet(
       title: title,
-      child: Column(
-        children: [
-          const Divider(),
-          ListView(
-            shrinkWrap: true,
-            children: entries.map(buildItem).toList(),
-          ),
-        ],
-      ),
+      children: [
+        const Divider(),
+        ListView(
+          shrinkWrap: true,
+          children: entries.map(buildItem).toList(),
+        ),
+      ],
     );
   }
+}
+
+typedef SelectBuilder = Select Function(BuildContext context);
+
+Future<T?> showBottomSheetSelect<T>(
+    {required BuildContext context, required SelectBuilder builder}) {
+  return showModalBottomSheet(
+    context: context,
+    builder: builder,
+    backgroundColor: Theme.of(context).colorScheme.surface,
+  );
 }
