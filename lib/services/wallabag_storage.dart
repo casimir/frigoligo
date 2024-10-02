@@ -54,7 +54,7 @@ class WStorage extends _$WStorage {
     if (wq.text != null) {
       return DB().articlesDao.selectArticleIdsForText(
             wq.text!,
-            mode: wq.textMode,
+            mode: wq.textMode ?? SearchTextMode.all,
             where: (t) => _buildFilters(t, wq),
           );
     } else {
@@ -259,7 +259,7 @@ class WStorage extends _$WStorage {
 class WQuery {
   WQuery({
     this.text,
-    this.textMode = SearchTextMode.all,
+    this.textMode,
     this.state,
     this.starred,
     this.tags,
@@ -267,7 +267,7 @@ class WQuery {
   });
 
   String? text;
-  SearchTextMode textMode;
+  SearchTextMode? textMode;
   StateFilter? state;
   StarredFilter? starred;
   List<String>? tags;
@@ -284,7 +284,7 @@ class WQuery {
 
   WQuery override(WQuery wq) => WQuery(
         text: wq.text ?? text,
-        textMode: wq.textMode,
+        textMode: wq.textMode ?? textMode,
         state: wq.state ?? state,
         starred: wq.starred ?? starred,
         tags: wq.tags ?? tags,

@@ -236,7 +236,7 @@ class SearchBarWithFilters<T> extends ConsumerWidget {
       }
     }
 
-    final iconData = switch (textMode) {
+    final iconData = switch (textMode ?? SearchTextMode.all) {
       SearchTextMode.all => Icons.text_fields,
       SearchTextMode.title => Icons.title,
       SearchTextMode.content => Icons.article,
