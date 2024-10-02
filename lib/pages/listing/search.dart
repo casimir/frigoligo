@@ -228,7 +228,7 @@ class SearchBarWithFilters<T> extends ConsumerWidget {
               leadingIcon: const Icon(Icons.article),
             ),
           ],
-          initial: textMode,
+          initial: textMode ?? SearchTextMode.all,
         ),
       );
       if (value != null) {
