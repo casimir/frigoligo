@@ -313,3 +313,46 @@ Future<T?> showBottomSheetSelect<T>(
     backgroundColor: Theme.of(context).colorScheme.surface,
   );
 }
+
+class SelectChip<T> extends StatelessWidget {
+  const SelectChip({
+    super.key,
+    required this.title,
+    required this.initialSelection,
+    required this.onSelected,
+    this.value,
+    required this.entries,
+  });
+
+  final String title;
+  final T initialSelection;
+  final void Function(T) onSelected;
+  final T? value;
+  final List<DropdownMenuEntry<T>> entries;
+
+  @override
+  Widget build(BuildContext context) {
+    Future<void> onTap() async {
+      final selected = await showBottomSheetSelect(
+        context: context,
+        builder: (context) => Select(
+          title: title,
+          entries: entries,
+          initial: value ?? initialSelection,
+        ),
+      );
+      if (selected != null) {
+        onSelected(selected);
+      }
+    }
+
+    final lookupValue = value ?? initialSelection;
+    final selected = entries.firstWhere((e) => e.value == lookupValue);
+
+    return FilterChip(
+      label: Text(selected.label),
+      selected: selected.value != initialSelection,
+      onSelected: (_) => onTap(),
+    );
+  }
+}

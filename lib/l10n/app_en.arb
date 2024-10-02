@@ -158,6 +158,10 @@
   "@filters_articleFavoriteStarred": {
     "description": "Filter starred articles."
   },
+  "filters_articleState": "State",
+  "@filters_articleState": {
+    "description": "The state of the article."
+  },
   "filters_articleStateUnread": "Unread",
   "@filters_articleStateUnread": {
     "description": "Filter articles with the state 'unread'."
@@ -166,7 +170,7 @@
   "@filters_articleStateArchived": {
     "description": "Filter articles with the state 'archived'."
   },
-  "filters_articleStateAll": "All",
+  "filters_articleStateAll": "All states",
   "@filters_articleStateAll": {
     "description": "Don't filter articles by state."
   },

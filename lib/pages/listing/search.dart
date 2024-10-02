@@ -11,7 +11,6 @@ import '../../db/database.dart';
 import '../../providers/query.dart';
 import '../../services/wallabag_storage.dart';
 import '../../widgets/async/text.dart';
-import '../../widgets/chip_filter_menu.dart';
 import '../../widgets/selectors.dart';
 
 class SearchFilters extends ConsumerWidget {
@@ -51,11 +50,11 @@ class SearchFilters extends ConsumerWidget {
         leadingIcon: const Icon(Icons.filter_none),
       ),
     ];
-    return ChipFilterMenu(
+    return SelectChip(
+      title: context.L.filters_articleState,
       initialSelection: StateFilter.all,
-      onSelected: (entry) => ref
-          .read(queryProvider.notifier)
-          .overrideWith(WQuery(state: entry.value)),
+      onSelected: (value) =>
+          ref.read(queryProvider.notifier).overrideWith(WQuery(state: value)),
       entries: entries,
       value: ref.watch(queryProvider.select((q) => q.state)),
     );
