@@ -141,6 +141,7 @@ class _ElevatedPinnedHeaderSliverState
     extends State<ElevatedPinnedHeaderSliver> {
   bool _showElevation = false;
 
+  // FIXME it doesn't handle the case when the list is rebuilt (e.g. filters)
   void onTopScrolled() {
     if (_showElevation && widget.bodyScrollController!.position.pixels == 0.0) {
       setState(() {
