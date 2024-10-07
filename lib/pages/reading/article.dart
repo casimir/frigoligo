@@ -9,22 +9,22 @@ import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../buildcontext_extension.dart';
-import '../constants.dart';
-import '../db/extensions/article.dart';
-import '../db/models/article.drift.dart';
-import '../providers/article.dart';
-import '../providers/expander.dart';
-import '../providers/reading_settings.dart';
-import '../services/remote_sync.dart';
-import '../services/remote_sync_actions/articles.dart';
-import '../services/wallabag_storage.dart';
-import '../widget_keys.dart';
-import '../widgets/remote_sync_fab.dart';
-import '../widgets/remote_sync_progress_indicator.dart';
-import '../widgets/selectors.dart';
-import '../widgets/tag_list.dart';
-import 'reading_settings_configurator.dart';
+import '../../buildcontext_extension.dart';
+import '../../constants.dart';
+import '../../db/extensions/article.dart';
+import '../../db/models/article.drift.dart';
+import '../../providers/article.dart';
+import '../../providers/expander.dart';
+import '../../providers/reading_settings.dart';
+import '../../services/remote_sync.dart';
+import '../../services/remote_sync_actions/articles.dart';
+import '../../services/wallabag_storage.dart';
+import '../../widget_keys.dart';
+import '../../widgets/remote_sync_fab.dart';
+import '../../widgets/remote_sync_progress_indicator.dart';
+import '../../widgets/selectors.dart';
+import '../../widgets/tag_list.dart';
+import '../reading_settings_configurator.dart';
 
 class ArticlePage extends ConsumerStatefulWidget {
   const ArticlePage({
