@@ -7,7 +7,7 @@ import '../constants.dart';
 import '../providers/expander.dart';
 import '../services/remote_sync.dart';
 import 'article.dart';
-import 'listing.dart';
+import 'articles/listing.dart';
 
 const idealListingWidth = 333.3;
 
