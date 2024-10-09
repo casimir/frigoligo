@@ -2196,7 +2196,6 @@ async
 cli_util
 collection
 mime
-source_map_stack_trace
 stream_channel
 typed_data
 
@@ -5554,6 +5553,7 @@ convert
 crypto
 shelf_static
 source_gen
+source_map_stack_trace
 vm_service
 
 Copyright 2015, the Dart project authors.
@@ -36777,7 +36777,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 --------------------------------------------------------------------------------
 sqflite
+sqflite_android
 sqflite_common
+sqflite_darwin
+sqflite_platform_interface
 
 BSD 2-Clause License
 
