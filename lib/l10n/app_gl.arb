@@ -177,7 +177,7 @@
   "@filters_articleStateArchived": {
     "description": "Filter articles with the state 'archived'."
   },
-  "filters_articleStateAll": "Todo",
+  "filters_articleStateAll": "Todos os estados",
   "@filters_articleStateAll": {
     "description": "Don't filter articles by state."
   },
@@ -376,5 +376,75 @@
   "login_acceptSelfSigned": "Aceptar certificados auto-asinados",
   "@login_acceptSelfSigned": {
     "description": "Wether or not to accept self-signed certificates when connecting to the wallabag instance."
+  },
+  "filters_articleState": "Estado",
+  "@filters_articleState": {
+    "description": "The state of the article."
+  },
+  "g_saveLink": "Gardar ligazón",
+  "@g_saveLink": {
+    "description": "A verb, as in to save a link."
+  },
+  "g_settings": "Axustes",
+  "@g_settings": {
+    "description": "The settings of the application."
+  },
+  "g_synchronize": "Sincronizar",
+  "@g_synchronize": {
+    "description": "A verb, as in to synchronize with the server."
+  },
+  "filters_articleDomains": "Dominios",
+  "@filters_articleDomains": {
+    "description": "Filter the domains from where the articles have been fetched."
+  },
+  "filters_articleDomainsCount": "{count, plural, =1{1 dominio} other{{count} dominios}}",
+  "@filters_articleDomainsCount": {
+    "description": "The number of articles domains used in filters.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "filters_articleTagsCount": "{count, plural, =1{1 etiqueta} other{{count} etiquetas}}",
+  "@filters_articleTagsCount": {
+    "description": "The number of tags used in filters.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "filters_searchbarHint": "Buscar nos artigos",
+  "@filters_searchbarHint": {
+    "description": "Search bar hint in the home screen."
+  },
+  "filters_searchMode": "Modo de busca",
+  "@filters_searchMode": {
+    "description": "The title of the search mode screen (which fields to search text into)."
+  },
+  "filters_searchModeAll": "Todos os campos",
+  "@filters_searchModeAll": {
+    "description": "Search text in all fields."
+  },
+  "filters_searchModeTitle": "Título",
+  "@filters_searchModeTitle": {
+    "description": "Search text only in the title field."
+  },
+  "selector_selectbuttonlabel": "Seleccionar {numberOfItems}",
+  "@selector_selectbuttonlabel": {
+    "description": "The label of the select button in a selector screen.",
+    "placeholders": {
+      "numberOfItems": {
+        "type": "String",
+        "example": "3 items"
+      }
+    }
+  },
+  "filters_searchModeContent": "Contido",
+  "@filters_searchModeContent": {
+    "description": "Search text only in the content field."
   }
 }
