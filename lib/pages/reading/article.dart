@@ -25,6 +25,8 @@ import '../../widgets/remote_sync_progress_indicator.dart';
 import '../../widgets/selectors.dart';
 import '../../widgets/tag_list.dart';
 import '../reading_settings_configurator.dart';
+import 'article_sheet.dart';
+import 'mixins.dart';
 
 class ArticlePage extends ConsumerStatefulWidget {
   const ArticlePage({
@@ -44,7 +46,8 @@ class ArticlePage extends ConsumerStatefulWidget {
   ConsumerState<ArticlePage> createState() => _ArticlePageState();
 }
 
-class _ArticlePageState extends ConsumerState<ArticlePage> {
+class _ArticlePageState extends ConsumerState<ArticlePage>
+    with CurrentArticleState<ArticlePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   final scroller = ScrollController();
 
@@ -60,16 +63,7 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return ref.watch(currentArticleProvider).when(
-          data: (it) => _build(it),
-          error: (error, _) => ErrorScreen(error: error),
-          loading: () =>
-              const Center(child: CircularProgressIndicator.adaptive()),
-        );
-  }
-
-  Widget _build(Article? article) {
+  Widget buildArticle(BuildContext context, Article? article) {
     Widget? leading;
     if (widget.withExpander) {
       leading = IconButton(
@@ -100,6 +94,14 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
         key: _scaffoldKey,
         appBar: AppBar(
           leading: leading,
+          title: article != null
+              ? Builder(builder: (context) {
+                  return InkWell(
+                    child: Text(article.title),
+                    onTap: () => Scaffold.of(context).openEndDrawer(),
+                  );
+                })
+              : null,
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           actions: [
             if (article != null)
@@ -212,6 +214,7 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
         onDrawerChanged: (isOpened) => setState(() {
           // set the state so that the progress indicator widget move correctly
         }),
+        endDrawer: article != null ? const ArticleSheet() : null,
       ),
     );
   }
