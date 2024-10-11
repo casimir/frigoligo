@@ -1,10 +1,16 @@
+import 'package:cadanse/cadanse.dart';
 import 'package:cadanse/components/layouts/grouping.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../buildcontext_extension.dart';
 import '../../db/models/article.drift.dart';
+import '../../services/remote_sync.dart';
+import '../../services/remote_sync_actions/articles.dart';
+import '../../services/wallabag_storage.dart';
 import '../../widgets/material_sheet.dart';
+import '../../widgets/selectors.dart';
+import '../../widgets/tag_list.dart';
 import 'mixins.dart';
 
 class ArticleSheet extends ConsumerWidget with CurrentArticleWidget {
@@ -19,27 +25,76 @@ class ArticleSheet extends ConsumerWidget with CurrentArticleWidget {
 
     return MaterialSheet.side(
       context: context,
-      title: 'Article', // TODO translate
+      title: context.L.g_article,
       child: PaddedGroup(
-        child: Column(
+        child: ListView(
+          shrinkWrap: true,
           children: [
+            C.spacers.verticalContent,
+            ..._buildField(context, context.L.articlefields_title,
+                value: article.title),
+            C.spacers.verticalContent,
+            ..._buildField(context, context.L.articlefields_website,
+                value: article.domainName ?? article.url),
+            C.spacers.verticalContent,
+            ..._buildField(context, context.L.articlefields_readingTime,
+                value: context.L.article_readingTime(article.readingTime)),
+            C.spacers.verticalContent,
+            const Divider(),
+            C.spacers.verticalContent,
             Text(
-              article.title,
-              style: Theme.of(context).textTheme.headlineSmall,
+              context.L.articlefields_tags,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
-            const SizedBox(height: 8.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(article.domainName ?? article.url),
-                const Text(' - '),
-                const Icon(Icons.timer_outlined),
-                Text(context.L.article_readingTime(article.readingTime)),
-              ],
-            ),
+            C.spacers.verticalContent,
+            article.tags.isNotEmpty
+                ? TagList(
+                    tags: article.tags,
+                    onTagPressed: (_) => _showTagsDialog(context, ref, article),
+                  )
+                : TextButton(
+                    onPressed: () => _showTagsDialog(context, ref, article),
+                    child: Text(context.L.article_addTags),
+                  ),
           ],
         ),
       ),
     );
+  }
+
+  List<Widget> _buildField(
+    BuildContext context,
+    String label, {
+    String? value,
+    Widget? child,
+  }) {
+    return [
+      Text(
+        label,
+        style: Theme.of(context)
+            .textTheme
+            .titleSmall
+            ?.copyWith(fontWeight: FontWeight.bold),
+      ),
+      C.spacers.verticalComponent,
+      child ?? Text(value ?? ''),
+    ];
+  }
+}
+
+void _showTagsDialog(
+    BuildContext context, WidgetRef ref, Article article) async {
+  final tags = await showBottomSheetSelector(
+    context: context,
+    title: context.L.filters_articleTags,
+    selectionLabelizer: context.L.filters_articleTagsCount,
+    entriesBuilder: ref.read(wStorageProvider.notifier).getTags(),
+    initialSelection: article.tags.toSet(),
+    leadingIcon: const Icon(Icons.label),
+  );
+  if (tags != null) {
+    final syncer = ref.read(remoteSyncerProvider.notifier);
+    await syncer.add(EditArticleAction(article.id, tags: tags.toList()));
+    await syncer.synchronize();
   }
 }

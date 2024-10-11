@@ -264,16 +264,6 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
               child: Column(
                 children: [
                   _buildHeader(article),
-                  article.tags.isNotEmpty
-                      ? TagList(
-                          tags: article.tags,
-                          onTagPressed: (_) =>
-                              _showTagsDialog(context, ref, article))
-                      : TextButton(
-                          onPressed: () =>
-                              _showTagsDialog(context, ref, article),
-                          child: Text(context.L.article_addTags),
-                        ),
                   const Divider(),
                   _buildContent(article.content!, scrollPosition),
                   // TODO use SafeArea instead?
@@ -333,23 +323,6 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
         textStyle: values.textStyle,
       ),
     );
-  }
-}
-
-void _showTagsDialog(
-    BuildContext context, WidgetRef ref, Article article) async {
-  final tags = await showBottomSheetSelector(
-    context: context,
-    title: context.L.filters_articleTags,
-    selectionLabelizer: context.L.filters_articleTagsCount,
-    entriesBuilder: ref.read(wStorageProvider.notifier).getTags(),
-    initialSelection: article.tags.toSet(),
-    leadingIcon: const Icon(Icons.label),
-  );
-  if (tags != null) {
-    final syncer = ref.read(remoteSyncerProvider.notifier);
-    await syncer.add(EditArticleAction(article.id, tags: tags.toList()));
-    await syncer.synchronize();
   }
 }
 
