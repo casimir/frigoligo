@@ -184,7 +184,7 @@ jobs:
         working-directory: ./appimage
       - name: Build AppImage
         run: |
-          wget -q "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
+          wget -q "https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage"
           chmod +x appimagetool-x86_64.AppImage
           ./appimagetool-x86_64.AppImage Frigoligo.AppDir $ARTIFACT
         working-directory: ./appimage
