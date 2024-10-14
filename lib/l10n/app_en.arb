@@ -1,6 +1,10 @@
 {
   "@@locale": "en",
   "@_G": {},
+  "g_article": "Article",
+  "@g_article": {
+    "description": "A piece of content fetched from the web. This is one of the main concepts of the app."
+  },
   "g_check": "Check",
   "@g_check": {
     "description": "A verb as in to check something."
@@ -138,6 +142,23 @@
         "format": "compact"
       }
     }
+  },
+  "@ARTICLEFIELDS": {},
+  "articlefields_readingTime": "Reading time",
+  "@articlefields_readingTime": {
+    "description": "The estimated reading time of the article."
+  },
+  "articlefields_tags": "Tags",
+  "@articlefields_tags": {
+    "description": "The tags of the article."
+  },
+  "articlefields_title": "Title",
+  "@articlefields_title": {
+    "description": "The title of the article."
+  },
+  "articlefields_website": "Website",
+  "@articlefields_website": {
+    "description": "The website (domain) from where the article has been fetched."
   },
   "@_FILTERS": {},
   "filters_articleDomains": "Domains",

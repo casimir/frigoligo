@@ -6,25 +6,23 @@ import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart
 import 'package:fwfh_cached_network_image/fwfh_cached_network_image.dart';
 import 'package:fwfh_url_launcher/fwfh_url_launcher.dart';
 import 'package:go_router/go_router.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../buildcontext_extension.dart';
-import '../constants.dart';
-import '../db/extensions/article.dart';
-import '../db/models/article.drift.dart';
-import '../providers/article.dart';
-import '../providers/expander.dart';
-import '../providers/reading_settings.dart';
-import '../services/remote_sync.dart';
-import '../services/remote_sync_actions/articles.dart';
-import '../services/wallabag_storage.dart';
-import '../widget_keys.dart';
-import '../widgets/remote_sync_fab.dart';
-import '../widgets/remote_sync_progress_indicator.dart';
-import '../widgets/selectors.dart';
-import '../widgets/tag_list.dart';
-import 'reading_settings_configurator.dart';
+import '../../buildcontext_extension.dart';
+import '../../constants.dart';
+import '../../db/extensions/article.dart';
+import '../../db/models/article.drift.dart';
+import '../../providers/article.dart';
+import '../../providers/expander.dart';
+import '../../providers/reading_settings.dart';
+import '../../services/remote_sync.dart';
+import '../../services/remote_sync_actions/articles.dart';
+import '../../widget_keys.dart';
+import '../../widgets/remote_sync_fab.dart';
+import '../../widgets/remote_sync_progress_indicator.dart';
+import '../reading_settings_configurator.dart';
+import 'article_sheet.dart';
+import 'mixins.dart';
 
 class ArticlePage extends ConsumerStatefulWidget {
   const ArticlePage({
@@ -44,7 +42,8 @@ class ArticlePage extends ConsumerStatefulWidget {
   ConsumerState<ArticlePage> createState() => _ArticlePageState();
 }
 
-class _ArticlePageState extends ConsumerState<ArticlePage> {
+class _ArticlePageState extends ConsumerState<ArticlePage>
+    with CurrentArticleState<ArticlePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   final scroller = ScrollController();
 
@@ -60,16 +59,7 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return ref.watch(currentArticleProvider).when(
-          data: (it) => _build(it),
-          error: (error, _) => ErrorScreen(error: error),
-          loading: () =>
-              const Center(child: CircularProgressIndicator.adaptive()),
-        );
-  }
-
-  Widget _build(Article? article) {
+  Widget buildArticle(BuildContext context, Article? article) {
     Widget? leading;
     if (widget.withExpander) {
       leading = IconButton(
@@ -100,6 +90,14 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
         key: _scaffoldKey,
         appBar: AppBar(
           leading: leading,
+          title: article != null
+              ? Builder(builder: (context) {
+                  return InkWell(
+                    child: Text(article.title),
+                    onTap: () => Scaffold.of(context).openEndDrawer(),
+                  );
+                })
+              : null,
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           actions: [
             if (article != null)
@@ -138,22 +136,6 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
                   ),
                 ),
                 PopupMenuItem(
-                  value: 'share',
-                  enabled: article != null,
-                  child: ListTile(
-                    leading: shareIcon,
-                    title: Text(context.L.g_share),
-                  ),
-                ),
-                PopupMenuItem(
-                  value: 'open',
-                  enabled: article != null,
-                  child: ListTile(
-                    leading: const Icon(Icons.open_in_browser),
-                    title: Text(context.L.article_openInBrowser),
-                  ),
-                ),
-                PopupMenuItem(
                   value: 'delete',
                   enabled: article != null,
                   child: ListTile(
@@ -171,16 +153,6 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
                       barrierColor: Colors.transparent,
                       showDragHandle: true,
                     );
-                  case 'share':
-                    final box = context.findRenderObject() as RenderBox?;
-                    Share.share(
-                      article!.url,
-                      subject: article.title,
-                      sharePositionOrigin:
-                          box!.localToGlobal(Offset.zero) & box.size,
-                    );
-                  case 'open':
-                    launchUrl(Uri.parse(article!.url));
                   case 'delete':
                     final result = await showOkCancelAlertDialog(
                       context: context,
@@ -193,7 +165,7 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
                     final syncer = ref.read(remoteSyncerProvider.notifier);
                     await syncer.add(DeleteArticleAction(article.id));
                     await syncer.synchronize();
-                    if (!widget.withExpander && mounted) {
+                    if (!widget.withExpander && context.mounted) {
                       context.go('/');
                     }
                 }
@@ -212,6 +184,7 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
         onDrawerChanged: (isOpened) => setState(() {
           // set the state so that the progress indicator widget move correctly
         }),
+        endDrawer: article != null ? const ArticleSheet() : null,
       ),
     );
   }
@@ -261,16 +234,6 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
               child: Column(
                 children: [
                   _buildHeader(article),
-                  article.tags.isNotEmpty
-                      ? TagList(
-                          tags: article.tags,
-                          onTagPressed: (_) =>
-                              _showTagsDialog(context, ref, article))
-                      : TextButton(
-                          onPressed: () =>
-                              _showTagsDialog(context, ref, article),
-                          child: Text(context.L.article_addTags),
-                        ),
                   const Divider(),
                   _buildContent(article.content!, scrollPosition),
                   // TODO use SafeArea instead?
@@ -330,23 +293,6 @@ class _ArticlePageState extends ConsumerState<ArticlePage> {
         textStyle: values.textStyle,
       ),
     );
-  }
-}
-
-void _showTagsDialog(
-    BuildContext context, WidgetRef ref, Article article) async {
-  final tags = await showBottomSheetSelector(
-    context: context,
-    title: context.L.filters_articleTags,
-    selectionLabelizer: context.L.filters_articleTagsCount,
-    entriesBuilder: ref.read(wStorageProvider.notifier).getTags(),
-    initialSelection: article.tags.toSet(),
-    leadingIcon: const Icon(Icons.label),
-  );
-  if (tags != null) {
-    final syncer = ref.read(remoteSyncerProvider.notifier);
-    await syncer.add(EditArticleAction(article.id, tags: tags.toList()));
-    await syncer.synchronize();
   }
 }
 

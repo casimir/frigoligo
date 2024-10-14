@@ -2,10 +2,10 @@ import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../pages/article.dart';
 import '../pages/home.dart';
 import '../pages/logconsole.dart';
 import '../pages/login.dart';
+import '../pages/reading/article.dart';
 import '../pages/save.dart';
 import '../pages/session_details.dart';
 import '../pages/settings.dart';

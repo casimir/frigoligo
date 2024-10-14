@@ -5,15 +5,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 
-import '../buildcontext_extension.dart';
-import '../dialogs/save.dart';
-import '../services/remote_sync.dart';
-import '../services/wallabag_storage.dart';
-import '../widget_keys.dart';
-import '../widgets/remote_sync_fab.dart';
-import '../widgets/remote_sync_progress_indicator.dart';
-import 'listing/article_list.dart';
-import 'listing/search.dart';
+import '../../buildcontext_extension.dart';
+import '../../dialogs/save.dart';
+import '../../services/remote_sync.dart';
+import '../../services/wallabag_storage.dart';
+import '../../widget_keys.dart';
+import '../../widgets/remote_sync_fab.dart';
+import '../../widgets/remote_sync_progress_indicator.dart';
+import 'article_list.dart';
+import 'search.dart';
 
 final _log = Logger('frigoligo.listing');
 

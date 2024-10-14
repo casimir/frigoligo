@@ -1,10 +1,10 @@
 import 'package:cadanse/cadanse.dart';
-import 'package:cadanse/components/layouts/grouping.dart';
 import 'package:cadanse/components/widgets/error.dart';
 import 'package:cadanse/tokens/constants.dart';
 import 'package:flutter/material.dart';
 
 import '../buildcontext_extension.dart';
+import 'material_sheet.dart';
 
 class SelectorBottomSheet extends StatelessWidget {
   const SelectorBottomSheet({
@@ -18,24 +18,12 @@ class SelectorBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        C.spacers.verticalComponent,
-        AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-          title: Text(title),
-          centerTitle: false,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-          ),
-          backgroundColor: Theme.of(context).colorScheme.surface,
-          primary: false,
-        ),
-        ...children
-      ],
+    return MaterialSheet.modal(
+      context: context,
+      title: title,
+      child: Column(
+        children: children,
+      ),
     );
   }
 }
@@ -73,10 +61,7 @@ class _MultiSelectState<T> extends State<MultiSelect<T>> {
   }
 
   @override
-  Widget build(BuildContext context) => _buildChild(context);
-  // Dialog.fullscreen(child: _buildChild(context));
-
-  Widget _buildChild(BuildContext context) {
+  Widget build(BuildContext context) {
     return SelectorBottomSheet(
       title: widget.title,
       children: [
@@ -113,25 +98,14 @@ class _MultiSelectState<T> extends State<MultiSelect<T>> {
                   .map((m) => _buildItem(context, _index[m.entry]!))
                   .toList()),
         ),
-        C.spacers.verticalComponent,
-        PaddedGroup(
-          child: Row(children: [
-            Expanded(
-              child: FilledButton(
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(context.L.selector_selectbuttonlabel(
-                      widget.selectionLabelizer(_selected.length))),
-                ),
-                onPressed: () {
-                  widget.onConfirm?.call(_selected);
-                  Navigator.of(context).pop(_selected);
-                },
-              ),
-            ),
-          ]),
+        MaterialSheetActionButton(
+          label: context.L.selector_selectbuttonlabel(
+              widget.selectionLabelizer(_selected.length)),
+          onPressed: () {
+            widget.onConfirm?.call(_selected);
+            Navigator.of(context).pop(_selected);
+          },
         ),
-        C.spacers.verticalComponent,
       ],
     );
   }
