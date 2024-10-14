@@ -6,7 +6,6 @@ import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart
 import 'package:fwfh_cached_network_image/fwfh_cached_network_image.dart';
 import 'package:fwfh_url_launcher/fwfh_url_launcher.dart';
 import 'package:go_router/go_router.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../buildcontext_extension.dart';
@@ -18,12 +17,9 @@ import '../../providers/expander.dart';
 import '../../providers/reading_settings.dart';
 import '../../services/remote_sync.dart';
 import '../../services/remote_sync_actions/articles.dart';
-import '../../services/wallabag_storage.dart';
 import '../../widget_keys.dart';
 import '../../widgets/remote_sync_fab.dart';
 import '../../widgets/remote_sync_progress_indicator.dart';
-import '../../widgets/selectors.dart';
-import '../../widgets/tag_list.dart';
 import '../reading_settings_configurator.dart';
 import 'article_sheet.dart';
 import 'mixins.dart';
@@ -140,22 +136,6 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
                   ),
                 ),
                 PopupMenuItem(
-                  value: 'share',
-                  enabled: article != null,
-                  child: ListTile(
-                    leading: shareIcon,
-                    title: Text(context.L.g_share),
-                  ),
-                ),
-                PopupMenuItem(
-                  value: 'open',
-                  enabled: article != null,
-                  child: ListTile(
-                    leading: const Icon(Icons.open_in_browser),
-                    title: Text(context.L.article_openInBrowser),
-                  ),
-                ),
-                PopupMenuItem(
                   value: 'delete',
                   enabled: article != null,
                   child: ListTile(
@@ -173,16 +153,6 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
                       barrierColor: Colors.transparent,
                       showDragHandle: true,
                     );
-                  case 'share':
-                    final box = context.findRenderObject() as RenderBox?;
-                    Share.share(
-                      article!.url,
-                      subject: article.title,
-                      sharePositionOrigin:
-                          box!.localToGlobal(Offset.zero) & box.size,
-                    );
-                  case 'open':
-                    launchUrl(Uri.parse(article!.url));
                   case 'delete':
                     final result = await showOkCancelAlertDialog(
                       context: context,
@@ -195,7 +165,7 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
                     final syncer = ref.read(remoteSyncerProvider.notifier);
                     await syncer.add(DeleteArticleAction(article.id));
                     await syncer.synchronize();
-                    if (!widget.withExpander && mounted) {
+                    if (!widget.withExpander && context.mounted) {
                       context.go('/');
                     }
                 }

@@ -2,8 +2,11 @@ import 'package:cadanse/cadanse.dart';
 import 'package:cadanse/components/layouts/grouping.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../buildcontext_extension.dart';
+import '../../constants.dart';
 import '../../db/models/article.drift.dart';
 import '../../services/remote_sync.dart';
 import '../../services/remote_sync_actions/articles.dart';
@@ -56,6 +59,35 @@ class ArticleSheet extends ConsumerWidget with CurrentArticleWidget {
                     onPressed: () => _showTagsDialog(context, ref, article),
                     child: Text(context.L.article_addTags),
                   ),
+            C.spacers.verticalContent,
+            const Divider(),
+            C.spacers.verticalContent,
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  ActionChip(
+                    avatar: shareIcon,
+                    label: Text(context.L.g_share),
+                    onPressed: () {
+                      final box = context.findRenderObject() as RenderBox?;
+                      Share.share(
+                        article.url,
+                        subject: article.title,
+                        sharePositionOrigin:
+                            box!.localToGlobal(Offset.zero) & box.size,
+                      );
+                    },
+                  ),
+                  C.spacers.horizontalComponent,
+                  ActionChip(
+                    avatar: const Icon(Icons.open_in_browser),
+                    label: Text(context.L.article_openInBrowser),
+                    onPressed: () => launchUrl(Uri.parse(article.url)),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
