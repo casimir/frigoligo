@@ -29,66 +29,69 @@ class ArticleSheet extends ConsumerWidget with CurrentArticleWidget {
     return MaterialSheet.side(
       context: context,
       title: context.L.g_article,
-      child: PaddedGroup(
-        child: ListView(
-          shrinkWrap: true,
-          children: [
-            C.spacers.verticalContent,
-            ..._buildField(context, context.L.articlefields_title,
-                value: article.title),
-            C.spacers.verticalContent,
-            ..._buildField(context, context.L.articlefields_website,
-                value: article.domainName ?? article.url),
-            C.spacers.verticalContent,
-            ..._buildField(context, context.L.articlefields_readingTime,
-                value: context.L.article_readingTime(article.readingTime)),
-            C.spacers.verticalContent,
-            const Divider(),
-            C.spacers.verticalContent,
-            Text(
-              context.L.articlefields_tags,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            C.spacers.verticalContent,
-            article.tags.isNotEmpty
-                ? TagList(
-                    tags: article.tags,
-                    onTagPressed: (_) => _showTagsDialog(context, ref, article),
-                  )
-                : TextButton(
-                    onPressed: () => _showTagsDialog(context, ref, article),
-                    child: Text(context.L.article_addTags),
-                  ),
-            C.spacers.verticalContent,
-            const Divider(),
-            C.spacers.verticalContent,
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  ActionChip(
-                    avatar: shareIcon,
-                    label: Text(context.L.g_share),
-                    onPressed: () {
-                      final box = context.findRenderObject() as RenderBox?;
-                      Share.share(
-                        article.url,
-                        subject: article.title,
-                        sharePositionOrigin:
-                            box!.localToGlobal(Offset.zero) & box.size,
-                      );
-                    },
-                  ),
-                  C.spacers.horizontalComponent,
-                  ActionChip(
-                    avatar: const Icon(Icons.open_in_browser),
-                    label: Text(context.L.article_openInBrowser),
-                    onPressed: () => launchUrl(Uri.parse(article.url)),
-                  ),
-                ],
+      child: SingleChildScrollView(
+        child: PaddedGroup(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              C.spacers.verticalContent,
+              ..._buildField(context, context.L.articlefields_title,
+                  value: article.title),
+              C.spacers.verticalContent,
+              ..._buildField(context, context.L.articlefields_website,
+                  value: article.domainName ?? article.url),
+              C.spacers.verticalContent,
+              ..._buildField(context, context.L.articlefields_readingTime,
+                  value: context.L.article_readingTime(article.readingTime)),
+              C.spacers.verticalContent,
+              const Divider(),
+              C.spacers.verticalContent,
+              Text(
+                context.L.articlefields_tags,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
-            ),
-          ],
+              C.spacers.verticalContent,
+              article.tags.isNotEmpty
+                  ? TagList(
+                      tags: article.tags,
+                      onTagPressed: (_) =>
+                          _showTagsDialog(context, ref, article),
+                    )
+                  : TextButton(
+                      onPressed: () => _showTagsDialog(context, ref, article),
+                      child: Text(context.L.article_addTags),
+                    ),
+              C.spacers.verticalContent,
+              const Divider(),
+              C.spacers.verticalContent,
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    ActionChip(
+                      avatar: shareIcon,
+                      label: Text(context.L.g_share),
+                      onPressed: () {
+                        final box = context.findRenderObject() as RenderBox?;
+                        Share.share(
+                          article.url,
+                          subject: article.title,
+                          sharePositionOrigin:
+                              box!.localToGlobal(Offset.zero) & box.size,
+                        );
+                      },
+                    ),
+                    C.spacers.horizontalComponent,
+                    ActionChip(
+                      avatar: const Icon(Icons.open_in_browser),
+                      label: Text(context.L.article_openInBrowser),
+                      onPressed: () => launchUrl(Uri.parse(article.url)),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
