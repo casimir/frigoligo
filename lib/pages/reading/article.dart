@@ -92,41 +92,41 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
     final showRemoteSyncerWidgets = widget.withProgressIndicator &&
         !(_scaffoldKey.currentState?.isDrawerOpen ?? false);
 
-    return SelectionArea(
-      child: Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          leading: leading,
-          title: article != null
-              ? Builder(builder: (context) {
-                  return InkWell(
-                    child: Text(article.title),
-                    onTap: () => Scaffold.of(context).openEndDrawer(),
-                  );
-                })
-              : null,
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          actions: [
-            Builder(builder: (context) {
-              return IconButton(
-                icon: const Icon(Icons.info_outline),
-                onPressed: () => Scaffold.of(context).openEndDrawer(),
-              );
-            }),
-            if (!showBottomBar) ..._buildActions(article),
-            IconButton(
-              key: const Key(wkArticlePopupMenuSettings),
-              icon: const Icon(Icons.format_size),
-              onPressed: () => showModalBottomSheet(
-                context: context,
-                builder: (_) => const ReadingSettingsConfigurator(),
-                barrierColor: Colors.transparent,
-                showDragHandle: true,
-              ),
+    return Scaffold(
+      key: _scaffoldKey,
+      appBar: AppBar(
+        leading: leading,
+        title: article != null
+            ? Builder(builder: (context) {
+                return InkWell(
+                  child: Text(article.title),
+                  onTap: () => Scaffold.of(context).openEndDrawer(),
+                );
+              })
+            : null,
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        actions: [
+          Builder(builder: (context) {
+            return IconButton(
+              icon: const Icon(Icons.info_outline),
+              onPressed: () => Scaffold.of(context).openEndDrawer(),
+            );
+          }),
+          if (!showBottomBar) ..._buildActions(article),
+          IconButton(
+            key: const Key(wkArticlePopupMenuSettings),
+            icon: const Icon(Icons.format_size),
+            onPressed: () => showModalBottomSheet(
+              context: context,
+              builder: (_) => const ReadingSettingsConfigurator(),
+              barrierColor: Colors.transparent,
+              showDragHandle: true,
             ),
-          ],
-        ),
-        body: Column(
+          ),
+        ],
+      ),
+      body: SelectionArea(
+        child: Column(
           children: [
             if (showRemoteSyncerWidgets && !showBottomBar)
               const RemoteSyncProgressIndicator(),
@@ -135,16 +135,16 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
               const RemoteSyncProgressIndicator(),
           ],
         ),
-        bottomNavigationBar: showBottomBar ? _buildBottomBar(article!) : null,
-        floatingActionButton: RemoteSyncFAB(showIf: showRemoteSyncerWidgets),
-        floatingActionButtonLocation:
-            showBottomBar ? FloatingActionButtonLocation.endContained : null,
-        drawer: widget.drawer,
-        onDrawerChanged: (isOpened) => setState(() {
-          // set the state so that the progress indicator widget move correctly
-        }),
-        endDrawer: article != null ? const ArticleSheet() : null,
       ),
+      bottomNavigationBar: showBottomBar ? _buildBottomBar(article!) : null,
+      floatingActionButton: RemoteSyncFAB(showIf: showRemoteSyncerWidgets),
+      floatingActionButtonLocation:
+          showBottomBar ? FloatingActionButtonLocation.endContained : null,
+      drawer: widget.drawer,
+      onDrawerChanged: (isOpened) => setState(() {
+        // set the state so that the progress indicator widget move correctly
+      }),
+      endDrawer: article != null ? const ArticleSheet() : null,
     );
   }
 
