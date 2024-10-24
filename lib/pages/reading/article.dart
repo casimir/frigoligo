@@ -87,7 +87,7 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
     }
 
     final showBottomBar = (widget.withBottomBar ?? true) &&
-        Layout.isExpanded(context) &&
+        !Layout.isExpanded(context) &&
         article != null;
     final showRemoteSyncerWidgets = widget.withProgressIndicator &&
         !(_scaffoldKey.currentState?.isDrawerOpen ?? false);
