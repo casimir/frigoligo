@@ -79,8 +79,8 @@ class _ArticleContentState extends ConsumerState<ArticleContent> {
 
   @override
   void dispose() {
-    super.dispose();
     controller.removeListener(_scrollListener);
+    super.dispose();
   }
 
   void _scrollListener() {
