@@ -321,33 +321,84 @@ class _NonScrollableContent extends StatelessWidget {
 
 class _ScrollableContent extends StatelessWidget {
   const _ScrollableContent({
-    this.scrollKey,
+    required this.scrollKey,
     required this.appBar,
     required this.showProgressIndicator,
     required this.body,
   });
 
-  final GlobalKey<NestedScrollViewState>? scrollKey;
+  final GlobalKey<NestedScrollViewState> scrollKey;
   final SliverAppBar appBar;
   final _ProgressIndicatorPosition showProgressIndicator;
   final Widget body;
 
   @override
   Widget build(BuildContext context) {
+    final progressIndicator = Builder(builder: (context) {
+      final controller = scrollKey.currentState!.innerController;
+      return RemoteSyncProgressIndicator(
+          idleWidget: LinearScrollerIndicator(controller));
+    });
+
     return NestedScrollView(
       key: scrollKey,
       headerSliverBuilder: (context, _) => [
         appBar,
         if (showProgressIndicator == _ProgressIndicatorPosition.top)
-          const RemoteSyncProgressIndicator(idleWidget: SizedBox.shrink()),
+          progressIndicator,
       ],
       body: Column(
         children: [
           Expanded(child: body),
           if (showProgressIndicator == _ProgressIndicatorPosition.bottom)
-            const RemoteSyncProgressIndicator(idleWidget: SizedBox.shrink()),
+            progressIndicator,
         ],
       ),
+    );
+  }
+}
+
+class LinearScrollerIndicator extends StatefulWidget {
+  const LinearScrollerIndicator(this.controller, {super.key});
+
+  final ScrollController controller;
+
+  @override
+  State<LinearScrollerIndicator> createState() =>
+      _LinearScrollerIndicatorState();
+}
+
+class _LinearScrollerIndicatorState extends State<LinearScrollerIndicator> {
+  double _scrollProgress = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.controller.addListener(_scrollListener);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _scrollListener());
+  }
+
+  @override
+  void dispose() {
+    widget.controller.removeListener(_scrollListener);
+    super.dispose();
+  }
+
+  void _scrollListener() {
+    final pixels = widget.controller.position.pixels;
+    final maxExtent = widget.controller.position.maxScrollExtent;
+    final double progress = (pixels / maxExtent).clamp(0, 1);
+    setState(() {
+      _scrollProgress = progress;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return LinearProgressIndicator(
+      value: _scrollProgress,
+      backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+      color: Theme.of(context).colorScheme.secondary,
     );
   }
 }

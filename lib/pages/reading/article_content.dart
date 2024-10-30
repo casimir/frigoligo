@@ -105,27 +105,19 @@ class _ArticleContentState extends ConsumerState<ArticleContent> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // TODO show a progress indicator to compensate the lack of scrollbar
-        // LinearProgressIndicator(),
-        Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                PaddedGroup(
-                  child: HtmlWidgetPlus(
-                    widget.article.content!,
-                    onTreeBuilt: (_) => _jumpToProgress(),
-                    textStyle: ref.watch(readingSettingsProvider).textStyle,
-                  ),
-                ),
-                SizedBox(height: MediaQuery.paddingOf(context).bottom),
-              ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          PaddedGroup(
+            child: HtmlWidgetPlus(
+              widget.article.content!,
+              onTreeBuilt: (_) => _jumpToProgress(),
+              textStyle: ref.watch(readingSettingsProvider).textStyle,
             ),
           ),
-        ),
-      ],
+          SizedBox(height: MediaQuery.paddingOf(context).bottom),
+        ],
+      ),
     );
   }
 }
