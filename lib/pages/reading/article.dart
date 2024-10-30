@@ -334,10 +334,9 @@ class _ScrollableContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final progressIndicator = Builder(builder: (context) {
+    final scrollIndicator = Builder(builder: (context) {
       final controller = scrollKey.currentState!.innerController;
-      return RemoteSyncProgressIndicator(
-          idleWidget: LinearScrollerIndicator(controller));
+      return LinearScrollIndicator(controller);
     });
 
     return NestedScrollView(
@@ -345,30 +344,30 @@ class _ScrollableContent extends StatelessWidget {
       headerSliverBuilder: (context, _) => [
         appBar,
         if (showProgressIndicator == _ProgressIndicatorPosition.top)
-          progressIndicator,
+          const SliverToBoxAdapter(child: RemoteSyncProgressIndicator()),
       ],
       body: Column(
         children: [
           Expanded(child: body),
-          if (showProgressIndicator == _ProgressIndicatorPosition.bottom)
-            progressIndicator,
+          showProgressIndicator == _ProgressIndicatorPosition.bottom
+              ? RemoteSyncProgressIndicator(idleWidget: scrollIndicator)
+              : scrollIndicator,
         ],
       ),
     );
   }
 }
 
-class LinearScrollerIndicator extends StatefulWidget {
-  const LinearScrollerIndicator(this.controller, {super.key});
+class LinearScrollIndicator extends StatefulWidget {
+  const LinearScrollIndicator(this.controller, {super.key});
 
   final ScrollController controller;
 
   @override
-  State<LinearScrollerIndicator> createState() =>
-      _LinearScrollerIndicatorState();
+  State<LinearScrollIndicator> createState() => _LinearScrollIndicatorState();
 }
 
-class _LinearScrollerIndicatorState extends State<LinearScrollerIndicator> {
+class _LinearScrollIndicatorState extends State<LinearScrollIndicator> {
   double _scrollProgress = 0;
 
   @override
