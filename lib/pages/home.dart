@@ -6,8 +6,8 @@ import 'package:go_router/go_router.dart';
 import '../constants.dart';
 import '../providers/expander.dart';
 import '../services/remote_sync.dart';
-import 'article.dart';
-import 'listing.dart';
+import 'articles/listing.dart';
+import 'reading/article.dart';
 
 const idealListingWidth = 333.3;
 
@@ -39,8 +39,8 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget build(BuildContext context) {
     return switch (Layout.windowClass(context)) {
       WindowClass.compact => _buildNarrowLayout(),
-      WindowClass.medium => _buildWideLayout(),
-      WindowClass.expanded => _buildDynamicLayout(),
+      WindowClass.medium => _buildDynamicLayout(),
+      WindowClass.expanded => _buildWideLayout(),
     };
   }
 
