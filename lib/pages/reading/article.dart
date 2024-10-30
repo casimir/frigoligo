@@ -98,7 +98,12 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
       scaffoldKey: _scaffoldKey,
       controller: scroller,
       appBarLeading: appBarLeading,
-      title: Text(article.title), // TODO make it tapable (GestureDetector)
+      title: Builder(builder: (context) {
+        return GestureDetector(
+          child: Text(article.title),
+          onTap: () => Scaffold.of(context).openEndDrawer(),
+        );
+      }),
       actions: [
         Builder(builder: (context) {
           return IconButton(
