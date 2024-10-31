@@ -321,7 +321,7 @@
   "@filters_articleStateArchived": {
     "description": "Filter articles with the state 'archived'."
   },
-  "filters_articleStateAll": "Tous",
+  "filters_articleStateAll": "Tous les statuts",
   "@filters_articleStateAll": {
     "description": "Don't filter articles by state."
   },
@@ -376,5 +376,95 @@
   "login_acceptSelfSigned": "Autoriser les certificats auto-signés",
   "@login_acceptSelfSigned": {
     "description": "Wether or not to accept self-signed certificates when connecting to the wallabag instance."
+  },
+  "filters_articleState": "Statut",
+  "@filters_articleState": {
+    "description": "The state of the article."
+  },
+  "g_saveLink": "Enregistrer un lien",
+  "@g_saveLink": {
+    "description": "A verb, as in to save a link."
+  },
+  "filters_articleDomains": "Domaines",
+  "@filters_articleDomains": {
+    "description": "Filter the domains from where the articles have been fetched."
+  },
+  "g_settings": "Paramètres",
+  "@g_settings": {
+    "description": "The settings of the application."
+  },
+  "g_synchronize": "Synchroniser",
+  "@g_synchronize": {
+    "description": "A verb, as in to synchronize with the server."
+  },
+  "filters_searchModeAll": "Tous les champs",
+  "@filters_searchModeAll": {
+    "description": "Search text in all fields."
+  },
+  "filters_articleDomainsCount": "{count, plural, =0{Aucun domaine} =1{1 domaine} other{{count} domaines}}",
+  "@filters_articleDomainsCount": {
+    "description": "The number of articles domains used in filters.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "filters_searchModeContent": "Contenu",
+  "@filters_searchModeContent": {
+    "description": "Search text only in the content field."
+  },
+  "filters_searchModeTitle": "Titre",
+  "@filters_searchModeTitle": {
+    "description": "Search text only in the title field."
+  },
+  "selector_selectbuttonlabel": "Sélectionner {numberOfItems}",
+  "@selector_selectbuttonlabel": {
+    "description": "The label of the select button in a selector screen.",
+    "placeholders": {
+      "numberOfItems": {
+        "type": "String",
+        "example": "3 items"
+      }
+    }
+  },
+  "g_article": "Article",
+  "@g_article": {
+    "description": "A piece of content fetched from the web. This is one of the main concepts of the app."
+  },
+  "articlefields_readingTime": "Temps de lecture",
+  "@articlefields_readingTime": {
+    "description": "The estimated reading time of the article."
+  },
+  "articlefields_tags": "Labels",
+  "@articlefields_tags": {
+    "description": "The tags of the article."
+  },
+  "articlefields_title": "Titre",
+  "@articlefields_title": {
+    "description": "The title of the article."
+  },
+  "articlefields_website": "Site web",
+  "@articlefields_website": {
+    "description": "The website (domain) from where the article has been fetched."
+  },
+  "filters_articleTagsCount": "{count, plural, =0{Aucun label} =1{1 label} other{{count} labels}}",
+  "@filters_articleTagsCount": {
+    "description": "The number of tags used in filters.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "filters_searchbarHint": "Rechercher dans les articles",
+  "@filters_searchbarHint": {
+    "description": "Search bar hint in the home screen."
+  },
+  "filters_searchMode": "Mode de recherche",
+  "@filters_searchMode": {
+    "description": "The title of the search mode screen (which fields to search text into)."
   }
 }

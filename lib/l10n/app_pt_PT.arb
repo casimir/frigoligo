@@ -1,1 +1,126 @@
-{}
+{
+  "g_check": "Verificar",
+  "@g_check": {
+    "description": "A verb as in to check something."
+  },
+  "g_checking": "Verificando…",
+  "@g_checking": {
+    "description": "Present participle of the verb to check."
+  },
+  "g_delete": "Suprimir",
+  "@g_delete": {
+    "description": "A verb, as in to delete something."
+  },
+  "g_search": "Pesquisar",
+  "@g_search": {
+    "description": "A verb, as in to search something."
+  },
+  "g_server": "Servidor",
+  "@g_server": {
+    "description": "A server, as in a computer providing a service."
+  },
+  "g_share": "Compartilhar",
+  "@g_share": {
+    "description": "A verb, as in to share something."
+  },
+  "g_sourceCode": "Código fonte",
+  "@g_sourceCode": {
+    "description": "The source code of a software."
+  },
+  "g_system": "Sistema",
+  "@g_system": {
+    "description": "A name, as in the default configuration (System configuration)."
+  },
+  "g_tag": "Tag",
+  "@g_tag": {
+    "description": "A tag can be attached to an article."
+  },
+  "g_version": "Versão",
+  "@g_version": {
+    "description": "A version, as in the application version."
+  },
+  "humanize_days": "{n, plural, =1{1 dia} other{{n} dias}}",
+  "@humanize_days": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "humanize_future": "em {duration}",
+  "@humanize_future": {
+    "description": "Describe a duration until a moment in the future.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "humanize_hours": "{n, plural, =1{1 hora} other{ {n} horas}}",
+  "@humanize_hours": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "humanize_minutes": "{n, plural, =1{1 minuto} other{ {n} minutos}}",
+  "@humanize_minutes": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "humanize_past": "{duration} atrás",
+  "@humanize_past": {
+    "description": "Describe a duration since a moment in the past.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "humanize_seconds": "{n, plural, =1{1 segundo} other{ {n} segundos}}",
+  "@humanize_seconds": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "article_addTags": "Adicionar tags",
+  "@article_addTags": {
+    "description": "The action to add tags to an article."
+  },
+  "article_browseOriginal": "Navegue pelo original",
+  "@article_browseOriginal": {
+    "description": "The action to open the URL of the article in the web browser."
+  },
+  "article_delete": "Suprimir este artigo",
+  "@article_delete": {
+    "description": "The action to delete the article."
+  },
+  "article_noContentFetched": "Nenhum conteúdo buscado",
+  "@article_noContentFetched": {
+    "description": "Placeholder for when the article content is not available."
+  },
+  "article_openInBrowser": "Abrir no navegador",
+  "@article_openInBrowser": {
+    "description": "The action to open the article in the web browser."
+  },
+  "article_readingTime": "{minutes} min",
+  "@article_readingTime": {
+    "description": "The estimated reading time of the article.",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  }
+}
