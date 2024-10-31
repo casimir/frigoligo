@@ -34,52 +34,48 @@ class ListingPage extends ConsumerStatefulWidget {
 }
 
 class _ListingPageState extends ConsumerState<ListingPage> {
-  late final ScrollController _scroller;
-
-  @override
-  void initState() {
-    super.initState();
-    _scroller = ScrollController();
-  }
-
-  @override
-  void dispose() {
-    _scroller.dispose();
-    super.dispose();
-  }
+  final GlobalKey<NestedScrollViewState> _scrollKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     ref.watch(wStorageProvider);
 
-    // CustomerScrollView works perfectly on mobile but creates 2 scrollbar on
-    // SideBySide mode.
-    // NestedScrollView works perfectly on SideBySide mode but the list scrolls
-    // under the header (at least on mobile).
+    final headerColor = Theme.of(context).colorScheme.surfaceContainer;
 
     return Scaffold(
       body: SafeArea(
-        child: CustomScrollView(slivers: [
-          ElevatedPinnedHeaderSliver(
-            bodyScrollController: _scroller,
-            child: SearchBarWithFilters(
-              doRefresh: () => doRefresh(ref),
-              menu: _buildMenu(context, ref),
+        bottom: false,
+        child: NestedScrollView(
+          key: _scrollKey,
+          headerSliverBuilder: (context, innerBoxIsScrolled) => [
+            PinnedHeaderSliver(
+              child: SearchBarWithFilters(
+                doRefresh: () => doRefresh(ref),
+                menu: _buildMenu(context, ref),
+                backgroundColor: headerColor,
+              ),
             ),
+            if (widget.withProgressIndicator)
+              const SliverToBoxAdapter(
+                child:
+                    RemoteSyncProgressIndicator(idleWidget: SizedBox.shrink()),
+              ),
+          ],
+          body: Container(
+            color: Theme.of(context).colorScheme.surface,
+            child: Builder(builder: (context) {
+              return ArticleListView(
+                controller: _scrollKey.currentState!.innerController,
+                doRefresh: () => doRefresh(ref),
+                onItemSelect: widget.onItemSelect,
+                sideBySideMode: widget.sideBySideMode,
+              );
+            }),
           ),
-          if (widget.withProgressIndicator)
-            const SliverToBoxAdapter(child: RemoteSyncProgressIndicator()),
-          SliverFillRemaining(
-            child: ArticleListView(
-              controller: _scroller,
-              doRefresh: () => doRefresh(ref),
-              onItemSelect: widget.onItemSelect,
-              sideBySideMode: widget.sideBySideMode,
-            ),
-          )
-        ]),
+        ),
       ),
       floatingActionButton: RemoteSyncFAB(showIf: widget.withProgressIndicator),
+      backgroundColor: headerColor,
       restorationId: 'listing.scaffold',
     );
   }
@@ -126,59 +122,3 @@ PopupMenuButton _buildMenu(BuildContext context, WidgetRef ref) =>
         MenuAction.settings => context.push('/settings'),
       },
     );
-
-class ElevatedPinnedHeaderSliver extends StatefulWidget {
-  const ElevatedPinnedHeaderSliver({
-    super.key,
-    this.bodyScrollController,
-    required this.child,
-  });
-
-  final ScrollController? bodyScrollController;
-  final Widget child;
-
-  @override
-  State<ElevatedPinnedHeaderSliver> createState() =>
-      _ElevatedPinnedHeaderSliverState();
-}
-
-class _ElevatedPinnedHeaderSliverState
-    extends State<ElevatedPinnedHeaderSliver> {
-  bool _showElevation = false;
-
-  // FIXME it doesn't handle the case when the list is rebuilt (e.g. filters)
-  void onTopScrolled() {
-    if (_showElevation && widget.bodyScrollController!.position.pixels == 0.0) {
-      setState(() {
-        _showElevation = false;
-      });
-    } else if (!_showElevation &&
-        widget.bodyScrollController!.position.pixels > 0.0) {
-      setState(() {
-        _showElevation = true;
-      });
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    widget.bodyScrollController?.addListener(onTopScrolled);
-  }
-
-  @override
-  void dispose() {
-    widget.bodyScrollController?.removeListener(onTopScrolled);
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return PinnedHeaderSliver(
-      child: Material(
-        elevation: _showElevation ? 2.0 : 0.0,
-        child: widget.child,
-      ),
-    );
-  }
-}

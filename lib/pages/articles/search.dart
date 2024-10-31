@@ -140,15 +140,17 @@ class SearchBarWithFilters<T> extends ConsumerWidget {
     super.key,
     required this.doRefresh,
     this.menu,
+    this.backgroundColor,
   });
 
   final void Function()? doRefresh;
   final PopupMenuButton<T>? menu;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-      color: Theme.of(context).colorScheme.surfaceContainerLow,
+      color: backgroundColor,
       child: PaddedGroup(
         padding: C.paddings.group.copyWith(bottom: kSpacingInGroup),
         child: Column(
