@@ -76,7 +76,7 @@ dev_dependencies:
 
   # lints
   custom_lint: ^0.7.0
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
   riverpod_lint: ^2.3.13
 
   # code generation
