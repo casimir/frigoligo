@@ -1,3 +1,4 @@
+- Changement de la majorité de l'interface utilisateur pour une meilleure expérience.
 - Nouveau système de stockage pour plus cohérence et fiabilité à travers toutes les plate-formes.
 - Nouvelle logique de mise à jour du badge d'application pour plus de fiabilité.
 - Nouvelle langue : Esperanto.
