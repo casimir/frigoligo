@@ -5914,6 +5914,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 custom_lint
 custom_lint_builder
 custom_lint_core
+custom_lint_visitor
 
                                  Apache License
                            Version 2.0, January 2004
