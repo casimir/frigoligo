@@ -101,7 +101,7 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
         }),
         if (!showBottomBar) ..._buildActions(article),
         IconButton(
-          key: const Key(wkArticlePopupMenuSettings),
+          key: const Key(wkArticleReadingSettings),
           icon: const Icon(Icons.format_size),
           onPressed: () => showModalBottomSheet(
             context: context,

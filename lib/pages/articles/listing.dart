@@ -89,6 +89,7 @@ enum MenuAction { synchronize, saveLink, settings }
 
 PopupMenuButton _buildMenu(BuildContext context, WidgetRef ref) =>
     PopupMenuButton(
+      key: const Key(wkListingPopupMenu),
       itemBuilder: (context) => [
         PopupMenuItem(
           value: MenuAction.saveLink,

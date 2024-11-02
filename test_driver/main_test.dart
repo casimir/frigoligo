@@ -87,18 +87,11 @@ Future<void> main() async {
       await takeScreenshot('listing-loading');
       // hold until the progess indicator is gone
       // this is sub-optimal but will do for now...
-      await Future.delayed(const Duration(seconds: 10));
+      final pauseDuration = deviceType == 'phone'
+          ? const Duration(seconds: 10)
+          : const Duration(seconds: 15);
+      await Future.delayed(pauseDuration);
       await takeScreenshot('1-listing', false);
-
-      final appBarTitleFinder = find.descendant(
-        of: find.byType('AppBar'),
-        matching: find.byType('Text'),
-      );
-      await driver.tap(appBarTitleFinder);
-      await takeScreenshot('2-filters', false);
-
-      // await driver.tap(find.byValueKey(wkListingFiltersCount));
-      await takeScreenshot('listing-filters-dismissed');
     });
 
     openArticle() async {
@@ -110,9 +103,7 @@ Future<void> main() async {
     }
 
     openReadingSettings() async {
-      await driver.tap(find.text('wallabag turns 10'));
-      await driver.tap(find.byValueKey(wkArticlePopupMenu));
-      await driver.tap(find.byValueKey(wkArticlePopupMenuSettings));
+      await driver.tap(find.byValueKey(wkArticleReadingSettings));
     }
 
     test('reading settings', () async {
@@ -121,8 +112,9 @@ Future<void> main() async {
       } else {
         await toggleExpander();
       }
+      await takeScreenshot('article-opened');
       await openReadingSettings();
-      await takeScreenshot('3-reading-settings', false);
+      await takeScreenshot('2-reading-settings', false);
 
       await driver.tap(find.byType('ModalBarrier'));
       await takeScreenshot('article-settings-dismissed');
@@ -136,8 +128,9 @@ Future<void> main() async {
     });
 
     test('settings and dark mode', () async {
+      await driver.tap(find.byValueKey(wkListingPopupMenu));
       await driver.tap(find.byValueKey(wkListingSettings));
-      await takeScreenshot('4-settings', false);
+      await takeScreenshot('3-settings', false);
 
       await driver.tap(find.byValueKey(wkSettingsTheme));
       await driver.tap(find.text(darkModeLabel));
@@ -158,7 +151,7 @@ Future<void> main() async {
         await toggleExpander();
       }
       await openReadingSettings();
-      await takeScreenshot('5-reading-settings-dark', false);
+      await takeScreenshot('4-reading-settings-dark', false);
     });
   });
 }
