@@ -29,7 +29,7 @@ A full history of changes is available in [CHANGELOG.md](./CHANGELOG.md).
 
 |                                                   Mobile                                                    |                         Desktop                         |                                                         Mobile (dark)                                                          |
 |:-----------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------:|
-| ![mobile screenshot](./fastlane/metadata/android/en-US/images/phoneScreenshots/android_phone_1-listing.png) | ![desktop screenshot](./assets/screenshots/desktop.png) | ![mobile dark screenshot](./fastlane/metadata/android/en-US/images/phoneScreenshots/android_phone_5-reading-settings-dark.png) |
+| ![mobile screenshot](./fastlane/metadata/android/en-US/images/phoneScreenshots/android_phone_1-listing.png) | ![desktop screenshot](./assets/screenshots/desktop.png) | ![mobile dark screenshot](./fastlane/metadata/android/en-US/images/phoneScreenshots/android_phone_4-reading-settings-dark.png) |
 
 ## Deeplinks
 
