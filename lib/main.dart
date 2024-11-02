@@ -120,6 +120,7 @@ class _MyAppState extends ConsumerState<MyApp> {
             CupertinoLocalizationsEo.delegate,
           ],
       supportedLocales: AppLocalizations.supportedLocales,
+      debugShowCheckedModeBanner: false,
       restorationScopeId: 'app',
     );
   }
