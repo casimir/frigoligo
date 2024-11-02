@@ -311,9 +311,7 @@ class _NonScrollableContent extends StatelessWidget {
           const SliverToBoxAdapter(child: RemoteSyncProgressIndicator()),
         SliverFillRemaining(child: body),
         if (showProgressIndicator == _ProgressIndicatorPosition.bottom)
-          const SliverToBoxAdapter(
-            child: RemoteSyncProgressIndicator(idleWidget: SizedBox.shrink()),
-          ),
+          const SliverToBoxAdapter(child: RemoteSyncProgressIndicator()),
       ],
     );
   }
@@ -344,7 +342,7 @@ class _ScrollableContent extends StatelessWidget {
       headerSliverBuilder: (context, _) => [
         appBar,
         if (showProgressIndicator == _ProgressIndicatorPosition.top)
-          const SliverToBoxAdapter(child: RemoteSyncProgressIndicator()),
+          const PinnedHeaderSliver(child: RemoteSyncProgressIndicator()),
       ],
       body: Column(
         children: [

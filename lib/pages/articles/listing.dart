@@ -56,10 +56,7 @@ class _ListingPageState extends ConsumerState<ListingPage> {
               ),
             ),
             if (widget.withProgressIndicator)
-              const SliverToBoxAdapter(
-                child:
-                    RemoteSyncProgressIndicator(idleWidget: SizedBox.shrink()),
-              ),
+              const PinnedHeaderSliver(child: RemoteSyncProgressIndicator()),
           ],
           body: Container(
             color: Theme.of(context).colorScheme.surface,

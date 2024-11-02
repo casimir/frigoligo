@@ -47,7 +47,7 @@ class RemoteSyncProgressIndicator extends ConsumerWidget {
     }
 
     if (error != null || !syncState.isWorking) {
-      return idleWidget ?? const SizedBox(height: 4.0);
+      return idleWidget ?? Container(height: 4.0, color: Colors.transparent);
     } else {
       return LinearProgressIndicator(value: syncState.progressValue);
     }
