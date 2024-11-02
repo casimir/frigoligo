@@ -31,7 +31,8 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace "net.casimirlab.frigoligo"
     compileSdkVersion rootProject.ext.compileSdkVersion
-    ndkVersion flutter.ndkVersion
+    // hardcoded instead of flutter.ndkVersion because some dependencies require the latest NDK
+    ndkVersion = '27.0.12077973'
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -48,7 +49,9 @@ android {
 
     defaultConfig {
         applicationId "net.casimirlab.frigoligo"
-        minSdkVersion flutter.minSdkVersion
+        // hardcoded instead of flutter.minSdkVersion because some dependencies use Jetpack/AndroidX
+        // and this is also the first version to support multidex format natively
+        minSdkVersion 21
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
