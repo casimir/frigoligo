@@ -6,12 +6,10 @@ Future<void> main() async {
     // https://developer.apple.com/help/app-store-connect/reference/screenshot-specifications
     'phone': [
       // 'iPhone 15 Plus',
-      // 'iPhone 8 Plus',
       // 'android_phone',
     ],
     'tablet': [
       // 'iPad Pro (12.9-inch) (6th generation)',
-      // 'iPad Pro (12.9-inch) (2th generation)',
       // 'android_tablet',
     ],
   };
