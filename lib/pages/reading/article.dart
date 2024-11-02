@@ -41,23 +41,11 @@ class ArticlePage extends ConsumerStatefulWidget {
 class _ArticlePageState extends ConsumerState<ArticlePage>
     with CurrentArticleState<ArticlePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  final scroller = ScrollController();
-
-  @override
-  void initState() {
-    super.initState();
-
-    if (widget.drawer != null && widget.forcedDrawerOpen) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _scaffoldKey.currentState?.openDrawer();
-      });
-    }
-  }
+  final ScrollController scroller = ScrollController();
 
   @override
   void dispose() {
     scroller.dispose();
-
     super.dispose();
   }
 
@@ -235,6 +223,17 @@ class _PageScaffold extends StatefulWidget {
 
 class _PageScaffoldState extends State<_PageScaffold> {
   final GlobalKey<NestedScrollViewState> _scrollKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.drawer != null && widget.forcedDrawerOpen) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        widget.scaffoldKey.currentState?.openDrawer();
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
