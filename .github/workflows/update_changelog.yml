@@ -1,7 +1,5 @@
 name: update changelog
 on:
-  release:
-    types: [published]
   workflow_dispatch:
 
 jobs:
@@ -11,9 +9,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main
-      - uses: rhysd/changelog-from-release/action@v3
+          fetch-depth: 0
+      - uses: orhun/git-cliff-action@v3
         with:
-          file: CHANGELOG.md
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          commit_summary_template: "update changelog for %s changes"
+          config: cliff.toml
+          args: --verbose
+        env:
+          OUTPUT: CHANGELOG.md
+          GITHUB_REPO: ${{ github.repository }}
