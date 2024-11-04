@@ -325,7 +325,7 @@
   "@filters_articleStateArchived": {
     "description": "Filter articles with the state 'archived'."
   },
-  "filters_articleStateAll": "Alle",
+  "filters_articleStateAll": "Alle Status",
   "@filters_articleStateAll": {
     "description": "Don't filter articles by state."
   },
@@ -376,5 +376,95 @@
   "readingsettings_title": "Lese-Einstellungen",
   "@readingsettings_title": {
     "description": "The title of the reading settings screen."
+  },
+  "g_settings": "Einstellungen",
+  "@g_settings": {
+    "description": "The settings of the application."
+  },
+  "articlefields_title": "Titel",
+  "@articlefields_title": {
+    "description": "The title of the article."
+  },
+  "articlefields_website": "Webseite",
+  "@articlefields_website": {
+    "description": "The website (domain) from where the article has been fetched."
+  },
+  "filters_articleTagsCount": "{count, plural, =1{1 Tag} other{{count} Tags}}",
+  "@filters_articleTagsCount": {
+    "description": "The number of tags used in filters.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "filters_searchbarHint": "In Artikeln suchen",
+  "@filters_searchbarHint": {
+    "description": "Search bar hint in the home screen."
+  },
+  "filters_articleState": "Status",
+  "@filters_articleState": {
+    "description": "The state of the article."
+  },
+  "filters_searchModeContent": "Inhalt",
+  "@filters_searchModeContent": {
+    "description": "Search text only in the content field."
+  },
+  "filters_searchModeTitle": "Titel",
+  "@filters_searchModeTitle": {
+    "description": "Search text only in the title field."
+  },
+  "filters_searchMode": "Suchmodus",
+  "@filters_searchMode": {
+    "description": "The title of the search mode screen (which fields to search text into)."
+  },
+  "filters_searchModeAll": "Alle Felder",
+  "@filters_searchModeAll": {
+    "description": "Search text in all fields."
+  },
+  "selector_selectbuttonlabel": "{numberOfItems} wählen",
+  "@selector_selectbuttonlabel": {
+    "description": "The label of the select button in a selector screen.",
+    "placeholders": {
+      "numberOfItems": {
+        "type": "String",
+        "example": "3 items"
+      }
+    }
+  },
+  "g_article": "Artikel",
+  "@g_article": {
+    "description": "A piece of content fetched from the web. This is one of the main concepts of the app."
+  },
+  "g_saveLink": "Link speichern",
+  "@g_saveLink": {
+    "description": "A verb, as in to save a link."
+  },
+  "g_synchronize": "Synchronisieren",
+  "@g_synchronize": {
+    "description": "A verb, as in to synchronize with the server."
+  },
+  "articlefields_readingTime": "Lesedauer",
+  "@articlefields_readingTime": {
+    "description": "The estimated reading time of the article."
+  },
+  "articlefields_tags": "Tags",
+  "@articlefields_tags": {
+    "description": "The tags of the article."
+  },
+  "filters_articleDomains": "Domains",
+  "@filters_articleDomains": {
+    "description": "Filter the domains from where the articles have been fetched."
+  },
+  "filters_articleDomainsCount": "{count, plural, =1{1 Domain} other{{count} Domains}}",
+  "@filters_articleDomainsCount": {
+    "description": "The number of articles domains used in filters.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
   }
 }
