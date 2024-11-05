@@ -23,7 +23,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Text search mode filter was not selected in default state ([459f60e](https://github.com/casimir/frigoligo/commit/459f60ed5bdd847ed0536015485725ce408c585e))
 - *(UI/UX)* Reduce jumpiness when displaying the sync indicator ([9dbcdfb](https://github.com/casimir/frigoligo/commit/9dbcdfbbbf297e405bd5683260ec7dd87d1f30d8))
 - *(UI/UX)* Ensure drawer open on start when using dynamic layout ([3035eb5](https://github.com/casimir/frigoligo/commit/3035eb51aaf2c9dc2cd2a3308aacfdc1f01354a4))
-- Fix file output ([0234e9a](https://github.com/casimir/frigoligo/commit/0234e9a1cdd06ac81e53e3944d046b5cbbdd9782))
+- *(wallabag)* Allow null values in non-null published_by field ([#268](https://github.com/casimir/frigoligo/pull/268)) ([60aa3d8](https://github.com/casimir/frigoligo/commit/60aa3d8f2d503bf30f246a07eb8dcc297cc46fad))
 
 ### 🚜 Refactor
 
@@ -40,6 +40,8 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
  ([90593f8](https://github.com/casimir/frigoligo/commit/90593f8ac74e17ea2b6b5f88f7f208064d648bb1))
 - Update translations: Portuguese (Portugal)
  ([97385bd](https://github.com/casimir/frigoligo/commit/97385bd0a37df65fe89d134e315e14fce2dc2406))
+- Update translations: German
+ ([94899cd](https://github.com/casimir/frigoligo/commit/94899cde20a49c47da1cdda8c53ac5c19ba42bbf))
 
 ### ⚙️ Miscellaneous Tasks
 
@@ -47,7 +49,6 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(fastlane)* Update latest changelog with latest changes ([0979276](https://github.com/casimir/frigoligo/commit/0979276f569f3bae93850ec07aff5a33d792244e))
 - [**breaking**] Modernize Android build scripts and config ([e4e9cbf](https://github.com/casimir/frigoligo/commit/e4e9cbf7935ca99fa348d9d95f57a1ece800aa4c))
 - *(tooling)* Remove old and unused devices for screenshots ([6202c2a](https://github.com/casimir/frigoligo/commit/6202c2ae6d2cfaf65d5158ebd1c20cc1aaf5fe33))
-- *(tooling)* Automate changelog generation with git-cliff ([78f2454](https://github.com/casimir/frigoligo/commit/78f2454fd64d907fc15c5f0d96b2faa5c7d8c8d5))
 
 **Full Changelog**: [v1.2.0..HEAD](https://github.com/casimir/frigoligo/compare/v1.2.0..HEAD)
 
