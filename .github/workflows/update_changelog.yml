@@ -1,5 +1,8 @@
 name: update changelog
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -13,7 +16,10 @@ jobs:
       - uses: orhun/git-cliff-action@v3
         with:
           config: cliff.toml
-          args: --verbose
         env:
           OUTPUT: CHANGELOG.md
           GITHUB_REPO: ${{ github.repository }}
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Automated changelog update"
+          file_pattern: CHANGELOG.md
