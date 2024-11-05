@@ -1,7 +1,8 @@
 name: update changelog
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -11,9 +12,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main
-      - uses: rhysd/changelog-from-release/action@v3
+          fetch-depth: 0
+      - uses: orhun/git-cliff-action@v4
+        env:
+          # the value in the config is overriden implicitly
+          OUTPUT: CHANGELOG.md
+      - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          file: CHANGELOG.md
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          commit_summary_template: "update changelog for %s changes"
+          commit_message: "Automated changelog update"
+          file_pattern: CHANGELOG.md
