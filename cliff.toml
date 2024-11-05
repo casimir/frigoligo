@@ -10,6 +10,7 @@ owner = "casimir"
 repo = "frigoligo"
 
 [changelog]
+output = "CHANGELOG.md"
 # template for the changelog header
 header = """
 # Changelog\n
