@@ -1,401 +1,676 @@
-# Changelog
+<a name="v1.2.0"></a>
+# [v1.2.0 (v1.2.0)](https://github.com/casimir/frigoligo/releases/tag/v1.2.0) - 30 Jul 2024
 
-All notable changes to this project will be documented in this file.
+## What's Changed
+### Features
+* Allow connection to the server with a self-signed certificate by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/230
+### Bug Fixes
+* Fix wallabag refresh token update by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/226
+* Fix typo in language label (DE) by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/234
+### Miscellaneous
+* Change wallabag client architecture by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/224
+* Rework session handling and providers architecture by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/225
+* Add early support for freon by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/227
+* Translations update from Hosted Weblate by [@weblate](https://github.com/weblate) in https://github.com/casimir/frigoligo/pull/222
+* New locales (zh-Hant & ru) by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/228
+* Update dependency flutter_widget_from_html_core to ^0.15.0 by [@renovate](https://github.com/renovate) in https://github.com/casimir/frigoligo/pull/216
+* Update dependency fastlane to v2.222.0 by [@renovate](https://github.com/renovate) in https://github.com/casimir/frigoligo/pull/231
+* Translations update from Hosted Weblate by [@weblate](https://github.com/weblate) in https://github.com/casimir/frigoligo/pull/229
 
-See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadata/android/en-US/changelogs) for a more high level list of changes.
 
-## [unreleased]
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v1.1.1...v1.2.0
 
+[Changes][v1.2.0]
 
-### 🚀 Features
 
-- *(search)* Filters revamp & search by text ([#252](https://github.com/casimir/frigoligo/pull/252)) ([2c5a76e](https://github.com/casimir/frigoligo/commit/2c5a76ea9514b632478ab5551036d9e17776f6b2))
-- *(reading)* Rework the article screen ([#261](https://github.com/casimir/frigoligo/pull/261)) ([0a319b7](https://github.com/casimir/frigoligo/commit/0a319b77a881a940c2e28fe0e062107041606278))
+<a name="v1.1.1"></a>
+# [v1.1.1](https://github.com/casimir/frigoligo/releases/tag/v1.1.1) - 27 Jun 2024
 
-### 🐛 Bug Fixes
+## What's Changed
+### Bug Fixes
+* Can't open links inside article on Android by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/218
+### Miscellaneous
+* Use universal_platform to simplify the web experimentation by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/215
+* Update dependency fastlane to v2.221.1 by [@renovate](https://github.com/renovate) in https://github.com/casimir/frigoligo/pull/219
+* Change for a more explicit short description by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/220
+* Translations update from Hosted Weblate by [@weblate](https://github.com/weblate) in https://github.com/casimir/frigoligo/pull/213
 
-- Fix new metadata languages
- ([aa99590](https://github.com/casimir/frigoligo/commit/aa99590708a87d2b955cfa84a4e04ac8982619a8))
-- Fix json encoding in wallabag client
- ([38fc2e8](https://github.com/casimir/frigoligo/commit/38fc2e8e7dce3e21e9a8af4bea0d5bfdac465d0a))
-- Fix upsert
- ([e966be3](https://github.com/casimir/frigoligo/commit/e966be3ab93fee70682cb2a03abb121d9600869d))
-- Fix wallabag PATCH queries
- ([68427b1](https://github.com/casimir/frigoligo/commit/68427b13722e8fdf7901a90db73c7b4cd057ee0f))
-- Fix sql conflict on article update
- ([47ff5b1](https://github.com/casimir/frigoligo/commit/47ff5b14a5e855b9d41561f02ba1b89f3e9d3c25))
-- *(wallabag)* Don't try to use the old token when reconnecting ([b8dfb9e](https://github.com/casimir/frigoligo/commit/b8dfb9e7ecb1590c300dd4c7d79af7e8ded49ad6))
-- Text search mode filter was not selected in default state ([459f60e](https://github.com/casimir/frigoligo/commit/459f60ed5bdd847ed0536015485725ce408c585e))
-- *(UI/UX)* Reduce jumpiness when displaying the sync indicator ([9dbcdfb](https://github.com/casimir/frigoligo/commit/9dbcdfbbbf297e405bd5683260ec7dd87d1f30d8))
-- *(UI/UX)* Ensure drawer open on start when using dynamic layout ([3035eb5](https://github.com/casimir/frigoligo/commit/3035eb51aaf2c9dc2cd2a3308aacfdc1f01354a4))
 
-### 🚜 Refactor
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v1.1.0...v1.1.1
 
-- *(database)* Change code generation strategy ([#255](https://github.com/casimir/frigoligo/pull/255)) ([43486a7](https://github.com/casimir/frigoligo/commit/43486a729720c39080a14d0c74783a9fb2fe30ad))
-- *(home page)* Change how scrolling works for a nicer UX ([#263](https://github.com/casimir/frigoligo/pull/263)) ([b9999f3](https://github.com/casimir/frigoligo/commit/b9999f34cc994f243f23151560c5ae8b05f59322))
+[Changes][v1.1.1]
 
-### 🌐 Translations
 
-- Update translations: Esperanto
- ([c811d3d](https://github.com/casimir/frigoligo/commit/c811d3d706d284a2434ea8322e0e5e35231d9db5))
-- Update translations: Galician
- ([84b938e](https://github.com/casimir/frigoligo/commit/84b938eb45794bd6f966b811e56e6e42b3b7b232))
-- Update translations: French
- ([90593f8](https://github.com/casimir/frigoligo/commit/90593f8ac74e17ea2b6b5f88f7f208064d648bb1))
-- Update translations: Portuguese (Portugal)
- ([97385bd](https://github.com/casimir/frigoligo/commit/97385bd0a37df65fe89d134e315e14fce2dc2406))
+<a name="v1.1.0"></a>
+# [v1.1.0](https://github.com/casimir/frigoligo/releases/tag/v1.1.0) - 02 Jun 2024
 
-### ⚙️ Miscellaneous Tasks
+A new button to save a link from inside the app, 3 new languages and also lot of bugfixes, especially regarding synchronization and navigation.
 
-- *(deps)* Upgrade flutter dependencies ([#253](https://github.com/casimir/frigoligo/pull/253)) ([c292e37](https://github.com/casimir/frigoligo/commit/c292e37567e84a276edcf2118c6b15f31e2e2c5b))
-- *(fastlane)* Update latest changelog with latest changes ([0979276](https://github.com/casimir/frigoligo/commit/0979276f569f3bae93850ec07aff5a33d792244e))
-- [**breaking**] Modernize Android build scripts and config ([e4e9cbf](https://github.com/casimir/frigoligo/commit/e4e9cbf7935ca99fa348d9d95f57a1ece800aa4c))
-- *(tooling)* Remove old and unused devices for screenshots ([6202c2a](https://github.com/casimir/frigoligo/commit/6202c2ae6d2cfaf65d5158ebd1c20cc1aaf5fe33))
-- *(tooling)* Automate changelog generation with git-cliff ([78f2454](https://github.com/casimir/frigoligo/commit/78f2454fd64d907fc15c5f0d96b2faa5c7d8c8d5))
+## What's Changed
+### Features
+* Change local data location by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/196
+* Add a button to save a link from the listing screen by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/198
+* Refactor routing logic for the article view by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/207
+* Add 3 languages in settings: gl, pt_BR, zh by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/210
+### Bug Fixes
+* Fix DB initialization on some android devices by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/199
+* Upgrade app_links & fix android SEND intent handling by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/200
+* Avoid blocking the syncer with a 404 error on article deletion by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/208
+* Fix actions not syncing in some cases by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/209
+### Miscellaneous
+* A few adjustments after IzzyOnDroid inclusion by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/191
+* Finalize riverpod migration by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/202
+* Upgrade and organize deps by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/203
+* Update dependency go_router to v14 by [@renovate](https://github.com/renovate) in https://github.com/casimir/frigoligo/pull/176
+* Migrate to the new (gradle) android architecture by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/204
+* Add a smoke test for android too by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/206
+* Update dependency package_info_plus to v8 by [@renovate](https://github.com/renovate) in https://github.com/casimir/frigoligo/pull/166
+* Update dependency share_plus to v9 by [@renovate](https://github.com/renovate) in https://github.com/casimir/frigoligo/pull/167
+* Consolidate fastlane metadata by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/192
+* Translations update from Hosted Weblate by [@weblate](https://github.com/weblate) in https://github.com/casimir/frigoligo/pull/186
+* Translations update from Hosted Weblate by [@weblate](https://github.com/weblate) in https://github.com/casimir/frigoligo/pull/211
 
-**Full Changelog**: [v1.2.0..HEAD](https://github.com/casimir/frigoligo/compare/v1.2.0..HEAD)
 
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v1.0.10...v1.1.0
 
-## [1.2.0] - 2024-07-30
+[Changes][v1.1.0]
 
 
-### 🐛 Bug Fixes
+<a name="v1.0.10"></a>
+# [v1.0.10](https://github.com/casimir/frigoligo/releases/tag/v1.0.10) - 14 May 2024
 
-- Fix wallabag client headers
- ([4c1f448](https://github.com/casimir/frigoligo/commit/4c1f448483ad5c8880fb8bcbb0cdc80260ef8e3b))
-- Fix wallabag refresh token update ([#226](https://github.com/casimir/frigoligo/pull/226))
+## What's Changed
+### Miscellaneous
+* Release ABI specific APKs by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/187
+* Prevent error after fdroid signingConfig stripping by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/190
+* Use a lock file to have isar reproducible builds by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/189
 
-Most of the time the access token was invalid for the request where the refresh happened. ([75630fb](https://github.com/casimir/frigoligo/commit/75630fbbdc590580c3ad6d092290aa512503dfc6))
-- Fix a few translation keys
- ([5b67b40](https://github.com/casimir/frigoligo/commit/5b67b4002677233d1d510bf37332fa3554b1ed9f))
-- Fix typo in language label (DE) ([#234](https://github.com/casimir/frigoligo/pull/234))
 
- ([bdc0533](https://github.com/casimir/frigoligo/commit/bdc05332f55f1be8fe14967990579a2e19c2d6b9))
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v1.0.9...v1.0.10
 
-### 🌐 Translations
+[Changes][v1.0.10]
 
-- Update translations: German
- ([b0058b0](https://github.com/casimir/frigoligo/commit/b0058b05e30aed8a73336d4b82afcb8be1f8a024))
-- Update translations: English
- ([6a5a88f](https://github.com/casimir/frigoligo/commit/6a5a88fe42929b58d6fb6878b8026824759f5b0e))
-- Update translations: Portuguese
- ([bd25db5](https://github.com/casimir/frigoligo/commit/bd25db596809e82a3758738f96571c23968bcf71))
-- Update translations: French
- ([19bbd20](https://github.com/casimir/frigoligo/commit/19bbd20d98f59ace23c9a7aa66574c2e214bb539))
 
-**Full Changelog**: [v1.1.1..v1.2.0](https://github.com/casimir/frigoligo/compare/v1.1.1..v1.2.0)
+<a name="v1.0.9"></a>
+# [v1.0.9](https://github.com/casimir/frigoligo/releases/tag/v1.0.9) - 06 May 2024
 
+Fix apk build for releases.
 
-## [1.1.1] - 2024-06-27
+## What's Changed
+### Miscellaneous
+* Fix pub-cache path when building isar by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/183
 
 
-### 🐛 Bug Fixes
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v1.0.8...v1.0.9
 
-- Fix variable name
- ([b23699d](https://github.com/casimir/frigoligo/commit/b23699d4a74d254441c5ebb4dd814dc35ec4cdb5))
-- Fix small lint warning
- ([210244a](https://github.com/casimir/frigoligo/commit/210244a0b62f174c6c7598d6d62ff43d3579cd31))
-- Fix editorconfig split config
- ([4a2a063](https://github.com/casimir/frigoligo/commit/4a2a063f7f15824fc0778a4bf6d8a1dd7353672f))
+[Changes][v1.0.9]
 
-### 🌐 Translations
 
-- Update translations: Galician
- ([230bc75](https://github.com/casimir/frigoligo/commit/230bc75560c6b8b8a5dce97524d0faecd0c758a7))
+<a name="v1.0.8"></a>
+# [v1.0.8](https://github.com/casimir/frigoligo/releases/tag/v1.0.8) - 06 May 2024
 
-**Full Changelog**: [v1.1.0..v1.1.1](https://github.com/casimir/frigoligo/compare/v1.1.0..v1.1.1)
+Update most of the dependencies so most iOS native libs have a privacy manifest.
 
+## What's Changed
+### Miscellaneous
+* Update isar to 3.1.7 by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/181
+* Bump flutter dependencies by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/182
 
-## [1.1.0] - 2024-06-02
 
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v1.0.7...v1.0.8
 
-### 🐛 Bug Fixes
+[Changes][v1.0.8]
 
-- Fix DB initialization on some android devices ([#199](https://github.com/casimir/frigoligo/pull/199))
 
- ([1414b74](https://github.com/casimir/frigoligo/commit/1414b7446c06249821de5d92fbeca52f076c0951))
+<a name="v1.0.7"></a>
+# [v1.0.7](https://github.com/casimir/frigoligo/releases/tag/v1.0.7) - 06 May 2024
 
-### 🌐 Translations
+## What's Changed
+### Miscellaneous
+* Rebuild isar libs for the apk to allow reproducible builds by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/180
 
-- Update translations: Portuguese (Brazil)
- ([9420a85](https://github.com/casimir/frigoligo/commit/9420a8537f8f45e25840cfc18fa7a9919a2f5798))
-- Update translations: Chinese (Simplified)
- ([da44ad3](https://github.com/casimir/frigoligo/commit/da44ad30c98f950ff2b12b5ad934ff064b5bb64f))
 
-**Full Changelog**: [v1.0.10..v1.1.0](https://github.com/casimir/frigoligo/compare/v1.0.10..v1.1.0)
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v1.0.6...v1.0.7
 
+[Changes][v1.0.7]
 
-## [1.0.10] - 2024-05-14
 
+<a name="v1.0.6"></a>
+# [v1.0.6](https://github.com/casimir/frigoligo/releases/tag/v1.0.6) - 05 May 2024
 
-**Full Changelog**: [v1.0.9..v1.0.10](https://github.com/casimir/frigoligo/compare/v1.0.9..v1.0.10)
+The reading fonts are now bundled into the application. It makes it a few MB bigger but it is only a one time download and never need an internet connection for that later.
+Also lots of ops thing related to metadata management and stores deployment. 
 
+## What's Changed
+### Features
+* Bundle the reading fonts by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/172
+### Miscellaneous
+* Update dependency gradle to v7.6.4 by [@renovate](https://github.com/renovate) in https://github.com/casimir/frigoligo/pull/45
+* Rework fastlane metadata for android by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/173
+* Version the feature graphic for F-Droid by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/174
+* Update dependency fastlane to v2.220.0 by [@renovate](https://github.com/renovate) in https://github.com/casimir/frigoligo/pull/158
+* Pin flutter version by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/175
+* Pin flutter version by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/177
+* Build third party binaries from sources by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/178
 
-## [1.0.9] - 2024-05-06
 
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v1.0.5...v1.0.6
 
-**Full Changelog**: [v1.0.8..v1.0.9](https://github.com/casimir/frigoligo/compare/v1.0.8..v1.0.9)
+[Changes][v1.0.6]
 
 
-## [1.0.8] - 2024-05-06
+<a name="v1.0.5"></a>
+# [v1.0.5](https://github.com/casimir/frigoligo/releases/tag/v1.0.5) - 28 Apr 2024
 
+Fix version numbers and code in all artifacts.
 
-**Full Changelog**: [v1.0.7..v1.0.8](https://github.com/casimir/frigoligo/compare/v1.0.7..v1.0.8)
+It was wrongly tagged `1.0.2` in the last release.
 
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v1.0.4...v1.0.5
 
-## [1.0.7] - 2024-05-05
+[Changes][v1.0.5]
 
 
-**Full Changelog**: [v1.0.6..v1.0.7](https://github.com/casimir/frigoligo/compare/v1.0.6..v1.0.7)
+<a name="v1.0.4"></a>
+# [v1.0.4 - THIS IS BROKEN USE LATER VERSION](https://github.com/casimir/frigoligo/releases/tag/v1.0.4) - 28 Apr 2024
 
+Fix version numbers and code in all artifacts.
 
-## [1.0.6] - 2024-05-05
+It was wrongly tagged `1.0.2` in the last release.
 
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v1.0.3...v1.0.4
 
-**Full Changelog**: [v1.0.5..v1.0.6](https://github.com/casimir/frigoligo/compare/v1.0.5..v1.0.6)
+[Changes][v1.0.4]
 
 
-## [1.0.5] - 2024-04-28
+<a name="v1.0.3"></a>
+# [v1.0.3 - THIS IS BROKEN USE LATER VERSION](https://github.com/casimir/frigoligo/releases/tag/v1.0.3) - 28 Apr 2024
 
+The apk provided in the release will now be signed so its source and integrity can be verified.
 
-### 🐛 Bug Fixes
+## What's Changed
 
-- Fix versions number and name
- ([b2c2d12](https://github.com/casimir/frigoligo/commit/b2c2d129357129749e52c20382a14e7b9be851fb))
+### Miscellaneous
+* Sign the apk provided in the release by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/169
 
-**Full Changelog**: [v1.0.4..v1.0.5](https://github.com/casimir/frigoligo/compare/v1.0.4..v1.0.5)
 
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v1.0.2...v1.0.3
 
-## [1.0.4] - 2024-04-28
+[Changes][v1.0.3]
 
 
-**Full Changelog**: [v1.0.3..v1.0.4](https://github.com/casimir/frigoligo/compare/v1.0.3..v1.0.4)
+<a name="v1.0.2"></a>
+# [v1.0.2](https://github.com/casimir/frigoligo/releases/tag/v1.0.2) - 28 Apr 2024
 
+Another maintenance release with store metadata fixes.
 
-## [1.0.3] - 2024-04-28
+## What's Changed
+### Miscellaneous
+* Add an en-US alias for fdroid by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/168
 
 
-**Full Changelog**: [v1.0.2..v1.0.3](https://github.com/casimir/frigoligo/compare/v1.0.2..v1.0.3)
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v1.0.1...v1.0.2
 
+[Changes][v1.0.2]
 
-## [1.0.2] - 2024-04-28
 
+<a name="v1.0.1"></a>
+# [v1.0.1](https://github.com/casimir/frigoligo/releases/tag/v1.0.1) - 27 Apr 2024
 
-**Full Changelog**: [v1.0.1..v1.0.2](https://github.com/casimir/frigoligo/compare/v1.0.1..v1.0.2)
+Just a few changes and tweaks for stores metadata.
 
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v1.0.0...v1.0.1
 
-## [1.0.1] - 2024-04-27
+[Changes][v1.0.1]
 
 
-### 🐛 Bug Fixes
+<a name="v1.0.0"></a>
+# [v1.0.0](https://github.com/casimir/frigoligo/releases/tag/v1.0.0) - 17 Apr 2024
 
-- Fix dart warning
- ([300cecb](https://github.com/casimir/frigoligo/commit/300cecbc0194f641edf218545c29116e9360b667))
+This is the first version that will be in the stores! 🎉 
 
-**Full Changelog**: [v1.0.0..v1.0.1](https://github.com/casimir/frigoligo/compare/v1.0.0..v1.0.1)
+## What's Changed
+### Features
+* Better login flow by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/160
+* Postpone the notification permission prompt as much as possible by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/162
+* Listing screen tweaks by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/165
+### Miscellaneous
+* Setup fastlane config and metadata files by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/154
+* Translations update from Hosted Weblate by [@weblate](https://github.com/weblate) in https://github.com/casimir/frigoligo/pull/155
+* Translations update from Hosted Weblate by [@weblate](https://github.com/weblate) in https://github.com/casimir/frigoligo/pull/156
+* Migrate current article provider to riverpod by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/163
+* Riverpod debug logs by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/164
+* Automatic App Store metadata by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/157
 
 
-## [1.0.0] - 2024-04-17
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.8.1...v1.0.0
 
+[Changes][v1.0.0]
 
-### 🌐 Translations
 
-- Update translations: French
- ([cc1ca1d](https://github.com/casimir/frigoligo/commit/cc1ca1d8ff949227d9cd3ce856c7bcd03b771b8f))
+<a name="v0.8.1"></a>
+# [v0.8.1](https://github.com/casimir/frigoligo/releases/tag/v0.8.1) - 22 Mar 2024
 
-**Full Changelog**: [v0.8.1..v1.0.0](https://github.com/casimir/frigoligo/compare/v0.8.1..v1.0.0)
+Rework of the settings screen plus a few general bugfixes.
 
+## What's Changed
+### Features
+* Add a deeplink action to open the log console by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/145
+* Clear pending actions when clearing local data by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/147
+* Localization settings enhancements by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/149
+* Rework the settings screen by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/150
+* Keep settings sections readable on Android by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/152
+### Miscellaneous
+* Translations update from Hosted Weblate by [@weblate](https://github.com/weblate) in https://github.com/casimir/frigoligo/pull/143
+* Move settings backend usages from provider to riverpod by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/146
+* Upgrade a few dependencies by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/151
+* Translations update from Hosted Weblate by [@weblate](https://github.com/weblate) in https://github.com/casimir/frigoligo/pull/153
 
-## [0.8.1] - 2024-03-22
 
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.8.0...v0.8.1
 
-### 🌐 Translations
+[Changes][v0.8.1]
 
-- Update translations: French
- ([6161a21](https://github.com/casimir/frigoligo/commit/6161a21d6d3481d3367c81c7d5a59aa35ec2cd49))
 
-**Full Changelog**: [v0.8.0..v0.8.1](https://github.com/casimir/frigoligo/compare/v0.8.0..v0.8.1)
+<a name="v0.8.0"></a>
+# [0.8.0 (v0.8.0)](https://github.com/casimir/frigoligo/releases/tag/v0.8.0) - 19 Mar 2024
 
+Most likely the last dev version, this release contains the last features planned in the 1.0 milestone. :tada:
 
-## [0.8.0] - 2024-03-19
+## What's Changed
+### Features
+* Enhance article reading UI by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/131
+* Better scroll position management by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/136
+* Add a font selector to the reading settings screen by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/139
+* Persist pending remote sync actions until there are sent to the server by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/142
+### Miscellaneous
+* Bump everything (flutter, deps, pods, app version) by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/132
+* Upgrade flutter dependencies by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/140
+* Use an external package for design primitives by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/141
+* Translations update from Hosted Weblate by [@weblate](https://github.com/weblate) in https://github.com/casimir/frigoligo/pull/137
 
 
-### 🌐 Translations
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.7.2...v0.8.0
 
-- Update translations: French
- ([5fcc3a8](https://github.com/casimir/frigoligo/commit/5fcc3a855de74ef9eb46725e5776d458de8872ab))
+[Changes][v0.8.0]
 
-**Full Changelog**: [v0.7.2..v0.8.0](https://github.com/casimir/frigoligo/compare/v0.7.2..v0.8.0)
 
+<a name="v0.7.2"></a>
+# [v0.7.2](https://github.com/casimir/frigoligo/releases/tag/v0.7.2) - 19 Jan 2024
 
-## [0.7.2] - 2024-01-19
+## What's Changed
 
+A small maintenance release to fix iOS artifact metadata and upload on TestFlight.
 
-**Full Changelog**: [v0.7.1..v0.7.2](https://github.com/casimir/frigoligo/compare/v0.7.1..v0.7.2)
+### Miscellaneous
+* Fix minimum iOS version by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/128
 
 
-## [0.7.1] - 2024-01-18
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.7.1...v0.7.2
 
+[Changes][v0.7.2]
 
-### 🐛 Bug Fixes
 
-- Fix version numbers ([375cf8c](https://github.com/casimir/frigoligo/commit/375cf8c44836ecf1ea2c0b51f52064df4ef104aa))
+<a name="v0.7.1"></a>
+# [0.7.1 (v0.7.1)](https://github.com/casimir/frigoligo/releases/tag/v0.7.1) - 18 Jan 2024
 
-### 🌐 Translations
+Just a few adjustments in the German translation.
 
-- Update translations: German
- ([f80f054](https://github.com/casimir/frigoligo/commit/f80f05449e2cde6d29217f5bbbb6b25c56bcb483))
+## What's Changed
+### Miscellaneous
+* Translations update from Hosted Weblate by [@weblate](https://github.com/weblate) in https://github.com/casimir/frigoligo/pull/126
 
-**Full Changelog**: [v0.7.0..v0.7.1](https://github.com/casimir/frigoligo/compare/v0.7.0..v0.7.1)
 
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.7.0...v0.7.1
 
-## [0.7.0] - 2024-01-10
+[Changes][v0.7.1]
 
 
-### 🌐 Translations
+<a name="v0.7.0"></a>
+# [0.7.0 (v0.7.0)](https://github.com/casimir/frigoligo/releases/tag/v0.7.0) - 10 Jan 2024
 
-- Update translations: French
- ([7995866](https://github.com/casimir/frigoligo/commit/799586605f4a2da9bf2b1fbd4355132128a4405f))
-- Update translations: German
- ([3e73b11](https://github.com/casimir/frigoligo/commit/3e73b11d985e15784617281a11b7072cbba2422b))
+## What's Changed
+This release adds two big features: background syncing and the possiblity to choose the language of the application.
 
-**Full Changelog**: [v0.6.4..v0.7.0](https://github.com/casimir/frigoligo/compare/v0.6.4..v0.7.0)
+### Features
+* Background server syncing by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/117
+* Disable login button until checks are passed by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/118
+* Allow to choose application language by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/119
+* In dynamic layout mode, open the drawer on start by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/121
+### Miscellaneous
+* Build the macOS version on XcodeCloud by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/90
+* Translations update from Hosted Weblate by [@weblate](https://github.com/weblate) in https://github.com/casimir/frigoligo/pull/113
+* Translations update from Hosted Weblate by [@weblate](https://github.com/weblate) in https://github.com/casimir/frigoligo/pull/120
+* Translate more strings by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/122
+* Translations update from Hosted Weblate by [@weblate](https://github.com/weblate) in https://github.com/casimir/frigoligo/pull/123
 
+## New Contributors
+* [@weblate](https://github.com/weblate) made their first contribution in https://github.com/casimir/frigoligo/pull/113
+* [@jrabensc](https://github.com/jrabensc) provided the german translation
 
-## [0.6.4] - 2024-01-03
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.6.4...v0.7.0
 
+[Changes][v0.7.0]
 
-**Full Changelog**: [v0.6.3..v0.6.4](https://github.com/casimir/frigoligo/compare/v0.6.3..v0.6.4)
 
+<a name="v0.6.4"></a>
+# [v0.6.4](https://github.com/casimir/frigoligo/releases/tag/v0.6.4) - 03 Jan 2024
 
-## [0.6.3] - 2023-12-26
+<!-- Release notes generated using configuration in .github/release.yml at main -->
 
+## What's Changed
+### Features
+* Add a localization infrastructure by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/112
+* Refresh workflow for invalid sessions by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/114
+### Bug Fixes
+* Refresh tag list when clearing filter by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/115
 
-**Full Changelog**: [v0.6.2..v0.6.3](https://github.com/casimir/frigoligo/compare/v0.6.2..v0.6.3)
 
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.6.3...v0.6.4
 
-## [0.6.2] - 2023-11-20
+[Changes][v0.6.4]
 
 
-**Full Changelog**: [v0.6.1..v0.6.2](https://github.com/casimir/frigoligo/compare/v0.6.1..v0.6.2)
+<a name="v0.6.3"></a>
+# [0.6.3 (v0.6.3)](https://github.com/casimir/frigoligo/releases/tag/v0.6.3) - 26 Dec 2023
 
+Bugfix release mainly for the tags selector issues in dark mode.
 
-## [0.6.1] - 2023-11-18
+<!-- Release notes generated using configuration in .github/release.yml at main -->
 
+## What's Changed
+### Bug Fixes
+* New simpler tags selector dialog by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/107
+### Miscellaneous
+* Adaptive layout management by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/108
+* Encapsulate dimension constants as much as possible by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/109
+* Upgrade packages and build dependencies by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/110
 
-### 🐛 Bug Fixes
 
-- Fix a few simple warnings
- ([325dd7f](https://github.com/casimir/frigoligo/commit/325dd7fdfc2fd8f9e894acee4bbdc7df04e3b050))
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.6.2...v0.6.3
 
-**Full Changelog**: [v0.6.0..v0.6.1](https://github.com/casimir/frigoligo/compare/v0.6.0..v0.6.1)
+[Changes][v0.6.3]
 
 
-## [0.6.0] - 2023-11-03
+<a name="v0.6.2"></a>
+# [0.6.2 (v0.6.2)](https://github.com/casimir/frigoligo/releases/tag/v0.6.2) - 20 Nov 2023
 
+This is a maintenance release to fix Windows builds and upgrade a few building tools.
 
-### 🐛 Bug Fixes
+<!-- Release notes generated using configuration in .github/release.yml at main -->
 
-- Fix build phase order for xcode 15+
- ([24373e1](https://github.com/casimir/frigoligo/commit/24373e1642762a7f61f617c427502568bb24da40))
+## What's Changed
+### Miscellaneous
+* Upgrade dart, cocoapods and flutter deps by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/98
+* Update windows build directory by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/99
 
-**Full Changelog**: [v0.5.1..v0.6.0](https://github.com/casimir/frigoligo/compare/v0.5.1..v0.6.0)
 
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.6.1...v0.6.2
 
-## [0.5.1] - 2023-09-28
+[Changes][v0.6.2]
 
 
-**Full Changelog**: [v0.5.0..v0.5.1](https://github.com/casimir/frigoligo/compare/v0.5.0..v0.5.1)
+<a name="v0.6.1"></a>
+# [0.6.1 (v0.6.1)](https://github.com/casimir/frigoligo/releases/tag/v0.6.1) - 18 Nov 2023
 
+<!-- Release notes generated using configuration in .github/release.yml at main -->
 
-## [0.5.0] - 2023-09-21
+## What's Changed
+### Features
+* Enhance server validation and configuration logic by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/89
+* Redesign articles listing and filters by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/93
+### Bug Fixes
+* Change how iOS share extension attachments are handled by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/95
 
 
-### 🐛 Bug Fixes
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.6.0...v0.6.1
 
-- Fix index lookup
- ([8d01f9f](https://github.com/casimir/frigoligo/commit/8d01f9f3921512dfd1d26c97f21640944cc2e5d8))
+[Changes][v0.6.1]
 
-**Full Changelog**: [v0.4.1..v0.5.0](https://github.com/casimir/frigoligo/compare/v0.4.1..v0.5.0)
 
+<a name="v0.6.0"></a>
+# [0.6.0 (v0.6.0)](https://github.com/casimir/frigoligo/releases/tag/v0.6.0) - 03 Nov 2023
 
-## [0.4.1] - 2023-08-14
+Another big one! The highlights are a completly new synchronization backend and a basic support for tags.
 
+<!-- Release notes generated using configuration in .github/release.yml at main -->
 
-**Full Changelog**: [v0.4.0..v0.4.1](https://github.com/casimir/frigoligo/compare/v0.4.0..v0.4.1)
+## What's Changed
+### Features
+* Pull to refresh for article listing by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/84
+* Centralize syncing actions into a single service by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/86
+* Allow to change article attributes from the listing view by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/87
+* Tags support by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/81
+### Miscellaneous
+* Update changelog for "v0.5.1" by [@github-actions](https://github.com/github-actions) in https://github.com/casimir/frigoligo/pull/75
+* Upgrade flutter packages by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/80
+* Upgrade flutter_lints and correct a few warnings by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/85
+* Update dependency go_router to v12 by [@renovate](https://github.com/renovate) in https://github.com/casimir/frigoligo/pull/83
 
 
-## [0.4.0] - 2023-08-08
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.5.1...v0.6.0
 
+[Changes][v0.6.0]
 
-### 🐛 Bug Fixes
 
-- Fix session detail copy
- ([e8533db](https://github.com/casimir/frigoligo/commit/e8533db3ccf9299177bc1d1cefca906aeb94424a))
+<a name="v0.5.1"></a>
+# [0.5.1 (v0.5.1)](https://github.com/casimir/frigoligo/releases/tag/v0.5.1) - 28 Sep 2023
 
-**Full Changelog**: [v0.3.2..v0.4.0](https://github.com/casimir/frigoligo/compare/v0.3.2..v0.4.0)
+<!-- Release notes generated using configuration in .github/release.yml at main -->
 
+## What's Changed
+### Features
+* Allow to add a tag when saving articles by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/73
+* Add an animation when the save is complete in iOS share sheet by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/74
+### Miscellaneous
+* Update changelog for "v0.5.0" by [@github-actions](https://github.com/github-actions) in https://github.com/casimir/frigoligo/pull/71
+* Update dependency go_router to v11 by [@renovate](https://github.com/renovate) in https://github.com/casimir/frigoligo/pull/72
+* Update actions/checkout action to v4 by [@renovate](https://github.com/renovate) in https://github.com/casimir/frigoligo/pull/68
 
-## [0.3.2] - 2023-08-04
 
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.5.0...v0.5.1
 
-### 🐛 Bug Fixes
+[Changes][v0.5.1]
 
-- Fix a few non-important warnings
- ([9d41d49](https://github.com/casimir/frigoligo/commit/9d41d494a09694f2f41891a6c3d57a34a1c1d74a))
 
-**Full Changelog**: [v0.3.1..v0.3.2](https://github.com/casimir/frigoligo/compare/v0.3.1..v0.3.2)
+<a name="v0.5.0"></a>
+# [0.5.0 (v0.5.0)](https://github.com/casimir/frigoligo/releases/tag/v0.5.0) - 21 Sep 2023
 
+<!-- Release notes generated using configuration in .github/release.yml at main -->
 
-## [0.3.1] - 2023-08-02
+## What's Changed
+### Features
+* Rework page routes navigation logic by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/60
+* Add a few deeplinks by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/61
+* Rework how the article page is loaded by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/66
+* Flexible interface by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/25
+* Native integration for URL shares by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/67
+* Add hints for password managers for login fields by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/69
+### Miscellaneous
+* Bulk upgrade flutter dependencies by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/62
 
 
-### 🐛 Bug Fixes
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.4.1...v0.5.0
 
-- Fix main branch reference
- ([d8c1bd9](https://github.com/casimir/frigoligo/commit/d8c1bd9462ff32f5c23ec4afdde7de2edbcd4f88))
-- Fix release link + add a link for missing features ([eb3c462](https://github.com/casimir/frigoligo/commit/eb3c462170ec329824df3a189506ef97509441d4))
-- Fix initialization order for PackageInfo
- ([0feccd9](https://github.com/casimir/frigoligo/commit/0feccd96d4b5e3f94e39a3f9d26edfe296067508))
-- Fix release script rights and artifacts links in the README
- ([76555f1](https://github.com/casimir/frigoligo/commit/76555f16ef6dd0fe3143f9cdd481d1087314a42e))
+[Changes][v0.5.0]
 
-**Full Changelog**: [v0.3.0..v0.3.1](https://github.com/casimir/frigoligo/compare/v0.3.0..v0.3.1)
 
+<a name="v0.4.1"></a>
+# [v0.4.1](https://github.com/casimir/frigoligo/releases/tag/v0.4.1) - 14 Aug 2023
 
-## [0.3.0] - 2023-07-27
+<!-- Release notes generated using configuration in .github/release.yml at main -->
 
+## What's Changed
+### Miscellaneous
+* On-demand builds for pull requests by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/55
+* Smoke tests by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/57
+* Allow to sign debug version alongside release version for android by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/58
 
-### 🐛 Bug Fixes
 
-- Fix form display with native keyboard (and small screens) ([#8](https://github.com/casimir/frigoligo/pull/8))
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.4.0...v0.4.1
 
- ([adbdf80](https://github.com/casimir/frigoligo/commit/adbdf80923c82e97d216c82b8a292627841d7d51))
+[Changes][v0.4.1]
 
-**Full Changelog**: [v0.2.0..v0.3.0](https://github.com/casimir/frigoligo/compare/v0.2.0..v0.3.0)
 
+<a name="v0.4.0"></a>
+# [0.4.0 (v0.4.0)](https://github.com/casimir/frigoligo/releases/tag/v0.4.0) - 08 Aug 2023
 
-## [0.2.0] - 2023-07-25
+<!-- Release notes generated using configuration in .github/release.yml at main -->
 
+## What's Changed
+### Features
+* Add a button to clear the logs by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/36
+* Display unkown error while checking the server in the login screen by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/37
+* Add a proper settings menu by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/35
+* Allow to select (and copy) article content by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/41
+* Add an optional unread app badge for iOS, macOS and some Android versions by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/42
+* Add a button to open the log console from the login page after an error by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/43
+* A few enhancements to the Session Details screen  by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/51
+### Bug Fixes
+* Enforce the INTERNET permission on all Android builds by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/38
+* Handle server urls with a base path prefix by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/39
+### Miscellaneous
+* Update dependency com.android.tools.build:gradle to v7.4.2 by [@renovate](https://github.com/renovate) in https://github.com/casimir/frigoligo/pull/44
+* Add a GHA to upload builds to playstore beta (similar to xcode cloud) by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/48
+* Add a privacy policy by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/50
 
-### 🐛 Bug Fixes
 
-- Fix global key collision
- ([3450aef](https://github.com/casimir/frigoligo/commit/3450aef1eacf2a32dcce9363bb846132be42bd1a))
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.3.2...v0.4.0
 
-**Full Changelog**: [v0.1.0..v0.2.0](https://github.com/casimir/frigoligo/compare/v0.1.0..v0.2.0)
+[Changes][v0.4.0]
 
 
-## [0.1.0] - 2023-07-19
+<a name="v0.3.2"></a>
+# [0.3.2 (v0.3.2)](https://github.com/casimir/frigoligo/releases/tag/v0.3.2) - 04 Aug 2023
 
+<!-- Release notes generated using configuration in .github/release.yml at main -->
 
-### 🐛 Bug Fixes
+## What's Changed
+### Features
+* Add of few dialog windows here and there by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/24
+* Handle articles without content by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/30
+### Miscellaneous
+* Release artifacts enhancements by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/27
+* Configure Renovate by [@renovate](https://github.com/renovate) in https://github.com/casimir/frigoligo/pull/28
+* Use different database names for release and debug builds by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/31
+* Log uncatched exceptions by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/32
 
-- Fix storyboard file for iPad
- ([27604e3](https://github.com/casimir/frigoligo/commit/27604e3e9c05022864398adb7d47f485db6f6e2a))
+## New Contributors
+* [@github-actions](https://github.com/github-actions) made their first contribution in https://github.com/casimir/frigoligo/pull/23
+* [@renovate](https://github.com/renovate) made their first contribution in https://github.com/casimir/frigoligo/pull/28
 
-### 🚜 Refactor
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.3.1...v0.3.2
 
-- Refactor server connection data and prepare server chooser dialog
- ([4456917](https://github.com/casimir/frigoligo/commit/4456917e651ecca9aed4e90d2370adfd2d11fd49))
-<!-- generated by git-cliff -->
+[Changes][v0.3.2]
+
+
+<a name="v0.3.1"></a>
+# [0.3.1 (v0.3.1)](https://github.com/casimir/frigoligo/releases/tag/v0.3.1) - 02 Aug 2023
+
+<!-- Release notes generated using configuration in .github/release.yml at main -->
+
+## What's Changed
+### Features
+* allow to access and share logs from the app by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/19
+### Bug Fixes
+* Better handling of exceptions while syncing by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/18
+* better error handling for json deserialization by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/20
+* mark Entry hashed url fields as nullable by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/21
+### Miscellaneous
+* add artifact upload to releases by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/22
+
+
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.3.0...v0.3.1
+
+[Changes][v0.3.1]
+
+
+<a name="v0.3.0"></a>
+# [0.3.0 (v0.3.0)](https://github.com/casimir/frigoligo/releases/tag/v0.3.0) - 27 Jul 2023
+
+## What's Changed
+* start an incremental sync on launch (every 15 min at most) by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/6
+* Restore app state after OS kill by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/7
+* fix login form display with native keyboard (and small screens) by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/8
+* simplify auto-sync and make it more reliable by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/9
+* allow flutter to manage its scrolling position to to avoid weird jumps by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/10
+
+
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.2.0...v0.3.0
+
+[Changes][v0.3.0]
+
+
+<a name="v0.2.0"></a>
+# [0.2.0 (v0.2.0)](https://github.com/casimir/frigoligo/releases/tag/v0.2.0) - 25 Jul 2023
+
+## What's Changed
+* rework the login page for a better UX by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/1
+* restore scroll position when coming back to an article by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/2
+* force a scrollbar on mobile for the article page by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/3
+* Design tweaks by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/4
+* handle server-side deletions by [@casimir](https://github.com/casimir) in https://github.com/casimir/frigoligo/pull/5
+
+## New Contributors
+* [@casimir](https://github.com/casimir) made their first contribution in https://github.com/casimir/frigoligo/pull/1
+
+**Full Changelog**: https://github.com/casimir/frigoligo/compare/v0.1.0...v0.2.0
+
+[Changes][v0.2.0]
+
+
+<a name="v0.1.0"></a>
+# [0.1.0 (v0.1.0)](https://github.com/casimir/frigoligo/releases/tag/v0.1.0) - 25 Jul 2023
+
+Let's begin! This is the very first release.
+
+- article persistence
+- api pagination
+- article list filtering
+- smart full sync (with since)
+- refresh progress indicator
+- auto refresh of article view
+- split views on wide screens (manual switch?)
+- check FTUE (/!\ first sync) and reset workflow
+- set up logos and launch screen
+- Add an about section with the version and licenses and stuff...
+- server selection
+
+[Changes][v0.1.0]
+
+
+[v1.2.0]: https://github.com/casimir/frigoligo/compare/v1.1.1...v1.2.0
+[v1.1.1]: https://github.com/casimir/frigoligo/compare/v1.1.0...v1.1.1
+[v1.1.0]: https://github.com/casimir/frigoligo/compare/v1.0.10...v1.1.0
+[v1.0.10]: https://github.com/casimir/frigoligo/compare/v1.0.9...v1.0.10
+[v1.0.9]: https://github.com/casimir/frigoligo/compare/v1.0.8...v1.0.9
+[v1.0.8]: https://github.com/casimir/frigoligo/compare/v1.0.7...v1.0.8
+[v1.0.7]: https://github.com/casimir/frigoligo/compare/v1.0.6...v1.0.7
+[v1.0.6]: https://github.com/casimir/frigoligo/compare/v1.0.5...v1.0.6
+[v1.0.5]: https://github.com/casimir/frigoligo/compare/v1.0.4...v1.0.5
+[v1.0.4]: https://github.com/casimir/frigoligo/compare/v1.0.3...v1.0.4
+[v1.0.3]: https://github.com/casimir/frigoligo/compare/v1.0.2...v1.0.3
+[v1.0.2]: https://github.com/casimir/frigoligo/compare/v1.0.1...v1.0.2
+[v1.0.1]: https://github.com/casimir/frigoligo/compare/v1.0.0...v1.0.1
+[v1.0.0]: https://github.com/casimir/frigoligo/compare/v0.8.1...v1.0.0
+[v0.8.1]: https://github.com/casimir/frigoligo/compare/v0.8.0...v0.8.1
+[v0.8.0]: https://github.com/casimir/frigoligo/compare/v0.7.2...v0.8.0
+[v0.7.2]: https://github.com/casimir/frigoligo/compare/v0.7.1...v0.7.2
+[v0.7.1]: https://github.com/casimir/frigoligo/compare/v0.7.0...v0.7.1
+[v0.7.0]: https://github.com/casimir/frigoligo/compare/v0.6.4...v0.7.0
+[v0.6.4]: https://github.com/casimir/frigoligo/compare/v0.6.3...v0.6.4
+[v0.6.3]: https://github.com/casimir/frigoligo/compare/v0.6.2...v0.6.3
+[v0.6.2]: https://github.com/casimir/frigoligo/compare/v0.6.1...v0.6.2
+[v0.6.1]: https://github.com/casimir/frigoligo/compare/v0.6.0...v0.6.1
+[v0.6.0]: https://github.com/casimir/frigoligo/compare/v0.5.1...v0.6.0
+[v0.5.1]: https://github.com/casimir/frigoligo/compare/v0.5.0...v0.5.1
+[v0.5.0]: https://github.com/casimir/frigoligo/compare/v0.4.1...v0.5.0
+[v0.4.1]: https://github.com/casimir/frigoligo/compare/v0.4.0...v0.4.1
+[v0.4.0]: https://github.com/casimir/frigoligo/compare/v0.3.2...v0.4.0
+[v0.3.2]: https://github.com/casimir/frigoligo/compare/v0.3.1...v0.3.2
+[v0.3.1]: https://github.com/casimir/frigoligo/compare/v0.3.0...v0.3.1
+[v0.3.0]: https://github.com/casimir/frigoligo/compare/v0.2.0...v0.3.0
+[v0.2.0]: https://github.com/casimir/frigoligo/compare/v0.1.0...v0.2.0
+[v0.1.0]: https://github.com/casimir/frigoligo/tree/v0.1.0
+
+<!-- Generated by https://github.com/rhysd/changelog-from-release v3.7.2 -->
