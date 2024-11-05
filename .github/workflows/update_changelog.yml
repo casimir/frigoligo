@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: orhun/git-cliff-action@v3
+      - uses: orhun/git-cliff-action@v4
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "Automated changelog update"
