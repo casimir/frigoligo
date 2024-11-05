@@ -61,7 +61,7 @@ class WallabagEntry {
   @JsonKey(name: 'published_at')
   final DateTime? publishedAt;
   @JsonKey(name: 'published_by')
-  final List<String>? publishedBy;
+  final List<String?>? publishedBy;
 
   // user data
   @JsonKey(name: 'user_id')
