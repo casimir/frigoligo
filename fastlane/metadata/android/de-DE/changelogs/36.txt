@@ -1,0 +1,4 @@
+- Die Benutzeroberfläche wurde größtenteils überarbeitet, um konsistenter und benutzerfreundlicher zu sein.
+- Das Speichersystem wurde komplett neu aufgebaut, um auf allen Plattformen eine konsistentere und zuverlässigere Erfahrung zu gewährleisten.
+- Die Logik für die App-Badge-Anzeigen wurde neu gestaltet, um zuverlässiger zu funktionieren.
+- Neue Sprache: Esperanto.

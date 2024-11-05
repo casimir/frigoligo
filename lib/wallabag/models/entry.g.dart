@@ -42,7 +42,7 @@ WallabagEntry _$WallabagEntryFromJson(Map<String, dynamic> json) =>
           ? null
           : DateTime.parse(json['published_at'] as String),
       (json['published_by'] as List<dynamic>?)
-          ?.map((e) => e as String)
+          ?.map((e) => e as String?)
           .toList(),
       (json['user_id'] as num).toInt(),
       json['user_name'] as String,
