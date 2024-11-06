@@ -17,12 +17,16 @@ class ArticleListView extends ConsumerStatefulWidget {
     required this.doRefresh,
     required this.onItemSelect,
     required this.sideBySideMode,
+    this.headerOffset = 0,
+    this.indexOffset = 1,
   });
 
   final ScrollController? controller;
   final Future<void> Function() doRefresh;
   final void Function(int articleId)? onItemSelect;
   final bool sideBySideMode;
+  final double headerOffset;
+  final int indexOffset;
 
   @override
   ConsumerState<ArticleListView> createState() => _ArticleListState();
@@ -30,6 +34,17 @@ class ArticleListView extends ConsumerStatefulWidget {
 
 class _ArticleListState extends ConsumerState<ArticleListView> {
   late final ScrollController _scroller;
+
+  double _computePixelsToScroll(int scrollToIndex) {
+    final targetIndex = scrollToIndex - widget.indexOffset;
+    final itemPixels = targetIndex * listingHeight;
+    final separatorsPixels = targetIndex.abs() * 16.0; // default Divider height
+    final targetPixels = (itemPixels + separatorsPixels - widget.headerOffset);
+    return targetPixels.clamp(
+      -1, // NestedScrollView wants a negative to work as expected
+      _scroller.position.maxScrollExtent,
+    );
+  }
 
   @override
   void initState() {
@@ -47,7 +62,7 @@ class _ArticleListState extends ConsumerState<ArticleListView> {
               .indexOf(article!.id, query);
           if (scrollToIndex != null) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              _scroller.jumpTo(scrollToIndex * listingHeight);
+              _scroller.jumpTo(_computePixelsToScroll(scrollToIndex));
             });
           }
         }

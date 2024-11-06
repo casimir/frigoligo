@@ -68,6 +68,7 @@ class _ListingPageState extends ConsumerState<ListingPage> {
                 doRefresh: () => doRefresh(),
                 onItemSelect: widget.onItemSelect,
                 sideBySideMode: widget.sideBySideMode,
+                headerOffset: 122.0, // height of SearchBarWithFilters
               );
             }),
           ),
