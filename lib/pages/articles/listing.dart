@@ -17,6 +17,8 @@ import 'search.dart';
 
 final _log = Logger('frigoligo.listing');
 
+enum MenuAction { synchronize, saveLink, settings }
+
 class ListingPage extends ConsumerStatefulWidget {
   const ListingPage({
     super.key,
@@ -50,8 +52,8 @@ class _ListingPageState extends ConsumerState<ListingPage> {
           headerSliverBuilder: (context, innerBoxIsScrolled) => [
             PinnedHeaderSliver(
               child: SearchBarWithFilters(
-                doRefresh: () => doRefresh(ref),
-                menu: _buildMenu(context, ref),
+                doRefresh: () => doRefresh(),
+                menu: _buildMenu(context),
                 backgroundColor: headerColor,
               ),
             ),
@@ -63,7 +65,7 @@ class _ListingPageState extends ConsumerState<ListingPage> {
             child: Builder(builder: (context) {
               return ArticleListView(
                 controller: _scrollKey.currentState!.innerController,
-                doRefresh: () => doRefresh(ref),
+                doRefresh: () => doRefresh(),
                 onItemSelect: widget.onItemSelect,
                 sideBySideMode: widget.sideBySideMode,
               );
@@ -73,50 +75,48 @@ class _ListingPageState extends ConsumerState<ListingPage> {
       ),
       floatingActionButton: RemoteSyncFAB(showIf: widget.withProgressIndicator),
       backgroundColor: headerColor,
+      resizeToAvoidBottomInset: false,
       restorationId: 'listing.scaffold',
     );
   }
+
+  Future<void> doRefresh() async {
+    _log.info('triggered refresh');
+    await ref
+        .read(remoteSyncerProvider.notifier)
+        .synchronize(withFinalRefresh: true);
+  }
+
+  PopupMenuButton _buildMenu(BuildContext context) => PopupMenuButton(
+        key: const Key(wkListingPopupMenu),
+        itemBuilder: (context) => [
+          PopupMenuItem(
+            value: MenuAction.saveLink,
+            child: ListTile(
+              leading: const Icon(Icons.add_link),
+              title: Text(context.L.g_saveLink),
+            ),
+          ),
+          PopupMenuItem(
+            value: MenuAction.synchronize,
+            child: ListTile(
+              leading: const Icon(Icons.sync),
+              title: Text(context.L.g_synchronize),
+            ),
+          ),
+          PopupMenuItem(
+            value: MenuAction.settings,
+            child: ListTile(
+              key: const Key(wkListingSettings),
+              leading: const Icon(Icons.settings),
+              title: Text(context.L.g_settings),
+            ),
+          ),
+        ],
+        onSelected: (action) => switch (action as MenuAction) {
+          MenuAction.saveLink => showSaveUrlDialog(context),
+          MenuAction.synchronize => doRefresh(),
+          MenuAction.settings => context.push('/settings'),
+        },
+      );
 }
-
-Future<void> doRefresh(WidgetRef ref) async {
-  _log.info('triggered refresh');
-  await ref
-      .read(remoteSyncerProvider.notifier)
-      .synchronize(withFinalRefresh: true);
-}
-
-enum MenuAction { synchronize, saveLink, settings }
-
-PopupMenuButton _buildMenu(BuildContext context, WidgetRef ref) =>
-    PopupMenuButton(
-      key: const Key(wkListingPopupMenu),
-      itemBuilder: (context) => [
-        PopupMenuItem(
-          value: MenuAction.saveLink,
-          child: ListTile(
-            leading: const Icon(Icons.add_link),
-            title: Text(context.L.g_saveLink),
-          ),
-        ),
-        PopupMenuItem(
-          value: MenuAction.synchronize,
-          child: ListTile(
-            leading: const Icon(Icons.sync),
-            title: Text(context.L.g_synchronize),
-          ),
-        ),
-        PopupMenuItem(
-          value: MenuAction.settings,
-          child: ListTile(
-            key: const Key(wkListingSettings),
-            leading: const Icon(Icons.settings),
-            title: Text(context.L.g_settings),
-          ),
-        ),
-      ],
-      onSelected: (action) => switch (action as MenuAction) {
-        MenuAction.saveLink => showSaveUrlDialog(context),
-        MenuAction.synchronize => doRefresh(ref),
-        MenuAction.settings => context.push('/settings'),
-      },
-    );

@@ -38,7 +38,7 @@ class _ArticleListItemState extends ConsumerState<ArticleListItem> {
     // TODO explore https://pub.dev/packages/flutter_slidable
     // TODO GestureDetector on iOS
 
-    _listenToSelectionChange(ref);
+    _listenToSelectionChange();
 
     return Ink(
       color: widget.showSelection && _isSelected
@@ -155,12 +155,12 @@ class _ArticleListItemState extends ConsumerState<ArticleListItem> {
     );
   }
 
-  void _listenToSelectionChange(WidgetRef ref) async {
-    final currentArticleId =
-        await ref.watch(currentArticleProvider.selectAsync((it) => it?.id));
-    if (mounted) {
+  void _listenToSelectionChange() async {
+    final isSelected = await ref.watch(currentArticleProvider
+        .selectAsync((it) => (it?.id ?? -1) == widget.article.id));
+    if (mounted && _isSelected != isSelected) {
       setState(() {
-        _isSelected = currentArticleId == widget.article.id;
+        _isSelected = isSelected;
       });
     }
   }

@@ -11,7 +11,7 @@ import 'settings.dart';
 
 part 'article.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class CurrentArticle extends _$CurrentArticle {
   int? _articleId;
   StreamSubscription? _watcher;
