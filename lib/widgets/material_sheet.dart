@@ -18,16 +18,23 @@ class MaterialSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       bottom: false,
-      child: Container(
-        decoration: ShapeDecoration(
-          color: Theme.of(context).colorScheme.surface,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(28)),
+      child: Padding(
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: Container(
+          decoration: ShapeDecoration(
+            color: Theme.of(context).colorScheme.surface,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(28)),
+            ),
           ),
-        ),
-        constraints: const BoxConstraints(maxWidth: 400),
-        child: Column(
-          children: [title, Expanded(child: child)],
+          constraints: const BoxConstraints(maxWidth: 400),
+          child: Column(
+            children: [
+              title,
+              Expanded(child: child),
+            ],
+          ),
         ),
       ),
     );
@@ -117,7 +124,7 @@ class MaterialSheetActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 24, right: 24, top: 16, bottom: 24),
+      padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
       child: Row(children: [
         Expanded(
           child: FilledButton(
