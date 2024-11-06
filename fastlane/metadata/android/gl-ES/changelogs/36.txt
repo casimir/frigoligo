@@ -1,3 +1,4 @@
+- Redeseño da interface para ser máis consistente e fácil de usar
 - Reconstrución completa do sistema de almacenaxe para facelo mais consistente e fiable en todas as plataformas.
 - Reconstrución da lóxica que xestiona as insignias indicadoras para facelas mais fiables.
 - Novo idioma: Esperanto.
