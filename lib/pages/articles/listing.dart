@@ -60,7 +60,7 @@ class _ListingPageState extends ConsumerState<ListingPage> {
             if (widget.withProgressIndicator)
               const PinnedHeaderSliver(child: RemoteSyncProgressIndicator()),
           ],
-          body: Container(
+          body: Ink(
             color: Theme.of(context).colorScheme.surface,
             child: Builder(builder: (context) {
               return ArticleListView(
