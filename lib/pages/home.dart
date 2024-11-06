@@ -9,8 +9,6 @@ import '../services/remote_sync.dart';
 import 'articles/listing.dart';
 import 'reading/article.dart';
 
-const idealListingWidth = 333.3;
-
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
@@ -83,7 +81,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
     return ArticlePage(
       drawer: SizedBox(
-        width: idealListingWidth,
+        width: 360, // m3 "Navigation drawers container width"
         child: ListingPage(onItemSelect: onItemSelect),
       ),
       forcedDrawerOpen: forcedOpen,
