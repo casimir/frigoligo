@@ -11,6 +11,8 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 
 - *(search)* Filters revamp & search by text ([#252](https://github.com/casimir/frigoligo/pull/252)) ([2c5a76e](https://github.com/casimir/frigoligo/commit/2c5a76ea9514b632478ab5551036d9e17776f6b2))
 - *(reading)* Rework the article screen ([#261](https://github.com/casimir/frigoligo/pull/261)) ([0a319b7](https://github.com/casimir/frigoligo/commit/0a319b77a881a940c2e28fe0e062107041606278))
+- *(UI/UX)* Use a more sensible width for the listing in narrow layout ([f7685c0](https://github.com/casimir/frigoligo/commit/f7685c060e7a6620b6917dba6c0a925b0e46c606))
+- *(UI/UX)* Always keep the bottom sheet action button visible ([092cd30](https://github.com/casimir/frigoligo/commit/092cd30e90ba8f0736f1b194d83e61b42ea18726))
 
 ### 🐛 Bug Fixes
 
@@ -24,11 +26,17 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(UI/UX)* Reduce jumpiness when displaying the sync indicator ([9dbcdfb](https://github.com/casimir/frigoligo/commit/9dbcdfbbbf297e405bd5683260ec7dd87d1f30d8))
 - *(UI/UX)* Ensure drawer open on start when using dynamic layout ([3035eb5](https://github.com/casimir/frigoligo/commit/3035eb51aaf2c9dc2cd2a3308aacfdc1f01354a4))
 - *(wallabag)* Allow null values in non-null published_by field ([#268](https://github.com/casimir/frigoligo/pull/268)) ([60aa3d8](https://github.com/casimir/frigoligo/commit/60aa3d8f2d503bf30f246a07eb8dcc297cc46fad))
+- *(UI/UX)* More precise jump to selected article ([570ff70](https://github.com/casimir/frigoligo/commit/570ff707bea2d54e647d88909e0f35ca9a9b55d9))
+- *(UI/UX)* Use Ink for selected article and taps in the listing ([44d4b58](https://github.com/casimir/frigoligo/commit/44d4b583622bb314000eb8f9a33b9a6a5cd12f6b))
 
 ### 🚜 Refactor
 
 - *(database)* Change code generation strategy ([#255](https://github.com/casimir/frigoligo/pull/255)) ([43486a7](https://github.com/casimir/frigoligo/commit/43486a729720c39080a14d0c74783a9fb2fe30ad))
 - *(home page)* Change how scrolling works for a nicer UX ([#263](https://github.com/casimir/frigoligo/pull/263)) ([b9999f3](https://github.com/casimir/frigoligo/commit/b9999f34cc994f243f23151560c5ae8b05f59322))
+
+### ⚡ Performance
+
+- *(listing)* Prevent an infinite rendering loop ([a69bfcd](https://github.com/casimir/frigoligo/commit/a69bfcd7809a2464d5bcaa0ea350bf6f612165a0))
 
 ### 🌐 Translations
 
@@ -49,6 +57,8 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(fastlane)* Update latest changelog with latest changes ([0979276](https://github.com/casimir/frigoligo/commit/0979276f569f3bae93850ec07aff5a33d792244e))
 - [**breaking**] Modernize Android build scripts and config ([e4e9cbf](https://github.com/casimir/frigoligo/commit/e4e9cbf7935ca99fa348d9d95f57a1ece800aa4c))
 - *(tooling)* Remove old and unused devices for screenshots ([6202c2a](https://github.com/casimir/frigoligo/commit/6202c2ae6d2cfaf65d5158ebd1c20cc1aaf5fe33))
+- *(screenshots)* Rename dekstop.png to desktop.png ([5b02377](https://github.com/casimir/frigoligo/commit/5b023778c9be60a0df9f46580e1c3e6558002f76))
+- *(tooling)* Enable the drift extension in devtools ([8045a46](https://github.com/casimir/frigoligo/commit/8045a46bf5546c2fb42ba559b4cc5b64961fe76b))
 
 **Full Changelog**: [v1.2.0..HEAD](https://github.com/casimir/frigoligo/compare/v1.2.0..HEAD)
 
