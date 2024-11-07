@@ -24,7 +24,7 @@ platform :android do
       skip_upload_apk: true,
       skip_upload_aab: true,
       sync_image_upload: true,
-      # version_code: 35,
+      version_code: 37,
     )
   end
 end
