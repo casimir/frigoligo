@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadata/android/en-US/changelogs) for a more high level list of changes.
 
-## [unreleased]
+## [2.0.0] - 2024-11-07
 
 
 ### 🚀 Features
@@ -59,8 +59,10 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(tooling)* Remove old and unused devices for screenshots ([6202c2a](https://github.com/casimir/frigoligo/commit/6202c2ae6d2cfaf65d5158ebd1c20cc1aaf5fe33))
 - *(screenshots)* Rename dekstop.png to desktop.png ([5b02377](https://github.com/casimir/frigoligo/commit/5b023778c9be60a0df9f46580e1c3e6558002f76))
 - *(tooling)* Enable the drift extension in devtools ([8045a46](https://github.com/casimir/frigoligo/commit/8045a46bf5546c2fb42ba559b4cc5b64961fe76b))
+- Update the changelog with the last batch of changes ([52db92b](https://github.com/casimir/frigoligo/commit/52db92b9d1ac58a78ddfb89164e0ad3c3485f150))
+- *(tooling)* Script most of the release process ([29b6926](https://github.com/casimir/frigoligo/commit/29b6926cbc144a9cc5f7b23e3698ee5102d732ec))
 
-**Full Changelog**: [v1.2.0..HEAD](https://github.com/casimir/frigoligo/compare/v1.2.0..HEAD)
+**Full Changelog**: [v1.2.0..v2.0.0](https://github.com/casimir/frigoligo/compare/v1.2.0..v2.0.0)
 
 
 ## [1.2.0] - 2024-07-30
