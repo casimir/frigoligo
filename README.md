@@ -19,6 +19,8 @@ Frigoligo is aiming at being:
 
 You can also download the installer from the [latest release](https://github.com/casimir/frigoligo/releases/latest) for the following platforms: Android (apk), Linux, AppImage and Windows.
 
+It is also possible to use frigoligo as a web app, available [here](https://casimir.github.io/frigoligo/). Not that this is still experimental and that it is automatically updated with the latest commits on the `main` branch.
+
 ## Features
 
 Missing but planned feature are tracked in the [issues](https://github.com/casimir/frigoligo/issues?q=is%3Aissue+is%3Aopen+label%3A"missing+feature").
