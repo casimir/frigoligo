@@ -122,5 +122,77 @@
         "format": "compact"
       }
     }
+  },
+  "filters_articleFavoriteStarred": "Favorito",
+  "@filters_articleFavoriteStarred": {
+    "description": "Filter starred articles."
+  },
+  "filters_articleState": "Estado",
+  "@filters_articleState": {
+    "description": "The state of the article."
+  },
+  "filters_articleStateUnread": "Por ler",
+  "@filters_articleStateUnread": {
+    "description": "Filter articles with the state 'unread'."
+  },
+  "filters_articleStateAll": "Todos os estados",
+  "@filters_articleStateAll": {
+    "description": "Don't filter articles by state."
+  },
+  "g_article": "Artigo",
+  "@g_article": {
+    "description": "A piece of content fetched from the web. This is one of the main concepts of the app."
+  },
+  "articlefields_title": "Título",
+  "@articlefields_title": {
+    "description": "The title of the article."
+  },
+  "g_settings": "Configurações",
+  "@g_settings": {
+    "description": "The settings of the application."
+  },
+  "g_saveLink": "Guardar link",
+  "@g_saveLink": {
+    "description": "A verb, as in to save a link."
+  },
+  "g_synchronize": "Sincronizar",
+  "@g_synchronize": {
+    "description": "A verb, as in to synchronize with the server."
+  },
+  "filters_articleDomains": "Dominios",
+  "@filters_articleDomains": {
+    "description": "Filter the domains from where the articles have been fetched."
+  },
+  "filters_articleStateArchived": "Arquivado",
+  "@filters_articleStateArchived": {
+    "description": "Filter articles with the state 'archived'."
+  },
+  "filters_articleTags": "Etiquetas",
+  "@filters_articleTags": {
+    "description": "Filter articles with the given tag values."
+  },
+  "filters_searchbarHint": "Pesquisar nos artigos",
+  "@filters_searchbarHint": {
+    "description": "Search bar hint in the home screen."
+  },
+  "filters_searchModeAll": "Todos os campos",
+  "@filters_searchModeAll": {
+    "description": "Search text in all fields."
+  },
+  "filters_searchMode": "Modo de pesquisa",
+  "@filters_searchMode": {
+    "description": "The title of the search mode screen (which fields to search text into)."
+  },
+  "articlefields_readingTime": "Tempo de leitura",
+  "@articlefields_readingTime": {
+    "description": "The estimated reading time of the article."
+  },
+  "articlefields_tags": "Etiquetas",
+  "@articlefields_tags": {
+    "description": "The tags of the article."
+  },
+  "articlefields_website": "Sitio Web",
+  "@articlefields_website": {
+    "description": "The website (domain) from where the article has been fetched."
   }
 }
