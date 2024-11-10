@@ -161,7 +161,7 @@ jobs:
         id: flutter-version
       - uses: subosito/flutter-action@v2
         with:
-          channel: stable
+          channel: master # arm64 is only available in the master channel
           flutter-version: ${{ steps.flutter-version.outputs.version }}
           cache: true
       - run: flutter config --no-analytics
