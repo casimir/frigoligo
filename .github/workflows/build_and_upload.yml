@@ -114,10 +114,19 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           release-tag: ${{ env.VERSION }}
 
-  build_linux_x64:
-    runs-on: ubuntu-latest
+  build_linux:
+    strategy:
+      matrix:
+        include:
+          - arch: x64
+            os: ubuntu-latest
+            flutter_channel: stable
+          - arch: arm64
+            os: ubicloud-standard-2-arm
+            flutter_channel: master
+    runs-on: ${{ matrix.os }}
     env:
-      ARTIFACT: frigoligo-${{ github.head_ref ||  github.ref_name }}-linux-x64.tar.gz
+      ARTIFACT: frigoligo-${{ github.head_ref ||  github.ref_name }}-linux-${{ matrix.arch }}.tar.gz
     outputs:
       artifact: ${{ env.ARTIFACT }}
     steps:
@@ -126,7 +135,7 @@ jobs:
         id: flutter-version
       - uses: subosito/flutter-action@v2
         with:
-          channel: stable
+          channel: ${{ matrix.flutter_channel }}
           flutter-version: ${{ steps.flutter-version.outputs.version }}
           cache: true
       - run: flutter config --no-analytics
@@ -136,42 +145,7 @@ jobs:
       - run: flutter pub get
       - run: flutter test
       - run: flutter build linux
-      - run: cp -R build/linux/x64/release/bundle/ build/frigoligo/
-      - run: tar czf ../$ARTIFACT frigoligo/
-        working-directory: ./build
-      - uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.ARTIFACT }}
-          path: ${{ env.ARTIFACT }}
-          overwrite: true
-      - if: ${{ github.ref_type == 'tag' }}
-        run: gh release upload $VERSION $ARTIFACT --clobber
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
-  build_linux_arm64:
-    runs-on: ubicloud-standard-2-arm
-    env:
-      ARTIFACT: frigoligo-${{ github.head_ref ||  github.ref_name }}-linux-arm64.tar.gz
-    outputs:
-      artifact: ${{ env.ARTIFACT }}
-    steps:
-      - uses: actions/checkout@v4
-      - run: echo "version=$(cat .flutter-version)" >> $GITHUB_OUTPUT
-        id: flutter-version
-      - uses: subosito/flutter-action@v2
-        with:
-          channel: master # arm64 is only available in the master channel
-          flutter-version: ${{ steps.flutter-version.outputs.version }}
-          cache: true
-      - run: flutter config --no-analytics
-      - run: |
-          sudo apt-get update -y
-          sudo apt-get install -y ninja-build libgtk-3-dev
-      - run: flutter pub get
-      - run: flutter test
-      - run: flutter build linux
-      - run: cp -R build/linux/arm64/release/bundle/ build/frigoligo/
+      - run: cp -R build/linux/${{ matrix.arch }}/release/bundle/ build/frigoligo/
       - run: tar czf ../$ARTIFACT frigoligo/
         working-directory: ./build
       - uses: actions/upload-artifact@v4
@@ -185,11 +159,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build_appimage:
-    needs: build_linux_x64
+    needs: build_linux
     runs-on: ubuntu-latest
     env:
       ARTIFACT: Frigoligo-${{ github.head_ref ||  github.ref_name }}-x86_64.AppImage
-      LINUX_ARTIFACT: ${{ needs.build_linux_x64.outputs.artifact }}
+      LINUX_ARTIFACT: frigoligo-${{ github.head_ref ||  github.ref_name }}-linux-x64.tar.gz
     steps:
       - name: Install native dependencies
         run: |
