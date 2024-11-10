@@ -159,11 +159,21 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build_appimage:
+    strategy:
+      matrix:
+        include:
+          - artifact_arch: x86_64
+            env_arch: x86_64
+            linux_arch: x64
+          - artifact_arch: aarch64
+            env_arch: arm_aarch64
+            linux_arch: arm64
     needs: build_linux
     runs-on: ubuntu-latest
     env:
-      ARTIFACT: Frigoligo-${{ github.head_ref ||  github.ref_name }}-x86_64.AppImage
-      LINUX_ARTIFACT: frigoligo-${{ github.head_ref ||  github.ref_name }}-linux-x64.tar.gz
+      ARCH: ${{ matrix.env_arch }}
+      ARTIFACT: Frigoligo-${{ github.head_ref ||  github.ref_name }}-${{ matrix.artifact_arch }}.AppImage
+      LINUX_ARTIFACT: frigoligo-${{ github.head_ref ||  github.ref_name }}-linux-${{ matrix.linux_arch }}.tar.gz
     steps:
       - name: Install native dependencies
         run: |
