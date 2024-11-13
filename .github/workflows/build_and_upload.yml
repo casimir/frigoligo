@@ -42,11 +42,6 @@ jobs:
           flutter-version: ${{ steps.flutter-version.outputs.version }}
           cache: true
       - run: flutter config --no-analytics
-      - uses: nttld/setup-ndk@v1
-        id: setup-ndk
-        with:
-          ndk-version: r26d
-      - run: echo "ANDROID_NDK_HOME=${{ steps.setup-ndk.outputs.ndk-path }}" >> "$GITHUB_ENV"
       - run: flutter pub get
       - run: flutter test
       - run: flutter build apk
@@ -120,10 +115,18 @@ jobs:
           release-tag: ${{ env.VERSION }}
 
   build_linux:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - arch: x64
+            os: ubuntu-latest
+            flutter_channel: stable
+          - arch: arm64
+            os: ubicloud-standard-2-arm
+            flutter_channel: master
+    runs-on: ${{ matrix.os }}
     env:
-      ARCH: x86_64
-      ARTIFACT: frigoligo-${{ github.head_ref ||  github.ref_name }}-linux-x64.tar.gz
+      ARTIFACT: frigoligo-${{ github.head_ref ||  github.ref_name }}-linux-${{ matrix.arch }}.tar.gz
     outputs:
       artifact: ${{ env.ARTIFACT }}
     steps:
@@ -132,7 +135,7 @@ jobs:
         id: flutter-version
       - uses: subosito/flutter-action@v2
         with:
-          channel: stable
+          channel: ${{ matrix.flutter_channel }}
           flutter-version: ${{ steps.flutter-version.outputs.version }}
           cache: true
       - run: flutter config --no-analytics
@@ -142,7 +145,7 @@ jobs:
       - run: flutter pub get
       - run: flutter test
       - run: flutter build linux
-      - run: cp -R build/linux/x64/release/bundle/ build/frigoligo/
+      - run: cp -R build/linux/${{ matrix.arch }}/release/bundle/ build/frigoligo/
       - run: tar czf ../$ARTIFACT frigoligo/
         working-directory: ./build
       - uses: actions/upload-artifact@v4
@@ -156,11 +159,21 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build_appimage:
+    strategy:
+      matrix:
+        include:
+          - artifact_arch: x86_64
+            env_arch: x86_64
+            linux_arch: x64
+          - artifact_arch: aarch64
+            env_arch: arm_aarch64
+            linux_arch: arm64
     needs: build_linux
     runs-on: ubuntu-latest
     env:
-      ARTIFACT: Frigoligo-${{ github.head_ref ||  github.ref_name }}-x86_64.AppImage
-      LINUX_ARTIFACT: ${{ needs.build_linux.outputs.artifact }}
+      ARCH: ${{ matrix.env_arch }}
+      ARTIFACT: Frigoligo-${{ github.head_ref ||  github.ref_name }}-${{ matrix.artifact_arch }}.AppImage
+      LINUX_ARTIFACT: frigoligo-${{ github.head_ref ||  github.ref_name }}-linux-${{ matrix.linux_arch }}.tar.gz
     steps:
       - name: Install native dependencies
         run: |
