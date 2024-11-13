@@ -89,4 +89,6 @@ Licensed under the MIT. See [LICENSE](./LICENSE) for details.
 
 You can help translating Frigoligo in your language by using [Weblate](https://hosted.weblate.org/engage/frigoligo/). Please come and help!
 
+Note that, to be used in the application, the translation must be at least 80% complete.
+
 [![Translation status](https://hosted.weblate.org/widget/frigoligo/flutter/multi-auto.svg)](https://hosted.weblate.org/engage/frigoligo/)

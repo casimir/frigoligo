@@ -131,31 +131,36 @@ class Settings extends _$Settings {
       final langIndex = _prefs.getInt(_k(Sk.language.key));
       if (langIndex != null) {
         final oldLangOrder = [
-          Language.system,
+          null, // Language.system,
           Language.de,
           Language.en,
           Language.fr,
           Language.gl,
-          Language.ptBR,
+          null, // Language.ptBR,
           Language.zh,
           Language.zhHant,
-          Language.ru,
+          null, // Language.ru,
           Language.eo,
         ];
-        _setValue(Sk.language, oldLangOrder[langIndex]);
+        final lang = oldLangOrder[langIndex];
+        if (lang != null) {
+          await _setValue(Sk.language, oldLangOrder[langIndex]);
+        } else {
+          await _prefs.remove(_k(Sk.language.key));
+        }
         migrated = true;
       }
 
       final themeIndex = _prefs.getInt(_k(Sk.themeMode.key));
       if (themeIndex != null) {
-        _setValue(Sk.themeMode, ThemeMode.values[themeIndex]);
+        await _setValue(Sk.themeMode, ThemeMode.values[themeIndex]);
         migrated = true;
       }
     }
 
     if (migrated) {
       _log.info('migrated settings from $oldVersion to $_currentVersion');
-      _prefs.setInt(_k(_versionKey), _currentVersion);
+      await _prefs.setInt(_k(_versionKey), _currentVersion);
     }
   }
 }
@@ -179,20 +184,21 @@ enum Sk {
   String get key => 'settings.$_key';
 }
 
-// see https://www.omniglot.com/language/names.htm for native names
+// Values are displayed in the UI in this order (alphabetical).
+// Languages with a translation completeness under 80% are disabled (commented).
+// See https://www.omniglot.com/language/names.htm for native names.
 enum Language {
   system(null, ''),
-  // values should be in alphabetical order as they are displayed in the UI
-  // FIXME this value is stored using its enum index, so only append for now
   de(Locale('de'), 'Deutsch'),
   en(Locale('en'), 'English'),
+  eo(Locale('eo'), 'Esperanto'),
   fr(Locale('fr'), 'Français'),
   gl(Locale('gl'), 'Galego'),
-  ptBR(Locale('pt', 'BR'), 'Português (Brasil)'),
+  // pt(Locale('pt', 'PT'), 'Português'),
+  // ptBR(Locale('pt', 'BR'), 'Português (Brasil)'),
+  // ru(Locale('ru'), 'Русский язык'),
   zh(Locale('zh'), '中文'),
   zhHant(Locale('zh', 'Hant'), '漢文'),
-  ru(Locale('ru'), 'Русский язык'),
-  eo(Locale('eo'), 'Esperanto'),
   ;
 
   const Language(this.locale, this.nativeName);
