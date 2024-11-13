@@ -191,6 +191,7 @@ enum Language {
   system(null, ''),
   de(Locale('de'), 'Deutsch'),
   en(Locale('en'), 'English'),
+  es(Locale('es'), 'Español'),
   eo(Locale('eo'), 'Esperanto'),
   fr(Locale('fr'), 'Français'),
   gl(Locale('gl'), 'Galego'),

@@ -16,6 +16,7 @@ Future<void> main() async {
   const configs = [
     // {'locale': 'de-DE'},
     // {'locale': 'en-US'},
+    // {'locale': 'es-ES'},
     // {'locale': 'fr-FR'},
     // {'locale': 'zh-Hans'},
     // {'locale': 'zh-Hant'},
