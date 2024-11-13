@@ -1,0 +1,4 @@
+- Rediseño de la interfaz para que sea más consistente y fácil de usar.
+- Reconstrucción completa del sistema de almacenamiento para hacerlo más consistente y confiable en todas las plataformas.
+- Reconstrucción de la lógica que gestiona las insignias indicadoras para hacerlas más confiables.
+- Nuevo idioma: esperanto.
