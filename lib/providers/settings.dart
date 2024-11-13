@@ -7,14 +7,34 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:universal_platform/universal_platform.dart';
 
+import '../app_info.dart';
 import 'ios/settings_syncer.dart';
 
 part 'settings.g.dart';
 
 final _log = Logger('settings');
 
+abstract class Codec<T> {
+  String encode(T object);
+  T decode(String raw);
+}
+
+class EnumCodec<T extends Enum> implements Codec<T> {
+  const EnumCodec(this.values);
+
+  final List<T> values;
+
+  @override
+  String encode(T object) => object.name;
+
+  @override
+  T decode(String raw) => values.firstWhere((it) => it.name == raw);
+}
+
 @riverpod
 class Settings extends _$Settings {
+  static const _versionKey = '_version';
+
   static Language? initialLocaleOverride;
   static String? namespace = kDebugMode ? 'debug' : null;
   static late SharedPreferences _prefs;
@@ -24,17 +44,21 @@ class Settings extends _$Settings {
   }
 
   Settings() {
+    _currentVersion = int.parse(AppInfo.data.buildNumber);
     if (UniversalPlatform.isIOS) {
       _syncer = SettingsSyncer(this);
     }
 
-    if (initialLocaleOverride != null) {
-      _log.info('initial locale override: $initialLocaleOverride');
-      set(Sk.language, initialLocaleOverride);
-      initialLocaleOverride = null;
-    }
+    _migrateVersion().then((_) {
+      if (initialLocaleOverride != null) {
+        _log.info('initial locale override: $initialLocaleOverride');
+        set(Sk.language, initialLocaleOverride);
+        initialLocaleOverride = null;
+      }
+    });
   }
 
+  late int _currentVersion;
   SettingsSyncer? _syncer;
 
   @override
@@ -46,24 +70,17 @@ class Settings extends _$Settings {
 
   dynamic get(Sk skey) {
     final key = _k(skey.key);
-    if (skey.items != null) {
-      final index = _prefs.getInt(_k(skey.key));
-      if (index == null) return skey.initial;
-      return skey.items![index];
-    }
-
     switch (skey.initial) {
       case bool _:
       case double _:
       case int _:
       case String _:
         return _prefs.get(key) ?? skey.initial;
-      case List<String> _:
-        return _prefs.getStringList(key);
       default:
         final raw = _prefs.getString(key);
         if (raw == null) return skey.initial;
-        return jsonDecode(raw);
+        final codec = skey.codec;
+        return codec != null ? codec.decode(raw) : jsonDecode(raw);
     }
   }
 
@@ -85,11 +102,9 @@ class Settings extends _$Settings {
         return _prefs.setInt(key, i);
       case String s:
         return _prefs.setString(key, s);
-      case List<String> ss:
-        return _prefs.setStringList(key, ss);
       default:
-        if (value case Enum e) return _prefs.setInt(key, e.index);
-        return _prefs.setString(key, jsonEncode(value));
+        final raw = skey.codec?.encode(value) ?? jsonEncode(value);
+        return _prefs.setString(key, raw);
     }
   }
 
@@ -105,41 +120,86 @@ class Settings extends _$Settings {
     ref.invalidateSelf();
     return ret;
   }
+
+  Future<void> _migrateVersion() async {
+    final oldVersion = _prefs.getInt(_k(_versionKey)) ?? 0;
+    if (oldVersion == _currentVersion) return;
+
+    var migrated = false;
+
+    if (oldVersion < 37) {
+      final langIndex = _prefs.getInt(_k(Sk.language.key));
+      if (langIndex != null) {
+        final oldLangOrder = [
+          null, // Language.system,
+          Language.de,
+          Language.en,
+          Language.fr,
+          Language.gl,
+          null, // Language.ptBR,
+          Language.zh,
+          Language.zhHant,
+          null, // Language.ru,
+          Language.eo,
+        ];
+        final lang = oldLangOrder[langIndex];
+        if (lang != null) {
+          await _setValue(Sk.language, oldLangOrder[langIndex]);
+        } else {
+          await _prefs.remove(_k(Sk.language.key));
+        }
+        migrated = true;
+      }
+
+      final themeIndex = _prefs.getInt(_k(Sk.themeMode.key));
+      if (themeIndex != null) {
+        await _setValue(Sk.themeMode, ThemeMode.values[themeIndex]);
+        migrated = true;
+      }
+    }
+
+    if (migrated) {
+      _log.info('migrated settings from $oldVersion to $_currentVersion');
+      await _prefs.setInt(_k(_versionKey), _currentVersion);
+    }
+  }
 }
 
 // Settings Keys
 enum Sk {
   appBadge('appBadge', false),
-  language('locale', Language.system, Language.values),
+  language('locale', Language.system, EnumCodec(Language.values)),
   selectedArticleId('selectedArticleId', -1),
   readingSettings('readingSettings', Object()),
   tagSaveEnabled('tagSaveEnabled', false),
   tagSaveLabel('tagSaveLabel', 'inbox'),
-  themeMode('themeMode', ThemeMode.system, ThemeMode.values);
+  themeMode('themeMode', ThemeMode.system, EnumCodec(ThemeMode.values));
 
-  const Sk(this._key, this.initial, [this.items]);
+  const Sk(this._key, this.initial, [this.codec]);
 
   final String _key;
   final Object initial;
-  final List<Object>? items;
+  final Codec? codec;
 
   String get key => 'settings.$_key';
 }
 
-// see https://www.omniglot.com/language/names.htm for native names
+// Values are displayed in the UI in this order (alphabetical).
+// Languages with a translation completeness under 80% are disabled (commented).
+// See https://www.omniglot.com/language/names.htm for native names.
 enum Language {
   system(null, ''),
-  // values should be in alphabetical order as they are displayed in the UI
-  // FIXME this value is stored using its enum index, so only append for now
   de(Locale('de'), 'Deutsch'),
   en(Locale('en'), 'English'),
+  es(Locale('es'), 'Español'),
+  eo(Locale('eo'), 'Esperanto'),
   fr(Locale('fr'), 'Français'),
   gl(Locale('gl'), 'Galego'),
-  ptBR(Locale('pt', 'BR'), 'Português (Brasil)'),
+  // pt(Locale('pt', 'PT'), 'Português'),
+  // ptBR(Locale('pt', 'BR'), 'Português (Brasil)'),
+  // ru(Locale('ru'), 'Русский язык'),
   zh(Locale('zh'), '中文'),
   zhHant(Locale('zh', 'Hant'), '漢文'),
-  ru(Locale('ru'), 'Русский язык'),
-  eo(Locale('eo'), 'Esperanto'),
   ;
 
   const Language(this.locale, this.nativeName);
