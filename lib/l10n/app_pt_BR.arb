@@ -92,5 +92,49 @@
         "format": "compact"
       }
     }
+  },
+  "filters_articleState": "Estado",
+  "@filters_articleState": {
+    "description": "The state of the article."
+  },
+  "filters_articleStateUnread": "Não lido",
+  "@filters_articleStateUnread": {
+    "description": "Filter articles with the state 'unread'."
+  },
+  "filters_articleStateArchived": "Arquivado",
+  "@filters_articleStateArchived": {
+    "description": "Filter articles with the state 'archived'."
+  },
+  "listing_articlesAll": "Todos os artigos",
+  "@listing_articlesAll": {
+    "description": "The title for the list of all the articles."
+  },
+  "filters_searchMode": "Modo de pesquisa",
+  "@filters_searchMode": {
+    "description": "The title of the search mode screen (which fields to search text into)."
+  },
+  "filters_searchModeContent": "Conteúdo",
+  "@filters_searchModeContent": {
+    "description": "Search text only in the content field."
+  },
+  "filters_searchModeTitle": "Título",
+  "@filters_searchModeTitle": {
+    "description": "Search text only in the title field."
+  },
+  "articlefields_readingTime": "Tempo de leitura",
+  "@articlefields_readingTime": {
+    "description": "The estimated reading time of the article."
+  },
+  "articlefields_tags": "Tags",
+  "@articlefields_tags": {
+    "description": "The tags of the article."
+  },
+  "articlefields_title": "Título",
+  "@articlefields_title": {
+    "description": "The title of the article."
+  },
+  "articlefields_website": "Site",
+  "@articlefields_website": {
+    "description": "The website (domain) from where the article has been fetched."
   }
 }
