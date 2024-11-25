@@ -297,7 +297,7 @@
   "@readingsettings_fontSize": {
     "description": "The font size to display the content of the article."
   },
-  "save_confirmationTitle": "¡ Artículo guardado!",
+  "save_confirmationTitle": "¡Artículo guardado!",
   "@save_confirmationTitle": {
     "description": "The title of the confirmation screen after the article is saved. "
   },
@@ -356,7 +356,7 @@
   "@session_fieldLastServerSync": {
     "description": "The label of the last server sync field in the session screen."
   },
-  "session_fieldTokenExpiration": "Caducidad del token",
+  "session_fieldTokenExpiration": "Expiración del token",
   "@session_fieldTokenExpiration": {
     "description": "The label of the token expiration field in the session screen."
   },

@@ -1,1 +1,1 @@
-Las fuentes ahora están incluidas directamente en la aplicación y ya no se descargan más adelante.
+Las fuentes ahora están incluidas directamente en la aplicación, ya no se descargan después.

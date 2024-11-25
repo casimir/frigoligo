@@ -1,1 +1,1 @@
-Estabilidad mejorada y corrección de errores.
+Mejorada la estabilidad y corrección de errores.

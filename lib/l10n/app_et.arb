@@ -1,1 +1,500 @@
-{}
+{
+  "g_article": "Artikkel",
+  "@g_article": {
+    "description": "A piece of content fetched from the web. This is one of the main concepts of the app."
+  },
+  "g_check": "Kontrolli",
+  "@g_check": {
+    "description": "A verb as in to check something."
+  },
+  "g_checking": "Kontrollime…",
+  "@g_checking": {
+    "description": "Present participle of the verb to check."
+  },
+  "g_delete": "Kustuta",
+  "@g_delete": {
+    "description": "A verb, as in to delete something."
+  },
+  "g_saveLink": "Salvesta link",
+  "@g_saveLink": {
+    "description": "A verb, as in to save a link."
+  },
+  "g_search": "Otsi",
+  "@g_search": {
+    "description": "A verb, as in to search something."
+  },
+  "g_server": "Server",
+  "@g_server": {
+    "description": "A server, as in a computer providing a service."
+  },
+  "g_settings": "Seadistused",
+  "@g_settings": {
+    "description": "The settings of the application."
+  },
+  "g_share": "Jaga",
+  "@g_share": {
+    "description": "A verb, as in to share something."
+  },
+  "g_sourceCode": "Lähtekood",
+  "@g_sourceCode": {
+    "description": "The source code of a software."
+  },
+  "g_synchronize": "Sünkroniseeri",
+  "@g_synchronize": {
+    "description": "A verb, as in to synchronize with the server."
+  },
+  "g_tag": "Silt",
+  "@g_tag": {
+    "description": "A tag can be attached to an article."
+  },
+  "g_version": "Versioon",
+  "@g_version": {
+    "description": "A version, as in the application version."
+  },
+  "humanize_days": "{n, plural, =1{1 päev} other{{n} päeva}}",
+  "@humanize_days": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "g_system": "Süsteemikohane",
+  "@g_system": {
+    "description": "A name, as in the default configuration (System configuration)."
+  },
+  "humanize_future": "kestusega {duration}",
+  "@humanize_future": {
+    "description": "Describe a duration until a moment in the future.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "humanize_hours": "{n, plural, =1{1 tund} other{{n} tundi}}",
+  "@humanize_hours": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "humanize_minutes": "{n, plural, =1{1 minute} other{{n} minutit}}",
+  "@humanize_minutes": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "humanize_past": "{duration} tagasi",
+  "@humanize_past": {
+    "description": "Describe a duration since a moment in the past.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "humanize_seconds": "{n, plural, =1{1 sekund} other{{n} sekundit}}",
+  "@humanize_seconds": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "article_addTags": "Lisa silte",
+  "@article_addTags": {
+    "description": "The action to add tags to an article."
+  },
+  "article_browseOriginal": "Vaata algset artiklit",
+  "@article_browseOriginal": {
+    "description": "The action to open the URL of the article in the web browser."
+  },
+  "article_noContentFetched": "Sisu on laadimata",
+  "@article_noContentFetched": {
+    "description": "Placeholder for when the article content is not available."
+  },
+  "article_delete": "Kustuta see artikkel",
+  "@article_delete": {
+    "description": "The action to delete the article."
+  },
+  "article_openInBrowser": "Ava veebibrauseris",
+  "@article_openInBrowser": {
+    "description": "The action to open the article in the web browser."
+  },
+  "article_readingTime": "{minutes} min",
+  "@article_readingTime": {
+    "description": "The estimated reading time of the article.",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "articlefields_readingTime": "Lugemisaeg",
+  "@articlefields_readingTime": {
+    "description": "The estimated reading time of the article."
+  },
+  "articlefields_tags": "Sildid",
+  "@articlefields_tags": {
+    "description": "The tags of the article."
+  },
+  "articlefields_title": "Pealkiri",
+  "@articlefields_title": {
+    "description": "The title of the article."
+  },
+  "articlefields_website": "Veebisait",
+  "@articlefields_website": {
+    "description": "The website (domain) from where the article has been fetched."
+  },
+  "filters_articleDomains": "Domeenid",
+  "@filters_articleDomains": {
+    "description": "Filter the domains from where the articles have been fetched."
+  },
+  "filters_articleDomainsCount": "{count, plural, =1{1 domeen} other{{count} domeeni}}",
+  "@filters_articleDomainsCount": {
+    "description": "The number of articles domains used in filters.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "filters_articleFavoriteStarred": "Tähekesega märgitud",
+  "@filters_articleFavoriteStarred": {
+    "description": "Filter starred articles."
+  },
+  "filters_articleState": "Olek",
+  "@filters_articleState": {
+    "description": "The state of the article."
+  },
+  "filters_articleStateUnread": "Lugemata",
+  "@filters_articleStateUnread": {
+    "description": "Filter articles with the state 'unread'."
+  },
+  "filters_articleStateArchived": "Arhiveeritud",
+  "@filters_articleStateArchived": {
+    "description": "Filter articles with the state 'archived'."
+  },
+  "filters_articleStateAll": "Kõik olekud",
+  "@filters_articleStateAll": {
+    "description": "Don't filter articles by state."
+  },
+  "filters_articleTags": "Sildid",
+  "@filters_articleTags": {
+    "description": "Filter articles with the given tag values."
+  },
+  "filters_articleTagsCount": "{count, plural, =1{1 silt} other{{count} silti}}",
+  "@filters_articleTagsCount": {
+    "description": "The number of tags used in filters.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "filters_searchbarHint": "Otsi artiklitest",
+  "@filters_searchbarHint": {
+    "description": "Search bar hint in the home screen."
+  },
+  "filters_searchMode": "Otsinguviis",
+  "@filters_searchMode": {
+    "description": "The title of the search mode screen (which fields to search text into)."
+  },
+  "filters_searchModeContent": "Otsi sisuväljadest",
+  "@filters_searchModeContent": {
+    "description": "Search text only in the content field."
+  },
+  "filters_searchModeTitle": "Otsi pealkirjast",
+  "@filters_searchModeTitle": {
+    "description": "Search text only in the title field."
+  },
+  "logconsole_title": "Logimiskonsool",
+  "@logconsole_title": {
+    "description": "The title of the log console screen."
+  },
+  "listing_noArticles": "Artikleid pole",
+  "@listing_noArticles": {
+    "description": "Placeholder for when there are no articles to display."
+  },
+  "listing_articlesAll": "Kõik artiklid",
+  "@listing_articlesAll": {
+    "description": "The title for the list of all the articles."
+  },
+  "listing_articlesArchived": "Arhiveeritud artiklid",
+  "@listing_articlesArchived": {
+    "description": "The title for the list of the articles with the state Archived."
+  },
+  "listing_articlesUnread": "Lugemata artiklid",
+  "@listing_articlesUnread": {
+    "description": "The title for the list of the articles with the state Unread."
+  },
+  "login_acceptSelfSigned": "Nõustu iseallkirjastatud sertifikaatidega",
+  "@login_acceptSelfSigned": {
+    "description": "Wether or not to accept self-signed certificates when connecting to the wallabag instance."
+  },
+  "login_actionLogin": "Logi sisse",
+  "@login_actionLogin": {
+    "description": "The action to log in."
+  },
+  "login_existingSessionDialogConfirm": "Logi välja",
+  "@login_existingSessionDialogConfirm": {
+    "description": "The action to log out from the existing session."
+  },
+  "login_existingSessionDialogMessage": "Kas soovid praegusest sessioonist välja logida ja uue avada?",
+  "@login_existingSessionDialogMessage": {
+    "description": "The message of the dialog warning about an existing session."
+  },
+  "login_existingSessionDialogTitle": "Sessioon on praegu aktiivne",
+  "@login_existingSessionDialogTitle": {
+    "description": "The title of the dialog warning about an existing session."
+  },
+  "login_fieldClientId": "Kliendi tunnus",
+  "@login_fieldClientId": {
+    "description": "The client ID field of the login form."
+  },
+  "login_fieldClientSecret": "Kliendi saladus",
+  "@login_fieldClientSecret": {
+    "description": "The client secret field of the login form."
+  },
+  "login_fieldPassword": "Salasõna",
+  "@login_fieldPassword": {
+    "description": "The password field of the login form."
+  },
+  "login_fieldUsername": "Kasutajanimi",
+  "@login_fieldUsername": {
+    "description": "The username field of the login form."
+  },
+  "login_openLogConsole": "Ava logimiskonsool",
+  "@login_openLogConsole": {
+    "description": "The action to open the log console."
+  },
+  "save_confirmationTitle": "Artikkel on salvestatud!",
+  "@save_confirmationTitle": {
+    "description": "The title of the confirmation screen after the article is saved. "
+  },
+  "readingsettings_title": "Lugemise seadistused",
+  "@readingsettings_title": {
+    "description": "The title of the reading settings screen."
+  },
+  "save_dubiousUrlMessage": "See võrguaadress ei tundu olema õige võrguaadressi moodi. Kas salvestame ta ikkagi?\n{url}",
+  "@save_dubiousUrlMessage": {
+    "description": "The message of the dubious URL warning dialog.",
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "save_dubiousUrlConfirm": "Salvesta ikkagi",
+  "@save_dubiousUrlConfirm": {
+    "description": "The confirmation button of the dubious URL warning dialog."
+  },
+  "save_noUrl": "Veebiaadress on puudu",
+  "@save_noUrl": {
+    "description": "The URL was missing from the save request."
+  },
+  "save_title": "Salvesta artikkel",
+  "@save_title": {
+    "description": "The title of the save screen."
+  },
+  "save_dubiousUrlTitle": "Kahtlane veebiaadress",
+  "@save_dubiousUrlTitle": {
+    "description": "The title of the dubious URL warning dialog."
+  },
+  "save_viewArticle": "Vaata artiklit",
+  "@save_viewArticle": {
+    "description": "The action to view the article after it is saved."
+  },
+  "selector_selectbuttonlabel": "Vali {numberOfItems}",
+  "@selector_selectbuttonlabel": {
+    "description": "The label of the select button in a selector screen.",
+    "placeholders": {
+      "numberOfItems": {
+        "type": "String",
+        "example": "3 items"
+      }
+    }
+  },
+  "server_address": "Serveri aadress",
+  "@server_address": {
+    "description": "The address of the wallabag instance."
+  },
+  "server_apiError": "Vigane API-päringu vastus",
+  "@server_apiError": {
+    "description": "An error occurred while communicating with the wallabag API."
+  },
+  "server_emptyField": "Sisesta {label}",
+  "@server_emptyField": {
+    "description": "A message for non-empty check fail on a form field.",
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "server_unreachable": "Server pole leitav",
+  "@server_unreachable": {
+    "description": "The wallabag instance is unreachable."
+  },
+  "session_copiedToClipboard": "Kopeerisin lõikelauale",
+  "@session_copiedToClipboard": {
+    "description": "A message displayed when the value is copied to the clipboard."
+  },
+  "session_invalidToken": "vigane",
+  "@session_invalidToken": {
+    "description": "Placeholder for expiration date when the token is invalid."
+  },
+  "session_logoutDialogConfirm": "Logi välja",
+  "@session_logoutDialogConfirm": {
+    "description": "Confirm the log out from the confirmation dialog."
+  },
+  "session_logoutDialogMessage": "Pead uuesti sisse logima.",
+  "@session_logoutDialogMessage": {
+    "description": "The message of the confirmation dialog to log out."
+  },
+  "session_logoutDialogTitle": "Logi sessioonist välja",
+  "@session_logoutDialogTitle": {
+    "description": "The title of the confirmation dialog to log out."
+  },
+  "session_logoutSession": "Logi sessioonist välja",
+  "@session_logoutSession": {
+    "description": "The action to log out the session."
+  },
+  "session_fieldAccessToken": "Ligipääsu tunnusluba",
+  "@session_fieldAccessToken": {
+    "description": "The label of the access token field in the session screen."
+  },
+  "session_fieldApiToken": "API tunnusluba",
+  "@session_fieldApiToken": {
+    "description": "The API token field name of in forms."
+  },
+  "session_fieldLastServerSync": "Viimane sünkrooniseerimine serveriga",
+  "@session_fieldLastServerSync": {
+    "description": "The label of the last server sync field in the session screen."
+  },
+  "session_forceTokenResfresh": "Sunni tunnusloa uuendamist",
+  "@session_forceTokenResfresh": {
+    "description": "The action to force a token refresh."
+  },
+  "session_renewDialogMessage": "Server keeldub praeguse tunnusloa kaotamisest. Sünkroniseerimise jätkamiseks pead uuesti sisse logima.",
+  "@session_renewDialogMessage": {
+    "description": "The message of the confirmation dialog to renew the session."
+  },
+  "session_renewDialogTitle": "Uuenda sessiooni",
+  "@session_renewDialogTitle": {
+    "description": "The title of the confirmation dialog to renew the session."
+  },
+  "session_title": "Sessiooni üksikasjad",
+  "@session_title": {
+    "description": "The title of the session details screen."
+  },
+  "settings_bugReportLink": "Teata vigadest",
+  "@settings_bugReportLink": {
+    "description": "The action to open the bug report form."
+  },
+  "settings_clearCacheMessage": "Järgnevaga kustutame kohaliku vahemälu ja laadime andmed serverist uuesti.",
+  "@settings_clearCacheMessage": {
+    "description": "The message of the confirmation dialog to clear the cache."
+  },
+  "settings_itemAppearance": "Välimus",
+  "@settings_itemAppearance": {
+    "description": "Settings for the appearance of the application."
+  },
+  "settings_itemAbout": "Rakenduse teave",
+  "@settings_itemAbout": {
+    "description": "The action to display the about screen."
+  },
+  "settings_itemAppBadge": "Näita „Lugemata“ silti",
+  "@settings_itemAppBadge": {
+    "description": "The action to toggle the unread badge on the application icon."
+  },
+  "settings_itemClearCache": "Kustuta puhverdatud andmed",
+  "@settings_itemClearCache": {
+    "description": "The action to clear the offline cache."
+  },
+  "settings_itemLogConsole": "Logimiskonsool",
+  "@settings_itemLogConsole": {
+    "description": "The action to display the log console screen."
+  },
+  "settings_itemOpenDeeplink": "Ava täppislink",
+  "@settings_itemOpenDeeplink": {
+    "description": "The action to open a deep link."
+  },
+  "settings_itemLanguage": "Keel",
+  "@settings_itemLanguage": {
+    "description": "The action to change the language of the application."
+  },
+  "settings_helpToTranslate": "Aita tõlkida",
+  "@settings_helpToTranslate": {
+    "description": "The action to open the Weblate project in a webview."
+  },
+  "settings_savedArticleTag": "Lisa salvestatud artiklitele silt",
+  "@settings_savedArticleTag": {
+    "description": "The action to toggle the addition of a tag to saved articles."
+  },
+  "settings_savedArticleTagLabel": "Silt salvestatud artiklite jaoks",
+  "@settings_savedArticleTagLabel": {
+    "description": "The label of the tag to add to saved articles."
+  },
+  "settings_itemSessionDetails": "Sessiooni üksikasjad",
+  "@settings_itemSessionDetails": {
+    "description": "The action to display the session details screen."
+  },
+  "settings_title": "Seadistused",
+  "@settings_title": {
+    "description": "The title of the settings screen."
+  },
+  "settings_valueThemeDark": "Tume kujundus",
+  "@settings_valueThemeDark": {
+    "description": "The label for the dark theme mode."
+  },
+  "settings_valueThemeLight": "Hele kujundus",
+  "@settings_valueThemeLight": {
+    "description": "The label for the light theme mode."
+  },
+  "syncer_pendingActions": "{count, plural, =1{1 tegevus} other{{count} tegevust}}",
+  "@syncer_pendingActions": {
+    "description": "Number of pending actions in the RemoteSyncer queue.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "server_invalidUrl": "Vigane aadress",
+  "@server_invalidUrl": {
+    "description": "The address of the wallabag instance is invalid."
+  },
+  "session_fieldTokenExpiration": "Tunnusloa aegumine",
+  "@session_fieldTokenExpiration": {
+    "description": "The label of the token expiration field in the session screen."
+  },
+  "session_neverSynced": "mitte kunagi",
+  "@session_neverSynced": {
+    "description": "Default value for the last sync time."
+  },
+  "filters_searchModeAll": "Otsi kõikidest väljadest",
+  "@filters_searchModeAll": {
+    "description": "Search text in all fields."
+  },
+  "readingsettings_fontFamily": "Kirjatüübi perekond",
+  "@readingsettings_fontFamily": {
+    "description": "The font family to display the content of the article."
+  },
+  "readingsettings_fontSize": "Kirjatüübi suurus",
+  "@readingsettings_fontSize": {
+    "description": "The font size to display the content of the article."
+  }
+}

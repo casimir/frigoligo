@@ -1,4 +1,4 @@
 - Se agregó un botón para guardar enlaces desde la pantalla principal.
 - Se ha ampliado el soporte de idiomas para incluir gallego, portugués brasileño y chino.
 - Se han corregido varios errores, incluidos problemas con las acciones de guardar y sincronizar artículos .
-- Se ha refactorizado la lógica de enrutamiento para las vistas de artículos para ofrecer una experiencia más fluida.
+- Se ha refactorizado la lógica de direccionamiento en las vistas de artículos para ofrecer una experiencia más fluida.
