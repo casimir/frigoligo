@@ -60,5 +60,101 @@
   "session_neverSynced": "никогда",
   "@session_neverSynced": {
     "description": "Default value for the last sync time."
+  },
+  "g_check": "Проверка",
+  "@g_check": {
+    "description": "A verb as in to check something."
+  },
+  "g_checking": "Проверка…",
+  "@g_checking": {
+    "description": "Present participle of the verb to check."
+  },
+  "article_addTags": "Добавить теги",
+  "@article_addTags": {
+    "description": "The action to add tags to an article."
+  },
+  "filters_articleState": "Статус",
+  "@filters_articleState": {
+    "description": "The state of the article."
+  },
+  "filters_articleStateArchived": "Архивировано",
+  "@filters_articleStateArchived": {
+    "description": "Filter articles with the state 'archived'."
+  },
+  "filters_articleTags": "Теги",
+  "@filters_articleTags": {
+    "description": "Filter articles with the given tag values."
+  },
+  "g_saveLink": "Сохранить ссылку",
+  "@g_saveLink": {
+    "description": "A verb, as in to save a link."
+  },
+  "article_browseOriginal": "Просмотреть оригинал",
+  "@article_browseOriginal": {
+    "description": "The action to open the URL of the article in the web browser."
+  },
+  "article_delete": "Удалить эту статью",
+  "@article_delete": {
+    "description": "The action to delete the article."
+  },
+  "g_settings": "Настройки",
+  "@g_settings": {
+    "description": "The settings of the application."
+  },
+  "g_synchronize": "Синхронизировать",
+  "@g_synchronize": {
+    "description": "A verb, as in to synchronize with the server."
+  },
+  "filters_articleDomains": "Домены",
+  "@filters_articleDomains": {
+    "description": "Filter the domains from where the articles have been fetched."
+  },
+  "filters_searchbarHint": "Поиск в статьях",
+  "@filters_searchbarHint": {
+    "description": "Search bar hint in the home screen."
+  },
+  "filters_searchModeContent": "Контент",
+  "@filters_searchModeContent": {
+    "description": "Search text only in the content field."
+  },
+  "filters_searchModeTitle": "Название",
+  "@filters_searchModeTitle": {
+    "description": "Search text only in the title field."
+  },
+  "g_search": "Поиск",
+  "@g_search": {
+    "description": "A verb, as in to search something."
+  },
+  "articlefields_readingTime": "Время чтения",
+  "@articlefields_readingTime": {
+    "description": "The estimated reading time of the article."
+  },
+  "articlefields_tags": "Теги",
+  "@articlefields_tags": {
+    "description": "The tags of the article."
+  },
+  "articlefields_title": "Название",
+  "@articlefields_title": {
+    "description": "The title of the article."
+  },
+  "articlefields_website": "Веб-сайт",
+  "@articlefields_website": {
+    "description": "The website (domain) from where the article has been fetched."
+  },
+  "filters_searchMode": "Режим поиска",
+  "@filters_searchMode": {
+    "description": "The title of the search mode screen (which fields to search text into)."
+  },
+  "article_noContentFetched": "Содержимое не получено",
+  "@article_noContentFetched": {
+    "description": "Placeholder for when the article content is not available."
+  },
+  "logconsole_title": "Консоль логов",
+  "@logconsole_title": {
+    "description": "The title of the log console screen."
+  },
+  "listing_noArticles": "Нет статьей",
+  "@listing_noArticles": {
+    "description": "Placeholder for when there are no articles to display."
   }
 }
