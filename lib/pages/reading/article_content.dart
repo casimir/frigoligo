@@ -40,8 +40,13 @@ class HtmlWidgetPlus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var style = '';
+    style += 'text-align:justify;';
+    // 1 em ~ 2 characters (1 em is the width of 'M')
+    style += 'max-width:40em;';
+
     return HtmlWidget(
-      html,
+      '<div style="$style">$html</div>',
       factoryBuilder: () => HtmlWidgetFactory(
         onTreeBuilt: (child) =>
             WidgetsBinding.instance.addPostFrameCallback((_) {
