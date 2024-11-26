@@ -45,15 +45,19 @@ class HtmlWidgetPlus extends StatelessWidget {
     // 1 em ~ 2 characters (1 em is the width of 'M')
     style += 'max-width:40em;';
 
-    return HtmlWidget(
-      '<div style="$style">$html</div>',
-      factoryBuilder: () => HtmlWidgetFactory(
-        onTreeBuilt: (child) =>
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-          onTreeBuilt?.call(child);
-        }),
+    return Container(
+      alignment: Alignment.center,
+      width: double.infinity,
+      child: HtmlWidget(
+        '<div style="$style">$html</div>',
+        factoryBuilder: () => HtmlWidgetFactory(
+          onTreeBuilt: (child) =>
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+            onTreeBuilt?.call(child);
+          }),
+        ),
+        textStyle: textStyle,
       ),
-      textStyle: textStyle,
     );
   }
 }
