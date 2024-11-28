@@ -1,5 +1,6 @@
 import 'package:cadanse/layout.dart';
-import 'package:flutter/widgets.dart';
+import 'package:cadanse/tokens/constants.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -53,11 +54,13 @@ class _HomePageState extends ConsumerState<HomePage> {
     final expanded = ref.watch(expanderProvider);
     return Row(
       children: [
-        if (!expanded)
+        if (!expanded) ...[
           const Flexible(
             flex: 1,
             child: ListingPage(),
           ),
+          const VerticalDivider(width: 1)
+        ],
         Flexible(
           flex: 2,
           child: ArticlePage(
