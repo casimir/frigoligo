@@ -42,7 +42,7 @@ class _ListingPageState extends ConsumerState<ListingPage> {
   Widget build(BuildContext context) {
     ref.watch(wStorageProvider);
 
-    final headerColor = Theme.of(context).colorScheme.surfaceContainer;
+    final headerColor = Theme.of(context).colorScheme.surfaceContainerLow;
 
     return Scaffold(
       body: SafeArea(

@@ -14,13 +14,17 @@ import '../../widgets/async/text.dart';
 import '../../widgets/selectors.dart';
 
 class SearchFilters extends ConsumerWidget {
-  const SearchFilters({super.key});
+  const SearchFilters({super.key, this.indent});
+
+  // A widget that is prepended and appended to the filters list.
+  final Widget? indent;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(children: [
+        if (indent != null) indent!,
         _buildState(context, ref),
         C.spacers.horizontalComponent,
         _buildStarred(context, ref),
@@ -28,6 +32,7 @@ class SearchFilters extends ConsumerWidget {
         _buildTags(context, ref),
         C.spacers.horizontalComponent,
         _buildDomains(context, ref),
+        if (indent != null) indent!,
       ]),
     );
   }
@@ -151,54 +156,58 @@ class SearchBarWithFilters<T> extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       color: backgroundColor,
-      child: PaddedGroup(
-        padding: C.paddings.group.copyWith(bottom: kSpacingInGroup),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: kSpacingInGroup),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SearchBar(
-              hintText: context.L.filters_searchbarHint,
-              leading: const Padding(
-                padding: EdgeInsets.only(left: 8.0),
-                child: Icon(Icons.search),
-              ),
-              trailing: [
-                AText(
-                  builder: (context) async {
-                    final count = await ref
-                        .watch(wStorageProvider.notifier)
-                        .count(ref.watch(queryProvider));
-                    return count.toString();
-                  },
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: kSpacingInGroup),
+              child: Row(
+                children: [
+                  _buildTextMode(context, ref),
+                  C.spacers.horizontalComponent,
+                  Flexible(
+                    child: SearchBar(
+                      hintText: context.L.filters_searchbarHint,
+                      trailing: [
+                        AText(
+                          builder: (context) async {
+                            final count = await ref
+                                .watch(wStorageProvider.notifier)
+                                .count(ref.watch(queryProvider));
+                            return count.toString();
+                          },
+                          style: TextStyle(
+                            color:
+                                Theme.of(context).colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                        C.spacers.horizontalComponent,
+                      ],
+                      onChanged: (value) {
+                        if (value.isEmpty) {
+                          ref.read(queryProvider.notifier).clearText();
+                        } else {
+                          ref
+                              .read(queryProvider.notifier)
+                              .overrideWith(WQuery(text: value));
+                        }
+                      },
+                      elevation: WidgetStateProperty.all(0.0),
+                      shape: const WidgetStatePropertyAll(
+                          ContinuousRectangleBorder(
+                        // Freely inspired by the FilterChip shape (height / 4)
+                        borderRadius: BorderRadius.all(Radius.circular(14.0)),
+                      )),
+                    ),
                   ),
-                ),
-                _buildTextMode(context, ref),
-                if (menu != null) menu!,
-              ],
-              onChanged: (value) {
-                if (value.isEmpty) {
-                  ref.read(queryProvider.notifier).clearText();
-                } else {
-                  ref
-                      .read(queryProvider.notifier)
-                      .overrideWith(WQuery(text: value));
-                }
-              },
-              elevation: WidgetStateProperty.all(0.0),
-              backgroundColor: WidgetStateProperty.all(
-                  Theme.of(context).colorScheme.surface),
-              side: WidgetStatePropertyAll(
-                BorderSide(color: Theme.of(context).colorScheme.onSurface),
+                  if (menu != null) ...[C.spacers.horizontalComponent, menu!]
+                ],
               ),
-              shape: const WidgetStatePropertyAll(ContinuousRectangleBorder(
-                // Freely inspired by the FilterChip shape (height / 4)
-                borderRadius: BorderRadius.all(Radius.circular(14.0)),
-              )),
             ),
             C.spacers.verticalComponent,
-            const SearchFilters(),
+            SearchFilters(indent: C.spacers.horizontalContent),
           ],
         ),
       ),
@@ -217,17 +226,17 @@ class SearchBarWithFilters<T> extends ConsumerWidget {
             DropdownMenuEntry(
               value: SearchTextMode.all,
               label: context.L.filters_searchModeAll,
-              leadingIcon: const Icon(Icons.text_fields),
+              leadingIcon: iconFromTextMode(SearchTextMode.all),
             ),
             DropdownMenuEntry(
               value: SearchTextMode.title,
               label: context.L.filters_searchModeTitle,
-              leadingIcon: const Icon(Icons.title),
+              leadingIcon: iconFromTextMode(SearchTextMode.title),
             ),
             DropdownMenuEntry(
               value: SearchTextMode.content,
               label: context.L.filters_searchModeContent,
-              leadingIcon: const Icon(Icons.article),
+              leadingIcon: iconFromTextMode(SearchTextMode.content),
             ),
           ],
           initial: textMode ?? SearchTextMode.all,
@@ -238,14 +247,18 @@ class SearchBarWithFilters<T> extends ConsumerWidget {
       }
     }
 
-    final iconData = switch (textMode ?? SearchTextMode.all) {
-      SearchTextMode.all => Icons.text_fields,
-      SearchTextMode.title => Icons.title,
-      SearchTextMode.content => Icons.article,
-    };
-    return IconButton(
-      icon: Icon(iconData),
-      onPressed: onTap,
-    );
+    final iconData = iconFromTextMode(textMode);
+    return textMode == null || textMode == SearchTextMode.all
+        ? IconButton(icon: iconData, onPressed: onTap)
+        : IconButton.filledTonal(icon: iconData, onPressed: onTap);
   }
+}
+
+Icon iconFromTextMode(SearchTextMode? textMode) {
+  final iconData = switch (textMode ?? SearchTextMode.all) {
+    SearchTextMode.all => Icons.manage_search_outlined,
+    SearchTextMode.title => Icons.title_outlined,
+    SearchTextMode.content => Icons.article_outlined,
+  };
+  return Icon(iconData);
 }
