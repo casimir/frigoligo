@@ -1,5 +1,4 @@
 import 'package:cadanse/cadanse.dart';
-import 'package:cadanse/components/layouts/grouping.dart';
 import 'package:cadanse/tokens/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -195,6 +194,8 @@ class SearchBarWithFilters<T> extends ConsumerWidget {
                         }
                       },
                       elevation: WidgetStateProperty.all(0.0),
+                      side: WidgetStatePropertyAll(BorderSide(
+                          color: Theme.of(context).colorScheme.outline)),
                       shape: const WidgetStatePropertyAll(
                           ContinuousRectangleBorder(
                         // Freely inspired by the FilterChip shape (height / 4)
