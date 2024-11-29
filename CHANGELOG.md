@@ -4,6 +4,56 @@ All notable changes to this project will be documented in this file.
 
 See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadata/android/en-US/changelogs) for a more high level list of changes.
 
+## [unreleased]
+
+
+### 🚀 Features
+
+- *(i18n)* Reorganize languages ([4513a35](https://github.com/casimir/frigoligo/commit/4513a359a37015074ff3adc01a5a357083438b14))
+- *(i18n)* Add ES translations and screenshots ([732c7a0](https://github.com/casimir/frigoligo/commit/732c7a0abca529fea97e62987d6828f2079b11c3))
+- Build the app for linux arm64 ([#274](https://github.com/casimir/frigoligo/pull/274)) ([98cabe2](https://github.com/casimir/frigoligo/commit/98cabe234458021c3ed347c7c88e80dd03208f80))
+- *(i18n)* Add ET translations in the settings ([9949fd9](https://github.com/casimir/frigoligo/commit/9949fd930f6cd6883f4a9c46c56b3219b2b4cbe7))
+- *(reading)* Enhance text readability ([6a1139a](https://github.com/casimir/frigoligo/commit/6a1139ad90e1ba83a8858cb7b161a7b83ab63a5f))
+- *(freon)* Add support in the iOS share extension ([29b38fe](https://github.com/casimir/frigoligo/commit/29b38feb82074a866d597c5b38e4ca1c606596d1))
+- *(UI/UX)* Add a divider between panes on wide screens ([80e655a](https://github.com/casimir/frigoligo/commit/80e655a8cd0b9204b023e406d708328c3f93b072))
+- *(UI/UX)* Declutter the search interface ([14c07db](https://github.com/casimir/frigoligo/commit/14c07db947e1dc15dcce7da31be691d73a8bd270))
+
+### 🐛 Bug Fixes
+
+- *(web)* Change logos and icons ([b08a515](https://github.com/casimir/frigoligo/commit/b08a51577cebe3046a5773cf78b7c067b6b30828))
+- *(reading)* Keep the scrollbar on the far right on large screens ([cfea627](https://github.com/casimir/frigoligo/commit/cfea627ec1e73df660bef3cfc2f6d6f534308427))
+- *(UI/UX)* Put back an outline to the search field for consistency ([9c881f9](https://github.com/casimir/frigoligo/commit/9c881f91141b39d0d2fb1921421742b563483b03))
+
+### 🚜 Refactor
+
+- *(settings)* Change how enum values are handled ([#277](https://github.com/casimir/frigoligo/pull/277)) ([2c8078a](https://github.com/casimir/frigoligo/commit/2c8078ab530732347947abe2937762ef8df5c8cb))
+
+### 📚 Documentation
+
+- *(readme)* Mention the web app (with a link). ([6fb3f3e](https://github.com/casimir/frigoligo/commit/6fb3f3e7eaeca1e29ee74ff03f3e1f16288e022c))
+
+### 🌐 Translations
+
+- Update translations: Spanish
+ ([b8d070a](https://github.com/casimir/frigoligo/commit/b8d070ad9af87025e6990836362dfae8dd1e56da))
+- Update translations: Portuguese (Portugal)
+ ([f5cf33c](https://github.com/casimir/frigoligo/commit/f5cf33c2a754f1d3e4550a758e42f0e74f8f3c32))
+- Update translations: Portuguese (Brazil)
+ ([ed9b432](https://github.com/casimir/frigoligo/commit/ed9b432d755aea88f5511bf82c4809f59a8aaf05))
+- Update translations: Estonian
+ ([37e755a](https://github.com/casimir/frigoligo/commit/37e755a8c48133503850a3dc115d5126f4185c5d))
+- Update translations: Russian
+ ([a5d7cc8](https://github.com/casimir/frigoligo/commit/a5d7cc8be7b670d41bc2bea73f25cae531ef566d))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(release)* Prepare the new dev cycle ([8724d5d](https://github.com/casimir/frigoligo/commit/8724d5da03f7e112f80f374ec946cca7d68aea35))
+- Bump version name ([9bf66d0](https://github.com/casimir/frigoligo/commit/9bf66d024802db36eecce2c430e6cecf9aa09786))
+- Bump CocoaPods lockfiles ([5e44a74](https://github.com/casimir/frigoligo/commit/5e44a74bc8dcef74c0edd086e4309f44c72651d4))
+
+**Full Changelog**: [v2.0.0..HEAD](https://github.com/casimir/frigoligo/compare/v2.0.0..HEAD)
+
+
 ## [2.0.0] - 2024-11-07
 
 
