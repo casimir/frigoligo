@@ -3,14 +3,14 @@
 [![Chat on Matrix](https://img.shields.io/matrix/frigoligo%3Aone.ems.host?server_fqdn=matrix.org)](https://matrix.to/#/#frigoligo:one.ems.host)
 [![Translation status](https://hosted.weblate.org/widget/frigoligo/flutter/svg-badge.svg)](https://hosted.weblate.org/engage/frigoligo/)
 
-Frigoligo is a [wallabag](https://wallabag.org/) client crafted using [Flutter](https://flutter.dev/). Its core philosophy is to prioritize pragmatism and adhering to best practices when it makes sense.
+Frigoligo is a [wallabag](https://wallabag.org/) client crafted using [Flutter](https://flutter.dev/). Its core philosophy is to prioritize pragmatism and adhere to best practices when it makes sense.
 
-Frigoligo is aiming at being:
+Frigoligo aims to be:
 
 1. **KISS**: Keep It Simple, Stupid. It should feel light and functional.
 2. **Universal**: Provides a consistent experience on Android, iOS, macOS, Linux and Windows.
 3. **Pluggable**: Can be integrated into any workflows easily, using deep links and OS integrations.
-4. **Offline first**: Works offline as much as possible and keep synchronization efficient.
+4. **Offline first**: Works offline as much as possible and keeps synchronization efficient.
 5. **Innovative**: Experiment with new ideas on top of the solid backend that is wallabag.
 
 ## Installation
@@ -19,11 +19,11 @@ Frigoligo is aiming at being:
 
 You can also download the installer from the [latest release](https://github.com/casimir/frigoligo/releases/latest) for the following platforms: Android (apk), Linux, AppImage and Windows.
 
-It is also possible to use frigoligo as a web app, available [here](https://casimir.github.io/frigoligo/). Not that this is still experimental and that it is automatically updated with the latest commits on the `main` branch.
+It is also possible to use Frigoligo as a web app, available [here](https://casimir.github.io/frigoligo/). Note that this is still experimental and that it is automatically updated with the latest commits on the `main` branch.
 
 ## Features
 
-Missing but planned feature are tracked in the [issues](https://github.com/casimir/frigoligo/issues?q=is%3Aissue+is%3Aopen+label%3A"missing+feature").
+Missing but planned features are tracked in the [issues](https://github.com/casimir/frigoligo/issues?q=is%3Aissue+is%3Aopen+label%3A"missing+feature").
 
 A full history of changes is available in [CHANGELOG.md](./CHANGELOG.md).
 
@@ -35,13 +35,13 @@ A full history of changes is available in [CHANGELOG.md](./CHANGELOG.md).
 
 ## Deeplinks
 
-Frigoligo supports a few deeplinks that allows it to be integrated in external workflows. All platforms except Linux are supported.
+Frigoligo supports a few deeplinks that allow it to be integrated into external workflows. All platforms except Linux are supported.
 
 ### Links format
 
 Deeplinks are based on a custom scheme, the URI path is used to determine the action to perform.
 
-The follow link will open the app and perform the `action` action with the given parameters `param1` (`hello`) and `param2` (`Günther`). Note that the host `x` is just here for readability and is ignored.
+The following link will open the app and perform the `action` action with the given parameters `param1` (`hello`) and `param2` (`Günther`). Note that the host `x` is just here for readability and is ignored.
 
 ```
 frigoligo://x/action?param1=hello&param2=G%C3%BCnther
@@ -59,7 +59,7 @@ Open the article with the given ID respecting the correct app navigation mode.
 
 #### `/login`
 
-Open the login page and prefills the given credentials. Be aware that such link in the wild weakens the security of your account.
+Open the login page and prefill the given credentials. Be aware that such a link in the wild weakens the security of your account.
 
 | Parameter      | Description                  | Required |
 |----------------|------------------------------|----------|
@@ -87,7 +87,7 @@ Licensed under the MIT. See [LICENSE](./LICENSE) for details.
 
 ## Translations
 
-You can help translating Frigoligo in your language by using [Weblate](https://hosted.weblate.org/engage/frigoligo/). Please come and help!
+You can help translate Frigoligo into your language by using [Weblate](https://hosted.weblate.org/engage/frigoligo/). Please come and help!
 
 Note that, to be used in the application, the translation must be at least 80% complete.
 
