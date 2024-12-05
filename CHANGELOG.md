@@ -31,6 +31,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 ### 📚 Documentation
 
 - *(readme)* Mention the web app (with a link). ([6fb3f3e](https://github.com/casimir/frigoligo/commit/6fb3f3e7eaeca1e29ee74ff03f3e1f16288e022c))
+- Fix grammar errors in the readme ([#285](https://github.com/casimir/frigoligo/pull/285)) ([dca4712](https://github.com/casimir/frigoligo/commit/dca471292ea23f93794bc00b7bc659b57969edd0))
 
 ### 🌐 Translations
 
@@ -50,6 +51,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(release)* Prepare the new dev cycle ([8724d5d](https://github.com/casimir/frigoligo/commit/8724d5da03f7e112f80f374ec946cca7d68aea35))
 - Bump version name ([9bf66d0](https://github.com/casimir/frigoligo/commit/9bf66d024802db36eecce2c430e6cecf9aa09786))
 - Bump CocoaPods lockfiles ([5e44a74](https://github.com/casimir/frigoligo/commit/5e44a74bc8dcef74c0edd086e4309f44c72651d4))
+- Setup automated changelog update every day ([627adcf](https://github.com/casimir/frigoligo/commit/627adcf6c661517d3f2f6e4826563b9d06450ae9))
 
 **Full Changelog**: [v2.0.0..HEAD](https://github.com/casimir/frigoligo/compare/v2.0.0..HEAD)
 
