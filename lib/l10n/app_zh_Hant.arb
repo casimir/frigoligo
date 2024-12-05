@@ -70,7 +70,7 @@
   "@filters_articleStateArchived": {
     "description": "Filter articles with the state 'archived'."
   },
-  "filters_articleStateAll": "全部",
+  "filters_articleStateAll": "全部的網站",
   "@filters_articleStateAll": {
     "description": "Don't filter articles by state."
   },
@@ -368,5 +368,55 @@
   "settings_itemAppBadge": "顯示未讀徽章",
   "@settings_itemAppBadge": {
     "description": "The action to toggle the unread badge on the application icon."
+  },
+  "filters_searchbarHint": "在文章中搜尋",
+  "@filters_searchbarHint": {
+    "description": "Search bar hint in the home screen."
+  },
+  "filters_searchModeTitle": "標題",
+  "@filters_searchModeTitle": {
+    "description": "Search text only in the title field."
+  },
+  "selector_selectbuttonlabel": "選擇 {numberOfItems}",
+  "@selector_selectbuttonlabel": {
+    "description": "The label of the select button in a selector screen.",
+    "placeholders": {
+      "numberOfItems": {
+        "type": "String",
+        "example": "3 items"
+      }
+    }
+  },
+  "g_saveLink": "儲存連結",
+  "@g_saveLink": {
+    "description": "A verb, as in to save a link."
+  },
+  "g_synchronize": "同步",
+  "@g_synchronize": {
+    "description": "A verb, as in to synchronize with the server."
+  },
+  "filters_searchMode": "搜尋模式",
+  "@filters_searchMode": {
+    "description": "The title of the search mode screen (which fields to search text into)."
+  },
+  "g_settings": "設定",
+  "@g_settings": {
+    "description": "The settings of the application."
+  },
+  "articlefields_readingTime": "閱讀時間",
+  "@articlefields_readingTime": {
+    "description": "The estimated reading time of the article."
+  },
+  "articlefields_tags": "標籤",
+  "@articlefields_tags": {
+    "description": "The tags of the article."
+  },
+  "articlefields_title": "標題",
+  "@articlefields_title": {
+    "description": "The title of the article."
+  },
+  "articlefields_website": "網站",
+  "@articlefields_website": {
+    "description": "The website (domain) from where the article has been fetched."
   }
 }
