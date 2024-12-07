@@ -88,7 +88,11 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
       appBarLeading: appBarLeading,
       title: Builder(builder: (context) {
         return GestureDetector(
-          child: Text(article.title),
+          child: Text(
+            article.title,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+          ),
           onTap: () => Scaffold.of(context).openEndDrawer(),
         );
       }),
