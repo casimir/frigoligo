@@ -34,7 +34,6 @@ class ArticleSheet extends ConsumerWidget with CurrentArticleWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              C.spacers.verticalContent,
               ..._buildField(context, context.L.articlefields_title,
                   value: article.title),
               C.spacers.verticalContent,
