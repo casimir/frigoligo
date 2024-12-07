@@ -67,19 +67,7 @@ class ArticleSheet extends ConsumerWidget with CurrentArticleWidget {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    ActionChip(
-                      avatar: shareIcon,
-                      label: Text(context.L.g_share),
-                      onPressed: () {
-                        final box = context.findRenderObject() as RenderBox?;
-                        Share.share(
-                          article.url,
-                          subject: article.title,
-                          sharePositionOrigin:
-                              box!.localToGlobal(Offset.zero) & box.size,
-                        );
-                      },
-                    ),
+                    _ShareChip(article),
                     C.spacers.horizontalComponent,
                     ActionChip(
                       avatar: const Icon(Icons.open_in_browser),
@@ -130,5 +118,35 @@ void _showTagsDialog(
     final syncer = ref.read(remoteSyncerProvider.notifier);
     await syncer.add(EditArticleAction(article.id, tags: tags.toList()));
     await syncer.synchronize();
+  }
+}
+
+class _ShareChip extends StatefulWidget {
+  const _ShareChip(this.article);
+
+  final Article article;
+
+  @override
+  State<_ShareChip> createState() => _ShareChipState();
+}
+
+class _ShareChipState extends State<_ShareChip> {
+  final _shareButtonKey = GlobalKey();
+
+  @override
+  Widget build(BuildContext context) {
+    return ActionChip(
+      key: _shareButtonKey,
+      avatar: shareIcon,
+      label: Text(context.L.g_share),
+      onPressed: () {
+        final box = context.findRenderObject() as RenderBox?;
+        Share.share(
+          widget.article.url,
+          subject: widget.article.title,
+          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+        );
+      },
+    );
   }
 }

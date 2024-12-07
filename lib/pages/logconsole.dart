@@ -10,11 +10,18 @@ import '../db/database.dart';
 import '../providers/logconsole.dart';
 import '../widgets/async/list.dart';
 
-class LogConsolePage extends ConsumerWidget {
+class LogConsolePage extends ConsumerStatefulWidget {
   const LogConsolePage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<LogConsolePage> createState() => _LogConsolePageState();
+}
+
+class _LogConsolePageState extends ConsumerState<LogConsolePage> {
+  final GlobalKey _shareButtonKey = GlobalKey();
+
+  @override
+  Widget build(BuildContext context) {
     ref.watch(logConsoleProvider);
 
     final logs = DB().appLogsDao;
@@ -23,9 +30,11 @@ class LogConsolePage extends ConsumerWidget {
         title: Text(context.L.logconsole_title),
         actions: [
           IconButton(
+            key: _shareButtonKey,
             icon: shareIcon,
             onPressed: () async {
-              final box = context.findRenderObject() as RenderBox?;
+              final box = _shareButtonKey.currentContext!.findRenderObject()
+                  as RenderBox?;
               final filename = await ref
                   .watch(logConsoleProvider.notifier)
                   .exportCurrentRunToFile();

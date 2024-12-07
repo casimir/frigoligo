@@ -41,6 +41,7 @@ class ArticlePage extends ConsumerStatefulWidget {
 class _ArticlePageState extends ConsumerState<ArticlePage>
     with CurrentArticleState<ArticlePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  final GlobalKey _shareButtonKey = GlobalKey();
   final ScrollController scroller = ScrollController();
 
   @override
@@ -173,9 +174,11 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
         },
       ),
       IconButton(
+        key: _shareButtonKey,
         icon: shareIcon,
         onPressed: () {
-          final box = context.findRenderObject() as RenderBox?;
+          final box =
+              _shareButtonKey.currentContext!.findRenderObject() as RenderBox?;
           Share.share(
             article.url,
             subject: article.title,
