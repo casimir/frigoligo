@@ -185,7 +185,7 @@ enum Sk {
 }
 
 // Values are displayed in the UI in this order (alphabetical).
-// Languages with a translation completeness under 80% are disabled (commented).
+// Languages with a translation completeness under 75% are disabled (commented).
 // See https://www.omniglot.com/language/names.htm for native names.
 enum Language {
   system(null, ''),
