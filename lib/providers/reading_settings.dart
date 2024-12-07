@@ -48,6 +48,11 @@ class ReadingSettings extends _$ReadingSettings {
     state.fontFamily = family;
     _commit();
   }
+
+  set justifyText(bool justify) {
+    state.justifyText = justify;
+    _commit();
+  }
 }
 
 const readingFonts = [
@@ -77,12 +82,14 @@ class ReaderSettingsValues {
     this.height = 1.5,
     this.letterSpacing = 0.5,
     this.fontFamily = defaultReadingFont,
+    this.justifyText = false,
   });
 
   double fontSize;
   double height;
   double letterSpacing;
   String fontFamily;
+  bool justifyText;
 
   TextStyle get textStyle =>
       textStyleFromFontFamily(fontFamily).merge(TextStyle(

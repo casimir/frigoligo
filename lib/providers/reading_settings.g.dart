@@ -13,6 +13,7 @@ ReaderSettingsValues _$ReaderSettingsValuesFromJson(
       height: (json['height'] as num?)?.toDouble() ?? 1.5,
       letterSpacing: (json['letterSpacing'] as num?)?.toDouble() ?? 0.5,
       fontFamily: json['fontFamily'] as String? ?? defaultReadingFont,
+      justifyText: json['justifyText'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$ReaderSettingsValuesToJson(
@@ -22,13 +23,14 @@ Map<String, dynamic> _$ReaderSettingsValuesToJson(
       'height': instance.height,
       'letterSpacing': instance.letterSpacing,
       'fontFamily': instance.fontFamily,
+      'justifyText': instance.justifyText,
     };
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$readingSettingsHash() => r'fcc24a957e4a9a9f4a0457dfa4f32065fe6e6785';
+String _$readingSettingsHash() => r'c10dfcc2b6e885c4d5e5ebe24dee9758a5487691';
 
 /// See also [ReadingSettings].
 @ProviderFor(ReadingSettings)

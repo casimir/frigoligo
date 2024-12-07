@@ -31,17 +31,17 @@ class HtmlWidgetPlus extends StatelessWidget {
     this.html, {
     super.key,
     this.onTreeBuilt,
-    this.textStyle,
+    this.settings,
   });
 
   final String html;
   final void Function(Widget)? onTreeBuilt;
-  final TextStyle? textStyle;
+  final ReaderSettingsValues? settings;
 
   @override
   Widget build(BuildContext context) {
     var style = '';
-    style += 'text-align:justify;';
+    if (settings?.justifyText == true) style += 'text-align:justify;';
     // 1 em ~ 2 characters (1 em is the width of 'M')
     style += 'max-width:40em;';
 
@@ -56,7 +56,7 @@ class HtmlWidgetPlus extends StatelessWidget {
             onTreeBuilt?.call(child);
           }),
         ),
-        textStyle: textStyle,
+        textStyle: settings?.textStyle,
       ),
     );
   }
@@ -121,7 +121,7 @@ class _ArticleContentState extends ConsumerState<ArticleContent> {
             child: HtmlWidgetPlus(
               widget.article.content!,
               onTreeBuilt: (_) => _jumpToProgress(),
-              textStyle: ref.watch(readingSettingsProvider).textStyle,
+              settings: ref.watch(readingSettingsProvider),
             ),
           ),
           SizedBox(height: MediaQuery.paddingOf(context).bottom),

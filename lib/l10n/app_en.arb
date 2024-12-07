@@ -301,6 +301,10 @@
   "@readingsettings_fontSize": {
     "description": "The font size to display the content of the article."
   },
+  "readdingsettings_textFormatting": "Text formatting",
+  "@readdingsettings_textFormatting": {
+    "description": "The text formatting to display the content of the article."
+  },
   "readingsettings_title": "Reading settings",
   "@readingsettings_title": {
     "description": "The title of the reading settings screen."

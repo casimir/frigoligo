@@ -29,9 +29,9 @@ class ReadingSettingsConfigurator extends ConsumerWidget {
                   min: 12.0,
                   max: 20.0,
                   divisions: 4,
-                  onChanged: (size) {
-                    ref.read(readingSettingsProvider.notifier).fontSize = size;
-                  },
+                  onChanged: (size) => ref
+                      .read(readingSettingsProvider.notifier)
+                      .fontSize = size,
                 ),
               ),
               C.spacers.verticalContent,
@@ -58,6 +58,32 @@ class ReadingSettingsConfigurator extends ConsumerWidget {
                       },
                     );
                   }).toList(),
+                ),
+              ),
+              C.spacers.verticalContent,
+              ..._buildSection(
+                context,
+                context.L.readdingsettings_textFormatting,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SegmentedButton(
+                      segments: const [
+                        ButtonSegment(
+                          value: false,
+                          icon: Icon(Icons.format_align_left),
+                        ),
+                        ButtonSegment(
+                          value: true,
+                          icon: Icon(Icons.format_align_justify),
+                        ),
+                      ],
+                      selected: {values.justifyText},
+                      onSelectionChanged: (selected) => ref
+                          .read(readingSettingsProvider.notifier)
+                          .justifyText = selected.first,
+                    )
+                  ],
                 ),
               ),
             ],
