@@ -1,0 +1,4 @@
+- Kirjutasime ümber enamuse kasutajaliidesest ja see peaks nüüd olema süsteemsem ja lihtsamalt kasutatav.
+- Kirjutasime ümber terve andmehoidla loogika ja see peaks olema nüüd kõikidel platvormisel ühtlasem ja töökindlam.
+- Kirjutasime ümber rakenduse siltide loogika ja ta peaks nüüd olema töökindlam.
+- Uus keel: esperanto.
