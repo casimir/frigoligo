@@ -1,0 +1,4 @@
+- Lots of tweaks and improvements to the UI.
+- Fixed the share button not working in some cases.
+- New languages: Spanish, Estonian.
+- Update translations for several languages.
