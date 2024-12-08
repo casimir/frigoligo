@@ -17,21 +17,27 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(freon)* Add support in the iOS share extension ([29b38fe](https://github.com/casimir/frigoligo/commit/29b38feb82074a866d597c5b38e4ca1c606596d1))
 - *(UI/UX)* Add a divider between panes on wide screens ([80e655a](https://github.com/casimir/frigoligo/commit/80e655a8cd0b9204b023e406d708328c3f93b072))
 - *(UI/UX)* Declutter the search interface ([14c07db](https://github.com/casimir/frigoligo/commit/14c07db947e1dc15dcce7da31be691d73a8bd270))
+- *(reading)* Add a control to toggle text justification ([22a6b11](https://github.com/casimir/frigoligo/commit/22a6b1195c1d3d82e5bbc50c51385512adc245fe))
 
 ### 🐛 Bug Fixes
 
 - *(web)* Change logos and icons ([b08a515](https://github.com/casimir/frigoligo/commit/b08a51577cebe3046a5773cf78b7c067b6b30828))
 - *(reading)* Keep the scrollbar on the far right on large screens ([cfea627](https://github.com/casimir/frigoligo/commit/cfea627ec1e73df660bef3cfc2f6d6f534308427))
 - *(UI/UX)* Put back an outline to the search field for consistency ([9c881f9](https://github.com/casimir/frigoligo/commit/9c881f91141b39d0d2fb1921421742b563483b03))
+- *(UI/UX)* Remove some spacing ([9907545](https://github.com/casimir/frigoligo/commit/9907545c113ffe22e9386f1fdd7082b11e5899a9))
+- *(reading)* Truncate title to avoid vertical clipping ([d37056a](https://github.com/casimir/frigoligo/commit/d37056a7d25637d7a9083b7e37a3b1bdb02c9dde))
+- *(iOS)* Attach the share popover to the button that triggered it ([1b865f4](https://github.com/casimir/frigoligo/commit/1b865f4a53a31b7fd2432d564c670f285efdf1bb))
 
 ### 🚜 Refactor
 
 - *(settings)* Change how enum values are handled ([#277](https://github.com/casimir/frigoligo/pull/277)) ([2c8078a](https://github.com/casimir/frigoligo/commit/2c8078ab530732347947abe2937762ef8df5c8cb))
+- *(reading settings)* Use cadanse instead of hard coded values ([1f7c5cb](https://github.com/casimir/frigoligo/commit/1f7c5cb239f6be2f6aa179013a53a918b3644ee1))
 
 ### 📚 Documentation
 
 - *(readme)* Mention the web app (with a link). ([6fb3f3e](https://github.com/casimir/frigoligo/commit/6fb3f3e7eaeca1e29ee74ff03f3e1f16288e022c))
 - Fix grammar errors in the readme ([#285](https://github.com/casimir/frigoligo/pull/285)) ([dca4712](https://github.com/casimir/frigoligo/commit/dca471292ea23f93794bc00b7bc659b57969edd0))
+- Reduce translation minimum completeness to align with weblate ([b27b290](https://github.com/casimir/frigoligo/commit/b27b290e8b3cfdba193d1a64bdf1775ba1299ee5))
 
 ### 🌐 Translations
 
