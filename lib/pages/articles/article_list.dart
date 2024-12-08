@@ -82,12 +82,11 @@ class _ArticleListState extends ConsumerState<ArticleListView> {
 
     final storage = ref.watch(wStorageProvider.notifier);
     final query = ref.watch(queryProvider);
-
-    final count = storage.count(query);
+    final queryMeta = ref.watch(queryMetaProvider.future);
 
     return AListView.separated(
       controller: _scroller,
-      itemCount: count,
+      itemCount: queryMeta.then((it) => it.selectedIds.length),
       itemBuilder: (context, index) async {
         if (index == 0) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -96,8 +95,8 @@ class _ArticleListState extends ConsumerState<ArticleListView> {
                 .maybeInit(article!.id));
           });
         }
-        return ArticleListItem(
-          article: (await storage.index(index, query))!,
+        return AsyncArticleItem(
+          articleId: (await queryMeta).selectedIds[index],
           onTap: (article) => _openArticle(article.id),
           showSelection: widget.sideBySideMode,
         );

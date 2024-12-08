@@ -9,7 +9,6 @@ import '../../providers/article.dart';
 import '../../providers/query.dart';
 import '../../services/remote_sync.dart';
 import '../../services/remote_sync_actions/articles.dart';
-import '../../services/wallabag_storage.dart';
 import '../../widgets/article_image_preview.dart';
 import '../../widgets/tag_list.dart';
 import 'article_list.dart';
@@ -41,6 +40,7 @@ class _ArticleListItemState extends ConsumerState<ArticleListItem> {
     _listenToSelectionChange();
 
     return Ink(
+      key: ValueKey('articles-list-item-${widget.article.id}'),
       color: widget.showSelection && _isSelected
           ? Theme.of(context).highlightColor
           : null,
@@ -169,26 +169,27 @@ class _ArticleListItemState extends ConsumerState<ArticleListItem> {
 class AsyncArticleItem extends ConsumerWidget {
   const AsyncArticleItem({
     super.key,
-    required this.article,
+    required this.articleId,
     this.onTap,
     required this.showSelection,
   });
 
-  final Article article;
+  final int articleId;
   final void Function(Article)? onTap;
   final bool showSelection;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) =>
-      ref.watch(currentArticleProvider).when(
-          data: (selected) => ArticleListItem(
-                article: article,
-                onTap: onTap,
-                showSelection: showSelection,
-              ),
-          error: (e, st) => throw Exception('unreachable branch but $e'),
-          loading: () => const SizedBox(
-                height: listingHeight,
-                child: Center(child: CircularProgressIndicator.adaptive()),
-              ));
+      ref.watch(articleDataProvider(articleId)).when(
+            data: (article) => ArticleListItem(
+              article: article!,
+              onTap: onTap,
+              showSelection: showSelection,
+            ),
+            error: (e, st) => throw Exception('unreachable branch but $e'),
+            loading: () => const SizedBox(
+              height: listingHeight,
+              child: Center(child: CircularProgressIndicator.adaptive()),
+            ),
+          );
 }

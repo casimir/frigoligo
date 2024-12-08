@@ -10,6 +10,7 @@ import '../db/database.dart';
 import '../db/extensions/article.dart';
 import '../db/models/article.drift.dart';
 import '../native/appbadge.dart';
+import '../providers/query.dart';
 import '../providers/settings.dart';
 import '../server/providers/client.dart';
 import '../wallabag/client.dart';
@@ -253,41 +254,4 @@ class WStorage extends _$WStorage {
     );
     await persistArticle(entry.toArticle());
   }
-}
-
-// FIXME use sentinel values to avoid needing clear*() methods
-class WQuery {
-  WQuery({
-    this.text,
-    this.textMode,
-    this.state,
-    this.starred,
-    this.tags,
-    this.domains,
-  });
-
-  String? text;
-  SearchTextMode? textMode;
-  StateFilter? state;
-  StarredFilter? starred;
-  List<String>? tags;
-  List<String>? domains;
-
-  WQuery dup() => WQuery(
-        text: text,
-        textMode: textMode,
-        state: state,
-        starred: starred,
-        tags: tags,
-        domains: domains,
-      );
-
-  WQuery override(WQuery wq) => WQuery(
-        text: wq.text ?? text,
-        textMode: wq.textMode ?? textMode,
-        state: wq.state ?? state,
-        starred: wq.starred ?? starred,
-        tags: wq.tags ?? tags,
-        domains: wq.domains ?? domains,
-      );
 }

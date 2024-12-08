@@ -20,5 +20,20 @@ final queryProvider = NotifierProvider<Query, WQuery>.internal(
 );
 
 typedef _$Query = Notifier<WQuery>;
+String _$queryMetaHash() => r'42f4d2eaefc4d211f6e0d5949d8b25bf500fc60f';
+
+/// See also [QueryMeta].
+@ProviderFor(QueryMeta)
+final queryMetaProvider =
+    AutoDisposeAsyncNotifierProvider<QueryMeta, QueryState>.internal(
+  QueryMeta.new,
+  name: r'queryMetaProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$queryMetaHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$QueryMeta = AutoDisposeAsyncNotifier<QueryState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

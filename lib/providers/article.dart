@@ -11,6 +11,44 @@ import 'settings.dart';
 
 part 'article.g.dart';
 
+@riverpod
+class ArticleData extends _$ArticleData {
+  StreamSubscription? _watcher;
+
+  @override
+  Future<Article?> build(int articleId) async {
+    _watcher?.cancel();
+    _watch(articleId);
+    final t1 = DB().managers.articles;
+    return t1.filter((f) => f.id.equals(articleId)).getSingleOrNull();
+  }
+
+  void _watch(int articleId) {
+    final q = DB().managers.articles.filter((f) => f.id.equals(articleId));
+    _watcher = q.watchSingleOrNull(distinct: false).listen((article) {
+      final stateArticle = state.maybeWhen(orElse: () => null, data: (a) => a);
+      if (stateArticle == null || article != stateArticle) {
+        state = AsyncValue.data(article);
+      }
+    });
+    ref.onDispose(() => _watcher?.cancel());
+  }
+
+  Future<void> saveScrollProgress(double progress) async {
+    final article = state.maybeWhen(orElse: () => null, data: (a) => a);
+    if (article == null) return;
+
+    await DB().managers.articleScrollPositions.create(
+          (o) => o(
+            id: Value(article.id),
+            readingTime: article.readingTime,
+            progress: progress,
+          ),
+          mode: InsertMode.insertOrReplace,
+        );
+  }
+}
+
 @Riverpod(keepAlive: true)
 class CurrentArticle extends _$CurrentArticle {
   int? _articleId;
