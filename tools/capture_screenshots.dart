@@ -17,6 +17,7 @@ Future<void> main() async {
     // {'locale': 'de-DE'},
     // {'locale': 'en-US'},
     // {'locale': 'es-ES'},
+    // {'locale': 'et-EE'},
     // {'locale': 'fr-FR'},
     // {'locale': 'zh-Hans'},
     // {'locale': 'zh-Hant'},
