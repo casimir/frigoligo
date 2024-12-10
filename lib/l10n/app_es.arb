@@ -496,5 +496,9 @@
   "settings_itemSessionDetails": "Detalles de la sesión",
   "@settings_itemSessionDetails": {
     "description": "The action to display the session details screen."
+  },
+  "readdingsettings_textFormatting": "Formato del texto",
+  "@readdingsettings_textFormatting": {
+    "description": "The text formatting to display the content of the article."
   }
 }
