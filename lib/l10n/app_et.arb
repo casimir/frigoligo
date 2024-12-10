@@ -496,5 +496,9 @@
   "readingsettings_fontSize": "Kirjatüübi suurus",
   "@readingsettings_fontSize": {
     "description": "The font size to display the content of the article."
+  },
+  "readdingsettings_textFormatting": "Teksti vormindus",
+  "@readdingsettings_textFormatting": {
+    "description": "The text formatting to display the content of the article."
   }
 }

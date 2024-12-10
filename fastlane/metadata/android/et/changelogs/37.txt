@@ -1,0 +1,4 @@
+- Palju kasutajaliidese muudatusi ja täiustusi.
+- Parandasime olukorra, kus jagamisnupp mõnel juhul ei toiminud.
+- Uued keeled: hispaania keel, eesti keel.
+- Uuendasime mitme keele tõlkeid.

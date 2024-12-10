@@ -1,0 +1,3 @@
+- Töökindlam ja kiirem ühendus serveriga.
+- Uued keeled: hiina keel traditsioonilise märgistikuga (漢文) ja vene keel (Русский язык).
+- Nüüd saab serveris kasutada enda allkirjastatud ssl-sertifikaate.

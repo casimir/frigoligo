@@ -1,0 +1,4 @@
+- Lisasime nupu linkide salvestamiseks põhivaates.
+- Tõlked on nüüd olemas galeegi, Brasiilia portugali ja hiina keeltes.
+- Parandasime mitmed vead, sh need, mis seondusid artiklite salvestamise ja sünkroniseerimisega.
+- Kirjutasime uue artiklite vaatamise järjekorra loogika ja see tagab sujuvama kasutuskogemuse.
