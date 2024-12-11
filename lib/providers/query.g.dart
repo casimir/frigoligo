@@ -20,7 +20,7 @@ final queryProvider = NotifierProvider<Query, WQuery>.internal(
 );
 
 typedef _$Query = Notifier<WQuery>;
-String _$queryMetaHash() => r'9faa2d3ff9a14e85c9a2d65100df5c54d5943849';
+String _$queryMetaHash() => r'b1e046d047c94ee9398ad8e93688308fc5319a02';
 
 /// See also [QueryMeta].
 @ProviderFor(QueryMeta)
@@ -36,4 +36,4 @@ final queryMetaProvider =
 
 typedef _$QueryMeta = AutoDisposeAsyncNotifier<QueryState>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
