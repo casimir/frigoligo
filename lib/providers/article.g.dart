@@ -173,7 +173,7 @@ class _ArticleDataProviderElement
   int get articleId => (origin as ArticleDataProvider).articleId;
 }
 
-String _$currentArticleHash() => r'addfdd527a34b30ea5a1ef4ec35e0a3564288da0';
+String _$currentArticleHash() => r'27916ee0ec0d33420abecdb74d2a881201ac1bc1';
 
 /// See also [CurrentArticle].
 @ProviderFor(CurrentArticle)

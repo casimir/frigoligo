@@ -80,11 +80,7 @@ class CurrentArticle extends _$CurrentArticle {
 
     if (_articleId != null) {
       _watch();
-      return DB()
-          .managers
-          .articles
-          .filter((f) => f.id.equals(_articleId!))
-          .getSingleOrNull();
+      return ref.watch(articleDataProvider(_articleId!).future);
     }
 
     return null;
@@ -100,10 +96,7 @@ class CurrentArticle extends _$CurrentArticle {
       }
 
       final stateArticle = state.maybeWhen(orElse: () => null, data: (a) => a);
-
       if (stateArticle == null) {
-        state = AsyncValue.data(article);
-      } else if (article != stateArticle && article.id == stateArticle.id) {
         state = AsyncValue.data(article);
       } else if (article.id != stateArticle.id) {
         change(article.id);
@@ -118,7 +111,6 @@ class CurrentArticle extends _$CurrentArticle {
     _articleId = articleId;
 
     ref.read(settingsProvider.notifier).set(Sk.selectedArticleId, articleId);
-
     ref.invalidateSelf();
   }
 
