@@ -8,7 +8,6 @@ import '../../constants.dart';
 import '../../db/daos/articles.dart';
 import '../../db/database.dart';
 import '../../providers/query.dart';
-import '../../services/wallabag_storage.dart';
 import '../../widgets/async/text.dart';
 import '../../widgets/selectors.dart';
 
@@ -81,7 +80,7 @@ class SearchFilters extends ConsumerWidget {
         context: context,
         title: context.L.filters_articleTags,
         selectionLabelizer: context.L.filters_articleTagsCount,
-        entriesBuilder: ref.read(wStorageProvider.notifier).getTags(),
+        entriesBuilder: DB().articlesDao.listAllTags(),
         initialSelection: selection?.toSet(),
         leadingIcon: const Icon(Icons.label),
       );

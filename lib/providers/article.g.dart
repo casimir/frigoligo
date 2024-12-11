@@ -171,12 +171,12 @@ class _ArticleDataProviderElement
   int get articleId => (origin as ArticleDataProvider).articleId;
 }
 
-String _$currentArticleHash() => r'017eb405e2c72b7aed0815f159b6f32fc47b41e5';
+String _$currentArticleHash() => r'addfdd527a34b30ea5a1ef4ec35e0a3564288da0';
 
 /// See also [CurrentArticle].
 @ProviderFor(CurrentArticle)
 final currentArticleProvider =
-    AsyncNotifierProvider<CurrentArticle, Article?>.internal(
+    AutoDisposeAsyncNotifierProvider<CurrentArticle, Article?>.internal(
   CurrentArticle.new,
   name: r'currentArticleProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -186,7 +186,7 @@ final currentArticleProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$CurrentArticle = AsyncNotifier<Article?>;
+typedef _$CurrentArticle = AutoDisposeAsyncNotifier<Article?>;
 String _$scrollPositionHash() => r'14429f91ef7c2786483b903c93eedc0d15af7a28';
 
 abstract class _$ScrollPosition

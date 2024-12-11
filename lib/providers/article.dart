@@ -5,7 +5,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../db/database.dart';
 import '../db/models/article.drift.dart';
-import '../services/wallabag_storage.dart';
 import 'query.dart';
 import 'settings.dart';
 
@@ -49,7 +48,7 @@ class ArticleData extends _$ArticleData {
   }
 }
 
-@Riverpod(keepAlive: true)
+@riverpod
 class CurrentArticle extends _$CurrentArticle {
   int? _articleId;
   StreamSubscription? _watcher;
@@ -61,18 +60,20 @@ class CurrentArticle extends _$CurrentArticle {
     _articleId ??=
         ref.watch(settingsProvider.select((it) => it[Sk.selectedArticleId]));
 
-    if (_articleId != null) {
-      _watch();
-      final t1 = DB().managers.articles;
-      return t1.filter((f) => f.id.equals(_articleId!)).getSingleOrNull();
+    if (_articleId == null) {
+      final meta = await ref.read(queryMetaProvider.future);
+      if (meta.ids.isNotEmpty) {
+        _articleId = meta.ids.first;
+      }
     }
 
-    final query = ref.watch(queryProvider);
-    final article = await ref.read(wStorageProvider.notifier).index(0, query);
-    if (article != null) {
-      _articleId = article.id;
+    if (_articleId != null) {
       _watch();
-      return article;
+      return DB()
+          .managers
+          .articles
+          .filter((f) => f.id.equals(_articleId!))
+          .getSingleOrNull();
     }
 
     return null;

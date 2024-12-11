@@ -82,6 +82,18 @@ class ArticlesDao extends DatabaseAccessor<DB> with $ArticlesDaoMixin {
         .map((row) => row.read(articles.domainName)!)
         .get();
   }
+
+  Future<List<String>> listAllTags() async {
+    final tagLists = await (articles.selectOnly()..addColumns([articles.tags]))
+        .map((row) => row.readWithConverter(articles.tags)!)
+        .get();
+    final tags = tagLists.expand((it) => it).toSet().toList();
+    tags.sort();
+    return tags;
+  }
+
+  Future<int> countUnread() =>
+      articles.count(where: (t) => t.archivedAt.isNull()).getSingle();
 }
 
 enum SearchTextMode { all, title, content }

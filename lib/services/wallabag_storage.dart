@@ -4,13 +4,10 @@ import 'package:drift/drift.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../constants.dart';
-import '../db/daos/articles.dart';
 import '../db/database.dart';
 import '../db/extensions/article.dart';
 import '../db/models/article.drift.dart';
 import '../native/appbadge.dart';
-import '../providers/query.dart';
 import '../providers/settings.dart';
 import '../server/providers/client.dart';
 import '../wallabag/client.dart';
@@ -25,81 +22,6 @@ class WStorageToken {}
 class WStorage extends _$WStorage {
   @override
   WStorageToken build() => WStorageToken();
-
-  Expression<bool> _buildFilters(Articles t, WQuery wq) {
-    final filters = <Expression<bool>>[];
-
-    if (wq.state != null && wq.state != StateFilter.all) {
-      filters.add(wq.state == StateFilter.archived
-          ? t.archivedAt.isNotNull()
-          : t.archivedAt.isNull());
-    }
-
-    if (wq.starred == StarredFilter.starred) {
-      filters.add(t.starredAt.isNotNull());
-    }
-
-    if (wq.tags != null) {
-      filters.add(Expression.or(wq.tags!.map((tag) => t.tags.contains(tag))));
-    }
-
-    if (wq.domains != null) {
-      filters.add(Expression.or(
-          wq.domains!.map((domain) => t.domainName.contains(domain))));
-    }
-
-    return Expression.and(filters);
-  }
-
-  Selectable<int> _selectFilterIds(WQuery wq) {
-    if (wq.text != null) {
-      return DB().articlesDao.selectArticleIdsForText(
-            wq.text!,
-            mode: wq.textMode ?? SearchTextMode.all,
-            where: (t) => _buildFilters(t, wq),
-          );
-    } else {
-      final t1 = DB().articles;
-      return (t1.selectOnly()
-            ..addColumns([t1.id])
-            ..where(_buildFilters(t1, wq))
-            ..orderBy([OrderingTerm.desc(t1.createdAt)]))
-          .map((row) => row.read(t1.id)!);
-    }
-  }
-
-  Future<Article?> index(int n, WQuery wq) async {
-    if (n < 0 || n >= await _count(wq)) return null;
-
-    final ids = await _selectFilterIds(wq).get();
-    final db = DB();
-    return db.managers.articles
-        .filter((f) => f.id.equals(ids[n]))
-        .getSingleOrNull(distinct: false);
-  }
-
-  Future<int?> indexOf(int articleId, WQuery wq) async {
-    if (articleId <= 0) return null;
-
-    final ids = await _selectFilterIds(wq).get();
-    final index = ids.indexOf(articleId);
-    return index >= 0 ? index : null;
-  }
-
-  Future<int> _count(WQuery wq) =>
-      // a count query should be faster but fetching and counting PKs should be
-      // fast enough and avoid duplicating code
-      _selectFilterIds(wq).get().then((ids) => ids.length);
-
-  Future<List<String>> getTags() async {
-    final t1 = DB().articles;
-    final tagLists = await (t1.selectOnly()..addColumns([t1.tags]))
-        .map((row) => row.readWithConverter(t1.tags)!)
-        .get();
-    final tags = tagLists.expand((it) => it).toSet().toList();
-    tags.sort();
-    return tags;
-  }
 
   Future<int> _syncRemoteDeletes() async {
     _log.info('checking for server-side deletions');
@@ -141,7 +63,6 @@ class WStorage extends _$WStorage {
       return count;
     });
     _log.info('removed $deletedCount entries from database');
-    if (deletedCount > 0) ref.invalidateSelf();
 
     return deletedCount;
   }
@@ -150,8 +71,7 @@ class WStorage extends _$WStorage {
     final settings = ref.read(settingsProvider);
     if (!AppBadge.isSupportedSync || !settings[Sk.appBadge]) return;
 
-    final unread = await _count(
-        WQuery(state: StateFilter.unread, starred: StarredFilter.all));
+    final unread = await DB().articlesDao.countUnread();
     if (unread == 0) {
       return AppBadge.remove();
     } else {
@@ -168,7 +88,6 @@ class WStorage extends _$WStorage {
   Future<void> clearArticles({bool keepPositions = true}) async {
     DB().clear(keepPositions: keepPositions);
     _log.info('cleared the local cache (articles and pending actions)');
-    ref.invalidateSelf();
     updateAppBadge();
   }
 
@@ -194,7 +113,6 @@ class WStorage extends _$WStorage {
     await for (final entries in entriesStream) {
       await DB().articlesDao.updateAll(entries.map((e) => e.toArticle()));
       _log.info('saved ${entries.length} entries to the database');
-      if (entries.isNotEmpty) ref.invalidateSelf();
 
       count += entries.length;
     }
@@ -226,17 +144,15 @@ class WStorage extends _$WStorage {
     return fullRefresh(since: since, onProgress: onProgress);
   }
 
-  Future<void> persistArticle(Article article) async {
-    final writeCount = await DB().articlesDao.updateOne(article);
-    if (writeCount > 0) ref.invalidateSelf();
-  }
+  Future<void> persistArticle(Article article) =>
+      DB().articlesDao.updateOne(article);
 
   Future<void> deleteArticle(int articleId) async {
     final wallabag = (await ref.read(clientProvider.future))!;
 
     await wallabag.deleteEntry(articleId);
     final deleted = await DB().articlesDao.deleteOne(articleId);
-    if (deleted > 0) ref.invalidateSelf();
+    if (deleted > 0) _log.info('deleted $deleted entries from the database');
   }
 
   Future<void> editArticle(

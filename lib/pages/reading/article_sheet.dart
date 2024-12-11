@@ -7,10 +7,10 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../buildcontext_extension.dart';
 import '../../constants.dart';
+import '../../db/database.dart';
 import '../../db/models/article.drift.dart';
 import '../../services/remote_sync.dart';
 import '../../services/remote_sync_actions/articles.dart';
-import '../../services/wallabag_storage.dart';
 import '../../widgets/material_sheet.dart';
 import '../../widgets/selectors.dart';
 import '../../widgets/tag_list.dart';
@@ -110,7 +110,7 @@ void _showTagsDialog(
     context: context,
     title: context.L.filters_articleTags,
     selectionLabelizer: context.L.filters_articleTagsCount,
-    entriesBuilder: ref.read(wStorageProvider.notifier).getTags(),
+    entriesBuilder: DB().articlesDao.listAllTags(),
     initialSelection: article.tags.toSet(),
     leadingIcon: const Icon(Icons.label),
   );
