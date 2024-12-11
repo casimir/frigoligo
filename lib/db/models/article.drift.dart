@@ -1,8 +1,575 @@
+// dart format width=80
 // ignore_for_file: type=lint
 import 'package:drift/drift.dart' as i0;
 import 'package:frigoligo/db/models/article.drift.dart' as i1;
 import 'package:frigoligo/db/converters/containers.dart' as i2;
 import 'package:drift/internal/modular.dart' as i3;
+
+typedef $ArticlesCreateCompanionBuilder = i1.ArticlesCompanion Function({
+  i0.Value<int> id,
+  required DateTime createdAt,
+  required DateTime updatedAt,
+  required String title,
+  i0.Value<String?> domainName,
+  required String url,
+  i0.Value<String?> content,
+  i0.Value<String?> language,
+  required int readingTime,
+  i0.Value<String?> previewPicture,
+  i0.Value<DateTime?> archivedAt,
+  i0.Value<DateTime?> starredAt,
+  required List<String> tags,
+});
+typedef $ArticlesUpdateCompanionBuilder = i1.ArticlesCompanion Function({
+  i0.Value<int> id,
+  i0.Value<DateTime> createdAt,
+  i0.Value<DateTime> updatedAt,
+  i0.Value<String> title,
+  i0.Value<String?> domainName,
+  i0.Value<String> url,
+  i0.Value<String?> content,
+  i0.Value<String?> language,
+  i0.Value<int> readingTime,
+  i0.Value<String?> previewPicture,
+  i0.Value<DateTime?> archivedAt,
+  i0.Value<DateTime?> starredAt,
+  i0.Value<List<String>> tags,
+});
+
+class $ArticlesFilterComposer
+    extends i0.Composer<i0.GeneratedDatabase, i1.Articles> {
+  $ArticlesFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  i0.ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<String> get title => $composableBuilder(
+      column: $table.title, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<String> get domainName => $composableBuilder(
+      column: $table.domainName, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<String> get url => $composableBuilder(
+      column: $table.url, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<String> get content => $composableBuilder(
+      column: $table.content, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<String> get language => $composableBuilder(
+      column: $table.language, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<int> get readingTime => $composableBuilder(
+      column: $table.readingTime,
+      builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<String> get previewPicture => $composableBuilder(
+      column: $table.previewPicture,
+      builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<DateTime> get archivedAt => $composableBuilder(
+      column: $table.archivedAt, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<DateTime> get starredAt => $composableBuilder(
+      column: $table.starredAt, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnWithTypeConverterFilters<List<String>, List<String>, String>
+      get tags => $composableBuilder(
+          column: $table.tags,
+          builder: (column) => i0.ColumnWithTypeConverterFilters(column));
+}
+
+class $ArticlesOrderingComposer
+    extends i0.Composer<i0.GeneratedDatabase, i1.Articles> {
+  $ArticlesOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  i0.ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt,
+      builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+      column: $table.updatedAt,
+      builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<String> get title => $composableBuilder(
+      column: $table.title, builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<String> get domainName => $composableBuilder(
+      column: $table.domainName,
+      builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<String> get url => $composableBuilder(
+      column: $table.url, builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<String> get content => $composableBuilder(
+      column: $table.content, builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<String> get language => $composableBuilder(
+      column: $table.language, builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<int> get readingTime => $composableBuilder(
+      column: $table.readingTime,
+      builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<String> get previewPicture => $composableBuilder(
+      column: $table.previewPicture,
+      builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<DateTime> get archivedAt => $composableBuilder(
+      column: $table.archivedAt,
+      builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<DateTime> get starredAt => $composableBuilder(
+      column: $table.starredAt,
+      builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<String> get tags => $composableBuilder(
+      column: $table.tags, builder: (column) => i0.ColumnOrderings(column));
+}
+
+class $ArticlesAnnotationComposer
+    extends i0.Composer<i0.GeneratedDatabase, i1.Articles> {
+  $ArticlesAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  i0.GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  i0.GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  i0.GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  i0.GeneratedColumn<String> get title =>
+      $composableBuilder(column: $table.title, builder: (column) => column);
+
+  i0.GeneratedColumn<String> get domainName => $composableBuilder(
+      column: $table.domainName, builder: (column) => column);
+
+  i0.GeneratedColumn<String> get url =>
+      $composableBuilder(column: $table.url, builder: (column) => column);
+
+  i0.GeneratedColumn<String> get content =>
+      $composableBuilder(column: $table.content, builder: (column) => column);
+
+  i0.GeneratedColumn<String> get language =>
+      $composableBuilder(column: $table.language, builder: (column) => column);
+
+  i0.GeneratedColumn<int> get readingTime => $composableBuilder(
+      column: $table.readingTime, builder: (column) => column);
+
+  i0.GeneratedColumn<String> get previewPicture => $composableBuilder(
+      column: $table.previewPicture, builder: (column) => column);
+
+  i0.GeneratedColumn<DateTime> get archivedAt => $composableBuilder(
+      column: $table.archivedAt, builder: (column) => column);
+
+  i0.GeneratedColumn<DateTime> get starredAt =>
+      $composableBuilder(column: $table.starredAt, builder: (column) => column);
+
+  i0.GeneratedColumnWithTypeConverter<List<String>, String> get tags =>
+      $composableBuilder(column: $table.tags, builder: (column) => column);
+}
+
+class $ArticlesTableManager extends i0.RootTableManager<
+    i0.GeneratedDatabase,
+    i1.Articles,
+    i1.Article,
+    i1.$ArticlesFilterComposer,
+    i1.$ArticlesOrderingComposer,
+    i1.$ArticlesAnnotationComposer,
+    $ArticlesCreateCompanionBuilder,
+    $ArticlesUpdateCompanionBuilder,
+    (
+      i1.Article,
+      i0.BaseReferences<i0.GeneratedDatabase, i1.Articles, i1.Article>
+    ),
+    i1.Article,
+    i0.PrefetchHooks Function()> {
+  $ArticlesTableManager(i0.GeneratedDatabase db, i1.Articles table)
+      : super(i0.TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              i1.$ArticlesFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              i1.$ArticlesOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              i1.$ArticlesAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            i0.Value<int> id = const i0.Value.absent(),
+            i0.Value<DateTime> createdAt = const i0.Value.absent(),
+            i0.Value<DateTime> updatedAt = const i0.Value.absent(),
+            i0.Value<String> title = const i0.Value.absent(),
+            i0.Value<String?> domainName = const i0.Value.absent(),
+            i0.Value<String> url = const i0.Value.absent(),
+            i0.Value<String?> content = const i0.Value.absent(),
+            i0.Value<String?> language = const i0.Value.absent(),
+            i0.Value<int> readingTime = const i0.Value.absent(),
+            i0.Value<String?> previewPicture = const i0.Value.absent(),
+            i0.Value<DateTime?> archivedAt = const i0.Value.absent(),
+            i0.Value<DateTime?> starredAt = const i0.Value.absent(),
+            i0.Value<List<String>> tags = const i0.Value.absent(),
+          }) =>
+              i1.ArticlesCompanion(
+            id: id,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            title: title,
+            domainName: domainName,
+            url: url,
+            content: content,
+            language: language,
+            readingTime: readingTime,
+            previewPicture: previewPicture,
+            archivedAt: archivedAt,
+            starredAt: starredAt,
+            tags: tags,
+          ),
+          createCompanionCallback: ({
+            i0.Value<int> id = const i0.Value.absent(),
+            required DateTime createdAt,
+            required DateTime updatedAt,
+            required String title,
+            i0.Value<String?> domainName = const i0.Value.absent(),
+            required String url,
+            i0.Value<String?> content = const i0.Value.absent(),
+            i0.Value<String?> language = const i0.Value.absent(),
+            required int readingTime,
+            i0.Value<String?> previewPicture = const i0.Value.absent(),
+            i0.Value<DateTime?> archivedAt = const i0.Value.absent(),
+            i0.Value<DateTime?> starredAt = const i0.Value.absent(),
+            required List<String> tags,
+          }) =>
+              i1.ArticlesCompanion.insert(
+            id: id,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            title: title,
+            domainName: domainName,
+            url: url,
+            content: content,
+            language: language,
+            readingTime: readingTime,
+            previewPicture: previewPicture,
+            archivedAt: archivedAt,
+            starredAt: starredAt,
+            tags: tags,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), i0.BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $ArticlesProcessedTableManager = i0.ProcessedTableManager<
+    i0.GeneratedDatabase,
+    i1.Articles,
+    i1.Article,
+    i1.$ArticlesFilterComposer,
+    i1.$ArticlesOrderingComposer,
+    i1.$ArticlesAnnotationComposer,
+    $ArticlesCreateCompanionBuilder,
+    $ArticlesUpdateCompanionBuilder,
+    (
+      i1.Article,
+      i0.BaseReferences<i0.GeneratedDatabase, i1.Articles, i1.Article>
+    ),
+    i1.Article,
+    i0.PrefetchHooks Function()>;
+typedef $ArticleScrollPositionsCreateCompanionBuilder
+    = i1.ArticleScrollPositionsCompanion Function({
+  i0.Value<int> id,
+  required int readingTime,
+  required double progress,
+});
+typedef $ArticleScrollPositionsUpdateCompanionBuilder
+    = i1.ArticleScrollPositionsCompanion Function({
+  i0.Value<int> id,
+  i0.Value<int> readingTime,
+  i0.Value<double> progress,
+});
+
+class $ArticleScrollPositionsFilterComposer
+    extends i0.Composer<i0.GeneratedDatabase, i1.ArticleScrollPositions> {
+  $ArticleScrollPositionsFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  i0.ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<int> get readingTime => $composableBuilder(
+      column: $table.readingTime,
+      builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<double> get progress => $composableBuilder(
+      column: $table.progress, builder: (column) => i0.ColumnFilters(column));
+}
+
+class $ArticleScrollPositionsOrderingComposer
+    extends i0.Composer<i0.GeneratedDatabase, i1.ArticleScrollPositions> {
+  $ArticleScrollPositionsOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  i0.ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<int> get readingTime => $composableBuilder(
+      column: $table.readingTime,
+      builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<double> get progress => $composableBuilder(
+      column: $table.progress, builder: (column) => i0.ColumnOrderings(column));
+}
+
+class $ArticleScrollPositionsAnnotationComposer
+    extends i0.Composer<i0.GeneratedDatabase, i1.ArticleScrollPositions> {
+  $ArticleScrollPositionsAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  i0.GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  i0.GeneratedColumn<int> get readingTime => $composableBuilder(
+      column: $table.readingTime, builder: (column) => column);
+
+  i0.GeneratedColumn<double> get progress =>
+      $composableBuilder(column: $table.progress, builder: (column) => column);
+}
+
+class $ArticleScrollPositionsTableManager extends i0.RootTableManager<
+    i0.GeneratedDatabase,
+    i1.ArticleScrollPositions,
+    i1.ArticleScrollPosition,
+    i1.$ArticleScrollPositionsFilterComposer,
+    i1.$ArticleScrollPositionsOrderingComposer,
+    i1.$ArticleScrollPositionsAnnotationComposer,
+    $ArticleScrollPositionsCreateCompanionBuilder,
+    $ArticleScrollPositionsUpdateCompanionBuilder,
+    (
+      i1.ArticleScrollPosition,
+      i0.BaseReferences<i0.GeneratedDatabase, i1.ArticleScrollPositions,
+          i1.ArticleScrollPosition>
+    ),
+    i1.ArticleScrollPosition,
+    i0.PrefetchHooks Function()> {
+  $ArticleScrollPositionsTableManager(
+      i0.GeneratedDatabase db, i1.ArticleScrollPositions table)
+      : super(i0.TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              i1.$ArticleScrollPositionsFilterComposer($db: db, $table: table),
+          createOrderingComposer: () => i1
+              .$ArticleScrollPositionsOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              i1.$ArticleScrollPositionsAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            i0.Value<int> id = const i0.Value.absent(),
+            i0.Value<int> readingTime = const i0.Value.absent(),
+            i0.Value<double> progress = const i0.Value.absent(),
+          }) =>
+              i1.ArticleScrollPositionsCompanion(
+            id: id,
+            readingTime: readingTime,
+            progress: progress,
+          ),
+          createCompanionCallback: ({
+            i0.Value<int> id = const i0.Value.absent(),
+            required int readingTime,
+            required double progress,
+          }) =>
+              i1.ArticleScrollPositionsCompanion.insert(
+            id: id,
+            readingTime: readingTime,
+            progress: progress,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), i0.BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $ArticleScrollPositionsProcessedTableManager = i0.ProcessedTableManager<
+    i0.GeneratedDatabase,
+    i1.ArticleScrollPositions,
+    i1.ArticleScrollPosition,
+    i1.$ArticleScrollPositionsFilterComposer,
+    i1.$ArticleScrollPositionsOrderingComposer,
+    i1.$ArticleScrollPositionsAnnotationComposer,
+    $ArticleScrollPositionsCreateCompanionBuilder,
+    $ArticleScrollPositionsUpdateCompanionBuilder,
+    (
+      i1.ArticleScrollPosition,
+      i0.BaseReferences<i0.GeneratedDatabase, i1.ArticleScrollPositions,
+          i1.ArticleScrollPosition>
+    ),
+    i1.ArticleScrollPosition,
+    i0.PrefetchHooks Function()>;
+typedef $ArticlesFtsCreateCompanionBuilder = i1.ArticlesFtsCompanion Function({
+  required String title,
+  required String content,
+  i0.Value<int> rowid,
+});
+typedef $ArticlesFtsUpdateCompanionBuilder = i1.ArticlesFtsCompanion Function({
+  i0.Value<String> title,
+  i0.Value<String> content,
+  i0.Value<int> rowid,
+});
+
+class $ArticlesFtsFilterComposer
+    extends i0.Composer<i0.GeneratedDatabase, i1.ArticlesFts> {
+  $ArticlesFtsFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  i0.ColumnFilters<String> get title => $composableBuilder(
+      column: $table.title, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<String> get content => $composableBuilder(
+      column: $table.content, builder: (column) => i0.ColumnFilters(column));
+}
+
+class $ArticlesFtsOrderingComposer
+    extends i0.Composer<i0.GeneratedDatabase, i1.ArticlesFts> {
+  $ArticlesFtsOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  i0.ColumnOrderings<String> get title => $composableBuilder(
+      column: $table.title, builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<String> get content => $composableBuilder(
+      column: $table.content, builder: (column) => i0.ColumnOrderings(column));
+}
+
+class $ArticlesFtsAnnotationComposer
+    extends i0.Composer<i0.GeneratedDatabase, i1.ArticlesFts> {
+  $ArticlesFtsAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  i0.GeneratedColumn<String> get title =>
+      $composableBuilder(column: $table.title, builder: (column) => column);
+
+  i0.GeneratedColumn<String> get content =>
+      $composableBuilder(column: $table.content, builder: (column) => column);
+}
+
+class $ArticlesFtsTableManager extends i0.RootTableManager<
+    i0.GeneratedDatabase,
+    i1.ArticlesFts,
+    i1.ArticlesFt,
+    i1.$ArticlesFtsFilterComposer,
+    i1.$ArticlesFtsOrderingComposer,
+    i1.$ArticlesFtsAnnotationComposer,
+    $ArticlesFtsCreateCompanionBuilder,
+    $ArticlesFtsUpdateCompanionBuilder,
+    (
+      i1.ArticlesFt,
+      i0.BaseReferences<i0.GeneratedDatabase, i1.ArticlesFts, i1.ArticlesFt>
+    ),
+    i1.ArticlesFt,
+    i0.PrefetchHooks Function()> {
+  $ArticlesFtsTableManager(i0.GeneratedDatabase db, i1.ArticlesFts table)
+      : super(i0.TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              i1.$ArticlesFtsFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              i1.$ArticlesFtsOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              i1.$ArticlesFtsAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            i0.Value<String> title = const i0.Value.absent(),
+            i0.Value<String> content = const i0.Value.absent(),
+            i0.Value<int> rowid = const i0.Value.absent(),
+          }) =>
+              i1.ArticlesFtsCompanion(
+            title: title,
+            content: content,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String title,
+            required String content,
+            i0.Value<int> rowid = const i0.Value.absent(),
+          }) =>
+              i1.ArticlesFtsCompanion.insert(
+            title: title,
+            content: content,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), i0.BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $ArticlesFtsProcessedTableManager = i0.ProcessedTableManager<
+    i0.GeneratedDatabase,
+    i1.ArticlesFts,
+    i1.ArticlesFt,
+    i1.$ArticlesFtsFilterComposer,
+    i1.$ArticlesFtsOrderingComposer,
+    i1.$ArticlesFtsAnnotationComposer,
+    $ArticlesFtsCreateCompanionBuilder,
+    $ArticlesFtsUpdateCompanionBuilder,
+    (
+      i1.ArticlesFt,
+      i0.BaseReferences<i0.GeneratedDatabase, i1.ArticlesFts, i1.ArticlesFt>
+    ),
+    i1.ArticlesFt,
+    i0.PrefetchHooks Function()>;
 
 class Articles extends i0.Table with i0.TableInfo<Articles, i1.Article> {
   @override
@@ -656,281 +1223,6 @@ class ArticlesCompanion extends i0.UpdateCompanion<i1.Article> {
   }
 }
 
-typedef $ArticlesCreateCompanionBuilder = i1.ArticlesCompanion Function({
-  i0.Value<int> id,
-  required DateTime createdAt,
-  required DateTime updatedAt,
-  required String title,
-  i0.Value<String?> domainName,
-  required String url,
-  i0.Value<String?> content,
-  i0.Value<String?> language,
-  required int readingTime,
-  i0.Value<String?> previewPicture,
-  i0.Value<DateTime?> archivedAt,
-  i0.Value<DateTime?> starredAt,
-  required List<String> tags,
-});
-typedef $ArticlesUpdateCompanionBuilder = i1.ArticlesCompanion Function({
-  i0.Value<int> id,
-  i0.Value<DateTime> createdAt,
-  i0.Value<DateTime> updatedAt,
-  i0.Value<String> title,
-  i0.Value<String?> domainName,
-  i0.Value<String> url,
-  i0.Value<String?> content,
-  i0.Value<String?> language,
-  i0.Value<int> readingTime,
-  i0.Value<String?> previewPicture,
-  i0.Value<DateTime?> archivedAt,
-  i0.Value<DateTime?> starredAt,
-  i0.Value<List<String>> tags,
-});
-
-class $ArticlesFilterComposer
-    extends i0.FilterComposer<i0.GeneratedDatabase, i1.Articles> {
-  $ArticlesFilterComposer(super.$state);
-  i0.ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<DateTime> get createdAt => $state.composableBuilder(
-      column: $state.table.createdAt,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<DateTime> get updatedAt => $state.composableBuilder(
-      column: $state.table.updatedAt,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<String> get title => $state.composableBuilder(
-      column: $state.table.title,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<String> get domainName => $state.composableBuilder(
-      column: $state.table.domainName,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<String> get url => $state.composableBuilder(
-      column: $state.table.url,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<String> get content => $state.composableBuilder(
-      column: $state.table.content,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<String> get language => $state.composableBuilder(
-      column: $state.table.language,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<int> get readingTime => $state.composableBuilder(
-      column: $state.table.readingTime,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<String> get previewPicture => $state.composableBuilder(
-      column: $state.table.previewPicture,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<DateTime> get archivedAt => $state.composableBuilder(
-      column: $state.table.archivedAt,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<DateTime> get starredAt => $state.composableBuilder(
-      column: $state.table.starredAt,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnWithTypeConverterFilters<List<String>, List<String>, String>
-      get tags => $state.composableBuilder(
-          column: $state.table.tags,
-          builder: (column, joinBuilders) => i0.ColumnWithTypeConverterFilters(
-              column,
-              joinBuilders: joinBuilders));
-}
-
-class $ArticlesOrderingComposer
-    extends i0.OrderingComposer<i0.GeneratedDatabase, i1.Articles> {
-  $ArticlesOrderingComposer(super.$state);
-  i0.ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<DateTime> get createdAt => $state.composableBuilder(
-      column: $state.table.createdAt,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<DateTime> get updatedAt => $state.composableBuilder(
-      column: $state.table.updatedAt,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<String> get title => $state.composableBuilder(
-      column: $state.table.title,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<String> get domainName => $state.composableBuilder(
-      column: $state.table.domainName,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<String> get url => $state.composableBuilder(
-      column: $state.table.url,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<String> get content => $state.composableBuilder(
-      column: $state.table.content,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<String> get language => $state.composableBuilder(
-      column: $state.table.language,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<int> get readingTime => $state.composableBuilder(
-      column: $state.table.readingTime,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<String> get previewPicture => $state.composableBuilder(
-      column: $state.table.previewPicture,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<DateTime> get archivedAt => $state.composableBuilder(
-      column: $state.table.archivedAt,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<DateTime> get starredAt => $state.composableBuilder(
-      column: $state.table.starredAt,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<String> get tags => $state.composableBuilder(
-      column: $state.table.tags,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-}
-
-class $ArticlesTableManager extends i0.RootTableManager<
-    i0.GeneratedDatabase,
-    i1.Articles,
-    i1.Article,
-    i1.$ArticlesFilterComposer,
-    i1.$ArticlesOrderingComposer,
-    $ArticlesCreateCompanionBuilder,
-    $ArticlesUpdateCompanionBuilder,
-    (
-      i1.Article,
-      i0.BaseReferences<i0.GeneratedDatabase, i1.Articles, i1.Article>
-    ),
-    i1.Article,
-    i0.PrefetchHooks Function()> {
-  $ArticlesTableManager(i0.GeneratedDatabase db, i1.Articles table)
-      : super(i0.TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer:
-              i1.$ArticlesFilterComposer(i0.ComposerState(db, table)),
-          orderingComposer:
-              i1.$ArticlesOrderingComposer(i0.ComposerState(db, table)),
-          updateCompanionCallback: ({
-            i0.Value<int> id = const i0.Value.absent(),
-            i0.Value<DateTime> createdAt = const i0.Value.absent(),
-            i0.Value<DateTime> updatedAt = const i0.Value.absent(),
-            i0.Value<String> title = const i0.Value.absent(),
-            i0.Value<String?> domainName = const i0.Value.absent(),
-            i0.Value<String> url = const i0.Value.absent(),
-            i0.Value<String?> content = const i0.Value.absent(),
-            i0.Value<String?> language = const i0.Value.absent(),
-            i0.Value<int> readingTime = const i0.Value.absent(),
-            i0.Value<String?> previewPicture = const i0.Value.absent(),
-            i0.Value<DateTime?> archivedAt = const i0.Value.absent(),
-            i0.Value<DateTime?> starredAt = const i0.Value.absent(),
-            i0.Value<List<String>> tags = const i0.Value.absent(),
-          }) =>
-              i1.ArticlesCompanion(
-            id: id,
-            createdAt: createdAt,
-            updatedAt: updatedAt,
-            title: title,
-            domainName: domainName,
-            url: url,
-            content: content,
-            language: language,
-            readingTime: readingTime,
-            previewPicture: previewPicture,
-            archivedAt: archivedAt,
-            starredAt: starredAt,
-            tags: tags,
-          ),
-          createCompanionCallback: ({
-            i0.Value<int> id = const i0.Value.absent(),
-            required DateTime createdAt,
-            required DateTime updatedAt,
-            required String title,
-            i0.Value<String?> domainName = const i0.Value.absent(),
-            required String url,
-            i0.Value<String?> content = const i0.Value.absent(),
-            i0.Value<String?> language = const i0.Value.absent(),
-            required int readingTime,
-            i0.Value<String?> previewPicture = const i0.Value.absent(),
-            i0.Value<DateTime?> archivedAt = const i0.Value.absent(),
-            i0.Value<DateTime?> starredAt = const i0.Value.absent(),
-            required List<String> tags,
-          }) =>
-              i1.ArticlesCompanion.insert(
-            id: id,
-            createdAt: createdAt,
-            updatedAt: updatedAt,
-            title: title,
-            domainName: domainName,
-            url: url,
-            content: content,
-            language: language,
-            readingTime: readingTime,
-            previewPicture: previewPicture,
-            archivedAt: archivedAt,
-            starredAt: starredAt,
-            tags: tags,
-          ),
-          withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), i0.BaseReferences(db, table, e)))
-              .toList(),
-          prefetchHooksCallback: null,
-        ));
-}
-
-typedef $ArticlesProcessedTableManager = i0.ProcessedTableManager<
-    i0.GeneratedDatabase,
-    i1.Articles,
-    i1.Article,
-    i1.$ArticlesFilterComposer,
-    i1.$ArticlesOrderingComposer,
-    $ArticlesCreateCompanionBuilder,
-    $ArticlesUpdateCompanionBuilder,
-    (
-      i1.Article,
-      i0.BaseReferences<i0.GeneratedDatabase, i1.Articles, i1.Article>
-    ),
-    i1.Article,
-    i0.PrefetchHooks Function()>;
-
 class ArticleScrollPositions extends i0.Table
     with i0.TableInfo<ArticleScrollPositions, i1.ArticleScrollPosition> {
   @override
@@ -1161,124 +1453,6 @@ class ArticleScrollPositionsCompanion
   }
 }
 
-typedef $ArticleScrollPositionsCreateCompanionBuilder
-    = i1.ArticleScrollPositionsCompanion Function({
-  i0.Value<int> id,
-  required int readingTime,
-  required double progress,
-});
-typedef $ArticleScrollPositionsUpdateCompanionBuilder
-    = i1.ArticleScrollPositionsCompanion Function({
-  i0.Value<int> id,
-  i0.Value<int> readingTime,
-  i0.Value<double> progress,
-});
-
-class $ArticleScrollPositionsFilterComposer
-    extends i0.FilterComposer<i0.GeneratedDatabase, i1.ArticleScrollPositions> {
-  $ArticleScrollPositionsFilterComposer(super.$state);
-  i0.ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<int> get readingTime => $state.composableBuilder(
-      column: $state.table.readingTime,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<double> get progress => $state.composableBuilder(
-      column: $state.table.progress,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-}
-
-class $ArticleScrollPositionsOrderingComposer extends i0
-    .OrderingComposer<i0.GeneratedDatabase, i1.ArticleScrollPositions> {
-  $ArticleScrollPositionsOrderingComposer(super.$state);
-  i0.ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<int> get readingTime => $state.composableBuilder(
-      column: $state.table.readingTime,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<double> get progress => $state.composableBuilder(
-      column: $state.table.progress,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-}
-
-class $ArticleScrollPositionsTableManager extends i0.RootTableManager<
-    i0.GeneratedDatabase,
-    i1.ArticleScrollPositions,
-    i1.ArticleScrollPosition,
-    i1.$ArticleScrollPositionsFilterComposer,
-    i1.$ArticleScrollPositionsOrderingComposer,
-    $ArticleScrollPositionsCreateCompanionBuilder,
-    $ArticleScrollPositionsUpdateCompanionBuilder,
-    (
-      i1.ArticleScrollPosition,
-      i0.BaseReferences<i0.GeneratedDatabase, i1.ArticleScrollPositions,
-          i1.ArticleScrollPosition>
-    ),
-    i1.ArticleScrollPosition,
-    i0.PrefetchHooks Function()> {
-  $ArticleScrollPositionsTableManager(
-      i0.GeneratedDatabase db, i1.ArticleScrollPositions table)
-      : super(i0.TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer: i1.$ArticleScrollPositionsFilterComposer(
-              i0.ComposerState(db, table)),
-          orderingComposer: i1.$ArticleScrollPositionsOrderingComposer(
-              i0.ComposerState(db, table)),
-          updateCompanionCallback: ({
-            i0.Value<int> id = const i0.Value.absent(),
-            i0.Value<int> readingTime = const i0.Value.absent(),
-            i0.Value<double> progress = const i0.Value.absent(),
-          }) =>
-              i1.ArticleScrollPositionsCompanion(
-            id: id,
-            readingTime: readingTime,
-            progress: progress,
-          ),
-          createCompanionCallback: ({
-            i0.Value<int> id = const i0.Value.absent(),
-            required int readingTime,
-            required double progress,
-          }) =>
-              i1.ArticleScrollPositionsCompanion.insert(
-            id: id,
-            readingTime: readingTime,
-            progress: progress,
-          ),
-          withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), i0.BaseReferences(db, table, e)))
-              .toList(),
-          prefetchHooksCallback: null,
-        ));
-}
-
-typedef $ArticleScrollPositionsProcessedTableManager = i0.ProcessedTableManager<
-    i0.GeneratedDatabase,
-    i1.ArticleScrollPositions,
-    i1.ArticleScrollPosition,
-    i1.$ArticleScrollPositionsFilterComposer,
-    i1.$ArticleScrollPositionsOrderingComposer,
-    $ArticleScrollPositionsCreateCompanionBuilder,
-    $ArticleScrollPositionsUpdateCompanionBuilder,
-    (
-      i1.ArticleScrollPosition,
-      i0.BaseReferences<i0.GeneratedDatabase, i1.ArticleScrollPositions,
-          i1.ArticleScrollPosition>
-    ),
-    i1.ArticleScrollPosition,
-    i0.PrefetchHooks Function()>;
-
 class ArticlesFts extends i0.Table
     with
         i0.TableInfo<ArticlesFts, i1.ArticlesFt>,
@@ -1484,108 +1658,6 @@ class ArticlesFtsCompanion extends i0.UpdateCompanion<i1.ArticlesFt> {
   }
 }
 
-typedef $ArticlesFtsCreateCompanionBuilder = i1.ArticlesFtsCompanion Function({
-  required String title,
-  required String content,
-  i0.Value<int> rowid,
-});
-typedef $ArticlesFtsUpdateCompanionBuilder = i1.ArticlesFtsCompanion Function({
-  i0.Value<String> title,
-  i0.Value<String> content,
-  i0.Value<int> rowid,
-});
-
-class $ArticlesFtsFilterComposer
-    extends i0.FilterComposer<i0.GeneratedDatabase, i1.ArticlesFts> {
-  $ArticlesFtsFilterComposer(super.$state);
-  i0.ColumnFilters<String> get title => $state.composableBuilder(
-      column: $state.table.title,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<String> get content => $state.composableBuilder(
-      column: $state.table.content,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-}
-
-class $ArticlesFtsOrderingComposer
-    extends i0.OrderingComposer<i0.GeneratedDatabase, i1.ArticlesFts> {
-  $ArticlesFtsOrderingComposer(super.$state);
-  i0.ColumnOrderings<String> get title => $state.composableBuilder(
-      column: $state.table.title,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<String> get content => $state.composableBuilder(
-      column: $state.table.content,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-}
-
-class $ArticlesFtsTableManager extends i0.RootTableManager<
-    i0.GeneratedDatabase,
-    i1.ArticlesFts,
-    i1.ArticlesFt,
-    i1.$ArticlesFtsFilterComposer,
-    i1.$ArticlesFtsOrderingComposer,
-    $ArticlesFtsCreateCompanionBuilder,
-    $ArticlesFtsUpdateCompanionBuilder,
-    (
-      i1.ArticlesFt,
-      i0.BaseReferences<i0.GeneratedDatabase, i1.ArticlesFts, i1.ArticlesFt>
-    ),
-    i1.ArticlesFt,
-    i0.PrefetchHooks Function()> {
-  $ArticlesFtsTableManager(i0.GeneratedDatabase db, i1.ArticlesFts table)
-      : super(i0.TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer:
-              i1.$ArticlesFtsFilterComposer(i0.ComposerState(db, table)),
-          orderingComposer:
-              i1.$ArticlesFtsOrderingComposer(i0.ComposerState(db, table)),
-          updateCompanionCallback: ({
-            i0.Value<String> title = const i0.Value.absent(),
-            i0.Value<String> content = const i0.Value.absent(),
-            i0.Value<int> rowid = const i0.Value.absent(),
-          }) =>
-              i1.ArticlesFtsCompanion(
-            title: title,
-            content: content,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required String title,
-            required String content,
-            i0.Value<int> rowid = const i0.Value.absent(),
-          }) =>
-              i1.ArticlesFtsCompanion.insert(
-            title: title,
-            content: content,
-            rowid: rowid,
-          ),
-          withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), i0.BaseReferences(db, table, e)))
-              .toList(),
-          prefetchHooksCallback: null,
-        ));
-}
-
-typedef $ArticlesFtsProcessedTableManager = i0.ProcessedTableManager<
-    i0.GeneratedDatabase,
-    i1.ArticlesFts,
-    i1.ArticlesFt,
-    i1.$ArticlesFtsFilterComposer,
-    i1.$ArticlesFtsOrderingComposer,
-    $ArticlesFtsCreateCompanionBuilder,
-    $ArticlesFtsUpdateCompanionBuilder,
-    (
-      i1.ArticlesFt,
-      i0.BaseReferences<i0.GeneratedDatabase, i1.ArticlesFts, i1.ArticlesFt>
-    ),
-    i1.ArticlesFt,
-    i0.PrefetchHooks Function()>;
 i0.Trigger get articlesAi => i0.Trigger(
     'CREATE TRIGGER articles_ai AFTER INSERT ON articles BEGIN INSERT INTO articles_fts ("rowid", title, content) VALUES (new.id, new.title, new.content);END',
     'articles_ai');

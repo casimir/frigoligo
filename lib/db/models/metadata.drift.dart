@@ -1,6 +1,143 @@
+// dart format width=80
 // ignore_for_file: type=lint
 import 'package:drift/drift.dart' as i0;
 import 'package:frigoligo/db/models/metadata.drift.dart' as i1;
+
+typedef $MetadataCreateCompanionBuilder = i1.MetadataCompanion Function({
+  i0.Value<int> id,
+  required String key,
+  required String value,
+});
+typedef $MetadataUpdateCompanionBuilder = i1.MetadataCompanion Function({
+  i0.Value<int> id,
+  i0.Value<String> key,
+  i0.Value<String> value,
+});
+
+class $MetadataFilterComposer
+    extends i0.Composer<i0.GeneratedDatabase, i1.Metadata> {
+  $MetadataFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  i0.ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<String> get key => $composableBuilder(
+      column: $table.key, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<String> get value => $composableBuilder(
+      column: $table.value, builder: (column) => i0.ColumnFilters(column));
+}
+
+class $MetadataOrderingComposer
+    extends i0.Composer<i0.GeneratedDatabase, i1.Metadata> {
+  $MetadataOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  i0.ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<String> get key => $composableBuilder(
+      column: $table.key, builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<String> get value => $composableBuilder(
+      column: $table.value, builder: (column) => i0.ColumnOrderings(column));
+}
+
+class $MetadataAnnotationComposer
+    extends i0.Composer<i0.GeneratedDatabase, i1.Metadata> {
+  $MetadataAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  i0.GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  i0.GeneratedColumn<String> get key =>
+      $composableBuilder(column: $table.key, builder: (column) => column);
+
+  i0.GeneratedColumn<String> get value =>
+      $composableBuilder(column: $table.value, builder: (column) => column);
+}
+
+class $MetadataTableManager extends i0.RootTableManager<
+    i0.GeneratedDatabase,
+    i1.Metadata,
+    i1.MetadataData,
+    i1.$MetadataFilterComposer,
+    i1.$MetadataOrderingComposer,
+    i1.$MetadataAnnotationComposer,
+    $MetadataCreateCompanionBuilder,
+    $MetadataUpdateCompanionBuilder,
+    (
+      i1.MetadataData,
+      i0.BaseReferences<i0.GeneratedDatabase, i1.Metadata, i1.MetadataData>
+    ),
+    i1.MetadataData,
+    i0.PrefetchHooks Function()> {
+  $MetadataTableManager(i0.GeneratedDatabase db, i1.Metadata table)
+      : super(i0.TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              i1.$MetadataFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              i1.$MetadataOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              i1.$MetadataAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            i0.Value<int> id = const i0.Value.absent(),
+            i0.Value<String> key = const i0.Value.absent(),
+            i0.Value<String> value = const i0.Value.absent(),
+          }) =>
+              i1.MetadataCompanion(
+            id: id,
+            key: key,
+            value: value,
+          ),
+          createCompanionCallback: ({
+            i0.Value<int> id = const i0.Value.absent(),
+            required String key,
+            required String value,
+          }) =>
+              i1.MetadataCompanion.insert(
+            id: id,
+            key: key,
+            value: value,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), i0.BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $MetadataProcessedTableManager = i0.ProcessedTableManager<
+    i0.GeneratedDatabase,
+    i1.Metadata,
+    i1.MetadataData,
+    i1.$MetadataFilterComposer,
+    i1.$MetadataOrderingComposer,
+    i1.$MetadataAnnotationComposer,
+    $MetadataCreateCompanionBuilder,
+    $MetadataUpdateCompanionBuilder,
+    (
+      i1.MetadataData,
+      i0.BaseReferences<i0.GeneratedDatabase, i1.Metadata, i1.MetadataData>
+    ),
+    i1.MetadataData,
+    i0.PrefetchHooks Function()>;
 
 class Metadata extends i0.Table with i0.TableInfo<Metadata, i1.MetadataData> {
   @override
@@ -221,116 +358,3 @@ class MetadataCompanion extends i0.UpdateCompanion<i1.MetadataData> {
         .toString();
   }
 }
-
-typedef $MetadataCreateCompanionBuilder = i1.MetadataCompanion Function({
-  i0.Value<int> id,
-  required String key,
-  required String value,
-});
-typedef $MetadataUpdateCompanionBuilder = i1.MetadataCompanion Function({
-  i0.Value<int> id,
-  i0.Value<String> key,
-  i0.Value<String> value,
-});
-
-class $MetadataFilterComposer
-    extends i0.FilterComposer<i0.GeneratedDatabase, i1.Metadata> {
-  $MetadataFilterComposer(super.$state);
-  i0.ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<String> get key => $state.composableBuilder(
-      column: $state.table.key,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<String> get value => $state.composableBuilder(
-      column: $state.table.value,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-}
-
-class $MetadataOrderingComposer
-    extends i0.OrderingComposer<i0.GeneratedDatabase, i1.Metadata> {
-  $MetadataOrderingComposer(super.$state);
-  i0.ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<String> get key => $state.composableBuilder(
-      column: $state.table.key,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<String> get value => $state.composableBuilder(
-      column: $state.table.value,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-}
-
-class $MetadataTableManager extends i0.RootTableManager<
-    i0.GeneratedDatabase,
-    i1.Metadata,
-    i1.MetadataData,
-    i1.$MetadataFilterComposer,
-    i1.$MetadataOrderingComposer,
-    $MetadataCreateCompanionBuilder,
-    $MetadataUpdateCompanionBuilder,
-    (
-      i1.MetadataData,
-      i0.BaseReferences<i0.GeneratedDatabase, i1.Metadata, i1.MetadataData>
-    ),
-    i1.MetadataData,
-    i0.PrefetchHooks Function()> {
-  $MetadataTableManager(i0.GeneratedDatabase db, i1.Metadata table)
-      : super(i0.TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer:
-              i1.$MetadataFilterComposer(i0.ComposerState(db, table)),
-          orderingComposer:
-              i1.$MetadataOrderingComposer(i0.ComposerState(db, table)),
-          updateCompanionCallback: ({
-            i0.Value<int> id = const i0.Value.absent(),
-            i0.Value<String> key = const i0.Value.absent(),
-            i0.Value<String> value = const i0.Value.absent(),
-          }) =>
-              i1.MetadataCompanion(
-            id: id,
-            key: key,
-            value: value,
-          ),
-          createCompanionCallback: ({
-            i0.Value<int> id = const i0.Value.absent(),
-            required String key,
-            required String value,
-          }) =>
-              i1.MetadataCompanion.insert(
-            id: id,
-            key: key,
-            value: value,
-          ),
-          withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), i0.BaseReferences(db, table, e)))
-              .toList(),
-          prefetchHooksCallback: null,
-        ));
-}
-
-typedef $MetadataProcessedTableManager = i0.ProcessedTableManager<
-    i0.GeneratedDatabase,
-    i1.Metadata,
-    i1.MetadataData,
-    i1.$MetadataFilterComposer,
-    i1.$MetadataOrderingComposer,
-    $MetadataCreateCompanionBuilder,
-    $MetadataUpdateCompanionBuilder,
-    (
-      i1.MetadataData,
-      i0.BaseReferences<i0.GeneratedDatabase, i1.Metadata, i1.MetadataData>
-    ),
-    i1.MetadataData,
-    i0.PrefetchHooks Function()>;

@@ -1,6 +1,178 @@
+// dart format width=80
 // ignore_for_file: type=lint
 import 'package:drift/drift.dart' as i0;
 import 'package:frigoligo/db/models/remote_action.drift.dart' as i1;
+
+typedef $RemoteActionsCreateCompanionBuilder = i1.RemoteActionsCompanion
+    Function({
+  i0.Value<int> id,
+  required DateTime createdAt,
+  required int key,
+  required String className,
+  required String jsonParams,
+});
+typedef $RemoteActionsUpdateCompanionBuilder = i1.RemoteActionsCompanion
+    Function({
+  i0.Value<int> id,
+  i0.Value<DateTime> createdAt,
+  i0.Value<int> key,
+  i0.Value<String> className,
+  i0.Value<String> jsonParams,
+});
+
+class $RemoteActionsFilterComposer
+    extends i0.Composer<i0.GeneratedDatabase, i1.RemoteActions> {
+  $RemoteActionsFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  i0.ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<int> get key => $composableBuilder(
+      column: $table.key, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<String> get className => $composableBuilder(
+      column: $table.className, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<String> get jsonParams => $composableBuilder(
+      column: $table.jsonParams, builder: (column) => i0.ColumnFilters(column));
+}
+
+class $RemoteActionsOrderingComposer
+    extends i0.Composer<i0.GeneratedDatabase, i1.RemoteActions> {
+  $RemoteActionsOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  i0.ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<DateTime> get createdAt => $composableBuilder(
+      column: $table.createdAt,
+      builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<int> get key => $composableBuilder(
+      column: $table.key, builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<String> get className => $composableBuilder(
+      column: $table.className,
+      builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<String> get jsonParams => $composableBuilder(
+      column: $table.jsonParams,
+      builder: (column) => i0.ColumnOrderings(column));
+}
+
+class $RemoteActionsAnnotationComposer
+    extends i0.Composer<i0.GeneratedDatabase, i1.RemoteActions> {
+  $RemoteActionsAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  i0.GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  i0.GeneratedColumn<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  i0.GeneratedColumn<int> get key =>
+      $composableBuilder(column: $table.key, builder: (column) => column);
+
+  i0.GeneratedColumn<String> get className =>
+      $composableBuilder(column: $table.className, builder: (column) => column);
+
+  i0.GeneratedColumn<String> get jsonParams => $composableBuilder(
+      column: $table.jsonParams, builder: (column) => column);
+}
+
+class $RemoteActionsTableManager extends i0.RootTableManager<
+    i0.GeneratedDatabase,
+    i1.RemoteActions,
+    i1.RemoteAction,
+    i1.$RemoteActionsFilterComposer,
+    i1.$RemoteActionsOrderingComposer,
+    i1.$RemoteActionsAnnotationComposer,
+    $RemoteActionsCreateCompanionBuilder,
+    $RemoteActionsUpdateCompanionBuilder,
+    (
+      i1.RemoteAction,
+      i0.BaseReferences<i0.GeneratedDatabase, i1.RemoteActions, i1.RemoteAction>
+    ),
+    i1.RemoteAction,
+    i0.PrefetchHooks Function()> {
+  $RemoteActionsTableManager(i0.GeneratedDatabase db, i1.RemoteActions table)
+      : super(i0.TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              i1.$RemoteActionsFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              i1.$RemoteActionsOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              i1.$RemoteActionsAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            i0.Value<int> id = const i0.Value.absent(),
+            i0.Value<DateTime> createdAt = const i0.Value.absent(),
+            i0.Value<int> key = const i0.Value.absent(),
+            i0.Value<String> className = const i0.Value.absent(),
+            i0.Value<String> jsonParams = const i0.Value.absent(),
+          }) =>
+              i1.RemoteActionsCompanion(
+            id: id,
+            createdAt: createdAt,
+            key: key,
+            className: className,
+            jsonParams: jsonParams,
+          ),
+          createCompanionCallback: ({
+            i0.Value<int> id = const i0.Value.absent(),
+            required DateTime createdAt,
+            required int key,
+            required String className,
+            required String jsonParams,
+          }) =>
+              i1.RemoteActionsCompanion.insert(
+            id: id,
+            createdAt: createdAt,
+            key: key,
+            className: className,
+            jsonParams: jsonParams,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), i0.BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $RemoteActionsProcessedTableManager = i0.ProcessedTableManager<
+    i0.GeneratedDatabase,
+    i1.RemoteActions,
+    i1.RemoteAction,
+    i1.$RemoteActionsFilterComposer,
+    i1.$RemoteActionsOrderingComposer,
+    i1.$RemoteActionsAnnotationComposer,
+    $RemoteActionsCreateCompanionBuilder,
+    $RemoteActionsUpdateCompanionBuilder,
+    (
+      i1.RemoteAction,
+      i0.BaseReferences<i0.GeneratedDatabase, i1.RemoteActions, i1.RemoteAction>
+    ),
+    i1.RemoteAction,
+    i0.PrefetchHooks Function()>;
 
 class RemoteActions extends i0.Table
     with i0.TableInfo<RemoteActions, i1.RemoteAction> {
@@ -309,150 +481,3 @@ class RemoteActionsCompanion extends i0.UpdateCompanion<i1.RemoteAction> {
         .toString();
   }
 }
-
-typedef $RemoteActionsCreateCompanionBuilder = i1.RemoteActionsCompanion
-    Function({
-  i0.Value<int> id,
-  required DateTime createdAt,
-  required int key,
-  required String className,
-  required String jsonParams,
-});
-typedef $RemoteActionsUpdateCompanionBuilder = i1.RemoteActionsCompanion
-    Function({
-  i0.Value<int> id,
-  i0.Value<DateTime> createdAt,
-  i0.Value<int> key,
-  i0.Value<String> className,
-  i0.Value<String> jsonParams,
-});
-
-class $RemoteActionsFilterComposer
-    extends i0.FilterComposer<i0.GeneratedDatabase, i1.RemoteActions> {
-  $RemoteActionsFilterComposer(super.$state);
-  i0.ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<DateTime> get createdAt => $state.composableBuilder(
-      column: $state.table.createdAt,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<int> get key => $state.composableBuilder(
-      column: $state.table.key,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<String> get className => $state.composableBuilder(
-      column: $state.table.className,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<String> get jsonParams => $state.composableBuilder(
-      column: $state.table.jsonParams,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-}
-
-class $RemoteActionsOrderingComposer
-    extends i0.OrderingComposer<i0.GeneratedDatabase, i1.RemoteActions> {
-  $RemoteActionsOrderingComposer(super.$state);
-  i0.ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<DateTime> get createdAt => $state.composableBuilder(
-      column: $state.table.createdAt,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<int> get key => $state.composableBuilder(
-      column: $state.table.key,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<String> get className => $state.composableBuilder(
-      column: $state.table.className,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<String> get jsonParams => $state.composableBuilder(
-      column: $state.table.jsonParams,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-}
-
-class $RemoteActionsTableManager extends i0.RootTableManager<
-    i0.GeneratedDatabase,
-    i1.RemoteActions,
-    i1.RemoteAction,
-    i1.$RemoteActionsFilterComposer,
-    i1.$RemoteActionsOrderingComposer,
-    $RemoteActionsCreateCompanionBuilder,
-    $RemoteActionsUpdateCompanionBuilder,
-    (
-      i1.RemoteAction,
-      i0.BaseReferences<i0.GeneratedDatabase, i1.RemoteActions, i1.RemoteAction>
-    ),
-    i1.RemoteAction,
-    i0.PrefetchHooks Function()> {
-  $RemoteActionsTableManager(i0.GeneratedDatabase db, i1.RemoteActions table)
-      : super(i0.TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer:
-              i1.$RemoteActionsFilterComposer(i0.ComposerState(db, table)),
-          orderingComposer:
-              i1.$RemoteActionsOrderingComposer(i0.ComposerState(db, table)),
-          updateCompanionCallback: ({
-            i0.Value<int> id = const i0.Value.absent(),
-            i0.Value<DateTime> createdAt = const i0.Value.absent(),
-            i0.Value<int> key = const i0.Value.absent(),
-            i0.Value<String> className = const i0.Value.absent(),
-            i0.Value<String> jsonParams = const i0.Value.absent(),
-          }) =>
-              i1.RemoteActionsCompanion(
-            id: id,
-            createdAt: createdAt,
-            key: key,
-            className: className,
-            jsonParams: jsonParams,
-          ),
-          createCompanionCallback: ({
-            i0.Value<int> id = const i0.Value.absent(),
-            required DateTime createdAt,
-            required int key,
-            required String className,
-            required String jsonParams,
-          }) =>
-              i1.RemoteActionsCompanion.insert(
-            id: id,
-            createdAt: createdAt,
-            key: key,
-            className: className,
-            jsonParams: jsonParams,
-          ),
-          withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), i0.BaseReferences(db, table, e)))
-              .toList(),
-          prefetchHooksCallback: null,
-        ));
-}
-
-typedef $RemoteActionsProcessedTableManager = i0.ProcessedTableManager<
-    i0.GeneratedDatabase,
-    i1.RemoteActions,
-    i1.RemoteAction,
-    i1.$RemoteActionsFilterComposer,
-    i1.$RemoteActionsOrderingComposer,
-    $RemoteActionsCreateCompanionBuilder,
-    $RemoteActionsUpdateCompanionBuilder,
-    (
-      i1.RemoteAction,
-      i0.BaseReferences<i0.GeneratedDatabase, i1.RemoteActions, i1.RemoteAction>
-    ),
-    i1.RemoteAction,
-    i0.PrefetchHooks Function()>;

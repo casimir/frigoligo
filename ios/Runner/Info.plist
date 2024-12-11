@@ -35,6 +35,8 @@
 			</array>
 		</dict>
 	</array>
+	<key>FutterDeepLinkingEnabled</key>
+	<false/>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>

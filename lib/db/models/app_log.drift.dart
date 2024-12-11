@@ -1,6 +1,214 @@
+// dart format width=80
 // ignore_for_file: type=lint
 import 'package:drift/drift.dart' as i0;
 import 'package:frigoligo/db/models/app_log.drift.dart' as i1;
+
+typedef $AppLogsCreateCompanionBuilder = i1.AppLogsCompanion Function({
+  i0.Value<int> id,
+  required DateTime time,
+  required String level,
+  required String loggerName,
+  required String message,
+  i0.Value<String?> error,
+  i0.Value<String?> stackTrace,
+  required String logline,
+});
+typedef $AppLogsUpdateCompanionBuilder = i1.AppLogsCompanion Function({
+  i0.Value<int> id,
+  i0.Value<DateTime> time,
+  i0.Value<String> level,
+  i0.Value<String> loggerName,
+  i0.Value<String> message,
+  i0.Value<String?> error,
+  i0.Value<String?> stackTrace,
+  i0.Value<String> logline,
+});
+
+class $AppLogsFilterComposer
+    extends i0.Composer<i0.GeneratedDatabase, i1.AppLogs> {
+  $AppLogsFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  i0.ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<DateTime> get time => $composableBuilder(
+      column: $table.time, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<String> get level => $composableBuilder(
+      column: $table.level, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<String> get loggerName => $composableBuilder(
+      column: $table.loggerName, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<String> get message => $composableBuilder(
+      column: $table.message, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<String> get error => $composableBuilder(
+      column: $table.error, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<String> get stackTrace => $composableBuilder(
+      column: $table.stackTrace, builder: (column) => i0.ColumnFilters(column));
+
+  i0.ColumnFilters<String> get logline => $composableBuilder(
+      column: $table.logline, builder: (column) => i0.ColumnFilters(column));
+}
+
+class $AppLogsOrderingComposer
+    extends i0.Composer<i0.GeneratedDatabase, i1.AppLogs> {
+  $AppLogsOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  i0.ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<DateTime> get time => $composableBuilder(
+      column: $table.time, builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<String> get level => $composableBuilder(
+      column: $table.level, builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<String> get loggerName => $composableBuilder(
+      column: $table.loggerName,
+      builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<String> get message => $composableBuilder(
+      column: $table.message, builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<String> get error => $composableBuilder(
+      column: $table.error, builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<String> get stackTrace => $composableBuilder(
+      column: $table.stackTrace,
+      builder: (column) => i0.ColumnOrderings(column));
+
+  i0.ColumnOrderings<String> get logline => $composableBuilder(
+      column: $table.logline, builder: (column) => i0.ColumnOrderings(column));
+}
+
+class $AppLogsAnnotationComposer
+    extends i0.Composer<i0.GeneratedDatabase, i1.AppLogs> {
+  $AppLogsAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  i0.GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  i0.GeneratedColumn<DateTime> get time =>
+      $composableBuilder(column: $table.time, builder: (column) => column);
+
+  i0.GeneratedColumn<String> get level =>
+      $composableBuilder(column: $table.level, builder: (column) => column);
+
+  i0.GeneratedColumn<String> get loggerName => $composableBuilder(
+      column: $table.loggerName, builder: (column) => column);
+
+  i0.GeneratedColumn<String> get message =>
+      $composableBuilder(column: $table.message, builder: (column) => column);
+
+  i0.GeneratedColumn<String> get error =>
+      $composableBuilder(column: $table.error, builder: (column) => column);
+
+  i0.GeneratedColumn<String> get stackTrace => $composableBuilder(
+      column: $table.stackTrace, builder: (column) => column);
+
+  i0.GeneratedColumn<String> get logline =>
+      $composableBuilder(column: $table.logline, builder: (column) => column);
+}
+
+class $AppLogsTableManager extends i0.RootTableManager<
+    i0.GeneratedDatabase,
+    i1.AppLogs,
+    i1.AppLog,
+    i1.$AppLogsFilterComposer,
+    i1.$AppLogsOrderingComposer,
+    i1.$AppLogsAnnotationComposer,
+    $AppLogsCreateCompanionBuilder,
+    $AppLogsUpdateCompanionBuilder,
+    (i1.AppLog, i0.BaseReferences<i0.GeneratedDatabase, i1.AppLogs, i1.AppLog>),
+    i1.AppLog,
+    i0.PrefetchHooks Function()> {
+  $AppLogsTableManager(i0.GeneratedDatabase db, i1.AppLogs table)
+      : super(i0.TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              i1.$AppLogsFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              i1.$AppLogsOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              i1.$AppLogsAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            i0.Value<int> id = const i0.Value.absent(),
+            i0.Value<DateTime> time = const i0.Value.absent(),
+            i0.Value<String> level = const i0.Value.absent(),
+            i0.Value<String> loggerName = const i0.Value.absent(),
+            i0.Value<String> message = const i0.Value.absent(),
+            i0.Value<String?> error = const i0.Value.absent(),
+            i0.Value<String?> stackTrace = const i0.Value.absent(),
+            i0.Value<String> logline = const i0.Value.absent(),
+          }) =>
+              i1.AppLogsCompanion(
+            id: id,
+            time: time,
+            level: level,
+            loggerName: loggerName,
+            message: message,
+            error: error,
+            stackTrace: stackTrace,
+            logline: logline,
+          ),
+          createCompanionCallback: ({
+            i0.Value<int> id = const i0.Value.absent(),
+            required DateTime time,
+            required String level,
+            required String loggerName,
+            required String message,
+            i0.Value<String?> error = const i0.Value.absent(),
+            i0.Value<String?> stackTrace = const i0.Value.absent(),
+            required String logline,
+          }) =>
+              i1.AppLogsCompanion.insert(
+            id: id,
+            time: time,
+            level: level,
+            loggerName: loggerName,
+            message: message,
+            error: error,
+            stackTrace: stackTrace,
+            logline: logline,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), i0.BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $AppLogsProcessedTableManager = i0.ProcessedTableManager<
+    i0.GeneratedDatabase,
+    i1.AppLogs,
+    i1.AppLog,
+    i1.$AppLogsFilterComposer,
+    i1.$AppLogsOrderingComposer,
+    i1.$AppLogsAnnotationComposer,
+    $AppLogsCreateCompanionBuilder,
+    $AppLogsUpdateCompanionBuilder,
+    (i1.AppLog, i0.BaseReferences<i0.GeneratedDatabase, i1.AppLogs, i1.AppLog>),
+    i1.AppLog,
+    i0.PrefetchHooks Function()>;
 
 class AppLogs extends i0.Table with i0.TableInfo<AppLogs, i1.AppLog> {
   @override
@@ -427,190 +635,3 @@ class AppLogsCompanion extends i0.UpdateCompanion<i1.AppLog> {
         .toString();
   }
 }
-
-typedef $AppLogsCreateCompanionBuilder = i1.AppLogsCompanion Function({
-  i0.Value<int> id,
-  required DateTime time,
-  required String level,
-  required String loggerName,
-  required String message,
-  i0.Value<String?> error,
-  i0.Value<String?> stackTrace,
-  required String logline,
-});
-typedef $AppLogsUpdateCompanionBuilder = i1.AppLogsCompanion Function({
-  i0.Value<int> id,
-  i0.Value<DateTime> time,
-  i0.Value<String> level,
-  i0.Value<String> loggerName,
-  i0.Value<String> message,
-  i0.Value<String?> error,
-  i0.Value<String?> stackTrace,
-  i0.Value<String> logline,
-});
-
-class $AppLogsFilterComposer
-    extends i0.FilterComposer<i0.GeneratedDatabase, i1.AppLogs> {
-  $AppLogsFilterComposer(super.$state);
-  i0.ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<DateTime> get time => $state.composableBuilder(
-      column: $state.table.time,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<String> get level => $state.composableBuilder(
-      column: $state.table.level,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<String> get loggerName => $state.composableBuilder(
-      column: $state.table.loggerName,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<String> get message => $state.composableBuilder(
-      column: $state.table.message,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<String> get error => $state.composableBuilder(
-      column: $state.table.error,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<String> get stackTrace => $state.composableBuilder(
-      column: $state.table.stackTrace,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-
-  i0.ColumnFilters<String> get logline => $state.composableBuilder(
-      column: $state.table.logline,
-      builder: (column, joinBuilders) =>
-          i0.ColumnFilters(column, joinBuilders: joinBuilders));
-}
-
-class $AppLogsOrderingComposer
-    extends i0.OrderingComposer<i0.GeneratedDatabase, i1.AppLogs> {
-  $AppLogsOrderingComposer(super.$state);
-  i0.ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<DateTime> get time => $state.composableBuilder(
-      column: $state.table.time,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<String> get level => $state.composableBuilder(
-      column: $state.table.level,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<String> get loggerName => $state.composableBuilder(
-      column: $state.table.loggerName,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<String> get message => $state.composableBuilder(
-      column: $state.table.message,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<String> get error => $state.composableBuilder(
-      column: $state.table.error,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<String> get stackTrace => $state.composableBuilder(
-      column: $state.table.stackTrace,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  i0.ColumnOrderings<String> get logline => $state.composableBuilder(
-      column: $state.table.logline,
-      builder: (column, joinBuilders) =>
-          i0.ColumnOrderings(column, joinBuilders: joinBuilders));
-}
-
-class $AppLogsTableManager extends i0.RootTableManager<
-    i0.GeneratedDatabase,
-    i1.AppLogs,
-    i1.AppLog,
-    i1.$AppLogsFilterComposer,
-    i1.$AppLogsOrderingComposer,
-    $AppLogsCreateCompanionBuilder,
-    $AppLogsUpdateCompanionBuilder,
-    (i1.AppLog, i0.BaseReferences<i0.GeneratedDatabase, i1.AppLogs, i1.AppLog>),
-    i1.AppLog,
-    i0.PrefetchHooks Function()> {
-  $AppLogsTableManager(i0.GeneratedDatabase db, i1.AppLogs table)
-      : super(i0.TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer:
-              i1.$AppLogsFilterComposer(i0.ComposerState(db, table)),
-          orderingComposer:
-              i1.$AppLogsOrderingComposer(i0.ComposerState(db, table)),
-          updateCompanionCallback: ({
-            i0.Value<int> id = const i0.Value.absent(),
-            i0.Value<DateTime> time = const i0.Value.absent(),
-            i0.Value<String> level = const i0.Value.absent(),
-            i0.Value<String> loggerName = const i0.Value.absent(),
-            i0.Value<String> message = const i0.Value.absent(),
-            i0.Value<String?> error = const i0.Value.absent(),
-            i0.Value<String?> stackTrace = const i0.Value.absent(),
-            i0.Value<String> logline = const i0.Value.absent(),
-          }) =>
-              i1.AppLogsCompanion(
-            id: id,
-            time: time,
-            level: level,
-            loggerName: loggerName,
-            message: message,
-            error: error,
-            stackTrace: stackTrace,
-            logline: logline,
-          ),
-          createCompanionCallback: ({
-            i0.Value<int> id = const i0.Value.absent(),
-            required DateTime time,
-            required String level,
-            required String loggerName,
-            required String message,
-            i0.Value<String?> error = const i0.Value.absent(),
-            i0.Value<String?> stackTrace = const i0.Value.absent(),
-            required String logline,
-          }) =>
-              i1.AppLogsCompanion.insert(
-            id: id,
-            time: time,
-            level: level,
-            loggerName: loggerName,
-            message: message,
-            error: error,
-            stackTrace: stackTrace,
-            logline: logline,
-          ),
-          withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), i0.BaseReferences(db, table, e)))
-              .toList(),
-          prefetchHooksCallback: null,
-        ));
-}
-
-typedef $AppLogsProcessedTableManager = i0.ProcessedTableManager<
-    i0.GeneratedDatabase,
-    i1.AppLogs,
-    i1.AppLog,
-    i1.$AppLogsFilterComposer,
-    i1.$AppLogsOrderingComposer,
-    $AppLogsCreateCompanionBuilder,
-    $AppLogsUpdateCompanionBuilder,
-    (i1.AppLog, i0.BaseReferences<i0.GeneratedDatabase, i1.AppLogs, i1.AppLog>),
-    i1.AppLog,
-    i0.PrefetchHooks Function()>;
