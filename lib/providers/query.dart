@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:drift/drift.dart';
 import 'package:flutter/foundation.dart';
+import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../constants.dart';
@@ -10,6 +11,8 @@ import '../db/database.dart';
 import '../db/models/article.drift.dart';
 
 part 'query.g.dart';
+
+final _log = Logger('providers.query');
 
 // FIXME use sentinel values to avoid needing clear*() methods
 class WQuery {
@@ -134,6 +137,7 @@ class QueryMeta extends _$QueryMeta {
 
   @override
   Future<QueryState> build() async {
+    final stopwatch = Stopwatch()..start();
     final wq = ref.watch(queryProvider);
     final qs = QueryState(
       query: wq,
@@ -142,6 +146,9 @@ class QueryMeta extends _$QueryMeta {
 
     _watch();
 
+    if (enablePerfLogs) {
+      _log.info('perf: QueryMeta.build: ${stopwatch.elapsedMilliseconds} ms');
+    }
     return qs;
   }
 

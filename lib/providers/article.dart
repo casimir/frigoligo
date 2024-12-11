@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:drift/drift.dart';
+import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../constants.dart';
 import '../db/database.dart';
 import '../db/models/article.drift.dart';
 import 'query.dart';
@@ -10,16 +12,25 @@ import 'settings.dart';
 
 part 'article.g.dart';
 
+final _log = Logger('providers.article');
+
 @riverpod
 class ArticleData extends _$ArticleData {
   StreamSubscription? _watcher;
 
   @override
   Future<Article?> build(int articleId) async {
+    final stopwatch = Stopwatch()..start();
     _watcher?.cancel();
     _watch(articleId);
     final t1 = DB().managers.articles;
-    return t1.filter((f) => f.id.equals(articleId)).getSingleOrNull();
+    final ret =
+        await t1.filter((f) => f.id.equals(articleId)).getSingleOrNull();
+    if (enablePerfLogs) {
+      _log.info(
+          'perf: ArticleData.build($articleId): ${stopwatch.elapsedMilliseconds} ms');
+    }
+    return ret;
   }
 
   void _watch(int articleId) {
