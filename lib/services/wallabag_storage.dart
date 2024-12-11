@@ -69,7 +69,7 @@ class WStorage extends _$WStorage {
   }
 
   Future<Article?> index(int n, WQuery wq) async {
-    if (n < 0 || n >= await count(wq)) return null;
+    if (n < 0 || n >= await _count(wq)) return null;
 
     final ids = await _selectFilterIds(wq).get();
     final db = DB();
@@ -86,7 +86,7 @@ class WStorage extends _$WStorage {
     return index >= 0 ? index : null;
   }
 
-  Future<int> count(WQuery wq) =>
+  Future<int> _count(WQuery wq) =>
       // a count query should be faster but fetching and counting PKs should be
       // fast enough and avoid duplicating code
       _selectFilterIds(wq).get().then((ids) => ids.length);
@@ -150,7 +150,7 @@ class WStorage extends _$WStorage {
     final settings = ref.read(settingsProvider);
     if (!AppBadge.isSupportedSync || !settings[Sk.appBadge]) return;
 
-    final unread = await count(
+    final unread = await _count(
         WQuery(state: StateFilter.unread, starred: StarredFilter.all));
     if (unread == 0) {
       return AppBadge.remove();

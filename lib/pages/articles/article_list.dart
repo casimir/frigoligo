@@ -80,23 +80,23 @@ class _ArticleListState extends ConsumerState<ArticleListView> {
       });
     }
 
-    final storage = ref.watch(wStorageProvider.notifier);
     final query = ref.watch(queryProvider);
-    final queryMeta = ref.watch(queryMetaProvider.future);
 
     return AListView.separated(
       controller: _scroller,
-      itemCount: queryMeta.then((it) => it.selectedIds.length),
+      itemCount: ref.watch(queryMetaProvider.selectAsync((it) => it.count)),
       itemBuilder: (context, index) async {
         if (index == 0) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
+            final storage = ref.read(wStorageProvider.notifier);
             storage.index(index, query).then((article) => ref
                 .read(currentArticleProvider.notifier)
                 .maybeInit(article!.id));
           });
         }
         return AsyncArticleItem(
-          articleId: (await queryMeta).selectedIds[index],
+          articleId: await ref
+              .watch(queryMetaProvider.selectAsync((it) => it.ids[index])),
           onTap: (article) => _openArticle(article.id),
           showSelection: widget.sideBySideMode,
         );

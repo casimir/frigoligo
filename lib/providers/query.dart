@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:drift/drift.dart';
+import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../constants.dart';
@@ -96,41 +99,63 @@ Expression<bool> _buildFilters(Articles t, WQuery wq) {
   return Expression.and(filters);
 }
 
+Selectable<int> _buildIdsQuery(WQuery wq) {
+  if (wq.text != null) {
+    return DB().articlesDao.selectArticleIdsForText(
+          wq.text!,
+          mode: wq.textMode ?? SearchTextMode.all,
+          where: (t) => _buildFilters(t, wq),
+        );
+  } else {
+    final t1 = DB().articles;
+    return (t1.selectOnly()
+          ..addColumns([t1.id])
+          ..where(_buildFilters(t1, wq))
+          ..orderBy([OrderingTerm.desc(t1.createdAt)]))
+        .map((row) => row.read(t1.id)!);
+  }
+}
+
 class QueryState {
   const QueryState({
     required this.query,
-    required this.selectedIds,
+    required this.ids,
   });
 
   final WQuery query;
-  final List<int> selectedIds;
+  final List<int> ids;
+
+  int get count => ids.length;
 }
 
 @riverpod
 class QueryMeta extends _$QueryMeta {
+  StreamSubscription? _watcher;
+
   @override
   Future<QueryState> build() async {
     final wq = ref.watch(queryProvider);
-
-    Selectable<int> qIds;
-    if (wq.text != null) {
-      qIds = DB().articlesDao.selectArticleIdsForText(
-            wq.text!,
-            mode: wq.textMode ?? SearchTextMode.all,
-            where: (t) => _buildFilters(t, wq),
-          );
-    } else {
-      final t1 = DB().articles;
-      qIds = (t1.selectOnly()
-            ..addColumns([t1.id])
-            ..where(_buildFilters(t1, wq))
-            ..orderBy([OrderingTerm.desc(t1.createdAt)]))
-          .map((row) => row.read(t1.id)!);
-    }
-
-    return QueryState(
-      query: ref.read(queryProvider),
-      selectedIds: await qIds.get(),
+    final qs = QueryState(
+      query: wq,
+      ids: await _buildIdsQuery(wq).get(),
     );
+
+    _watch();
+
+    return qs;
+  }
+
+  void _watch() async {
+    _watcher?.cancel();
+
+    _watcher = _buildIdsQuery(ref.read(queryProvider)).watch().listen((ids) {
+      final selectedIds =
+          state.maybeWhen(orElse: () => null, data: (qs) => qs.ids);
+      if (selectedIds != null && !listEquals(ids, selectedIds)) {
+        ref.invalidateSelf();
+      }
+    });
+
+    ref.onDispose(() => _watcher?.cancel());
   }
 }

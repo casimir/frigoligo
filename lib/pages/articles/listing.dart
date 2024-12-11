@@ -8,7 +8,6 @@ import 'package:logging/logging.dart';
 import '../../buildcontext_extension.dart';
 import '../../dialogs/save.dart';
 import '../../services/remote_sync.dart';
-import '../../services/wallabag_storage.dart';
 import '../../widget_keys.dart';
 import '../../widgets/remote_sync_fab.dart';
 import '../../widgets/remote_sync_progress_indicator.dart';
@@ -40,8 +39,6 @@ class _ListingPageState extends ConsumerState<ListingPage> {
 
   @override
   Widget build(BuildContext context) {
-    ref.watch(wStorageProvider);
-
     final headerColor = Theme.of(context).colorScheme.surfaceContainerLow;
 
     return Scaffold(

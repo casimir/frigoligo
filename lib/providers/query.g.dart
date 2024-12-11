@@ -20,7 +20,7 @@ final queryProvider = NotifierProvider<Query, WQuery>.internal(
 );
 
 typedef _$Query = Notifier<WQuery>;
-String _$queryMetaHash() => r'42f4d2eaefc4d211f6e0d5949d8b25bf500fc60f';
+String _$queryMetaHash() => r'9faa2d3ff9a14e85c9a2d65100df5c54d5943849';
 
 /// See also [QueryMeta].
 @ProviderFor(QueryMeta)

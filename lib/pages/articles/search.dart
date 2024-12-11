@@ -171,12 +171,10 @@ class SearchBarWithFilters<T> extends ConsumerWidget {
                       hintText: context.L.filters_searchbarHint,
                       trailing: [
                         AText(
-                          builder: (context) async {
-                            final count = await ref
-                                .watch(wStorageProvider.notifier)
-                                .count(ref.watch(queryProvider));
-                            return count.toString();
-                          },
+                          builder: (context) => ref.watch(
+                            queryMetaProvider
+                                .selectAsync((it) => it.count.toString()),
+                          ),
                           style: TextStyle(
                             color:
                                 Theme.of(context).colorScheme.onSurfaceVariant,
