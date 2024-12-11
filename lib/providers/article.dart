@@ -1,17 +1,65 @@
 import 'dart:async';
 
 import 'package:drift/drift.dart';
+import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../constants.dart';
 import '../db/database.dart';
 import '../db/models/article.drift.dart';
-import '../services/wallabag_storage.dart';
 import 'query.dart';
 import 'settings.dart';
 
 part 'article.g.dart';
 
-@Riverpod(keepAlive: true)
+final _log = Logger('providers.article');
+
+@riverpod
+class ArticleData extends _$ArticleData {
+  StreamSubscription? _watcher;
+
+  @override
+  Future<Article?> build(int articleId) async {
+    final stopwatch = Stopwatch()..start();
+    _watcher?.cancel();
+    _watch(articleId);
+    final t1 = DB().managers.articles;
+    final ret =
+        await t1.filter((f) => f.id.equals(articleId)).getSingleOrNull();
+    if (enablePerfLogs) {
+      _log.info(
+          'perf: ArticleData.build($articleId): ${stopwatch.elapsedMilliseconds} ms');
+    }
+    return ret;
+  }
+
+  void _watch(int articleId) {
+    final q = DB().managers.articles.filter((f) => f.id.equals(articleId));
+    _watcher = q.watchSingleOrNull(distinct: false).listen((article) {
+      final stateArticle = state.maybeWhen(orElse: () => null, data: (a) => a);
+      if (stateArticle == null || article != stateArticle) {
+        state = AsyncValue.data(article);
+      }
+    });
+    ref.onDispose(() => _watcher?.cancel());
+  }
+
+  Future<void> saveScrollProgress(double progress) async {
+    final article = state.maybeWhen(orElse: () => null, data: (a) => a);
+    if (article == null) return;
+
+    await DB().managers.articleScrollPositions.create(
+          (o) => o(
+            id: Value(article.id),
+            readingTime: article.readingTime,
+            progress: progress,
+          ),
+          mode: InsertMode.insertOrReplace,
+        );
+  }
+}
+
+@riverpod
 class CurrentArticle extends _$CurrentArticle {
   int? _articleId;
   StreamSubscription? _watcher;
@@ -23,18 +71,20 @@ class CurrentArticle extends _$CurrentArticle {
     _articleId ??=
         ref.watch(settingsProvider.select((it) => it[Sk.selectedArticleId]));
 
-    if (_articleId != null) {
-      _watch();
-      final t1 = DB().managers.articles;
-      return t1.filter((f) => f.id.equals(_articleId!)).getSingleOrNull();
+    if (_articleId == null) {
+      final meta = await ref.read(queryMetaProvider.future);
+      if (meta.ids.isNotEmpty) {
+        _articleId = meta.ids.first;
+      }
     }
 
-    final query = ref.watch(queryProvider);
-    final article = await ref.read(wStorageProvider.notifier).index(0, query);
-    if (article != null) {
-      _articleId = article.id;
+    if (_articleId != null) {
       _watch();
-      return article;
+      return DB()
+          .managers
+          .articles
+          .filter((f) => f.id.equals(_articleId!))
+          .getSingleOrNull();
     }
 
     return null;

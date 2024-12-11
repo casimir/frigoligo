@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../buildcontext_extension.dart';
 import '../../providers/article.dart';
 import '../../providers/query.dart';
-import '../../services/wallabag_storage.dart';
 import '../../widgets/async/list.dart';
 import 'article_list_item.dart';
 
@@ -56,11 +55,10 @@ class _ArticleListState extends ConsumerState<ArticleListView> {
       () async {
         final article = await ref.read(currentArticleProvider.future);
         if (article?.id != null) {
-          final query = ref.read(queryProvider);
           final scrollToIndex = await ref
-              .read(wStorageProvider.notifier)
-              .indexOf(article!.id, query);
-          if (scrollToIndex != null) {
+              .read(queryMetaProvider.future)
+              .then((meta) => meta.ids.indexOf(article!.id));
+          if (scrollToIndex >= 0) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               _scroller.jumpTo(_computePixelsToScroll(scrollToIndex));
             });
@@ -80,24 +78,20 @@ class _ArticleListState extends ConsumerState<ArticleListView> {
       });
     }
 
-    final storage = ref.watch(wStorageProvider.notifier);
-    final query = ref.watch(queryProvider);
-
-    final count = storage.count(query);
-
     return AListView.separated(
       controller: _scroller,
-      itemCount: count,
+      itemCount: ref.watch(queryMetaProvider.selectAsync((it) => it.count)),
       itemBuilder: (context, index) async {
         if (index == 0) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            storage.index(index, query).then((article) => ref
-                .read(currentArticleProvider.notifier)
-                .maybeInit(article!.id));
+            ref.read(queryMetaProvider.future).then((meta) {
+              ref.read(currentArticleProvider.notifier).maybeInit(meta.ids[0]);
+            });
           });
         }
-        return ArticleListItem(
-          article: (await storage.index(index, query))!,
+        return AsyncArticleItem(
+          articleId: await ref
+              .watch(queryMetaProvider.selectAsync((it) => it.ids[index])),
           onTap: (article) => _openArticle(article.id),
           showSelection: widget.sideBySideMode,
         );

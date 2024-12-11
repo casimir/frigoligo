@@ -23,3 +23,6 @@ linter:
 analyzer:
   plugins:
     - custom_lint
+  exclude:
+    - "**/*.drift.dart"
+    - "**/*.g.dart"
