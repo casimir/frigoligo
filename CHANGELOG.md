@@ -27,11 +27,13 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(UI/UX)* Remove some spacing ([9907545](https://github.com/casimir/frigoligo/commit/9907545c113ffe22e9386f1fdd7082b11e5899a9))
 - *(reading)* Truncate title to avoid vertical clipping ([d37056a](https://github.com/casimir/frigoligo/commit/d37056a7d25637d7a9083b7e37a3b1bdb02c9dde))
 - *(iOS)* Attach the share popover to the button that triggered it ([1b865f4](https://github.com/casimir/frigoligo/commit/1b865f4a53a31b7fd2432d564c670f285efdf1bb))
+- Add a temporary workaround for l10n_esperanto ([971308f](https://github.com/casimir/frigoligo/commit/971308f03a8b5fc459bba47a7cd5e9c23f05f548))
 
 ### 🚜 Refactor
 
 - *(settings)* Change how enum values are handled ([#277](https://github.com/casimir/frigoligo/pull/277)) ([2c8078a](https://github.com/casimir/frigoligo/commit/2c8078ab530732347947abe2937762ef8df5c8cb))
 - *(reading settings)* Use cadanse instead of hard coded values ([1f7c5cb](https://github.com/casimir/frigoligo/commit/1f7c5cb239f6be2f6aa179013a53a918b3644ee1))
+- Simplify currentArticleProvider ([78a3ac7](https://github.com/casimir/frigoligo/commit/78a3ac7697c8ff968b777f32fee37526d93b4239))
 
 ### 📚 Documentation
 
@@ -62,6 +64,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Bump CocoaPods lockfiles ([5e44a74](https://github.com/casimir/frigoligo/commit/5e44a74bc8dcef74c0edd086e4309f44c72651d4))
 - Setup automated changelog update every day ([627adcf](https://github.com/casimir/frigoligo/commit/627adcf6c661517d3f2f6e4826563b9d06450ae9))
 - *(screenshots)* Add ET to the list of locales ([9cbdcc9](https://github.com/casimir/frigoligo/commit/9cbdcc95dc8f34f02e781658c31e6e30c2c83816))
+- Update flutter and flutter dependencies ([bd44dfc](https://github.com/casimir/frigoligo/commit/bd44dfcddfa165e6ab7aa22f7cb7cf7d75f41dc6))
 
 **Full Changelog**: [v2.0.0..HEAD](https://github.com/casimir/frigoligo/compare/v2.0.0..HEAD)
 
