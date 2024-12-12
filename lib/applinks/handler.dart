@@ -24,8 +24,12 @@ class LinksHandler {
   static Deeplink _handle(
       RouteConfiguration router, Uri uri, OnLinkData onData) {
     _log.info('trying to open $uri');
+
+    if (uri.pathSegments.isEmpty) return Deeplink.invalid;
+
     final matches = router.findMatch(uri);
     if (matches.isEmpty) return Deeplink.invalid;
+
     final linkType = switch (uri.pathSegments.first) {
       'articles' => Deeplink.article,
       'login' => Deeplink.login,
