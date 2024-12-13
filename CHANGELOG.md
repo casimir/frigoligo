@@ -56,6 +56,8 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
  ([a5d7cc8](https://github.com/casimir/frigoligo/commit/a5d7cc8be7b670d41bc2bea73f25cae531ef566d))
 - Update translations: Chinese (Traditional Han script)
  ([673ef3c](https://github.com/casimir/frigoligo/commit/673ef3c4cd6b1af1318a6ea9da78565023d08fdc))
+- Update translations: French
+ ([f6f4735](https://github.com/casimir/frigoligo/commit/f6f4735f5547ef4fb8eb9c2b13e04cc0ff02ba46))
 
 ### ⚙️ Miscellaneous Tasks
 
