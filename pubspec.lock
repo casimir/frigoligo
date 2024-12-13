@@ -720,10 +720,10 @@ packages:
     dependency: "direct main"
     description:
       name: l10n_esperanto
-      sha256: db37016f8752a13257ed6e7ef718db575960ae99c7d4c694fbb45f635a583fa2
+      sha256: "8bdaf08ac603c6c6255f71ce31aabaea676a722c2936e1a028ef222db6448689"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.11"
+    version: "2.0.12"
   leak_tracker:
     dependency: transitive
     description:
@@ -1611,4 +1611,4 @@ packages:
     version: "3.1.2"
 sdks:
   dart: ">=3.6.0-0 <4.0.0"
-  flutter: ">=3.24.0"
+  flutter: ">=3.27.0"

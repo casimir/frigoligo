@@ -31,7 +31,7 @@ dependencies:
   freezed_annotation: ^2.4.1
   go_router: 14.6.2
   intl: any
-  l10n_esperanto: ^2.0.11
+  l10n_esperanto: 2.0.12
   logging: 1.3.0
   path_provider: 2.1.5
   riverpod_annotation: ^2.3.4
