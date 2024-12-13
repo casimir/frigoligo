@@ -17,7 +17,7 @@ jobs:
           cache: true
       - run: flutter config --no-analytics
       - run: flutter pub get
-      - run: flutter build web --base-href "/frigoligo/"
+      - run: flutter build web --base-href "/frigoligo/" --web-renderer=html
       - run: mv build/web/ public
       - uses: peaceiris/actions-gh-pages@v4
         with:
