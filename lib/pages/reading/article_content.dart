@@ -114,18 +114,20 @@ class _ArticleContentState extends ConsumerState<ArticleContent> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          PaddedGroup(
-            child: HtmlWidgetPlus(
-              widget.article.content!,
-              onTreeBuilt: (_) => _jumpToProgress(),
-              settings: ref.watch(readingSettingsProvider),
+    return SelectionArea(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            PaddedGroup(
+              child: HtmlWidgetPlus(
+                widget.article.content!,
+                onTreeBuilt: (_) => _jumpToProgress(),
+                settings: ref.watch(readingSettingsProvider),
+              ),
             ),
-          ),
-          SizedBox(height: MediaQuery.paddingOf(context).bottom),
-        ],
+            SizedBox(height: MediaQuery.paddingOf(context).bottom),
+          ],
+        ),
       ),
     );
   }
