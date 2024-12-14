@@ -156,5 +156,237 @@
   "listing_noArticles": "Нет статьей",
   "@listing_noArticles": {
     "description": "Placeholder for when there are no articles to display."
+  },
+  "session_fieldApiToken": "Токен API",
+  "@session_fieldApiToken": {
+    "description": "The API token field name of in forms."
+  },
+  "login_acceptSelfSigned": "Принимать само-подписанные сертификаты",
+  "@login_acceptSelfSigned": {
+    "description": "Wether or not to accept self-signed certificates when connecting to the wallabag instance."
+  },
+  "session_copiedToClipboard": "Скопировано в буфер обмена",
+  "@session_copiedToClipboard": {
+    "description": "A message displayed when the value is copied to the clipboard."
+  },
+  "session_invalidToken": "неверный",
+  "@session_invalidToken": {
+    "description": "Placeholder for expiration date when the token is invalid."
+  },
+  "session_fieldAccessToken": "Токен доступа",
+  "@session_fieldAccessToken": {
+    "description": "The label of the access token field in the session screen."
+  },
+  "session_fieldLastServerSync": "Последняя синхронизация сервера",
+  "@session_fieldLastServerSync": {
+    "description": "The label of the last server sync field in the session screen."
+  },
+  "session_logoutSession": "Выход из сеанса",
+  "@session_logoutSession": {
+    "description": "The action to log out the session."
+  },
+  "settings_itemAbout": "Про",
+  "@settings_itemAbout": {
+    "description": "The action to display the about screen."
+  },
+  "readingsettings_fontSize": "Размер шрифта",
+  "@readingsettings_fontSize": {
+    "description": "The font size to display the content of the article."
+  },
+  "readdingsettings_textFormatting": "Форматирование текста",
+  "@readdingsettings_textFormatting": {
+    "description": "The text formatting to display the content of the article."
+  },
+  "server_apiError": "Неверный ответ API",
+  "@server_apiError": {
+    "description": "An error occurred while communicating with the wallabag API."
+  },
+  "readingsettings_title": "Настройки чтения",
+  "@readingsettings_title": {
+    "description": "The title of the reading settings screen."
+  },
+  "settings_itemAppBadge": "Показать непрочитанный значок",
+  "@settings_itemAppBadge": {
+    "description": "The action to toggle the unread badge on the application icon."
+  },
+  "settings_valueThemeLight": "Светлый",
+  "@settings_valueThemeLight": {
+    "description": "The label for the light theme mode."
+  },
+  "g_tag": "Метка",
+  "@g_tag": {
+    "description": "A tag can be attached to an article."
+  },
+  "filters_articleFavoriteStarred": "Отмечать звездой",
+  "@filters_articleFavoriteStarred": {
+    "description": "Filter starred articles."
+  },
+  "listing_articlesArchived": "Архивные статьи",
+  "@listing_articlesArchived": {
+    "description": "The title for the list of the articles with the state Archived."
+  },
+  "listing_articlesUnread": "Непрочитанные статьи",
+  "@listing_articlesUnread": {
+    "description": "The title for the list of the articles with the state Unread."
+  },
+  "login_actionLogin": "Войти",
+  "@login_actionLogin": {
+    "description": "The action to log in."
+  },
+  "login_existingSessionDialogConfirm": "Выйти",
+  "@login_existingSessionDialogConfirm": {
+    "description": "The action to log out from the existing session."
+  },
+  "login_existingSessionDialogMessage": "Хотите выйти из текущей сессии и открыть новую?",
+  "@login_existingSessionDialogMessage": {
+    "description": "The message of the dialog warning about an existing session."
+  },
+  "login_fieldClientId": "Идентификатор клиента",
+  "@login_fieldClientId": {
+    "description": "The client ID field of the login form."
+  },
+  "save_confirmationTitle": "Статья сохранена!",
+  "@save_confirmationTitle": {
+    "description": "The title of the confirmation screen after the article is saved. "
+  },
+  "save_dubiousUrlMessage": "Этот URL-адрес не похож на URL-адрес. Всё равно сохранить?\n{url}",
+  "@save_dubiousUrlMessage": {
+    "description": "The message of the dubious URL warning dialog.",
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "save_dubiousUrlTitle": "Сомнительный URL-адрес",
+  "@save_dubiousUrlTitle": {
+    "description": "The title of the dubious URL warning dialog."
+  },
+  "settings_itemSessionDetails": "Детали сеанса",
+  "@settings_itemSessionDetails": {
+    "description": "The action to display the session details screen."
+  },
+  "settings_valueThemeDark": "Тёмный",
+  "@settings_valueThemeDark": {
+    "description": "The label for the dark theme mode."
+  },
+  "login_existingSessionDialogTitle": "Сессия в настоящее время активна",
+  "@login_existingSessionDialogTitle": {
+    "description": "The title of the dialog warning about an existing session."
+  },
+  "save_dubiousUrlConfirm": "Сохранить",
+  "@save_dubiousUrlConfirm": {
+    "description": "The confirmation button of the dubious URL warning dialog."
+  },
+  "save_title": "Сохранить статью",
+  "@save_title": {
+    "description": "The title of the save screen."
+  },
+  "save_viewArticle": "Просмотреть статью",
+  "@save_viewArticle": {
+    "description": "The action to view the article after it is saved."
+  },
+  "selector_selectbuttonlabel": "Выбрать {numberOfItems}",
+  "@selector_selectbuttonlabel": {
+    "description": "The label of the select button in a selector screen.",
+    "placeholders": {
+      "numberOfItems": {
+        "type": "String",
+        "example": "3 items"
+      }
+    }
+  },
+  "server_address": "Адрес сервера",
+  "@server_address": {
+    "description": "The address of the wallabag instance."
+  },
+  "server_invalidUrl": "Неверный адрес",
+  "@server_invalidUrl": {
+    "description": "The address of the wallabag instance is invalid."
+  },
+  "server_emptyField": "Введите свою {label}",
+  "@server_emptyField": {
+    "description": "A message for non-empty check fail on a form field.",
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "server_unreachable": "Сервер недоступен",
+  "@server_unreachable": {
+    "description": "The wallabag instance is unreachable."
+  },
+  "session_logoutDialogTitle": "Выйти из сеанса",
+  "@session_logoutDialogTitle": {
+    "description": "The title of the confirmation dialog to log out."
+  },
+  "session_logoutDialogMessage": "Вам нужно будет снова войти в систему.",
+  "@session_logoutDialogMessage": {
+    "description": "The message of the confirmation dialog to log out."
+  },
+  "session_renewDialogMessage": "Сервер отказывается использовать токен текущей сессии. Чтобы возобновить синхронизацию, необходимо снова войти в систему.",
+  "@session_renewDialogMessage": {
+    "description": "The message of the confirmation dialog to renew the session."
+  },
+  "session_title": "Детали сеанса",
+  "@session_title": {
+    "description": "The title of the session details screen."
+  },
+  "settings_bugReportLink": "Сообщить об ошибке",
+  "@settings_bugReportLink": {
+    "description": "The action to open the bug report form."
+  },
+  "settings_clearCacheMessage": "Локальный кэш будет удален и снова получен с сервера.",
+  "@settings_clearCacheMessage": {
+    "description": "The message of the confirmation dialog to clear the cache."
+  },
+  "settings_itemAppearance": "Внешний вид",
+  "@settings_itemAppearance": {
+    "description": "Settings for the appearance of the application."
+  },
+  "settings_helpToTranslate": "Помочь перевести",
+  "@settings_helpToTranslate": {
+    "description": "The action to open the Weblate project in a webview."
+  },
+  "settings_savedArticleTagLabel": "Ярлык для сохраненных статей",
+  "@settings_savedArticleTagLabel": {
+    "description": "The label of the tag to add to saved articles."
+  },
+  "settings_savedArticleTag": "Добавьте метку к сохраненным статьям",
+  "@settings_savedArticleTag": {
+    "description": "The action to toggle the addition of a tag to saved articles."
+  },
+  "g_article": "Статья",
+  "@g_article": {
+    "description": "A piece of content fetched from the web. This is one of the main concepts of the app."
+  },
+  "filters_searchModeAll": "Все поля",
+  "@filters_searchModeAll": {
+    "description": "Search text in all fields."
+  },
+  "readingsettings_fontFamily": "Семейство шрифтов",
+  "@readingsettings_fontFamily": {
+    "description": "The font family to display the content of the article."
+  },
+  "save_noUrl": "URL-адрес не указан",
+  "@save_noUrl": {
+    "description": "The URL was missing from the save request."
+  },
+  "session_logoutDialogConfirm": "Выйти",
+  "@session_logoutDialogConfirm": {
+    "description": "Confirm the log out from the confirmation dialog."
+  },
+  "session_fieldTokenExpiration": "Истечение срока действия токена",
+  "@session_fieldTokenExpiration": {
+    "description": "The label of the token expiration field in the session screen."
+  },
+  "session_forceTokenResfresh": "Принудительное обновление токена",
+  "@session_forceTokenResfresh": {
+    "description": "The action to force a token refresh."
+  },
+  "session_renewDialogTitle": "Обновить сеанс",
+  "@session_renewDialogTitle": {
+    "description": "The title of the confirmation dialog to renew the session."
   }
 }

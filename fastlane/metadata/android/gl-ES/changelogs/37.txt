@@ -1,0 +1,4 @@
+- Moitas melloras e cambios na Interface.
+- Arranxo do botón compartir nalgúns escenarios.
+- Novos idiomas: Español, Estonio.
+- Actualización das traducións.

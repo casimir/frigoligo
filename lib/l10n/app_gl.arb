@@ -466,5 +466,9 @@
   "articlefields_website": "Sitio web",
   "@articlefields_website": {
     "description": "The website (domain) from where the article has been fetched."
+  },
+  "readdingsettings_textFormatting": "Formato do texto",
+  "@readdingsettings_textFormatting": {
+    "description": "The text formatting to display the content of the article."
   }
 }
