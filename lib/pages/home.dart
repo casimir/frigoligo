@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../app_info.dart';
 import '../constants.dart';
 import '../providers/expander.dart';
 import '../services/remote_sync.dart';
@@ -35,6 +36,16 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    if (AppInfo.deviceIsIPhone) {
+      // On iPhone the orientation is locked to portrait in build settings. And
+      // this the screen size won't change the layout can be static.
+      // This is all the more important on iPhone because the software keyboard
+      // triggers several MediaQuery invalidation events when it appears and disappears.
+      return _buildNarrowLayout();
+    }
+
+    // Internally Layout uses MediaQuery. One side effect of this is that on resize
+    // almost all widgets are rebuilt.
     return switch (Layout.windowClass(context)) {
       WindowClass.compact => _buildNarrowLayout(),
       WindowClass.medium => _buildDynamicLayout(),

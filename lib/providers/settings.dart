@@ -44,7 +44,7 @@ class Settings extends _$Settings {
   }
 
   Settings() {
-    _currentVersion = int.parse(AppInfo.data.buildNumber);
+    _currentVersion = int.parse(AppInfo.data.package.buildNumber);
     if (UniversalPlatform.isIOS) {
       _syncer = SettingsSyncer(this);
     }
