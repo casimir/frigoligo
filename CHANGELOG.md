@@ -18,6 +18,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(UI/UX)* Add a divider between panes on wide screens ([80e655a](https://github.com/casimir/frigoligo/commit/80e655a8cd0b9204b023e406d708328c3f93b072))
 - *(UI/UX)* Declutter the search interface ([14c07db](https://github.com/casimir/frigoligo/commit/14c07db947e1dc15dcce7da31be691d73a8bd270))
 - *(reading)* Add a control to toggle text justification ([22a6b11](https://github.com/casimir/frigoligo/commit/22a6b1195c1d3d82e5bbc50c51385512adc245fe))
+- *(web)* Replace placeholder title ([941ed8a](https://github.com/casimir/frigoligo/commit/941ed8aea366d57dd7b565b5361f161a4cda61d9))
 
 ### 🐛 Bug Fixes
 
@@ -28,12 +29,16 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(reading)* Truncate title to avoid vertical clipping ([d37056a](https://github.com/casimir/frigoligo/commit/d37056a7d25637d7a9083b7e37a3b1bdb02c9dde))
 - *(iOS)* Attach the share popover to the button that triggered it ([1b865f4](https://github.com/casimir/frigoligo/commit/1b865f4a53a31b7fd2432d564c670f285efdf1bb))
 - Add a temporary workaround for l10n_esperanto ([971308f](https://github.com/casimir/frigoligo/commit/971308f03a8b5fc459bba47a7cd5e9c23f05f548))
+- *(deeplinks)* Handle `/` correctly (sent startup on web) ([fbf6d02](https://github.com/casimir/frigoligo/commit/fbf6d02bff65ce5413bffb45f1532df4a15a9851))
+- *(web)* Unbroke eveything by updating sqlite and forcing html renderer ([0528605](https://github.com/casimir/frigoligo/commit/052860541c0a8ca249daa0ae718a093b6e613497))
+- *(reading)* Allow text selection again ([aac0a15](https://github.com/casimir/frigoligo/commit/aac0a150dbbe588f13dfa13c2bb40cc4d4a86b14))
 
 ### 🚜 Refactor
 
 - *(settings)* Change how enum values are handled ([#277](https://github.com/casimir/frigoligo/pull/277)) ([2c8078a](https://github.com/casimir/frigoligo/commit/2c8078ab530732347947abe2937762ef8df5c8cb))
 - *(reading settings)* Use cadanse instead of hard coded values ([1f7c5cb](https://github.com/casimir/frigoligo/commit/1f7c5cb239f6be2f6aa179013a53a918b3644ee1))
 - Simplify currentArticleProvider ([78a3ac7](https://github.com/casimir/frigoligo/commit/78a3ac7697c8ff968b777f32fee37526d93b4239))
+- *(deps)* Pin everything ([a84f817](https://github.com/casimir/frigoligo/commit/a84f81773b85db73a941a5dab4e1441ab2eebebc))
 
 ### 📚 Documentation
 
@@ -67,6 +72,9 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Setup automated changelog update every day ([627adcf](https://github.com/casimir/frigoligo/commit/627adcf6c661517d3f2f6e4826563b9d06450ae9))
 - *(screenshots)* Add ET to the list of locales ([9cbdcc9](https://github.com/casimir/frigoligo/commit/9cbdcc95dc8f34f02e781658c31e6e30c2c83816))
 - Update flutter and flutter dependencies ([bd44dfc](https://github.com/casimir/frigoligo/commit/bd44dfcddfa165e6ab7aa22f7cb7cf7d75f41dc6))
+- Group renovate updates ([a2d2d32](https://github.com/casimir/frigoligo/commit/a2d2d329030c53a5b440146e60e58529059d5654))
+- *(config)* Migrate config renovate.json ([#300](https://github.com/casimir/frigoligo/pull/300)) ([5fb33ec](https://github.com/casimir/frigoligo/commit/5fb33ec1d6a4bc883442d9d71d98632ec577b715))
+- Remove l10n_esperanto workaround as it has been fixed upstream ([f3f2526](https://github.com/casimir/frigoligo/commit/f3f25268c8f323bb8a414232154f874fea63dc95))
 
 **Full Changelog**: [v2.0.0..HEAD](https://github.com/casimir/frigoligo/compare/v2.0.0..HEAD)
 
