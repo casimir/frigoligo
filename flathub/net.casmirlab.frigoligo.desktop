@@ -5,6 +5,6 @@ Name=Frigoligo
 Comment=Your articles with you
 Categories=Network;News;
 
-Exec=AppImage
-Icon=frigoligo
+Exec=frigoligo
+Icon=net.casimirlab.frigoligo
 Terminal=false
