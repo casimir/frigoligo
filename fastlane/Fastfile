@@ -35,8 +35,8 @@ platform :ios do
     deliver(
       metadata_path: "fastlane/metadata/ios/",
       screenshots_path: "fastlane/screenshots/ios/",
-      # force: true,
-      # overwrite_screenshots: true
+      overwrite_screenshots: true,
+      # force: true
     )
   end
 end

@@ -19,7 +19,7 @@ void main() {
       Settings.initialLocaleOverride = Language.en;
     case 'es-ES':
       Settings.initialLocaleOverride = Language.es;
-    case 'et-EE':
+    case 'et':
       Settings.initialLocaleOverride = Language.et;
     case 'fr-FR':
       Settings.initialLocaleOverride = Language.fr;

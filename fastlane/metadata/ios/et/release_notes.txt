@@ -1,1 +1,0 @@
-../../android/et/changelogs/37.txt
