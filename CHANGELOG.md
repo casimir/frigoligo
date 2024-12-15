@@ -47,6 +47,10 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Reduce translation minimum completeness to align with weblate ([b27b290](https://github.com/casimir/frigoligo/commit/b27b290e8b3cfdba193d1a64bdf1775ba1299ee5))
 - *(changelogs)* Start the changelog for the next release ([71a3fa9](https://github.com/casimir/frigoligo/commit/71a3fa9d07189fbb135fd1c2acb84b527a793752))
 
+### ⚡ Performance
+
+- *(ios)* Avoid a volley of rebuilds when using the keyboard ([a7e5d49](https://github.com/casimir/frigoligo/commit/a7e5d497b9dc54282ab8e28fc8e4369dfcc2ee65))
+
 ### 🌐 Translations
 
 - Update translations: Spanish
@@ -63,6 +67,8 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
  ([673ef3c](https://github.com/casimir/frigoligo/commit/673ef3c4cd6b1af1318a6ea9da78565023d08fdc))
 - Update translations: French
  ([f6f4735](https://github.com/casimir/frigoligo/commit/f6f4735f5547ef4fb8eb9c2b13e04cc0ff02ba46))
+- Update translations: Galician
+ ([723e8b9](https://github.com/casimir/frigoligo/commit/723e8b94a801b5bf78f4cc000f67eda7c0a5476c))
 
 ### ⚙️ Miscellaneous Tasks
 
@@ -75,6 +81,8 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Group renovate updates ([a2d2d32](https://github.com/casimir/frigoligo/commit/a2d2d329030c53a5b440146e60e58529059d5654))
 - *(config)* Migrate config renovate.json ([#300](https://github.com/casimir/frigoligo/pull/300)) ([5fb33ec](https://github.com/casimir/frigoligo/commit/5fb33ec1d6a4bc883442d9d71d98632ec577b715))
 - Remove l10n_esperanto workaround as it has been fixed upstream ([f3f2526](https://github.com/casimir/frigoligo/commit/f3f25268c8f323bb8a414232154f874fea63dc95))
+- *(renovate)* Change a constraint to fix PR generation ([b6456ad](https://github.com/casimir/frigoligo/commit/b6456ad8d188c50ee02ab851eee0f4e06aff99c1))
+- *(fastlane)* Regen metadata ([e0dee03](https://github.com/casimir/frigoligo/commit/e0dee03459ad4f30402033ab52cde9c2adb0f6eb))
 
 **Full Changelog**: [v2.0.0..HEAD](https://github.com/casimir/frigoligo/compare/v2.0.0..HEAD)
 
