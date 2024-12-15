@@ -23,14 +23,12 @@ if [ -n "$(git status --porcelain --untracked-files no)" ]; then
   exit 1
 fi
 
-export GPG_TTY=$(tty)
-
 git-cliff --tag $TAG
 git add CHANGELOG.md
 git commit -m "Automated changelog update"
 
 TMPFILE=$(mktemp)
-git cliff --tag $TAG --strip all --output $TMPFILE
+git cliff --unreleased --tag $TAG --strip all --output $TMPFILE
 git tag --sign $TAG --file $TMPFILE
 rm $TMPFILE
 
