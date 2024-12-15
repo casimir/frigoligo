@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadata/android/en-US/changelogs) for a more high level list of changes.
 
-## [unreleased]
+## [2.1.0] - 2024-12-15
 
 
 ### 🚀 Features
@@ -32,6 +32,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(deeplinks)* Handle `/` correctly (sent startup on web) ([fbf6d02](https://github.com/casimir/frigoligo/commit/fbf6d02bff65ce5413bffb45f1532df4a15a9851))
 - *(web)* Unbroke eveything by updating sqlite and forcing html renderer ([0528605](https://github.com/casimir/frigoligo/commit/052860541c0a8ca249daa0ae718a093b6e613497))
 - *(reading)* Allow text selection again ([aac0a15](https://github.com/casimir/frigoligo/commit/aac0a150dbbe588f13dfa13c2bb40cc4d4a86b14))
+- *(release)* Fix tag message generation ([23c2c22](https://github.com/casimir/frigoligo/commit/23c2c2227fa79df27711ea07c1dbda5e52d656a6))
 
 ### 🚜 Refactor
 
@@ -83,8 +84,9 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Remove l10n_esperanto workaround as it has been fixed upstream ([f3f2526](https://github.com/casimir/frigoligo/commit/f3f25268c8f323bb8a414232154f874fea63dc95))
 - *(renovate)* Change a constraint to fix PR generation ([b6456ad](https://github.com/casimir/frigoligo/commit/b6456ad8d188c50ee02ab851eee0f4e06aff99c1))
 - *(fastlane)* Regen metadata ([e0dee03](https://github.com/casimir/frigoligo/commit/e0dee03459ad4f30402033ab52cde9c2adb0f6eb))
+- *(fastlane)* Few teaks before the release ([d9ea07e](https://github.com/casimir/frigoligo/commit/d9ea07e7b48d07e96bfb84ba14044e74b13f8f1d))
 
-**Full Changelog**: [v2.0.0..HEAD](https://github.com/casimir/frigoligo/compare/v2.0.0..HEAD)
+**Full Changelog**: [v2.0.0..v2.1.0](https://github.com/casimir/frigoligo/compare/v2.0.0..v2.1.0)
 
 
 ## [2.0.0] - 2024-11-07
