@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadata/android/en-US/changelogs) for a more high level list of changes.
 
+## [2.1.2] - 2024-12-15
+
+
+### ⚙️ Miscellaneous Tasks
+
+- *(flathub)* Fix a typo in a filename ([6c0e65e](https://github.com/casimir/frigoligo/commit/6c0e65eae0db2cc6e7b556f6b41ba82d86fe1a79))
+
+**Full Changelog**: [v2.1.1..v2.1.2](https://github.com/casimir/frigoligo/compare/v2.1.1..v2.1.2)
+
+
 ## [2.1.1] - 2024-12-15
 
 
