@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadata/android/en-US/changelogs) for a more high level list of changes.
 
+## [2.1.3] - 2024-12-15
+
+
+### ⚙️ Miscellaneous Tasks
+
+- *(flathub)* Move the metadata in the repo ([dea8f03](https://github.com/casimir/frigoligo/commit/dea8f0394836c70f4a166ee10abe682f505a2090))
+
+**Full Changelog**: [v2.1.2..v2.1.3](https://github.com/casimir/frigoligo/compare/v2.1.2..v2.1.3)
+
+
 ## [2.1.2] - 2024-12-15
 
 
