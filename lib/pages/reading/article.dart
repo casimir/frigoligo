@@ -390,9 +390,9 @@ class _LinearScrollIndicatorState extends State<LinearScrollIndicator> {
   void _scrollListener() {
     final pixels = widget.controller.position.pixels;
     final maxExtent = widget.controller.position.maxScrollExtent;
-    final double progress = (pixels / maxExtent).clamp(0, 1);
     setState(() {
-      _scrollProgress = progress;
+      // until there has been a scroll event, maxExtent is 0.0
+      _scrollProgress = pixels > 0.0 ? (pixels / maxExtent).clamp(0, 1) : 0.0;
     });
   }
 
