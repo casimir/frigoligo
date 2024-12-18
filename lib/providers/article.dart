@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:drift/drift.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -42,20 +41,6 @@ class ArticleData extends _$ArticleData {
       }
     });
     ref.onDispose(() => _watcher?.cancel());
-  }
-
-  Future<void> saveScrollProgress(double progress) async {
-    final article = state.maybeWhen(orElse: () => null, data: (a) => a);
-    if (article == null) return;
-
-    await DB().managers.articleScrollPositions.create(
-          (o) => o(
-            id: Value(article.id),
-            readingTime: article.readingTime,
-            progress: progress,
-          ),
-          mode: InsertMode.insertOrReplace,
-        );
   }
 }
 
@@ -119,25 +104,6 @@ class CurrentArticle extends _$CurrentArticle {
 
     change(articleId);
     return true;
-  }
-
-  Future<void> saveScrollProgress(double progress) async {
-    if (_articleId == null) return;
-
-    final db = DB();
-    final article = await db.managers.articles
-        .filter(
-          (f) => f.id.equals(_articleId!),
-        )
-        .getSingle();
-    await db.managers.articleScrollPositions.create(
-      (o) => o(
-        id: Value(article.id),
-        readingTime: article.readingTime,
-        progress: progress,
-      ),
-      mode: InsertMode.insertOrReplace,
-    );
   }
 }
 

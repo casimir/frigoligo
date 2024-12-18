@@ -8,6 +8,7 @@ import 'package:fwfh_url_launcher/fwfh_url_launcher.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../buildcontext_extension.dart';
+import '../../db/database.dart';
 import '../../db/models/article.drift.dart';
 import '../../providers/article.dart';
 import '../../providers/reading_settings.dart';
@@ -92,11 +93,11 @@ class _ArticleContentState extends ConsumerState<ArticleContent> {
     super.dispose();
   }
 
-  void _scrollListener() {
+  Future<void> _scrollListener() async {
     final pixels = controller.position.pixels;
     final maxExtent = controller.position.maxScrollExtent;
     final double progress = (pixels / maxExtent).clamp(0, 1);
-    ref.read(currentArticleProvider.notifier).saveScrollProgress(progress);
+    await DB().articlesDao.saveScrollProgress(widget.article, progress);
   }
 
   // As of version 2.0 there seem to be a random issue with the correct scroll
