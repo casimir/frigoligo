@@ -94,7 +94,8 @@ class _MultiSelectState<T> extends State<MultiSelect<T>> {
         const Divider(),
         Expanded(
           child: ListView(
-              children: search(_searchController.text, _index.keys.toList())
+              children: search(_searchController.text, _index.keys.toList(),
+                      selected: _selected.map((e) => _index[e]!.label).toSet())
                   .map((m) => _buildItem(context, _index[m.entry]!))
                   .toList()),
         ),
@@ -141,21 +142,40 @@ class EntryScore {
 
   @override
   String toString() => '$entry ($score)';
+
+  EntryScore copyWith({String? entry, double? score}) {
+    return EntryScore(
+      entry ?? this.entry,
+      score ?? this.score,
+    );
+  }
 }
 
-List<EntryScore> search(String query, List<String> entries) {
+List<EntryScore> search(
+  String query,
+  List<String> entries, {
+  Set<String>? selected,
+  double selectedBoost = 100,
+}) {
+  List<EntryScore> results;
   if (query.isEmpty) {
-    return entries.map((e) => EntryScore(e, 0.0)).toList()
-      ..sort((a, b) => a.entry.compareTo(b.entry));
+    results = entries.map((e) => EntryScore(e, 0.0)).toList();
+  } else {
+    final preparedQuery =
+        query.split(RegExp(r'\s+')).map((e) => '($e)').join('.*');
+    final re = RegExp(preparedQuery, caseSensitive: false);
+    results = entries
+        .map((e) => EntryScore(e, _computeScore(re.allMatches(e))))
+        .where((e) => e.score > 0.0)
+        .toList();
   }
 
-  final preparedQuery =
-      query.split(RegExp(r'\s+')).map((e) => '($e)').join('.*');
-  final re = RegExp(preparedQuery, caseSensitive: false);
-  return entries
-      .map((e) => EntryScore(e, _computeScore(re.allMatches(e))))
-      .where((e) => e.score > 0.0)
-      .toList()
+  results = results.map((e) {
+    final boost = selected?.contains(e.entry) == true ? selectedBoost : 0;
+    return boost > 0 ? e.copyWith(score: e.score + boost) : e;
+  }).toList();
+
+  return results
     ..sort((a, b) {
       final delta = b.score.compareTo(a.score);
       return delta == 0 ? a.entry.compareTo(b.entry) : delta;
