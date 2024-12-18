@@ -113,6 +113,7 @@ void _showTagsDialog(
     entriesBuilder: DB().articlesDao.listAllTags(),
     initialSelection: article.tags.toSet(),
     leadingIcon: const Icon(Icons.label),
+    addEntryIcon: const Icon(Icons.new_label_outlined),
   );
   if (tags != null) {
     final syncer = ref.read(remoteSyncerProvider.notifier);

@@ -1,3 +1,4 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cadanse/cadanse.dart';
 import 'package:cadanse/components/widgets/error.dart';
 import 'package:cadanse/tokens/constants.dart';
@@ -36,6 +37,8 @@ class MultiSelect<T> extends StatefulWidget {
     required this.entries,
     this.initialSelection,
     this.onConfirm,
+    this.addEntryIcon,
+    this.newEntryLeading,
   });
 
   final String title;
@@ -43,6 +46,8 @@ class MultiSelect<T> extends StatefulWidget {
   final List<DropdownMenuEntry<T>> entries;
   final Set<T>? initialSelection;
   final void Function(Iterable<T>)? onConfirm;
+  final Icon? addEntryIcon;
+  final Icon? newEntryLeading;
 
   @override
   State<MultiSelect<T>> createState() => _MultiSelectState<T>();
@@ -83,12 +88,34 @@ class _MultiSelectState<T> extends State<MultiSelect<T>> {
             ),
             C.spacers.horizontalComponent,
             IconButton(
-                icon: const Icon(Icons.restart_alt),
+                icon: const Icon(Icons.clear_all),
                 onPressed: () {
                   _selected.clear();
                   _searchController.clear();
                   setState(() {});
-                })
+                }),
+            // FIXME this predicate can provoke a weird and surprising behavior
+            if (widget.addEntryIcon != null && T == String)
+              IconButton(
+                icon: widget.addEntryIcon!,
+                onPressed: () async {
+                  final input = await showTextInputDialog(
+                    context: context,
+                    textFields: [const DialogTextField(autocorrect: false)],
+                  );
+                  if (input?.length != 1) return;
+                  final label = input!.first;
+                  final entry = DropdownMenuEntry(
+                    value: label,
+                    label: label,
+                    leadingIcon: widget.newEntryLeading,
+                  );
+                  setState(() {
+                    _index[label] = entry as DropdownMenuEntry<T>;
+                    _selected.add(label as T);
+                  });
+                },
+              ),
           ]),
         ),
         const Divider(),
@@ -197,6 +224,7 @@ Future<Iterable<T>?> showBottomSheetSelector<T>({
   required Future<Iterable<T>> entriesBuilder,
   Icon? leadingIcon,
   Set<T>? initialSelection,
+  Icon? addEntryIcon,
 }) {
   return showModalBottomSheet(
     context: context,
@@ -222,6 +250,8 @@ Future<Iterable<T>?> showBottomSheetSelector<T>({
                     ))
                 .toList(),
             initialSelection: initialSelection,
+            addEntryIcon: addEntryIcon,
+            newEntryLeading: leadingIcon,
           );
         }),
     backgroundColor: Theme.of(context).colorScheme.surface,
