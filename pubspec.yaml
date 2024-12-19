@@ -56,7 +56,7 @@ dependencies:
 
   # data management
   drift: 2.22.1
-  drift_flutter: 0.2.2
+  drift_flutter: 0.2.3
   shared_preferences: 2.3.3
   shared_preference_app_group: 1.1.1
 
