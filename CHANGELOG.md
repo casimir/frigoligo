@@ -4,6 +4,30 @@ All notable changes to this project will be documented in this file.
 
 See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadata/android/en-US/changelogs) for a more high level list of changes.
 
+## [unreleased]
+
+
+### 🚀 Features
+
+- *(multiselect)* Keep selections at the top of the list ([31fb21b](https://github.com/casimir/frigoligo/commit/31fb21b4d019ce18785f35c4fb35a4a2ab945f93))
+- Allow to create new tags when editing the tags of an article ([89419cf](https://github.com/casimir/frigoligo/commit/89419cfb3aef564a0b0a0d49f22749688c6916ff))
+
+### 🐛 Bug Fixes
+
+- *(reading)* Make the scroll indicator start at 0% instead of 100% ([701f93b](https://github.com/casimir/frigoligo/commit/701f93be415d0bceba915f2f9935533e4c959c65))
+- *(reading)* Avoid race condition when saving reading progress ([d9d312d](https://github.com/casimir/frigoligo/commit/d9d312db331b78992e0be3b21ca4a7fd9a1f3000))
+
+### 📚 Documentation
+
+- *(reamde)* Add a link to flathub ([f32b19b](https://github.com/casimir/frigoligo/commit/f32b19bb99d571bb10be04a921f4457d28b7b372))
+
+### ⚙️ Miscellaneous Tasks
+
+- Start new dev cycle ([0963ddf](https://github.com/casimir/frigoligo/commit/0963ddfd8751733ef27b0a0ad860e595af73d45d))
+
+**Full Changelog**: [v2.1.3..HEAD](https://github.com/casimir/frigoligo/compare/v2.1.3..HEAD)
+
+
 ## [2.1.3] - 2024-12-15
 
 
