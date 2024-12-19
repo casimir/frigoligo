@@ -1,11 +1,13 @@
 import 'dart:convert';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:http/http.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../db/database.dart';
 import '../db/extensions/remote_action.dart';
+import '../wallabag/client.dart';
 import 'remote_sync_actions/articles.dart';
 import 'remote_sync_actions/base.dart';
 import 'wallabag_storage.dart';
@@ -90,8 +92,15 @@ class RemoteSyncer extends _$RemoteSyncer {
         _log.info('running action: $_refreshAction');
         await _refreshAction.execute(this, ref.read(wStorageProvider.notifier));
       }
+    } on ServerError catch (e) {
+      _log.severe('communication error', e);
+      // Report error in the UI only if it's not a network issue. In that case
+      // the sync will just stop and be tried again later.
+      if (e.source is! ClientException) {
+        _error = e;
+      }
     } on Exception catch (e) {
-      _log.severe('error while executing actions', e);
+      _log.severe('sync failed', e);
       _error = e;
     } finally {
       state = SyncState(
