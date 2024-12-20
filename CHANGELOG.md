@@ -11,15 +11,19 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 
 - *(multiselect)* Keep selections at the top of the list ([31fb21b](https://github.com/casimir/frigoligo/commit/31fb21b4d019ce18785f35c4fb35a4a2ab945f93))
 - Allow to create new tags when editing the tags of an article ([89419cf](https://github.com/casimir/frigoligo/commit/89419cfb3aef564a0b0a0d49f22749688c6916ff))
+- *(sync)* Don't bother the user for network issues, the FAB is enough ([1aea3c5](https://github.com/casimir/frigoligo/commit/1aea3c5f83e0bcbecfb5d35cc7b1f4f790a7c2ad))
 
 ### 🐛 Bug Fixes
 
 - *(reading)* Make the scroll indicator start at 0% instead of 100% ([701f93b](https://github.com/casimir/frigoligo/commit/701f93be415d0bceba915f2f9935533e4c959c65))
 - *(reading)* Avoid race condition when saving reading progress ([d9d312d](https://github.com/casimir/frigoligo/commit/d9d312db331b78992e0be3b21ca4a7fd9a1f3000))
+- *(wasm)* Make the app work with a wasm build ([b7aaaa3](https://github.com/casimir/frigoligo/commit/b7aaaa3ff712c21ea7a7835f6456122203d9edd5))
 
 ### 📚 Documentation
 
 - *(reamde)* Add a link to flathub ([f32b19b](https://github.com/casimir/frigoligo/commit/f32b19bb99d571bb10be04a921f4457d28b7b372))
+- Update desktop screenshot ([3db1e0f](https://github.com/casimir/frigoligo/commit/3db1e0f3f1401d93c93f954a1f8bf09affb44dbf))
+- *(changelogs)* Start the changelog for the next release ([46896ae](https://github.com/casimir/frigoligo/commit/46896ae54c26cb89646eb06d7eb59a0824fa0ad1))
 
 ### ⚙️ Miscellaneous Tasks
 
