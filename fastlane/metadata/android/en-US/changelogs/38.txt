@@ -1,3 +1,4 @@
 - Add a way to create tags when editing an article.
 - Better experience when offline.
 - Several bugfixes related to reading progress.
+- Allow to connect with a server without SSL.

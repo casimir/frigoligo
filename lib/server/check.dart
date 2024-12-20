@@ -14,7 +14,7 @@ final _log = Logger('server.check');
 Future<WallabagInfo?> _fetchServerInfo(Uri uri, bool selfSigned) async {
   final client = newClient(selfSignedHost: selfSigned ? uri.host : null);
   final response = await client.get(
-    Uri.https(uri.authority, '${uri.path}/api/info'),
+    uri.replace(path: '${uri.path}/api/info'),
     headers: {
       'Content-Type': 'application/json',
       if (!UniversalPlatform.isWeb) 'User-Agent': AppInfo.userAgent,
@@ -28,7 +28,7 @@ Future<WallabagInfo?> _fetchServerInfo(Uri uri, bool selfSigned) async {
 
 Future<Uri?> _detectFavicon(Uri uri) async {
   if (UniversalPlatform.isWeb) return null;
-  final faviconUri = Uri.https(uri.authority, '/favicon.ico');
+  final faviconUri = uri.replace(path: '/favicon.ico');
   final response = await http.head(faviconUri);
   return response.statusCode == 200 ? faviconUri : null;
 }
@@ -37,11 +37,13 @@ Future<ServerCheck> checkServerState(String serverUrl, bool selfSigned) async {
   _log.info("starting server check for '$serverUrl'");
   late final ServerCheck check;
   try {
+    final protocol = serverUrl.startsWith('http://') ? 'http' : 'https';
     var trimmed = serverUrl.split('://').last;
     trimmed = trimmed.endsWith('/')
         ? trimmed.substring(0, trimmed.length - 1)
         : trimmed;
-    final uri = Uri.parse('https://$trimmed');
+    final uri = Uri.parse('$protocol://$trimmed');
+
     final info = await _fetchServerInfo(uri, selfSigned);
     final faviconUri = await _detectFavicon(uri);
     check = ServerCheck(uri, info, faviconUri, null, selfSigned);

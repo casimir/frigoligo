@@ -57,10 +57,9 @@ class WallabagNativeClient extends WallabagClient {
   Future<Uri> buildUri(String path,
       [Map<String, dynamic>? queryParameters]) async {
     final credentials = await _getCredentials();
-    return Uri.https(
-      credentials.server.authority,
-      credentials.server.path + path,
-      queryParameters,
+    return credentials.server.replace(
+      path: credentials.server.path + path,
+      queryParameters: queryParameters,
     );
   }
 

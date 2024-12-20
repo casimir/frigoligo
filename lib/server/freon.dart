@@ -46,10 +46,9 @@ class FreonWallabagClient extends WallabagClient {
   @override
   Future<Uri> buildUri(String path,
       [Map<String, dynamic>? queryParameters]) async {
-    return Uri.https(
-      _credentials.server.authority,
-      '${_credentials.server.path}/wallabag$path',
-      queryParameters,
+    return _credentials.server.replace(
+      path: '${_credentials.server.path}/wallabag$path',
+      queryParameters: queryParameters,
     );
   }
 }
