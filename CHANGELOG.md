@@ -18,16 +18,19 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(reading)* Make the scroll indicator start at 0% instead of 100% ([701f93b](https://github.com/casimir/frigoligo/commit/701f93be415d0bceba915f2f9935533e4c959c65))
 - *(reading)* Avoid race condition when saving reading progress ([d9d312d](https://github.com/casimir/frigoligo/commit/d9d312db331b78992e0be3b21ca4a7fd9a1f3000))
 - *(wasm)* Make the app work with a wasm build ([b7aaaa3](https://github.com/casimir/frigoligo/commit/b7aaaa3ff712c21ea7a7835f6456122203d9edd5))
+- *(network)* Allow to use a server address in http:// ([fb3b648](https://github.com/casimir/frigoligo/commit/fb3b6487762dc8dea2019143c4701c704ae60024))
 
 ### 📚 Documentation
 
 - *(reamde)* Add a link to flathub ([f32b19b](https://github.com/casimir/frigoligo/commit/f32b19bb99d571bb10be04a921f4457d28b7b372))
 - Update desktop screenshot ([3db1e0f](https://github.com/casimir/frigoligo/commit/3db1e0f3f1401d93c93f954a1f8bf09affb44dbf))
 - *(changelogs)* Start the changelog for the next release ([46896ae](https://github.com/casimir/frigoligo/commit/46896ae54c26cb89646eb06d7eb59a0824fa0ad1))
+- Fix a typo ([c1310b9](https://github.com/casimir/frigoligo/commit/c1310b909d1149c59516fa0d6a3e78df59f6bb7c))
 
 ### ⚙️ Miscellaneous Tasks
 
 - Start new dev cycle ([0963ddf](https://github.com/casimir/frigoligo/commit/0963ddfd8751733ef27b0a0ad860e595af73d45d))
+- Regen build_runner files ([94ab2a7](https://github.com/casimir/frigoligo/commit/94ab2a7cb782e120663bc901086860feb0c5c65d))
 
 **Full Changelog**: [v2.1.3..HEAD](https://github.com/casimir/frigoligo/compare/v2.1.3..HEAD)
 
