@@ -1,4 +1,3 @@
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cadanse/cadanse.dart';
 import 'package:cadanse/components/layouts/grouping.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +5,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
+import 'package:flutter/services.dart';
 
 import '../../buildcontext_extension.dart';
 import '../../providers/server_login_flow.dart';
@@ -54,6 +54,7 @@ class LoginFlowCredentials extends ConsumerStatefulWidget {
 class _LoginFlowCredentialsState extends ConsumerState<LoginFlowCredentials> {
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   bool _gotAnError = false;
+  String? _errorMessage;
 
   @override
   void initState() {
@@ -127,7 +128,14 @@ class _LoginFlowCredentialsState extends ConsumerState<LoginFlowCredentials> {
                           onPressed: () => attemptLogin(),
                           child: Text(context.L.login_actionLogin),
                         ),
-                        C.spacers.verticalContent,
+                        if (_errorMessage != null) ...[
+                          C.spacers.verticalContent,
+                          Text(
+                            _errorMessage!,
+                            style: TextStyle(color: Theme.of(context).colorScheme.error),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
                         if (_gotAnError)
                           MaterialButton(
                             onPressed: () => context.push('/logs'),
@@ -144,6 +152,7 @@ class _LoginFlowCredentialsState extends ConsumerState<LoginFlowCredentials> {
   }
 
   Future<void> attemptLogin() async {
+    setState(() => _errorMessage = null);
     if (_formKey.currentState!.saveAndValidate()) {
       try {
         final session = await widget.loginController
@@ -155,17 +164,14 @@ class _LoginFlowCredentialsState extends ConsumerState<LoginFlowCredentials> {
           context.go('/');
         }
       } catch (e, st) {
-        setState(() => _gotAnError = true);
+        setState(() {
+          _gotAnError = true;
+          _errorMessage = e is ServerError ? e.message : e.toString();
+        });
         if (e is ServerError) {
           _log.warning('authentication failed', e.message);
-          if (mounted) {
-            showOkAlertDialog(context: context, message: e.message);
-          }
         } else {
           _log.severe('unexpected error', e, st);
-          if (mounted) {
-            showOkAlertDialog(context: context, message: e.toString());
-          }
         }
       }
     }
