@@ -70,19 +70,27 @@ class _LoginFlowCredentialsState extends ConsumerState<LoginFlowCredentials> {
   Widget build(BuildContext context) {
     final loginFields = widget.loginController
         .getFields(context)
+        .asMap()
+        .entries
         .map(
           (e) => FormBuilderTextField(
-            key: e.key,
-            name: e.name,
-            validator: (value) => notEmptyValidator(context, value, e.label),
+            key: e.value.key,
+            name: e.value.name,
+            validator: (value) => notEmptyValidator(context, value, e.value.label),
             decoration: InputDecoration(
-              icon: e.icon,
-              labelText: e.label,
+              icon: e.value.icon,
+              labelText: e.value.label,
             ),
-            obscureText: e.obscureText,
+            obscureText: e.value.obscureText,
             autofocus: true,
             autocorrect: false,
-            autofillHints: e.autofillHints,
+            autofillHints: e.value.autofillHints,
+            textInputAction: e.key == widget.loginController.getFields(context).length - 1 
+                ? TextInputAction.go 
+                : TextInputAction.next,
+            onSubmitted: e.key == widget.loginController.getFields(context).length - 1
+                ? (_) => attemptLogin()
+                : null,
           ) as Widget,
         )
         .toList();
