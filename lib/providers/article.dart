@@ -20,8 +20,11 @@ class ArticleData extends _$ArticleData {
   @override
   Future<Article?> build(int articleId) async {
     final stopwatch = Stopwatch()..start();
+
     _watcher?.cancel();
     _watch(articleId);
+    ref.onDispose(() => _watcher?.cancel());
+
     final t1 = DB().managers.articles;
     final ret =
         await t1.filter((f) => f.id.equals(articleId)).getSingleOrNull();
@@ -35,75 +38,48 @@ class ArticleData extends _$ArticleData {
   void _watch(int articleId) {
     final q = DB().managers.articles.filter((f) => f.id.equals(articleId));
     _watcher = q.watchSingleOrNull(distinct: false).listen((article) {
-      final stateArticle = state.maybeWhen(orElse: () => null, data: (a) => a);
+      if (state.isLoading || !state.hasValue) return;
+      final stateArticle = state.value;
       if (stateArticle == null || article != stateArticle) {
         state = AsyncValue.data(article);
       }
     });
-    ref.onDispose(() => _watcher?.cancel());
   }
 }
 
 @riverpod
 class CurrentArticle extends _$CurrentArticle {
-  int? _articleId;
-  StreamSubscription? _watcher;
-
   @override
   Future<Article?> build() async {
-    _watcher?.cancel();
-
-    _articleId ??=
+    var articleId =
         ref.watch(settingsProvider.select((it) => it[Sk.selectedArticleId]));
 
-    if (_articleId == null) {
+    if (articleId != null) {
+      final db = DB();
+      final exists = await db.managers.articles
+          .filter((f) => f.id.equals(articleId))
+          .exists();
+      if (!exists) {
+        articleId = null;
+      }
+    }
+
+    if (articleId == null) {
       final meta = await ref.read(queryMetaProvider.future);
       if (meta.ids.isNotEmpty) {
-        _articleId = meta.ids.first;
+        articleId = meta.ids.first;
       }
     }
 
-    if (_articleId != null) {
-      _watch();
-      return ref.watch(articleDataProvider(_articleId!).future);
-    }
-
-    return null;
-  }
-
-  void _watch() {
-    final q = DB().managers.articles.filter((f) => f.id.equals(_articleId!));
-    _watcher = q.watchSingleOrNull(distinct: false).listen((article) {
-      if (article == null) {
-        _articleId = null;
-        ref.invalidateSelf();
-        return;
-      }
-
-      final stateArticle = state.maybeWhen(orElse: () => null, data: (a) => a);
-      if (stateArticle == null) {
-        state = AsyncValue.data(article);
-      } else if (article.id != stateArticle.id) {
-        change(article.id);
-      }
-    });
-    ref.onDispose(() => _watcher?.cancel());
+    return articleId != null
+        ? ref.watch(articleDataProvider(articleId!).future)
+        : null;
   }
 
   void change(int articleId) {
-    if (_articleId == articleId) return;
-
-    _articleId = articleId;
-
-    ref.read(settingsProvider.notifier).set(Sk.selectedArticleId, articleId);
-    ref.invalidateSelf();
-  }
-
-  bool maybeInit(int articleId) {
-    if (_articleId != null && _articleId! > 0) return false;
-
-    change(articleId);
-    return true;
+    if (state.value?.id != articleId) {
+      ref.read(settingsProvider.notifier).set(Sk.selectedArticleId, articleId);
+    }
   }
 }
 

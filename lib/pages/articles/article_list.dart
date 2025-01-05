@@ -82,13 +82,6 @@ class _ArticleListState extends ConsumerState<ArticleListView> {
       controller: _scroller,
       itemCount: ref.watch(queryMetaProvider.selectAsync((it) => it.count)),
       itemBuilder: (context, index) async {
-        if (index == 0) {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            ref.read(queryMetaProvider.future).then((meta) {
-              ref.read(currentArticleProvider.notifier).maybeInit(meta.ids[0]);
-            });
-          });
-        }
         return AsyncArticleItem(
           articleId: await ref
               .watch(queryMetaProvider.selectAsync((it) => it.ids[index])),
