@@ -1,0 +1,4 @@
+- Añadir una forma de crear etiquetas al editar un artículo.
+- Mejor experiencia sin conexión.
+- Varias correcciones de errores relacionados con el progreso de lectura.
+- Permitir conectar con un servidor sin SSL.
