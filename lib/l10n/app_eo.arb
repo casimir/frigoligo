@@ -359,7 +359,7 @@
       }
     }
   },
-  "filters_articleStateAll": "Ĉiuj",
+  "filters_articleStateAll": "Ĉiuj statoj",
   "@filters_articleStateAll": {
     "description": "Don't filter articles by state."
   },
@@ -406,5 +406,65 @@
   "settings_itemLogConsole": "Protokolkonzolo",
   "@settings_itemLogConsole": {
     "description": "The action to display the log console screen."
+  },
+  "filters_articleState": "Stato",
+  "@filters_articleState": {
+    "description": "The state of the article."
+  },
+  "g_article": "Artikolo",
+  "@g_article": {
+    "description": "A piece of content fetched from the web. This is one of the main concepts of the app."
+  },
+  "g_saveLink": "Konservi ligon",
+  "@g_saveLink": {
+    "description": "A verb, as in to save a link."
+  },
+  "g_settings": "Agordoj",
+  "@g_settings": {
+    "description": "The settings of the application."
+  },
+  "g_synchronize": "Sinkronigi",
+  "@g_synchronize": {
+    "description": "A verb, as in to synchronize with the server."
+  },
+  "articlefields_readingTime": "Legdaŭro",
+  "@articlefields_readingTime": {
+    "description": "The estimated reading time of the article."
+  },
+  "articlefields_tags": "Etikedoj",
+  "@articlefields_tags": {
+    "description": "The tags of the article."
+  },
+  "articlefields_title": "Titolo",
+  "@articlefields_title": {
+    "description": "The title of the article."
+  },
+  "articlefields_website": "Retejo",
+  "@articlefields_website": {
+    "description": "The website (domain) from where the article has been fetched."
+  },
+  "filters_articleDomains": "Domajnoj",
+  "@filters_articleDomains": {
+    "description": "Filter the domains from where the articles have been fetched."
+  },
+  "filters_articleDomainsCount": "{count, plural, =1{1 domajno} other{{count} domajnoj}}",
+  "@filters_articleDomainsCount": {
+    "description": "The number of articles domains used in filters.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "filters_articleTagsCount": "{count, plural, =1{1 etikedo} other{{count} etikedoj}}",
+  "@filters_articleTagsCount": {
+    "description": "The number of tags used in filters.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
   }
 }
