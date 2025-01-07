@@ -55,8 +55,8 @@ dependencies:
   json_annotation: 4.9.0
 
   # data management
-  drift: 2.22.1
-  drift_flutter: 0.2.3
+  drift: 2.23.1
+  drift_flutter: 0.2.4
   shared_preferences: 2.3.4
   shared_preference_app_group: 1.1.1
 
@@ -83,7 +83,7 @@ dev_dependencies:
 
   # code generation
   build_runner: any
-  drift_dev: 2.22.1
+  drift_dev: 2.23.1
   freezed: 2.5.7
   json_serializable: 6.9.0
   riverpod_generator: 2.6.3
