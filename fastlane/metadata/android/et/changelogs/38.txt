@@ -1,0 +1,4 @@
+- Lisasime võimaluse luua silte artikli muutmise ajal.
+- Paremad kasutusvõimalused võrguühenduseta.
+- Mitmed lugemise edenemisega seotud veaparandused.
+- Võimalus kasutada serverit ilma krüptitud ühenduseta.
