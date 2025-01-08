@@ -43,6 +43,13 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   final GlobalKey _shareButtonKey = GlobalKey();
   final ScrollController scroller = ScrollController();
+  bool isFirstInit = false;
+
+  @override
+  void initState() {
+    super.initState();
+    isFirstInit = true;
+  }
 
   @override
   void dispose() {
@@ -66,6 +73,9 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
 
   @override
   Widget buildArticle(BuildContext context, Article? article) {
+    final openDrawer = widget.forcedDrawerOpen && isFirstInit;
+    isFirstInit = false;
+
     final showBottomBar = !Layout.isExpanded(context);
     final showRemoteSyncerWidgets = widget.withProgressIndicator &&
         !(_scaffoldKey.currentState?.isDrawerOpen ?? false);
@@ -76,7 +86,7 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
         appBarLeading: appBarLeading,
         title: null,
         drawer: widget.drawer,
-        forcedDrawerOpen: widget.forcedDrawerOpen,
+        forcedDrawerOpen: openDrawer,
         withProgressIndicator: showRemoteSyncerWidgets,
         scrollEnabled: false,
         builder: (_, __) => const Center(child: Icon(Icons.question_mark)),
@@ -118,7 +128,7 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
       ],
       bottomActions: showBottomBar ? _buildActions(article) : null,
       drawer: widget.drawer,
-      forcedDrawerOpen: widget.forcedDrawerOpen,
+      forcedDrawerOpen: openDrawer,
       endDrawer: const ArticleSheet(),
       withProgressIndicator: showRemoteSyncerWidgets,
       scrollEnabled: article.content != null,
