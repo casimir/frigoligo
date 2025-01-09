@@ -41,7 +41,7 @@
   "@filters_articleStateUnread": {
     "description": "Filter articles with the state 'unread'."
   },
-  "filters_articleStateAll": "Все",
+  "filters_articleStateAll": "Все состояния",
   "@filters_articleStateAll": {
     "description": "Don't filter articles by state."
   },
@@ -161,7 +161,7 @@
   "@session_fieldApiToken": {
     "description": "The API token field name of in forms."
   },
-  "login_acceptSelfSigned": "Принимать само-подписанные сертификаты",
+  "login_acceptSelfSigned": "Принимать самоподписанные сертификаты",
   "@login_acceptSelfSigned": {
     "description": "Wether or not to accept self-signed certificates when connecting to the wallabag instance."
   },
@@ -169,7 +169,7 @@
   "@session_copiedToClipboard": {
     "description": "A message displayed when the value is copied to the clipboard."
   },
-  "session_invalidToken": "неверный",
+  "session_invalidToken": "некорректно",
   "@session_invalidToken": {
     "description": "Placeholder for expiration date when the token is invalid."
   },
@@ -181,11 +181,11 @@
   "@session_fieldLastServerSync": {
     "description": "The label of the last server sync field in the session screen."
   },
-  "session_logoutSession": "Выход из сеанса",
+  "session_logoutSession": "Выйти из сеанса",
   "@session_logoutSession": {
     "description": "The action to log out the session."
   },
-  "settings_itemAbout": "Про",
+  "settings_itemAbout": "Информация",
   "@settings_itemAbout": {
     "description": "The action to display the about screen."
   },
@@ -205,19 +205,19 @@
   "@readingsettings_title": {
     "description": "The title of the reading settings screen."
   },
-  "settings_itemAppBadge": "Показать непрочитанный значок",
+  "settings_itemAppBadge": "Показать значок «непрочитанное»",
   "@settings_itemAppBadge": {
     "description": "The action to toggle the unread badge on the application icon."
   },
-  "settings_valueThemeLight": "Светлый",
+  "settings_valueThemeLight": "Светлая",
   "@settings_valueThemeLight": {
     "description": "The label for the light theme mode."
   },
-  "g_tag": "Метка",
+  "g_tag": "Тег",
   "@g_tag": {
     "description": "A tag can be attached to an article."
   },
-  "filters_articleFavoriteStarred": "Отмечать звездой",
+  "filters_articleFavoriteStarred": "Отмеченные звездой",
   "@filters_articleFavoriteStarred": {
     "description": "Filter starred articles."
   },
@@ -249,7 +249,7 @@
   "@save_confirmationTitle": {
     "description": "The title of the confirmation screen after the article is saved. "
   },
-  "save_dubiousUrlMessage": "Этот URL-адрес не похож на URL-адрес. Всё равно сохранить?\n{url}",
+  "save_dubiousUrlMessage": "Этот адрес не похож на URL. Всё равно сохранить?\n{url}",
   "@save_dubiousUrlMessage": {
     "description": "The message of the dubious URL warning dialog.",
     "placeholders": {
@@ -258,7 +258,7 @@
       }
     }
   },
-  "save_dubiousUrlTitle": "Сомнительный URL-адрес",
+  "save_dubiousUrlTitle": "Сомнительный URL",
   "@save_dubiousUrlTitle": {
     "description": "The title of the dubious URL warning dialog."
   },
@@ -266,11 +266,11 @@
   "@settings_itemSessionDetails": {
     "description": "The action to display the session details screen."
   },
-  "settings_valueThemeDark": "Тёмный",
+  "settings_valueThemeDark": "Тёмная",
   "@settings_valueThemeDark": {
     "description": "The label for the dark theme mode."
   },
-  "login_existingSessionDialogTitle": "Сессия в настоящее время активна",
+  "login_existingSessionDialogTitle": "Сессия в данный момент активна",
   "@login_existingSessionDialogTitle": {
     "description": "The title of the dialog warning about an existing session."
   },
@@ -282,7 +282,7 @@
   "@save_title": {
     "description": "The title of the save screen."
   },
-  "save_viewArticle": "Просмотреть статью",
+  "save_viewArticle": "Посмотреть статью",
   "@save_viewArticle": {
     "description": "The action to view the article after it is saved."
   },
@@ -304,7 +304,7 @@
   "@server_invalidUrl": {
     "description": "The address of the wallabag instance is invalid."
   },
-  "server_emptyField": "Введите свою {label}",
+  "server_emptyField": "Введите своё {label}",
   "@server_emptyField": {
     "description": "A message for non-empty check fail on a form field.",
     "placeholders": {
@@ -317,11 +317,11 @@
   "@server_unreachable": {
     "description": "The wallabag instance is unreachable."
   },
-  "session_logoutDialogTitle": "Выйти из сеанса",
+  "session_logoutDialogTitle": "Завершение сеанса",
   "@session_logoutDialogTitle": {
     "description": "The title of the confirmation dialog to log out."
   },
-  "session_logoutDialogMessage": "Вам нужно будет снова войти в систему.",
+  "session_logoutDialogMessage": "Вам придётся заново войти в систему.",
   "@session_logoutDialogMessage": {
     "description": "The message of the confirmation dialog to log out."
   },
@@ -337,7 +337,7 @@
   "@settings_bugReportLink": {
     "description": "The action to open the bug report form."
   },
-  "settings_clearCacheMessage": "Локальный кэш будет удален и снова получен с сервера.",
+  "settings_clearCacheMessage": "Локальный кэш будет удалён и снова получен с сервера.",
   "@settings_clearCacheMessage": {
     "description": "The message of the confirmation dialog to clear the cache."
   },
@@ -349,11 +349,11 @@
   "@settings_helpToTranslate": {
     "description": "The action to open the Weblate project in a webview."
   },
-  "settings_savedArticleTagLabel": "Ярлык для сохраненных статей",
+  "settings_savedArticleTagLabel": "Ярлык для сохранённых статей",
   "@settings_savedArticleTagLabel": {
     "description": "The label of the tag to add to saved articles."
   },
-  "settings_savedArticleTag": "Добавьте метку к сохраненным статьям",
+  "settings_savedArticleTag": "Добавьте тег к сохранённым статьям",
   "@settings_savedArticleTag": {
     "description": "The action to toggle the addition of a tag to saved articles."
   },
@@ -385,8 +385,24 @@
   "@session_forceTokenResfresh": {
     "description": "The action to force a token refresh."
   },
-  "session_renewDialogTitle": "Обновить сеанс",
+  "session_renewDialogTitle": "Обновление сеанса",
   "@session_renewDialogTitle": {
     "description": "The title of the confirmation dialog to renew the session."
+  },
+  "login_openLogConsole": "Открыть журнал",
+  "@login_openLogConsole": {
+    "description": "The action to open the log console."
+  },
+  "login_fieldClientSecret": "Секретный ключ клиента",
+  "@login_fieldClientSecret": {
+    "description": "The client secret field of the login form."
+  },
+  "settings_itemLogConsole": "Журнал",
+  "@settings_itemLogConsole": {
+    "description": "The action to display the log console screen."
+  },
+  "settings_itemOpenDeeplink": "Открыть глубинную ссылку",
+  "@settings_itemOpenDeeplink": {
+    "description": "The action to open a deep link."
   }
 }
