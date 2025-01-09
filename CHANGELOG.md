@@ -19,6 +19,8 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(reading)* Avoid race condition when saving reading progress ([d9d312d](https://github.com/casimir/frigoligo/commit/d9d312db331b78992e0be3b21ca4a7fd9a1f3000))
 - *(wasm)* Make the app work with a wasm build ([b7aaaa3](https://github.com/casimir/frigoligo/commit/b7aaaa3ff712c21ea7a7835f6456122203d9edd5))
 - *(network)* Allow to use a server address in http:// ([fb3b648](https://github.com/casimir/frigoligo/commit/fb3b6487762dc8dea2019143c4701c704ae60024))
+- *(reading)* Avoid duplicate loading when changing article ([f8244e1](https://github.com/casimir/frigoligo/commit/f8244e14941249af3a6c49bfa1bd746c8f81443e))
+- *(UI/dynamic)* Stop reopening article list drawer every time ([2a48bdf](https://github.com/casimir/frigoligo/commit/2a48bdfc6ba724a62e8c3ec9d49f73748ffe0518))
 
 ### 📚 Documentation
 
@@ -31,6 +33,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 
 - Start new dev cycle ([0963ddf](https://github.com/casimir/frigoligo/commit/0963ddfd8751733ef27b0a0ad860e595af73d45d))
 - Regen build_runner files ([94ab2a7](https://github.com/casimir/frigoligo/commit/94ab2a7cb782e120663bc901086860feb0c5c65d))
+- *(macos)* Bump lockfile ([4f8dd2e](https://github.com/casimir/frigoligo/commit/4f8dd2e84958530ac06e7731fd3e6b6d5b4a0258))
 
 **Full Changelog**: [v2.1.3..HEAD](https://github.com/casimir/frigoligo/compare/v2.1.3..HEAD)
 
