@@ -129,6 +129,7 @@ class QueryState {
   final List<int> ids;
 
   int get count => ids.length;
+  Selectable<int> get idsQuery => _buildIdsQuery(query);
 }
 
 @riverpod

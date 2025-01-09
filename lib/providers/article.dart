@@ -49,8 +49,12 @@ class ArticleData extends _$ArticleData {
 
 @riverpod
 class CurrentArticle extends _$CurrentArticle {
+  StreamSubscription? _watcher;
+
   @override
   Future<Article?> build() async {
+    _watcher?.cancel();
+
     var articleId =
         ref.watch(settingsProvider.select((it) => it[Sk.selectedArticleId]));
 
@@ -68,12 +72,24 @@ class CurrentArticle extends _$CurrentArticle {
       final meta = await ref.read(queryMetaProvider.future);
       if (meta.ids.isNotEmpty) {
         articleId = meta.ids.first;
+      } else {
+        _waitForArticles(meta);
+        return null;
       }
     }
 
     return articleId != null
         ? ref.watch(articleDataProvider(articleId!).future)
         : null;
+  }
+
+  void _waitForArticles(QueryState qs) {
+    _watcher = qs.idsQuery.watch().listen((ids) {
+      if (ids.isNotEmpty) {
+        ref.invalidateSelf();
+      }
+    });
+    ref.onDispose(() => _watcher?.cancel());
   }
 
   void change(int articleId) {
