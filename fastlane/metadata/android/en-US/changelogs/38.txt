@@ -2,3 +2,4 @@
 - Better experience when offline.
 - Several bugfixes related to reading progress.
 - Allow to connect with a server without SSL.
+- New languages: Russian (Русский язык) and Tamil (தமிழ்).

@@ -10,10 +10,12 @@ const iosMetadataRoot = '$metadataRoot/ios';
 const langSkips = [
   'et',
   'gl-ES',
+  'ta-IN',
 ];
 // different language codes for Apple App Store
 const langRewrite = {
   'pt': 'pt-PT',
+  'ru-RU': 'ru',
   'zh-CN': 'zh-Hans',
   'zh-TW': 'zh-Hant',
 };

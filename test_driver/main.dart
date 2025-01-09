@@ -6,30 +6,27 @@ import 'package:flutter_driver/driver_extension.dart';
 import 'package:frigoligo/main.dart' as app;
 import 'package:frigoligo/providers/settings.dart';
 
+const locales = {
+  'de-DE': Language.de,
+  'en-US': Language.en,
+  'es-ES': Language.es,
+  'et': Language.et,
+  'fr-FR': Language.fr,
+  'ru-RU': Language.ru,
+  'ta-IN': Language.ta,
+  'zh-Hans': Language.zh,
+  'zh-Hant': Language.zhHant,
+};
+
 void main() {
   enableFlutterDriverExtension();
 
   print('device: ${Environment.device}');
   print('config: ${Environment.config}');
 
-  switch (Environment.getString('locale')) {
-    case 'de-DE':
-      Settings.initialLocaleOverride = Language.de;
-    case 'en-US':
-      Settings.initialLocaleOverride = Language.en;
-    case 'es-ES':
-      Settings.initialLocaleOverride = Language.es;
-    case 'et':
-      Settings.initialLocaleOverride = Language.et;
-    case 'fr-FR':
-      Settings.initialLocaleOverride = Language.fr;
-    case 'zh-Hans':
-      Settings.initialLocaleOverride = Language.zh;
-    case 'zh-Hant':
-      Settings.initialLocaleOverride = Language.zhHant;
-    default:
-      throw 'unhandled locale';
-  }
+  final localeOverride = locales[Environment.getString('locale')];
+  assert(localeOverride != null, 'unhandled locale');
+  Settings.initialLocaleOverride = localeOverride;
 
   WidgetsApp.debugAllowBannerOverride = false;
   app.main();

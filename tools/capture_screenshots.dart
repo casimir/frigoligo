@@ -19,6 +19,8 @@ Future<void> main() async {
     // {'locale': 'es-ES'},
     // {'locale': 'et'}, // Android only
     // {'locale': 'fr-FR'},
+    // {'locale': 'ta-IN'}, // Android only
+    // {'locale': 'ru-RU'},
     // {'locale': 'zh-Hans'},
     // {'locale': 'zh-Hant'},
   ];
