@@ -1,0 +1,4 @@
+- posibilidade de engadir etiquetas ao editar o artigo
+- melloras no comportamento cando non hai conexión a internet
+- varios arranxos relacionados co progreso da lectura
+- permitir a conexión a un servidor sen SSL.
