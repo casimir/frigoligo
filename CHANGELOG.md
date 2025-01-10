@@ -12,6 +12,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(multiselect)* Keep selections at the top of the list ([31fb21b](https://github.com/casimir/frigoligo/commit/31fb21b4d019ce18785f35c4fb35a4a2ab945f93))
 - Allow to create new tags when editing the tags of an article ([89419cf](https://github.com/casimir/frigoligo/commit/89419cfb3aef564a0b0a0d49f22749688c6916ff))
 - *(sync)* Don't bother the user for network issues, the FAB is enough ([1aea3c5](https://github.com/casimir/frigoligo/commit/1aea3c5f83e0bcbecfb5d35cc7b1f4f790a7c2ad))
+- *(i18n)* Add Tamil + reactivate Russian ([3ec0c5e](https://github.com/casimir/frigoligo/commit/3ec0c5ed80be6458a2989bdd5392fcbbc26c84d9))
 
 ### 🐛 Bug Fixes
 
@@ -21,6 +22,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(network)* Allow to use a server address in http:// ([fb3b648](https://github.com/casimir/frigoligo/commit/fb3b6487762dc8dea2019143c4701c704ae60024))
 - *(reading)* Avoid duplicate loading when changing article ([f8244e1](https://github.com/casimir/frigoligo/commit/f8244e14941249af3a6c49bfa1bd746c8f81443e))
 - *(UI/dynamic)* Stop reopening article list drawer every time ([2a48bdf](https://github.com/casimir/frigoligo/commit/2a48bdfc6ba724a62e8c3ec9d49f73748ffe0518))
+- *(UI/dynamic)* Ensure that an article is selected when filling the DB ([e90de91](https://github.com/casimir/frigoligo/commit/e90de916aadab0f11324d4237f0815259d843646))
 
 ### 📚 Documentation
 
@@ -28,6 +30,21 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Update desktop screenshot ([3db1e0f](https://github.com/casimir/frigoligo/commit/3db1e0f3f1401d93c93f954a1f8bf09affb44dbf))
 - *(changelogs)* Start the changelog for the next release ([46896ae](https://github.com/casimir/frigoligo/commit/46896ae54c26cb89646eb06d7eb59a0824fa0ad1))
 - Fix a typo ([c1310b9](https://github.com/casimir/frigoligo/commit/c1310b909d1149c59516fa0d6a3e78df59f6bb7c))
+
+### 🌐 Translations
+
+- Update translations: Galician
+ ([ce1f66a](https://github.com/casimir/frigoligo/commit/ce1f66a754d8983e843644d5a12bfea6fea4388a))
+- Update translations: Tamil
+ ([e14da07](https://github.com/casimir/frigoligo/commit/e14da07d3a0388da2c89ae2c1057aae15732cb4d))
+- Update translations: Esperanto
+ ([3ed3c6f](https://github.com/casimir/frigoligo/commit/3ed3c6fe85ceb13a9c84ebeac50db89cc5ee1ca0))
+- Update translations: Estonian
+ ([a609057](https://github.com/casimir/frigoligo/commit/a609057e1b85444eff0cd1ee3535fde3c3660ed3))
+- Update translations: Spanish
+ ([6c5f6ed](https://github.com/casimir/frigoligo/commit/6c5f6ed9e4761610b68b428ffdf1f5797e27d0ee))
+- Update translations: Russian
+ ([6d0f6d4](https://github.com/casimir/frigoligo/commit/6d0f6d422934597c0ebd3b28a2ade3c2f990190f))
 
 ### ⚙️ Miscellaneous Tasks
 
