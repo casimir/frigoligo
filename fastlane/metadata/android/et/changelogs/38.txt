@@ -2,3 +2,4 @@
 - Paremad kasutusvõimalused võrguühenduseta.
 - Mitmed lugemise edenemisega seotud veaparandused.
 - Võimalus kasutada serverit ilma krüptitud ühenduseta.
+- Uued keeled: vene (Русский язык) ja tamili (தமிழ்).
