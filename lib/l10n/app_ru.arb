@@ -217,7 +217,7 @@
   "@g_tag": {
     "description": "A tag can be attached to an article."
   },
-  "filters_articleFavoriteStarred": "Отмеченные звездой",
+  "filters_articleFavoriteStarred": "Отмеченные",
   "@filters_articleFavoriteStarred": {
     "description": "Filter starred articles."
   },
@@ -404,5 +404,99 @@
   "settings_itemOpenDeeplink": "Открыть глубинную ссылку",
   "@settings_itemOpenDeeplink": {
     "description": "The action to open a deep link."
+  },
+  "article_readingTime": "{minutes} минут(а/ы)",
+  "@article_readingTime": {
+    "description": "The estimated reading time of the article.",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "humanize_future": "продолжительность {duration}",
+  "@humanize_future": {
+    "description": "Describe a duration until a moment in the future.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "humanize_past": "{duration} назад",
+  "@humanize_past": {
+    "description": "Describe a duration since a moment in the past.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "humanize_hours": "{n, plural, =1{1 час} other{{n} час(а/ов)}}",
+  "@humanize_hours": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "humanize_seconds": "{n, plural, =1{1 секунда} other{{n} секунд(а/ы)}}",
+  "@humanize_seconds": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "humanize_minutes": "{n, plural, =1{1 минута} other{{n} минут(а/ы)}}",
+  "@humanize_minutes": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "filters_articleDomainsCount": "{count, plural, =1{1 домен} other{{count} домен(а/ов)}}",
+  "@filters_articleDomainsCount": {
+    "description": "The number of articles domains used in filters.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "filters_articleTagsCount": "{count, plural, =1{1 тег} other{{count} тег(а/ов)}}",
+  "@filters_articleTagsCount": {
+    "description": "The number of tags used in filters.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "humanize_days": "{n, plural, =1{1 день} other{{n} день (дня/дней)}}",
+  "@humanize_days": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "syncer_pendingActions": "{count, plural, =1{1 действие} other{{count} действ(ие/ия/ий)}}",
+  "@syncer_pendingActions": {
+    "description": "Number of pending actions in the RemoteSyncer queue.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
   }
 }
