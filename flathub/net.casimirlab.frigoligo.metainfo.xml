@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2024 Martin Chaine -->
+<!-- Copyright 2025 Martin Chaine -->
 <component type="desktop-application">
   <id>net.casimirlab.frigoligo</id>
   
-  <name>Frigoligo</name>
+  <name translate="no">Frigoligo</name>
+
   <summary>Your articles with you</summary>
+  <summary xml:lang="es">Lleva tus artículos contigo</summary>
+  <summary xml:lang="et">Huvipakkuvad veebimeedia artiklid sinuga kaasas</summary>
+  <summary xml:lang="fr">Vos articles avec vous</summary>
+  <summary xml:lang="pt">Seus artigos com você</summary>
+  <summary xml:lang="pt-BR">Seus artigos com você</summary>
+  <summary xml:lang="ru">Ваши статьи с вами</summary>
+  <summary xml:lang="ta">உங்களுடன் உங்கள் கட்டுரைகள்</summary>
+  <summary xml:lang="zh-Hans">您的文章随身携带</summary>
+  <summary xml:lang="zh-Hant">你的文章與你同在</summary>
   
   <metadata_license>MIT</metadata_license>
   <project_license>MIT</project_license>
   
-  <developer_name>Martin Chaine</developer_name>
+  <developer id="net.casimirlab">
+    <name translate="no">Martin Chaine</name>
+  </developer>
+
 	<url type="homepage">https://github.com/casimir/frigoligo</url>
 	<url type="bugtracker">https://github.com/casimir/frigoligo/issues</url>
 	<url type="translate">https://hosted.weblate.org/engage/frigoligo/</url>
@@ -23,19 +36,117 @@
   
   <description>
     <p>
-      Take your links anywhere and keep them fresh! Frigoligo is a wallabag client striving to be simple but also fast and easy to use. Just like wallabag, Frigoligo is free to use, ad-free and open source.
+      Take your links anywhere and keep them fresh! Frigoligo is a wallabag client striving to be simple but also fast and easy to use.
+      Just like wallabag, Frigoligo is free to use, ad-free and open source.
     </p>
     <p>
       You need a wallabag instance to use this application.
+    </p>
+    <p xml:lang="es">
+      ¡Lleva tus enlaces a cualquier parte y mantenlos actualizados! Frigoligo es un cliente de Wallabag que se esfuerza por ser simple, pero también rápido y fácil de usar.
+      Al igual que Wallabag, Frigoligo es de uso gratuito, sin publicidad y de código abierto.
+    </p>
+    <p xml:lang="es">
+      Necesitas una instancia de wallabag para usar esta aplicación.
+    </p>
+    <p xml:lang="et">
+      Salvesta huvipakkuvad veebilingid ja hoia neid alati uuendatutena. Frigoligo on lihtne ja kiire wallabagi klient.
+      Nii nagu wallabag, on ka Frigoligo tasuta kasutatav, reklaamivaba ning põhineb avatud lähtekoodil.
+    </p>
+    <p xml:lang="et">
+      Selle rakenduse kasutamiseks on sulle vajalik mõnele wallabagi serverile.
+    </p>
+    <p xml:lang="fr">
+      Emportez vos liens partout et gardez-les bien frais ! Frigoligo est un client wallabag s'efforçant d'être simple mais aussi rapide et facile à utiliser.
+      Tout comme wallabag, Frigoligo est gratuit, sans publicité et open source.
+    </p>
+    <p xml:lang="fr">
+      Vous avez besoin d'une instance wallabag pour utiliser cette application.
+    </p>
+    <p xml:lang="pt">
+      Leve as suas ligações para qualquer lugar e mantenha-os atualizados! O Frigoligo é um cliente do wallabag que se esforça a ser simples, mas também rápido e fácil de usar.
+      Assim como o wallabag, o Frigoligo é de uso gratuito, sem anúncios e de código aberto.
+    </p>
+    <p xml:lang="pt">
+      Precisa de uma instância do wallabag para usar esta aplicação.
+    </p>
+    <p xml:lang="pt-BR">
+      Leve seus links para qualquer lugar e mantenha-os atualizados! O Frigoligo é um cliente do wallabag que se esforça para ser simples, mas também rápido e fácil de usar.
+      Assim como o wallabag, o Frigoligo é de uso gratuito, sem anúncios e de código aberto.
+    </p>
+    <p xml:lang="pt-BR">
+      Você precisa de uma instância do wallabag para usar este aplicativo.
+    </p>
+    <p xml:lang="ru">
+      Всегда держите свои ссылки при себе и сохраняйте их актуальными! Frigoligo — это клиент wallabag, простой, быстрый и удобный в использовании.
+      Как и wallabag, Frigoligo бесплатен, не содержит рекламы и имеет открытый исходный код.
+    </p>
+    <p xml:lang="ru">
+      Для использования этого приложения вам нужен экземпляр wallabag.
+    </p>
+    <p xml:lang="ta">
+      உங்கள் இணைப்புகளை எங்கும் எடுத்து அவற்றை புதியதாக வைத்திருங்கள்! ஃப்ரிகோலிகோ ஒரு வாலபாக் கிளையன்ட், எளிமையானதாக இருக்க முயற்சிக்கிறது, ஆனால் வேகமாகவும் பயன்படுத்த எளிதாகவும் உள்ளது.
+       வாலபாக் போலவே, ஃப்ரிகோலிகோவும் பயன்படுத்த இலவசம், விளம்பரமில்லாத மற்றும் திறந்த மூலமாகும்.
+    </p>
+    <p xml:lang="ta">
+       இந்த பயன்பாட்டைப் பயன்படுத்த உங்களுக்கு ஒரு வாலபாக் நிகழ்வு தேவை.
+    </p>
+    <p xml:lang="zh-Hans">
+      随时随地使用您的链接，并保持它们的新鲜！Frigoligo是一个 wallabag 客户端，旨在简单易用、快速方便。
+      与 wallabag 一样，Frigoligo 也是自由使用、无广告和开源的。
+    </p>
+    <p xml:lang="zh-Hans">
+      您需要一个 wallabag 实例以使用此应用。
+    </p>
+    <p xml:lang="zh-Hant">
+      將你的連結帶到任何地方並且保持它們新鮮！Frigoligo 是一個 wallabag 用戶端，力求簡單、快速，而且易於使用。
+      就像 wallabag 一樣，Frigoligo 可以免費使用、無廣告，而且開源。
+    </p>
+    <p xml:lang="zh-Hant">
+      你需要一個 wallabag 實例才能使用此應用程式。
     </p>
   </description>
   
   <content_rating type="oars-1.1" />
   
+  <branding>
+    <color type="primary" scheme_preference="light">#d6bee4</color>
+    <color type="primary" scheme_preference="dark">#6b5778</color>
+  </branding>
+  
   <releases>
-    <release version="v2.1.3" date="2024-12-15" />
+    <release version="v2.1.3" date="2024-12-15">
+      <url type="details">https://github.com/casimir/frigoligo/releases/tag/v2.1.3</url>
+      <description>
+        <ul>
+          <li>Lots of tweaks and improvements to the UI.</li>
+          <li>Fixed the share button not working in some cases.</li>
+          <li>New languages: Spanish, Estonian.</li>
+          <li>Update translations for several languages.</li>
+          <li xml:lang="es">Muchos ajustes y mejoras en la interfaz de usuario.</li>
+          <li xml:lang="es">Se solucionó el problema del botón de compartir que no funcionaba en algunos casos.</li>
+          <li xml:lang="es">Nuevos idiomas: español, estonio.</li>
+          <li xml:lang="es">Actualizar traducciones para varios idiomas.</li>
+          <li xml:lang="et">Palju kasutajaliidese muudatusi ja täiustusi.</li>
+          <li xml:lang="et">Parandasime olukorra, kus jagamisnupp mõnel juhul ei toiminud.</li>
+          <li xml:lang="et">Uued keeled: hispaania keel, eesti keel.</li>
+          <li xml:lang="et">Uuendasime mitme keele tõlkeid.</li>
+          <li xml:lang="fr">Divers ajustements et améliorations de l'interface utilisateur.</li>
+          <li xml:lang="fr">Correction du bouton de partage qui ne fonctionnait pas dans certains cas.</li>
+          <li xml:lang="fr">Nouvelles langues : Espagnol, Estonien.</li>
+          <li xml:lang="fr">Mise à jour des traductions pour plusieurs langues.</li>
+          <li xml:lang="ru">Множество настроек и улучшений пользовательского интерфейса.</li>
+          <li xml:lang="ru">Исправлена ошибка, из-за которой кнопка «Поделиться» в некоторых случаях не работала.</li>
+          <li xml:lang="ru">Новые языки: испанский, эстонский.</li>
+          <li xml:lang="ru">Обновлены переводы для нескольких языков.</li>
+          <li xml:lang="ta">இடைமுகம் க்கு நிறைய மாற்றங்கள் மற்றும் மேம்பாடுகள்.</li>
+          <li xml:lang="ta">சில சந்தர்ப்பங்களில் வேலை செய்யாத பங்கு பொத்தானை சரி செய்தது.</li>
+          <li xml:lang="ta">புதிய மொழிகள்: ச்பானிச், எச்டோனியன்.</li>
+          <li xml:lang="ta">பல மொழிகளுக்கான மொழிபெயர்ப்புகளைப் புதுப்பிக்கவும்.</li>
+        </ul>
+      </description>
+    </release>
   </releases>
-
   
   <launchable type="desktop-id">net.casimirlab.frigoligo.desktop</launchable>
   <screenshots>

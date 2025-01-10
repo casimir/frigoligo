@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright %YEAR% Martin Chaine -->
+<component type="desktop-application">
+  <id>net.casimirlab.frigoligo</id>
+  
+  <name translate="no">Frigoligo</name>
+
+%SUMMARY%
+  
+  <metadata_license>MIT</metadata_license>
+  <project_license>MIT</project_license>
+  
+  <developer id="net.casimirlab">
+    <name translate="no">Martin Chaine</name>
+  </developer>
+
+	<url type="homepage">https://github.com/casimir/frigoligo</url>
+	<url type="bugtracker">https://github.com/casimir/frigoligo/issues</url>
+	<url type="translate">https://hosted.weblate.org/engage/frigoligo/</url>
+  
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+    <control>touch</control>
+    <control>tablet</control>
+  </supports>
+  
+%DESCRIPTION%
+  
+  <content_rating type="oars-1.1" />
+  
+  <branding>
+    <color type="primary" scheme_preference="light">#d6bee4</color>
+    <color type="primary" scheme_preference="dark">#6b5778</color>
+  </branding>
+  
+%RELEASES%
+  
+  <launchable type="desktop-id">net.casimirlab.frigoligo.desktop</launchable>
+  <screenshots>
+    <screenshot type="default">
+      <caption>Main screen showing a listing of the saved articles.</caption>
+      <image>https://raw.githubusercontent.com/casimir/frigoligo/%LATEST%/assets/screenshots/desktop.png</image>
+    </screenshot>
+  </screenshots>
+</component>
