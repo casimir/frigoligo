@@ -51,6 +51,9 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Start new dev cycle ([0963ddf](https://github.com/casimir/frigoligo/commit/0963ddfd8751733ef27b0a0ad860e595af73d45d))
 - Regen build_runner files ([94ab2a7](https://github.com/casimir/frigoligo/commit/94ab2a7cb782e120663bc901086860feb0c5c65d))
 - *(macos)* Bump lockfile ([4f8dd2e](https://github.com/casimir/frigoligo/commit/4f8dd2e84958530ac06e7731fd3e6b6d5b4a0258))
+- Remove unused ruby files ([7c06032](https://github.com/casimir/frigoligo/commit/7c0603255051c189615881fe9977f6f008d5e5f4))
+- *(flathub)* Automate MetaInfo generation ([95726de](https://github.com/casimir/frigoligo/commit/95726de6cec55436363063508f5c661b67738209))
+- *(flathub)* Temporary screenshot tweak ([3fcb1e9](https://github.com/casimir/frigoligo/commit/3fcb1e91cc92f706e41e4042713e6e22bbb5624a))
 
 **Full Changelog**: [v2.1.3..HEAD](https://github.com/casimir/frigoligo/compare/v2.1.3..HEAD)
 
