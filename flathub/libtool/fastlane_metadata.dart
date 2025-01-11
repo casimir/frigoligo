@@ -3,15 +3,20 @@ import 'dart:io';
 class FastlaneMetadata {
   static const rootPath = 'fastlane/metadata/android';
 
-  FastlaneMetadata([this.locale = 'en-US']);
+  FastlaneMetadata([this.locale = 'en-US', this.followLinks = false]);
 
-  String locale;
-
-  File _buildFPath(String res) => File('$rootPath/$locale/$res');
+  final String locale;
+  final bool followLinks;
 
   String? _tryRead(String res) {
+    final fname = '$rootPath/$locale/$res';
+
+    if (!followLinks && Link(fname).existsSync()) {
+      return null;
+    }
+
     try {
-      return _buildFPath(res).readAsStringSync();
+      return File(fname).readAsStringSync();
     } on PathNotFoundException catch (_) {
       return null;
     }

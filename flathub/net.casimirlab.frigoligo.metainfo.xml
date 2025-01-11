@@ -6,9 +6,11 @@
   <name translate="no">Frigoligo</name>
 
   <summary>Your articles with you</summary>
+  <summary xml:lang="de">Ihre Artikel bei Ihnen</summary>
   <summary xml:lang="es">Lleva tus artículos contigo</summary>
   <summary xml:lang="et">Huvipakkuvad veebimeedia artiklid sinuga kaasas</summary>
   <summary xml:lang="fr">Vos articles avec vous</summary>
+  <summary xml:lang="gl">Os teus artigos contigo</summary>
   <summary xml:lang="pt">Seus artigos com você</summary>
   <summary xml:lang="pt-BR">Seus artigos com você</summary>
   <summary xml:lang="ru">Ваши статьи с вами</summary>
@@ -42,6 +44,13 @@
     <p>
       You need a wallabag instance to use this application.
     </p>
+    <p xml:lang="de">
+      Nimm deine Links überallhin mit und halte sie frisch! Frigoligo ist ein Wallabag-Client, der einfach, schnell und benutzerfreundlich sein möchte.
+      Genau wie Wallabag ist Frigoligo kostenlos, werbefrei und quelloffen.
+    </p>
+    <p xml:lang="de">
+      Du benötigst eine Wallabag-Instanz, um diese Anwendung nutzen zu können.
+    </p>
     <p xml:lang="es">
       ¡Lleva tus enlaces a cualquier parte y mantenlos actualizados! Frigoligo es un cliente de Wallabag que se esfuerza por ser simple, pero también rápido y fácil de usar.
       Al igual que Wallabag, Frigoligo es de uso gratuito, sin publicidad y de código abierto.
@@ -62,6 +71,13 @@
     </p>
     <p xml:lang="fr">
       Vous avez besoin d'une instance wallabag pour utiliser cette application.
+    </p>
+    <p xml:lang="gl">
+      Vai xuntando ligazóns do teu interese e gárdaas fresquiñas! Frigoligo é un cliente para Wallabag que intenta ser simple, rápido e fácil de usar.
+      Ao igual que Wallabag, Frigoligo é libre para usar, ser publicidade e de código aberto.
+    </p>
+    <p xml:lang="gl">
+      Precisas unha instancia de Wallabag para poder usar esta aplicación.
     </p>
     <p xml:lang="pt">
       Leve as suas ligações para qualquer lugar e mantenha-os atualizados! O Frigoligo é um cliente do wallabag que se esforça a ser simples, mas também rápido e fácil de usar.
@@ -135,6 +151,10 @@
           <li xml:lang="fr">Correction du bouton de partage qui ne fonctionnait pas dans certains cas.</li>
           <li xml:lang="fr">Nouvelles langues : Espagnol, Estonien.</li>
           <li xml:lang="fr">Mise à jour des traductions pour plusieurs langues.</li>
+          <li xml:lang="gl">Moitas melloras e cambios na Interface.</li>
+          <li xml:lang="gl">Arranxo do botón compartir nalgúns escenarios.</li>
+          <li xml:lang="gl">Novos idiomas: Español, Estonio.</li>
+          <li xml:lang="gl">Actualización das traducións.</li>
           <li xml:lang="ru">Множество настроек и улучшений пользовательского интерфейса.</li>
           <li xml:lang="ru">Исправлена ошибка, из-за которой кнопка «Поделиться» в некоторых случаях не работала.</li>
           <li xml:lang="ru">Новые языки: испанский, эстонский.</li>

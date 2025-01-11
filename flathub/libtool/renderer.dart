@@ -6,9 +6,11 @@ import 'versions.dart';
 // taken from https://flathub.org/languages
 const langIndex = [
   ('', 'en-US'),
+  ('de', 'de-DE'),
   ('es', 'es-ES'),
   ('et', 'et'),
   ('fr', 'fr-FR'),
+  ('gl', 'gl-ES'),
   ('pt', 'pt-PT'),
   ('pt-BR', 'pt-BR'),
   ('ru', 'ru-RU'),
@@ -40,7 +42,7 @@ class Renderer {
   static const outputPath = 'flathub/net.casimirlab.frigoligo.metainfo.xml';
   static const shift = '  ';
 
-  Versions versions;
+  final Versions versions;
   late String _content;
 
   Renderer(this.versions) {
