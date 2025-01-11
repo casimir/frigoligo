@@ -1,0 +1,5 @@
+- Possibilité de créer des labels lors de la modification d'un article.
+- Meilleure expérience hors ligne.
+- Plusieurs corrections de bugs liés à la progression de la lecture.
+- Autoriser la connexion à un serveur sans SSL.
+- Nouvelles langues : le russe (руСскис) et le tamoul (தமிழ்).
