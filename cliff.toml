@@ -87,6 +87,7 @@ commit_parsers = [
   { message = "^style", group = "<!-- 5 -->🎨 Styling" },
   { message = "^test", group = "<!-- 6 -->🧪 Testing" },
   { message = "^Update translations: ", group = "<!-- 7 -->🌐 Translations" },
+  { message = "New dev cycle", skip = true },
   { message = "Translations update from Hosted Weblate", skip = true },
   { message = "Automated changelog update", skip = true },
   { message = "^chore\\(release\\): prepare for", skip = true },
