@@ -1,36 +1,30 @@
 #!/bin/sh
 
-# Prepare a new release by doing the following:
-# 1. Update CHANGELOG.md.
-# 2. Create a new git tag.
-# 3. Push the new tag to the remote repository.
-# 4. (optional) Create a new release on GitHub.
-
-TAG=$1
-
-if [ -z "$TAG" ]; then
-  echo "Usage: $0 <tag>"
-  exit 1
-fi
-
 if [ "$(git rev-parse --abbrev-ref HEAD)" != "main" ]; then
-  echo "You must be on the master branch to create a new release."
+  echo "You must be on the main branch to create a new release."
   exit 1
 fi
 
-if [ -n "$(git status --porcelain --untracked-files no)" ]; then
+if [ -n "$(git status --porcelain)" ]; then
   echo "There are uncommitted changes in the working directory."
+  exit 1
+fi
+
+FULL_VERSION=$(awk '/version: ([0-9]+\.[0-9]+.[0-9]+\+[0-9]+)/{ print $2}' pubspec.yaml)
+TAG=$(printf 'v%s\n' "$(echo $FULL_VERSION | cut -d+ -f1)")
+VERSION_NUM=$(echo $FULL_VERSION | cut -d+ -f2)
+
+if $(git tag --list | grep -q $TAG); then
+  echo "The tag $TAG already exists."
   exit 1
 fi
 
 git-cliff --tag $TAG
 git add CHANGELOG.md
-git commit -m "Automated changelog update"
 
-TMPFILE=$(mktemp)
-git cliff --unreleased --tag $TAG --strip all --output $TMPFILE
-git tag --sign $TAG --file $TMPFILE
-rm $TMPFILE
+dart run ./flathub/render_metadata.dart --current
+git add flathub/
 
-# to add when this release process has proven to work
-# gh release create $TAG --notes-from-tag
+git commit -m "chore(release): prepare for $TAG"
+
+git tag --sign $TAG --file fastlane/metadata/android/en-US/changelogs/$VERSION_NUM.txt
