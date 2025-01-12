@@ -45,6 +45,10 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
  ([6c5f6ed](https://github.com/casimir/frigoligo/commit/6c5f6ed9e4761610b68b428ffdf1f5797e27d0ee))
 - Update translations: Russian
  ([6d0f6d4](https://github.com/casimir/frigoligo/commit/6d0f6d422934597c0ebd3b28a2ade3c2f990190f))
+- Update translations: Chinese (Simplified Han script)
+ ([2789513](https://github.com/casimir/frigoligo/commit/27895137377c4873ba954e70add0f16d30d1a25d))
+- Update translations: French
+ ([ae105c5](https://github.com/casimir/frigoligo/commit/ae105c54d92a51a1ffbf84bdf591fced539d637f))
 
 ### ⚙️ Miscellaneous Tasks
 
@@ -54,6 +58,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Remove unused ruby files ([7c06032](https://github.com/casimir/frigoligo/commit/7c0603255051c189615881fe9977f6f008d5e5f4))
 - *(flathub)* Automate MetaInfo generation ([95726de](https://github.com/casimir/frigoligo/commit/95726de6cec55436363063508f5c661b67738209))
 - *(flathub)* Temporary screenshot tweak ([3fcb1e9](https://github.com/casimir/frigoligo/commit/3fcb1e91cc92f706e41e4042713e6e22bbb5624a))
+- *(flathub)* Add more translations and a more fitting icon ([c726e5c](https://github.com/casimir/frigoligo/commit/c726e5c0b1b13b9f8eead63afb9e006fdcaad850))
 
 **Full Changelog**: [v2.1.3..HEAD](https://github.com/casimir/frigoligo/compare/v2.1.3..HEAD)
 
