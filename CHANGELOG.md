@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadata/android/en-US/changelogs) for a more high level list of changes.
 
-## [unreleased]
+## [2.2.0] - 2025-01-12
 
 
 ### 🚀 Features
@@ -59,8 +59,9 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(flathub)* Automate MetaInfo generation ([95726de](https://github.com/casimir/frigoligo/commit/95726de6cec55436363063508f5c661b67738209))
 - *(flathub)* Temporary screenshot tweak ([3fcb1e9](https://github.com/casimir/frigoligo/commit/3fcb1e91cc92f706e41e4042713e6e22bbb5624a))
 - *(flathub)* Add more translations and a more fitting icon ([c726e5c](https://github.com/casimir/frigoligo/commit/c726e5c0b1b13b9f8eead63afb9e006fdcaad850))
+- *(tooling)* Include flathub refresh in the release script ([aca9709](https://github.com/casimir/frigoligo/commit/aca970993f8d90d6210d40030ba636cde442605f))
 
-**Full Changelog**: [v2.1.3..HEAD](https://github.com/casimir/frigoligo/compare/v2.1.3..HEAD)
+**Full Changelog**: [v2.1.3..v2.2.0](https://github.com/casimir/frigoligo/compare/v2.1.3..v2.2.0)
 
 
 ## [2.1.3] - 2024-12-15

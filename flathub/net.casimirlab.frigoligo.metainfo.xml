@@ -166,13 +166,53 @@
         </ul>
       </description>
     </release>
+    <release version="v2.2.0" date="2025-01-12">
+      <url type="details">https://github.com/casimir/frigoligo/releases/tag/v2.2.0</url>
+      <description>
+        <ul>
+          <li>Add a way to create tags when editing an article.</li>
+          <li>Better experience when offline.</li>
+          <li>Several bugfixes related to reading progress.</li>
+          <li>Allow to connect with a server without SSL.</li>
+          <li>New languages: Russian (Русский язык) and Tamil (தமிழ்).</li>
+          <li xml:lang="es">Añadir una forma de crear etiquetas al editar un artículo.</li>
+          <li xml:lang="es">Mejor experiencia sin conexión.</li>
+          <li xml:lang="es">Varias correcciones de errores relacionados con el progreso de lectura.</li>
+          <li xml:lang="es">Permitir conectar con un servidor sin SSL.</li>
+          <li xml:lang="et">Lisasime võimaluse luua silte artikli muutmise ajal.</li>
+          <li xml:lang="et">Paremad kasutusvõimalused võrguühenduseta.</li>
+          <li xml:lang="et">Mitmed lugemise edenemisega seotud veaparandused.</li>
+          <li xml:lang="et">Võimalus kasutada serverit ilma krüptitud ühenduseta.</li>
+          <li xml:lang="et">Uued keeled: vene (Русский язык) ja tamili (தமிழ்).</li>
+          <li xml:lang="fr">Possibilité de créer des labels lors de la modification d'un article.</li>
+          <li xml:lang="fr">Meilleure expérience hors ligne.</li>
+          <li xml:lang="fr">Plusieurs corrections de bugs liés à la progression de la lecture.</li>
+          <li xml:lang="fr">Autoriser la connexion à un serveur sans SSL.</li>
+          <li xml:lang="fr">Nouvelles langues : le russe (руСскис) et le tamoul (தமிழ்).</li>
+          <li xml:lang="gl">posibilidade de engadir etiquetas ao editar o artigo</li>
+          <li xml:lang="gl">melloras no comportamento cando non hai conexión a internet</li>
+          <li xml:lang="gl">varios arranxos relacionados co progreso da lectura</li>
+          <li xml:lang="gl">permitir a conexión a un servidor sen SSL.</li>
+          <li xml:lang="gl">novos idiomas: ruso (Русский язык) and tamil (தமிழ்).</li>
+          <li xml:lang="ru">Добавлена возможность создавать теги при редактировании статьи.</li>
+          <li xml:lang="ru">Работа в офлайн-режиме стала более приятной.</li>
+          <li xml:lang="ru">Исправлено несколько ошибок, связанных с прогрессом чтения.</li>
+          <li xml:lang="ru">Разрешено подключение к серверу без SSL.</li>
+          <li xml:lang="ru">Новые языки: русский и тамильский (தமிழ்).</li>
+          <li xml:lang="ta">ஒரு கட்டுரையைத் திருத்தும்போது குறிச்சொற்களை உருவாக்க ஒரு வழியைச் சேர்க்கவும்.</li>
+          <li xml:lang="ta">ஆஃப்லைனில் இருக்கும்போது சிறந்த அனுபவம்.</li>
+          <li xml:lang="ta">வாசிப்பு முன்னேற்றம் தொடர்பான பல பிழைகள்.</li>
+          <li xml:lang="ta">SSL இல்லாமல் சேவையகத்துடன் இணைக்க அனுமதிக்கவும்.</li>
+        </ul>
+      </description>
+    </release>
   </releases>
   
   <launchable type="desktop-id">net.casimirlab.frigoligo.desktop</launchable>
   <screenshots>
     <screenshot type="default">
       <caption>Main screen showing a listing of the saved articles.</caption>
-      <image>https://raw.githubusercontent.com/casimir/frigoligo/refs/heads/main/assets/screenshots/desktop.png</image>
+      <image>https://raw.githubusercontent.com/casimir/frigoligo/v2.2.0/assets/screenshots/desktop.png</image>
     </screenshot>
   </screenshots>
 </component>
