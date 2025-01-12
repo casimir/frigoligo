@@ -94,7 +94,7 @@ class Renderer {
   String _genReleases() {
     var lines = [];
     lines.add('$shift<releases>');
-    for (final (num, name, date) in versions.chronological) {
+    for (final (num, name, date) in versions.anteChronological) {
       lines.add('${shift * 2}<release version="$name" date="$date">');
       lines.add(
           '${shift * 3}<url type="details">https://github.com/casimir/frigoligo/releases/tag/$name</url>');

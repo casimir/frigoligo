@@ -23,9 +23,9 @@ class Versions {
     }));
   }
 
-  Iterable<RawVersion> get chronological {
+  Iterable<RawVersion> get anteChronological {
     final nums = _entries.keys.toList()..sort();
-    return nums.map((e) {
+    return nums.reversed.map((e) {
       final parts = _entries[e]!.split('\t');
       return (e, parts[0], parts[1]);
     });
