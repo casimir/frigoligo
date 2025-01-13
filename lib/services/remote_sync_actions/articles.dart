@@ -29,10 +29,7 @@ class DeleteArticleAction extends RemoteSyncAction {
       DeleteArticleAction(params['articleId'] as int);
 
   @override
-  Future<void> execute(syncer, storage) async {
-    await storage.deleteArticle(articleId);
-    await storage.updateAppBadge();
-  }
+  Future<void> execute(syncer, storage) => storage.deleteArticle(articleId);
 }
 
 class EditArticleAction extends RemoteSyncAction {
@@ -65,8 +62,6 @@ class EditArticleAction extends RemoteSyncAction {
       );
 
   @override
-  Future<void> execute(syncer, storage) async {
-    await storage.editArticle(articleId,
-        archive: archive, starred: starred, tags: tags);
-  }
+  Future<void> execute(syncer, storage) => storage.editArticle(articleId,
+      archive: archive, starred: starred, tags: tags);
 }

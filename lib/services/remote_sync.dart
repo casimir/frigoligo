@@ -73,11 +73,14 @@ class RemoteSyncer extends _$RemoteSyncer {
     }
   }
 
-  Future<void> synchronize({bool withFinalRefresh = false}) async {
+  Future<Map<String, dynamic>> synchronize(
+      {bool withFinalRefresh = false}) async {
+    Map<String, dynamic> res = {};
+
     _log.info('starting remote synchronization');
     if (state.isWorking) {
       _log.info('sync already in progress, skipping...');
-      return;
+      return res;
     }
     state = SyncState(
       isWorking: true,
@@ -86,12 +89,15 @@ class RemoteSyncer extends _$RemoteSyncer {
     );
 
     try {
-      await _executeActions();
+      final storage = ref.read(wStorageProvider.notifier);
+
+      res.addAll(await _executeActions(storage));
       if (withFinalRefresh) {
         setProgress(null);
         _log.info('running action: $_refreshAction');
-        await _refreshAction.execute(this, ref.read(wStorageProvider.notifier));
+        await _refreshAction.execute(this, storage);
       }
+      await storage.updateAppBadge();
     } on ServerError catch (e) {
       _log.severe('communication error', e);
       // Report error in the UI only if it's not a network issue. In that case
@@ -110,9 +116,12 @@ class RemoteSyncer extends _$RemoteSyncer {
         pendingCount: await _fetchPendingCount(),
       );
     }
+
+    return res;
   }
 
-  Future<void> _executeActions() async {
+  Future<Map<String, dynamic>> _executeActions(WStorage storage) async {
+    final Map<String, dynamic> res = {};
     final db = DB();
 
     setProgress(null);
@@ -126,7 +135,7 @@ class RemoteSyncer extends _$RemoteSyncer {
       for (final action in actions) {
         final rsa = action.toRSA();
         _log.info('running action: $rsa');
-        await rsa.execute(this, ref.read(wStorageProvider.notifier));
+        res[rsa.key] = await rsa.execute(this, storage);
         final deleted = await db.managers.remoteActions
             .filter((f) => f.id.equals(action.id))
             .delete();
@@ -142,5 +151,7 @@ class RemoteSyncer extends _$RemoteSyncer {
       // new actions might be added while the current batch was processed
       actionsCount += await _fetchPendingCount();
     } while (i < actionsCount);
+
+    return res;
   }
 }

@@ -3,18 +3,19 @@ import '../wallabag_storage.dart';
 import 'articles.dart';
 
 typedef ActionParams = Map<String, dynamic>;
+typedef ExecuteCallback = void Function(dynamic);
 
 abstract class RemoteSyncAction {
-  const RemoteSyncAction(String key) : _key = key;
+  const RemoteSyncAction(this.key);
 
-  final String _key;
+  final String key;
 
   @override
   bool operator ==(Object other) =>
-      other is RemoteSyncAction && _key == other._key;
+      other is RemoteSyncAction && key == other.key;
 
   @override
-  int get hashCode => _key.hashCode;
+  int get hashCode => key.hashCode;
 
   ActionParams params();
 
@@ -25,11 +26,11 @@ abstract class RemoteSyncAction {
     return actionBuilderRegistry[className]!(params);
   }
 
-  Future<void> execute(RemoteSyncer syncer, WStorage storage);
+  Future<dynamic> execute(RemoteSyncer syncer, WStorage storage);
 
   @override
   String toString() {
-    return '$runtimeType[$_key]';
+    return '$runtimeType[$key]';
   }
 }
 
