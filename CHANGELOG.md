@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadata/android/en-US/changelogs) for a more high level list of changes.
 
+## [unreleased]
+
+
+### ⚙️ Miscellaneous Tasks
+
+- *(flathub)* Reverse release order ([049a835](https://github.com/casimir/frigoligo/commit/049a83530809f4fc8248cb952c29ca9a3d09f544))
+- *(fastlane)* Bump copyright year ([5cad63b](https://github.com/casimir/frigoligo/commit/5cad63b195cf36f87fd4dfa92a2dd323e67b3987))
+
+**Full Changelog**: [v2.2.0..HEAD](https://github.com/casimir/frigoligo/compare/v2.2.0..HEAD)
+
+
 ## [2.2.0] - 2025-01-12
 
 
