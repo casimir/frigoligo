@@ -5,10 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../buildcontext_extension.dart';
-import '../db/extensions/article.dart';
 import '../providers/settings.dart';
-import '../server/providers/client.dart';
-import '../services/wallabag_storage.dart';
+import '../services/remote_sync.dart';
+import '../services/remote_sync_actions/articles.dart';
 import '../wallabag/client.dart';
 
 class SavePage extends ConsumerStatefulWidget {
@@ -45,7 +44,8 @@ class _SavePageState extends ConsumerState<SavePage> {
   }
 
   Future<void> _doSave([List<String>? tags]) async {
-    if (Uri.tryParse(widget.url!)?.host.isEmpty ?? true) {
+    final url = Uri.tryParse(widget.url!);
+    if (url?.host.isEmpty ?? true) {
       final res = await showOkCancelAlertDialog(
         context: context,
         title: context.L.save_dubiousUrlTitle,
@@ -59,16 +59,14 @@ class _SavePageState extends ConsumerState<SavePage> {
     }
 
     try {
-      final wallabag = await ref.read(clientProvider.future);
-      final entry = await wallabag!.createEntry(widget.url!, tags: tags);
-
-      await ref
-          .read(wStorageProvider.notifier)
-          .persistArticle(entry.toArticle());
+      final action = SaveArticleAction(url!, tags: tags);
+      final syncer = ref.read(remoteSyncerProvider.notifier);
+      await syncer.add(action);
+      final res = await syncer.synchronize();
 
       setState(() {
         step = SaveStep.success;
-        savedArticleId = entry.id;
+        savedArticleId = res[action.key]!;
       });
     } catch (e) {
       setState(() {
