@@ -181,15 +181,29 @@ class AsyncArticleItem extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) =>
       ref.watch(articleDataProvider(articleId)).when(
-            data: (article) => ArticleListItem(
-              article: article!,
-              onTap: onTap,
-              showSelection: showSelection,
-            ),
+            // Article should never be null but it can happen if provider state
+            // and renderer state are (temporarily) desynchronized.
+            // For example when deleting an article from the reading page.
+            data: (article) => article != null
+                ? ArticleListItem(
+                    article: article,
+                    onTap: onTap,
+                    showSelection: showSelection,
+                  )
+                : const _LoadingWidget(),
             error: (e, st) => throw Exception('unreachable branch but $e'),
-            loading: () => const SizedBox(
-              height: listingHeight,
-              child: Center(child: CircularProgressIndicator.adaptive()),
-            ),
+            loading: () => const _LoadingWidget(),
           );
+}
+
+class _LoadingWidget extends StatelessWidget {
+  const _LoadingWidget();
+
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox(
+      height: listingHeight,
+      child: Center(child: CircularProgressIndicator.adaptive()),
+    );
+  }
 }
