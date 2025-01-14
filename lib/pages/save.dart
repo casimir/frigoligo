@@ -101,11 +101,6 @@ class _SavePageState extends ConsumerState<SavePage> {
 
   List<Widget> _buildPendingWidgets() {
     return [
-      Text(
-        widget.url.toString(),
-        style: Theme.of(context).textTheme.headlineSmall,
-      ),
-      C.spacers.verticalContent,
       const CircularProgressIndicator.adaptive(),
     ];
   }
