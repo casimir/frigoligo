@@ -1,9 +1,6 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 
 import 'package:drift/drift.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../constants.dart';
@@ -25,7 +22,7 @@ class LogConsole extends _$LogConsole {
     _watcher?.cancel();
     _watcher = (t1.selectOnly()..addColumns([t1.id])).watch().listen((ids) {
       () async {
-        // FIXME logs should be truncated without then need to open the console
+        // FIXME logs should be truncated without the need to open the console
         var count = ids.length;
         if (count > logCountThreshold) {
           final deletedCount = await DB().appLogsDao.truncate();
@@ -40,17 +37,5 @@ class LogConsole extends _$LogConsole {
     });
     ref.onDispose(() => _watcher?.cancel());
     return LogConsoleToken();
-  }
-
-  Future<String> exportCurrentRunToFile() async {
-    final tempDir = await getTemporaryDirectory();
-    final filename = '${tempDir.path}/frigoligo.log';
-
-    final lines = await DB().appLogsDao.currentRunLoglines();
-    final data = utf8.encode(lines.join('\n'));
-    final file = await File(filename).create();
-    file.writeAsBytesSync(data);
-
-    return filename;
   }
 }
