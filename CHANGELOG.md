@@ -7,6 +7,15 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 ## [unreleased]
 
 
+### 🚀 Features
+
+- *(web)* Allow to download log files ([919f6ab](https://github.com/casimir/frigoligo/commit/919f6ab0d3dfdf10a4fe928612a197e82a52ec4a))
+
+### 🚜 Refactor
+
+- *(syncer)* Aggregate actions optional result for later use ([3fd69e6](https://github.com/casimir/frigoligo/commit/3fd69e605f2eb8c9640cc5950345ef681f1c1118))
+- Don't assume that loading an article is instantaneous ([25fc582](https://github.com/casimir/frigoligo/commit/25fc58274d06a542de7cb3d548da955df23113ce))
+
 ### ⚙️ Miscellaneous Tasks
 
 - *(flathub)* Reverse release order ([049a835](https://github.com/casimir/frigoligo/commit/049a83530809f4fc8248cb952c29ca9a3d09f544))
