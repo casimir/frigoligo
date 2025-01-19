@@ -14,6 +14,7 @@ import 'app_setups.dart';
 import 'applinks/handler.dart';
 import 'constants.dart';
 import 'db/database.dart';
+import 'main_share_ext.dart'; // ignore: unused_import
 import 'native/appbadge.dart';
 import 'providers/background_sync.dart';
 import 'providers/router.dart';
