@@ -1,18 +1,16 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:l10n_esperanto/l10n_esperanto.dart';
 import 'package:logging/logging.dart';
 import 'package:shared_preference_app_group/shared_preference_app_group.dart';
 import 'package:universal_platform/universal_platform.dart';
 
 import 'app_info.dart';
+import 'app_setups.dart';
 import 'applinks/handler.dart';
 import 'constants.dart';
 import 'db/database.dart';
@@ -21,29 +19,12 @@ import 'providers/background_sync.dart';
 import 'providers/router.dart';
 import 'providers/settings.dart';
 import 'providers/tools/observer.dart';
-import 'utils.dart';
 
 final _log = Logger('main');
 
-// TODO factorize init steps
 Future<void> main() async {
-  Logger.root.level = enableDebugLogs ? Level.FINE : Level.INFO;
-  Logger.root.onRecord.listen((record) {
-    DB().appendLog(record);
-    debugPrint(loglineFromRecord(record));
-  });
-  FlutterError.onError = (errorDetails) {
-    final repr = errorDetails.exceptionAsString();
-    _log.severe('uncaught error', repr, errorDetails.stack);
-    FlutterError.presentError(errorDetails);
-  };
-
-  // prevent fetching fonts from the internet, only loads the ones in the assets
-  GoogleFonts.config.allowRuntimeFetching = false;
-  LicenseRegistry.addLicense(() async* {
-    final license = await rootBundle.loadString('google_fonts/OFL.txt');
-    yield LicenseEntryWithLineBreaks(['google_fonts'], license);
-  });
+  setupLogger(_log);
+  setupGoogleFonts();
 
   // after this line using `await` is OK
   WidgetsFlutterBinding.ensureInitialized();
