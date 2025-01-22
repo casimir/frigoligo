@@ -5,12 +5,19 @@
 //  Created by Martin Chaine on 27/08/2023.
 //
 
+import Flutter
 import UIKit
 import UniformTypeIdentifiers
 import Social
 import SwiftUI
 
 import OSLog
+import path_provider_foundation
+import shared_preference_app_group
+import shared_preferences_foundation
+import sqlite3_flutter_libs
+import sqflite_darwin
+
 let logger = Logger()
 
 func devLog(_ message: String) {
@@ -25,15 +32,47 @@ let sessionKey = "debug.\(_sessionKeyPath)"
 let sessionKey = _sessionKeyPath
 #endif
 
+struct ShareExtView: UIViewControllerRepresentable {
+  func buildFlutterEngine() -> FlutterEngine {
+    let engine = FlutterEngine(name: "share_ext")
+    let ok = engine.run(withEntrypoint: "mainNativeShare")
+    if (!ok) {
+      devLog("ERROR: failed to run FlutterEngine")
+    }
+    
+//    FPPDeviceInfoPlusPlugin.register(with: engine.registrar(forPlugin: "FPPDeviceInfoPlusPlugin")!)
+//    FPPPackageInfoPlusPlugin.register(with: engine.registrar(forPlugin: "FPPPackageInfoPlusPlugin")!)
+    PathProviderPlugin.register(with: engine.registrar(forPlugin: "PathProviderPlugin")!)
+    SharedPreferenceAppGroupPlugin.register(with: engine.registrar(forPlugin: "SharedPreferenceAppGroupPlugin")!)
+    SharedPreferencesPlugin.register(with: engine.registrar(forPlugin: "SharedPreferencesPlugin")!)
+    SqflitePlugin.register(with: engine.registrar(forPlugin: "SqflitePlugin")!)
+    Sqlite3FlutterLibsPlugin.register(with: engine.registrar(forPlugin: "Sqlite3FlutterLibsPlugin")!)
+    
+    SavePlugin.register(with: engine.registrar(forPlugin: "SavePlugin")!)
+    
+    return engine
+  }
+  
+  func makeUIViewController(context: Context) -> some UIViewController {
+    let flutterEngine = buildFlutterEngine()
+    return FlutterViewController(engine: flutterEngine, nibName: nil, bundle: nil)
+  }
+  
+  func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
+}
+
 class ShareViewController: UIViewController {
     let userDefaults = UserDefaults(suiteName: "group.net.casimir-lab.frigoligo")!
     var session: ServerSession?
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        devLog("viewDidLoad()")
-        let toast = CompletionToast(
+      super.viewDidLoad()
+
+      var layout: some View {
+        ZStack {
+          // FlutterEngine seems to be needing a View to effectively run the entrypoint.
+          ShareExtView()
+          CompletionToast(
             vm: ToastViewModel(), // FIXME init inside?
             action: self.doSave,
             didSucceed: { self.exitExtension() },
@@ -41,8 +80,10 @@ class ShareViewController: UIViewController {
                 self.exitExtension(withErrorMessage: errorMessage)
             },
             strokeColor: frigoligoColor
-        )
-        let innerController = UIHostingController(rootView: toast)
+          )
+        }
+      }
+        let innerController = UIHostingController(rootView: layout)
         innerController.view.backgroundColor = .clear
         addChild(innerController)
         view.addSubview(innerController.view)
@@ -98,6 +139,7 @@ class ShareViewController: UIViewController {
         }
         do {
             let url = try await attachment.loadItem(forTypeIdentifier: UTType.url.identifier)
+            SavePlugin.shared!.hello()
             try await sendSaveRequest(url: url as! URL)
         } catch let error as CompletionError {
             throw error

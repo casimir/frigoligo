@@ -15,21 +15,21 @@ import 'applinks/handler.dart';
 import 'constants.dart';
 import 'db/database.dart';
 import 'native/appbadge.dart';
+import 'native/save.service.dart';
 import 'providers/background_sync.dart';
 import 'providers/router.dart';
 import 'providers/settings.dart';
 import 'providers/tools/observer.dart';
 
-final _log = Logger('main');
-
 Future<void> main() async {
-  setupLogger(_log);
+  final log = Logger('main');
+  setupLogger(log);
   setupGoogleFonts();
 
   // after this line using `await` is OK
   WidgetsFlutterBinding.ensureInitialized();
 
-  _log.info('starting app');
+  log.info('starting app');
 
   LinksHandler.init();
 
@@ -41,11 +41,11 @@ Future<void> main() async {
   await AppInfo.init();
   await Settings.init();
 
-  _log.info('app version: ${AppInfo.versionVerbose}');
-  _log.info('db version: ${DB().schemaVersion}');
-  _log.info('platform:    ${UniversalPlatform.operatingSystem}');
+  log.info('app version: ${AppInfo.versionVerbose}');
+  log.info('db version: ${DB().schemaVersion}');
+  log.info('platform:    ${UniversalPlatform.operatingSystem}');
   if (!UniversalPlatform.isWeb) {
-    _log.info('os version:  ${Platform.operatingSystemVersion}');
+    log.info('os version:  ${Platform.operatingSystemVersion}');
   }
 
   runApp(const ProviderScope(
@@ -111,4 +111,25 @@ class _MyAppState extends ConsumerState<MyApp> {
     _deeplinksSubscription?.cancel();
     super.dispose();
   }
+}
+
+@pragma('vm:entry-point')
+Future<void> mainNativeShare() async {
+  final log = Logger('mainNativeShare');
+  setupLogger(log);
+
+  // after this line using `await` is OK
+  WidgetsFlutterBinding.ensureInitialized();
+
+  log.info('starting share extension');
+
+  if (UniversalPlatform.isIOS) {
+    await SharedPreferenceAppGroup.setAppGroup(appGroupId);
+  }
+
+  await Settings.init();
+
+  SaveService.init();
+
+  SaveService.hello();
 }
