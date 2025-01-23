@@ -49,3 +49,9 @@ post_install do |installer|
     flutter_additional_ios_build_settings(target)
   end
 end
+
+flutter_ext_path = File.expand_path(File.join('bin', 'cache', 'artifacts', 'engine', 'ios-release', 'extension_safe', 'Flutter.xcframework'), flutter_root)
+flutter_ext_symlink = File.join('share', 'Frameworks', 'Flutter.xcframework')
+if !File.exist?(flutter_ext_symlink)
+  FileUtils.ln_s(flutter_ext_path, flutter_ext_symlink)
+end
