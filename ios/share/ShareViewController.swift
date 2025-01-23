@@ -82,6 +82,7 @@ class ShareViewController: UIViewController {
             strokeColor: frigoligoColor
           )
         }
+        .navigationBarHidden(true)
       }
         let innerController = UIHostingController(rootView: layout)
         innerController.view.backgroundColor = .clear
