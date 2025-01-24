@@ -1,5 +1,5 @@
 # Uncomment this line to define a global platform for your project
-# platform :ios, '12.0'
+platform :ios, '12.0'
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
@@ -32,13 +32,26 @@ target 'Runner' do
   use_modular_headers!
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
-  target 'RunnerTests' do
-    inherit! :search_paths
-  end
+end
+
+target 'share' do
+  use_frameworks!
+
+  pod 'device_info_plus', :path => '.symlinks/plugins/device_info_plus/ios'
+  pod 'package_info_plus', :path => '.symlinks/plugins/package_info_plus/ios'
+  pod 'path_provider_foundation', :path => '.symlinks/plugins/path_provider_foundation/darwin'
+  pod 'shared_preference_app_group', :path => '.symlinks/plugins/shared_preference_app_group/ios'
+  pod 'shared_preferences_foundation', :path => '.symlinks/plugins/shared_preferences_foundation/darwin'
 end
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
   end
+end
+
+flutter_ext_path = File.expand_path(File.join('bin', 'cache', 'artifacts', 'engine', 'ios-release', 'extension_safe', 'Flutter.xcframework'), flutter_root)
+flutter_ext_symlink = File.join('share', 'Frameworks', 'Flutter.xcframework')
+if !File.exist?(flutter_ext_symlink)
+  FileUtils.ln_s(flutter_ext_path, flutter_ext_symlink)
 end

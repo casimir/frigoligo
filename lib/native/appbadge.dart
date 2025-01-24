@@ -24,8 +24,8 @@ class AppBadge {
 
   static late bool _isSupported;
 
-  static Future<void> init() async {
-    _isSupported = await isSupported();
+  static Future<void> init({bool enable = true}) async {
+    _isSupported = enable ? await isSupported() : false;
   }
 
   static bool get isSupportedSync => _isSupported;

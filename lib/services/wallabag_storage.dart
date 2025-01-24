@@ -147,6 +147,13 @@ class WStorage extends _$WStorage {
   Future<void> persistArticle(Article article) =>
       DB().articlesDao.updateOne(article);
 
+  Future<int> saveArticle(String url, {List<String>? tags}) async {
+    final wallabag = (await ref.read(clientProvider.future))!;
+    final entry = await wallabag.createEntry(url, tags: tags);
+    await persistArticle(entry.toArticle());
+    return entry.id;
+  }
+
   Future<void> deleteArticle(int articleId) async {
     final wallabag = (await ref.read(clientProvider.future))!;
 
