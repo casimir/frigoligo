@@ -37,8 +37,8 @@ end
 target 'share' do
   use_frameworks!
 
-  # pod 'device_info_plus', :path => '.symlinks/plugins/device_info_plus/ios'
-  # pod 'package_info_plus', :path => '.symlinks/plugins/package_info_plus/ios'
+  pod 'device_info_plus', :path => '.symlinks/plugins/device_info_plus/ios'
+  pod 'package_info_plus', :path => '.symlinks/plugins/package_info_plus/ios'
   pod 'path_provider_foundation', :path => '.symlinks/plugins/path_provider_foundation/darwin'
   pod 'shared_preference_app_group', :path => '.symlinks/plugins/shared_preference_app_group/ios'
   pod 'shared_preferences_foundation', :path => '.symlinks/plugins/shared_preferences_foundation/darwin'

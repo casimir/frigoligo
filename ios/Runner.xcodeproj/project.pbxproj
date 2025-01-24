@@ -12,7 +12,6 @@
 		021BA0A12A9BFCE500557A89 /* share.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 021BA0972A9BFCE500557A89 /* share.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		02A11FCD2BD558E400723586 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 02A11FCC2BD558E400723586 /* PrivacyInfo.xcprivacy */; };
 		02A11FCE2BD558E400723586 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 02A11FCC2BD558E400723586 /* PrivacyInfo.xcprivacy */; };
-		02A334242AA88F5B004887D3 /* ServerSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A334232AA88F5B004887D3 /* ServerSession.swift */; };
 		02A8B8102AC1FA2E00E393D9 /* CompletionToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A8B80F2AC1FA2E00E393D9 /* CompletionToast.swift */; };
 		02E788162C6CE46A008E5F54 /* AppBadgePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E788152C6CE46A008E5F54 /* AppBadgePlugin.swift */; };
 		02F0CC942D40522800A73A77 /* SavePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F0CC932D40521C00A73A77 /* SavePlugin.swift */; };
@@ -69,7 +68,6 @@
 		027CBE832A9D32D8008575FC /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
 		02A11FCC2BD558E400723586 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		02A334222AA87F35004887D3 /* share.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = share.entitlements; sourceTree = "<group>"; };
-		02A334232AA88F5B004887D3 /* ServerSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSession.swift; sourceTree = "<group>"; };
 		02A8B80F2AC1FA2E00E393D9 /* CompletionToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionToast.swift; sourceTree = "<group>"; };
 		02E788152C6CE46A008E5F54 /* AppBadgePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBadgePlugin.swift; sourceTree = "<group>"; };
 		02F0CC932D40521C00A73A77 /* SavePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePlugin.swift; sourceTree = "<group>"; };
@@ -126,7 +124,6 @@
 				021BA0992A9BFCE500557A89 /* ShareViewController.swift */,
 				021BA09B2A9BFCE500557A89 /* MainInterface.storyboard */,
 				021BA09E2A9BFCE500557A89 /* Info.plist */,
-				02A334232AA88F5B004887D3 /* ServerSession.swift */,
 				02A8B80F2AC1FA2E00E393D9 /* CompletionToast.swift */,
 			);
 			path = share;
@@ -414,7 +411,6 @@
 			files = (
 				02A8B8102AC1FA2E00E393D9 /* CompletionToast.swift in Sources */,
 				02F0CC942D40522800A73A77 /* SavePlugin.swift in Sources */,
-				02A334242AA88F5B004887D3 /* ServerSession.swift in Sources */,
 				021BA09A2A9BFCE500557A89 /* ShareViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

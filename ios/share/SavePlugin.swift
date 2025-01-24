@@ -29,16 +29,25 @@ public class SavePlugin : NSObject, FlutterPlugin {
   
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     switch call.method {
-    case "hello":
+    case "debugHello":
       result("Hello from iOS!")
     default:
       result(FlutterMethodNotImplemented)
     }
   }
   
-  public func hello() {
-    channel.invokeMethod("hello", arguments: nil) { result in
+  public func debugHello() {
+    channel.invokeMethod("debugHello", arguments: nil) { result in
       print("swift: \(result as! String)")
+    }
+  }
+  
+  @MainActor
+  public func saveArticle(url: URL) async throws -> Int? {
+    return try await withCheckedThrowingContinuation { continuation in
+      self.channel.invokeMethod("saveArticle", arguments: url.absoluteString) {articleId in
+        continuation.resume(returning: articleId as? Int)
+      }
     }
   }
 }

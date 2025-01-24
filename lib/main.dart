@@ -127,9 +127,9 @@ Future<void> mainNativeShare() async {
     await SharedPreferenceAppGroup.setAppGroup(appGroupId);
   }
 
+  await AppBadge.init(enable: false);
+  await AppInfo.init();
   await Settings.init();
 
-  SaveService.init();
-
-  SaveService.hello();
+  SaveService.setup();
 }
