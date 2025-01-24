@@ -40,4 +40,5 @@ Map<String, RemoteSyncAction Function(ActionParams)> actionBuilderRegistry = {
   'RefreshArticlesAction': RefreshArticlesAction.fromParams,
   'DeleteArticleAction': DeleteArticleAction.fromParams,
   'EditArticleAction': EditArticleAction.fromParams,
+  'SaveArticleAction': SaveArticleAction.fromParams,
 };

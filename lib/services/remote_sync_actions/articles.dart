@@ -65,3 +65,29 @@ class EditArticleAction extends RemoteSyncAction {
   Future<void> execute(syncer, storage) => storage.editArticle(articleId,
       archive: archive, starred: starred, tags: tags);
 }
+
+class SaveArticleAction extends RemoteSyncAction {
+  SaveArticleAction(
+    this.url, {
+    this.tags,
+  }) : super('saveArticle:$url:$tags');
+
+  final Uri url;
+  final List<String>? tags;
+
+  @override
+  ActionParams params() => {
+        'url': url.toString(),
+        'tags': tags,
+      };
+
+  factory SaveArticleAction.fromParams(ActionParams params) =>
+      SaveArticleAction(
+        Uri.parse(params['url'] as String),
+        tags: (params['tags'] as List?)?.cast<String>(),
+      );
+
+  @override
+  Future<int> execute(syncer, storage) =>
+      storage.saveArticle(url.toString(), tags: tags);
+}
