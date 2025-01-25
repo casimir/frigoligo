@@ -10,6 +10,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 ### 🚀 Features
 
 - *(web)* Allow to download log files ([919f6ab](https://github.com/casimir/frigoligo/commit/919f6ab0d3dfdf10a4fe928612a197e82a52ec4a))
+- Make saving articles possible when offline ([#320](https://github.com/casimir/frigoligo/pull/320)) ([0dbf99f](https://github.com/casimir/frigoligo/commit/0dbf99ff23457ccb8bd4dd9f337b12094b2aa455))
 
 ### 🚜 Refactor
 
