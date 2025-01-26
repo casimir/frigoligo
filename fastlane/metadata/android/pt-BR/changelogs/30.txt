@@ -1,0 +1,1 @@
+As fontes de leitura agora estão incluídas diretamente no aplicativo e não serão mais baixadas posteriormente.

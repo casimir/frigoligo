@@ -1,0 +1,4 @@
+- Retrabalhar a maior parte da interface para ser mais consistente e fácil de usar.
+- Reconstruir o sistema de armazenamento completamente para uma experiência mais consistente e confiável em todas as plataformas.
+- Reconstruir a lógica em torno das contagens de emblemas de aplicativos para ser mais confiável.
+- Novo idioma: Esperanto.
