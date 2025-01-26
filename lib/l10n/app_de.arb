@@ -466,5 +466,9 @@
         "format": "compact"
       }
     }
+  },
+  "readdingsettings_textFormatting": "Textformatierung",
+  "@readdingsettings_textFormatting": {
+    "description": "The text formatting to display the content of the article."
   }
 }
