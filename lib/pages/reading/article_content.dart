@@ -2,9 +2,6 @@ import 'package:cadanse/cadanse.dart';
 import 'package:cadanse/components/layouts/grouping.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
-import 'package:fwfh_cached_network_image/fwfh_cached_network_image.dart';
-import 'package:fwfh_url_launcher/fwfh_url_launcher.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../buildcontext_extension.dart';
@@ -12,56 +9,7 @@ import '../../db/database.dart';
 import '../../db/models/article.drift.dart';
 import '../../providers/article.dart';
 import '../../providers/reading_settings.dart';
-
-class HtmlWidgetFactory extends WidgetFactory
-    with CachedNetworkImageFactory, UrlLauncherFactory {
-  HtmlWidgetFactory({this.onTreeBuilt});
-
-  void Function(Widget)? onTreeBuilt;
-
-  @override
-  Widget buildBodyWidget(BuildContext context, Widget child) {
-    final body = super.buildBodyWidget(context, child);
-    onTreeBuilt?.call(body);
-    return body;
-  }
-}
-
-class HtmlWidgetPlus extends StatelessWidget {
-  const HtmlWidgetPlus(
-    this.html, {
-    super.key,
-    this.onTreeBuilt,
-    this.settings,
-  });
-
-  final String html;
-  final void Function(Widget)? onTreeBuilt;
-  final ReaderSettingsValues? settings;
-
-  @override
-  Widget build(BuildContext context) {
-    var style = '';
-    if (settings?.justifyText == true) style += 'text-align:justify;';
-    // 1 em ~ 2 characters (1 em is the width of 'M')
-    style += 'max-width:40em;';
-
-    return Container(
-      alignment: Alignment.center,
-      width: double.infinity,
-      child: HtmlWidget(
-        '<div style="$style">$html</div>',
-        factoryBuilder: () => HtmlWidgetFactory(
-          onTreeBuilt: (child) =>
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-            onTreeBuilt?.call(child);
-          }),
-        ),
-        textStyle: settings?.textStyle,
-      ),
-    );
-  }
-}
+import '../../widgets/html_widget_plus.dart';
 
 class ArticleContent extends ConsumerStatefulWidget {
   const ArticleContent({
@@ -115,6 +63,7 @@ class _ArticleContentState extends ConsumerState<ArticleContent> {
 
   @override
   Widget build(BuildContext context) {
+    final settings = ref.watch(readingSettingsProvider);
     return SelectionArea(
       child: SingleChildScrollView(
         child: Column(
@@ -123,7 +72,8 @@ class _ArticleContentState extends ConsumerState<ArticleContent> {
               child: HtmlWidgetPlus(
                 widget.article.content!,
                 onTreeBuilt: (_) => _jumpToProgress(),
-                settings: ref.watch(readingSettingsProvider),
+                justifyText: settings.justifyText,
+                textStyle: settings.textStyle,
               ),
             ),
             SizedBox(height: MediaQuery.paddingOf(context).bottom),
