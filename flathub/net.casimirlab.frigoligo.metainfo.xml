@@ -140,6 +140,11 @@
           <li>Several bugfixes related to reading progress.</li>
           <li>Allow to connect with a server without SSL.</li>
           <li>New languages: Russian (Русский язык) and Tamil (தமிழ்).</li>
+          <li xml:lang="de">Möglichkeit zum Erstellen von Tags beim Bearbeiten eines Artikels hinzugefügt.</li>
+          <li xml:lang="de">Bessere Erfahrung im Offline-Modus.</li>
+          <li xml:lang="de">Mehrere Fehlerbehebungen im Zusammenhang mit dem Lesefortschritt.</li>
+          <li xml:lang="de">Verbindung mit einem Server ohne SSL möglich.</li>
+          <li xml:lang="de">Neue Sprachen: Russisch (Русский язык) und Tamil (தமிழ்).</li>
           <li xml:lang="es">Añadir una forma de crear etiquetas al editar un artículo.</li>
           <li xml:lang="es">Mejor experiencia sin conexión.</li>
           <li xml:lang="es">Varias correcciones de errores relacionados con el progreso de lectura.</li>
@@ -159,6 +164,11 @@
           <li xml:lang="gl">varios arranxos relacionados co progreso da lectura</li>
           <li xml:lang="gl">permitir a conexión a un servidor sen SSL.</li>
           <li xml:lang="gl">novos idiomas: ruso (Русский язык) and tamil (தமிழ்).</li>
+          <li xml:lang="pt-BR">Adicione uma maneira de criar tags ao editar um artigo.</li>
+          <li xml:lang="pt-BR">Melhor experiência quando offline.</li>
+          <li xml:lang="pt-BR">Várias correções de bugs relacionadas ao progresso da leitura.</li>
+          <li xml:lang="pt-BR">Permita conectar-se a um servidor sem SSL.</li>
+          <li xml:lang="pt-BR">Novos idiomas: Russo (Русский язык) e Tâmil (தமிழ்).</li>
           <li xml:lang="ru">Добавлена возможность создавать теги при редактировании статьи.</li>
           <li xml:lang="ru">Работа в офлайн-режиме стала более приятной.</li>
           <li xml:lang="ru">Исправлено несколько ошибок, связанных с прогрессом чтения.</li>
@@ -168,6 +178,11 @@
           <li xml:lang="ta">ஆஃப்லைனில் இருக்கும்போது சிறந்த அனுபவம்.</li>
           <li xml:lang="ta">வாசிப்பு முன்னேற்றம் தொடர்பான பல பிழைகள்.</li>
           <li xml:lang="ta">SSL இல்லாமல் சேவையகத்துடன் இணைக்க அனுமதிக்கவும்.</li>
+          <li xml:lang="zh-Hans">添加了在编辑文章时创建标签的方法。</li>
+          <li xml:lang="zh-Hans">离线时的体验更好。</li>
+          <li xml:lang="zh-Hans">修复了与阅读进度相关的多个错误。</li>
+          <li xml:lang="zh-Hans">允许在没有 SSL 的情况下连接服务器。</li>
+          <li xml:lang="zh-Hans">新增语言：俄语（Русский язык）和泰米尔语（தமிழ்）。</li>
         </ul>
       </description>
     </release>
@@ -179,6 +194,10 @@
           <li>Fixed the share button not working in some cases.</li>
           <li>New languages: Spanish, Estonian.</li>
           <li>Update translations for several languages.</li>
+          <li xml:lang="de">Viele Optimierungen und Verbesserungen an der Benutzeroberfläche.</li>
+          <li xml:lang="de">Problem behoben, bei dem die Schaltfläche „Teilen“ in manchen Fällen nicht funktionierte.</li>
+          <li xml:lang="de">Neue Sprachen: Spanisch, Estnisch.</li>
+          <li xml:lang="de">Übersetzungen für mehrere Sprachen aktualisiert.</li>
           <li xml:lang="es">Muchos ajustes y mejoras en la interfaz de usuario.</li>
           <li xml:lang="es">Se solucionó el problema del botón de compartir que no funcionaba en algunos casos.</li>
           <li xml:lang="es">Nuevos idiomas: español, estonio.</li>
@@ -195,6 +214,10 @@
           <li xml:lang="gl">Arranxo do botón compartir nalgúns escenarios.</li>
           <li xml:lang="gl">Novos idiomas: Español, Estonio.</li>
           <li xml:lang="gl">Actualización das traducións.</li>
+          <li xml:lang="pt-BR">Muitos ajustes e melhorias na IU.</li>
+          <li xml:lang="pt-BR">Corrigido o botão de compartilhamento que não funcionava em alguns casos.</li>
+          <li xml:lang="pt-BR">Novos idiomas: espanhol, estoniano.</li>
+          <li xml:lang="pt-BR">Atualizar traduções para vários idiomas.</li>
           <li xml:lang="ru">Множество настроек и улучшений пользовательского интерфейса.</li>
           <li xml:lang="ru">Исправлена ошибка, из-за которой кнопка «Поделиться» в некоторых случаях не работала.</li>
           <li xml:lang="ru">Новые языки: испанский, эстонский.</li>
@@ -203,6 +226,10 @@
           <li xml:lang="ta">சில சந்தர்ப்பங்களில் வேலை செய்யாத பங்கு பொத்தானை சரி செய்தது.</li>
           <li xml:lang="ta">புதிய மொழிகள்: ச்பானிச், எச்டோனியன்.</li>
           <li xml:lang="ta">பல மொழிகளுக்கான மொழிபெயர்ப்புகளைப் புதுப்பிக்கவும்.</li>
+          <li xml:lang="zh-Hans">对用户界面进行了大量调整和改进。</li>
+          <li xml:lang="zh-Hans">修复了在某些情况下共享按钮不起作用的问题。</li>
+          <li xml:lang="zh-Hans">新增语言：西班牙语、爱沙尼亚语。</li>
+          <li xml:lang="zh-Hans">更新了多种语言的翻译。</li>
         </ul>
       </description>
     </release>

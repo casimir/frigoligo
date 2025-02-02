@@ -1,0 +1,2 @@
+- Saving an article is now possible offline.
+- New languages: Brazilian Portuguese.
