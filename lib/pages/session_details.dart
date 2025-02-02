@@ -16,6 +16,7 @@ import '../server/session.dart';
 import '../services/wallabag_storage.dart';
 import '../wallabag/wallabag.dart';
 import '../widgets/async/text.dart';
+import '../widgets/copiable_text.dart';
 
 Widget _copyText(BuildContext context, String text, [bool obfuscate = false]) {
   var content = text;
@@ -25,15 +26,17 @@ Widget _copyText(BuildContext context, String text, [bool obfuscate = false]) {
     final suffix = text.substring(text.length - showLen);
     content = '$prefix...$suffix';
   }
-  return InkWell(
-    onTap: () async {
-      await Clipboard.setData(ClipboardData(text: text));
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(context.L.session_copiedToClipboard)));
-      }
+  return CopiableText(
+    Text(content, style: const TextStyle(fontFamily: 'monospace')),
+    value: text,
+    onCopy: (data) {
+      Clipboard.setData(ClipboardData(text: text)).then((_) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(context.L.session_copiedToClipboard)));
+        }
+      });
     },
-    child: Text(content, style: const TextStyle(fontFamily: 'monospace')),
   );
 }
 

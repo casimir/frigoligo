@@ -11,6 +11,7 @@ import '../../db/database.dart';
 import '../../db/models/article.drift.dart';
 import '../../services/remote_sync.dart';
 import '../../services/remote_sync_actions/articles.dart';
+import '../../widgets/copiable_text.dart';
 import '../../widgets/material_sheet.dart';
 import '../../widgets/selectors.dart';
 import '../../widgets/tag_list.dart';
@@ -90,6 +91,7 @@ class ArticleSheet extends ConsumerWidget with CurrentArticleWidget {
     String? value,
     Widget? child,
   }) {
+    final valueWidget = child ?? Text(value ?? '');
     return [
       Text(
         label,
@@ -99,7 +101,7 @@ class ArticleSheet extends ConsumerWidget with CurrentArticleWidget {
             ?.copyWith(fontWeight: FontWeight.bold),
       ),
       C.spacers.verticalComponent,
-      child ?? Text(value ?? ''),
+      valueWidget is Text ? CopiableText(valueWidget) : valueWidget,
     ];
   }
 }
