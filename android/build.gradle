@@ -1,6 +1,6 @@
 ext {
     // background_fetch needs these but I couldn't find a way to load these from flutter...
-    compileSdkVersion = 34
+    compileSdkVersion = 35
     targetSdkVersion = 34
 }
 
