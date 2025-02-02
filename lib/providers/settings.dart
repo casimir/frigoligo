@@ -197,7 +197,7 @@ enum Language {
   fr(Locale('fr'), 'Français'),
   gl(Locale('gl'), 'Galego'),
   // pt(Locale('pt', 'PT'), 'Português'),
-  // ptBR(Locale('pt', 'BR'), 'Português (Brasil)'),
+  ptBR(Locale('pt', 'BR'), 'Português (Brasil)'),
   ru(Locale('ru'), 'Русский язык'),
   ta(Locale('ta'), 'தமிழ்'),
   zh(Locale('zh'), '中文'),

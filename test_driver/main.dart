@@ -12,6 +12,7 @@ const locales = {
   'es-ES': Language.es,
   'et': Language.et,
   'fr-FR': Language.fr,
+  'pt-BR': Language.ptBR,
   'ru-RU': Language.ru,
   'ta-IN': Language.ta,
   'zh-Hans': Language.zh,

@@ -34,6 +34,7 @@ class ProjectLocalizationLoader extends LocalizationLoader {
   @override
   String rewriteLocale(String locale) {
     final rewrites = {
+      'pt-BR': 'pt_BR',
       'zh-Hant': 'zh_Hant',
     };
     return rewrites[locale] ?? super.rewriteLocale(locale);
