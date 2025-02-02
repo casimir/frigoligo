@@ -1,0 +1,4 @@
+- Viele Optimierungen und Verbesserungen an der Benutzeroberfläche.
+- Problem behoben, bei dem die Schaltfläche „Teilen“ in manchen Fällen nicht funktionierte.
+- Neue Sprachen: Spanisch, Estnisch.
+- Übersetzungen für mehrere Sprachen aktualisiert.

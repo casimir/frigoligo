@@ -418,5 +418,23 @@
   "articlefields_website": "網站",
   "@articlefields_website": {
     "description": "The website (domain) from where the article has been fetched."
+  },
+  "filters_articleDomainsCount": "",
+  "@filters_articleDomainsCount": {
+    "description": "The number of articles domains used in filters.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "g_article": "文章",
+  "@g_article": {
+    "description": "A piece of content fetched from the web. This is one of the main concepts of the app."
+  },
+  "filters_articleDomains": "網域",
+  "@filters_articleDomains": {
+    "description": "Filter the domains from where the articles have been fetched."
   }
 }

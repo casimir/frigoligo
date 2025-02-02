@@ -1,0 +1,4 @@
+- Muitos ajustes e melhorias na IU.
+- Corrigido o botão de compartilhamento que não funcionava em alguns casos.
+- Novos idiomas: espanhol, estoniano.
+- Atualizar traduções para vários idiomas.

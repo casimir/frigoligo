@@ -1,0 +1,1 @@
+- Corrigido um problema que poderia impedir a abertura de links no conteúdo dos artigos.

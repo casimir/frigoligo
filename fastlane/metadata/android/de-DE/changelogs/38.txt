@@ -1,0 +1,5 @@
+- Möglichkeit zum Erstellen von Tags beim Bearbeiten eines Artikels hinzugefügt.
+- Bessere Erfahrung im Offline-Modus.
+- Mehrere Fehlerbehebungen im Zusammenhang mit dem Lesefortschritt.
+- Verbindung mit einem Server ohne SSL möglich.
+- Neue Sprachen: Russisch (Русский язык) und Tamil (தமிழ்).
