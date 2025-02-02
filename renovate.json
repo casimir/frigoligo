@@ -8,14 +8,26 @@
   ],
   "packageRules": [
     {
-      "groupName": "all non-major dependencies",
-      "groupSlug": "all-minor-patch",
-      "matchPackageNames": [
-        "*"
+      "groupName": "Flutter packages (non-major)",
+      "matchManagers": [
+        "pub"
       ],
       "matchUpdateTypes": [
         "minor",
         "patch"
+      ]
+    },
+    {
+      "groupName": "Android build tools",
+      "matchManagers": [
+        "gradle",
+        "gradle-wrapper"
+      ]
+    },
+    {
+      "groupName": "GitHub Actions",
+      "matchManagers": [
+        "github-actions"
       ]
     }
   ]
