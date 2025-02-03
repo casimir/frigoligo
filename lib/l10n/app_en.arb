@@ -143,6 +143,10 @@
       }
     }
   },
+  "article_refetchContent": "Re-fetch content",
+  "@article_refetchContent": {
+    "description": "The action to ask the server to fetch the article content again."
+  },
   "@ARTICLEFIELDS": {},
   "articlefields_readingTime": "Reading time",
   "@articlefields_readingTime": {

@@ -2,6 +2,7 @@ import 'package:cadanse/cadanse.dart';
 import 'package:cadanse/components/layouts/grouping.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -44,6 +45,19 @@ class ArticleSheet extends ConsumerWidget with CurrentArticleWidget {
               ..._buildField(context, context.L.articlefields_readingTime,
                   value: context.L.article_readingTime(article.readingTime)),
               C.spacers.verticalContent,
+              ActionChip(
+                avatar: const Icon(Icons.refresh),
+                label: Text(context.L.article_refetchContent),
+                onPressed: () async {
+                  if (context.mounted) {
+                    context.pop();
+                  }
+                  final syncer = ref.read(remoteSyncerProvider.notifier);
+                  await syncer.add(RefetchArticleAction(article.id));
+                  await syncer.synchronize();
+                },
+              ),
+              C.spacers.verticalComponent,
               const Divider(),
               C.spacers.verticalContent,
               Text(

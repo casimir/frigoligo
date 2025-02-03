@@ -91,3 +91,19 @@ class SaveArticleAction extends RemoteSyncAction {
   Future<int> execute(syncer, storage) =>
       storage.saveArticle(url.toString(), tags: tags);
 }
+
+class RefetchArticleAction extends RemoteSyncAction {
+  const RefetchArticleAction(this.articleId)
+      : super('refectchArticle:$articleId');
+
+  final int articleId;
+
+  @override
+  ActionParams params() => {'articleId': articleId};
+
+  factory RefetchArticleAction.fromParams(ActionParams params) =>
+      RefetchArticleAction(params['articleId'] as int);
+
+  @override
+  Future<bool> execute(syncer, storage) => storage.refetchArticle(articleId);
+}

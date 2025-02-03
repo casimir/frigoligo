@@ -177,4 +177,14 @@ class WStorage extends _$WStorage {
     );
     await persistArticle(entry.toArticle());
   }
+
+  Future<bool> refetchArticle(int articleId) async {
+    final wallabag = (await ref.read(clientProvider.future))!;
+    final reloaded = await wallabag.reloadEntry(articleId);
+    if (reloaded) {
+      final entry = await wallabag.getEntry(articleId);
+      await persistArticle(entry.toArticle());
+    }
+    return reloaded;
+  }
 }

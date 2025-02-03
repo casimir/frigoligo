@@ -303,6 +303,13 @@ extension WallabagClientEndpoints on WallabagClient {
       yield pageData.embedded.items;
     }
   }
+
+  Future<bool> reloadEntry(int id) async {
+    final response = await patch(await buildUri('/api/entries/$id/reload'));
+    // any error on the server side is reported as 304 on this endpoint
+    throwOnError(response, expected: [200, 304]);
+    return response.statusCode == 200;
+  }
 }
 
 enum SortValue {
