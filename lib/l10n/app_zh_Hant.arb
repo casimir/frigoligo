@@ -436,5 +436,9 @@
   "filters_articleDomains": "網域",
   "@filters_articleDomains": {
     "description": "Filter the domains from where the articles have been fetched."
+  },
+  "article_refetchContent": "再次擷取內容",
+  "@article_refetchContent": {
+    "description": "The action to ask the server to fetch the article content again."
   }
 }
