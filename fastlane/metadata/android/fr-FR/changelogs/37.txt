@@ -1,4 +1,4 @@
 - Divers ajustements et améliorations de l'interface utilisateur.
 - Correction du bouton de partage qui ne fonctionnait pas dans certains cas.
-- Nouvelles langues : Espagnol, Estonien.
+- Nouvelles langues : Espagnol, Estonien.
 - Mise à jour des traductions pour plusieurs langues.

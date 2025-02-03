@@ -1,0 +1,3 @@
+- La sauvegarde d'un article est désormais possible hors ligne.
+- Ajouter d'un bouton pour demander au serveur de récupérer à nouveau le contenu d'un article.
+- Nouvelles langues : portugais brésilien.

@@ -470,5 +470,9 @@
   "filters_searchMode": "Mode de recherche",
   "@filters_searchMode": {
     "description": "The title of the search mode screen (which fields to search text into)."
+  },
+  "article_refetchContent": "Recharger le contenu",
+  "@article_refetchContent": {
+    "description": "The action to ask the server to fetch the article content again."
   }
 }
