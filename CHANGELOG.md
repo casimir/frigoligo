@@ -13,6 +13,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Make saving articles possible when offline ([#320](https://github.com/casimir/frigoligo/pull/320)) ([0dbf99f](https://github.com/casimir/frigoligo/commit/0dbf99ff23457ccb8bd4dd9f337b12094b2aa455))
 - *(i18n)* Enable Brazilian Portuguese thanks to new translations ([e5f98c3](https://github.com/casimir/frigoligo/commit/e5f98c309a19b93d699cc2eec0ddcc09c1491739))
 - *(article sheet)* Make text fields copiable ([8246974](https://github.com/casimir/frigoligo/commit/824697469c093a4d8c354915bdf3f1c5c2ef3cf2))
+- *(article)* Add a button to ask the server to re-fetch the content ([afd1d25](https://github.com/casimir/frigoligo/commit/afd1d25911714a90af9c645e4b39bec4e6e0f601))
 
 ### 🐛 Bug Fixes
 
@@ -38,12 +39,25 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
  ([94dde16](https://github.com/casimir/frigoligo/commit/94dde16a81b8b43473d373ff6b94a42af9e2268c))
 - Update translations: Chinese (Simplified Han script)
  ([983380f](https://github.com/casimir/frigoligo/commit/983380fffc84526363086614a9c115b545fe1b19))
+- Update translations: Galician
+ ([a5014ac](https://github.com/casimir/frigoligo/commit/a5014ac09005dfbb142f539e685e91dcbd3bfeb9))
+- Update translations: Tamil
+ ([a4a9f69](https://github.com/casimir/frigoligo/commit/a4a9f6919a35d47f0862a91fa6b289b9b067bb89))
+- Update translations: Estonian
+ ([593a115](https://github.com/casimir/frigoligo/commit/593a11593300efd24dc5fee6a7e346486cbfbd36))
+- Update translations: Spanish
+ ([261b46c](https://github.com/casimir/frigoligo/commit/261b46c9c2fe39197a24ff30538b1cdb1e0868b0))
+- Update translations: French
+ ([797c426](https://github.com/casimir/frigoligo/commit/797c426b7317bb8c2c559792f7461e23dedf5ae8))
+- Update translations: Portuguese (Portugal)
+ ([a832a14](https://github.com/casimir/frigoligo/commit/a832a14a7419367a1ecaf491f7b7358061203c0f))
 
 ### ⚙️ Miscellaneous Tasks
 
 - *(flathub)* Reverse release order ([049a835](https://github.com/casimir/frigoligo/commit/049a83530809f4fc8248cb952c29ca9a3d09f544))
 - *(fastlane)* Bump copyright year ([5cad63b](https://github.com/casimir/frigoligo/commit/5cad63b195cf36f87fd4dfa92a2dd323e67b3987))
 - Change how renovate groups dependencies update ([fd3f34f](https://github.com/casimir/frigoligo/commit/fd3f34fb40b4c8de1044e35719da01fe1b9b5b2b))
+- Setup automated updates for other changelogs ([8284bfd](https://github.com/casimir/frigoligo/commit/8284bfd02665f88276f2db2292d42fa8bd064dea))
 
 **Full Changelog**: [v2.2.0..HEAD](https://github.com/casimir/frigoligo/compare/v2.2.0..HEAD)
 
