@@ -11,16 +11,39 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 
 - *(web)* Allow to download log files ([919f6ab](https://github.com/casimir/frigoligo/commit/919f6ab0d3dfdf10a4fe928612a197e82a52ec4a))
 - Make saving articles possible when offline ([#320](https://github.com/casimir/frigoligo/pull/320)) ([0dbf99f](https://github.com/casimir/frigoligo/commit/0dbf99ff23457ccb8bd4dd9f337b12094b2aa455))
+- *(i18n)* Enable Brazilian Portuguese thanks to new translations ([e5f98c3](https://github.com/casimir/frigoligo/commit/e5f98c309a19b93d699cc2eec0ddcc09c1491739))
+- *(article sheet)* Make text fields copiable ([8246974](https://github.com/casimir/frigoligo/commit/824697469c093a4d8c354915bdf3f1c5c2ef3cf2))
+
+### 🐛 Bug Fixes
+
+- Login keyboard navigation ([#314](https://github.com/casimir/frigoligo/pull/314)) ([d25a88a](https://github.com/casimir/frigoligo/commit/d25a88a7c74ba56937b4b7feb3c8291ccfd0e7c4))
 
 ### 🚜 Refactor
 
 - *(syncer)* Aggregate actions optional result for later use ([3fd69e6](https://github.com/casimir/frigoligo/commit/3fd69e605f2eb8c9640cc5950345ef681f1c1118))
 - Don't assume that loading an article is instantaneous ([25fc582](https://github.com/casimir/frigoligo/commit/25fc58274d06a542de7cb3d548da955df23113ce))
+- Move fwfh specific widget in a dedicated file ([c317a00](https://github.com/casimir/frigoligo/commit/c317a00db375231162a20b566af8bed15895d941))
+
+### 📚 Documentation
+
+- Start the changelog for the next release + regen metainfo ([034a6f2](https://github.com/casimir/frigoligo/commit/034a6f2e351baed31332a21e9152bd432f5009ec))
+
+### 🌐 Translations
+
+- Update translations: Portuguese (Brazil)
+ ([c44bf96](https://github.com/casimir/frigoligo/commit/c44bf96753d100e6de046a0b84f77eede5fe8d5c))
+- Update translations: German
+ ([1187dad](https://github.com/casimir/frigoligo/commit/1187daddd23fc7f8976397bf57bf29e84774d7e9))
+- Update translations: Chinese (Traditional Han script)
+ ([94dde16](https://github.com/casimir/frigoligo/commit/94dde16a81b8b43473d373ff6b94a42af9e2268c))
+- Update translations: Chinese (Simplified Han script)
+ ([983380f](https://github.com/casimir/frigoligo/commit/983380fffc84526363086614a9c115b545fe1b19))
 
 ### ⚙️ Miscellaneous Tasks
 
 - *(flathub)* Reverse release order ([049a835](https://github.com/casimir/frigoligo/commit/049a83530809f4fc8248cb952c29ca9a3d09f544))
 - *(fastlane)* Bump copyright year ([5cad63b](https://github.com/casimir/frigoligo/commit/5cad63b195cf36f87fd4dfa92a2dd323e67b3987))
+- Change how renovate groups dependencies update ([fd3f34f](https://github.com/casimir/frigoligo/commit/fd3f34fb40b4c8de1044e35719da01fe1b9b5b2b))
 
 **Full Changelog**: [v2.2.0..HEAD](https://github.com/casimir/frigoligo/compare/v2.2.0..HEAD)
 
