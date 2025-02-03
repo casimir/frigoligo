@@ -58,6 +58,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(fastlane)* Bump copyright year ([5cad63b](https://github.com/casimir/frigoligo/commit/5cad63b195cf36f87fd4dfa92a2dd323e67b3987))
 - Change how renovate groups dependencies update ([fd3f34f](https://github.com/casimir/frigoligo/commit/fd3f34fb40b4c8de1044e35719da01fe1b9b5b2b))
 - Setup automated updates for other changelogs ([8284bfd](https://github.com/casimir/frigoligo/commit/8284bfd02665f88276f2db2292d42fa8bd064dea))
+- Cleanup wrong file versioning and prevent it in the future ([fe94c5e](https://github.com/casimir/frigoligo/commit/fe94c5e33143617303c98de04e655a6142439c70))
 
 **Full Changelog**: [v2.2.0..HEAD](https://github.com/casimir/frigoligo/compare/v2.2.0..HEAD)
 
