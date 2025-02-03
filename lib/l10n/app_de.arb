@@ -470,5 +470,9 @@
   "readdingsettings_textFormatting": "Textformatierung",
   "@readdingsettings_textFormatting": {
     "description": "The text formatting to display the content of the article."
+  },
+  "article_refetchContent": "Inhalt neu laden",
+  "@article_refetchContent": {
+    "description": "The action to ask the server to fetch the article content again."
   }
 }
