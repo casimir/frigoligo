@@ -500,5 +500,9 @@
         "format": "compact"
       }
     }
+  },
+  "article_refetchContent": "உள்ளடக்கத்தை மீண்டும் பெறவும்",
+  "@article_refetchContent": {
+    "description": "The action to ask the server to fetch the article content again."
   }
 }
