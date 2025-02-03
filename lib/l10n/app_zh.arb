@@ -470,5 +470,9 @@
         "example": "3 items"
       }
     }
+  },
+  "article_refetchContent": "重新抓取",
+  "@article_refetchContent": {
+    "description": "The action to ask the server to fetch the article content again."
   }
 }
