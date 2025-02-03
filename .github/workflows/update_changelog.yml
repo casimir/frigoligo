@@ -1,12 +1,12 @@
-name: update changelog
+name: update changelogs
 on:
   schedule:
     - cron: '0 0 * * *'
   workflow_dispatch:
 
 jobs:
-  changelog:
-    name: Update changelog
+  changelogs:
+    name: Update all changelogs
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -16,7 +16,9 @@ jobs:
         env:
           # the value in the config is overriden implicitly
           OUTPUT: CHANGELOG.md
+      - uses: dart-lang/setup-dart@v1
+      - run: dart run tools/setup_metadata.dart
+      - run: dart run flathub/render_metadata.dart 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Automated changelog update"
-          file_pattern: CHANGELOG.md
