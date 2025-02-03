@@ -1,0 +1,2 @@
+- Artikli salvestamine on nüüd võimalik võrguühenduseta.
+- Uued keeled: Brasiilia portugali keel.
