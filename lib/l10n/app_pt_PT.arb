@@ -194,5 +194,9 @@
   "articlefields_website": "Sitio Web",
   "@articlefields_website": {
     "description": "The website (domain) from where the article has been fetched."
+  },
+  "article_refetchContent": "Recapturar o conteúdo",
+  "@article_refetchContent": {
+    "description": "The action to ask the server to fetch the article content again."
   }
 }
