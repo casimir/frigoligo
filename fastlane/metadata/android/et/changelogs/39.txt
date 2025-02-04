@@ -1,2 +1,3 @@
 - Artikli salvestamine on nüüd võimalik võrguühenduseta.
+- Lisasime nupu, mis võimaldab artikli serverist uuesti laadida.
 - Uued keeled: Brasiilia portugali keel.
