@@ -24,6 +24,9 @@
     <control>touch</control>
     <control>tablet</control>
   </supports>
+  <requires>
+    <display_length compare="ge">360</display_length>
+  </requires>
   
 %DESCRIPTION%
   
