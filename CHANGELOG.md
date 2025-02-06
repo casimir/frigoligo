@@ -28,6 +28,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 ### 📚 Documentation
 
 - Start the changelog for the next release + regen metainfo ([034a6f2](https://github.com/casimir/frigoligo/commit/034a6f2e351baed31332a21e9152bd432f5009ec))
+- *(flathub)* Mark the app as explicitly adapted to mobile ([489cd9f](https://github.com/casimir/frigoligo/commit/489cd9fbad4951f4b11ce3f580fd7cf9e6976d90))
 
 ### 🌐 Translations
 
