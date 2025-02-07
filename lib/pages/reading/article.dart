@@ -398,6 +398,9 @@ class _LinearScrollIndicatorState extends State<LinearScrollIndicator> {
   }
 
   void _scrollListener() {
+    // when using the webview based rendered the scrollview is lazily added
+    if (widget.controller.positions.isEmpty) return;
+
     final pixels = widget.controller.position.pixels;
     final maxExtent = widget.controller.position.maxScrollExtent;
     setState(() {

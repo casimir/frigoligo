@@ -1,0 +1,28 @@
+<html>
+
+<head>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <style>
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    #content {
+      justify-content: center;
+      max-width: 40em;
+    }
+
+    .justified {
+      text-align: justify;
+    }
+  </style>
+  {{ colorScheme }}
+  {{ readingSettings }}
+</head>
+
+<body>
+  <div id="content" class="{{ articleClass }}">{{ articleContent }}</div>
+</body>
+
+</html>

@@ -224,6 +224,15 @@ class SettingsPage extends ConsumerWidget {
                   }
                 },
               ),
+              if (UniversalPlatform.isIOS)
+                SettingsTile.switchTile(
+                  leading: const Icon(Icons.settings_suggest),
+                  title: Text(context.L.settings_useNativeArticleRenderer),
+                  initialValue: settings[Sk.nativeArticleRenderer],
+                  onToggle: (value) => ref
+                      .read(settingsProvider.notifier)
+                      .set(Sk.nativeArticleRenderer, value),
+                ),
             ])
           ],
         ),
