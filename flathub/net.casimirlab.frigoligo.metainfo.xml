@@ -134,6 +134,25 @@
   </branding>
   
   <releases>
+    <release version="v2.3.0" date="2025-02-09">
+      <url type="details">https://github.com/casimir/frigoligo/releases/tag/v2.3.0</url>
+      <description>
+        <ul>
+          <li>Saving an article is now possible offline.</li>
+          <li>Add a button to ask the server to re-fetch an article.</li>
+          <li>New languages: Brazilian Portuguese.</li>
+          <li xml:lang="et">Artikli salvestamine on nüüd võimalik võrguühenduseta.</li>
+          <li xml:lang="et">Lisasime nupu, mis võimaldab artikli serverist uuesti laadida.</li>
+          <li xml:lang="et">Uued keeled: Brasiilia portugali keel.</li>
+          <li xml:lang="fr">La sauvegarde d'un article est désormais possible hors ligne.</li>
+          <li xml:lang="fr">Ajout d'un bouton pour demander au serveur de récupérer à nouveau le contenu d'un article.</li>
+          <li xml:lang="fr">Nouvelles langues : portugais brésilien.</li>
+          <li xml:lang="gl">Agora podes gardar un artigo aínda non tendo conexión.</li>
+          <li xml:lang="gl">Engadido un botón para pedirlle ao servidor que volva a obter un artigo.</li>
+          <li xml:lang="gl">Novos idiomas: Portugués do Brasil.</li>
+        </ul>
+      </description>
+    </release>
     <release version="v2.2.0" date="2025-01-12">
       <url type="details">https://github.com/casimir/frigoligo/releases/tag/v2.2.0</url>
       <description>
@@ -242,7 +261,7 @@
   <screenshots>
     <screenshot type="default">
       <caption>Main screen showing a listing of the saved articles.</caption>
-      <image>https://raw.githubusercontent.com/casimir/frigoligo/v2.2.0/assets/screenshots/desktop.png</image>
+      <image>https://raw.githubusercontent.com/casimir/frigoligo/v2.3.0/assets/screenshots/desktop.png</image>
     </screenshot>
   </screenshots>
 </component>
