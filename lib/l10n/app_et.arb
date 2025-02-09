@@ -500,5 +500,9 @@
   "readdingsettings_textFormatting": "Teksti vormindus",
   "@readdingsettings_textFormatting": {
     "description": "The text formatting to display the content of the article."
+  },
+  "article_refetchContent": "Laadi sisu uuesti",
+  "@article_refetchContent": {
+    "description": "The action to ask the server to fetch the article content again."
   }
 }

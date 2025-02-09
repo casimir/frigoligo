@@ -1,0 +1,3 @@
+- Agora podes gardar un artigo aínda non tendo conexión.
+- Engadido un botón para pedirlle ao servidor que volva a obter un artigo.
+- Novos idiomas: Portugués do Brasil.
