@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadata/android/en-US/changelogs) for a more high level list of changes.
 
-## [unreleased]
+## [2.3.0] - 2025-02-09
 
 
 ### 🚀 Features
@@ -61,7 +61,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Setup automated updates for other changelogs ([8284bfd](https://github.com/casimir/frigoligo/commit/8284bfd02665f88276f2db2292d42fa8bd064dea))
 - Cleanup wrong file versioning and prevent it in the future ([fe94c5e](https://github.com/casimir/frigoligo/commit/fe94c5e33143617303c98de04e655a6142439c70))
 
-**Full Changelog**: [v2.2.0..HEAD](https://github.com/casimir/frigoligo/compare/v2.2.0..HEAD)
+**Full Changelog**: [v2.2.0..v2.3.0](https://github.com/casimir/frigoligo/compare/v2.2.0..v2.3.0)
 
 
 ## [2.2.0] - 2025-01-12
