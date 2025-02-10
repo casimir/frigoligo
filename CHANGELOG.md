@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadata/android/en-US/changelogs) for a more high level list of changes.
 
+## [unreleased]
+
+
+### 📚 Documentation
+
+- *(changelog)* Regen file ([a3dc724](https://github.com/casimir/frigoligo/commit/a3dc72427106bdb822f2ec41bb4628f8d9f3b1f5))
+
+**Full Changelog**: [v2.3.0..HEAD](https://github.com/casimir/frigoligo/compare/v2.3.0..HEAD)
+
+
 ## [2.3.0] - 2025-02-09
 
 
