@@ -4,11 +4,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:shared_preference_app_group/shared_preference_app_group.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:universal_platform/universal_platform.dart';
 
-import '../app_info.dart';
-import 'ios/settings_syncer.dart';
+import '../constants.dart';
 
 part 'settings.g.dart';
 
@@ -31,24 +31,97 @@ class EnumCodec<T extends Enum> implements Codec<T> {
   T decode(String raw) => values.firstWhere((it) => it.name == raw);
 }
 
+class UniversalPreferences {
+  static Map<String, dynamic>? _cache;
+  static SharedPreferences? _prefs;
+
+  static Future<void> resync() async {
+    if (UniversalPlatform.isIOS) {
+      await SharedPreferenceAppGroup.setAppGroup(appGroupId);
+      _cache = await SharedPreferenceAppGroup.getAll();
+    } else {
+      _prefs = await SharedPreferences.getInstance();
+    }
+  }
+
+  static Future<void> setBool(String key, bool value) {
+    if (UniversalPlatform.isIOS) {
+      _cache![key] = value;
+      return SharedPreferenceAppGroup.setBool(key, value);
+    } else {
+      return _prefs!.setBool(key, value);
+    }
+  }
+
+  static Future<void> setDouble(String key, double value) {
+    if (UniversalPlatform.isIOS) {
+      _cache![key] = value;
+      return SharedPreferenceAppGroup.setDouble(key, value);
+    } else {
+      return _prefs!.setDouble(key, value);
+    }
+  }
+
+  static Future<void> setInt(String key, int value) {
+    if (UniversalPlatform.isIOS) {
+      _cache![key] = value;
+      return SharedPreferenceAppGroup.setInt(key, value);
+    } else {
+      return _prefs!.setInt(key, value);
+    }
+  }
+
+  static Future<void> setString(String key, String value) {
+    if (UniversalPlatform.isIOS) {
+      _cache![key] = value;
+      return SharedPreferenceAppGroup.setString(key, value);
+    } else {
+      return _prefs!.setString(key, value);
+    }
+  }
+
+  static dynamic get(String key) =>
+      UniversalPlatform.isIOS ? _cache![key] : _prefs!.get(key);
+
+  static int? getInt(String key) => get(key) as int?;
+
+  static String? getString(String key) => get(key) as String?;
+
+  static Future<void> remove(String key) {
+    if (UniversalPlatform.isIOS) {
+      _cache!.remove(key);
+      return SharedPreferenceAppGroup.remove(key);
+    } else {
+      return _prefs!.remove(key);
+    }
+  }
+
+  static Future<void> clear() {
+    if (UniversalPlatform.isIOS) {
+      _cache!.clear();
+      return SharedPreferenceAppGroup.removeAll();
+    } else {
+      return _prefs!.clear();
+    }
+  }
+}
+
 @riverpod
 class Settings extends _$Settings {
+  // Target version for the settings. By convention this is the buildnumber where
+  // the migration has been introduced.
+  static const latestVersion = 39;
+
   static const _versionKey = '_version';
 
   static Language? initialLocaleOverride;
   static String? namespace = kDebugMode ? 'debug' : null;
-  static late SharedPreferences _prefs;
 
   static Future<void> init() async {
-    _prefs = await SharedPreferences.getInstance();
+    await UniversalPreferences.resync();
   }
 
   Settings() {
-    _currentVersion = int.parse(AppInfo.data.package.buildNumber);
-    if (UniversalPlatform.isIOS) {
-      _syncer = SettingsSyncer(this);
-    }
-
     _migrateVersion().then((_) {
       if (initialLocaleOverride != null) {
         _log.info('initial locale override: $initialLocaleOverride');
@@ -57,9 +130,6 @@ class Settings extends _$Settings {
       }
     });
   }
-
-  late int _currentVersion;
-  SettingsSyncer? _syncer;
 
   @override
   Map<Sk, dynamic> build() {
@@ -75,9 +145,9 @@ class Settings extends _$Settings {
       case double _:
       case int _:
       case String _:
-        return _prefs.get(key) ?? skey.initial;
+        return UniversalPreferences.get(key) ?? skey.initial;
       default:
-        final raw = _prefs.getString(key);
+        final raw = UniversalPreferences.getString(key);
         if (raw == null) return skey.initial;
         final codec = skey.codec;
         return codec != null ? codec.decode(raw) : jsonDecode(raw);
@@ -87,48 +157,47 @@ class Settings extends _$Settings {
   Future<void> set(Sk skey, dynamic value) async {
     _log.info('updating $skey to $value');
     await _setValue(skey, value);
-    await _syncer?.onChange(skey, value);
     ref.invalidateSelf();
   }
 
-  Future<bool> _setValue(Sk skey, dynamic value) {
+  Future<void> _setValue(Sk skey, dynamic value) {
     final key = _k(skey.key);
     switch (value) {
       case bool b:
-        return _prefs.setBool(key, b);
+        return UniversalPreferences.setBool(key, b);
       case double d:
-        return _prefs.setDouble(key, d);
+        return UniversalPreferences.setDouble(key, d);
       case int i:
-        return _prefs.setInt(key, i);
+        return UniversalPreferences.setInt(key, i);
       case String s:
-        return _prefs.setString(key, s);
+        return UniversalPreferences.setString(key, s);
       default:
         final raw = skey.codec?.encode(value) ?? jsonEncode(value);
-        return _prefs.setString(key, raw);
+        return UniversalPreferences.setString(key, raw);
     }
   }
 
-  Future<bool> clear() async {
-    final ret = await _prefs.clear();
-    _syncer?.onClear();
+  Future<void> clear() async {
+    await UniversalPreferences.clear();
     ref.invalidateSelf();
-    return ret;
   }
 
-  Future<bool> unset(Sk skey) async {
-    final ret = await _prefs.remove(_k(skey.key));
+  Future<void> unset(Sk skey) async {
+    await UniversalPreferences.remove(_k(skey.key));
     ref.invalidateSelf();
-    return ret;
   }
 
   Future<void> _migrateVersion() async {
-    final oldVersion = _prefs.getInt(_k(_versionKey)) ?? 0;
-    if (oldVersion == _currentVersion) return;
+    final oldVersion = UniversalPreferences.getInt(_k(_versionKey)) ?? 0;
+    if (oldVersion == latestVersion) return;
 
     var migrated = false;
 
     if (oldVersion < 37) {
-      final langIndex = _prefs.getInt(_k(Sk.language.key));
+      int? langIndex;
+      try {
+        langIndex = UniversalPreferences.getInt(_k(Sk.language.key));
+      } catch (_) {}
       if (langIndex != null) {
         final oldLangOrder = [
           null, // Language.system,
@@ -146,21 +215,44 @@ class Settings extends _$Settings {
         if (lang != null) {
           await _setValue(Sk.language, oldLangOrder[langIndex]);
         } else {
-          await _prefs.remove(_k(Sk.language.key));
+          await UniversalPreferences.remove(_k(Sk.language.key));
         }
         migrated = true;
       }
 
-      final themeIndex = _prefs.getInt(_k(Sk.themeMode.key));
+      final themeIndex = UniversalPreferences.getInt(_k(Sk.themeMode.key));
       if (themeIndex != null) {
         await _setValue(Sk.themeMode, ThemeMode.values[themeIndex]);
         migrated = true;
       }
     }
+    if (oldVersion < 39 && UniversalPlatform.isIOS) {
+      await UniversalPreferences.resync();
+      final prefs = await SharedPreferences.getInstance();
+      for (final key in prefs.getKeys()) {
+        final value = prefs.get(key);
+        if (value == null) continue;
+        switch (value) {
+          case bool b:
+            await UniversalPreferences.setBool(key, b);
+          case double d:
+            await UniversalPreferences.setDouble(key, d);
+          case int i:
+            await UniversalPreferences.setInt(key, i);
+          case String s:
+            await UniversalPreferences.setString(key, s);
+          default:
+            _log.warning(
+                'failed to migrate value: ${value.runtimeType}: $value');
+        }
+      }
+      migrated = true;
+    }
 
     if (migrated) {
-      _log.info('migrated settings from $oldVersion to $_currentVersion');
-      await _prefs.setInt(_k(_versionKey), _currentVersion);
+      _log.info('migrated settings from $oldVersion to $latestVersion');
+      await UniversalPreferences.setInt(_k(_versionKey), latestVersion);
+      ref.invalidateSelf();
     }
   }
 }

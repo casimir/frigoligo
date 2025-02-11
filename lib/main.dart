@@ -6,7 +6,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:l10n_esperanto/l10n_esperanto.dart';
 import 'package:logging/logging.dart';
-import 'package:shared_preference_app_group/shared_preference_app_group.dart';
 import 'package:universal_platform/universal_platform.dart';
 
 import 'app_info.dart';
@@ -32,10 +31,6 @@ Future<void> main() async {
   log.info('starting app');
 
   LinksHandler.init();
-
-  if (UniversalPlatform.isIOS) {
-    await SharedPreferenceAppGroup.setAppGroup(appGroupId);
-  }
 
   await AppBadge.init();
   await AppInfo.init();
@@ -122,10 +117,6 @@ Future<void> mainNativeShare() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   log.info('starting share extension');
-
-  if (UniversalPlatform.isIOS) {
-    await SharedPreferenceAppGroup.setAppGroup(appGroupId);
-  }
 
   await AppBadge.init(enable: false);
   await AppInfo.init();
