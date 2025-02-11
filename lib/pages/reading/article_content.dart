@@ -1,11 +1,17 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:cadanse/cadanse.dart';
 import 'package:cadanse/components/layouts/grouping.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:universal_platform/universal_platform.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
 import '../../buildcontext_extension.dart';
 import '../../color_extension.dart';
@@ -130,25 +136,67 @@ class ArticleContentEmpty extends StatelessWidget {
 }
 
 class ArticleContentRenderer {
-  static String? htmlTemplate;
+  static const assetsPrefix = 'assets/www';
+  static const fontAssetsPrefix = 'assets/google_fonts';
   static final hackstacheVariableRe = RegExp(r'{{\s*(\w+)\s*}}');
+
+  static late String? htmlTemplate;
+  static late Directory rootDir;
+
+  static Directory get fontDir => Directory('${rootDir.path}/fonts');
 
   static Future<void> preload() async {
     htmlTemplate = await rootBundle.loadString('assets/article.template.html');
+    rootDir = await getApplicationSupportDirectory();
+
+    final assets = await AssetManifest.loadFromAssetBundle(rootBundle);
+    await Future.wait([
+      _unpackAssets(assets),
+      _unpackFonts(assets),
+    ]);
   }
 
-  const ArticleContentRenderer({required this.article});
+  static Future<void> _unpackAssets(AssetManifest assets) async {
+    final assetFiles = assets
+        .listAssets()
+        .where((key) => key.startsWith(assetsPrefix))
+        .toList();
+    for (final key in assetFiles) {
+      final bin = await rootBundle.load(key);
+      final target = File(key.replaceFirst(assetsPrefix, rootDir.path));
+      if (!target.parent.existsSync()) {
+        target.parent.createSync(recursive: true);
+      }
+      target.writeAsBytesSync(bin.buffer.asUint8List());
+    }
+  }
+
+  static Future<void> _unpackFonts(AssetManifest assets) async {
+    final fontFiles = assets
+        .listAssets()
+        .where((key) => key.startsWith(fontAssetsPrefix))
+        .toList();
+    if (!fontDir.existsSync()) fontDir.createSync(recursive: true);
+    for (final key in fontFiles) {
+      final bin = await rootBundle.load(key);
+      final target = key.replaceFirst(fontAssetsPrefix, fontDir.path);
+      File(target).writeAsBytesSync(bin.buffer.asUint8List());
+    }
+  }
+
+  ArticleContentRenderer({required this.article});
 
   final Article article;
+  String? _rendered;
 
-  String execute(ColorScheme colors, ReaderSettingsValues settings) {
+  void execute(ColorScheme colors, ReaderSettingsValues settings) {
     final context = {
       'articleClass': settings.justifyText ? 'justified' : '',
       'articleContent': article.content!,
       'colorScheme': colorSchemeCss(colors),
       'readingSettings': readingSettingsCss(settings),
     };
-    return htmlTemplate!.replaceAllMapped(hackstacheVariableRe, (match) {
+    _rendered = htmlTemplate!.replaceAllMapped(hackstacheVariableRe, (match) {
       final variable = match.group(1)?.trim();
       return context[variable] ?? match.group(0)!;
     });
@@ -176,13 +224,20 @@ class ArticleContentRenderer {
 
     return '''
   <style>
+    body {
+      font-family: "${settings.fontFamily}";
+    }
+
     #content {
-      font-family: "Gill Sans";
       font-size: ${fontSize ?? 'medium'};
     }
   </style>'''
         .trim();
   }
+
+  String get text => _rendered!;
+
+  Future<void> writeTo(File fpath) => fpath.writeAsString(text);
 }
 
 class FlutterArticleRenderer extends StatelessWidget {
@@ -222,12 +277,26 @@ class _WebViewArticleRendererState
 
     _renderer = ArticleContentRenderer(article: widget.article);
 
+    late final WebKitWebViewController platform;
+    if (WebViewPlatform.instance is WebKitWebViewPlatform) {
+      platform = WebKitWebViewController(WebKitWebViewControllerCreationParams(
+        allowsInlineMediaPlayback: true,
+      ));
+      platform.setInspectable(kDebugMode);
+    } else {
+      // unreachable until Android is implemented
+    }
+
     // TODO add config for iOS and Android (see controller doc)
-    _webViewController = WebViewController()
+    _webViewController = WebViewController.fromPlatform(platform)
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(NavigationDelegate(
         onNavigationRequest: (request) async {
           final url = Uri.tryParse(request.url);
+          if (request.url == 'about:blank' || url?.scheme == 'file') {
+            return NavigationDecision.navigate;
+          }
+
           if (url != null && await canLaunchUrl(url)) {
             launchUrl(url);
             return NavigationDecision.prevent;
@@ -254,11 +323,15 @@ class _WebViewArticleRendererState
   @override
   Widget build(BuildContext context) {
     final settings = ref.watch(readingSettingsProvider);
-    final html = _renderer.execute(Theme.of(context).colorScheme, settings);
+
+    final index = File('${ArticleContentRenderer.rootDir.path}/index.html');
+    _renderer
+      ..execute(Theme.of(context).colorScheme, settings)
+      ..writeTo(index);
 
     _webViewController
       ..setBackgroundColor(Theme.of(context).colorScheme.surface)
-      ..loadHtmlString(html);
+      ..loadFile(index.path);
 
     final webView = WebViewWidget(controller: _webViewController);
     return _webViewContentHeight != null
