@@ -7,6 +7,10 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 ## [unreleased]
 
 
+### 🐛 Bug Fixes
+
+- *(iOS)* Systematically use appGroup for settings ([0105efa](https://github.com/casimir/frigoligo/commit/0105efab275ae412e7706e38f511672bc381b6ea))
+
 ### 📚 Documentation
 
 - *(changelog)* Regen file ([a3dc724](https://github.com/casimir/frigoligo/commit/a3dc72427106bdb822f2ec41bb4628f8d9f3b1f5))
