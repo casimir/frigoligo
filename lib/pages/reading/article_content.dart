@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:cadanse/cadanse.dart';
 import 'package:cadanse/components/layouts/grouping.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -37,13 +38,20 @@ class ArticleContent extends ConsumerStatefulWidget {
 }
 
 class _ArticleContentState extends ConsumerState<ArticleContent> {
+  double? _lastSavedProgress;
+
   ScrollController get controller =>
       widget.scrollKey.currentState!.innerController;
 
   @override
   void initState() {
     super.initState();
-    controller.addListener(_scrollListener);
+
+    final useNativeRenderer =
+        ref.read(settingsProvider)[Sk.nativeArticleRenderer];
+    if (!useNativeRenderer) {
+      controller.addListener(_scrollListener);
+    }
   }
 
   @override
@@ -56,8 +64,21 @@ class _ArticleContentState extends ConsumerState<ArticleContent> {
     final pixels = controller.position.pixels;
     final maxExtent = controller.position.maxScrollExtent;
     final double progress = (pixels / maxExtent).clamp(0, 1);
-    // TODO implement throttling to avoid ~35 updates when scrolling to top
-    await DB().articlesDao.saveScrollProgress(widget.article, progress);
+    _onScrollUpdate(progress);
+  }
+
+  Future<void> _onScrollUpdate(double progress) async {
+    ref.read(currentReadingProgressProvider.notifier).progress = progress;
+
+    // throttle saving in DB by requiring at least some progress (in %)
+    const percThreshold = 1 / 100;
+    final delta = _lastSavedProgress != null
+        ? (_lastSavedProgress! - progress).abs()
+        : percThreshold;
+    if (delta >= percThreshold) {
+      await DB().articlesDao.saveScrollProgress(widget.article, progress);
+      _lastSavedProgress = progress;
+    }
   }
 
   // As of version 2.0 there seem to be a random issue with the correct scroll
@@ -73,6 +94,15 @@ class _ArticleContentState extends ConsumerState<ArticleContent> {
     }
   }
 
+  Future<void> _onReadyToScroll(ProgressCallback scrollTo) async {
+    final scrollPosition =
+        await ref.read(scrollPositionProvider(widget.article.id).future);
+    final progress = scrollPosition?.progress;
+    if (progress != null && progress > 0) {
+      await scrollTo(progress);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final useNativeRenderer = ref
@@ -81,7 +111,8 @@ class _ArticleContentState extends ConsumerState<ArticleContent> {
     if (useNativeRenderer && UniversalPlatform.isIOS) {
       return WebViewArticleRenderer(
         article: widget.article,
-        onBuilt: () => _jumpToProgress(),
+        onReadyToScroll: _onReadyToScroll,
+        onScrollUpdate: _onScrollUpdate,
       );
     }
 
@@ -250,15 +281,20 @@ class FlutterArticleRenderer extends StatelessWidget {
   }
 }
 
+typedef ProgressCallback = Future<void> Function(double progress);
+typedef ProgressScroller = void Function(ProgressCallback);
+
 class WebViewArticleRenderer extends ConsumerStatefulWidget {
   const WebViewArticleRenderer({
     super.key,
     required this.article,
-    this.onBuilt,
+    this.onReadyToScroll,
+    this.onScrollUpdate,
   });
 
   final Article article;
-  final VoidCallback? onBuilt;
+  final ProgressScroller? onReadyToScroll;
+  final ProgressCallback? onScrollUpdate;
 
   @override
   ConsumerState<WebViewArticleRenderer> createState() =>
@@ -269,7 +305,9 @@ class _WebViewArticleRendererState
     extends ConsumerState<WebViewArticleRenderer> {
   late final ArticleContentRenderer _renderer;
   late final WebViewController _webViewController;
-  double? _webViewContentHeight;
+
+  static final Set<Factory<OneSequenceGestureRecognizer>>
+      eagerGestureRecognizers = {Factory(() => EagerGestureRecognizer())};
 
   @override
   void initState() {
@@ -304,20 +342,14 @@ class _WebViewArticleRendererState
           return NavigationDecision.navigate;
         },
         onPageFinished: (url) async {
-          if (_webViewContentHeight != null) return;
-
-          final result = await _webViewController.runJavaScriptReturningResult(
-              'document.documentElement.scrollHeight');
-          if (mounted) {
-            setState(() {
-              _webViewContentHeight = result as double;
-            });
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              widget.onBuilt?.call();
-            });
-          }
+          widget.onReadyToScroll?.call((progress) =>
+              _webViewController.runJavaScript('scrollToProgress($progress)'));
         },
-      ));
+      ))
+      ..addJavaScriptChannel('ScrollProgress', onMessageReceived: (message) {
+        final progress = double.parse(message.message);
+        widget.onScrollUpdate?.call(progress);
+      });
   }
 
   @override
@@ -333,14 +365,9 @@ class _WebViewArticleRendererState
       ..setBackgroundColor(Theme.of(context).colorScheme.surface)
       ..loadFile(index.path);
 
-    final webView = WebViewWidget(controller: _webViewController);
-    return _webViewContentHeight != null
-        ? SingleChildScrollView(
-            child: SizedBox(
-              height: _webViewContentHeight,
-              child: webView,
-            ),
-          )
-        : webView;
+    return WebViewWidget(
+      controller: _webViewController,
+      gestureRecognizers: eagerGestureRecognizers,
+    );
   }
 }

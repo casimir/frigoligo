@@ -102,6 +102,7 @@ flutter:
   assets:
     - assets/article.template.html
     - assets/google_fonts/
+    - assets/www/scripts/
     - assets/www/styles/
 
   # An image asset can refer to one or more resolution-specific "variants", see
