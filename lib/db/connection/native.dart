@@ -36,7 +36,8 @@ QueryExecutor openConnection() {
 
     final dbFile = await getDBPath(kDebugMode);
     if (kDebugMode) {
-      print('DEBUG: database path: "${dbFile.path}"');
+      print('DEBUG: database path:   "${dbFile.path}"');
+      print('DEBUG: database exists: ${dbFile.existsSync()}');
     }
     return NativeDatabase.createInBackground(
       dbFile,
@@ -58,6 +59,8 @@ Future<void> _cleanOldDBs() async {
 }
 
 Future<void> _moveToContainer(bool devmode) async {
+  if (!UniversalPlatform.isIOS) return;
+
   final source = await getDBPath(devmode, container: false);
   if (source.existsSync()) {
     final dest = await getDBPath(devmode);
