@@ -1,0 +1,1 @@
+- Fixed a bug causing the data to be lost when restarting the app.

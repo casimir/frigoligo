@@ -4,18 +4,19 @@ All notable changes to this project will be documented in this file.
 
 See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadata/android/en-US/changelogs) for a more high level list of changes.
 
-## [unreleased]
+## [2.3.1] - 2025-02-17
 
 
 ### 🐛 Bug Fixes
 
 - *(iOS)* Systematically use appGroup for settings ([0105efa](https://github.com/casimir/frigoligo/commit/0105efab275ae412e7706e38f511672bc381b6ea))
+- *(database)* Avoid deleting the database on launch ([ec7e34b](https://github.com/casimir/frigoligo/commit/ec7e34be9e1bc58777009e4d2014b2e82d133eb9))
 
 ### 📚 Documentation
 
 - *(changelog)* Regen file ([a3dc724](https://github.com/casimir/frigoligo/commit/a3dc72427106bdb822f2ec41bb4628f8d9f3b1f5))
 
-**Full Changelog**: [v2.3.0..HEAD](https://github.com/casimir/frigoligo/compare/v2.3.0..HEAD)
+**Full Changelog**: [v2.3.0..v2.3.1](https://github.com/casimir/frigoligo/compare/v2.3.0..v2.3.1)
 
 
 ## [2.3.0] - 2025-02-09

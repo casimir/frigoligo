@@ -134,6 +134,15 @@
   </branding>
   
   <releases>
+    <release version="v2.3.1" date="2025-02-17">
+      <url type="details">https://github.com/casimir/frigoligo/releases/tag/v2.3.1</url>
+      <description>
+        <ul>
+          <li>Fixed a bug causing the data to be lost when restarting the app.</li>
+          <li xml:lang="fr">Correction d'un bug provoquant la perte des données lors du redémarrage de l'application.</li>
+        </ul>
+      </description>
+    </release>
     <release version="v2.3.0" date="2025-02-09">
       <url type="details">https://github.com/casimir/frigoligo/releases/tag/v2.3.0</url>
       <description>
@@ -261,7 +270,7 @@
   <screenshots>
     <screenshot type="default">
       <caption>Main screen showing a listing of the saved articles.</caption>
-      <image>https://raw.githubusercontent.com/casimir/frigoligo/v2.3.0/assets/screenshots/desktop.png</image>
+      <image>https://raw.githubusercontent.com/casimir/frigoligo/v2.3.1/assets/screenshots/desktop.png</image>
     </screenshot>
   </screenshots>
 </component>
