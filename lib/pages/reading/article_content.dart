@@ -124,6 +124,7 @@ class _ArticleContentState extends ConsumerState<ArticleContent> {
             PaddedGroup(
               child: HtmlWidgetPlus(
                 widget.article.content!,
+                title: widget.article.title,
                 onTreeBuilt: (_) => _jumpToProgress(),
                 justifyText: settings.justifyText,
                 textStyle: settings.textStyle,
@@ -224,6 +225,7 @@ class ArticleContentRenderer {
     final context = {
       'articleClass': settings.justifyText ? 'justified' : '',
       'articleContent': article.content!,
+      'articleTitle': const HtmlEscape().convert(article.title),
       'colorScheme': colorSchemeCss(colors),
       'readingSettings': readingSettingsCss(settings),
     };
