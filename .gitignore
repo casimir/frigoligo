@@ -58,3 +58,6 @@ fastlane/metadata/ios/review_information/
 fastlane/screenshots/ios/
 fastlane/Preview.html
 fastlane/report.xml
+
+# FVM Version Cache
+.fvm/
