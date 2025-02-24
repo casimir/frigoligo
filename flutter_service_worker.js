@@ -8,7 +8,7 @@ const RESOURCES = {"icons/Icon-maskable-512.png": "8f17a5f3a1945887358e3a610e65c
 "icons/Icon-maskable-192.png": "b3b7b3c64c29505b30f9fe92b0eae501",
 "icons/Icon-192.png": "5ceb44e3d084c82d521754febd44b407",
 "sqlite3.wasm": "6e708130032b52581faf9fd49d822dde",
-"flutter_bootstrap.js": "2bd58c1d571a3194269f3f82d05f365a",
+"flutter_bootstrap.js": "84c95350c7a84d9d571594e0c573cca8",
 "canvaskit/skwasm.worker.js": "89990e8c92bcb123999aa81f7e203b1c",
 "canvaskit/skwasm.wasm": "828c26a0b1cc8eb1adacbdd0c5e8bcfa",
 "canvaskit/chromium/canvaskit.wasm": "ea5ab288728f7200f398f60089048b48",
