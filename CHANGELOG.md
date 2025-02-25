@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadata/android/en-US/changelogs) for a more high level list of changes.
 
+## [unreleased]
+
+
+### ⚙️ Miscellaneous Tasks
+
+- Configure fvm ([9b81678](https://github.com/casimir/frigoligo/commit/9b81678853b33654b698f7958e86f2f862a78ef5))
+
+**Full Changelog**: [v2.3.1..HEAD](https://github.com/casimir/frigoligo/compare/v2.3.1..HEAD)
+
+
 ## [2.3.1] - 2025-02-17
 
 
