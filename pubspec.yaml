@@ -29,7 +29,7 @@ dependencies:
   # dev & tooling
   flutter_riverpod: 2.6.1
   flutter_svg: 2.0.17
-  freezed_annotation: 2.4.4
+  freezed_annotation: 3.0.0
   go_router: 14.7.2
   intl: any
   l10n_esperanto: 2.0.12
