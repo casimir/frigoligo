@@ -1,0 +1,5 @@
+- Aggiunto un modo per creare etichette quando si modifica un articolo.
+- Miglior esperienza offline.
+- Diverse correzioni relative al progresso di lettura.
+- Consentita la connessione ad un Server senza SSL.
+- Nuove lingue: russo (Русский язык) e tamil (தமிழ்).

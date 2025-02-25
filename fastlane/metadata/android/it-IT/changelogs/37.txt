@@ -1,0 +1,4 @@
+- Molti aggiustamenti e miglioramenti alla UI.
+- Corretto il funzionamento del pulsante di condivisione in alcuni casi.
+- Nuove lingue: spagnolo, estone.
+- Traduzioni aggiornate per diverse lingue.

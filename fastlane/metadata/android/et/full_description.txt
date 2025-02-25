@@ -1,4 +1,4 @@
 Salvesta huvipakkuvad veebilingid ja hoia neid alati uuendatutena. Frigoligo on lihtne ja kiire wallabagi klient.
 Nii nagu wallabag, on ka Frigoligo tasuta kasutatav, reklaamivaba ning põhineb avatud lähtekoodil.
 
-Selle rakenduse kasutamiseks on sulle vajalik mõnele wallabagi serverile.
+Selle rakenduse kasutamiseks on sulle vajalik ligipääs mõnele wallabagi serverile.

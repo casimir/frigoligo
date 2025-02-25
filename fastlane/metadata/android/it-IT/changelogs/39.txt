@@ -1,0 +1,3 @@
+- È possibile salvare un articolo offline.
+- Aggiunto un pulsante per richiedere al server di recuperare nuovamente un articolo.
+- Nuove lingue: portoghese brasiliano.
