@@ -1,0 +1,4 @@
+- Aggiunto un pulsante per salvare i link dalla schermata principale.
+- Il supporto alle lingue è stato ampliato includendo il galiziano, il portoghese brasiliano e il cinese.
+- Sono stati corretti diversi bug, inclusi problemi con le azioni di salvataggio e sincronizzazione degli articoli.
+- La logica di routing per la visualizzazione degli articoli è stata riorganizzata per un'esperienza più fluida.

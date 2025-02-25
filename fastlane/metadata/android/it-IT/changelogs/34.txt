@@ -1,0 +1,1 @@
+- Risolto un problema che poteva impedire l'apertura dei link nel contenuto degli articoli.
