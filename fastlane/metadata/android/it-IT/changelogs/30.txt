@@ -1,0 +1,1 @@
+I font di lettura sono ora inclusi direttamente nell'applicazione e non verranno più scaricati successivamente.
