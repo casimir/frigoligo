@@ -20,6 +20,7 @@ class HtmlWidgetFactory extends WidgetFactory
 class HtmlWidgetPlus extends StatelessWidget {
   const HtmlWidgetPlus(
     this.html, {
+    this.title,
     super.key,
     this.onTreeBuilt,
     this.justifyText,
@@ -27,6 +28,7 @@ class HtmlWidgetPlus extends StatelessWidget {
   });
 
   final String html;
+  final String? title;
   final void Function(Widget)? onTreeBuilt;
   final bool? justifyText;
   final TextStyle? textStyle;
@@ -38,11 +40,13 @@ class HtmlWidgetPlus extends StatelessWidget {
     // 1 em ~ 2 characters (1 em is the width of 'M')
     style += 'max-width:40em;';
 
+    final prefix = title != null ? '<h1>$title</h1>' : '';
+
     return Container(
       alignment: Alignment.center,
       width: double.infinity,
       child: HtmlWidget(
-        '<div style="$style">$html</div>',
+        '$prefix<div style="$style">$html</div>',
         factoryBuilder: () => HtmlWidgetFactory(
           onTreeBuilt: (child) =>
               WidgetsBinding.instance.addPostFrameCallback((_) {

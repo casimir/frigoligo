@@ -9,6 +9,7 @@ import '../../buildcontext_extension.dart';
 import '../../constants.dart';
 import '../../db/extensions/article.dart';
 import '../../db/models/article.drift.dart';
+import '../../providers/article.dart';
 import '../../providers/expander.dart';
 import '../../services/remote_sync.dart';
 import '../../services/remote_sync_actions/articles.dart';
@@ -372,16 +373,17 @@ class _ScrollableContent extends StatelessWidget {
   }
 }
 
-class LinearScrollIndicator extends StatefulWidget {
+class LinearScrollIndicator extends ConsumerStatefulWidget {
   const LinearScrollIndicator(this.controller, {super.key});
 
   final ScrollController controller;
 
   @override
-  State<LinearScrollIndicator> createState() => _LinearScrollIndicatorState();
+  ConsumerState<LinearScrollIndicator> createState() =>
+      _LinearScrollIndicatorState();
 }
 
-class _LinearScrollIndicatorState extends State<LinearScrollIndicator> {
+class _LinearScrollIndicatorState extends ConsumerState<LinearScrollIndicator> {
   double _scrollProgress = 0;
 
   @override
@@ -398,6 +400,9 @@ class _LinearScrollIndicatorState extends State<LinearScrollIndicator> {
   }
 
   void _scrollListener() {
+    // when using the webview based rendered the scrollview is lazily added
+    if (widget.controller.positions.isEmpty) return;
+
     final pixels = widget.controller.position.pixels;
     final maxExtent = widget.controller.position.maxScrollExtent;
     setState(() {
@@ -408,8 +413,9 @@ class _LinearScrollIndicatorState extends State<LinearScrollIndicator> {
 
   @override
   Widget build(BuildContext context) {
+    final progress = ref.watch(currentReadingProgressProvider);
     return LinearProgressIndicator(
-      value: _scrollProgress,
+      value: progress ?? _scrollProgress,
       backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
       color: Theme.of(context).colorScheme.secondary,
     );
