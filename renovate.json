@@ -8,6 +8,25 @@
   ],
   "packageRules": [
     {
+      "groupName": "freezed",
+      "matchManagers": [
+        "pub"
+      ],
+      "matchPackageNames": [
+        "freezed*"
+      ]
+    },
+    {
+      "groupName": "riverpod",
+      "matchManagers": [
+        "pub"
+      ],
+      "matchPackageNames": [
+        "flutter_riverpod",
+        "riverpod*"
+      ]
+    },
+    {
       "groupName": "Flutter packages (non-major)",
       "matchManagers": [
         "pub"
