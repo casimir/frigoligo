@@ -9,6 +9,7 @@ import '../../buildcontext_extension.dart';
 import '../../constants.dart';
 import '../../db/extensions/article.dart';
 import '../../db/models/article.drift.dart';
+import '../../providers/article.dart';
 import '../../providers/expander.dart';
 import '../../services/remote_sync.dart';
 import '../../services/remote_sync_actions/articles.dart';
@@ -271,6 +272,11 @@ class _PageScaffoldState extends State<_PageScaffold> {
             : scheme.surface;
       }),
     );
+    // final appBar = SliverAppBar(
+    //   leading: widget.appBarLeading,
+    //   actions: widget.actions,
+    //   pinned: true,
+    // );
     final body = widget.scrollEnabled
         ? _ScrollableContent(
             scrollKey: _scrollKey,
@@ -278,6 +284,18 @@ class _PageScaffoldState extends State<_PageScaffold> {
             showProgressIndicator: showProgressIndicator,
             body: widget.builder(context, _scrollKey),
           )
+        // ? Scaffold(
+        //     appBar: AppBar(
+        //       leading: widget.appBarLeading,
+        //       actions: widget.actions,
+        //       bottom: RemoteSyncProgressIndicator(
+        //           idleWidget: Builder(builder: (context) {
+        //         final controller = _scrollKey.currentState!.innerController;
+        //         return ReadingProgressIndicator(controller);
+        //       })),
+        //     ),
+        //     body: widget.builder(context, _scrollKey),
+        //   )
         : _NonScrollableContent(
             appBar: appBar,
             showProgressIndicator: showProgressIndicator,
@@ -348,11 +366,6 @@ class _ScrollableContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scrollIndicator = Builder(builder: (context) {
-      final controller = scrollKey.currentState!.innerController;
-      return LinearScrollIndicator(controller);
-    });
-
     return NestedScrollView(
       key: scrollKey,
       headerSliverBuilder: (context, _) => [
@@ -364,52 +377,32 @@ class _ScrollableContent extends StatelessWidget {
         children: [
           Expanded(child: body),
           showProgressIndicator == _ProgressIndicatorPosition.bottom
-              ? RemoteSyncProgressIndicator(idleWidget: scrollIndicator)
-              : scrollIndicator,
+              ? const RemoteSyncProgressIndicator(
+                  idleWidget: ReadingProgressIndicator())
+              : const ReadingProgressIndicator(),
         ],
       ),
     );
   }
 }
 
-class LinearScrollIndicator extends StatefulWidget {
-  const LinearScrollIndicator(this.controller, {super.key});
+class ReadingProgressIndicator extends ConsumerWidget {
+  const ReadingProgressIndicator({super.key, this.hideWhenNoProgress = true});
 
-  final ScrollController controller;
-
-  @override
-  State<LinearScrollIndicator> createState() => _LinearScrollIndicatorState();
-}
-
-class _LinearScrollIndicatorState extends State<LinearScrollIndicator> {
-  double _scrollProgress = 0;
+  final bool hideWhenNoProgress;
 
   @override
-  void initState() {
-    super.initState();
-    widget.controller.addListener(_scrollListener);
-    WidgetsBinding.instance.addPostFrameCallback((_) => _scrollListener());
-  }
+  Widget build(BuildContext context, WidgetRef ref) {
+    final progress = ref.watch(currentReadingProgressProvider);
 
-  @override
-  void dispose() {
-    widget.controller.removeListener(_scrollListener);
-    super.dispose();
-  }
+    if (progress == null || progress == 0 && hideWhenNoProgress) {
+      return SizedBox(
+        height: Theme.of(context).progressIndicatorTheme.linearMinHeight,
+      );
+    }
 
-  void _scrollListener() {
-    final pixels = widget.controller.position.pixels;
-    final maxExtent = widget.controller.position.maxScrollExtent;
-    setState(() {
-      // until there has been a scroll event, maxExtent is 0.0
-      _scrollProgress = pixels > 0.0 ? (pixels / maxExtent).clamp(0, 1) : 0.0;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return LinearProgressIndicator(
-      value: _scrollProgress,
+      value: progress,
       backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
       color: Theme.of(context).colorScheme.secondary,
     );

@@ -26,6 +26,8 @@ class ArticleContent extends ConsumerStatefulWidget {
 }
 
 class _ArticleContentState extends ConsumerState<ArticleContent> {
+  double? _lastSavedProgress;
+
   ScrollController get controller =>
       widget.scrollKey.currentState!.innerController;
 
@@ -45,7 +47,21 @@ class _ArticleContentState extends ConsumerState<ArticleContent> {
     final pixels = controller.position.pixels;
     final maxExtent = controller.position.maxScrollExtent;
     final double progress = (pixels / maxExtent).clamp(0, 1);
-    await DB().articlesDao.saveScrollProgress(widget.article, progress);
+    await _onScrollUpdate(progress);
+  }
+
+  Future<void> _onScrollUpdate(double progress) async {
+    ref.read(currentReadingProgressProvider.notifier).progress = progress;
+
+    // throttle saving in DB by requiring at least some progress (in %)
+    const percThreshold = 1 / 100;
+    final delta = _lastSavedProgress != null
+        ? (_lastSavedProgress! - progress).abs()
+        : percThreshold;
+    if (delta >= percThreshold) {
+      await DB().articlesDao.saveScrollProgress(widget.article, progress);
+      _lastSavedProgress = progress;
+    }
   }
 
   // As of version 2.0 there seem to be a random issue with the correct scroll
