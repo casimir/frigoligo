@@ -1,0 +1,4 @@
+- Rielaborata buona parte dell'interfaccia per essere più consistente e facile da usare.
+- Ricostruito completamente il sistema di archiviazione per un'esperienza tra le varie piattaforme più consistente e affidabile.
+- Ricostruita la logica attorno al conteggio dei badge dell'app per essere più affidabile.
+- Nuova lingua: Esperanto.

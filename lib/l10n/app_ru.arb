@@ -37,7 +37,7 @@
   "@g_sourceCode": {
     "description": "The source code of a software."
   },
-  "filters_articleStateUnread": "Не прочитанные",
+  "filters_articleStateUnread": "Непрочитанные",
   "@filters_articleStateUnread": {
     "description": "Filter articles with the state 'unread'."
   },
@@ -77,7 +77,7 @@
   "@filters_articleState": {
     "description": "The state of the article."
   },
-  "filters_articleStateArchived": "Архивировано",
+  "filters_articleStateArchived": "Архивные",
   "@filters_articleStateArchived": {
     "description": "Filter articles with the state 'archived'."
   },
@@ -149,7 +149,7 @@
   "@article_noContentFetched": {
     "description": "Placeholder for when the article content is not available."
   },
-  "logconsole_title": "Консоль логов",
+  "logconsole_title": "Журнал",
   "@logconsole_title": {
     "description": "The title of the log console screen."
   },
@@ -270,7 +270,7 @@
   "@settings_valueThemeDark": {
     "description": "The label for the dark theme mode."
   },
-  "login_existingSessionDialogTitle": "Сессия в данный момент активна",
+  "login_existingSessionDialogTitle": "Сеанс в данный момент активен",
   "@login_existingSessionDialogTitle": {
     "description": "The title of the dialog warning about an existing session."
   },
@@ -325,7 +325,7 @@
   "@session_logoutDialogMessage": {
     "description": "The message of the confirmation dialog to log out."
   },
-  "session_renewDialogMessage": "Сервер отказывается использовать токен текущей сессии. Чтобы возобновить синхронизацию, необходимо снова войти в систему.",
+  "session_renewDialogMessage": "Сервер отказывается использовать токен текущего сеанса. Чтобы возобновить синхронизацию, необходимо снова войти в систему.",
   "@session_renewDialogMessage": {
     "description": "The message of the confirmation dialog to renew the session."
   },
@@ -341,7 +341,7 @@
   "@settings_clearCacheMessage": {
     "description": "The message of the confirmation dialog to clear the cache."
   },
-  "settings_itemAppearance": "Внешний вид",
+  "settings_itemAppearance": "Тема",
   "@settings_itemAppearance": {
     "description": "Settings for the appearance of the application."
   },
@@ -353,7 +353,7 @@
   "@settings_savedArticleTagLabel": {
     "description": "The label of the tag to add to saved articles."
   },
-  "settings_savedArticleTag": "Добавьте тег к сохранённым статьям",
+  "settings_savedArticleTag": "Добавить тег к сохранённым статьям",
   "@settings_savedArticleTag": {
     "description": "The action to toggle the addition of a tag to saved articles."
   },
@@ -498,5 +498,9 @@
         "format": "compact"
       }
     }
+  },
+  "article_refetchContent": "Перезагрузить контент",
+  "@article_refetchContent": {
+    "description": "The action to ask the server to fetch the article content again."
   }
 }
