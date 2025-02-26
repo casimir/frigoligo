@@ -133,3 +133,11 @@ class OpenArticle extends _$OpenArticle {
     state = null;
   }
 }
+
+@riverpod
+class CurrentReadingProgress extends _$CurrentReadingProgress {
+  @override
+  double? build() => null;
+
+  set progress(double value) => state = value;
+}
