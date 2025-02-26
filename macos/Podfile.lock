@@ -114,6 +114,6 @@ SPEC CHECKSUMS:
   sqlite3_flutter_libs: c26d86af4ad88f1465dc4e07e6dc6931eef228e4
   url_launcher_macos: 0fba8ddabfc33ce0a9afe7c5fef5aab3d8d2d673
 
-PODFILE CHECKSUM: 9ebaf0ce3d369aaa26a9ea0e159195ed94724cf3
+PODFILE CHECKSUM: 0d3963a09fc94f580682bd88480486da345dc3f0
 
 COCOAPODS: 1.16.2
