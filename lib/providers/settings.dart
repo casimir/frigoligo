@@ -288,6 +288,8 @@ enum Language {
   et(Locale('et'), 'eesti keel'),
   fr(Locale('fr'), 'Français'),
   gl(Locale('gl'), 'Galego'),
+  it(Locale('it'), 'Italiano'),
+  nl(Locale('nl'), 'Nederlands'),
   // pt(Locale('pt', 'PT'), 'Português'),
   ptBR(Locale('pt', 'BR'), 'Português (Brasil)'),
   ru(Locale('ru'), 'Русский язык'),

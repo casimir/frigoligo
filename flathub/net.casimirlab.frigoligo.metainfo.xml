@@ -66,7 +66,7 @@
       Nii nagu wallabag, on ka Frigoligo tasuta kasutatav, reklaamivaba ning põhineb avatud lähtekoodil.
     </p>
     <p xml:lang="et">
-      Selle rakenduse kasutamiseks on sulle vajalik mõnele wallabagi serverile.
+      Selle rakenduse kasutamiseks on sulle vajalik ligipääs mõnele wallabagi serverile.
     </p>
     <p xml:lang="fr">
       Emportez vos liens partout et gardez-les bien frais ! Frigoligo est un client wallabag s'efforçant d'être simple mais aussi rapide et facile à utiliser.
@@ -139,7 +139,11 @@
       <description>
         <ul>
           <li>Fixed a bug causing the data to be lost when restarting the app.</li>
+          <li xml:lang="es">Se corrigió un error que causaba que se perdieran los datos al reiniciar la aplicación.</li>
+          <li xml:lang="et">Parandasime vea, kus rakenduse käivitamisel tekkis andmekadu.</li>
           <li xml:lang="fr">Correction d'un bug provoquant la perte des données lors du redémarrage de l'application.</li>
+          <li xml:lang="gl">Arranxo do problema que causaba a perda de datos ao reiniciar a app.</li>
+          <li xml:lang="ru">Исправлена ошибка, приводившая к потере данных при перезапуске приложения.</li>
         </ul>
       </description>
     </release>
@@ -159,6 +163,9 @@
           <li xml:lang="gl">Agora podes gardar un artigo aínda non tendo conexión.</li>
           <li xml:lang="gl">Engadido un botón para pedirlle ao servidor que volva a obter un artigo.</li>
           <li xml:lang="gl">Novos idiomas: Portugués do Brasil.</li>
+          <li xml:lang="ru">Сохранение статьи теперь возможно в офлайн-режиме.</li>
+          <li xml:lang="ru">Добавлена кнопка для повторной загрузки статьи.</li>
+          <li xml:lang="ru">Новый язык: бразильский португальский.</li>
         </ul>
       </description>
     </release>
