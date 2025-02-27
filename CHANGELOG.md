@@ -7,9 +7,29 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 ## [unreleased]
 
 
+### 🚀 Features
+
+- *(i18n)* Integrate Italian and Dutch ([9732ec0](https://github.com/casimir/frigoligo/commit/9732ec0e9997d635f96e81dd04325ecc6478f5d9))
+
+### 🐛 Bug Fixes
+
+- *(ci)* Update xcode cloud builds ([#335](https://github.com/casimir/frigoligo/pull/335)) ([c3f3002](https://github.com/casimir/frigoligo/commit/c3f3002da0c71a4777d70f659c0d52f518a1064f))
+
+### 🌐 Translations
+
+- Update translations: Galician
+ ([9008784](https://github.com/casimir/frigoligo/commit/9008784e3c059aace828c27f56de25b2c5d39bb5))
+- Update translations: Estonian
+ ([5bca83e](https://github.com/casimir/frigoligo/commit/5bca83ef4a9816d9f530acc235c2fd5cea625cc0))
+- Update translations: Dutch
+ ([c2cbd18](https://github.com/casimir/frigoligo/commit/c2cbd1855388ec70681f1d03d5d7cc7aef94af7a))
+- Update translations: Spanish
+ ([d7e831a](https://github.com/casimir/frigoligo/commit/d7e831a3b010931b198d70ad3b9b433cf37cf7c9))
+
 ### ⚙️ Miscellaneous Tasks
 
 - Configure fvm ([9b81678](https://github.com/casimir/frigoligo/commit/9b81678853b33654b698f7958e86f2f862a78ef5))
+- *(renovate)* More groups of dependencies ([5b89cbe](https://github.com/casimir/frigoligo/commit/5b89cbe82804cd7d145df1fb47c9948ba5052437))
 
 **Full Changelog**: [v2.3.1..HEAD](https://github.com/casimir/frigoligo/compare/v2.3.1..HEAD)
 
