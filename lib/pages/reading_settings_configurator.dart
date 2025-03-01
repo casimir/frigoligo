@@ -24,7 +24,7 @@ class ReadingSettingsConfigurator extends ConsumerWidget {
               ..._buildSection(
                 context,
                 context.L.readingsettings_fontSize,
-                Slider(
+                Slider.adaptive(
                   value: values.fontSize,
                   min: 12.0,
                   max: 20.0,
