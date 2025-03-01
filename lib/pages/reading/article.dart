@@ -85,12 +85,11 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
       return _PageScaffold(
         scaffoldKey: _scaffoldKey,
         appBarLeading: appBarLeading,
-        title: null,
         drawer: widget.drawer,
         forcedDrawerOpen: openDrawer,
         withProgressIndicator: showRemoteSyncerWidgets,
         scrollEnabled: false,
-        builder: (_, __) => const Center(child: Icon(Icons.question_mark)),
+        builder: (_) => const Center(child: Icon(Icons.question_mark)),
       );
     }
 
@@ -98,16 +97,6 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
       scaffoldKey: _scaffoldKey,
       controller: scroller,
       appBarLeading: appBarLeading,
-      title: Builder(builder: (context) {
-        return GestureDetector(
-          child: Text(
-            article.title,
-            overflow: TextOverflow.ellipsis,
-            maxLines: 2,
-          ),
-          onTap: () => Scaffold.of(context).openEndDrawer(),
-        );
-      }),
       actions: [
         Builder(builder: (context) {
           return IconButton(
@@ -133,9 +122,9 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
       endDrawer: const ArticleSheet(),
       withProgressIndicator: showRemoteSyncerWidgets,
       scrollEnabled: article.content != null,
-      builder: (_, scrollKey) => article.content == null
+      builder: (_) => article.content == null
           ? ArticleContentEmpty(articleUrl: Uri.parse(article.url))
-          : ArticleContent(article: article, scrollKey: scrollKey!),
+          : ArticleContent(article: article),
     );
   }
 
@@ -201,17 +190,11 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
   }
 }
 
-enum _ProgressIndicatorPosition { none, top, bottom }
-
-typedef _PageScaffoldBodyBuilder = Widget Function(
-    BuildContext, GlobalKey<NestedScrollViewState>?);
-
 class _PageScaffold extends StatefulWidget {
   const _PageScaffold({
     required this.scaffoldKey,
     this.controller,
     required this.appBarLeading,
-    this.title,
     this.actions = const [],
     this.bottomActions,
     this.drawer,
@@ -225,7 +208,6 @@ class _PageScaffold extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final ScrollController? controller;
   final Widget? appBarLeading;
-  final Widget? title;
   final List<Widget> actions;
   final List<Widget>? bottomActions;
   final Widget? drawer;
@@ -233,15 +215,13 @@ class _PageScaffold extends StatefulWidget {
   final Widget? endDrawer;
   final bool withProgressIndicator;
   final bool scrollEnabled;
-  final _PageScaffoldBodyBuilder builder;
+  final WidgetBuilder builder;
 
   @override
   State<_PageScaffold> createState() => _PageScaffoldState();
 }
 
 class _PageScaffoldState extends State<_PageScaffold> {
-  final GlobalKey<NestedScrollViewState> _scrollKey = GlobalKey();
-
   @override
   void initState() {
     super.initState();
@@ -255,59 +235,21 @@ class _PageScaffoldState extends State<_PageScaffold> {
 
   @override
   Widget build(BuildContext context) {
-    var showProgressIndicator = _ProgressIndicatorPosition.none;
-    if (widget.withProgressIndicator) {
-      showProgressIndicator = widget.bottomActions != null
-          ? _ProgressIndicatorPosition.bottom
-          : _ProgressIndicatorPosition.top;
-    }
-    final appBar = SliverAppBar.large(
-      leading: widget.appBarLeading,
-      title: widget.title,
-      actions: widget.actions,
-      backgroundColor: WidgetStateColor.resolveWith((Set<WidgetState> states) {
-        final scheme = Theme.of(context).colorScheme;
-        return states.contains(WidgetState.scrolledUnder)
-            ? scheme.primaryContainer
-            : scheme.surface;
-      }),
-    );
-    // final appBar = SliverAppBar(
-    //   leading: widget.appBarLeading,
-    //   actions: widget.actions,
-    //   pinned: true,
-    // );
-    final body = widget.scrollEnabled
-        ? _ScrollableContent(
-            scrollKey: _scrollKey,
-            appBar: appBar,
-            showProgressIndicator: showProgressIndicator,
-            body: widget.builder(context, _scrollKey),
-          )
-        // ? Scaffold(
-        //     appBar: AppBar(
-        //       leading: widget.appBarLeading,
-        //       actions: widget.actions,
-        //       bottom: RemoteSyncProgressIndicator(
-        //           idleWidget: Builder(builder: (context) {
-        //         final controller = _scrollKey.currentState!.innerController;
-        //         return ReadingProgressIndicator(controller);
-        //       })),
-        //     ),
-        //     body: widget.builder(context, _scrollKey),
-        //   )
-        : _NonScrollableContent(
-            appBar: appBar,
-            showProgressIndicator: showProgressIndicator,
-            body: widget.builder(context, null),
-          );
-
     final showRemoteSyncerWidgets = widget.withProgressIndicator &&
         !(widget.scaffoldKey.currentState?.isDrawerOpen ?? false);
+    final PreferredSizeWidget appBarBottom = showRemoteSyncerWidgets
+        ? const RemoteSyncProgressIndicator(
+            idleWidget: ReadingProgressIndicator())
+        : const ReadingProgressIndicator();
 
     return Scaffold(
       key: widget.scaffoldKey,
-      body: body,
+      appBar: AppBar(
+        leading: widget.appBarLeading,
+        actions: widget.actions,
+        bottom: appBarBottom,
+      ),
+      body: widget.builder(context),
       floatingActionButton: RemoteSyncFAB(showIf: showRemoteSyncerWidgets),
       floatingActionButtonLocation: widget.bottomActions != null
           ? FloatingActionButtonLocation.endDocked
@@ -324,78 +266,25 @@ class _PageScaffoldState extends State<_PageScaffold> {
   }
 }
 
-class _NonScrollableContent extends StatelessWidget {
-  const _NonScrollableContent({
-    required this.appBar,
-    required this.showProgressIndicator,
-    required this.body,
+class ReadingProgressIndicator extends ConsumerWidget
+    implements PreferredSizeWidget {
+  const ReadingProgressIndicator({
+    super.key,
+    this.hideWhenNoProgress = true,
+    this.height,
   });
-
-  final SliverAppBar appBar;
-  final _ProgressIndicatorPosition showProgressIndicator;
-  final Widget body;
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomScrollView(
-      physics: const NeverScrollableScrollPhysics(),
-      slivers: [
-        appBar,
-        if (showProgressIndicator == _ProgressIndicatorPosition.top)
-          const SliverToBoxAdapter(child: RemoteSyncProgressIndicator()),
-        SliverFillRemaining(child: body),
-        if (showProgressIndicator == _ProgressIndicatorPosition.bottom)
-          const SliverToBoxAdapter(child: RemoteSyncProgressIndicator()),
-      ],
-    );
-  }
-}
-
-class _ScrollableContent extends StatelessWidget {
-  const _ScrollableContent({
-    required this.scrollKey,
-    required this.appBar,
-    required this.showProgressIndicator,
-    required this.body,
-  });
-
-  final GlobalKey<NestedScrollViewState> scrollKey;
-  final SliverAppBar appBar;
-  final _ProgressIndicatorPosition showProgressIndicator;
-  final Widget body;
-
-  @override
-  Widget build(BuildContext context) {
-    return NestedScrollView(
-      key: scrollKey,
-      headerSliverBuilder: (context, _) => [
-        appBar,
-        if (showProgressIndicator == _ProgressIndicatorPosition.top)
-          const PinnedHeaderSliver(child: RemoteSyncProgressIndicator()),
-      ],
-      body: Column(
-        children: [
-          Expanded(child: body),
-          showProgressIndicator == _ProgressIndicatorPosition.bottom
-              ? const RemoteSyncProgressIndicator(
-                  idleWidget: ReadingProgressIndicator())
-              : const ReadingProgressIndicator(),
-        ],
-      ),
-    );
-  }
-}
-
-class ReadingProgressIndicator extends ConsumerWidget {
-  const ReadingProgressIndicator({super.key, this.hideWhenNoProgress = true});
 
   final bool hideWhenNoProgress;
+  final double? height;
+
+  @override
+  Size get preferredSize => Size.fromHeight(height ?? 4.0);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final progress = ref.watch(currentReadingProgressProvider);
 
-    if (progress == null || progress == 0 && hideWhenNoProgress) {
+    if ((progress == null || progress == 0) && hideWhenNoProgress) {
       return SizedBox(
         height: Theme.of(context).progressIndicatorTheme.linearMinHeight,
       );
