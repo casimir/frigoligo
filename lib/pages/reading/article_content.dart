@@ -12,14 +12,9 @@ import '../../providers/reading_settings.dart';
 import '../../widgets/html_widget_plus.dart';
 
 class ArticleContent extends ConsumerStatefulWidget {
-  const ArticleContent({
-    super.key,
-    required this.article,
-    required this.scrollKey,
-  });
+  const ArticleContent({super.key, required this.article});
 
   final Article article;
-  final GlobalKey<NestedScrollViewState> scrollKey;
 
   @override
   ConsumerState<ArticleContent> createState() => _ArticleContentState();
@@ -27,23 +22,25 @@ class ArticleContent extends ConsumerStatefulWidget {
 
 class _ArticleContentState extends ConsumerState<ArticleContent> {
   double? _lastSavedProgress;
-
-  ScrollController get controller =>
-      widget.scrollKey.currentState!.innerController;
+  ScrollController? _scroller;
 
   @override
   void initState() {
     super.initState();
-    controller.addListener(_scrollListener);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scroller = PrimaryScrollController.of(context);
+      _scroller!.addListener(_scrollListener);
+    });
   }
 
   @override
   void dispose() {
-    controller.removeListener(_scrollListener);
+    _scroller?.removeListener(_scrollListener);
     super.dispose();
   }
 
   Future<void> _scrollListener() async {
+    final controller = _scroller!;
     final pixels = controller.position.pixels;
     final maxExtent = controller.position.maxScrollExtent;
     final double progress = (pixels / maxExtent).clamp(0, 1);
@@ -64,10 +61,8 @@ class _ArticleContentState extends ConsumerState<ArticleContent> {
     }
   }
 
-  // As of version 2.0 there seem to be a random issue with the correct scroll
-  // position being restored. The offset is kind of correct so it should be ok
-  // on a normal usage but it's not perfect.
   Future<void> _jumpToProgress() async {
+    final controller = _scroller!;
     final scrollPosition =
         await ref.read(scrollPositionProvider(widget.article.id).future);
     final progress = scrollPosition?.progress;
@@ -82,11 +77,13 @@ class _ArticleContentState extends ConsumerState<ArticleContent> {
     final settings = ref.watch(readingSettingsProvider);
     return SelectionArea(
       child: SingleChildScrollView(
+        primary: true,
         child: Column(
           children: [
             PaddedGroup(
               child: HtmlWidgetPlus(
                 widget.article.content!,
+                title: widget.article.title,
                 onTreeBuilt: (_) => _jumpToProgress(),
                 justifyText: settings.justifyText,
                 textStyle: settings.textStyle,
