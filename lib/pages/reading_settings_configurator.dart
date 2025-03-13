@@ -1,6 +1,7 @@
 import 'package:cadanse/cadanse.dart';
 import 'package:cadanse/components/layouts/grouping.dart';
 import 'package:cadanse/tokens/constants.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:universal_platform/universal_platform.dart';
@@ -85,6 +86,17 @@ class ReadingSettingsConfigurator extends ConsumerWidget {
                     )
                   ],
                 ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text("Justify content"),
+                  Switch.adaptive(
+                      value: values.justifyText,
+                      onChanged: (newValue) => ref
+                          .read(readingSettingsProvider.notifier)
+                          .justifyText = newValue)
+                ],
               ),
             ],
           ),
