@@ -11,79 +11,6 @@ import '../../providers/article.dart';
 import '../../providers/reading_settings.dart';
 import '../../widgets/html_widget_plus.dart';
 
-class ArticleContent extends ConsumerStatefulWidget {
-  const ArticleContent({
-    super.key,
-    required this.article,
-    required this.scrollKey,
-  });
-
-  final Article article;
-  final GlobalKey<NestedScrollViewState> scrollKey;
-
-  @override
-  ConsumerState<ArticleContent> createState() => _ArticleContentState();
-}
-
-class _ArticleContentState extends ConsumerState<ArticleContent> {
-  ScrollController get controller =>
-      widget.scrollKey.currentState!.innerController;
-
-  @override
-  void initState() {
-    super.initState();
-    controller.addListener(_scrollListener);
-  }
-
-  @override
-  void dispose() {
-    controller.removeListener(_scrollListener);
-    super.dispose();
-  }
-
-  Future<void> _scrollListener() async {
-    final pixels = controller.position.pixels;
-    final maxExtent = controller.position.maxScrollExtent;
-    final double progress = (pixels / maxExtent).clamp(0, 1);
-    await DB().articlesDao.saveScrollProgress(widget.article, progress);
-  }
-
-  // As of version 2.0 there seem to be a random issue with the correct scroll
-  // position being restored. The offset is kind of correct so it should be ok
-  // on a normal usage but it's not perfect.
-  Future<void> _jumpToProgress() async {
-    final scrollPosition =
-        await ref.read(scrollPositionProvider(widget.article.id).future);
-    final progress = scrollPosition?.progress;
-    if (progress != null && progress > 0) {
-      final pixels = progress * controller.position.maxScrollExtent;
-      controller.jumpTo(pixels);
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final settings = ref.watch(readingSettingsProvider);
-    return SelectionArea(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            PaddedGroup(
-              child: HtmlWidgetPlus(
-                widget.article.content!,
-                onTreeBuilt: (_) => _jumpToProgress(),
-                justifyText: settings.justifyText,
-                textStyle: settings.textStyle,
-              ),
-            ),
-            SizedBox(height: MediaQuery.paddingOf(context).bottom),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 class ArticleContentEmpty extends StatelessWidget {
   const ArticleContentEmpty({
     super.key,
@@ -110,5 +37,112 @@ class ArticleContentEmpty extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+typedef ProgressCallback = Future<void> Function(
+    double progress, bool isScrolling);
+typedef ProgressScrollTo = Future<void> Function(double pixels);
+typedef ProgressScroller = Future<void> Function(ProgressScrollTo);
+
+class ArticleContent extends ConsumerStatefulWidget {
+  const ArticleContent({super.key, required this.article});
+
+  final Article article;
+
+  @override
+  ConsumerState<ArticleContent> createState() => _ArticleContentState();
+}
+
+class _ArticleContentState extends ConsumerState<ArticleContent> {
+  Future<void> _onScrollReady(ProgressScrollTo scrollTo) async {
+    final scrollPosition =
+        await ref.read(scrollPositionProvider(widget.article.id).future);
+    final progress = scrollPosition?.progress;
+    if (progress != null && progress > 0) {
+      await scrollTo(progress);
+    }
+  }
+
+  Future<void> _onScroll(double progress, bool isScrolling) async {
+    ref.read(currentReadingProgressProvider.notifier).progress = progress;
+
+    if (!isScrolling) {
+      await DB().articlesDao.saveScrollProgress(widget.article, progress);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _HtmlWidgetContent(
+      article: widget.article,
+      onScrollReady: _onScrollReady,
+      onScroll: _onScroll,
+    );
+  }
+}
+
+class _HtmlWidgetContent extends ConsumerWidget {
+  const _HtmlWidgetContent({
+    required this.article,
+    required this.onScrollReady,
+    required this.onScroll,
+  });
+
+  final Article article;
+  final ProgressScroller onScrollReady;
+  final ProgressCallback onScroll;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final settings = ref.watch(readingSettingsProvider);
+    return SelectionArea(
+      child: NotificationListener<ScrollNotification>(
+        onNotification: _onScrollNotification,
+        child: SingleChildScrollView(
+          primary: true,
+          child: Column(
+            children: [
+              PaddedGroup(
+                child: HtmlWidgetPlus(
+                  article.content!,
+                  title: article.title,
+                  onTreeBuilt: (_) => onScrollReady((progress) async {
+                    final controller = PrimaryScrollController.of(context);
+                    final pixels =
+                        progress * controller.position.maxScrollExtent;
+                    controller.jumpTo(pixels);
+                  }),
+                  justifyText: settings.justifyText,
+                  textStyle: settings.textStyle,
+                ),
+              ),
+              SizedBox(height: MediaQuery.paddingOf(context).bottom),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  bool _onScrollNotification(ScrollNotification notification) {
+    var update = false;
+    var isScrolling = false;
+    if (notification is ScrollUpdateNotification) {
+      update = true;
+      isScrolling = true;
+    }
+    if (notification is ScrollEndNotification) {
+      update = true;
+    }
+
+    if (update) {
+      final pixels = notification.metrics.pixels;
+      final maxExtent = notification.metrics.maxScrollExtent;
+      final double progress = (pixels / maxExtent).clamp(0, 1);
+      onScroll(progress, isScrolling);
+    }
+
+    return false;
   }
 }
