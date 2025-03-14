@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: echo "version=$(cat .fvmrc | jq -r '.flutter')" >> $GITHUB_OUTPUT
+      - run: echo "version=$(jq -r '.flutter' .fvmrc)" >> $GITHUB_OUTPUT
         id: flutter-version
       - uses: subosito/flutter-action@v2
         with:

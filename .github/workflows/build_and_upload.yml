@@ -34,7 +34,7 @@ jobs:
         with:
           distribution: zulu
           java-version: 17
-      - run: echo "version=$(cat .fvmrc | jq -r '.flutter')" >> $GITHUB_OUTPUT
+      - run: echo "version=$(jq -r '.flutter' .fvmrc)" >> $GITHUB_OUTPUT
         id: flutter-version
       - uses: subosito/flutter-action@v2
         with:
@@ -82,7 +82,7 @@ jobs:
         with:
           distribution: zulu
           java-version: 17
-      - run: echo "version=$(cat .fvmrc | jq -r '.flutter')" >> $GITHUB_OUTPUT
+      - run: echo "version=$(jq -r '.flutter' .fvmrc)" >> $GITHUB_OUTPUT
         id: flutter-version
       - uses: subosito/flutter-action@v2
         with:
@@ -131,7 +131,7 @@ jobs:
       artifact: ${{ env.ARTIFACT }}
     steps:
       - uses: actions/checkout@v4
-      - run: echo "version=$(cat .fvmrc | jq -r '.flutter')" >> $GITHUB_OUTPUT
+      - run: echo "version=$(jq -r '.flutter' .fvmrc)" >> $GITHUB_OUTPUT
         id: flutter-version
       - uses: subosito/flutter-action@v2
         with:
@@ -218,7 +218,7 @@ jobs:
       ARTIFACT: frigoligo-${{ github.head_ref ||  github.ref_name }}-win-x64.zip
     steps:
       - uses: actions/checkout@v4
-      - run: echo "version=$(cat .fvmrc | jq -r '.flutter')" >> $GITHUB_OUTPUT
+      - run: echo "version=$(jq -r '.flutter' .fvmrc)" >> $GITHUB_OUTPUT
         id: flutter-version
       - uses: subosito/flutter-action@v2
         with:
