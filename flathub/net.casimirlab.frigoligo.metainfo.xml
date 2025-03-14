@@ -134,6 +134,17 @@
   </branding>
   
   <releases>
+    <release version="v2.4.0" date="2025-03-14">
+      <url type="details">https://github.com/casimir/frigoligo/releases/tag/v2.4.0</url>
+      <description>
+        <ul>
+          <li>New languages: Italian and Dutch.</li>
+          <li xml:lang="et">Uued keeled: itaalia keel ja kreeka keel.</li>
+          <li xml:lang="fr">Nouvelles langues : italien et néerlandais.</li>
+          <li xml:lang="gl">Novos idiomas: italiano e neerlandés.</li>
+        </ul>
+      </description>
+    </release>
     <release version="v2.3.1" date="2025-02-17">
       <url type="details">https://github.com/casimir/frigoligo/releases/tag/v2.3.1</url>
       <description>
@@ -277,7 +288,7 @@
   <screenshots>
     <screenshot type="default">
       <caption>Main screen showing a listing of the saved articles.</caption>
-      <image>https://raw.githubusercontent.com/casimir/frigoligo/v2.3.1/assets/screenshots/desktop.png</image>
+      <image>https://raw.githubusercontent.com/casimir/frigoligo/v2.4.0/assets/screenshots/desktop.png</image>
     </screenshot>
   </screenshots>
 </component>

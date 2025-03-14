@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadata/android/en-US/changelogs) for a more high level list of changes.
 
-## [unreleased]
+## [2.4.0] - 2025-03-14
 
 
 ### 🚀 Features
@@ -25,13 +25,21 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
  ([c2cbd18](https://github.com/casimir/frigoligo/commit/c2cbd1855388ec70681f1d03d5d7cc7aef94af7a))
 - Update translations: Spanish
  ([d7e831a](https://github.com/casimir/frigoligo/commit/d7e831a3b010931b198d70ad3b9b433cf37cf7c9))
+- Update translations: Italian
+ ([0c67b1c](https://github.com/casimir/frigoligo/commit/0c67b1c9e6249718b4f40b70d8783a6918892aeb))
+- Update translations: French
+ ([7f73fde](https://github.com/casimir/frigoligo/commit/7f73fdec9a7f3c6251e94dcd2c7e1a48210ba97a))
 
 ### ⚙️ Miscellaneous Tasks
 
 - Configure fvm ([9b81678](https://github.com/casimir/frigoligo/commit/9b81678853b33654b698f7958e86f2f862a78ef5))
 - *(renovate)* More groups of dependencies ([5b89cbe](https://github.com/casimir/frigoligo/commit/5b89cbe82804cd7d145df1fb47c9948ba5052437))
+- *(ci)* Pin flutter using .fvmrc instead of .flutter-version ([3955226](https://github.com/casimir/frigoligo/commit/39552268e7a516151596d45d50ff952c86cabc30))
+- *(ci)* Avoid using pipe with jq ([ca31e9c](https://github.com/casimir/frigoligo/commit/ca31e9c5f6c223d60a2b019280ccef6cb9367e6a))
+- *(ci)* Run command with GITHUB_OUTPUT with bash even on windows ([847b6aa](https://github.com/casimir/frigoligo/commit/847b6aab5e7709abb33dc4a73a6fd5a85a465804))
+- *(flutter)* Bump to 3.27.4 ([a420b76](https://github.com/casimir/frigoligo/commit/a420b76d97d03d6db51b3f31287a45d2d3ea47b7))
 
-**Full Changelog**: [v2.3.1..HEAD](https://github.com/casimir/frigoligo/compare/v2.3.1..HEAD)
+**Full Changelog**: [v2.3.1..v2.4.0](https://github.com/casimir/frigoligo/compare/v2.3.1..v2.4.0)
 
 
 ## [2.3.1] - 2025-02-17
