@@ -14,6 +14,7 @@ const langSkips = [
 ];
 // different language codes for Apple App Store
 const langRewrite = {
+  'it-IT': 'it',
   'pt': 'pt-PT',
   'ru-RU': 'ru',
   'zh-CN': 'zh-Hans',
