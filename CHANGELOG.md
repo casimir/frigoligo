@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadata/android/en-US/changelogs) for a more high level list of changes.
 
+## [unreleased]
+
+
+### ⚙️ Miscellaneous Tasks
+
+- *(fastlane)* Add missing metadata for Italian ([969597f](https://github.com/casimir/frigoligo/commit/969597fbcf41bb52bc3f3a71f6ce2df7d9b43db2))
+
+**Full Changelog**: [v2.4.0..HEAD](https://github.com/casimir/frigoligo/compare/v2.4.0..HEAD)
+
+
 ## [2.4.0] - 2025-03-14
 
 
