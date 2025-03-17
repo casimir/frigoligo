@@ -1,0 +1,4 @@
+Neem je links overal mee naartoe! Frigoligo is een Wallabag-client met focus op eenvoud, snelheid en gebruiksvriendelijkheid.
+Frigoligo is, net zoals Wallabag, gratis, reclamevrij en opensource.
+
+Let op: voor het gebruik van de app is een Wallabag-instantie vereist.

@@ -1,0 +1,4 @@
+-Nieuw: knop om links te bewaren op het hoofdscherm;
+-Nieuw: Galicische, Braziliaans-Portugese en Chinese vertalingen;
+-Opgelost: diverse bugs, waaronder problemen omtrent het bewaren van artiken en synchroniseren van acties;
+-Verbeterd: de routering van artikelweergaven is opnieuw ontworpen en daardoor vloeiender.
