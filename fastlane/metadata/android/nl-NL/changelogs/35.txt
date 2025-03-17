@@ -1,0 +1,3 @@
+-Verbeterd: robuustere en snellere communicatie met de server;
+-Nieuw: Chinese (漢文) en Russische (Русский язык) vertalingen;
+-Nieuw: zelf-ondertekende servercertificaten.
