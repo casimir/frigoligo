@@ -1,22 +1,13 @@
-import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:cadanse/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:share_plus/share_plus.dart';
 
-import '../../buildcontext_extension.dart';
-import '../../constants.dart';
-import '../../db/extensions/article.dart';
 import '../../db/models/article.drift.dart';
 import '../../providers/article.dart';
 import '../../providers/expander.dart';
-import '../../services/remote_sync.dart';
-import '../../services/remote_sync_actions/articles.dart';
 import '../../widget_keys.dart';
 import '../../widgets/remote_sync_fab.dart';
 import '../../widgets/remote_sync_progress_indicator.dart';
-import '../reading_settings_configurator.dart';
+import 'actions.dart';
 import 'article_content.dart';
 import 'article_sheet.dart';
 import 'mixins.dart';
@@ -42,7 +33,6 @@ class ArticlePage extends ConsumerStatefulWidget {
 class _ArticlePageState extends ConsumerState<ArticlePage>
     with CurrentArticleState<ArticlePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  final GlobalKey _shareButtonKey = GlobalKey();
   final ScrollController scroller = ScrollController();
   bool isFirstInit = false;
 
@@ -77,7 +67,6 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
     final openDrawer = widget.forcedDrawerOpen && isFirstInit;
     isFirstInit = false;
 
-    final showBottomBar = !Layout.isExpanded(context);
     final showRemoteSyncerWidgets = widget.withProgressIndicator &&
         !(_scaffoldKey.currentState?.isDrawerOpen ?? false);
 
@@ -97,26 +86,12 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
       scaffoldKey: _scaffoldKey,
       controller: scroller,
       appBarLeading: appBarLeading,
-      actions: [
-        Builder(builder: (context) {
-          return IconButton(
-            icon: const Icon(Icons.info_outline),
-            onPressed: () => Scaffold.of(context).openEndDrawer(),
-          );
-        }),
-        if (!showBottomBar) ..._buildActions(article),
-        IconButton(
-          key: const Key(wkArticleReadingSettings),
-          icon: const Icon(Icons.format_size),
-          onPressed: () => showModalBottomSheet(
-            context: context,
-            builder: (_) => const ReadingSettingsConfigurator(),
-            barrierColor: Colors.transparent,
-            showDragHandle: true,
-          ),
-        ),
-      ],
-      bottomActions: showBottomBar ? _buildActions(article) : null,
+      actions: buildActions(
+        context,
+        ref,
+        article,
+        widget.withExpander,
+      ),
       drawer: widget.drawer,
       forcedDrawerOpen: openDrawer,
       endDrawer: const ArticleSheet(),
@@ -127,67 +102,6 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
           : ArticleContent(article: article),
     );
   }
-
-  List<IconButton> _buildActions(Article? article) {
-    if (article == null) return [];
-
-    return [
-      IconButton(
-        icon: stateIcons[article.stateValue]!,
-        onPressed: () async {
-          final syncer = ref.read(remoteSyncerProvider.notifier);
-          await syncer.add(EditArticleAction(
-            article.id,
-            archive: article.archivedAt == null,
-          ));
-          await syncer.synchronize();
-        },
-      ),
-      IconButton(
-        icon: starredIcons[article.starredValue]!,
-        onPressed: () async {
-          final syncer = ref.read(remoteSyncerProvider.notifier);
-          await syncer.add(EditArticleAction(
-            article.id,
-            starred: article.starredAt == null,
-          ));
-          await syncer.synchronize();
-        },
-      ),
-      IconButton(
-        icon: const Icon(Icons.delete),
-        onPressed: () async {
-          final result = await showOkCancelAlertDialog(
-            context: context,
-            title: context.L.article_delete,
-            message: article.title,
-            okLabel: context.L.g_delete,
-            isDestructiveAction: true,
-          );
-          if (result == OkCancelResult.cancel) return;
-          final syncer = ref.read(remoteSyncerProvider.notifier);
-          await syncer.add(DeleteArticleAction(article.id));
-          await syncer.synchronize();
-          if (!widget.withExpander && mounted) {
-            context.go('/');
-          }
-        },
-      ),
-      IconButton(
-        key: _shareButtonKey,
-        icon: shareIcon,
-        onPressed: () {
-          final box =
-              _shareButtonKey.currentContext!.findRenderObject() as RenderBox?;
-          Share.share(
-            article.url,
-            subject: article.title,
-            sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
-          );
-        },
-      ),
-    ];
-  }
 }
 
 class _PageScaffold extends StatefulWidget {
@@ -196,7 +110,6 @@ class _PageScaffold extends StatefulWidget {
     this.controller,
     required this.appBarLeading,
     this.actions = const [],
-    this.bottomActions,
     this.drawer,
     required this.forcedDrawerOpen,
     this.endDrawer,
@@ -209,7 +122,6 @@ class _PageScaffold extends StatefulWidget {
   final ScrollController? controller;
   final Widget? appBarLeading;
   final List<Widget> actions;
-  final List<Widget>? bottomActions;
   final Widget? drawer;
   final bool forcedDrawerOpen;
   final Widget? endDrawer;
@@ -251,17 +163,11 @@ class _PageScaffoldState extends State<_PageScaffold> {
       ),
       body: widget.builder(context),
       floatingActionButton: RemoteSyncFAB(showIf: showRemoteSyncerWidgets),
-      floatingActionButtonLocation: widget.bottomActions != null
-          ? FloatingActionButtonLocation.endDocked
-          : null,
       drawer: widget.drawer,
       onDrawerChanged: (isOpened) => setState(() {
         // set the state so that the progress indicator widget move correctly
       }),
       endDrawer: widget.endDrawer,
-      bottomNavigationBar: widget.bottomActions != null
-          ? BottomAppBar(child: Row(children: widget.bottomActions!))
-          : null,
     );
   }
 }

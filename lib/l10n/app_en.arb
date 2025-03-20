@@ -117,6 +117,10 @@
   "@article_addTags": {
     "description": "The action to add tags to an article."
   },
+  "article_archive": "Archive this article",
+  "@article_archive": {
+    "description": "The action to archive the article."
+  },
   "article_browseOriginal": "Browse the original",
   "@article_browseOriginal": {
     "description": "The action to open the URL of the article in the web browser."
@@ -146,6 +150,26 @@
   "article_refetchContent": "Re-fetch content",
   "@article_refetchContent": {
     "description": "The action to ask the server to fetch the article content again."
+  },
+  "article_readingSettings": "Open text settings",
+  "@article_readingSettings": {
+    "description": "The action to open the reading settings sheet."
+  },
+  "article_share": "Share this article",
+  "@article_share": {
+    "description": "The action to share the article."
+  },
+  "article_star": "Star this article",
+  "@article_star": {
+    "description": "The action to star the article."
+  },
+  "article_unarchive": "Unarchive this article",
+  "@article_unarchive": {
+    "description": "The action to unarchive the article."
+  },
+  "article_unstar": "Unstar this article",
+  "@article_unstar": {
+    "description": "The action to unstar the article."
   },
   "@ARTICLEFIELDS": {},
   "articlefields_readingTime": "Reading time",
