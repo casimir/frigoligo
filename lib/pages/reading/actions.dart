@@ -1,10 +1,11 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cadanse/cadanse.dart';
+import 'package:cadanse/components/flows/confirmation_modal.dart';
+import 'package:cadanse/components/widgets/adaptive/actions_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:universal_platform/universal_platform.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../buildcontext_extension.dart';
@@ -79,17 +80,20 @@ List<Widget> buildActions(
       },
     ),
     ArticleActionKey.delete: ArticleAction(
-      icon: Icons.delete,
+      icon: C(context).icons.delete,
       label: context.L.article_delete,
       onPressed: () async {
-        final result = await showOkCancelAlertDialog(
+        final confirmed = await askForConfirmation(
           context: context,
           title: context.L.article_delete,
           message: article.title,
-          okLabel: context.L.g_delete,
-          isDestructiveAction: true,
+          action: ConfirmationAction(
+            title: context.L.g_delete,
+            isDestructive: true,
+          ),
         );
-        if (result == OkCancelResult.cancel) return;
+
+        if (!confirmed) return;
         final syncer = ref.read(remoteSyncerProvider.notifier);
         await syncer.add(DeleteArticleAction(article.id));
         await syncer.synchronize();
@@ -152,6 +156,7 @@ List<Widget> buildActions(
     ArticleActionKey.openInBrowser,
     ArticleActionKey.share,
     ArticleActionKey.delete,
+    null, // divide article actions from general actions
     ArticleActionKey.readingSettings,
   ];
 
@@ -159,46 +164,23 @@ List<Widget> buildActions(
     ...mainActions.map((key) => actions[key]!.toIconButton() as Widget),
     Builder(builder: (context) {
       return IconButton(
-        icon: const Icon(Icons.info_outline),
+        icon: Icon(C(context).icons.info),
         onPressed: () => Scaffold.of(context).openEndDrawer(),
       );
     }),
-    if (UniversalPlatform.isIOS)
-      IconButton(
-        key: popupMenuKey,
-        icon: const Icon(Icons.more_horiz),
-        onPressed: () {
-          showCupertinoModalPopup(
-            context: context,
-            builder: (context) => CupertinoActionSheet(
-              title: Text(article.title),
-              message: Text(article.url),
-              actions: moreActions
-                  .map((key) => CupertinoActionSheetAction(
-                        onPressed: () => actions[key]!.onPressed(),
-                        isDestructiveAction: actions[key]!.isDestructive,
-                        child: Text(actions[key]!.label),
-                      ))
-                  .toList(),
-              cancelButton: CupertinoActionSheetAction(
-                onPressed: () => Navigator.of(context).pop(),
-                child:
-                    Text(MaterialLocalizations.of(context).cancelButtonLabel),
-              ),
-            ),
-          );
-        },
-      )
-    else
-      PopupMenuButton(
-          key: popupMenuKey,
-          enableFeedback: true,
-          itemBuilder: (context) => moreActions
-              .map((key) => PopupMenuItem(
-                    value: key,
-                    child: actions[key]!.toListTile(),
+    ActionsMenuButton(
+      key: popupMenuKey,
+      actions: moreActions
+          .map(
+            (key) => key != null
+                ? ActionsMenuEntry(
+                    title: actions[key]!.label,
+                    icon: actions[key]!.icon,
                     onTap: () => actions[key]!.onPressed(),
-                  ))
-              .toList()),
+                    isDestructive: actions[key]!.isDestructive)
+                : null,
+          )
+          .toList(),
+    ),
   ];
 }
