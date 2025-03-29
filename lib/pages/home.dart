@@ -18,13 +18,10 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
-  bool isFirstInit = false;
-
   @override
   void initState() {
     super.initState();
 
-    isFirstInit = true;
     if (!periodicSyncSupported) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         ref
@@ -47,8 +44,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     // Internally Layout uses MediaQuery. One side effect of this is that on resize
     // almost all widgets are rebuilt.
     return switch (Layout.windowClass(context)) {
-      WindowClass.compact => _buildNarrowLayout(),
-      WindowClass.medium => _buildDynamicLayout(),
+      WindowClass.compact || WindowClass.medium => _buildNarrowLayout(),
       WindowClass.expanded => _buildWideLayout(),
     };
   }
@@ -79,25 +75,6 @@ class _HomePageState extends ConsumerState<HomePage> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildDynamicLayout() {
-    void onItemSelect(int articleId) {
-      if (context.canPop()) {
-        context.pop();
-      }
-    }
-
-    final forcedOpen = isFirstInit;
-    isFirstInit = false;
-
-    return ArticlePage(
-      drawer: SizedBox(
-        width: 360, // m3 "Navigation drawers container width"
-        child: ListingPage(onItemSelect: onItemSelect),
-      ),
-      forcedDrawerOpen: forcedOpen,
     );
   }
 }
