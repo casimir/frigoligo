@@ -85,7 +85,7 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
   }
 }
 
-class _PageScaffold extends StatefulWidget {
+class _PageScaffold extends StatelessWidget {
   const _PageScaffold({
     required this.scaffoldKey,
     this.controller,
@@ -107,21 +107,10 @@ class _PageScaffold extends StatefulWidget {
   final WidgetBuilder builder;
 
   @override
-  State<_PageScaffold> createState() => _PageScaffoldState();
-}
-
-class _PageScaffoldState extends State<_PageScaffold> {
-  @override
-  void initState() {
-    super.initState();
-    // TODO depending on other ongoing work we could go stateless
-  }
-
-  @override
   Widget build(BuildContext context) {
     final showRemoteSyncerWidgets =
-        widget.withProgressIndicator &&
-        !(widget.scaffoldKey.currentState?.isDrawerOpen ?? false);
+        withProgressIndicator &&
+        !(scaffoldKey.currentState?.isDrawerOpen ?? false);
     final PreferredSizeWidget appBarBottom =
         showRemoteSyncerWidgets
             ? const RemoteSyncProgressIndicator(
@@ -130,15 +119,15 @@ class _PageScaffoldState extends State<_PageScaffold> {
             : const ReadingProgressIndicator();
 
     return AdaptiveScaffold(
-      key: widget.scaffoldKey,
+      key: scaffoldKey,
       barData: AdaptiveBarData(
-        leading: widget.appBarLeading,
-        actions: widget.actions,
+        leading: appBarLeading,
+        actions: actions,
         bottom: appBarBottom,
       ),
-      body: widget.builder(context),
+      body: builder(context),
       floatingActionButton: RemoteSyncFAB(showIf: showRemoteSyncerWidgets),
-      endDrawer: widget.endDrawer,
+      endDrawer: endDrawer,
     );
   }
 }
