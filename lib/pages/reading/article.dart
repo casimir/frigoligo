@@ -6,7 +6,6 @@ import '../../db/models/article.drift.dart';
 import '../../providers/article.dart';
 import '../../providers/expander.dart';
 import '../../widget_keys.dart';
-import '../../widgets/remote_sync_fab.dart';
 import '../../widgets/remote_sync_progress_indicator.dart';
 import 'actions.dart';
 import 'article_content.dart';
@@ -113,7 +112,6 @@ class _PageScaffold extends StatelessWidget {
         bottom: appBarBottom,
       ),
       body: builder(context),
-      floatingActionButton: RemoteSyncFAB(showIf: withProgressIndicator),
       endDrawer: endDrawer,
     );
   }
