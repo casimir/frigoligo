@@ -23,14 +23,10 @@ import 'mixins.dart';
 class ArticlePage extends ConsumerStatefulWidget {
   const ArticlePage({
     super.key,
-    this.drawer,
-    this.forcedDrawerOpen = false,
     this.withExpander = false,
     this.withProgressIndicator = true,
   });
 
-  final Widget? drawer;
-  final bool forcedDrawerOpen;
   final bool withExpander;
   final bool withProgressIndicator;
 
@@ -43,13 +39,6 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   final GlobalKey _shareButtonKey = GlobalKey();
   final ScrollController scroller = ScrollController();
-  bool isFirstInit = false;
-
-  @override
-  void initState() {
-    super.initState();
-    isFirstInit = true;
-  }
 
   @override
   void dispose() {
@@ -73,9 +62,6 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
 
   @override
   Widget buildArticle(BuildContext context, Article? article) {
-    final openDrawer = widget.forcedDrawerOpen && isFirstInit;
-    isFirstInit = false;
-
     final showBottomBar = !Layout.isExpanded(context);
     final showRemoteSyncerWidgets = widget.withProgressIndicator &&
         !(_scaffoldKey.currentState?.isDrawerOpen ?? false);
@@ -85,8 +71,6 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
         scaffoldKey: _scaffoldKey,
         appBarLeading: appBarLeading,
         title: null,
-        drawer: widget.drawer,
-        forcedDrawerOpen: openDrawer,
         withProgressIndicator: showRemoteSyncerWidgets,
         scrollEnabled: false,
         builder: (_, __) => const Center(child: Icon(Icons.question_mark)),
@@ -127,8 +111,6 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
         ),
       ],
       bottomActions: showBottomBar ? _buildActions(article) : null,
-      drawer: widget.drawer,
-      forcedDrawerOpen: openDrawer,
       endDrawer: const ArticleSheet(),
       withProgressIndicator: showRemoteSyncerWidgets,
       scrollEnabled: article.content != null,
@@ -213,8 +195,6 @@ class _PageScaffold extends StatefulWidget {
     this.title,
     this.actions = const [],
     this.bottomActions,
-    this.drawer,
-    required this.forcedDrawerOpen,
     this.endDrawer,
     required this.withProgressIndicator,
     this.scrollEnabled = true,
@@ -227,8 +207,6 @@ class _PageScaffold extends StatefulWidget {
   final Widget? title;
   final List<Widget> actions;
   final List<Widget>? bottomActions;
-  final Widget? drawer;
-  final bool forcedDrawerOpen;
   final Widget? endDrawer;
   final bool withProgressIndicator;
   final bool scrollEnabled;
@@ -244,12 +222,7 @@ class _PageScaffoldState extends State<_PageScaffold> {
   @override
   void initState() {
     super.initState();
-
-    if (widget.drawer != null && widget.forcedDrawerOpen) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        widget.scaffoldKey.currentState?.openDrawer();
-      });
-    }
+    // TODO depending on other ongoing work we could go stateless
   }
 
   @override
@@ -294,10 +267,6 @@ class _PageScaffoldState extends State<_PageScaffold> {
       floatingActionButtonLocation: widget.bottomActions != null
           ? FloatingActionButtonLocation.endDocked
           : null,
-      drawer: widget.drawer,
-      onDrawerChanged: (isOpened) => setState(() {
-        // set the state so that the progress indicator widget move correctly
-      }),
       endDrawer: widget.endDrawer,
       bottomNavigationBar: widget.bottomActions != null
           ? BottomAppBar(child: Row(children: widget.bottomActions!))

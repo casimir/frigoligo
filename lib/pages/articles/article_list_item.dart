@@ -1,3 +1,4 @@
+import 'package:cadanse/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -39,7 +40,7 @@ class _ArticleListItemState extends ConsumerState<ArticleListItem> {
 
     _listenToSelectionChange();
 
-    return Ink(
+    final child = Ink(
       key: ValueKey('articles-list-item-${widget.article.id}'),
       color: widget.showSelection && _isSelected
           ? Theme.of(context).highlightColor
@@ -151,6 +152,12 @@ class _ArticleListItemState extends ConsumerState<ArticleListItem> {
             ],
           ),
         ),
+      ),
+    );
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: mediumBreakpoint),
+        child: child,
       ),
     );
   }
