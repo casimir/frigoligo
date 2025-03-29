@@ -29,7 +29,6 @@ class ArticlePage extends ConsumerStatefulWidget {
 
 class _ArticlePageState extends ConsumerState<ArticlePage>
     with CurrentArticleState<ArticlePage> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   final ScrollController scroller = ScrollController();
 
   @override
@@ -54,27 +53,21 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
 
   @override
   Widget buildArticle(BuildContext context, Article? article) {
-    final showRemoteSyncerWidgets =
-        widget.withProgressIndicator &&
-        !(_scaffoldKey.currentState?.isDrawerOpen ?? false);
-
     if (article == null) {
       return _PageScaffold(
-        scaffoldKey: _scaffoldKey,
         appBarLeading: appBarLeading,
-        withProgressIndicator: showRemoteSyncerWidgets,
+        withProgressIndicator: widget.withProgressIndicator,
         scrollEnabled: false,
         builder: (_) => const Center(child: Icon(Icons.question_mark)),
       );
     }
 
     return _PageScaffold(
-      scaffoldKey: _scaffoldKey,
       controller: scroller,
       appBarLeading: appBarLeading,
       actions: buildActions(context, ref, article, widget.withExpander),
       endDrawer: const ArticleSheet(),
-      withProgressIndicator: showRemoteSyncerWidgets,
+      withProgressIndicator: widget.withProgressIndicator,
       scrollEnabled: article.content != null,
       builder:
           (_) =>
@@ -87,7 +80,6 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
 
 class _PageScaffold extends StatelessWidget {
   const _PageScaffold({
-    required this.scaffoldKey,
     this.controller,
     required this.appBarLeading,
     this.actions = const [],
@@ -97,7 +89,6 @@ class _PageScaffold extends StatelessWidget {
     required this.builder,
   });
 
-  final GlobalKey<ScaffoldState> scaffoldKey;
   final ScrollController? controller;
   final Widget? appBarLeading;
   final List<Widget> actions;
@@ -108,25 +99,21 @@ class _PageScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final showRemoteSyncerWidgets =
-        withProgressIndicator &&
-        !(scaffoldKey.currentState?.isDrawerOpen ?? false);
     final PreferredSizeWidget appBarBottom =
-        showRemoteSyncerWidgets
+        withProgressIndicator
             ? const RemoteSyncProgressIndicator(
               idleWidget: ReadingProgressIndicator(),
             )
             : const ReadingProgressIndicator();
 
     return AdaptiveScaffold(
-      key: scaffoldKey,
       barData: AdaptiveBarData(
         leading: appBarLeading,
         actions: actions,
         bottom: appBarBottom,
       ),
       body: builder(context),
-      floatingActionButton: RemoteSyncFAB(showIf: showRemoteSyncerWidgets),
+      floatingActionButton: RemoteSyncFAB(showIf: withProgressIndicator),
       endDrawer: endDrawer,
     );
   }
