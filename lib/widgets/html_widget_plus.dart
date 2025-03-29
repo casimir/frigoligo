@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:fwfh_cached_network_image/fwfh_cached_network_image.dart';
@@ -42,7 +43,7 @@ class HtmlWidgetPlus extends StatelessWidget {
 
     final prefix = title != null ? '<h1>$title</h1>' : '';
 
-    return Container(
+    final widget = Container(
       alignment: Alignment.center,
       width: double.infinity,
       child: HtmlWidget(
@@ -55,6 +56,10 @@ class HtmlWidgetPlus extends StatelessWidget {
         ),
         textStyle: textStyle,
       ),
+    );
+
+    return Material(
+      child: widget,
     );
   }
 }
