@@ -1,7 +1,7 @@
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cadanse/cadanse.dart';
 import 'package:cadanse/components/flows/confirmation_modal.dart';
 import 'package:cadanse/components/widgets/adaptive/actions_menu.dart';
+import 'package:cadanse/components/widgets/adaptive/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -41,9 +41,9 @@ class ArticleAction {
   final Key? key;
   final bool isDestructive;
 
-  IconButton toIconButton() => IconButton(
+  ActionButton toActionButton() => ActionButton(
         key: key,
-        icon: Icon(icon),
+        icon: icon,
         tooltip: label,
         onPressed: onPressed,
       );
@@ -161,13 +161,7 @@ List<Widget> buildActions(
   ];
 
   return [
-    ...mainActions.map((key) => actions[key]!.toIconButton() as Widget),
-    Builder(builder: (context) {
-      return IconButton(
-        icon: Icon(C(context).icons.info),
-        onPressed: () => Scaffold.of(context).openEndDrawer(),
-      );
-    }),
+    ...mainActions.map((key) => actions[key]!.toActionButton()),
     ActionsMenuButton(
       key: popupMenuKey,
       actions: moreActions
@@ -182,5 +176,11 @@ List<Widget> buildActions(
           )
           .toList(),
     ),
+    Builder(builder: (context) {
+      return ActionButton(
+        icon: C(context).icons.info,
+        onPressed: () => Scaffold.of(context).openEndDrawer(),
+      );
+    }),
   ];
 }

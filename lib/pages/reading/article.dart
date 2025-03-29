@@ -1,3 +1,4 @@
+import 'package:cadanse/components/widgets/adaptive/scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -154,9 +155,9 @@ class _PageScaffoldState extends State<_PageScaffold> {
             idleWidget: ReadingProgressIndicator())
         : const ReadingProgressIndicator();
 
-    return Scaffold(
+    return AdaptiveScaffold(
       key: widget.scaffoldKey,
-      appBar: AppBar(
+      barData: AdaptiveBarData(
         leading: widget.appBarLeading,
         actions: widget.actions,
         bottom: appBarBottom,
