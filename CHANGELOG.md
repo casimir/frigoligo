@@ -7,6 +7,10 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 ## [unreleased]
 
 
+### 🚜 Refactor
+
+- *(UI)* Replace the dynamic layout with a cleaner narrow layout ([#347](https://github.com/casimir/frigoligo/pull/347)) ([351449d](https://github.com/casimir/frigoligo/commit/351449dd0dd84b86322a2dbf1289ae858fac23a0))
+
 ### ⚙️ Miscellaneous Tasks
 
 - *(fastlane)* Add missing metadata for Italian ([969597f](https://github.com/casimir/frigoligo/commit/969597fbcf41bb52bc3f3a71f6ce2df7d9b43db2))
