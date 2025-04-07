@@ -41,8 +41,7 @@ dependencies:
 
   # UI
   adaptive_dialog: 2.4.0
-  cadanse:
-    path: ../cadanse
+  cadanse: 1.5.1
   flutter_form_builder: 9.6.0
   flutter_widget_from_html_core: 0.15.2
   fwfh_cached_network_image: 0.14.3

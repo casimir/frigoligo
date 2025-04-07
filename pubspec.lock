@@ -209,10 +209,11 @@ packages:
   cadanse:
     dependency: "direct main"
     description:
-      path: "../cadanse"
-      relative: true
-    source: path
-    version: "1.4.0"
+      name: cadanse
+      sha256: f82325079992651700403f96752cc5845b4729b0ec220f058fe3af290e3f4d24
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.5.1"
   characters:
     dependency: transitive
     description:
