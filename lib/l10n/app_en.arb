@@ -129,9 +129,17 @@
   "@article_delete": {
     "description": "The action to delete the article."
   },
+  "article_details": "More information",
+  "@article_details": {
+    "description": "The action to show the article details."
+  },
   "article_noContentFetched": "No content fetched",
   "@article_noContentFetched": {
     "description": "Placeholder for when the article content is not available."
+  },
+  "article_notFound": "Article not found",
+  "@article_notFound": {
+    "description": "Placeholder for when the article is not found."
   },
   "article_openInBrowser": "Open in browser",
   "@article_openInBrowser": {

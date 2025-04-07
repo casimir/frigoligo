@@ -1,5 +1,6 @@
 import 'package:cadanse/cadanse.dart';
 import 'package:cadanse/components/layouts/grouping.dart';
+import 'package:cadanse/components/widgets/error.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -13,7 +14,6 @@ import '../../db/models/article.drift.dart';
 import '../../services/remote_sync.dart';
 import '../../services/remote_sync_actions/articles.dart';
 import '../../widgets/copiable_text.dart';
-import '../../widgets/material_sheet.dart';
 import '../../widgets/selectors.dart';
 import '../../widgets/tag_list.dart';
 import 'mixins.dart';
@@ -24,76 +24,71 @@ class ArticleSheet extends ConsumerWidget with CurrentArticleWidget {
   @override
   Widget buildArticle(BuildContext context, WidgetRef ref, Article? article) {
     if (article == null) {
-      // Should never happer but the mixin signature imposes this check.
-      return const SizedBox.shrink();
+      // Should never happen but the mixin signature imposes this check.
+      return ErrorScreen(error: context.L.article_notFound);
     }
 
-    return MaterialSheet.side(
-      context: context,
-      title: context.L.g_article,
-      child: SingleChildScrollView(
-        child: PaddedGroup(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ..._buildField(context, context.L.articlefields_title,
-                  value: article.title),
-              C.spacers.verticalContent,
-              ..._buildField(context, context.L.articlefields_website,
-                  value: article.domainName ?? article.url),
-              C.spacers.verticalContent,
-              ..._buildField(context, context.L.articlefields_readingTime,
-                  value: context.L.article_readingTime(article.readingTime)),
-              C.spacers.verticalContent,
-              ActionChip(
-                avatar: const Icon(Icons.refresh),
-                label: Text(context.L.article_refetchContent),
-                onPressed: () async {
-                  if (context.mounted) {
-                    context.pop();
-                  }
-                  final syncer = ref.read(remoteSyncerProvider.notifier);
-                  await syncer.add(RefetchArticleAction(article.id));
-                  await syncer.synchronize();
-                },
+    return SingleChildScrollView(
+      child: PaddedGroup(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ..._buildField(context, context.L.articlefields_title,
+                value: article.title),
+            C.spacers.verticalContent,
+            ..._buildField(context, context.L.articlefields_website,
+                value: article.domainName ?? article.url),
+            C.spacers.verticalContent,
+            ..._buildField(context, context.L.articlefields_readingTime,
+                value: context.L.article_readingTime(article.readingTime)),
+            C.spacers.verticalContent,
+            ActionChip(
+              avatar: const Icon(Icons.refresh),
+              label: Text(context.L.article_refetchContent),
+              onPressed: () async {
+                if (context.mounted) {
+                  context.pop();
+                }
+                final syncer = ref.read(remoteSyncerProvider.notifier);
+                await syncer.add(RefetchArticleAction(article.id));
+                await syncer.synchronize();
+              },
+            ),
+            C.spacers.verticalComponent,
+            const Divider(),
+            C.spacers.verticalContent,
+            Text(
+              context.L.articlefields_tags,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            C.spacers.verticalContent,
+            article.tags.isNotEmpty
+                ? TagList(
+                    tags: article.tags,
+                    onTagPressed: (_) => _showTagsDialog(context, ref, article),
+                  )
+                : TextButton(
+                    onPressed: () => _showTagsDialog(context, ref, article),
+                    child: Text(context.L.article_addTags),
+                  ),
+            C.spacers.verticalContent,
+            const Divider(),
+            C.spacers.verticalContent,
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  _ShareChip(article),
+                  C.spacers.horizontalComponent,
+                  ActionChip(
+                    avatar: const Icon(Icons.open_in_browser),
+                    label: Text(context.L.article_openInBrowser),
+                    onPressed: () => launchUrl(Uri.parse(article.url)),
+                  ),
+                ],
               ),
-              C.spacers.verticalComponent,
-              const Divider(),
-              C.spacers.verticalContent,
-              Text(
-                context.L.articlefields_tags,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              C.spacers.verticalContent,
-              article.tags.isNotEmpty
-                  ? TagList(
-                      tags: article.tags,
-                      onTagPressed: (_) =>
-                          _showTagsDialog(context, ref, article),
-                    )
-                  : TextButton(
-                      onPressed: () => _showTagsDialog(context, ref, article),
-                      child: Text(context.L.article_addTags),
-                    ),
-              C.spacers.verticalContent,
-              const Divider(),
-              C.spacers.verticalContent,
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    _ShareChip(article),
-                    C.spacers.horizontalComponent,
-                    ActionChip(
-                      avatar: const Icon(Icons.open_in_browser),
-                      label: Text(context.L.article_openInBrowser),
-                      onPressed: () => launchUrl(Uri.parse(article.url)),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -2,6 +2,8 @@ import 'package:cadanse/cadanse.dart';
 import 'package:cadanse/components/flows/confirmation_modal.dart';
 import 'package:cadanse/components/widgets/adaptive/actions_menu.dart';
 import 'package:cadanse/components/widgets/adaptive/buttons.dart';
+import 'package:cadanse/components/widgets/adaptive/modal_sheet.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -16,10 +18,12 @@ import '../../services/remote_sync.dart';
 import '../../services/remote_sync_actions/articles.dart';
 import '../../widget_keys.dart';
 import '../reading_settings_configurator.dart';
+import 'article_sheet.dart';
 
 enum ArticleActionKey {
   archive,
   delete,
+  details,
   openInBrowser,
   readingSettings,
   share,
@@ -62,6 +66,7 @@ List<Widget> buildActions(
 ) {
   if (article == null) return [];
 
+  final isIOS = Theme.of(context).platform == TargetPlatform.iOS;
   final popupMenuKey = GlobalKey();
 
   final Map<ArticleActionKey, ArticleAction> actions = {
@@ -103,6 +108,20 @@ List<Widget> buildActions(
       },
       isDestructive: true,
     ),
+    ArticleActionKey.details: ArticleAction(
+      icon: C(context).icons.info,
+      label: context.L.article_details,
+      onPressed: () => showModalSheet(
+        context: context,
+        title: context.L.g_article,
+        builder: (_) => const ArticleSheet(),
+        // TODO(Flutter 3.30): remove the platform override
+        // There is a bug in the modal sheet implementation for iOS that has been
+        // fixed in Flutter 3.30 but this is still in beta.
+        // See https://github.com/flutter/flutter/pull/162481
+        platformOverride: isIOS ? TargetPlatform.android : null,
+      ),
+    ),
     ArticleActionKey.openInBrowser: ArticleAction(
       icon: Icons.open_in_browser,
       label: context.L.article_openInBrowser,
@@ -116,7 +135,6 @@ List<Widget> buildActions(
         context: context,
         builder: (_) => const ReadingSettingsConfigurator(),
         barrierColor: Colors.transparent,
-        showDragHandle: true,
       ),
     ),
     ArticleActionKey.share: ArticleAction(
@@ -151,6 +169,7 @@ List<Widget> buildActions(
   final mainActions = [
     ArticleActionKey.archive,
     ArticleActionKey.star,
+    ArticleActionKey.details,
   ];
   final moreActions = [
     ArticleActionKey.openInBrowser,
@@ -176,11 +195,5 @@ List<Widget> buildActions(
           )
           .toList(),
     ),
-    Builder(builder: (context) {
-      return ActionButton(
-        icon: C(context).icons.info,
-        onPressed: () => Scaffold.of(context).openEndDrawer(),
-      );
-    }),
   ];
 }

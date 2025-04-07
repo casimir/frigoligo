@@ -9,7 +9,6 @@ import '../../widget_keys.dart';
 import '../../widgets/remote_sync_progress_indicator.dart';
 import 'actions.dart';
 import 'article_content.dart';
-import 'article_sheet.dart';
 import 'mixins.dart';
 
 class ArticlePage extends ConsumerStatefulWidget {
@@ -65,14 +64,11 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
       controller: scroller,
       appBarLeading: appBarLeading,
       actions: buildActions(context, ref, article, widget.withExpander),
-      endDrawer: const ArticleSheet(),
       withProgressIndicator: widget.withProgressIndicator,
       scrollEnabled: article.content != null,
-      builder:
-          (_) =>
-              article.content == null
-                  ? ArticleContentEmpty(articleUrl: Uri.parse(article.url))
-                  : ArticleContent(article: article),
+      builder: (_) => article.content == null
+          ? ArticleContentEmpty(articleUrl: Uri.parse(article.url))
+          : ArticleContent(article: article),
     );
   }
 }
@@ -82,7 +78,6 @@ class _PageScaffold extends StatelessWidget {
     this.controller,
     required this.appBarLeading,
     this.actions = const [],
-    this.endDrawer,
     required this.withProgressIndicator,
     this.scrollEnabled = true,
     required this.builder,
@@ -91,19 +86,17 @@ class _PageScaffold extends StatelessWidget {
   final ScrollController? controller;
   final Widget? appBarLeading;
   final List<Widget> actions;
-  final Widget? endDrawer;
   final bool withProgressIndicator;
   final bool scrollEnabled;
   final WidgetBuilder builder;
 
   @override
   Widget build(BuildContext context) {
-    final PreferredSizeWidget appBarBottom =
-        withProgressIndicator
-            ? const RemoteSyncProgressIndicator(
-              idleWidget: ReadingProgressIndicator(),
-            )
-            : const ReadingProgressIndicator();
+    final PreferredSizeWidget appBarBottom = withProgressIndicator
+        ? const RemoteSyncProgressIndicator(
+            idleWidget: ReadingProgressIndicator(),
+          )
+        : const ReadingProgressIndicator();
 
     return AdaptiveScaffold(
       barData: AdaptiveBarData(
@@ -112,7 +105,6 @@ class _PageScaffold extends StatelessWidget {
         bottom: appBarBottom,
       ),
       body: builder(context),
-      endDrawer: endDrawer,
     );
   }
 }
