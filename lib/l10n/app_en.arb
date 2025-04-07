@@ -159,7 +159,7 @@
   "@article_refetchContent": {
     "description": "The action to ask the server to fetch the article content again."
   },
-  "article_readingSettings": "Open text settings",
+  "article_readingSettings": "Text settings",
   "@article_readingSettings": {
     "description": "The action to open the reading settings sheet."
   },
@@ -341,7 +341,7 @@
   "@readdingsettings_textFormatting": {
     "description": "The text formatting to display the content of the article."
   },
-  "readingsettings_title": "Reading settings",
+  "readingsettings_title": "Text settings",
   "@readingsettings_title": {
     "description": "The title of the reading settings screen."
   },
