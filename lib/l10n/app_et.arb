@@ -504,5 +504,37 @@
   "article_refetchContent": "Laadi sisu uuesti",
   "@article_refetchContent": {
     "description": "The action to ask the server to fetch the article content again."
+  },
+  "article_notFound": "Artiklit ei leidu",
+  "@article_notFound": {
+    "description": "Placeholder for when the article is not found."
+  },
+  "article_readingSettings": "Ava tekstiseadistused",
+  "@article_readingSettings": {
+    "description": "The action to open the reading settings sheet."
+  },
+  "article_star": "Märgi see artikkel tähekesega",
+  "@article_star": {
+    "description": "The action to star the article."
+  },
+  "article_archive": "Arhiveeri see artikkel",
+  "@article_archive": {
+    "description": "The action to archive the article."
+  },
+  "article_details": "Lisateave",
+  "@article_details": {
+    "description": "The action to show the article details."
+  },
+  "article_share": "Jaga seda artiklit",
+  "@article_share": {
+    "description": "The action to share the article."
+  },
+  "article_unstar": "Eemalda selt artiklilt täheke",
+  "@article_unstar": {
+    "description": "The action to unstar the article."
+  },
+  "article_unarchive": "Eemalda see artikkel arhiivist",
+  "@article_unarchive": {
+    "description": "The action to unarchive the article."
   }
 }
