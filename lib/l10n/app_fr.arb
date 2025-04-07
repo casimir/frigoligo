@@ -474,5 +474,37 @@
   "article_refetchContent": "Recharger le contenu",
   "@article_refetchContent": {
     "description": "The action to ask the server to fetch the article content again."
+  },
+  "article_notFound": "Article introuvable",
+  "@article_notFound": {
+    "description": "Placeholder for when the article is not found."
+  },
+  "article_readingSettings": "Paramètres de mise en page",
+  "@article_readingSettings": {
+    "description": "The action to open the reading settings sheet."
+  },
+  "article_details": "Plus d'informations",
+  "@article_details": {
+    "description": "The action to show the article details."
+  },
+  "article_unarchive": "Désarchiver l'article",
+  "@article_unarchive": {
+    "description": "The action to unarchive the article."
+  },
+  "article_share": "Partager l'article",
+  "@article_share": {
+    "description": "The action to share the article."
+  },
+  "article_star": "Ajouter aux favoris",
+  "@article_star": {
+    "description": "The action to star the article."
+  },
+  "article_unstar": "Retirer l'article des favoris",
+  "@article_unstar": {
+    "description": "The action to unstar the article."
+  },
+  "article_archive": "Archiver l'article",
+  "@article_archive": {
+    "description": "The action to archive the article."
   }
 }
