@@ -7,13 +7,31 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 ## [unreleased]
 
 
+### 🚀 Features
+
+- *(reading)* Rework the arrangement of the toolbars ([#338](https://github.com/casimir/frigoligo/pull/338)) ([df32078](https://github.com/casimir/frigoligo/commit/df32078cc20021d8e9f3cd48e9a0ae0d2d8d06cd))
+
+### 🐛 Bug Fixes
+
+- Bump cadanse to get the fix for the navbar issue ([ac8bb6e](https://github.com/casimir/frigoligo/commit/ac8bb6e78674146fb5cf09ddcfdd7015b61f384a))
+
 ### 🚜 Refactor
 
 - *(UI)* Replace the dynamic layout with a cleaner narrow layout ([#347](https://github.com/casimir/frigoligo/pull/347)) ([351449d](https://github.com/casimir/frigoligo/commit/351449dd0dd84b86322a2dbf1289ae858fac23a0))
 
+### 🌐 Translations
+
+- Update translations: Estonian
+ ([a4ab6d9](https://github.com/casimir/frigoligo/commit/a4ab6d9cf3d0191257655902918d8520c9578ee9))
+- Update translations: Dutch
+ ([663d720](https://github.com/casimir/frigoligo/commit/663d720e7d7846b55cbec6bf6799f82e968f8929))
+- Update translations: French
+ ([738b5f7](https://github.com/casimir/frigoligo/commit/738b5f7798fd9448fc45a4b1fc60717b661062a6))
+
 ### ⚙️ Miscellaneous Tasks
 
 - *(fastlane)* Add missing metadata for Italian ([969597f](https://github.com/casimir/frigoligo/commit/969597fbcf41bb52bc3f3a71f6ce2df7d9b43db2))
+- *(i18n)* Adjust some translations ([65654ce](https://github.com/casimir/frigoligo/commit/65654ce6d8943bcabb62e225a3f5457465516b75))
 
 **Full Changelog**: [v2.4.0..HEAD](https://github.com/casimir/frigoligo/compare/v2.4.0..HEAD)
 
