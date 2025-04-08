@@ -8,12 +8,12 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:logging/logging.dart';
 import 'package:universal_platform/universal_platform.dart';
 
-import '../app_info.dart';
-import '../constants.dart';
 import 'models/entry.dart';
 import 'models/info.dart';
 
 part 'client.g.dart';
+
+const enableHttpLogs = false;
 
 final _log = Logger('wallabag.client');
 
@@ -104,8 +104,11 @@ http.Client newClient({String? selfSignedHost}) {
 }
 
 abstract class WallabagClient extends http.BaseClient {
-  WallabagClient({String? selfSignedHost}) : _selfSignedHost = selfSignedHost;
+  WallabagClient({String? userAgent, String? selfSignedHost})
+      : _userAgent = userAgent,
+        _selfSignedHost = selfSignedHost;
 
+  final String? _userAgent;
   final String? _selfSignedHost;
   http.Client? _inner;
 
@@ -115,7 +118,7 @@ abstract class WallabagClient extends http.BaseClient {
   }
 
   Logger get logger => _log;
-  String? get userAgent => UniversalPlatform.isWeb ? null : AppInfo.userAgent;
+  String? get userAgent => UniversalPlatform.isWeb ? null : _userAgent;
 
   Future<Uri> buildUri(String path, [Map<String, dynamic>? queryParameters]);
 

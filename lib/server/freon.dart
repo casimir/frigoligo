@@ -20,7 +20,11 @@ class FreonCredentials {
 }
 
 class FreonWallabagClient extends WallabagClient {
-  FreonWallabagClient(this._credentials, {super.selfSignedHost});
+  FreonWallabagClient(
+    this._credentials, {
+    super.userAgent,
+    super.selfSignedHost,
+  });
 
   final FreonCredentials _credentials;
 

@@ -1,6 +1,7 @@
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../app_info.dart';
 import '../../wallabag/client.dart';
 import '../../wallabag/wallabag.dart';
 import '../freon.dart';
@@ -39,12 +40,18 @@ class Client extends _$Client {
 
     switch (session.type) {
       case ServerType.freon:
-        return FreonWallabagClient(session.freon!,
-            selfSignedHost: session.selfSignedHost);
+        return FreonWallabagClient(
+          session.freon!,
+          userAgent: AppInfo.userAgent,
+          selfSignedHost: session.selfSignedHost,
+        );
       case ServerType.wallabag:
-        // `session` is not used here because this client as its own session management.
-        return WallabagNativeClient(NativeSessionWrapper(),
-            selfSignedHost: session.selfSignedHost);
+        // `session` is not used here because this client manages its own session.
+        return WallabagNativeClient(
+          NativeSessionWrapper(),
+          userAgent: AppInfo.userAgent,
+          selfSignedHost: session.selfSignedHost,
+        );
       case ServerType.unknown:
         _log.warning('unknown server type: ${session.type}: ${session.raw}');
         return null;

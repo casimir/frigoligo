@@ -46,7 +46,6 @@ const int logCountThreshold = 1000;
 // Features flags and constants
 
 const enableDebugLogs = false;
-const enableHttpLogs = false;
 const enablePerfLogs = false;
 const enableSqlLogs = false;
 
