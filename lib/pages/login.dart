@@ -79,8 +79,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       isDestructiveAction: true,
     );
     if (result == OkCancelResult.ok) {
-      await ref.read(sessionProvider.notifier).logout();
       await DB().clear();
+      await ref.read(sessionProvider.notifier).logout();
     } else {
       if (mounted) context.go('/');
     }

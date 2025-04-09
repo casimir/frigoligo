@@ -12,7 +12,6 @@ import '../../providers/server_login_flow.dart';
 import '../../server/check.dart';
 import '../../server/providers/client.dart';
 import '../../server/session.dart';
-import '../../services/wallabag_storage.dart';
 import '../../wallabag/client.dart';
 import '../../widget_keys.dart';
 import 'login_freon.dart';
@@ -158,7 +157,6 @@ class _LoginFlowCredentialsState extends ConsumerState<LoginFlowCredentials> {
             .openSession(widget.serverCheck, _formKey.currentState!.value);
         await session.save();
         ref.invalidate(sessionProvider);
-        ref.read(wStorageProvider.notifier).fullRefresh();
         if (mounted) {
           context.go('/');
         }
