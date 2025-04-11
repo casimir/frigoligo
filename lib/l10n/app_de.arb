@@ -474,5 +474,13 @@
   "article_refetchContent": "Inhalt neu laden",
   "@article_refetchContent": {
     "description": "The action to ask the server to fetch the article content again."
+  },
+  "article_details": "Weitere Informationen",
+  "@article_details": {
+    "description": "The action to show the article details."
+  },
+  "article_notFound": "Artikel nicht gefunden",
+  "@article_notFound": {
+    "description": "Placeholder for when the article is not found."
   }
 }
