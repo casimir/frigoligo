@@ -13,7 +13,6 @@ import '../../server/check.dart';
 import '../../server/providers/client.dart';
 import '../../server/session.dart';
 import '../../wallabag/client.dart';
-import '../../widget_keys.dart';
 import 'login_freon.dart';
 import 'login_wallabag.dart';
 import 'utils.dart';
@@ -130,7 +129,6 @@ class _LoginFlowCredentialsState extends ConsumerState<LoginFlowCredentials> {
                       [
                         C.spacers.verticalContent,
                         ElevatedButton(
-                          key: const Key(wkLoginFlowLogIn),
                           onPressed: () => attemptLogin(),
                           child: Text(context.L.login_actionLogin),
                         ),
