@@ -84,12 +84,12 @@ class CurrentArticle extends _$CurrentArticle {
   }
 
   void _waitForArticles(QueryState qs) {
+    ref.onDispose(() => _watcher?.cancel());
     _watcher = qs.idsQuery.watch().listen((ids) {
       if (ids.isNotEmpty) {
         ref.invalidateSelf();
       }
     });
-    ref.onDispose(() => _watcher?.cancel());
   }
 
   void change(int articleId) {
