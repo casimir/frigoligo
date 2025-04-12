@@ -14,10 +14,18 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 ### 🐛 Bug Fixes
 
 - Bump cadanse to get the fix for the navbar issue ([ac8bb6e](https://github.com/casimir/frigoligo/commit/ac8bb6e78674146fb5cf09ddcfdd7015b61f384a))
+- Prevent a race condition on listing initialization ([2176265](https://github.com/casimir/frigoligo/commit/2176265301fa24e972871c5df9bcf3c68e393a89))
+- Bump cadanse to get the fix for the navbar issue (bis) ([41fc6ce](https://github.com/casimir/frigoligo/commit/41fc6ce48b5b0753c2adea41513a80e6d24819a4))
 
 ### 🚜 Refactor
 
 - *(UI)* Replace the dynamic layout with a cleaner narrow layout ([#347](https://github.com/casimir/frigoligo/pull/347)) ([351449d](https://github.com/casimir/frigoligo/commit/351449dd0dd84b86322a2dbf1289ae858fac23a0))
+- *(wallabag)* Uncouple the wallabag module from flutter ([4d67a67](https://github.com/casimir/frigoligo/commit/4d67a6769b0b2b77c89a3ff2cbc7f8e4e4f51a0f))
+- Remove unused widget key ([eed4d1d](https://github.com/casimir/frigoligo/commit/eed4d1dc404f62049379e8184d995b05e11c65cf))
+
+### ⚡ Performance
+
+- *(sync)* Avoid duplicate refresh actions on session change ([3e0ae22](https://github.com/casimir/frigoligo/commit/3e0ae22fcd2007d7057d6baf981c1ca6e1b9b5c3))
 
 ### 🌐 Translations
 
@@ -27,6 +35,14 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
  ([663d720](https://github.com/casimir/frigoligo/commit/663d720e7d7846b55cbec6bf6799f82e968f8929))
 - Update translations: French
  ([738b5f7](https://github.com/casimir/frigoligo/commit/738b5f7798fd9448fc45a4b1fc60717b661062a6))
+- Update translations: Galician
+ ([cfefc66](https://github.com/casimir/frigoligo/commit/cfefc66bd95c88a35909540325a4f3225278b6dc))
+- Update translations: German
+ ([bd253d9](https://github.com/casimir/frigoligo/commit/bd253d93ae4365f09373e9b48a8284efe2c64d79))
+- Update translations: Italian
+ ([f1065c3](https://github.com/casimir/frigoligo/commit/f1065c3b5abf6961bbd0d092dbb04b1a2d66bd69))
+- Update translations: Portuguese (Portugal)
+ ([ffcc491](https://github.com/casimir/frigoligo/commit/ffcc491446c285e83d676d9702aa87444b2d34d4))
 
 ### ⚙️ Miscellaneous Tasks
 
