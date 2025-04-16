@@ -1,0 +1,402 @@
+/* Atkinson Hyperlegible */
+
+@font-face {
+    font-family: "Atkinson Hyperlegible";
+    src: url("../fonts/AtkinsonHyperlegible-Regular.ttf");
+  }
+  
+  @font-face {
+    font-family: "Atkinson Hyperlegible";
+    src: url("../fonts/AtkinsonHyperlegible-Italic.ttf");
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: "Atkinson Hyperlegible";
+    src: url("../fonts/AtkinsonHyperlegible-Bold.ttf");
+    font-weight: bold;
+  }
+  
+  @font-face {
+    font-family: "Atkinson Hyperlegible";
+    src: url("../fonts/AtkinsonHyperlegible-BoldItalic.ttf");
+    font-weight: bold;
+    font-style: italic;
+  }
+  
+  /* Lato */
+  
+  @font-face {
+    font-family: Lato;
+    src: url("../fonts/Lato-Regular.ttf");
+  }
+  
+  @font-face {
+    font-family: Lato;
+    src: url("../fonts/Lato-Italic.ttf");
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: Lato;
+    src: url("../fonts/Lato-Thin.ttf");
+    font-weight: 100;
+  }
+  
+  @font-face {
+    font-family: Lato;
+    src: url("../fonts/Lato-ThinItalic.ttf");
+    font-weight: 100;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: Lato;
+    src: url("../fonts/Lato-Light.ttf");
+    font-weight: 300;
+  }
+  
+  @font-face {
+    font-family: Lato;
+    src: url("../fonts/Lato-LightItalic.ttf");
+    font-weight: 300;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: Lato;
+    src: url("../fonts/Lato-Bold.ttf");
+    font-weight: bold;
+  }
+  
+  @font-face {
+    font-family: Lato;
+    src: url("../fonts/Lato-BoldItalic.ttf");
+    font-weight: bold;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: Lato;
+    src: url("../fonts/Lato-Black.ttf");
+    font-weight: 900;
+  }
+  
+  @font-face {
+    font-family: Lato;
+    src: url("../fonts/Lato-BlackItalic.ttf");
+    font-weight: 900;
+    font-style: italic;
+  }
+  
+  /* Literata */
+  
+  @font-face {
+    font-family: Literata;
+    src: url("../fonts/Literata-Regular.ttf");
+  }
+  
+  @font-face {
+    font-family: Literata;
+    src: url("../fonts/Literata-Italic.ttf");
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: Literata;
+    src: url("../fonts/Literata-ExtraLight.ttf");
+    font-weight: 200;
+  }
+  
+  @font-face {
+    font-family: Literata;
+    src: url("../fonts/Literata-ExtraLightItalic.ttf");
+    font-weight: 200;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: Literata;
+    src: url("../fonts/Literata-Light.ttf");
+    font-weight: 300;
+  }
+  
+  @font-face {
+    font-family: Literata;
+    src: url("../fonts/Literata-LightItalic.ttf");
+    font-weight: 300;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: Literata;
+    src: url("../fonts/Literata-Medium.ttf");
+    font-weight: 500;
+  }
+  
+  @font-face {
+    font-family: Literata;
+    src: url("../fonts/Literata-MediumItalic.ttf");
+    font-weight: 500;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: Literata;
+    src: url("../fonts/Literata-SemiBold.ttf");
+    font-weight: 600;
+  }
+  
+  @font-face {
+    font-family: Literata;
+    src: url("../fonts/Literata-SemiBoldItalic.ttf");
+    font-weight: 600;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: Literata;
+    src: url("../fonts/Literata-Bold.ttf");
+    font-weight: bold;
+  }
+  
+  @font-face {
+    font-family: Literata;
+    src: url("../fonts/Literata-BoldItalic.ttf");
+    font-weight: bold;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: Literata;
+    src: url("../fonts/Literata-ExtraBold.ttf");
+    font-weight: 800;
+  }
+  
+  @font-face {
+    font-family: Literata;
+    src: url("../fonts/Literata-ExtraBoldItalic.ttf");
+    font-weight: 800;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: Literata;
+    src: url("../fonts/Literata-Black.ttf");
+    font-weight: 900;
+  }
+  
+  @font-face {
+    font-family: Literata;
+    src: url("../fonts/Literata-BlackItalic.ttf");
+    font-weight: 900;
+    font-style: italic;
+  }
+  
+  /* Montserrat */
+  
+  @font-face {
+    font-family: Montserrat;
+    src: url("../fonts/Montserrat-Regular.ttf");
+  }
+  
+  @font-face {
+    font-family: Montserrat;
+    src: url("../fonts/Montserrat-Italic.ttf");
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: Montserrat;
+    src: url("../fonts/Montserrat-Thin.ttf");
+    font-weight: 100;
+  }
+  
+  @font-face {
+    font-family: Montserrat;
+    src: url("../fonts/Montserrat-ThinItalic.ttf");
+    font-weight: 100;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: Montserrat;
+    src: url("../fonts/Montserrat-ExtraLight.ttf");
+    font-weight: 200;
+  }
+  
+  @font-face {
+    font-family: Montserrat;
+    src: url("../fonts/Montserrat-ExtraLightItalic.ttf");
+    font-weight: 200;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: Montserrat;
+    src: url("../fonts/Montserrat-Light.ttf");
+    font-weight: 300;
+  }
+  
+  @font-face {
+    font-family: Montserrat;
+    src: url("../fonts/Montserrat-LightItalic.ttf");
+    font-weight: 300;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: Montserrat;
+    src: url("../fonts/Montserrat-Medium.ttf");
+    font-weight: 500;
+  }
+  
+  @font-face {
+    font-family: Montserrat;
+    src: url("../fonts/Montserrat-MediumItalic.ttf");
+    font-weight: 500;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: Montserrat;
+    src: url("../fonts/Montserrat-SemiBold.ttf");
+    font-weight: 600;
+  }
+  
+  @font-face {
+    font-family: Montserrat;
+    src: url("../fonts/Montserrat-SemiBoldItalic.ttf");
+    font-weight: 600;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: Montserrat;
+    src: url("../fonts/Montserrat-Bold.ttf");
+    font-weight: bold;
+  }
+  
+  @font-face {
+    font-family: Montserrat;
+    src: url("../fonts/Montserrat-BoldItalic.ttf");
+    font-weight: bold;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: Montserrat;
+    src: url("../fonts/Montserrat-ExtraBold.ttf");
+    font-weight: 800;
+  }
+  
+  @font-face {
+    font-family: Montserrat;
+    src: url("../fonts/Montserrat-ExtraBoldItalic.ttf");
+    font-weight: 800;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: Montserrat;
+    src: url("../fonts/Montserrat-Black.ttf");
+    font-weight: 900;
+  }
+  
+  @font-face {
+    font-family: Montserrat;
+    src: url("../fonts/Montserrat-BlackItalic.ttf");
+    font-weight: 900;
+    font-style: italic;
+  }
+  
+  /* Newsreader */
+  
+  @font-face {
+    font-family: Newsreader;
+    src: url("../fonts/Newsreader-Regular.ttf");
+  }
+  
+  @font-face {
+    font-family: Newsreader;
+    src: url("../fonts/Newsreader-Italic.ttf");
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: Newsreader;
+    src: url("../fonts/Newsreader-ExtraLight.ttf");
+    font-weight: 200;
+  }
+  
+  @font-face {
+    font-family: Newsreader;
+    src: url("../fonts/Newsreader-ExtraLightItalic.ttf");
+    font-weight: 200;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: Newsreader;
+    src: url("../fonts/Newsreader-Light.ttf");
+    font-weight: 300;
+  }
+  
+  @font-face {
+    font-family: Newsreader;
+    src: url("../fonts/Newsreader-LightItalic.ttf");
+    font-weight: 300;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: Newsreader;
+    src: url("../fonts/Newsreader-Medium.ttf");
+    font-weight: 500;
+  }
+  
+  @font-face {
+    font-family: Newsreader;
+    src: url("../fonts/Newsreader-MediumItalic.ttf");
+    font-weight: 500;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: Newsreader;
+    src: url("../fonts/Newsreader-SemiBold.ttf");
+    font-weight: 600;
+  }
+  
+  @font-face {
+    font-family: Newsreader;
+    src: url("../fonts/Newsreader-SemiBoldItalic.ttf");
+    font-weight: 600;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: Newsreader;
+    src: url("../fonts/Newsreader-Bold.ttf");
+    font-weight: bold;
+  }
+  
+  @font-face {
+    font-family: Newsreader;
+    src: url("../fonts/Newsreader-BoldItalic.ttf");
+    font-weight: bold;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: Newsreader;
+    src: url("../fonts/Newsreader-ExtraBold.ttf");
+    font-weight: 800;
+  }
+  
+  @font-face {
+    font-family: Newsreader;
+    src: url("../fonts/Newsreader-ExtraBoldItalic.ttf");
+    font-weight: 800;
+    font-style: italic;
+  }
