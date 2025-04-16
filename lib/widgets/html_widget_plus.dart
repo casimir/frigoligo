@@ -35,26 +35,28 @@ class HtmlWidgetPlus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var style = '';
+    var style = 'justify-content:center;'
+        // 1 em ~ 2 characters (1 em is the width of 'M')
+        'max-width:40em;';
     if (justifyText == true) style += 'text-align:justify;';
-    // 1 em ~ 2 characters (1 em is the width of 'M')
-    style += 'max-width:40em;';
 
     final prefix = title != null ? '<h1>$title</h1>' : '';
+    final content = '<html>'
+        '<body>'
+        '  $prefix'
+        '  <div style="$style">$html</div>'
+        '</body>'
+        '</html>';
 
-    final widget = Container(
-      alignment: Alignment.center,
-      width: double.infinity,
-      child: HtmlWidget(
-        '$prefix<div style="$style">$html</div>',
-        factoryBuilder: () => HtmlWidgetFactory(
-          onTreeBuilt: (child) =>
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-            onTreeBuilt?.call(child);
-          }),
-        ),
-        textStyle: textStyle,
+    final widget = HtmlWidget(
+      content,
+      factoryBuilder: () => HtmlWidgetFactory(
+        onTreeBuilt: (child) =>
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+          onTreeBuilt?.call(child);
+        }),
       ),
+      textStyle: textStyle,
     );
 
     return Material(

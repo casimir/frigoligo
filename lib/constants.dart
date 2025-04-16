@@ -57,3 +57,5 @@ const Duration periodicSyncTimeout = Duration(minutes: 10);
 
 final pullToRefreshSupported =
     UniversalPlatform.isMobile || UniversalPlatform.isMacOS;
+
+final nativeArticleRendererSupported = UniversalPlatform.isIOS;

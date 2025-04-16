@@ -10,3 +10,9 @@ trim_trailing_whitespace = true
 
 [*.gradle]
 indent_size = 4
+
+[*.html]
+insert_final_newline = false
+
+[*.css]
+insert_final_newline = false

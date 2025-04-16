@@ -10,6 +10,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 import '../app_info.dart';
 import '../buildcontext_extension.dart';
+import '../constants.dart';
 import '../native/appbadge.dart';
 import '../providers/settings.dart';
 import '../services/remote_sync.dart';
@@ -224,6 +225,15 @@ class SettingsPage extends ConsumerWidget {
                   }
                 },
               ),
+              if (nativeArticleRendererSupported)
+                SettingsTile.switchTile(
+                  leading: const Icon(Icons.settings_suggest),
+                  title: Text(context.L.settings_useNativeArticleRenderer),
+                  initialValue: settings[Sk.nativeArticleRenderer],
+                  onToggle: (value) => ref
+                      .read(settingsProvider.notifier)
+                      .set(Sk.nativeArticleRenderer, value),
+                ),
             ])
           ],
         ),

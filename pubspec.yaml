@@ -48,6 +48,8 @@ dependencies:
   fwfh_url_launcher: 0.9.1
   google_fonts: 6.2.1
   settings_ui: 2.0.2
+  webview_flutter: 4.10.0
+  webview_flutter_wkwebview: any
 
   # networking & API
   cached_network_image: 3.4.1
@@ -97,7 +99,10 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/article.template.html
     - assets/google_fonts/
+    - assets/www/scripts/
+    - assets/www/styles/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
