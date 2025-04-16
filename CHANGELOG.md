@@ -48,6 +48,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 
 - *(fastlane)* Add missing metadata for Italian ([969597f](https://github.com/casimir/frigoligo/commit/969597fbcf41bb52bc3f3a71f6ce2df7d9b43db2))
 - *(i18n)* Adjust some translations ([65654ce](https://github.com/casimir/frigoligo/commit/65654ce6d8943bcabb62e225a3f5457465516b75))
+- *(i18n)* Add newly translated languages ([a176a0b](https://github.com/casimir/frigoligo/commit/a176a0be2c623d30426547e2449c626850857e7a))
 
 **Full Changelog**: [v2.4.0..HEAD](https://github.com/casimir/frigoligo/compare/v2.4.0..HEAD)
 
