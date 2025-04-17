@@ -189,7 +189,7 @@
   "@readingsettings_fontSize": {
     "description": "The font size to display the content of the article."
   },
-  "readingsettings_title": "阅读设置",
+  "readingsettings_title": "文本设置",
   "@readingsettings_title": {
     "description": "The title of the reading settings screen."
   },
@@ -474,5 +474,37 @@
   "article_refetchContent": "重新抓取",
   "@article_refetchContent": {
     "description": "The action to ask the server to fetch the article content again."
+  },
+  "article_archive": "存档此文章",
+  "@article_archive": {
+    "description": "The action to archive the article."
+  },
+  "article_details": "更多信息",
+  "@article_details": {
+    "description": "The action to show the article details."
+  },
+  "article_share": "分享此文章",
+  "@article_share": {
+    "description": "The action to share the article."
+  },
+  "article_star": "收藏此文章",
+  "@article_star": {
+    "description": "The action to star the article."
+  },
+  "article_readingSettings": "文本设置",
+  "@article_readingSettings": {
+    "description": "The action to open the reading settings sheet."
+  },
+  "article_unarchive": "取消存档此文章",
+  "@article_unarchive": {
+    "description": "The action to unarchive the article."
+  },
+  "article_unstar": "取消收藏此文章",
+  "@article_unstar": {
+    "description": "The action to unstar the article."
+  },
+  "article_notFound": "未找到文章",
+  "@article_notFound": {
+    "description": "Placeholder for when the article is not found."
   }
 }
