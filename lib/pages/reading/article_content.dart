@@ -10,7 +10,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:universal_platform/universal_platform.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
@@ -310,6 +309,7 @@ class _WebViewArticleRendererState extends ConsumerState<_WebViewContent> {
       platform = WebKitWebViewController(WebKitWebViewControllerCreationParams(
         allowsInlineMediaPlayback: true,
       ));
+      platform.setAllowsBackForwardNavigationGestures(true);
       platform.setInspectable(kDebugMode);
     } else {
       // unreachable until Android is implemented
