@@ -243,6 +243,9 @@ class ArticleContentRenderer {
       background-color: ${colors.surface.toRgbHex()};
       color: ${colors.onSurface.toRgbHex()};
     }
+    a {
+      color: ${colors.primary.toRgbHex()};
+    }
   </style>'''
         .trim();
   }
