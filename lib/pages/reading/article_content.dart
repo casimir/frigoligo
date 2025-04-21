@@ -291,12 +291,10 @@ class _WebViewContent extends ConsumerStatefulWidget {
 }
 
 class _WebViewArticleRendererState extends ConsumerState<_WebViewContent> {
+  static final log = Logger('webview');
+
   late final ArticleContentRenderer _renderer;
   late final WebViewController _webViewController;
-
-  static final Set<Factory<OneSequenceGestureRecognizer>>
-      eagerGestureRecognizers = {Factory(() => EagerGestureRecognizer())};
-  static final log = Logger('webview');
 
   @override
   void initState() {
@@ -309,7 +307,6 @@ class _WebViewArticleRendererState extends ConsumerState<_WebViewContent> {
       platform = WebKitWebViewController(WebKitWebViewControllerCreationParams(
         allowsInlineMediaPlayback: true,
       ));
-      platform.setAllowsBackForwardNavigationGestures(true);
       platform.setInspectable(kDebugMode);
     } else {
       // unreachable until Android is implemented
@@ -360,9 +357,6 @@ class _WebViewArticleRendererState extends ConsumerState<_WebViewContent> {
       ..setBackgroundColor(Theme.of(context).colorScheme.surface)
       ..loadFile(index.path);
 
-    return WebViewWidget(
-      controller: _webViewController,
-      gestureRecognizers: eagerGestureRecognizers,
-    );
+    return WebViewWidget(controller: _webViewController);
   }
 }
