@@ -322,7 +322,7 @@ class _WebViewArticleRendererState extends ConsumerState<_WebViewContent> {
             return NavigationDecision.navigate;
           }
 
-          if (url != null && await canLaunchUrl(url)) {
+          if (url != null && await canLaunchUrl(url) && request.isMainFrame) {
             launchUrl(url);
             return NavigationDecision.prevent;
           }
