@@ -77,6 +77,7 @@ class _ArticleContentState extends ConsumerState<ArticleContent> {
   }
 
   Future<void> _onScroll(double progress, bool isScrolling) async {
+    if (progress.isNaN) progress = 0;
     ref.read(currentReadingProgressProvider.notifier).progress = progress;
 
     if (!isScrolling) {
