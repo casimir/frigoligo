@@ -210,10 +210,10 @@ packages:
     dependency: "direct main"
     description:
       name: cadanse
-      sha256: "6d926eb7b70ea7a3f26b556a44e8f7ea9a38097a17ef989671beff0b1a7b65cc"
+      sha256: "3ddde01d187f6001052ac92cd5219cdd9516b08a8f1064ca636b8281472b83f7"
       url: "https://pub.dev"
     source: hosted
-    version: "1.5.3"
+    version: "1.5.4"
   characters:
     dependency: transitive
     description:
