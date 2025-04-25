@@ -68,7 +68,7 @@ class HtmlWidgetPlus extends StatelessWidget {
               Text(
                 title!,
                 style: textStyle?.copyWith(
-                  fontSize: Theme.of(context).textTheme.displaySmall?.fontSize,
+                  fontSize: Theme.of(context).textTheme.headlineSmall?.fontSize,
                   fontWeight: FontWeight.bold,
                 ),
               ),
