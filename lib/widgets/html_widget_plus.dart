@@ -1,3 +1,5 @@
+import 'package:cadanse/cadanse.dart';
+import 'package:cadanse/tokens/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:fwfh_cached_network_image/fwfh_cached_network_image.dart';
@@ -40,10 +42,8 @@ class HtmlWidgetPlus extends StatelessWidget {
         'max-width:40em;';
     if (justifyText == true) style += 'text-align:justify;';
 
-    final prefix = title != null ? '<h1>$title</h1>' : '';
     final content = '<html>'
         '<body>'
-        '  $prefix'
         '  <div style="$style">$html</div>'
         '</body>'
         '</html>';
@@ -60,7 +60,24 @@ class HtmlWidgetPlus extends StatelessWidget {
     );
 
     return Material(
-      child: widget,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: kSpacingInGroup),
+        child: Column(
+          children: [
+            if (title != null) ...[
+              Text(
+                title!,
+                style: textStyle?.copyWith(
+                  fontSize: Theme.of(context).textTheme.displaySmall?.fontSize,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              C.spacers.verticalComponent,
+            ],
+            widget,
+          ],
+        ),
+      ),
     );
   }
 }
