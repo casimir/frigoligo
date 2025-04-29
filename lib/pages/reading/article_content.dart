@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:universal_platform/universal_platform.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
@@ -361,6 +362,13 @@ class _WebViewArticleRendererState extends ConsumerState<_WebViewContent> {
   @override
   Widget build(BuildContext context) {
     final settings = ref.watch(readingSettingsProvider);
+
+    if (!UniversalPlatform.isMacOS) {
+      // this is not supported on macOS for some reason
+      _webViewController.setBackgroundColor(
+        Theme.of(context).colorScheme.surface,
+      );
+    }
 
     Future<void> renderAndLoadContent() async {
       _renderer.execute(Theme.of(context).colorScheme, settings);
