@@ -63,6 +63,7 @@ class HtmlWidgetPlus extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: kSpacingInGroup),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (title != null) ...[
               Text(
@@ -74,7 +75,12 @@ class HtmlWidgetPlus extends StatelessWidget {
               ),
               C.spacers.verticalComponent,
             ],
-            widget,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                widget,
+              ],
+            ),
           ],
         ),
       ),
