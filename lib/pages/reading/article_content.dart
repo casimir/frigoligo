@@ -24,10 +24,7 @@ import '../../providers/settings.dart';
 import '../../widgets/html_widget_plus.dart';
 
 class ArticleContentEmpty extends StatelessWidget {
-  const ArticleContentEmpty({
-    super.key,
-    required this.articleUrl,
-  });
+  const ArticleContentEmpty({super.key, required this.articleUrl});
 
   final Uri articleUrl;
 
@@ -52,8 +49,8 @@ class ArticleContentEmpty extends StatelessWidget {
   }
 }
 
-typedef ProgressCallback = Future<void> Function(
-    double progress, bool isScrolling);
+typedef ProgressCallback =
+    Future<void> Function(double progress, bool isScrolling);
 typedef ProgressScrollTo = Future<void> Function(double pixels);
 typedef ProgressScroller = Future<void> Function(ProgressScrollTo);
 
@@ -68,8 +65,9 @@ class ArticleContent extends ConsumerStatefulWidget {
 
 class _ArticleContentState extends ConsumerState<ArticleContent> {
   Future<void> _onScrollReady(ProgressScrollTo scrollTo) async {
-    final scrollPosition =
-        await ref.read(scrollPositionProvider(widget.article.id).future);
+    final scrollPosition = await ref.read(
+      scrollPositionProvider(widget.article.id).future,
+    );
     final progress = scrollPosition?.progress;
     if (progress != null && progress > 0) {
       await scrollTo(progress);
@@ -91,15 +89,15 @@ class _ArticleContentState extends ConsumerState<ArticleContent> {
         ref.read(settingsProvider)[Sk.nativeArticleRenderer];
     return nativeArticleRendererSupported && useNativeRenderer
         ? _WebViewContent(
-            article: widget.article,
-            onReadyToScroll: _onScrollReady,
-            onScrollUpdate: _onScroll,
-          )
+          article: widget.article,
+          onReadyToScroll: _onScrollReady,
+          onScrollUpdate: _onScroll,
+        )
         : _HtmlWidgetContent(
-            article: widget.article,
-            onScrollReady: _onScrollReady,
-            onScroll: _onScroll,
-          );
+          article: widget.article,
+          onScrollReady: _onScrollReady,
+          onScroll: _onScroll,
+        );
   }
 }
 
@@ -128,12 +126,13 @@ class _HtmlWidgetContent extends ConsumerWidget {
                 child: HtmlWidgetPlus(
                   article.content!,
                   title: article.title,
-                  onTreeBuilt: (_) => onScrollReady((progress) async {
-                    final controller = PrimaryScrollController.of(context);
-                    final pixels =
-                        progress * controller.position.maxScrollExtent;
-                    controller.jumpTo(pixels);
-                  }),
+                  onTreeBuilt:
+                      (_) => onScrollReady((progress) async {
+                        final controller = PrimaryScrollController.of(context);
+                        final pixels =
+                            progress * controller.position.maxScrollExtent;
+                        controller.jumpTo(pixels);
+                      }),
                   justifyText: settings.justifyText,
                   textStyle: settings.textStyle,
                 ),
@@ -183,17 +182,15 @@ class ArticleContentRenderer {
     rootDir = await getApplicationSupportDirectory();
 
     final assets = await AssetManifest.loadFromAssetBundle(rootBundle);
-    await Future.wait([
-      _unpackAssets(assets),
-      _unpackFonts(assets),
-    ]);
+    await Future.wait([_unpackAssets(assets), _unpackFonts(assets)]);
   }
 
   static Future<void> _unpackAssets(AssetManifest assets) async {
-    final assetFiles = assets
-        .listAssets()
-        .where((key) => key.startsWith(assetsPrefix))
-        .toList();
+    final assetFiles =
+        assets
+            .listAssets()
+            .where((key) => key.startsWith(assetsPrefix))
+            .toList();
     for (final key in assetFiles) {
       final bin = await rootBundle.load(key);
       final target = File(key.replaceFirst(assetsPrefix, rootDir.path));
@@ -205,10 +202,11 @@ class ArticleContentRenderer {
   }
 
   static Future<void> _unpackFonts(AssetManifest assets) async {
-    final fontFiles = assets
-        .listAssets()
-        .where((key) => key.startsWith(fontAssetsPrefix))
-        .toList();
+    final fontFiles =
+        assets
+            .listAssets()
+            .where((key) => key.startsWith(fontAssetsPrefix))
+            .toList();
     if (!fontDir.existsSync()) fontDir.createSync(recursive: true);
     for (final key in fontFiles) {
       final bin = await rootBundle.load(key);
@@ -246,18 +244,18 @@ class ArticleContentRenderer {
     a {
       color: ${colors.primary.toRgbHex()};
     }
-  </style>'''
-        .trim();
+  </style>'''.trim();
   }
 
   String readingSettingsCss(ReaderSettingsValues settings) {
-    final fontSize = {
-      12.0: 'x-small',
-      14.0: 'small',
-      16.0: 'medium',
-      18.0: 'large',
-      20.0: 'x-large'
-    }[settings.fontSize];
+    final fontSize =
+        {
+          12.0: 'x-small',
+          14.0: 'small',
+          16.0: 'medium',
+          18.0: 'large',
+          20.0: 'x-large',
+        }[settings.fontSize];
 
     return '''
   <style>
@@ -268,8 +266,7 @@ class ArticleContentRenderer {
     #content {
       font-size: ${fontSize ?? 'medium'};
     }
-  </style>'''
-        .trim();
+  </style>'''.trim();
   }
 
   String get text => _rendered!;
@@ -307,44 +304,58 @@ class _WebViewArticleRendererState extends ConsumerState<_WebViewContent> {
 
     late final WebKitWebViewController platform;
     if (WebViewPlatform.instance is WebKitWebViewPlatform) {
-      platform = WebKitWebViewController(WebKitWebViewControllerCreationParams(
-        allowsInlineMediaPlayback: true,
-      ));
+      platform = WebKitWebViewController(
+        WebKitWebViewControllerCreationParams(allowsInlineMediaPlayback: true),
+      );
       platform.setInspectable(kDebugMode);
     } else {
       // unreachable until Android is implemented
     }
 
     // TODO add config for iOS and Android (see controller doc)
-    _webViewController = WebViewController.fromPlatform(platform)
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setOnConsoleMessage((message) => log.info(message.message))
-      ..setNavigationDelegate(NavigationDelegate(
-        onNavigationRequest: (request) async {
-          final url = Uri.tryParse(request.url);
-          if (request.url == 'about:blank' || url?.scheme == 'file') {
-            return NavigationDecision.navigate;
-          }
+    _webViewController =
+        WebViewController.fromPlatform(platform)
+          ..setJavaScriptMode(JavaScriptMode.unrestricted)
+          ..setOnConsoleMessage((message) => log.info(message.message))
+          ..setNavigationDelegate(
+            NavigationDelegate(
+              onNavigationRequest: (request) async {
+                final url = Uri.tryParse(request.url);
+                if (request.url == 'about:blank' || url?.scheme == 'file') {
+                  return NavigationDecision.navigate;
+                }
 
-          if (url != null && await canLaunchUrl(url) && request.isMainFrame) {
-            launchUrl(url);
-            return NavigationDecision.prevent;
-          }
-          return NavigationDecision.navigate;
-        },
-        onPageFinished: (url) async {
-          widget.onReadyToScroll?.call((progress) =>
-              _webViewController.runJavaScript('scrollToProgress($progress)'));
-        },
-      ))
-      ..addJavaScriptChannel('ScrollProgress', onMessageReceived: (message) {
-        final progress = double.parse(message.message);
-        widget.onScrollUpdate?.call(progress, true);
-      })
-      ..addJavaScriptChannel('ScrollEnd', onMessageReceived: (message) {
-        final progress = double.parse(message.message);
-        widget.onScrollUpdate?.call(progress, false);
-      });
+                if (url != null &&
+                    await canLaunchUrl(url) &&
+                    request.isMainFrame) {
+                  launchUrl(url);
+                  return NavigationDecision.prevent;
+                }
+                return NavigationDecision.navigate;
+              },
+              onPageFinished: (url) async {
+                widget.onReadyToScroll?.call(
+                  (progress) => _webViewController.runJavaScript(
+                    'scrollToProgress($progress)',
+                  ),
+                );
+              },
+            ),
+          )
+          ..addJavaScriptChannel(
+            'ScrollProgress',
+            onMessageReceived: (message) {
+              final progress = double.parse(message.message);
+              widget.onScrollUpdate?.call(progress, true);
+            },
+          )
+          ..addJavaScriptChannel(
+            'ScrollEnd',
+            onMessageReceived: (message) {
+              final progress = double.parse(message.message);
+              widget.onScrollUpdate?.call(progress, false);
+            },
+          );
   }
 
   @override

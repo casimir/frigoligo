@@ -37,12 +37,14 @@ class HtmlWidgetPlus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var style = 'justify-content:center;'
+    var style =
+        'justify-content:center;'
         // 1 em ~ 2 characters (1 em is the width of 'M')
         'max-width:40em;';
     if (justifyText == true) style += 'text-align:justify;';
 
-    final content = '<html>'
+    final content =
+        '<html>'
         '<body>'
         '  <div style="$style">$html</div>'
         '</body>'
@@ -50,12 +52,13 @@ class HtmlWidgetPlus extends StatelessWidget {
 
     final widget = HtmlWidget(
       content,
-      factoryBuilder: () => HtmlWidgetFactory(
-        onTreeBuilt: (child) =>
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-          onTreeBuilt?.call(child);
-        }),
-      ),
+      factoryBuilder:
+          () => HtmlWidgetFactory(
+            onTreeBuilt:
+                (child) => WidgetsBinding.instance.addPostFrameCallback((_) {
+                  onTreeBuilt?.call(child);
+                }),
+          ),
       textStyle: textStyle,
     );
 
@@ -77,9 +80,7 @@ class HtmlWidgetPlus extends StatelessWidget {
             ],
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                widget,
-              ],
+              children: [widget],
             ),
           ],
         ),
