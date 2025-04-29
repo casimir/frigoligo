@@ -351,15 +351,22 @@ class _WebViewArticleRendererState extends ConsumerState<_WebViewContent> {
   Widget build(BuildContext context) {
     final settings = ref.watch(readingSettingsProvider);
 
-    final index = File('${ArticleContentRenderer.rootDir.path}/index.html');
-    _renderer
-      ..execute(Theme.of(context).colorScheme, settings)
-      ..writeTo(index);
+    Future<void> renderAndLoadContent() async {
+      _renderer.execute(Theme.of(context).colorScheme, settings);
 
-    _webViewController
-      ..setBackgroundColor(Theme.of(context).colorScheme.surface)
-      ..loadFile(index.path);
+      final index = File('${ArticleContentRenderer.rootDir.path}/index.html');
+      await _renderer.writeTo(index);
+      await _webViewController.loadFile(index.path);
+    }
 
-    return WebViewWidget(controller: _webViewController);
+    return FutureBuilder(
+      future: renderAndLoadContent(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator.adaptive());
+        }
+        return WebViewWidget(controller: _webViewController);
+      },
+    );
   }
 }
