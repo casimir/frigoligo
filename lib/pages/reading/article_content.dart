@@ -12,6 +12,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:universal_platform/universal_platform.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
 import '../../buildcontext_extension.dart';
@@ -303,60 +304,66 @@ class _WebViewArticleRendererState extends ConsumerState<_WebViewContent> {
 
     _renderer = ArticleContentRenderer(article: widget.article);
 
-    late final WebKitWebViewController platform;
+    late final PlatformWebViewControllerCreationParams params;
     if (WebViewPlatform.instance is WebKitWebViewPlatform) {
-      platform = WebKitWebViewController(
-        WebKitWebViewControllerCreationParams(allowsInlineMediaPlayback: true),
+      params = WebKitWebViewControllerCreationParams(
+        allowsInlineMediaPlayback: true,
       );
-      platform.setInspectable(kDebugMode);
     } else {
-      // unreachable until Android is implemented
+      params = const PlatformWebViewControllerCreationParams();
     }
 
     // TODO add config for iOS and Android (see controller doc)
-    _webViewController =
-        WebViewController.fromPlatform(platform)
-          ..setJavaScriptMode(JavaScriptMode.unrestricted)
-          ..setOnConsoleMessage((message) => log.info(message.message))
-          ..setNavigationDelegate(
-            NavigationDelegate(
-              onNavigationRequest: (request) async {
-                final url = Uri.tryParse(request.url);
-                if (request.url == 'about:blank' || url?.scheme == 'file') {
-                  return NavigationDecision.navigate;
-                }
+    _webViewController = WebViewController.fromPlatformCreationParams(params);
+    if (_webViewController.platform is WebKitWebViewController) {
+      (_webViewController.platform as WebKitWebViewController).setInspectable(
+        kDebugMode,
+      );
+    } else if (_webViewController.platform is AndroidWebViewController) {
+      AndroidWebViewController.enableDebugging(kDebugMode);
+      (_webViewController.platform as AndroidWebViewController)
+          .setMediaPlaybackRequiresUserGesture(false);
+    }
+    _webViewController
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setOnConsoleMessage((message) => log.info(message.message))
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onNavigationRequest: (request) async {
+            final url = Uri.tryParse(request.url);
+            if (request.url == 'about:blank' || url?.scheme == 'file') {
+              return NavigationDecision.navigate;
+            }
 
-                if (url != null &&
-                    await canLaunchUrl(url) &&
-                    request.isMainFrame) {
-                  launchUrl(url);
-                  return NavigationDecision.prevent;
-                }
-                return NavigationDecision.navigate;
-              },
-              onPageFinished: (url) async {
-                widget.onReadyToScroll?.call(
-                  (progress) => _webViewController.runJavaScript(
-                    'scrollToProgress($progress)',
-                  ),
-                );
-              },
-            ),
-          )
-          ..addJavaScriptChannel(
-            'ScrollProgress',
-            onMessageReceived: (message) {
-              final progress = double.parse(message.message);
-              widget.onScrollUpdate?.call(progress, true);
-            },
-          )
-          ..addJavaScriptChannel(
-            'ScrollEnd',
-            onMessageReceived: (message) {
-              final progress = double.parse(message.message);
-              widget.onScrollUpdate?.call(progress, false);
-            },
-          );
+            if (url != null && await canLaunchUrl(url) && request.isMainFrame) {
+              launchUrl(url);
+              return NavigationDecision.prevent;
+            }
+            return NavigationDecision.navigate;
+          },
+          onPageFinished: (url) async {
+            widget.onReadyToScroll?.call(
+              (progress) => _webViewController.runJavaScript(
+                'scrollToProgress($progress)',
+              ),
+            );
+          },
+        ),
+      )
+      ..addJavaScriptChannel(
+        'ScrollProgress',
+        onMessageReceived: (message) {
+          final progress = double.parse(message.message);
+          widget.onScrollUpdate?.call(progress, true);
+        },
+      )
+      ..addJavaScriptChannel(
+        'ScrollEnd',
+        onMessageReceived: (message) {
+          final progress = double.parse(message.message);
+          widget.onScrollUpdate?.call(progress, false);
+        },
+      );
   }
 
   @override

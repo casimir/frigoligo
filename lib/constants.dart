@@ -59,4 +59,6 @@ final pullToRefreshSupported =
     UniversalPlatform.isMobile || UniversalPlatform.isMacOS;
 
 final nativeArticleRendererSupported =
-    UniversalPlatform.isIOS || UniversalPlatform.isMacOS;
+    UniversalPlatform.isAndroid ||
+    UniversalPlatform.isIOS ||
+    UniversalPlatform.isMacOS;
