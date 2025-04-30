@@ -78,10 +78,7 @@ class HtmlWidgetPlus extends StatelessWidget {
               ),
               C.spacers.verticalComponent,
             ],
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [widget],
-            ),
+            Container(alignment: Alignment.center, child: widget),
           ],
         ),
       ),
