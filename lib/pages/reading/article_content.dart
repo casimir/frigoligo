@@ -313,7 +313,6 @@ class _WebViewArticleRendererState extends ConsumerState<_WebViewContent> {
       params = const PlatformWebViewControllerCreationParams();
     }
 
-    // TODO add config for iOS and Android (see controller doc)
     _webViewController = WebViewController.fromPlatformCreationParams(params);
     if (_webViewController.platform is WebKitWebViewController) {
       (_webViewController.platform as WebKitWebViewController).setInspectable(
