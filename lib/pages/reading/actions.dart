@@ -194,6 +194,8 @@ List<Widget> buildActions(
                 : null,
           )
           .toList(),
+      // the blur effect doesn't work on top of the native webview
+      applyBlurEffect: false,
     ),
   ];
 }

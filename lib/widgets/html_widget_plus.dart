@@ -1,3 +1,5 @@
+import 'package:cadanse/cadanse.dart';
+import 'package:cadanse/tokens/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:fwfh_cached_network_image/fwfh_cached_network_image.dart';
@@ -35,30 +37,51 @@ class HtmlWidgetPlus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var style = '';
+    var style =
+        'justify-content:center;'
+        // 1 em ~ 2 characters (1 em is the width of 'M')
+        'max-width:40em;';
     if (justifyText == true) style += 'text-align:justify;';
-    // 1 em ~ 2 characters (1 em is the width of 'M')
-    style += 'max-width:40em;';
 
-    final prefix = title != null ? '<h1>$title</h1>' : '';
+    final content =
+        '<html>'
+        '<body>'
+        '  <div style="$style">$html</div>'
+        '</body>'
+        '</html>';
 
-    final widget = Container(
-      alignment: Alignment.center,
-      width: double.infinity,
-      child: HtmlWidget(
-        '$prefix<div style="$style">$html</div>',
-        factoryBuilder: () => HtmlWidgetFactory(
-          onTreeBuilt: (child) =>
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-            onTreeBuilt?.call(child);
-          }),
-        ),
-        textStyle: textStyle,
-      ),
+    final widget = HtmlWidget(
+      content,
+      factoryBuilder:
+          () => HtmlWidgetFactory(
+            onTreeBuilt:
+                (child) => WidgetsBinding.instance.addPostFrameCallback((_) {
+                  onTreeBuilt?.call(child);
+                }),
+          ),
+      textStyle: textStyle,
     );
 
     return Material(
-      child: widget,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: kSpacingInGroup),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (title != null) ...[
+              Text(
+                title!,
+                style: textStyle?.copyWith(
+                  fontSize: Theme.of(context).textTheme.headlineSmall?.fontSize,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              C.spacers.verticalComponent,
+            ],
+            Container(alignment: Alignment.center, child: widget),
+          ],
+        ),
+      ),
     );
   }
 }

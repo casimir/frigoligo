@@ -15,6 +15,7 @@ import 'constants.dart';
 import 'db/database.dart';
 import 'native/appbadge.dart';
 import 'native/save.service.dart';
+import 'pages/reading/article_content.dart';
 import 'providers/background_sync.dart';
 import 'providers/router.dart';
 import 'providers/settings.dart';
@@ -34,6 +35,7 @@ Future<void> main() async {
 
   await AppBadge.init();
   await AppInfo.init();
+  await ArticleContentRenderer.preload();
   await Settings.init();
 
   log.info('app version: ${AppInfo.versionVerbose}');
