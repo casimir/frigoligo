@@ -57,6 +57,10 @@ struct ShareExtView: UIViewControllerRepresentable {
   func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
 }
 
+extension ZStack {
+    func apply<V: View>(@ViewBuilder _ block: (Self) -> V) -> V { block(self) }
+}
+
 class ShareViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -74,8 +78,13 @@ class ShareViewController: UIViewController {
           },
           strokeColor: frigoligoColor
         )
+      }.apply {
+        if #available(iOS 18.0, *) {
+          $0.toolbarVisibility(.hidden, for: .navigationBar)
+        } else {
+          $0.navigationBarHidden(true)
+        }
       }
-      .navigationBarHidden(true)
     }
     let innerController = UIHostingController(rootView: layout)
     innerController.view.backgroundColor = .clear
