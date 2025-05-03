@@ -1,0 +1,39 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <link rel="stylesheet" href="styles/fonts.css" />
+  <style>
+    body {
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    #content {
+      justify-content: center;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 40em;
+    }
+
+    .justified {
+      text-align: justify;
+    }
+  </style>
+  {{ colorScheme }}
+  {{ readingSettings }}
+</head>
+
+<body>
+  <h1>{{ articleTitle }}</h1>
+  <div id="content" class="{{ articleClass }}">{{ articleContent }}</div>
+  <script src="scripts/scrolling.js"></script>
+</body>
+
+</html>
