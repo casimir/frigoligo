@@ -16,6 +16,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Bump cadanse to get the fix for the navbar issue ([ac8bb6e](https://github.com/casimir/frigoligo/commit/ac8bb6e78674146fb5cf09ddcfdd7015b61f384a))
 - Prevent a race condition on listing initialization ([2176265](https://github.com/casimir/frigoligo/commit/2176265301fa24e972871c5df9bcf3c68e393a89))
 - Bump cadanse to get the fix for the navbar issue (bis) ([41fc6ce](https://github.com/casimir/frigoligo/commit/41fc6ce48b5b0753c2adea41513a80e6d24819a4))
+- *(iOS)* Remove translucent navigation bar when saving an article ([dad58a1](https://github.com/casimir/frigoligo/commit/dad58a1d781e9273c879f64924b0719fb02b89b4))
 
 ### 🚜 Refactor
 
