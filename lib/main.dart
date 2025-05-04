@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -35,7 +36,9 @@ Future<void> main() async {
 
   await AppBadge.init();
   await AppInfo.init();
-  await ArticleContentRenderer.preload();
+  if (!kIsWeb) {
+    await ArticleContentRenderer.preload();
+  }
   await Settings.init();
 
   log.info('app version: ${AppInfo.versionVerbose}');
