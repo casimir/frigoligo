@@ -45,17 +45,10 @@ class ArticleAction {
   final Key? key;
   final bool isDestructive;
 
-  ActionButton toActionButton() => ActionButton(
-        key: key,
-        icon: icon,
-        tooltip: label,
-        onPressed: onPressed,
-      );
+  ActionButton toActionButton() =>
+      ActionButton(key: key, icon: icon, tooltip: label, onPressed: onPressed);
 
-  ListTile toListTile() => ListTile(
-        leading: Icon(icon),
-        title: Text(label),
-      );
+  ListTile toListTile() => ListTile(leading: Icon(icon), title: Text(label));
 }
 
 List<Widget> buildActions(
@@ -72,15 +65,15 @@ List<Widget> buildActions(
   final Map<ArticleActionKey, ArticleAction> actions = {
     ArticleActionKey.archive: ArticleAction(
       icon: stateIcons[article.stateValue]!.icon!,
-      label: article.archivedAt == null
-          ? context.L.article_archive
-          : context.L.article_unarchive,
+      label:
+          article.archivedAt == null
+              ? context.L.article_archive
+              : context.L.article_unarchive,
       onPressed: () async {
         final syncer = ref.read(remoteSyncerProvider.notifier);
-        await syncer.add(EditArticleAction(
-          article.id,
-          archive: article.archivedAt == null,
-        ));
+        await syncer.add(
+          EditArticleAction(article.id, archive: article.archivedAt == null),
+        );
         await syncer.synchronize();
       },
     ),
@@ -111,16 +104,17 @@ List<Widget> buildActions(
     ArticleActionKey.details: ArticleAction(
       icon: C(context).icons.info,
       label: context.L.article_details,
-      onPressed: () => showModalSheet(
-        context: context,
-        title: context.L.g_article,
-        builder: (_) => const ArticleSheet(),
-        // TODO(Flutter 3.30): remove the platform override
-        // There is a bug in the modal sheet implementation for iOS that has been
-        // fixed in Flutter 3.30 but this is still in beta.
-        // See https://github.com/flutter/flutter/pull/162481
-        platformOverride: isIOS ? TargetPlatform.android : null,
-      ),
+      onPressed:
+          () => showModalSheet(
+            context: context,
+            title: context.L.g_article,
+            builder: (_) => const ArticleSheet(),
+            // TODO(Flutter 3.30): remove the platform override
+            // There is a bug in the modal sheet implementation for iOS that has been
+            // fixed in Flutter 3.30 but this is still in beta.
+            // See https://github.com/flutter/flutter/pull/162481
+            platformOverride: isIOS ? TargetPlatform.android : null,
+          ),
     ),
     ArticleActionKey.openInBrowser: ArticleAction(
       icon: Icons.open_in_browser,
@@ -131,11 +125,12 @@ List<Widget> buildActions(
       icon: Icons.format_size,
       label: context.L.article_readingSettings,
       key: const Key(wkArticleReadingSettings),
-      onPressed: () => showModalBottomSheet(
-        context: context,
-        builder: (_) => const ReadingSettingsConfigurator(),
-        barrierColor: Colors.transparent,
-      ),
+      onPressed:
+          () => showModalBottomSheet(
+            context: context,
+            builder: (_) => const ReadingSettingsConfigurator(),
+            barrierColor: Colors.transparent,
+          ),
     ),
     ArticleActionKey.share: ArticleAction(
       icon: shareIcon.icon!,
@@ -143,24 +138,26 @@ List<Widget> buildActions(
       onPressed: () {
         final box =
             popupMenuKey.currentContext!.findRenderObject() as RenderBox?;
-        Share.share(
-          article.url,
-          subject: article.title,
-          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+        SharePlus.instance.share(
+          ShareParams(
+            text: article.url,
+            subject: article.title,
+            sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+          ),
         );
       },
     ),
     ArticleActionKey.star: ArticleAction(
       icon: starredIcons[article.starredValue]!.icon!,
-      label: article.starredAt == null
-          ? context.L.article_star
-          : context.L.article_unstar,
+      label:
+          article.starredAt == null
+              ? context.L.article_star
+              : context.L.article_unstar,
       onPressed: () async {
         final syncer = ref.read(remoteSyncerProvider.notifier);
-        await syncer.add(EditArticleAction(
-          article.id,
-          starred: article.starredAt == null,
-        ));
+        await syncer.add(
+          EditArticleAction(article.id, starred: article.starredAt == null),
+        );
         await syncer.synchronize();
       },
     ),
@@ -183,17 +180,20 @@ List<Widget> buildActions(
     ...mainActions.map((key) => actions[key]!.toActionButton()),
     ActionsMenuButton(
       key: popupMenuKey,
-      actions: moreActions
-          .map(
-            (key) => key != null
-                ? ActionsMenuEntry(
-                    title: actions[key]!.label,
-                    icon: actions[key]!.icon,
-                    onTap: () => actions[key]!.onPressed(),
-                    isDestructive: actions[key]!.isDestructive)
-                : null,
-          )
-          .toList(),
+      actions:
+          moreActions
+              .map(
+                (key) =>
+                    key != null
+                        ? ActionsMenuEntry(
+                          title: actions[key]!.label,
+                          icon: actions[key]!.icon,
+                          onTap: () => actions[key]!.onPressed(),
+                          isDestructive: actions[key]!.isDestructive,
+                        )
+                        : null,
+              )
+              .toList(),
       // the blur effect doesn't work on top of the native webview
       applyBlurEffect: false,
     ),

@@ -33,14 +33,23 @@ class ArticleSheet extends ConsumerWidget with CurrentArticleWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ..._buildField(context, context.L.articlefields_title,
-                value: article.title),
+            ..._buildField(
+              context,
+              context.L.articlefields_title,
+              value: article.title,
+            ),
             C.spacers.verticalContent,
-            ..._buildField(context, context.L.articlefields_website,
-                value: article.domainName ?? article.url),
+            ..._buildField(
+              context,
+              context.L.articlefields_website,
+              value: article.domainName ?? article.url,
+            ),
             C.spacers.verticalContent,
-            ..._buildField(context, context.L.articlefields_readingTime,
-                value: context.L.article_readingTime(article.readingTime)),
+            ..._buildField(
+              context,
+              context.L.articlefields_readingTime,
+              value: context.L.article_readingTime(article.readingTime),
+            ),
             C.spacers.verticalContent,
             ActionChip(
               avatar: const Icon(Icons.refresh),
@@ -64,13 +73,13 @@ class ArticleSheet extends ConsumerWidget with CurrentArticleWidget {
             C.spacers.verticalContent,
             article.tags.isNotEmpty
                 ? TagList(
-                    tags: article.tags,
-                    onTagPressed: (_) => _showTagsDialog(context, ref, article),
-                  )
+                  tags: article.tags,
+                  onTagPressed: (_) => _showTagsDialog(context, ref, article),
+                )
                 : TextButton(
-                    onPressed: () => _showTagsDialog(context, ref, article),
-                    child: Text(context.L.article_addTags),
-                  ),
+                  onPressed: () => _showTagsDialog(context, ref, article),
+                  child: Text(context.L.article_addTags),
+                ),
             C.spacers.verticalContent,
             const Divider(),
             C.spacers.verticalContent,
@@ -104,10 +113,9 @@ class ArticleSheet extends ConsumerWidget with CurrentArticleWidget {
     return [
       Text(
         label,
-        style: Theme.of(context)
-            .textTheme
-            .titleSmall
-            ?.copyWith(fontWeight: FontWeight.bold),
+        style: Theme.of(
+          context,
+        ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
       ),
       C.spacers.verticalComponent,
       valueWidget is Text ? CopiableText(valueWidget) : valueWidget,
@@ -116,7 +124,10 @@ class ArticleSheet extends ConsumerWidget with CurrentArticleWidget {
 }
 
 void _showTagsDialog(
-    BuildContext context, WidgetRef ref, Article article) async {
+  BuildContext context,
+  WidgetRef ref,
+  Article article,
+) async {
   final tags = await showBottomSheetSelector(
     context: context,
     title: context.L.filters_articleTags,
@@ -153,10 +164,12 @@ class _ShareChipState extends State<_ShareChip> {
       label: Text(context.L.g_share),
       onPressed: () {
         final box = context.findRenderObject() as RenderBox?;
-        Share.share(
-          widget.article.url,
-          subject: widget.article.title,
-          sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+        SharePlus.instance.share(
+          ShareParams(
+            text: widget.article.url,
+            subject: widget.article.title,
+            sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+          ),
         );
       },
     );
