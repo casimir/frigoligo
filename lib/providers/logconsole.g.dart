@@ -12,13 +12,15 @@ String _$logConsoleHash() => r'b6d63ae92e01a719dd5e1049ab6851801a386294';
 @ProviderFor(LogConsole)
 final logConsoleProvider =
     AutoDisposeNotifierProvider<LogConsole, LogConsoleToken>.internal(
-  LogConsole.new,
-  name: r'logConsoleProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$logConsoleHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      LogConsole.new,
+      name: r'logConsoleProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$logConsoleHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$LogConsole = AutoDisposeNotifier<LogConsoleToken>;
 // ignore_for_file: type=lint

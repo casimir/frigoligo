@@ -3,26 +3,28 @@
 import 'package:drift/drift.dart' as i0;
 import 'package:frigoligo/db/models/app_log.drift.dart' as i1;
 
-typedef $AppLogsCreateCompanionBuilder = i1.AppLogsCompanion Function({
-  i0.Value<int> id,
-  required DateTime time,
-  required String level,
-  required String loggerName,
-  required String message,
-  i0.Value<String?> error,
-  i0.Value<String?> stackTrace,
-  required String logline,
-});
-typedef $AppLogsUpdateCompanionBuilder = i1.AppLogsCompanion Function({
-  i0.Value<int> id,
-  i0.Value<DateTime> time,
-  i0.Value<String> level,
-  i0.Value<String> loggerName,
-  i0.Value<String> message,
-  i0.Value<String?> error,
-  i0.Value<String?> stackTrace,
-  i0.Value<String> logline,
-});
+typedef $AppLogsCreateCompanionBuilder =
+    i1.AppLogsCompanion Function({
+      i0.Value<int> id,
+      required DateTime time,
+      required String level,
+      required String loggerName,
+      required String message,
+      i0.Value<String?> error,
+      i0.Value<String?> stackTrace,
+      required String logline,
+    });
+typedef $AppLogsUpdateCompanionBuilder =
+    i1.AppLogsCompanion Function({
+      i0.Value<int> id,
+      i0.Value<DateTime> time,
+      i0.Value<String> level,
+      i0.Value<String> loggerName,
+      i0.Value<String> message,
+      i0.Value<String?> error,
+      i0.Value<String?> stackTrace,
+      i0.Value<String> logline,
+    });
 
 class $AppLogsFilterComposer
     extends i0.Composer<i0.GeneratedDatabase, i1.AppLogs> {
@@ -34,28 +36,44 @@ class $AppLogsFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   i0.ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => i0.ColumnFilters(column));
+    column: $table.id,
+    builder: (column) => i0.ColumnFilters(column),
+  );
 
   i0.ColumnFilters<DateTime> get time => $composableBuilder(
-      column: $table.time, builder: (column) => i0.ColumnFilters(column));
+    column: $table.time,
+    builder: (column) => i0.ColumnFilters(column),
+  );
 
   i0.ColumnFilters<String> get level => $composableBuilder(
-      column: $table.level, builder: (column) => i0.ColumnFilters(column));
+    column: $table.level,
+    builder: (column) => i0.ColumnFilters(column),
+  );
 
   i0.ColumnFilters<String> get loggerName => $composableBuilder(
-      column: $table.loggerName, builder: (column) => i0.ColumnFilters(column));
+    column: $table.loggerName,
+    builder: (column) => i0.ColumnFilters(column),
+  );
 
   i0.ColumnFilters<String> get message => $composableBuilder(
-      column: $table.message, builder: (column) => i0.ColumnFilters(column));
+    column: $table.message,
+    builder: (column) => i0.ColumnFilters(column),
+  );
 
   i0.ColumnFilters<String> get error => $composableBuilder(
-      column: $table.error, builder: (column) => i0.ColumnFilters(column));
+    column: $table.error,
+    builder: (column) => i0.ColumnFilters(column),
+  );
 
   i0.ColumnFilters<String> get stackTrace => $composableBuilder(
-      column: $table.stackTrace, builder: (column) => i0.ColumnFilters(column));
+    column: $table.stackTrace,
+    builder: (column) => i0.ColumnFilters(column),
+  );
 
   i0.ColumnFilters<String> get logline => $composableBuilder(
-      column: $table.logline, builder: (column) => i0.ColumnFilters(column));
+    column: $table.logline,
+    builder: (column) => i0.ColumnFilters(column),
+  );
 }
 
 class $AppLogsOrderingComposer
@@ -68,30 +86,44 @@ class $AppLogsOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   i0.ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => i0.ColumnOrderings(column));
+    column: $table.id,
+    builder: (column) => i0.ColumnOrderings(column),
+  );
 
   i0.ColumnOrderings<DateTime> get time => $composableBuilder(
-      column: $table.time, builder: (column) => i0.ColumnOrderings(column));
+    column: $table.time,
+    builder: (column) => i0.ColumnOrderings(column),
+  );
 
   i0.ColumnOrderings<String> get level => $composableBuilder(
-      column: $table.level, builder: (column) => i0.ColumnOrderings(column));
+    column: $table.level,
+    builder: (column) => i0.ColumnOrderings(column),
+  );
 
   i0.ColumnOrderings<String> get loggerName => $composableBuilder(
-      column: $table.loggerName,
-      builder: (column) => i0.ColumnOrderings(column));
+    column: $table.loggerName,
+    builder: (column) => i0.ColumnOrderings(column),
+  );
 
   i0.ColumnOrderings<String> get message => $composableBuilder(
-      column: $table.message, builder: (column) => i0.ColumnOrderings(column));
+    column: $table.message,
+    builder: (column) => i0.ColumnOrderings(column),
+  );
 
   i0.ColumnOrderings<String> get error => $composableBuilder(
-      column: $table.error, builder: (column) => i0.ColumnOrderings(column));
+    column: $table.error,
+    builder: (column) => i0.ColumnOrderings(column),
+  );
 
   i0.ColumnOrderings<String> get stackTrace => $composableBuilder(
-      column: $table.stackTrace,
-      builder: (column) => i0.ColumnOrderings(column));
+    column: $table.stackTrace,
+    builder: (column) => i0.ColumnOrderings(column),
+  );
 
   i0.ColumnOrderings<String> get logline => $composableBuilder(
-      column: $table.logline, builder: (column) => i0.ColumnOrderings(column));
+    column: $table.logline,
+    builder: (column) => i0.ColumnOrderings(column),
+  );
 }
 
 class $AppLogsAnnotationComposer
@@ -113,7 +145,9 @@ class $AppLogsAnnotationComposer
       $composableBuilder(column: $table.level, builder: (column) => column);
 
   i0.GeneratedColumn<String> get loggerName => $composableBuilder(
-      column: $table.loggerName, builder: (column) => column);
+    column: $table.loggerName,
+    builder: (column) => column,
+  );
 
   i0.GeneratedColumn<String> get message =>
       $composableBuilder(column: $table.message, builder: (column) => column);
@@ -122,93 +156,115 @@ class $AppLogsAnnotationComposer
       $composableBuilder(column: $table.error, builder: (column) => column);
 
   i0.GeneratedColumn<String> get stackTrace => $composableBuilder(
-      column: $table.stackTrace, builder: (column) => column);
+    column: $table.stackTrace,
+    builder: (column) => column,
+  );
 
   i0.GeneratedColumn<String> get logline =>
       $composableBuilder(column: $table.logline, builder: (column) => column);
 }
 
-class $AppLogsTableManager extends i0.RootTableManager<
-    i0.GeneratedDatabase,
-    i1.AppLogs,
-    i1.AppLog,
-    i1.$AppLogsFilterComposer,
-    i1.$AppLogsOrderingComposer,
-    i1.$AppLogsAnnotationComposer,
-    $AppLogsCreateCompanionBuilder,
-    $AppLogsUpdateCompanionBuilder,
-    (i1.AppLog, i0.BaseReferences<i0.GeneratedDatabase, i1.AppLogs, i1.AppLog>),
-    i1.AppLog,
-    i0.PrefetchHooks Function()> {
+class $AppLogsTableManager
+    extends
+        i0.RootTableManager<
+          i0.GeneratedDatabase,
+          i1.AppLogs,
+          i1.AppLog,
+          i1.$AppLogsFilterComposer,
+          i1.$AppLogsOrderingComposer,
+          i1.$AppLogsAnnotationComposer,
+          $AppLogsCreateCompanionBuilder,
+          $AppLogsUpdateCompanionBuilder,
+          (
+            i1.AppLog,
+            i0.BaseReferences<i0.GeneratedDatabase, i1.AppLogs, i1.AppLog>,
+          ),
+          i1.AppLog,
+          i0.PrefetchHooks Function()
+        > {
   $AppLogsTableManager(i0.GeneratedDatabase db, i1.AppLogs table)
-      : super(i0.TableManagerState(
+    : super(
+        i0.TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () =>
-              i1.$AppLogsFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              i1.$AppLogsOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              i1.$AppLogsAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            i0.Value<int> id = const i0.Value.absent(),
-            i0.Value<DateTime> time = const i0.Value.absent(),
-            i0.Value<String> level = const i0.Value.absent(),
-            i0.Value<String> loggerName = const i0.Value.absent(),
-            i0.Value<String> message = const i0.Value.absent(),
-            i0.Value<String?> error = const i0.Value.absent(),
-            i0.Value<String?> stackTrace = const i0.Value.absent(),
-            i0.Value<String> logline = const i0.Value.absent(),
-          }) =>
-              i1.AppLogsCompanion(
-            id: id,
-            time: time,
-            level: level,
-            loggerName: loggerName,
-            message: message,
-            error: error,
-            stackTrace: stackTrace,
-            logline: logline,
-          ),
-          createCompanionCallback: ({
-            i0.Value<int> id = const i0.Value.absent(),
-            required DateTime time,
-            required String level,
-            required String loggerName,
-            required String message,
-            i0.Value<String?> error = const i0.Value.absent(),
-            i0.Value<String?> stackTrace = const i0.Value.absent(),
-            required String logline,
-          }) =>
-              i1.AppLogsCompanion.insert(
-            id: id,
-            time: time,
-            level: level,
-            loggerName: loggerName,
-            message: message,
-            error: error,
-            stackTrace: stackTrace,
-            logline: logline,
-          ),
-          withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), i0.BaseReferences(db, table, e)))
-              .toList(),
+          createFilteringComposer:
+              () => i1.$AppLogsFilterComposer($db: db, $table: table),
+          createOrderingComposer:
+              () => i1.$AppLogsOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer:
+              () => i1.$AppLogsAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                i0.Value<int> id = const i0.Value.absent(),
+                i0.Value<DateTime> time = const i0.Value.absent(),
+                i0.Value<String> level = const i0.Value.absent(),
+                i0.Value<String> loggerName = const i0.Value.absent(),
+                i0.Value<String> message = const i0.Value.absent(),
+                i0.Value<String?> error = const i0.Value.absent(),
+                i0.Value<String?> stackTrace = const i0.Value.absent(),
+                i0.Value<String> logline = const i0.Value.absent(),
+              }) => i1.AppLogsCompanion(
+                id: id,
+                time: time,
+                level: level,
+                loggerName: loggerName,
+                message: message,
+                error: error,
+                stackTrace: stackTrace,
+                logline: logline,
+              ),
+          createCompanionCallback:
+              ({
+                i0.Value<int> id = const i0.Value.absent(),
+                required DateTime time,
+                required String level,
+                required String loggerName,
+                required String message,
+                i0.Value<String?> error = const i0.Value.absent(),
+                i0.Value<String?> stackTrace = const i0.Value.absent(),
+                required String logline,
+              }) => i1.AppLogsCompanion.insert(
+                id: id,
+                time: time,
+                level: level,
+                loggerName: loggerName,
+                message: message,
+                error: error,
+                stackTrace: stackTrace,
+                logline: logline,
+              ),
+          withReferenceMapper:
+              (p0) =>
+                  p0
+                      .map(
+                        (e) => (
+                          e.readTable(table),
+                          i0.BaseReferences(db, table, e),
+                        ),
+                      )
+                      .toList(),
           prefetchHooksCallback: null,
-        ));
+        ),
+      );
 }
 
-typedef $AppLogsProcessedTableManager = i0.ProcessedTableManager<
-    i0.GeneratedDatabase,
-    i1.AppLogs,
-    i1.AppLog,
-    i1.$AppLogsFilterComposer,
-    i1.$AppLogsOrderingComposer,
-    i1.$AppLogsAnnotationComposer,
-    $AppLogsCreateCompanionBuilder,
-    $AppLogsUpdateCompanionBuilder,
-    (i1.AppLog, i0.BaseReferences<i0.GeneratedDatabase, i1.AppLogs, i1.AppLog>),
-    i1.AppLog,
-    i0.PrefetchHooks Function()>;
+typedef $AppLogsProcessedTableManager =
+    i0.ProcessedTableManager<
+      i0.GeneratedDatabase,
+      i1.AppLogs,
+      i1.AppLog,
+      i1.$AppLogsFilterComposer,
+      i1.$AppLogsOrderingComposer,
+      i1.$AppLogsAnnotationComposer,
+      $AppLogsCreateCompanionBuilder,
+      $AppLogsUpdateCompanionBuilder,
+      (
+        i1.AppLog,
+        i0.BaseReferences<i0.GeneratedDatabase, i1.AppLogs, i1.AppLog>,
+      ),
+      i1.AppLog,
+      i0.PrefetchHooks Function()
+    >;
 
 class AppLogs extends i0.Table with i0.TableInfo<AppLogs, i1.AppLog> {
   @override
@@ -217,71 +273,112 @@ class AppLogs extends i0.Table with i0.TableInfo<AppLogs, i1.AppLog> {
   AppLogs(this.attachedDatabase, [this._alias]);
   static const i0.VerificationMeta _idMeta = const i0.VerificationMeta('id');
   late final i0.GeneratedColumn<int> id = i0.GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: i0.DriftSqlType.int,
-      requiredDuringInsert: false,
-      $customConstraints: 'PRIMARY KEY AUTOINCREMENT');
-  static const i0.VerificationMeta _timeMeta =
-      const i0.VerificationMeta('time');
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: i0.DriftSqlType.int,
+    requiredDuringInsert: false,
+    $customConstraints: 'PRIMARY KEY AUTOINCREMENT',
+  );
+  static const i0.VerificationMeta _timeMeta = const i0.VerificationMeta(
+    'time',
+  );
   late final i0.GeneratedColumn<DateTime> time = i0.GeneratedColumn<DateTime>(
-      'time', aliasedName, false,
-      type: i0.DriftSqlType.dateTime,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL');
-  static const i0.VerificationMeta _levelMeta =
-      const i0.VerificationMeta('level');
+    'time',
+    aliasedName,
+    false,
+    type: i0.DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
+  );
+  static const i0.VerificationMeta _levelMeta = const i0.VerificationMeta(
+    'level',
+  );
   late final i0.GeneratedColumn<String> level = i0.GeneratedColumn<String>(
-      'level', aliasedName, false,
-      type: i0.DriftSqlType.string,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL');
-  static const i0.VerificationMeta _loggerNameMeta =
-      const i0.VerificationMeta('loggerName');
+    'level',
+    aliasedName,
+    false,
+    type: i0.DriftSqlType.string,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
+  );
+  static const i0.VerificationMeta _loggerNameMeta = const i0.VerificationMeta(
+    'loggerName',
+  );
   late final i0.GeneratedColumn<String> loggerName = i0.GeneratedColumn<String>(
-      'logger_name', aliasedName, false,
-      type: i0.DriftSqlType.string,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL');
-  static const i0.VerificationMeta _messageMeta =
-      const i0.VerificationMeta('message');
+    'logger_name',
+    aliasedName,
+    false,
+    type: i0.DriftSqlType.string,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
+  );
+  static const i0.VerificationMeta _messageMeta = const i0.VerificationMeta(
+    'message',
+  );
   late final i0.GeneratedColumn<String> message = i0.GeneratedColumn<String>(
-      'message', aliasedName, false,
-      type: i0.DriftSqlType.string,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL');
-  static const i0.VerificationMeta _errorMeta =
-      const i0.VerificationMeta('error');
+    'message',
+    aliasedName,
+    false,
+    type: i0.DriftSqlType.string,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
+  );
+  static const i0.VerificationMeta _errorMeta = const i0.VerificationMeta(
+    'error',
+  );
   late final i0.GeneratedColumn<String> error = i0.GeneratedColumn<String>(
-      'error', aliasedName, true,
-      type: i0.DriftSqlType.string,
-      requiredDuringInsert: false,
-      $customConstraints: '');
-  static const i0.VerificationMeta _stackTraceMeta =
-      const i0.VerificationMeta('stackTrace');
+    'error',
+    aliasedName,
+    true,
+    type: i0.DriftSqlType.string,
+    requiredDuringInsert: false,
+    $customConstraints: '',
+  );
+  static const i0.VerificationMeta _stackTraceMeta = const i0.VerificationMeta(
+    'stackTrace',
+  );
   late final i0.GeneratedColumn<String> stackTrace = i0.GeneratedColumn<String>(
-      'stack_trace', aliasedName, true,
-      type: i0.DriftSqlType.string,
-      requiredDuringInsert: false,
-      $customConstraints: '');
-  static const i0.VerificationMeta _loglineMeta =
-      const i0.VerificationMeta('logline');
+    'stack_trace',
+    aliasedName,
+    true,
+    type: i0.DriftSqlType.string,
+    requiredDuringInsert: false,
+    $customConstraints: '',
+  );
+  static const i0.VerificationMeta _loglineMeta = const i0.VerificationMeta(
+    'logline',
+  );
   late final i0.GeneratedColumn<String> logline = i0.GeneratedColumn<String>(
-      'logline', aliasedName, false,
-      type: i0.DriftSqlType.string,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL');
+    'logline',
+    aliasedName,
+    false,
+    type: i0.DriftSqlType.string,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
+  );
   @override
-  List<i0.GeneratedColumn> get $columns =>
-      [id, time, level, loggerName, message, error, stackTrace, logline];
+  List<i0.GeneratedColumn> get $columns => [
+    id,
+    time,
+    level,
+    loggerName,
+    message,
+    error,
+    stackTrace,
+    logline,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
   static const String $name = 'app_logs';
   @override
-  i0.VerificationContext validateIntegrity(i0.Insertable<i1.AppLog> instance,
-      {bool isInserting = false}) {
+  i0.VerificationContext validateIntegrity(
+    i0.Insertable<i1.AppLog> instance, {
+    bool isInserting = false,
+  }) {
     final context = i0.VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
@@ -289,43 +386,53 @@ class AppLogs extends i0.Table with i0.TableInfo<AppLogs, i1.AppLog> {
     }
     if (data.containsKey('time')) {
       context.handle(
-          _timeMeta, time.isAcceptableOrUnknown(data['time']!, _timeMeta));
+        _timeMeta,
+        time.isAcceptableOrUnknown(data['time']!, _timeMeta),
+      );
     } else if (isInserting) {
       context.missing(_timeMeta);
     }
     if (data.containsKey('level')) {
       context.handle(
-          _levelMeta, level.isAcceptableOrUnknown(data['level']!, _levelMeta));
+        _levelMeta,
+        level.isAcceptableOrUnknown(data['level']!, _levelMeta),
+      );
     } else if (isInserting) {
       context.missing(_levelMeta);
     }
     if (data.containsKey('logger_name')) {
       context.handle(
-          _loggerNameMeta,
-          loggerName.isAcceptableOrUnknown(
-              data['logger_name']!, _loggerNameMeta));
+        _loggerNameMeta,
+        loggerName.isAcceptableOrUnknown(data['logger_name']!, _loggerNameMeta),
+      );
     } else if (isInserting) {
       context.missing(_loggerNameMeta);
     }
     if (data.containsKey('message')) {
-      context.handle(_messageMeta,
-          message.isAcceptableOrUnknown(data['message']!, _messageMeta));
+      context.handle(
+        _messageMeta,
+        message.isAcceptableOrUnknown(data['message']!, _messageMeta),
+      );
     } else if (isInserting) {
       context.missing(_messageMeta);
     }
     if (data.containsKey('error')) {
       context.handle(
-          _errorMeta, error.isAcceptableOrUnknown(data['error']!, _errorMeta));
+        _errorMeta,
+        error.isAcceptableOrUnknown(data['error']!, _errorMeta),
+      );
     }
     if (data.containsKey('stack_trace')) {
       context.handle(
-          _stackTraceMeta,
-          stackTrace.isAcceptableOrUnknown(
-              data['stack_trace']!, _stackTraceMeta));
+        _stackTraceMeta,
+        stackTrace.isAcceptableOrUnknown(data['stack_trace']!, _stackTraceMeta),
+      );
     }
     if (data.containsKey('logline')) {
-      context.handle(_loglineMeta,
-          logline.isAcceptableOrUnknown(data['logline']!, _loglineMeta));
+      context.handle(
+        _loglineMeta,
+        logline.isAcceptableOrUnknown(data['logline']!, _loglineMeta),
+      );
     } else if (isInserting) {
       context.missing(_loglineMeta);
     }
@@ -338,22 +445,44 @@ class AppLogs extends i0.Table with i0.TableInfo<AppLogs, i1.AppLog> {
   i1.AppLog map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return i1.AppLog(
-      id: attachedDatabase.typeMapping
-          .read(i0.DriftSqlType.int, data['${effectivePrefix}id'])!,
-      time: attachedDatabase.typeMapping
-          .read(i0.DriftSqlType.dateTime, data['${effectivePrefix}time'])!,
-      level: attachedDatabase.typeMapping
-          .read(i0.DriftSqlType.string, data['${effectivePrefix}level'])!,
-      loggerName: attachedDatabase.typeMapping
-          .read(i0.DriftSqlType.string, data['${effectivePrefix}logger_name'])!,
-      message: attachedDatabase.typeMapping
-          .read(i0.DriftSqlType.string, data['${effectivePrefix}message'])!,
-      error: attachedDatabase.typeMapping
-          .read(i0.DriftSqlType.string, data['${effectivePrefix}error']),
-      stackTrace: attachedDatabase.typeMapping
-          .read(i0.DriftSqlType.string, data['${effectivePrefix}stack_trace']),
-      logline: attachedDatabase.typeMapping
-          .read(i0.DriftSqlType.string, data['${effectivePrefix}logline'])!,
+      id:
+          attachedDatabase.typeMapping.read(
+            i0.DriftSqlType.int,
+            data['${effectivePrefix}id'],
+          )!,
+      time:
+          attachedDatabase.typeMapping.read(
+            i0.DriftSqlType.dateTime,
+            data['${effectivePrefix}time'],
+          )!,
+      level:
+          attachedDatabase.typeMapping.read(
+            i0.DriftSqlType.string,
+            data['${effectivePrefix}level'],
+          )!,
+      loggerName:
+          attachedDatabase.typeMapping.read(
+            i0.DriftSqlType.string,
+            data['${effectivePrefix}logger_name'],
+          )!,
+      message:
+          attachedDatabase.typeMapping.read(
+            i0.DriftSqlType.string,
+            data['${effectivePrefix}message'],
+          )!,
+      error: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.string,
+        data['${effectivePrefix}error'],
+      ),
+      stackTrace: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.string,
+        data['${effectivePrefix}stack_trace'],
+      ),
+      logline:
+          attachedDatabase.typeMapping.read(
+            i0.DriftSqlType.string,
+            data['${effectivePrefix}logline'],
+          )!,
     );
   }
 
@@ -375,15 +504,16 @@ class AppLog extends i0.DataClass implements i0.Insertable<i1.AppLog> {
   final String? error;
   final String? stackTrace;
   final String logline;
-  const AppLog(
-      {required this.id,
-      required this.time,
-      required this.level,
-      required this.loggerName,
-      required this.message,
-      this.error,
-      this.stackTrace,
-      required this.logline});
+  const AppLog({
+    required this.id,
+    required this.time,
+    required this.level,
+    required this.loggerName,
+    required this.message,
+    this.error,
+    this.stackTrace,
+    required this.logline,
+  });
   @override
   Map<String, i0.Expression> toColumns(bool nullToAbsent) {
     final map = <String, i0.Expression>{};
@@ -409,18 +539,22 @@ class AppLog extends i0.DataClass implements i0.Insertable<i1.AppLog> {
       level: i0.Value(level),
       loggerName: i0.Value(loggerName),
       message: i0.Value(message),
-      error: error == null && nullToAbsent
-          ? const i0.Value.absent()
-          : i0.Value(error),
-      stackTrace: stackTrace == null && nullToAbsent
-          ? const i0.Value.absent()
-          : i0.Value(stackTrace),
+      error:
+          error == null && nullToAbsent
+              ? const i0.Value.absent()
+              : i0.Value(error),
+      stackTrace:
+          stackTrace == null && nullToAbsent
+              ? const i0.Value.absent()
+              : i0.Value(stackTrace),
       logline: i0.Value(logline),
     );
   }
 
-  factory AppLog.fromJson(Map<String, dynamic> json,
-      {i0.ValueSerializer? serializer}) {
+  factory AppLog.fromJson(
+    Map<String, dynamic> json, {
+    i0.ValueSerializer? serializer,
+  }) {
     serializer ??= i0.driftRuntimeOptions.defaultSerializer;
     return AppLog(
       id: serializer.fromJson<int>(json['id']),
@@ -448,25 +582,25 @@ class AppLog extends i0.DataClass implements i0.Insertable<i1.AppLog> {
     };
   }
 
-  i1.AppLog copyWith(
-          {int? id,
-          DateTime? time,
-          String? level,
-          String? loggerName,
-          String? message,
-          i0.Value<String?> error = const i0.Value.absent(),
-          i0.Value<String?> stackTrace = const i0.Value.absent(),
-          String? logline}) =>
-      i1.AppLog(
-        id: id ?? this.id,
-        time: time ?? this.time,
-        level: level ?? this.level,
-        loggerName: loggerName ?? this.loggerName,
-        message: message ?? this.message,
-        error: error.present ? error.value : this.error,
-        stackTrace: stackTrace.present ? stackTrace.value : this.stackTrace,
-        logline: logline ?? this.logline,
-      );
+  i1.AppLog copyWith({
+    int? id,
+    DateTime? time,
+    String? level,
+    String? loggerName,
+    String? message,
+    i0.Value<String?> error = const i0.Value.absent(),
+    i0.Value<String?> stackTrace = const i0.Value.absent(),
+    String? logline,
+  }) => i1.AppLog(
+    id: id ?? this.id,
+    time: time ?? this.time,
+    level: level ?? this.level,
+    loggerName: loggerName ?? this.loggerName,
+    message: message ?? this.message,
+    error: error.present ? error.value : this.error,
+    stackTrace: stackTrace.present ? stackTrace.value : this.stackTrace,
+    logline: logline ?? this.logline,
+  );
   AppLog copyWithCompanion(i1.AppLogsCompanion data) {
     return AppLog(
       id: data.id.present ? data.id.value : this.id,
@@ -499,7 +633,15 @@ class AppLog extends i0.DataClass implements i0.Insertable<i1.AppLog> {
 
   @override
   int get hashCode => Object.hash(
-      id, time, level, loggerName, message, error, stackTrace, logline);
+    id,
+    time,
+    level,
+    loggerName,
+    message,
+    error,
+    stackTrace,
+    logline,
+  );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -542,11 +684,11 @@ class AppLogsCompanion extends i0.UpdateCompanion<i1.AppLog> {
     this.error = const i0.Value.absent(),
     this.stackTrace = const i0.Value.absent(),
     required String logline,
-  })  : time = i0.Value(time),
-        level = i0.Value(level),
-        loggerName = i0.Value(loggerName),
-        message = i0.Value(message),
-        logline = i0.Value(logline);
+  }) : time = i0.Value(time),
+       level = i0.Value(level),
+       loggerName = i0.Value(loggerName),
+       message = i0.Value(message),
+       logline = i0.Value(logline);
   static i0.Insertable<i1.AppLog> custom({
     i0.Expression<int>? id,
     i0.Expression<DateTime>? time,
@@ -569,15 +711,16 @@ class AppLogsCompanion extends i0.UpdateCompanion<i1.AppLog> {
     });
   }
 
-  i1.AppLogsCompanion copyWith(
-      {i0.Value<int>? id,
-      i0.Value<DateTime>? time,
-      i0.Value<String>? level,
-      i0.Value<String>? loggerName,
-      i0.Value<String>? message,
-      i0.Value<String?>? error,
-      i0.Value<String?>? stackTrace,
-      i0.Value<String>? logline}) {
+  i1.AppLogsCompanion copyWith({
+    i0.Value<int>? id,
+    i0.Value<DateTime>? time,
+    i0.Value<String>? level,
+    i0.Value<String>? loggerName,
+    i0.Value<String>? message,
+    i0.Value<String?>? error,
+    i0.Value<String?>? stackTrace,
+    i0.Value<String>? logline,
+  }) {
     return i1.AppLogsCompanion(
       id: id ?? this.id,
       time: time ?? this.time,

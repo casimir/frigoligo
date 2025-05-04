@@ -26,13 +26,15 @@ String _$queryMetaHash() => r'136d2589ffab82204b3fc27dc3571ccb8a251939';
 @ProviderFor(QueryMeta)
 final queryMetaProvider =
     AutoDisposeAsyncNotifierProvider<QueryMeta, QueryState>.internal(
-  QueryMeta.new,
-  name: r'queryMetaProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$queryMetaHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      QueryMeta.new,
+      name: r'queryMetaProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$queryMetaHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$QueryMeta = AutoDisposeAsyncNotifier<QueryState>;
 // ignore_for_file: type=lint

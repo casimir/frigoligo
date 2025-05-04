@@ -3,16 +3,18 @@
 import 'package:drift/drift.dart' as i0;
 import 'package:frigoligo/db/models/metadata.drift.dart' as i1;
 
-typedef $MetadataCreateCompanionBuilder = i1.MetadataCompanion Function({
-  i0.Value<int> id,
-  required String key,
-  required String value,
-});
-typedef $MetadataUpdateCompanionBuilder = i1.MetadataCompanion Function({
-  i0.Value<int> id,
-  i0.Value<String> key,
-  i0.Value<String> value,
-});
+typedef $MetadataCreateCompanionBuilder =
+    i1.MetadataCompanion Function({
+      i0.Value<int> id,
+      required String key,
+      required String value,
+    });
+typedef $MetadataUpdateCompanionBuilder =
+    i1.MetadataCompanion Function({
+      i0.Value<int> id,
+      i0.Value<String> key,
+      i0.Value<String> value,
+    });
 
 class $MetadataFilterComposer
     extends i0.Composer<i0.GeneratedDatabase, i1.Metadata> {
@@ -24,13 +26,19 @@ class $MetadataFilterComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   i0.ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => i0.ColumnFilters(column));
+    column: $table.id,
+    builder: (column) => i0.ColumnFilters(column),
+  );
 
   i0.ColumnFilters<String> get key => $composableBuilder(
-      column: $table.key, builder: (column) => i0.ColumnFilters(column));
+    column: $table.key,
+    builder: (column) => i0.ColumnFilters(column),
+  );
 
   i0.ColumnFilters<String> get value => $composableBuilder(
-      column: $table.value, builder: (column) => i0.ColumnFilters(column));
+    column: $table.value,
+    builder: (column) => i0.ColumnFilters(column),
+  );
 }
 
 class $MetadataOrderingComposer
@@ -43,13 +51,19 @@ class $MetadataOrderingComposer
     super.$removeJoinBuilderFromRootComposer,
   });
   i0.ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => i0.ColumnOrderings(column));
+    column: $table.id,
+    builder: (column) => i0.ColumnOrderings(column),
+  );
 
   i0.ColumnOrderings<String> get key => $composableBuilder(
-      column: $table.key, builder: (column) => i0.ColumnOrderings(column));
+    column: $table.key,
+    builder: (column) => i0.ColumnOrderings(column),
+  );
 
   i0.ColumnOrderings<String> get value => $composableBuilder(
-      column: $table.value, builder: (column) => i0.ColumnOrderings(column));
+    column: $table.value,
+    builder: (column) => i0.ColumnOrderings(column),
+  );
 }
 
 class $MetadataAnnotationComposer
@@ -71,73 +85,83 @@ class $MetadataAnnotationComposer
       $composableBuilder(column: $table.value, builder: (column) => column);
 }
 
-class $MetadataTableManager extends i0.RootTableManager<
-    i0.GeneratedDatabase,
-    i1.Metadata,
-    i1.MetadataData,
-    i1.$MetadataFilterComposer,
-    i1.$MetadataOrderingComposer,
-    i1.$MetadataAnnotationComposer,
-    $MetadataCreateCompanionBuilder,
-    $MetadataUpdateCompanionBuilder,
-    (
-      i1.MetadataData,
-      i0.BaseReferences<i0.GeneratedDatabase, i1.Metadata, i1.MetadataData>
-    ),
-    i1.MetadataData,
-    i0.PrefetchHooks Function()> {
+class $MetadataTableManager
+    extends
+        i0.RootTableManager<
+          i0.GeneratedDatabase,
+          i1.Metadata,
+          i1.MetadataData,
+          i1.$MetadataFilterComposer,
+          i1.$MetadataOrderingComposer,
+          i1.$MetadataAnnotationComposer,
+          $MetadataCreateCompanionBuilder,
+          $MetadataUpdateCompanionBuilder,
+          (
+            i1.MetadataData,
+            i0.BaseReferences<
+              i0.GeneratedDatabase,
+              i1.Metadata,
+              i1.MetadataData
+            >,
+          ),
+          i1.MetadataData,
+          i0.PrefetchHooks Function()
+        > {
   $MetadataTableManager(i0.GeneratedDatabase db, i1.Metadata table)
-      : super(i0.TableManagerState(
+    : super(
+        i0.TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer: () =>
-              i1.$MetadataFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              i1.$MetadataOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              i1.$MetadataAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            i0.Value<int> id = const i0.Value.absent(),
-            i0.Value<String> key = const i0.Value.absent(),
-            i0.Value<String> value = const i0.Value.absent(),
-          }) =>
-              i1.MetadataCompanion(
-            id: id,
-            key: key,
-            value: value,
-          ),
-          createCompanionCallback: ({
-            i0.Value<int> id = const i0.Value.absent(),
-            required String key,
-            required String value,
-          }) =>
-              i1.MetadataCompanion.insert(
-            id: id,
-            key: key,
-            value: value,
-          ),
-          withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), i0.BaseReferences(db, table, e)))
-              .toList(),
+          createFilteringComposer:
+              () => i1.$MetadataFilterComposer($db: db, $table: table),
+          createOrderingComposer:
+              () => i1.$MetadataOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer:
+              () => i1.$MetadataAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                i0.Value<int> id = const i0.Value.absent(),
+                i0.Value<String> key = const i0.Value.absent(),
+                i0.Value<String> value = const i0.Value.absent(),
+              }) => i1.MetadataCompanion(id: id, key: key, value: value),
+          createCompanionCallback:
+              ({
+                i0.Value<int> id = const i0.Value.absent(),
+                required String key,
+                required String value,
+              }) => i1.MetadataCompanion.insert(id: id, key: key, value: value),
+          withReferenceMapper:
+              (p0) =>
+                  p0
+                      .map(
+                        (e) => (
+                          e.readTable(table),
+                          i0.BaseReferences(db, table, e),
+                        ),
+                      )
+                      .toList(),
           prefetchHooksCallback: null,
-        ));
+        ),
+      );
 }
 
-typedef $MetadataProcessedTableManager = i0.ProcessedTableManager<
-    i0.GeneratedDatabase,
-    i1.Metadata,
-    i1.MetadataData,
-    i1.$MetadataFilterComposer,
-    i1.$MetadataOrderingComposer,
-    i1.$MetadataAnnotationComposer,
-    $MetadataCreateCompanionBuilder,
-    $MetadataUpdateCompanionBuilder,
-    (
+typedef $MetadataProcessedTableManager =
+    i0.ProcessedTableManager<
+      i0.GeneratedDatabase,
+      i1.Metadata,
       i1.MetadataData,
-      i0.BaseReferences<i0.GeneratedDatabase, i1.Metadata, i1.MetadataData>
-    ),
-    i1.MetadataData,
-    i0.PrefetchHooks Function()>;
+      i1.$MetadataFilterComposer,
+      i1.$MetadataOrderingComposer,
+      i1.$MetadataAnnotationComposer,
+      $MetadataCreateCompanionBuilder,
+      $MetadataUpdateCompanionBuilder,
+      (
+        i1.MetadataData,
+        i0.BaseReferences<i0.GeneratedDatabase, i1.Metadata, i1.MetadataData>,
+      ),
+      i1.MetadataData,
+      i0.PrefetchHooks Function()
+    >;
 
 class Metadata extends i0.Table with i0.TableInfo<Metadata, i1.MetadataData> {
   @override
@@ -146,24 +170,34 @@ class Metadata extends i0.Table with i0.TableInfo<Metadata, i1.MetadataData> {
   Metadata(this.attachedDatabase, [this._alias]);
   static const i0.VerificationMeta _idMeta = const i0.VerificationMeta('id');
   late final i0.GeneratedColumn<int> id = i0.GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: i0.DriftSqlType.int,
-      requiredDuringInsert: false,
-      $customConstraints: 'PRIMARY KEY AUTOINCREMENT');
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: i0.DriftSqlType.int,
+    requiredDuringInsert: false,
+    $customConstraints: 'PRIMARY KEY AUTOINCREMENT',
+  );
   static const i0.VerificationMeta _keyMeta = const i0.VerificationMeta('key');
   late final i0.GeneratedColumn<String> key = i0.GeneratedColumn<String>(
-      'key', aliasedName, false,
-      type: i0.DriftSqlType.string,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL UNIQUE');
-  static const i0.VerificationMeta _valueMeta =
-      const i0.VerificationMeta('value');
+    'key',
+    aliasedName,
+    false,
+    type: i0.DriftSqlType.string,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL UNIQUE',
+  );
+  static const i0.VerificationMeta _valueMeta = const i0.VerificationMeta(
+    'value',
+  );
   late final i0.GeneratedColumn<String> value = i0.GeneratedColumn<String>(
-      'value', aliasedName, false,
-      type: i0.DriftSqlType.string,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL');
+    'value',
+    aliasedName,
+    false,
+    type: i0.DriftSqlType.string,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
+  );
   @override
   List<i0.GeneratedColumn> get $columns => [id, key, value];
   @override
@@ -173,8 +207,9 @@ class Metadata extends i0.Table with i0.TableInfo<Metadata, i1.MetadataData> {
   static const String $name = 'metadata';
   @override
   i0.VerificationContext validateIntegrity(
-      i0.Insertable<i1.MetadataData> instance,
-      {bool isInserting = false}) {
+    i0.Insertable<i1.MetadataData> instance, {
+    bool isInserting = false,
+  }) {
     final context = i0.VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
@@ -182,13 +217,17 @@ class Metadata extends i0.Table with i0.TableInfo<Metadata, i1.MetadataData> {
     }
     if (data.containsKey('key')) {
       context.handle(
-          _keyMeta, key.isAcceptableOrUnknown(data['key']!, _keyMeta));
+        _keyMeta,
+        key.isAcceptableOrUnknown(data['key']!, _keyMeta),
+      );
     } else if (isInserting) {
       context.missing(_keyMeta);
     }
     if (data.containsKey('value')) {
       context.handle(
-          _valueMeta, value.isAcceptableOrUnknown(data['value']!, _valueMeta));
+        _valueMeta,
+        value.isAcceptableOrUnknown(data['value']!, _valueMeta),
+      );
     } else if (isInserting) {
       context.missing(_valueMeta);
     }
@@ -201,12 +240,21 @@ class Metadata extends i0.Table with i0.TableInfo<Metadata, i1.MetadataData> {
   i1.MetadataData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return i1.MetadataData(
-      id: attachedDatabase.typeMapping
-          .read(i0.DriftSqlType.int, data['${effectivePrefix}id'])!,
-      key: attachedDatabase.typeMapping
-          .read(i0.DriftSqlType.string, data['${effectivePrefix}key'])!,
-      value: attachedDatabase.typeMapping
-          .read(i0.DriftSqlType.string, data['${effectivePrefix}value'])!,
+      id:
+          attachedDatabase.typeMapping.read(
+            i0.DriftSqlType.int,
+            data['${effectivePrefix}id'],
+          )!,
+      key:
+          attachedDatabase.typeMapping.read(
+            i0.DriftSqlType.string,
+            data['${effectivePrefix}key'],
+          )!,
+      value:
+          attachedDatabase.typeMapping.read(
+            i0.DriftSqlType.string,
+            data['${effectivePrefix}value'],
+          )!,
     );
   }
 
@@ -224,8 +272,11 @@ class MetadataData extends i0.DataClass
   final int id;
   final String key;
   final String value;
-  const MetadataData(
-      {required this.id, required this.key, required this.value});
+  const MetadataData({
+    required this.id,
+    required this.key,
+    required this.value,
+  });
   @override
   Map<String, i0.Expression> toColumns(bool nullToAbsent) {
     final map = <String, i0.Expression>{};
@@ -243,8 +294,10 @@ class MetadataData extends i0.DataClass
     );
   }
 
-  factory MetadataData.fromJson(Map<String, dynamic> json,
-      {i0.ValueSerializer? serializer}) {
+  factory MetadataData.fromJson(
+    Map<String, dynamic> json, {
+    i0.ValueSerializer? serializer,
+  }) {
     serializer ??= i0.driftRuntimeOptions.defaultSerializer;
     return MetadataData(
       id: serializer.fromJson<int>(json['id']),
@@ -310,8 +363,8 @@ class MetadataCompanion extends i0.UpdateCompanion<i1.MetadataData> {
     this.id = const i0.Value.absent(),
     required String key,
     required String value,
-  })  : key = i0.Value(key),
-        value = i0.Value(value);
+  }) : key = i0.Value(key),
+       value = i0.Value(value);
   static i0.Insertable<i1.MetadataData> custom({
     i0.Expression<int>? id,
     i0.Expression<String>? key,
@@ -324,8 +377,11 @@ class MetadataCompanion extends i0.UpdateCompanion<i1.MetadataData> {
     });
   }
 
-  i1.MetadataCompanion copyWith(
-      {i0.Value<int>? id, i0.Value<String>? key, i0.Value<String>? value}) {
+  i1.MetadataCompanion copyWith({
+    i0.Value<int>? id,
+    i0.Value<String>? key,
+    i0.Value<String>? value,
+  }) {
     return i1.MetadataCompanion(
       id: id ?? this.id,
       key: key ?? this.key,

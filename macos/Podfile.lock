@@ -107,7 +107,7 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/webview_flutter_wkwebview/darwin
 
 SPEC CHECKSUMS:
-  app_links: 9028728e32c83a0831d9db8cf91c526d16cc5468
+  app_links: afe860c55c7ef176cea7fb630a2b7d7736de591d
   appkit_ui_element_colors: 711e7a2aa027790964e6fd90c78a666efe631432
   device_info_plus: 4fb280989f669696856f8b129e4a5e3cd6c48f76
   dynamic_color: b820c000cc68df65e7ba7ff177cb98404ce56651

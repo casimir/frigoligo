@@ -12,13 +12,13 @@ String _$wStorageHash() => r'29bbd2e42f06b5260a80d9740169701934023214';
 @ProviderFor(WStorage)
 final wStorageProvider =
     AutoDisposeNotifierProvider<WStorage, WStorageToken>.internal(
-  WStorage.new,
-  name: r'wStorageProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$wStorageHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      WStorage.new,
+      name: r'wStorageProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product') ? null : _$wStorageHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$WStorage = AutoDisposeNotifier<WStorageToken>;
 // ignore_for_file: type=lint

@@ -18,7 +18,7 @@ part 'remote_sync.g.dart';
 final _log = Logger('remote.sync');
 
 @freezed
-class SyncState with _$SyncState {
+sealed class SyncState with _$SyncState {
   const factory SyncState({
     required bool isWorking,
     required double? progressValue,
@@ -60,21 +60,25 @@ class RemoteSyncer extends _$RemoteSyncer {
   Future<void> add(RemoteSyncAction action) async {
     final db = DB();
 
-    final exists = await db.managers.remoteActions
-        .filter((f) => f.key.equals(action.hashCode))
-        .exists();
+    final exists =
+        await db.managers.remoteActions
+            .filter((f) => f.key.equals(action.hashCode))
+            .exists();
     if (!exists) {
-      await db.managers.remoteActions.create((o) => o(
-            key: action.hashCode,
-            createdAt: DateTime.now(),
-            className: action.runtimeType.toString(),
-            jsonParams: jsonEncode(action.params()),
-          ));
+      await db.managers.remoteActions.create(
+        (o) => o(
+          key: action.hashCode,
+          createdAt: DateTime.now(),
+          className: action.runtimeType.toString(),
+          jsonParams: jsonEncode(action.params()),
+        ),
+      );
     }
   }
 
-  Future<Map<String, dynamic>> synchronize(
-      {bool withFinalRefresh = false}) async {
+  Future<Map<String, dynamic>> synchronize({
+    bool withFinalRefresh = false,
+  }) async {
     Map<String, dynamic> res = {};
 
     _log.info('starting remote synchronization');
@@ -128,17 +132,18 @@ class RemoteSyncer extends _$RemoteSyncer {
     int i = 1;
     int actionsCount = 0;
     do {
-      final actions = await (db.managers.remoteActions
-            ..orderBy((o) => o.createdAt.asc()))
-          .get();
+      final actions =
+          await (db.managers.remoteActions..orderBy((o) => o.createdAt.asc()))
+              .get();
       actionsCount += actions.length;
       for (final action in actions) {
         final rsa = action.toRSA();
         _log.info('running action: $rsa');
         res[rsa.key] = await rsa.execute(this, storage);
-        final deleted = await db.managers.remoteActions
-            .filter((f) => f.id.equals(action.id))
-            .delete();
+        final deleted =
+            await db.managers.remoteActions
+                .filter((f) => f.id.equals(action.id))
+                .delete();
         if (deleted == 0) {
           _log.severe('action not deleted after execution: $action');
         }

@@ -33,9 +33,7 @@ abstract class _$SaveArticle
     extends BuildlessAutoDisposeNotifier<SaveArticleState> {
   late final String url;
 
-  SaveArticleState build(
-    String url,
-  );
+  SaveArticleState build(String url);
 }
 
 /// See also [SaveArticle].
@@ -48,21 +46,15 @@ class SaveArticleFamily extends Family<SaveArticleState> {
   const SaveArticleFamily();
 
   /// See also [SaveArticle].
-  SaveArticleProvider call(
-    String url,
-  ) {
-    return SaveArticleProvider(
-      url,
-    );
+  SaveArticleProvider call(String url) {
+    return SaveArticleProvider(url);
   }
 
   @override
   SaveArticleProvider getProviderOverride(
     covariant SaveArticleProvider provider,
   ) {
-    return call(
-      provider.url,
-    );
+    return call(provider.url);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -84,21 +76,19 @@ class SaveArticleFamily extends Family<SaveArticleState> {
 class SaveArticleProvider
     extends AutoDisposeNotifierProviderImpl<SaveArticle, SaveArticleState> {
   /// See also [SaveArticle].
-  SaveArticleProvider(
-    String url,
-  ) : this._internal(
-          () => SaveArticle()..url = url,
-          from: saveArticleProvider,
-          name: r'saveArticleProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$saveArticleHash,
-          dependencies: SaveArticleFamily._dependencies,
-          allTransitiveDependencies:
-              SaveArticleFamily._allTransitiveDependencies,
-          url: url,
-        );
+  SaveArticleProvider(String url)
+    : this._internal(
+        () => SaveArticle()..url = url,
+        from: saveArticleProvider,
+        name: r'saveArticleProvider',
+        debugGetCreateSourceHash:
+            const bool.fromEnvironment('dart.vm.product')
+                ? null
+                : _$saveArticleHash,
+        dependencies: SaveArticleFamily._dependencies,
+        allTransitiveDependencies: SaveArticleFamily._allTransitiveDependencies,
+        url: url,
+      );
 
   SaveArticleProvider._internal(
     super._createNotifier, {
@@ -113,12 +103,8 @@ class SaveArticleProvider
   final String url;
 
   @override
-  SaveArticleState runNotifierBuild(
-    covariant SaveArticle notifier,
-  ) {
-    return notifier.build(
-      url,
-    );
+  SaveArticleState runNotifierBuild(covariant SaveArticle notifier) {
+    return notifier.build(url);
   }
 
   @override
@@ -139,7 +125,7 @@ class SaveArticleProvider
 
   @override
   AutoDisposeNotifierProviderElement<SaveArticle, SaveArticleState>
-      createElement() {
+  createElement() {
     return _SaveArticleProviderElement(this);
   }
 
@@ -172,5 +158,6 @@ class _SaveArticleProviderElement
   @override
   String get url => (origin as SaveArticleProvider).url;
 }
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

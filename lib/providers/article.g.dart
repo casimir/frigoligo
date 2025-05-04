@@ -33,9 +33,7 @@ abstract class _$ArticleData
     extends BuildlessAutoDisposeAsyncNotifier<Article?> {
   late final int articleId;
 
-  FutureOr<Article?> build(
-    int articleId,
-  );
+  FutureOr<Article?> build(int articleId);
 }
 
 /// See also [ArticleData].
@@ -48,21 +46,15 @@ class ArticleDataFamily extends Family<AsyncValue<Article?>> {
   const ArticleDataFamily();
 
   /// See also [ArticleData].
-  ArticleDataProvider call(
-    int articleId,
-  ) {
-    return ArticleDataProvider(
-      articleId,
-    );
+  ArticleDataProvider call(int articleId) {
+    return ArticleDataProvider(articleId);
   }
 
   @override
   ArticleDataProvider getProviderOverride(
     covariant ArticleDataProvider provider,
   ) {
-    return call(
-      provider.articleId,
-    );
+    return call(provider.articleId);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -84,21 +76,19 @@ class ArticleDataFamily extends Family<AsyncValue<Article?>> {
 class ArticleDataProvider
     extends AutoDisposeAsyncNotifierProviderImpl<ArticleData, Article?> {
   /// See also [ArticleData].
-  ArticleDataProvider(
-    int articleId,
-  ) : this._internal(
-          () => ArticleData()..articleId = articleId,
-          from: articleDataProvider,
-          name: r'articleDataProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$articleDataHash,
-          dependencies: ArticleDataFamily._dependencies,
-          allTransitiveDependencies:
-              ArticleDataFamily._allTransitiveDependencies,
-          articleId: articleId,
-        );
+  ArticleDataProvider(int articleId)
+    : this._internal(
+        () => ArticleData()..articleId = articleId,
+        from: articleDataProvider,
+        name: r'articleDataProvider',
+        debugGetCreateSourceHash:
+            const bool.fromEnvironment('dart.vm.product')
+                ? null
+                : _$articleDataHash,
+        dependencies: ArticleDataFamily._dependencies,
+        allTransitiveDependencies: ArticleDataFamily._allTransitiveDependencies,
+        articleId: articleId,
+      );
 
   ArticleDataProvider._internal(
     super._createNotifier, {
@@ -113,12 +103,8 @@ class ArticleDataProvider
   final int articleId;
 
   @override
-  FutureOr<Article?> runNotifierBuild(
-    covariant ArticleData notifier,
-  ) {
-    return notifier.build(
-      articleId,
-    );
+  FutureOr<Article?> runNotifierBuild(covariant ArticleData notifier) {
+    return notifier.build(articleId);
   }
 
   @override
@@ -139,7 +125,7 @@ class ArticleDataProvider
 
   @override
   AutoDisposeAsyncNotifierProviderElement<ArticleData, Article?>
-      createElement() {
+  createElement() {
     return _ArticleDataProviderElement(this);
   }
 
@@ -179,14 +165,15 @@ String _$currentArticleHash() => r'c27a1b25db5008a06aa3e045d866a342fe585106';
 @ProviderFor(CurrentArticle)
 final currentArticleProvider =
     AutoDisposeAsyncNotifierProvider<CurrentArticle, Article?>.internal(
-  CurrentArticle.new,
-  name: r'currentArticleProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$currentArticleHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      CurrentArticle.new,
+      name: r'currentArticleProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$currentArticleHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$CurrentArticle = AutoDisposeAsyncNotifier<Article?>;
 String _$scrollPositionHash() => r'14429f91ef7c2786483b903c93eedc0d15af7a28';
@@ -195,9 +182,7 @@ abstract class _$ScrollPosition
     extends BuildlessAutoDisposeAsyncNotifier<ArticleScrollPosition?> {
   late final int articleId;
 
-  FutureOr<ArticleScrollPosition?> build(
-    int articleId,
-  );
+  FutureOr<ArticleScrollPosition?> build(int articleId);
 }
 
 /// See also [ScrollPosition].
@@ -210,21 +195,15 @@ class ScrollPositionFamily extends Family<AsyncValue<ArticleScrollPosition?>> {
   const ScrollPositionFamily();
 
   /// See also [ScrollPosition].
-  ScrollPositionProvider call(
-    int articleId,
-  ) {
-    return ScrollPositionProvider(
-      articleId,
-    );
+  ScrollPositionProvider call(int articleId) {
+    return ScrollPositionProvider(articleId);
   }
 
   @override
   ScrollPositionProvider getProviderOverride(
     covariant ScrollPositionProvider provider,
   ) {
-    return call(
-      provider.articleId,
-    );
+    return call(provider.articleId);
   }
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
@@ -243,24 +222,27 @@ class ScrollPositionFamily extends Family<AsyncValue<ArticleScrollPosition?>> {
 }
 
 /// See also [ScrollPosition].
-class ScrollPositionProvider extends AutoDisposeAsyncNotifierProviderImpl<
-    ScrollPosition, ArticleScrollPosition?> {
+class ScrollPositionProvider
+    extends
+        AutoDisposeAsyncNotifierProviderImpl<
+          ScrollPosition,
+          ArticleScrollPosition?
+        > {
   /// See also [ScrollPosition].
-  ScrollPositionProvider(
-    int articleId,
-  ) : this._internal(
-          () => ScrollPosition()..articleId = articleId,
-          from: scrollPositionProvider,
-          name: r'scrollPositionProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$scrollPositionHash,
-          dependencies: ScrollPositionFamily._dependencies,
-          allTransitiveDependencies:
-              ScrollPositionFamily._allTransitiveDependencies,
-          articleId: articleId,
-        );
+  ScrollPositionProvider(int articleId)
+    : this._internal(
+        () => ScrollPosition()..articleId = articleId,
+        from: scrollPositionProvider,
+        name: r'scrollPositionProvider',
+        debugGetCreateSourceHash:
+            const bool.fromEnvironment('dart.vm.product')
+                ? null
+                : _$scrollPositionHash,
+        dependencies: ScrollPositionFamily._dependencies,
+        allTransitiveDependencies:
+            ScrollPositionFamily._allTransitiveDependencies,
+        articleId: articleId,
+      );
 
   ScrollPositionProvider._internal(
     super._createNotifier, {
@@ -278,9 +260,7 @@ class ScrollPositionProvider extends AutoDisposeAsyncNotifierProviderImpl<
   FutureOr<ArticleScrollPosition?> runNotifierBuild(
     covariant ScrollPosition notifier,
   ) {
-    return notifier.build(
-      articleId,
-    );
+    return notifier.build(articleId);
   }
 
   @override
@@ -300,8 +280,11 @@ class ScrollPositionProvider extends AutoDisposeAsyncNotifierProviderImpl<
   }
 
   @override
-  AutoDisposeAsyncNotifierProviderElement<ScrollPosition,
-      ArticleScrollPosition?> createElement() {
+  AutoDisposeAsyncNotifierProviderElement<
+    ScrollPosition,
+    ArticleScrollPosition?
+  >
+  createElement() {
     return _ScrollPositionProviderElement(this);
   }
 
@@ -328,8 +311,12 @@ mixin ScrollPositionRef
 }
 
 class _ScrollPositionProviderElement
-    extends AutoDisposeAsyncNotifierProviderElement<ScrollPosition,
-        ArticleScrollPosition?> with ScrollPositionRef {
+    extends
+        AutoDisposeAsyncNotifierProviderElement<
+          ScrollPosition,
+          ArticleScrollPosition?
+        >
+    with ScrollPositionRef {
   _ScrollPositionProviderElement(super.provider);
 
   @override
@@ -342,13 +329,15 @@ String _$openArticleHash() => r'b539747977d0b7cb779381e3963b083b1651616d';
 @ProviderFor(OpenArticle)
 final openArticleProvider =
     AutoDisposeNotifierProvider<OpenArticle, int?>.internal(
-  OpenArticle.new,
-  name: r'openArticleProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$openArticleHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      OpenArticle.new,
+      name: r'openArticleProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$openArticleHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$OpenArticle = AutoDisposeNotifier<int?>;
 String _$currentReadingProgressHash() =>
@@ -358,14 +347,15 @@ String _$currentReadingProgressHash() =>
 @ProviderFor(CurrentReadingProgress)
 final currentReadingProgressProvider =
     AutoDisposeNotifierProvider<CurrentReadingProgress, double?>.internal(
-  CurrentReadingProgress.new,
-  name: r'currentReadingProgressProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$currentReadingProgressHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      CurrentReadingProgress.new,
+      name: r'currentReadingProgressProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$currentReadingProgressHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$CurrentReadingProgress = AutoDisposeNotifier<double?>;
 // ignore_for_file: type=lint

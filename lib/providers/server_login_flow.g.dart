@@ -12,14 +12,15 @@ String _$serverLoginFlowHash() => r'f0b22ea3001568ae6f48dd5312a4a73c5d85b164';
 @ProviderFor(ServerLoginFlow)
 final serverLoginFlowProvider =
     AutoDisposeNotifierProvider<ServerLoginFlow, FlowState>.internal(
-  ServerLoginFlow.new,
-  name: r'serverLoginFlowProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$serverLoginFlowHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      ServerLoginFlow.new,
+      name: r'serverLoginFlowProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$serverLoginFlowHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$ServerLoginFlow = AutoDisposeNotifier<FlowState>;
 // ignore_for_file: type=lint

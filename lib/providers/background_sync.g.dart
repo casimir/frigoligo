@@ -13,9 +13,10 @@ String _$backgroundSyncHash() => r'f44a55f62886f87a5948f295b41240986d9438ff';
 final backgroundSyncProvider = AutoDisposeProvider<void>.internal(
   backgroundSync,
   name: r'backgroundSyncProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$backgroundSyncHash,
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$backgroundSyncHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

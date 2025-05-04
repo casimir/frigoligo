@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,204 +10,142 @@ part of 'remote_sync.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
-
 /// @nodoc
 mixin _$SyncState {
-  bool get isWorking => throw _privateConstructorUsedError;
-  double? get progressValue => throw _privateConstructorUsedError;
-  Exception? get lastError => throw _privateConstructorUsedError;
-  int get pendingCount => throw _privateConstructorUsedError;
 
-  /// Create a copy of SyncState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $SyncStateCopyWith<SyncState> get copyWith =>
-      throw _privateConstructorUsedError;
+ bool get isWorking; double? get progressValue; Exception? get lastError; int get pendingCount;
+/// Create a copy of SyncState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SyncStateCopyWith<SyncState> get copyWith => _$SyncStateCopyWithImpl<SyncState>(this as SyncState, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SyncState&&(identical(other.isWorking, isWorking) || other.isWorking == isWorking)&&(identical(other.progressValue, progressValue) || other.progressValue == progressValue)&&(identical(other.lastError, lastError) || other.lastError == lastError)&&(identical(other.pendingCount, pendingCount) || other.pendingCount == pendingCount));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,isWorking,progressValue,lastError,pendingCount);
+
+@override
+String toString() {
+  return 'SyncState(isWorking: $isWorking, progressValue: $progressValue, lastError: $lastError, pendingCount: $pendingCount)';
+}
+
+
 }
 
 /// @nodoc
-abstract class $SyncStateCopyWith<$Res> {
-  factory $SyncStateCopyWith(SyncState value, $Res Function(SyncState) then) =
-      _$SyncStateCopyWithImpl<$Res, SyncState>;
-  @useResult
-  $Res call(
-      {bool isWorking,
-      double? progressValue,
-      Exception? lastError,
-      int pendingCount});
-}
+abstract mixin class $SyncStateCopyWith<$Res>  {
+  factory $SyncStateCopyWith(SyncState value, $Res Function(SyncState) _then) = _$SyncStateCopyWithImpl;
+@useResult
+$Res call({
+ bool isWorking, double? progressValue, Exception? lastError, int pendingCount
+});
 
+
+
+
+}
 /// @nodoc
-class _$SyncStateCopyWithImpl<$Res, $Val extends SyncState>
+class _$SyncStateCopyWithImpl<$Res>
     implements $SyncStateCopyWith<$Res> {
-  _$SyncStateCopyWithImpl(this._value, this._then);
+  _$SyncStateCopyWithImpl(this._self, this._then);
 
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final SyncState _self;
+  final $Res Function(SyncState) _then;
 
-  /// Create a copy of SyncState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? isWorking = null,
-    Object? progressValue = freezed,
-    Object? lastError = freezed,
-    Object? pendingCount = null,
-  }) {
-    return _then(_value.copyWith(
-      isWorking: null == isWorking
-          ? _value.isWorking
-          : isWorking // ignore: cast_nullable_to_non_nullable
-              as bool,
-      progressValue: freezed == progressValue
-          ? _value.progressValue
-          : progressValue // ignore: cast_nullable_to_non_nullable
-              as double?,
-      lastError: freezed == lastError
-          ? _value.lastError
-          : lastError // ignore: cast_nullable_to_non_nullable
-              as Exception?,
-      pendingCount: null == pendingCount
-          ? _value.pendingCount
-          : pendingCount // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
-  }
+/// Create a copy of SyncState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? isWorking = null,Object? progressValue = freezed,Object? lastError = freezed,Object? pendingCount = null,}) {
+  return _then(_self.copyWith(
+isWorking: null == isWorking ? _self.isWorking : isWorking // ignore: cast_nullable_to_non_nullable
+as bool,progressValue: freezed == progressValue ? _self.progressValue : progressValue // ignore: cast_nullable_to_non_nullable
+as double?,lastError: freezed == lastError ? _self.lastError : lastError // ignore: cast_nullable_to_non_nullable
+as Exception?,pendingCount: null == pendingCount ? _self.pendingCount : pendingCount // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
 }
 
-/// @nodoc
-abstract class _$$SyncStateImplCopyWith<$Res>
-    implements $SyncStateCopyWith<$Res> {
-  factory _$$SyncStateImplCopyWith(
-          _$SyncStateImpl value, $Res Function(_$SyncStateImpl) then) =
-      __$$SyncStateImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {bool isWorking,
-      double? progressValue,
-      Exception? lastError,
-      int pendingCount});
 }
 
-/// @nodoc
-class __$$SyncStateImplCopyWithImpl<$Res>
-    extends _$SyncStateCopyWithImpl<$Res, _$SyncStateImpl>
-    implements _$$SyncStateImplCopyWith<$Res> {
-  __$$SyncStateImplCopyWithImpl(
-      _$SyncStateImpl _value, $Res Function(_$SyncStateImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of SyncState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? isWorking = null,
-    Object? progressValue = freezed,
-    Object? lastError = freezed,
-    Object? pendingCount = null,
-  }) {
-    return _then(_$SyncStateImpl(
-      isWorking: null == isWorking
-          ? _value.isWorking
-          : isWorking // ignore: cast_nullable_to_non_nullable
-              as bool,
-      progressValue: freezed == progressValue
-          ? _value.progressValue
-          : progressValue // ignore: cast_nullable_to_non_nullable
-              as double?,
-      lastError: freezed == lastError
-          ? _value.lastError
-          : lastError // ignore: cast_nullable_to_non_nullable
-              as Exception?,
-      pendingCount: null == pendingCount
-          ? _value.pendingCount
-          : pendingCount // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
-}
 
 /// @nodoc
 
-class _$SyncStateImpl implements _SyncState {
-  const _$SyncStateImpl(
-      {required this.isWorking,
-      required this.progressValue,
-      this.lastError = null,
-      required this.pendingCount});
 
-  @override
-  final bool isWorking;
-  @override
-  final double? progressValue;
-  @override
-  @JsonKey()
-  final Exception? lastError;
-  @override
-  final int pendingCount;
+class _SyncState implements SyncState {
+  const _SyncState({required this.isWorking, required this.progressValue, this.lastError = null, required this.pendingCount});
+  
 
-  @override
-  String toString() {
-    return 'SyncState(isWorking: $isWorking, progressValue: $progressValue, lastError: $lastError, pendingCount: $pendingCount)';
-  }
+@override final  bool isWorking;
+@override final  double? progressValue;
+@override@JsonKey() final  Exception? lastError;
+@override final  int pendingCount;
 
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SyncStateImpl &&
-            (identical(other.isWorking, isWorking) ||
-                other.isWorking == isWorking) &&
-            (identical(other.progressValue, progressValue) ||
-                other.progressValue == progressValue) &&
-            (identical(other.lastError, lastError) ||
-                other.lastError == lastError) &&
-            (identical(other.pendingCount, pendingCount) ||
-                other.pendingCount == pendingCount));
-  }
+/// Create a copy of SyncState
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SyncStateCopyWith<_SyncState> get copyWith => __$SyncStateCopyWithImpl<_SyncState>(this, _$identity);
 
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, isWorking, progressValue, lastError, pendingCount);
 
-  /// Create a copy of SyncState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SyncStateImplCopyWith<_$SyncStateImpl> get copyWith =>
-      __$$SyncStateImplCopyWithImpl<_$SyncStateImpl>(this, _$identity);
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SyncState&&(identical(other.isWorking, isWorking) || other.isWorking == isWorking)&&(identical(other.progressValue, progressValue) || other.progressValue == progressValue)&&(identical(other.lastError, lastError) || other.lastError == lastError)&&(identical(other.pendingCount, pendingCount) || other.pendingCount == pendingCount));
 }
 
-abstract class _SyncState implements SyncState {
-  const factory _SyncState(
-      {required final bool isWorking,
-      required final double? progressValue,
-      final Exception? lastError,
-      required final int pendingCount}) = _$SyncStateImpl;
 
-  @override
-  bool get isWorking;
-  @override
-  double? get progressValue;
-  @override
-  Exception? get lastError;
-  @override
-  int get pendingCount;
+@override
+int get hashCode => Object.hash(runtimeType,isWorking,progressValue,lastError,pendingCount);
 
-  /// Create a copy of SyncState
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SyncStateImplCopyWith<_$SyncStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+@override
+String toString() {
+  return 'SyncState(isWorking: $isWorking, progressValue: $progressValue, lastError: $lastError, pendingCount: $pendingCount)';
 }
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SyncStateCopyWith<$Res> implements $SyncStateCopyWith<$Res> {
+  factory _$SyncStateCopyWith(_SyncState value, $Res Function(_SyncState) _then) = __$SyncStateCopyWithImpl;
+@override @useResult
+$Res call({
+ bool isWorking, double? progressValue, Exception? lastError, int pendingCount
+});
+
+
+
+
+}
+/// @nodoc
+class __$SyncStateCopyWithImpl<$Res>
+    implements _$SyncStateCopyWith<$Res> {
+  __$SyncStateCopyWithImpl(this._self, this._then);
+
+  final _SyncState _self;
+  final $Res Function(_SyncState) _then;
+
+/// Create a copy of SyncState
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? isWorking = null,Object? progressValue = freezed,Object? lastError = freezed,Object? pendingCount = null,}) {
+  return _then(_SyncState(
+isWorking: null == isWorking ? _self.isWorking : isWorking // ignore: cast_nullable_to_non_nullable
+as bool,progressValue: freezed == progressValue ? _self.progressValue : progressValue // ignore: cast_nullable_to_non_nullable
+as double?,lastError: freezed == lastError ? _self.lastError : lastError // ignore: cast_nullable_to_non_nullable
+as Exception?,pendingCount: null == pendingCount ? _self.pendingCount : pendingCount // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+
+}
+
+// dart format on

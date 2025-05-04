@@ -9,12 +9,16 @@ part of 'session.dart';
 ServerSession _$ServerSessionFromJson(Map<String, dynamic> json) =>
     ServerSession(
       $enumDecode(_$ServerTypeEnumMap, json['type']),
-      freon: json['freon'] == null
-          ? null
-          : FreonCredentials.fromJson(json['freon'] as Map<String, dynamic>),
-      wallabag: json['wallabag'] == null
-          ? null
-          : Credentials.fromJson(json['wallabag'] as Map<String, dynamic>),
+      freon:
+          json['freon'] == null
+              ? null
+              : FreonCredentials.fromJson(
+                json['freon'] as Map<String, dynamic>,
+              ),
+      wallabag:
+          json['wallabag'] == null
+              ? null
+              : Credentials.fromJson(json['wallabag'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$ServerSessionToJson(ServerSession instance) =>

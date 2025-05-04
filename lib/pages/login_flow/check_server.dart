@@ -85,8 +85,9 @@ class _LoginFlowServerState extends ConsumerState<LoginFlowServer> {
             ),
             FormBuilderCheckbox(
               name: 'selfSigned',
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: kSpacingBetweenGroups),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: kSpacingBetweenGroups,
+              ),
               title: Text(context.L.login_acceptSelfSigned),
               onChanged: (_) {
                 if (flowState is FSChecked) {
@@ -116,19 +117,25 @@ class _LoginFlowServerState extends ConsumerState<LoginFlowServer> {
   }
 
   String? _serverValidator(String? value) {
-    var emptyCheck =
-        notEmptyValidator(context, value, context.L.server_address);
+    var emptyCheck = notEmptyValidator(
+      context,
+      value,
+      context.L.server_address,
+    );
     if (emptyCheck != null) return emptyCheck;
 
-    return ref.read(serverLoginFlowProvider).maybeWhen(
-        checked: (check) => switch (check.errorKind) {
-              ServerCheckErrorKind.invalidUrl => context.L.server_invalidUrl,
-              ServerCheckErrorKind.unreachable => context.L.server_unreachable,
-              ServerCheckErrorKind.apiError => context.L.server_apiError,
-              ServerCheckErrorKind.unknown => '? ${check.error}',
-              _ => null,
-            },
-        orElse: () => null);
+    final flowState = ref.read(serverLoginFlowProvider);
+    if (flowState is FSChecked) {
+      final check = flowState.check;
+      return switch (check.errorKind) {
+        ServerCheckErrorKind.invalidUrl => context.L.server_invalidUrl,
+        ServerCheckErrorKind.unreachable => context.L.server_unreachable,
+        ServerCheckErrorKind.apiError => context.L.server_apiError,
+        ServerCheckErrorKind.unknown => '? ${check.error}',
+        null => null,
+      };
+    }
+    return null;
   }
 
   void _validateAndCheck() {

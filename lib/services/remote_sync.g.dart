@@ -12,13 +12,15 @@ String _$remoteSyncerHash() => r'45fa3188d649111603fffc2953daaac4718bb7a8';
 @ProviderFor(RemoteSyncer)
 final remoteSyncerProvider =
     AutoDisposeNotifierProvider<RemoteSyncer, SyncState>.internal(
-  RemoteSyncer.new,
-  name: r'remoteSyncerProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$remoteSyncerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+      RemoteSyncer.new,
+      name: r'remoteSyncerProvider',
+      debugGetCreateSourceHash:
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$remoteSyncerHash,
+      dependencies: null,
+      allTransitiveDependencies: null,
+    );
 
 typedef _$RemoteSyncer = AutoDisposeNotifier<SyncState>;
 // ignore_for_file: type=lint

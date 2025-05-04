@@ -14,8 +14,9 @@ WallabagAnnotation _$WallabagAnnotationFromJson(Map<String, dynamic> json) =>
       DateTime.parse(json['updated_at'] as String),
       json['quote'] as String?,
       (json['ranges'] as List<dynamic>)
-          .map((e) =>
-              WallabagAnnotationRange.fromJson(e as Map<String, dynamic>))
+          .map(
+            (e) => WallabagAnnotationRange.fromJson(e as Map<String, dynamic>),
+          )
           .toList(),
       json['text'] as String,
       json['user'] as String?,
@@ -34,19 +35,19 @@ Map<String, dynamic> _$WallabagAnnotationToJson(WallabagAnnotation instance) =>
     };
 
 WallabagAnnotationRange _$WallabagAnnotationRangeFromJson(
-        Map<String, dynamic> json) =>
-    WallabagAnnotationRange(
-      json['start'] as String?,
-      json['end'] as String?,
-      _magicInt(json['start_offset']),
-      _magicInt(json['end_offset']),
-    );
+  Map<String, dynamic> json,
+) => WallabagAnnotationRange(
+  json['start'] as String?,
+  json['end'] as String?,
+  _magicInt(json['start_offset']),
+  _magicInt(json['end_offset']),
+);
 
 Map<String, dynamic> _$WallabagAnnotationRangeToJson(
-        WallabagAnnotationRange instance) =>
-    <String, dynamic>{
-      'start': instance.start,
-      'end': instance.end,
-      'start_offset': instance.startOffset,
-      'end_offset': instance.endOffset,
-    };
+  WallabagAnnotationRange instance,
+) => <String, dynamic>{
+  'start': instance.start,
+  'end': instance.end,
+  'start_offset': instance.startOffset,
+  'end_offset': instance.endOffset,
+};
