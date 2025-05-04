@@ -31,7 +31,6 @@ dependencies:
   flutter_svg: 2.1.0
   freezed_annotation: 3.0.0
   go_router: 15.1.1
-  intl: 0.19.0 # TODO relax constraint after migrating to 0.20
   l10n_esperanto: 2.0.12
   logging: 1.3.0
   path_provider: 2.1.5

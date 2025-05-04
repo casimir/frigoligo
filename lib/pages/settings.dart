@@ -228,7 +228,7 @@ class SettingsPage extends ConsumerWidget {
               if (nativeArticleRendererSupported)
                 SettingsTile.switchTile(
                   leading: const Icon(Icons.settings_suggest),
-                  title: Text(context.L.settings_useNativeArticleRenderer),
+                  title: Text(context.L.settings_nativeArticleRenderer),
                   initialValue: settings[Sk.nativeArticleRenderer],
                   onToggle: (value) => ref
                       .read(settingsProvider.notifier)

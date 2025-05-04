@@ -534,8 +534,8 @@
   "@settings_title": {
     "description": "The title of the settings screen."
   },
-  "settings_useNativeArticleRenderer": "Use native article renderer",
-  "@settings_useNativeArticleRenderer": {
+  "settings_nativeArticleRenderer": "Native article renderer",
+  "@settings_nativeArticleRenderer": {
     "description": "The action to toggle the use of the experimental article renderer."
   },
   "settings_valueThemeDark": "Dark",
