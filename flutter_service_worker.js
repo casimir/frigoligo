@@ -96,13 +96,13 @@ const RESOURCES = {"sqlite3.wasm": "6e708130032b52581faf9fd49d822dde",
 "canvaskit/skwasm_st.js.symbols": "c7e7aac7cd8b612defd62b43e3050bdd",
 "index.html": "6058897460d6c039ae26a0dcf0298bed",
 "/": "6058897460d6c039ae26a0dcf0298bed",
-"flutter_bootstrap.js": "ce28abc2229a7cf8946b4ac9cde251cf",
+"flutter_bootstrap.js": "9ca131909e3a40b832eebbf5b867e9b2",
 "icons/Icon-192.png": "5ceb44e3d084c82d521754febd44b407",
 "icons/Icon-maskable-192.png": "b3b7b3c64c29505b30f9fe92b0eae501",
 "icons/Icon-maskable-512.png": "8f17a5f3a1945887358e3a610e65ca85",
 "icons/Icon-512.png": "6fc41aeb52e640205bddb9618322684b",
 "favicon.png": "bd2ffdc623d7cedcc6df7e716746dd8e",
-"main.dart.js": "d97d5f65ffd9af7b6af4097b0b8e5c1b",
+"main.dart.js": "8a94215a2791641ca8ee38f723216310",
 "drift_worker.js": "d41d8cd98f00b204e9800998ecf8427e"};
 // The application shell files that are downloaded before a service worker can
 // start.
