@@ -8,6 +8,15 @@
   ],
   "packageRules": [
     {
+      "groupName": "drift",
+      "matchManagers": [
+        "pub"
+      ],
+      "matchPackageNames": [
+        "drift*"
+      ]
+    },
+    {
       "groupName": "freezed",
       "matchManagers": [
         "pub"
