@@ -394,7 +394,7 @@
   "@readdingsettings_textFormatting": {
     "description": "The text formatting to display the content of the article."
   },
-  "readingsettings_title": "Configurações de leitura",
+  "readingsettings_title": "Configurações de texto",
   "@readingsettings_title": {
     "description": "The title of the reading settings screen."
   },
@@ -470,5 +470,41 @@
   "settings_title": "Configurações",
   "@settings_title": {
     "description": "The title of the settings screen."
+  },
+  "article_refetchContent": "Buscar conteúdo novamente",
+  "@article_refetchContent": {
+    "description": "The action to ask the server to fetch the article content again."
+  },
+  "article_archive": "Arquivar esse artigo",
+  "@article_archive": {
+    "description": "The action to archive the article."
+  },
+  "article_details": "Mais informações",
+  "@article_details": {
+    "description": "The action to show the article details."
+  },
+  "article_notFound": "Artigo não encontrado",
+  "@article_notFound": {
+    "description": "Placeholder for when the article is not found."
+  },
+  "article_share": "Compartilhar esse artigo",
+  "@article_share": {
+    "description": "The action to share the article."
+  },
+  "article_star": "Favoritar esse artigo",
+  "@article_star": {
+    "description": "The action to star the article."
+  },
+  "article_unarchive": "Desarquivar esse artigo",
+  "@article_unarchive": {
+    "description": "The action to unarchive the article."
+  },
+  "article_unstar": "Desfavoritar esse artigo",
+  "@article_unstar": {
+    "description": "The action to unstar the article."
+  },
+  "article_readingSettings": "Configurações de texto",
+  "@article_readingSettings": {
+    "description": "The action to open the reading settings sheet."
   }
 }
