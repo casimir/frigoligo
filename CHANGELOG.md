@@ -17,6 +17,8 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Prevent a race condition on listing initialization ([2176265](https://github.com/casimir/frigoligo/commit/2176265301fa24e972871c5df9bcf3c68e393a89))
 - Bump cadanse to get the fix for the navbar issue (bis) ([41fc6ce](https://github.com/casimir/frigoligo/commit/41fc6ce48b5b0753c2adea41513a80e6d24819a4))
 - *(iOS)* Remove translucent navigation bar when saving an article ([dad58a1](https://github.com/casimir/frigoligo/commit/dad58a1d781e9273c879f64924b0719fb02b89b4))
+- *(deps)* Update dependency shared_preferences to v2.5.3 ([#321](https://github.com/casimir/frigoligo/pull/321)) ([6adb005](https://github.com/casimir/frigoligo/commit/6adb0050f3c870633b5c0c8830d178b830c195e2))
+- Avoid crash on web when loading the app ([344ad88](https://github.com/casimir/frigoligo/commit/344ad88848ffe062220966f57ff695d2d003a813))
 
 ### 🚜 Refactor
 
@@ -50,6 +52,10 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(fastlane)* Add missing metadata for Italian ([969597f](https://github.com/casimir/frigoligo/commit/969597fbcf41bb52bc3f3a71f6ce2df7d9b43db2))
 - *(i18n)* Adjust some translations ([65654ce](https://github.com/casimir/frigoligo/commit/65654ce6d8943bcabb62e225a3f5457465516b75))
 - *(i18n)* Add newly translated languages ([a176a0b](https://github.com/casimir/frigoligo/commit/a176a0be2c623d30426547e2449c626850857e7a))
+
+### I18n
+
+- Adjust a wording ([86222a5](https://github.com/casimir/frigoligo/commit/86222a5f179fb455d7ed9086f3a7d78e7b87de8d))
 
 **Full Changelog**: [v2.4.0..HEAD](https://github.com/casimir/frigoligo/compare/v2.4.0..HEAD)
 
