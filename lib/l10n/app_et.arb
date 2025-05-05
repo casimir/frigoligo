@@ -536,5 +536,9 @@
   "article_unarchive": "Eemalda see artikkel arhiivist",
   "@article_unarchive": {
     "description": "The action to unarchive the article."
+  },
+  "settings_nativeArticleRenderer": "Rakendusesisene artiklite esitusvalmendus",
+  "@settings_nativeArticleRenderer": {
+    "description": "The action to toggle the use of the experimental article renderer."
   }
 }
