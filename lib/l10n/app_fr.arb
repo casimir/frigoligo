@@ -506,5 +506,9 @@
   "article_archive": "Archiver l'article",
   "@article_archive": {
     "description": "The action to archive the article."
+  },
+  "settings_nativeArticleRenderer": "Moteur de rendu d'article natif",
+  "@settings_nativeArticleRenderer": {
+    "description": "The action to toggle the use of the experimental article renderer."
   }
 }

@@ -201,7 +201,7 @@
   "@server_apiError": {
     "description": "An error occurred while communicating with the wallabag API."
   },
-  "readingsettings_title": "Настройки чтения",
+  "readingsettings_title": "Настройки текста",
   "@readingsettings_title": {
     "description": "The title of the reading settings screen."
   },
@@ -502,5 +502,37 @@
   "article_refetchContent": "Перезагрузить контент",
   "@article_refetchContent": {
     "description": "The action to ask the server to fetch the article content again."
+  },
+  "article_archive": "Поместить статью в архив",
+  "@article_archive": {
+    "description": "The action to archive the article."
+  },
+  "article_details": "Больше информации",
+  "@article_details": {
+    "description": "The action to show the article details."
+  },
+  "article_readingSettings": "Текстовые настройки",
+  "@article_readingSettings": {
+    "description": "The action to open the reading settings sheet."
+  },
+  "article_star": "Пометить эту статью",
+  "@article_star": {
+    "description": "The action to star the article."
+  },
+  "article_unarchive": "Вернуть статью из архива",
+  "@article_unarchive": {
+    "description": "The action to unarchive the article."
+  },
+  "article_unstar": "Снять отметку с этой статьи",
+  "@article_unstar": {
+    "description": "The action to unstar the article."
+  },
+  "article_notFound": "Статья не найдена",
+  "@article_notFound": {
+    "description": "Placeholder for when the article is not found."
+  },
+  "article_share": "Поделиться этой статьёй",
+  "@article_share": {
+    "description": "The action to share the article."
   }
 }

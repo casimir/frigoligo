@@ -217,7 +217,7 @@
   "@settings_itemAbout": {
     "description": "The action to display the about screen."
   },
-  "settings_savedArticleTag": "Füge ein Schlagwort zu gespeicherten Artikeln hinzu.",
+  "settings_savedArticleTag": "Füge ein Schlagwort zu gespeicherten Artikeln hinzu",
   "@settings_savedArticleTag": {
     "description": "The action to toggle the addition of a tag to saved articles."
   },
@@ -321,7 +321,7 @@
   "@filters_articleStateUnread": {
     "description": "Filter articles with the state 'unread'."
   },
-  "filters_articleStateArchived": "Archiviert",
+  "filters_articleStateArchived": "Archivierte",
   "@filters_articleStateArchived": {
     "description": "Filter articles with the state 'archived'."
   },
@@ -373,7 +373,7 @@
   "@login_acceptSelfSigned": {
     "description": "Wether or not to accept self-signed certificates when connecting to the wallabag instance."
   },
-  "readingsettings_title": "Lese-Einstellungen",
+  "readingsettings_title": "Text-Einstellungen",
   "@readingsettings_title": {
     "description": "The title of the reading settings screen."
   },
@@ -482,5 +482,29 @@
   "article_notFound": "Artikel nicht gefunden",
   "@article_notFound": {
     "description": "Placeholder for when the article is not found."
+  },
+  "article_archive": "Titel archivieren",
+  "@article_archive": {
+    "description": "The action to archive the article."
+  },
+  "article_share": "Artikel teilen",
+  "@article_share": {
+    "description": "The action to share the article."
+  },
+  "article_star": "Artikel favorisieren",
+  "@article_star": {
+    "description": "The action to star the article."
+  },
+  "article_unarchive": "Artikel dearchivieren",
+  "@article_unarchive": {
+    "description": "The action to unarchive the article."
+  },
+  "article_readingSettings": "Texteinstellungen",
+  "@article_readingSettings": {
+    "description": "The action to open the reading settings sheet."
+  },
+  "article_unstar": "Entfernung der Favorisierung von diesem Artikel",
+  "@article_unstar": {
+    "description": "The action to unstar the article."
   }
 }

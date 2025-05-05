@@ -428,7 +428,7 @@
   "@login_existingSessionDialogTitle": {
     "description": "The title of the dialog warning about an existing session."
   },
-  "readingsettings_title": "Configuración de lectura",
+  "readingsettings_title": "Ajustes de texto",
   "@readingsettings_title": {
     "description": "The title of the reading settings screen."
   },
@@ -504,5 +504,37 @@
   "article_refetchContent": "Redescargar el contenido",
   "@article_refetchContent": {
     "description": "The action to ask the server to fetch the article content again."
+  },
+  "article_notFound": "Artículo no encontrado",
+  "@article_notFound": {
+    "description": "Placeholder for when the article is not found."
+  },
+  "article_share": "Compartir este artículo",
+  "@article_share": {
+    "description": "The action to share the article."
+  },
+  "article_star": "Añadir artículo a favoritos",
+  "@article_star": {
+    "description": "The action to star the article."
+  },
+  "article_unstar": "Eliminar de artículos favoritos",
+  "@article_unstar": {
+    "description": "The action to unstar the article."
+  },
+  "article_readingSettings": "Ajustes de texto",
+  "@article_readingSettings": {
+    "description": "The action to open the reading settings sheet."
+  },
+  "article_unarchive": "Desarchivar artículo",
+  "@article_unarchive": {
+    "description": "The action to unarchive the article."
+  },
+  "article_details": "Más información",
+  "@article_details": {
+    "description": "The action to show the article details."
+  },
+  "article_archive": "Archivar este artículo",
+  "@article_archive": {
+    "description": "The action to archive the article."
   }
 }
