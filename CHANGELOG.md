@@ -19,6 +19,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(iOS)* Remove translucent navigation bar when saving an article ([dad58a1](https://github.com/casimir/frigoligo/commit/dad58a1d781e9273c879f64924b0719fb02b89b4))
 - *(deps)* Update dependency shared_preferences to v2.5.3 ([#321](https://github.com/casimir/frigoligo/pull/321)) ([6adb005](https://github.com/casimir/frigoligo/commit/6adb0050f3c870633b5c0c8830d178b830c195e2))
 - Avoid crash on web when loading the app ([344ad88](https://github.com/casimir/frigoligo/commit/344ad88848ffe062220966f57ff695d2d003a813))
+- *(web)* Re-add and update missing assets ([766aa2d](https://github.com/casimir/frigoligo/commit/766aa2df374b8cec57c64c5f697121e718562e49))
 
 ### 🚜 Refactor
 
@@ -46,6 +47,14 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
  ([f1065c3](https://github.com/casimir/frigoligo/commit/f1065c3b5abf6961bbd0d092dbb04b1a2d66bd69))
 - Update translations: Portuguese (Portugal)
  ([ffcc491](https://github.com/casimir/frigoligo/commit/ffcc491446c285e83d676d9702aa87444b2d34d4))
+- Update translations: Portuguese (Brazil)
+ ([94108a5](https://github.com/casimir/frigoligo/commit/94108a5cbee2ac6696d56d242f5abd9bd21f4187))
+- Update translations: Russian
+ ([d253d8d](https://github.com/casimir/frigoligo/commit/d253d8d6b34772d22f6bb23abb77027291b9dfa0))
+- Update translations: Spanish
+ ([dd58354](https://github.com/casimir/frigoligo/commit/dd58354c850fb7f7ca4d7903b2edc62e56ed6301))
+- Update translations: Chinese (Simplified Han script)
+ ([fca7a70](https://github.com/casimir/frigoligo/commit/fca7a70e4b0f924b038363ef6538cb3a38475cc8))
 
 ### ⚙️ Miscellaneous Tasks
 
