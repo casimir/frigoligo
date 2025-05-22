@@ -30,8 +30,8 @@ dependencies:
   flutter_riverpod: 2.6.1
   flutter_svg: 2.1.0
   freezed_annotation: 3.0.0
-  go_router: 15.1.1
-  l10n_esperanto: 2.0.12
+  go_router: 15.1.2
+  l10n_esperanto: 2.0.13
   logging: 1.3.0
   path_provider: 2.1.5
   path_provider_foundation: any
@@ -47,7 +47,7 @@ dependencies:
   fwfh_url_launcher: 0.16.0
   google_fonts: 6.2.1
   settings_ui: 2.0.2
-  webview_flutter: 4.11.0
+  webview_flutter: 4.13.0
   webview_flutter_android: any
   webview_flutter_wkwebview: any
 
