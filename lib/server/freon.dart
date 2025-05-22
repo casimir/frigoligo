@@ -31,7 +31,7 @@ class FreonWallabagClient extends WallabagClient {
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) async {
     request.headers.addAll({
-      HttpHeaders.authorizationHeader: _credentials.apiToken,
+      HttpHeaders.authorizationHeader: 'Bearer ${_credentials.apiToken}',
       HttpHeaders.contentTypeHeader: 'application/json',
       if (userAgent != null) HttpHeaders.userAgentHeader: userAgent!,
     });
@@ -40,7 +40,8 @@ class FreonWallabagClient extends WallabagClient {
       final response = await innerClient.send(request);
       logRequest(request as http.Request);
       logger.info(
-          '${request.method} ${request.url} ${response.statusCode} (${stopwatch.elapsed.inMilliseconds} ms)');
+        '${request.method} ${request.url} ${response.statusCode} (${stopwatch.elapsed.inMilliseconds} ms)',
+      );
       return response;
     } on Exception catch (e) {
       throw ServerError.fromException(e);
@@ -48,8 +49,10 @@ class FreonWallabagClient extends WallabagClient {
   }
 
   @override
-  Future<Uri> buildUri(String path,
-      [Map<String, dynamic>? queryParameters]) async {
+  Future<Uri> buildUri(
+    String path, [
+    Map<String, dynamic>? queryParameters,
+  ]) async {
     return _credentials.server.replace(
       path: '${_credentials.server.path}/wallabag$path',
       queryParameters: queryParameters,
@@ -59,7 +62,7 @@ class FreonWallabagClient extends WallabagClient {
 
 class FreonClient {
   FreonClient(FreonCredentials credentials)
-      : wallabag = FreonWallabagClient(credentials);
+    : wallabag = FreonWallabagClient(credentials);
 
   FreonWallabagClient wallabag;
 }
