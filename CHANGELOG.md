@@ -20,6 +20,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(deps)* Update dependency shared_preferences to v2.5.3 ([#321](https://github.com/casimir/frigoligo/pull/321)) ([6adb005](https://github.com/casimir/frigoligo/commit/6adb0050f3c870633b5c0c8830d178b830c195e2))
 - Avoid crash on web when loading the app ([344ad88](https://github.com/casimir/frigoligo/commit/344ad88848ffe062220966f57ff695d2d003a813))
 - *(web)* Re-add and update missing assets ([766aa2d](https://github.com/casimir/frigoligo/commit/766aa2df374b8cec57c64c5f697121e718562e49))
+- *(freon)* Migrate to a standard Bearer Token authentication ([53895fb](https://github.com/casimir/frigoligo/commit/53895fb18d5d70691ade4648fbe9eee2c0f81ca4))
 
 ### 🚜 Refactor
 
