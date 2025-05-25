@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:l10n_esperanto/l10n_esperanto.dart';
 import 'package:logging/logging.dart';
@@ -21,6 +19,7 @@ import 'providers/background_sync.dart';
 import 'providers/router.dart';
 import 'providers/settings.dart';
 import 'providers/tools/observer.dart';
+import 'src/generated/i18n/app_localizations.dart';
 
 Future<void> main() async {
   final log = Logger('main');
@@ -36,7 +35,7 @@ Future<void> main() async {
 
   await AppBadge.init();
   await AppInfo.init();
-  if (!kIsWeb) {
+  if (!UniversalPlatform.isWeb) {
     await ArticleContentRenderer.preload();
   }
   await Settings.init();
@@ -48,12 +47,12 @@ Future<void> main() async {
     log.info('os version:  ${Platform.operatingSystemVersion}');
   }
 
-  runApp(const ProviderScope(
-    observers: [
-      if (enableDebugLogs) RiverpodObserver(),
-    ],
-    child: MyApp(),
-  ));
+  runApp(
+    const ProviderScope(
+      observers: [if (enableDebugLogs) RiverpodObserver()],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends ConsumerStatefulWidget {
@@ -72,8 +71,10 @@ class _MyAppState extends ConsumerState<MyApp> {
 
     final router = ref.read(routerProvider);
 
-    _deeplinksSubscription =
-        LinksHandler.listen(router.configuration, (linkType, uri) {
+    _deeplinksSubscription = LinksHandler.listen(router.configuration, (
+      linkType,
+      uri,
+    ) {
       if (linkType != Deeplink.invalid) {
         router.go(uri.toString());
       }
@@ -95,7 +96,8 @@ class _MyAppState extends ConsumerState<MyApp> {
       darkTheme: ThemeData(colorScheme: schemeDark, useMaterial3: true),
       themeMode: theme,
       locale: lang.locale,
-      localizationsDelegates: AppLocalizations.localizationsDelegates +
+      localizationsDelegates:
+          AppLocalizations.localizationsDelegates +
           const [
             MaterialLocalizationsEo.delegate,
             CupertinoLocalizationsEo.delegate,
