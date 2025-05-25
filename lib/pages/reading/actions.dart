@@ -104,17 +104,11 @@ List<Widget> buildActions(
     ArticleActionKey.details: ArticleAction(
       icon: C(context).icons.info,
       label: context.L.article_details,
-      onPressed:
-          () => showModalSheet(
-            context: context,
-            title: context.L.g_article,
-            builder: (_) => const ArticleSheet(),
-            // TODO(Flutter 3.30): remove the platform override
-            // There is a bug in the modal sheet implementation for iOS that has been
-            // fixed in Flutter 3.30 but this is still in beta.
-            // See https://github.com/flutter/flutter/pull/162481
-            platformOverride: isIOS ? TargetPlatform.android : null,
-          ),
+      onPressed: () => showModalSheet(
+        context: context,
+        title: context.L.g_article,
+        builder: (_) => const ArticleSheet(),
+      ),
     ),
     ArticleActionKey.openInBrowser: ArticleAction(
       icon: Icons.open_in_browser,
