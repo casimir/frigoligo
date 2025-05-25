@@ -59,7 +59,6 @@ List<Widget> buildActions(
 ) {
   if (article == null) return [];
 
-  final isIOS = Theme.of(context).platform == TargetPlatform.iOS;
   final popupMenuKey = GlobalKey();
 
   final Map<ArticleActionKey, ArticleAction> actions = {
@@ -104,11 +103,12 @@ List<Widget> buildActions(
     ArticleActionKey.details: ArticleAction(
       icon: C(context).icons.info,
       label: context.L.article_details,
-      onPressed: () => showModalSheet(
-        context: context,
-        title: context.L.g_article,
-        builder: (_) => const ArticleSheet(),
-      ),
+      onPressed:
+          () => showModalSheet(
+            context: context,
+            title: context.L.g_article,
+            builder: (_) => Material(child: const ArticleSheet()),
+          ),
     ),
     ArticleActionKey.openInBrowser: ArticleAction(
       icon: Icons.open_in_browser,
