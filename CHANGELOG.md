@@ -10,6 +10,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 ### 🚀 Features
 
 - *(reading)* Rework the arrangement of the toolbars ([#338](https://github.com/casimir/frigoligo/pull/338)) ([df32078](https://github.com/casimir/frigoligo/commit/df32078cc20021d8e9f3cd48e9a0ae0d2d8d06cd))
+- *(iOS)* Use native-like modal sheet for article details ([27929d1](https://github.com/casimir/frigoligo/commit/27929d128fc2310e826d8ea92173f5ae13ac6182))
 
 ### 🐛 Bug Fixes
 
@@ -21,6 +22,9 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Avoid crash on web when loading the app ([344ad88](https://github.com/casimir/frigoligo/commit/344ad88848ffe062220966f57ff695d2d003a813))
 - *(web)* Re-add and update missing assets ([766aa2d](https://github.com/casimir/frigoligo/commit/766aa2df374b8cec57c64c5f697121e718562e49))
 - *(freon)* Migrate to a standard Bearer Token authentication ([53895fb](https://github.com/casimir/frigoligo/commit/53895fb18d5d70691ade4648fbe9eee2c0f81ca4))
+- *(android)* Don't restrict JVM memory when building ([e46f096](https://github.com/casimir/frigoligo/commit/e46f096c0b71cf509b316d2723d63dbc93c453e6))
+- *(android)* Allocate more memory to the JVM when building ([cbeca1c](https://github.com/casimir/frigoligo/commit/cbeca1cbf506ba30023ce9ddf7eb251d9318f2e3))
+- ArticleSheet tweaks for iOS ([21b0fce](https://github.com/casimir/frigoligo/commit/21b0fcee50613ae1ddac09ec59f941a6f974e12c))
 
 ### 🚜 Refactor
 
