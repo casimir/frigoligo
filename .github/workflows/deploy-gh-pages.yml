@@ -18,6 +18,7 @@ jobs:
       - run: flutter config --no-analytics
       - run: flutter pub get
       - run: flutter build web --base-href "/frigoligo/" --source-maps
+      - run: cp -R lib/ build/web/lib/
       - run: mv build/web/ public
       - uses: peaceiris/actions-gh-pages@v4
         with:
