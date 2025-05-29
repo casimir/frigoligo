@@ -1,7 +1,0 @@
-CREATE TABLE remote_actions (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  created_at DATETIME NOT NULL,
-  "key" INTEGER NOT NULL,
-  class_name TEXT NOT NULL,
-  json_params TEXT NOT NULL
-);
