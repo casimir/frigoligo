@@ -17,10 +17,7 @@ jobs:
           cache: true
       - run: flutter config --no-analytics
       - run: flutter pub get
-      - run: flutter build web --base-href "/frigoligo/" --source-maps
-      - run: 'sed -i "s|\"sourceRoot\": \"\"|\"sourceRoot\": \"/frigoligo/_src/\"|" build/web/main.dart.js.map'
-      - run: 'sed -i "s|../../../lib/||" build/web/main.dart.js.map'
-      - run: cp -R lib/ build/web/_src/
+      - run: flutter build web --base-href "/frigoligo/"
       - run: mv build/web/ public
       - uses: peaceiris/actions-gh-pages@v4
         with:
