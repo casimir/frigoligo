@@ -1,0 +1,514 @@
+{
+  "g_server": "Serveur",
+  "@g_server": {
+    "description": "A server, as in a computer providing a service."
+  },
+  "article_noContentFetched": "Aucun contenu récupéré",
+  "@article_noContentFetched": {
+    "description": "Placeholder for when the article content is not available."
+  },
+  "g_checking": "Vérification…",
+  "@g_checking": {
+    "description": "Present participle of the verb to check."
+  },
+  "article_openInBrowser": "Ouvrir dans le navigateur",
+  "@article_openInBrowser": {
+    "description": "The action to open the article in the web browser."
+  },
+  "humanize_days": "{n, plural, =0{0 jour} =1{1 jour} other{{n} jours}}",
+  "@humanize_days": {},
+  "filters_articleTags": "Labels",
+  "@filters_articleTags": {
+    "description": "The tags attached to the article."
+  },
+  "humanize_hours": "{n, plural, =0{0 heure} =1{1 heure} other{{n} heures}}",
+  "@humanize_hours": {},
+  "g_share": "Partager",
+  "@g_share": {
+    "description": "A verb, as in to share something."
+  },
+  "humanize_seconds": "{n, plural, =0{0 seconde} =1{1 seconde} other{{n} secondes}}",
+  "@humanize_seconds": {},
+  "humanize_minutes": "{n, plural, =0{0 minute} =1{1 minute} other{{n} minutes}}",
+  "@humanize_minutes": {},
+  "g_check": "Vérifier",
+  "@g_check": {
+    "description": "A verb as in to check something."
+  },
+  "article_addTags": "Ajouter des labels",
+  "@article_addTags": {
+    "description": "The action to add tags to an article."
+  },
+  "g_tag": "Label",
+  "@g_tag": {
+    "description": "A tag can be attached to an article."
+  },
+  "article_delete": "Supprimer l'article",
+  "@article_delete": {
+    "description": "The action to delete the article."
+  },
+  "article_readingTime": "{minutes} min",
+  "@article_readingTime": {
+    "description": "The estimated reading time of the article.",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "g_delete": "Supprimer",
+  "@g_delete": {
+    "description": "A verb, as in to delete something."
+  },
+  "article_browseOriginal": "Ouvrir l'original",
+  "@article_browseOriginal": {
+    "description": "The action to open the URL of the article in the web browser."
+  },
+  "humanize_past": "il y a {duration}",
+  "@humanize_past": {
+    "description": "Describe a duration since a moment in the past.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "humanize_future": "dans {duration}",
+  "@humanize_future": {
+    "description": "Describe a duration until a moment in the future.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "syncer_pendingActions": "{count, plural, =1{1 action} other{{count} actions}}",
+  "@syncer_pendingActions": {
+    "description": "Number of pending actions in the RemoteSyncer queue.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "session_title": "Détails de la session",
+  "@session_title": {
+    "description": "The title of the session details screen."
+  },
+  "save_viewArticle": "Voir l'article",
+  "@save_viewArticle": {
+    "description": "The action to view the article after it is saved."
+  },
+  "server_emptyField": "Entrez votre {label}",
+  "@server_emptyField": {
+    "description": "A message for non-empty check fail on a form field.",
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "save_confirmationTitle": "Article sauvegardé !",
+  "@save_confirmationTitle": {
+    "description": "The title of the confirmation screen after the article is saved. "
+  },
+  "server_unreachable": "Serveur injoignable",
+  "@server_unreachable": {
+    "description": "The Wallabag instance is unreachable."
+  },
+  "settings_itemOpenDeeplink": "Ouvrir un lien profond",
+  "@settings_itemOpenDeeplink": {
+    "description": "The action to open a deep link."
+  },
+  "session_logoutDialogMessage": "Vous devrez vous reconnecter.",
+  "@session_logoutDialogMessage": {
+    "description": "The message of the confirmation dialog to log out."
+  },
+  "save_title": "Sauvegarder l'article",
+  "@save_title": {
+    "description": "The title of the save screen."
+  },
+  "settings_itemLogConsole": "Console de journalisation",
+  "@settings_itemLogConsole": {
+    "description": "The action to display the log console screen."
+  },
+  "save_dubiousUrlMessage": "Cette URL à l'air invalide. Sauvegarder quand même ?\n{url}",
+  "@save_dubiousUrlMessage": {
+    "description": "The message of the dubious URL warning dialog.",
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "login_existingSessionDialogConfirm": "Déconnexion",
+  "@login_existingSessionDialogConfirm": {
+    "description": "The action to log out from the existing session."
+  },
+  "listing_noArticles": "Aucun article",
+  "@listing_noArticles": {
+    "description": "Placeholder for when there are no articles to display."
+  },
+  "session_copiedToClipboard": "Copié dans le presse-papier",
+  "@session_copiedToClipboard": {
+    "description": "A message displayed when the value is copied to the clipboard."
+  },
+  "server_address": "Adresse du serveur",
+  "@server_address": {
+    "description": "The address of the Wallabag instance."
+  },
+  "session_fieldTokenExpiration": "Expiration du token",
+  "@session_fieldTokenExpiration": {
+    "description": "The label of the token expiration field in the session screen."
+  },
+  "settings_itemClearCache": "Nettoyer le cache",
+  "@settings_itemClearCache": {
+    "description": "The action to clear the offline cache."
+  },
+  "session_neverSynced": "jamais",
+  "@session_neverSynced": {
+    "description": "Default value for the last sync time."
+  },
+  "login_existingSessionDialogTitle": "Une session est active",
+  "@login_existingSessionDialogTitle": {
+    "description": "The title of the dialog warning about an existing session."
+  },
+  "server_apiError": "Réponse de l'API invalide",
+  "@server_apiError": {
+    "description": "An error occurred while communicating with the Wallabag API."
+  },
+  "session_fieldLastServerSync": "Dernière synchronisation avec le serveur",
+  "@session_fieldLastServerSync": {
+    "description": "The label of the last server sync field in the session screen."
+  },
+  "settings_title": "Réglages",
+  "@settings_title": {
+    "description": "The title of the settings screen."
+  },
+  "login_fieldClientSecret": "Clef secrète",
+  "@login_fieldClientSecret": {
+    "description": "The client secret field of the login form."
+  },
+  "session_fieldAccessToken": "Jeton d'accès",
+  "@session_fieldAccessToken": {
+    "description": "The label of the access token field in the session screen."
+  },
+  "session_invalidToken": "invalide",
+  "@session_invalidToken": {
+    "description": "Placeholder for expiration date when the token is invalid."
+  },
+  "session_logoutSession": "Déconnecter la session",
+  "@session_logoutSession": {
+    "description": "The action to log out the session."
+  },
+  "settings_itemAppearance": "Apparence",
+  "@settings_itemAppearance": {
+    "description": "Settings for the appearance of the application."
+  },
+  "save_dubiousUrlConfirm": "Sauvegarder",
+  "@save_dubiousUrlConfirm": {
+    "description": "The confirmation button of the dubious URL warning dialog."
+  },
+  "settings_itemSessionDetails": "Détails de la session",
+  "@settings_itemSessionDetails": {
+    "description": "The action to display the session details screen."
+  },
+  "login_fieldPassword": "Mot de passe",
+  "@login_fieldPassword": {
+    "description": "The password field of the login form."
+  },
+  "session_logoutDialogTitle": "Déconnecter la session",
+  "@session_logoutDialogTitle": {
+    "description": "The title of the confirmation dialog to log out."
+  },
+  "settings_savedArticleTagLabel": "Label automatique la sauvegarde",
+  "@settings_savedArticleTagLabel": {
+    "description": "The label of the tag to add to saved articles."
+  },
+  "login_fieldUsername": "Nom d'utilisateur",
+  "@login_fieldUsername": {
+    "description": "The username field of the login form."
+  },
+  "session_renewDialogMessage": "Le serveur refuse le jeton de session actuel. Vous devrez vous connecter à nouveau pour reprendre la synchronisation.",
+  "@session_renewDialogMessage": {
+    "description": "The message of the confirmation dialog to renew the session."
+  },
+  "session_logoutDialogConfirm": "Déconnexion",
+  "@session_logoutDialogConfirm": {
+    "description": "Confirm the log out from the confirmation dialog."
+  },
+  "settings_itemAbout": "À propos",
+  "@settings_itemAbout": {
+    "description": "The action to display the about screen."
+  },
+  "settings_savedArticleTag": "Ajouter un label en sauvegardant",
+  "@settings_savedArticleTag": {
+    "description": "The action to toggle the addition of a tag to saved articles."
+  },
+  "login_actionLogin": "Connexion",
+  "@login_actionLogin": {
+    "description": "The action to log in."
+  },
+  "save_dubiousUrlTitle": "URL anormale",
+  "@save_dubiousUrlTitle": {
+    "description": "The title of the dubious URL warning dialog."
+  },
+  "save_noUrl": "Aucune URL fournie",
+  "@save_noUrl": {
+    "description": "The URL was missing from the save request."
+  },
+  "login_existingSessionDialogMessage": "Voulez-vous vous déconnecter de la session courante et en ouvrir une nouvelle ?",
+  "@login_existingSessionDialogMessage": {
+    "description": "The message of the dialog warning about an existing session."
+  },
+  "settings_clearCacheMessage": "Le cache local sera supprimé et récupéré à nouveau depuis le serveur.",
+  "@settings_clearCacheMessage": {
+    "description": "The message of the confirmation dialog to clear the cache."
+  },
+  "logconsole_title": "Console de journalisation",
+  "@logconsole_title": {
+    "description": "The title of the log console screen."
+  },
+  "session_renewDialogTitle": "Renouveler la session",
+  "@session_renewDialogTitle": {
+    "description": "The title of the confirmation dialog to renew the session."
+  },
+  "login_openLogConsole": "Ouvrir la console de journalisation",
+  "@login_openLogConsole": {
+    "description": "The action to open the log console."
+  },
+  "server_invalidUrl": "Adresse invalide",
+  "@server_invalidUrl": {
+    "description": "The address of the Wallabag instance is invalid."
+  },
+  "login_fieldClientId": "ID client",
+  "@login_fieldClientId": {
+    "description": "The client ID field of the login form."
+  },
+  "settings_itemAppBadge": "Afficher le badge « non-lus »",
+  "@settings_itemAppBadge": {
+    "description": "The action to toggle the unread badge on the application icon."
+  },
+  "session_forceTokenResfresh": "Rafraîchir le jeton",
+  "@session_forceTokenResfresh": {
+    "description": "The action to force a token refresh."
+  },
+  "g_system": "Système",
+  "@g_system": {},
+  "settings_itemLanguage": "Langue",
+  "@settings_itemLanguage": {
+    "description": "The action to change the language of the application."
+  },
+  "settings_valueThemeDark": "Sombre",
+  "@settings_valueThemeDark": {
+    "description": "The label for the dark theme mode."
+  },
+  "settings_valueThemeLight": "Clair",
+  "@settings_valueThemeLight": {
+    "description": "The label for the light theme mode."
+  },
+  "g_search": "Rechercher",
+  "@g_search": {
+    "description": "A verb, as in to search something."
+  },
+  "filters_articleFavoriteStarred": "Favori",
+  "@filters_articleFavoriteStarred": {
+    "description": "Filter starred articles."
+  },
+  "filters_articleStateArchived": "Archivé",
+  "@filters_articleStateArchived": {
+    "description": "Filter articles with the state 'archived'."
+  },
+  "filters_articleStateAll": "Tous les statuts",
+  "@filters_articleStateAll": {
+    "description": "Don't filter articles by state."
+  },
+  "listing_articlesArchived": "Articles archivés",
+  "@listing_articlesArchived": {
+    "description": "The title for the list of the articles with the state Archived."
+  },
+  "listing_articlesUnread": "Articles non-lus",
+  "@listing_articlesUnread": {
+    "description": "The title for the list of the articles with the state Unread."
+  },
+  "filters_articleStateUnread": "Non-lu",
+  "@filters_articleStateUnread": {
+    "description": "Filter articles with the state 'unread'."
+  },
+  "listing_articlesAll": "Tous les articles",
+  "@listing_articlesAll": {
+    "description": "The title for the list of all the articles."
+  },
+  "readingsettings_fontFamily": "Famille de police",
+  "@readingsettings_fontFamily": {
+    "description": "The font family to display the content of the article."
+  },
+  "readingsettings_fontSize": "Taille de police",
+  "@readingsettings_fontSize": {
+    "description": "The font size to display the content of the article."
+  },
+  "readdingsettings_textFormatting": "Formatage du texte",
+  "@readdingsettings_textFormatting": {
+    "description": "The text formatting to display the content of the article."
+  },
+  "readingsettings_title": "Mise en page",
+  "@readingsettings_title": {
+    "description": "The title of the reading settings screen."
+  },
+  "g_version": "Version",
+  "@g_version": {
+    "description": "A version, as in the application version."
+  },
+  "g_sourceCode": "Code source",
+  "@g_sourceCode": {
+    "description": "The source code of a software."
+  },
+  "settings_bugReportLink": "Signaler un bug",
+  "@settings_bugReportLink": {
+    "description": "The action to open the bug report form."
+  },
+  "settings_helpToTranslate": "Aider à traduire",
+  "@settings_helpToTranslate": {
+    "description": "The action to open the Weblate project in a webview."
+  },
+  "session_fieldApiToken": "Jeton d’API",
+  "@session_fieldApiToken": {
+    "description": "The API token field name of in forms."
+  },
+  "login_acceptSelfSigned": "Autoriser les certificats auto-signés",
+  "@login_acceptSelfSigned": {
+    "description": "Wether or not to accept self-signed certificates when connecting to the wallabag instance."
+  },
+  "filters_articleState": "Statut",
+  "@filters_articleState": {
+    "description": "The state of the article."
+  },
+  "g_saveLink": "Enregistrer un lien",
+  "@g_saveLink": {
+    "description": "A verb, as in to save a link."
+  },
+  "filters_articleDomains": "Domaines",
+  "@filters_articleDomains": {
+    "description": "Filter the domains from where the articles have been fetched."
+  },
+  "g_settings": "Paramètres",
+  "@g_settings": {
+    "description": "The settings of the application."
+  },
+  "g_synchronize": "Synchroniser",
+  "@g_synchronize": {
+    "description": "A verb, as in to synchronize with the server."
+  },
+  "filters_searchModeAll": "Tous les champs",
+  "@filters_searchModeAll": {
+    "description": "Search text in all fields."
+  },
+  "filters_articleDomainsCount": "{count, plural, =0{Aucun domaine} =1{1 domaine} other{{count} domaines}}",
+  "@filters_articleDomainsCount": {
+    "description": "The number of articles domains used in filters.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "filters_searchModeContent": "Contenu",
+  "@filters_searchModeContent": {
+    "description": "Search text only in the content field."
+  },
+  "filters_searchModeTitle": "Titre",
+  "@filters_searchModeTitle": {
+    "description": "Search text only in the title field."
+  },
+  "selector_selectbuttonlabel": "Sélectionner {numberOfItems}",
+  "@selector_selectbuttonlabel": {
+    "description": "The label of the select button in a selector screen.",
+    "placeholders": {
+      "numberOfItems": {
+        "type": "String",
+        "example": "3 items"
+      }
+    }
+  },
+  "g_article": "Article",
+  "@g_article": {
+    "description": "A piece of content fetched from the web. This is one of the main concepts of the app."
+  },
+  "articlefields_readingTime": "Temps de lecture",
+  "@articlefields_readingTime": {
+    "description": "The estimated reading time of the article."
+  },
+  "articlefields_tags": "Labels",
+  "@articlefields_tags": {
+    "description": "The tags of the article."
+  },
+  "articlefields_title": "Titre",
+  "@articlefields_title": {
+    "description": "The title of the article."
+  },
+  "articlefields_website": "Site web",
+  "@articlefields_website": {
+    "description": "The website (domain) from where the article has been fetched."
+  },
+  "filters_articleTagsCount": "{count, plural, =0{Aucun label} =1{1 label} other{{count} labels}}",
+  "@filters_articleTagsCount": {
+    "description": "The number of tags used in filters.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "filters_searchbarHint": "Rechercher dans les articles",
+  "@filters_searchbarHint": {
+    "description": "Search bar hint in the home screen."
+  },
+  "filters_searchMode": "Mode de recherche",
+  "@filters_searchMode": {
+    "description": "The title of the search mode screen (which fields to search text into)."
+  },
+  "article_refetchContent": "Recharger le contenu",
+  "@article_refetchContent": {
+    "description": "The action to ask the server to fetch the article content again."
+  },
+  "article_notFound": "Article introuvable",
+  "@article_notFound": {
+    "description": "Placeholder for when the article is not found."
+  },
+  "article_readingSettings": "Mise en page",
+  "@article_readingSettings": {
+    "description": "The action to open the reading settings sheet."
+  },
+  "article_details": "Plus d'informations",
+  "@article_details": {
+    "description": "The action to show the article details."
+  },
+  "article_unarchive": "Désarchiver l'article",
+  "@article_unarchive": {
+    "description": "The action to unarchive the article."
+  },
+  "article_share": "Partager l'article",
+  "@article_share": {
+    "description": "The action to share the article."
+  },
+  "article_star": "Ajouter aux favoris",
+  "@article_star": {
+    "description": "The action to star the article."
+  },
+  "article_unstar": "Retirer l'article des favoris",
+  "@article_unstar": {
+    "description": "The action to unstar the article."
+  },
+  "article_archive": "Archiver l'article",
+  "@article_archive": {
+    "description": "The action to archive the article."
+  },
+  "settings_nativeArticleRenderer": "Moteur de rendu d'article natif",
+  "@settings_nativeArticleRenderer": {
+    "description": "The action to toggle the use of the experimental article renderer."
+  }
+}

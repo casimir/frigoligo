@@ -1,0 +1,508 @@
+{
+  "g_article": "கட்டுரை",
+  "@g_article": {
+    "description": "A piece of content fetched from the web. This is one of the main concepts of the app."
+  },
+  "g_check": "சரிபார்",
+  "@g_check": {
+    "description": "A verb as in to check something."
+  },
+  "g_version": "பதிப்பு",
+  "@g_version": {
+    "description": "A version, as in the application version."
+  },
+  "humanize_days": "{n, plural, =1{1 நாள்} other{{n} நாட்கள்}}",
+  "@humanize_days": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "humanize_minutes": "{n, plural, =1{1 நிமிடம்} other{{n} நிமிடங்கள்}}",
+  "@humanize_minutes": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "article_browseOriginal": "அசலை உலாவுக",
+  "@article_browseOriginal": {
+    "description": "The action to open the URL of the article in the web browser."
+  },
+  "filters_articleFavoriteStarred": "நடித்தார்",
+  "@filters_articleFavoriteStarred": {
+    "description": "Filter starred articles."
+  },
+  "filters_articleTagsCount": "{count, plural, =1{1 குறிச்சொல்} other{{count} குறிச்சொற்கள்}}",
+  "@filters_articleTagsCount": {
+    "description": "The number of tags used in filters.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "filters_searchModeAll": "அனைத்து புலங்களும்",
+  "@filters_searchModeAll": {
+    "description": "Search text in all fields."
+  },
+  "login_fieldClientId": "வாங்கி ஐடி",
+  "@login_fieldClientId": {
+    "description": "The client ID field of the login form."
+  },
+  "login_fieldClientSecret": "வாங்கி மறைபொருள்",
+  "@login_fieldClientSecret": {
+    "description": "The client secret field of the login form."
+  },
+  "save_dubiousUrlTitle": "சந்தேகத்திற்குரிய முகவரி",
+  "@save_dubiousUrlTitle": {
+    "description": "The title of the dubious URL warning dialog."
+  },
+  "session_fieldAccessToken": "அணுகல் கிள்ளாக்கு",
+  "@session_fieldAccessToken": {
+    "description": "The label of the access token field in the session screen."
+  },
+  "session_fieldApiToken": "பநிஇ கிள்ளாக்கு",
+  "@session_fieldApiToken": {
+    "description": "The API token field name of in forms."
+  },
+  "settings_itemAbout": "பற்றி",
+  "@settings_itemAbout": {
+    "description": "The action to display the about screen."
+  },
+  "settings_itemClearCache": "தெளிவான தற்காலிக சேமிப்பு",
+  "@settings_itemClearCache": {
+    "description": "The action to clear the offline cache."
+  },
+  "settings_itemLogConsole": "பதிவு கன்சோல்",
+  "@settings_itemLogConsole": {
+    "description": "The action to display the log console screen."
+  },
+  "g_checking": "சோதனை…",
+  "@g_checking": {
+    "description": "Present participle of the verb to check."
+  },
+  "article_delete": "இந்த கட்டுரையை நீக்கு",
+  "@article_delete": {
+    "description": "The action to delete the article."
+  },
+  "article_noContentFetched": "எந்த உள்ளடக்கமும் பெறப்படவில்லை",
+  "@article_noContentFetched": {
+    "description": "Placeholder for when the article content is not available."
+  },
+  "article_openInBrowser": "உலாவியில் திற",
+  "@article_openInBrowser": {
+    "description": "The action to open the article in the web browser."
+  },
+  "article_readingTime": "{minutes} மணித்துளி",
+  "@article_readingTime": {
+    "description": "The estimated reading time of the article.",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "articlefields_readingTime": "வாசிப்பு நேரம்",
+  "@articlefields_readingTime": {
+    "description": "The estimated reading time of the article."
+  },
+  "g_delete": "நீக்கு",
+  "@g_delete": {
+    "description": "A verb, as in to delete something."
+  },
+  "g_saveLink": "இணைப்பைச் சேமிக்கவும்",
+  "@g_saveLink": {
+    "description": "A verb, as in to save a link."
+  },
+  "g_search": "தேடல்",
+  "@g_search": {
+    "description": "A verb, as in to search something."
+  },
+  "g_server": "சேவையகம்",
+  "@g_server": {
+    "description": "A server, as in a computer providing a service."
+  },
+  "g_settings": "அமைப்புகள்",
+  "@g_settings": {
+    "description": "The settings of the application."
+  },
+  "g_share": "பங்கு",
+  "@g_share": {
+    "description": "A verb, as in to share something."
+  },
+  "g_sourceCode": "மூலக் குறியீடு",
+  "@g_sourceCode": {
+    "description": "The source code of a software."
+  },
+  "g_synchronize": "ஒத்திசைக்கவும்",
+  "@g_synchronize": {
+    "description": "A verb, as in to synchronize with the server."
+  },
+  "g_system": "மண்டலம்",
+  "@g_system": {
+    "description": "A name, as in the default configuration (System configuration)."
+  },
+  "g_tag": "குறிச்சொல்",
+  "@g_tag": {
+    "description": "A tag can be attached to an article."
+  },
+  "humanize_future": "{duration} இல்",
+  "@humanize_future": {
+    "description": "Describe a duration until a moment in the future.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "humanize_hours": "{n, plural, =1{1 மணி நேரம்} other{{n} மணிநேரம்}}",
+  "@humanize_hours": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "humanize_past": "{duration} முன்பு",
+  "@humanize_past": {
+    "description": "Describe a duration since a moment in the past.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "humanize_seconds": "{n, plural, =1{1 வினாடி} other{{n} வினாடிகள்}}",
+  "@humanize_seconds": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "article_addTags": "குறிச்சொற்களைச் சேர்க்கவும்",
+  "@article_addTags": {
+    "description": "The action to add tags to an article."
+  },
+  "articlefields_tags": "குறிச்சொற்கள்",
+  "@articlefields_tags": {
+    "description": "The tags of the article."
+  },
+  "listing_articlesUnread": "படிக்காத கட்டுரைகள்",
+  "@listing_articlesUnread": {
+    "description": "The title for the list of the articles with the state Unread."
+  },
+  "login_acceptSelfSigned": "தன்வய கையொப்பமிடப்பட்ட சான்றிதழ்களை ஏற்றுக்கொள்ளுங்கள்",
+  "@login_acceptSelfSigned": {
+    "description": "Wether or not to accept self-signed certificates when connecting to the wallabag instance."
+  },
+  "login_actionLogin": "புகுபதிகை",
+  "@login_actionLogin": {
+    "description": "The action to log in."
+  },
+  "login_existingSessionDialogConfirm": "விடுபதிகை",
+  "@login_existingSessionDialogConfirm": {
+    "description": "The action to log out from the existing session."
+  },
+  "login_existingSessionDialogMessage": "தற்போதைய அமர்வில் இருந்து வெளியேறி புதிய ஒன்றைத் திறக்க விரும்புகிறீர்களா?",
+  "@login_existingSessionDialogMessage": {
+    "description": "The message of the dialog warning about an existing session."
+  },
+  "articlefields_title": "தலைப்பு",
+  "@articlefields_title": {
+    "description": "The title of the article."
+  },
+  "articlefields_website": "வலைத்தளம்",
+  "@articlefields_website": {
+    "description": "The website (domain) from where the article has been fetched."
+  },
+  "filters_articleDomains": "களங்கள்",
+  "@filters_articleDomains": {
+    "description": "Filter the domains from where the articles have been fetched."
+  },
+  "filters_articleDomainsCount": "{count, plural, =1 {1 டொமைன்} other{{count} களங்கள்}}",
+  "@filters_articleDomainsCount": {
+    "description": "The number of articles domains used in filters.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "filters_articleState": "மாநிலம்",
+  "@filters_articleState": {
+    "description": "The state of the article."
+  },
+  "filters_articleStateUnread": "படிக்காதது",
+  "@filters_articleStateUnread": {
+    "description": "Filter articles with the state 'unread'."
+  },
+  "filters_articleStateArchived": "காப்பகப்படுத்தப்பட்டது",
+  "@filters_articleStateArchived": {
+    "description": "Filter articles with the state 'archived'."
+  },
+  "filters_articleStateAll": "அனைத்து மாநிலங்களும்",
+  "@filters_articleStateAll": {
+    "description": "Don't filter articles by state."
+  },
+  "filters_articleTags": "குறிச்சொற்கள்",
+  "@filters_articleTags": {
+    "description": "Filter articles with the given tag values."
+  },
+  "filters_searchbarHint": "கட்டுரைகளில் தேடுங்கள்",
+  "@filters_searchbarHint": {
+    "description": "Search bar hint in the home screen."
+  },
+  "filters_searchMode": "தேடல் பயன்முறை",
+  "@filters_searchMode": {
+    "description": "The title of the search mode screen (which fields to search text into)."
+  },
+  "filters_searchModeContent": "உள்ளடக்கம்",
+  "@filters_searchModeContent": {
+    "description": "Search text only in the content field."
+  },
+  "filters_searchModeTitle": "தலைப்பு",
+  "@filters_searchModeTitle": {
+    "description": "Search text only in the title field."
+  },
+  "logconsole_title": "பதிவு கன்சோல்",
+  "@logconsole_title": {
+    "description": "The title of the log console screen."
+  },
+  "listing_noArticles": "கட்டுரைகள் இல்லை",
+  "@listing_noArticles": {
+    "description": "Placeholder for when there are no articles to display."
+  },
+  "listing_articlesAll": "அனைத்து கட்டுரைகளும்",
+  "@listing_articlesAll": {
+    "description": "The title for the list of all the articles."
+  },
+  "listing_articlesArchived": "காப்பகப்படுத்தப்பட்ட கட்டுரைகள்",
+  "@listing_articlesArchived": {
+    "description": "The title for the list of the articles with the state Archived."
+  },
+  "login_existingSessionDialogTitle": "ஒரு அமர்வு தற்போது செயலில் உள்ளது",
+  "@login_existingSessionDialogTitle": {
+    "description": "The title of the dialog warning about an existing session."
+  },
+  "login_fieldPassword": "கடவுச்சொல்",
+  "@login_fieldPassword": {
+    "description": "The password field of the login form."
+  },
+  "login_fieldUsername": "பயனர்பெயர்",
+  "@login_fieldUsername": {
+    "description": "The username field of the login form."
+  },
+  "login_openLogConsole": "பதிவு கன்சோலைத் திறக்கவும்",
+  "@login_openLogConsole": {
+    "description": "The action to open the log console."
+  },
+  "readingsettings_fontFamily": "எழுத்துரு குடும்பம்",
+  "@readingsettings_fontFamily": {
+    "description": "The font family to display the content of the article."
+  },
+  "readingsettings_fontSize": "எழுத்துரு அளவு",
+  "@readingsettings_fontSize": {
+    "description": "The font size to display the content of the article."
+  },
+  "readdingsettings_textFormatting": "உரை வடிவமைப்பு",
+  "@readdingsettings_textFormatting": {
+    "description": "The text formatting to display the content of the article."
+  },
+  "readingsettings_title": "அமைப்புகளைப் படித்தல்",
+  "@readingsettings_title": {
+    "description": "The title of the reading settings screen."
+  },
+  "save_confirmationTitle": "கட்டுரை சேமிக்கப்பட்டது!",
+  "@save_confirmationTitle": {
+    "description": "The title of the confirmation screen after the article is saved. "
+  },
+  "save_dubiousUrlMessage": "இந்த முகவரி ஒன்றைப் போல் இல்லை. எப்படியும் அதை சேமிக்கவா?\n {url}",
+  "@save_dubiousUrlMessage": {
+    "description": "The message of the dubious URL warning dialog.",
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "save_dubiousUrlConfirm": "அதை சேமிக்கவும்",
+  "@save_dubiousUrlConfirm": {
+    "description": "The confirmation button of the dubious URL warning dialog."
+  },
+  "save_noUrl": "முகவரி எதுவும் வழங்கப்படவில்லை",
+  "@save_noUrl": {
+    "description": "The URL was missing from the save request."
+  },
+  "save_title": "கட்டுரையை சேமிக்கவும்",
+  "@save_title": {
+    "description": "The title of the save screen."
+  },
+  "save_viewArticle": "கட்டுரையைக் காண்க",
+  "@save_viewArticle": {
+    "description": "The action to view the article after it is saved."
+  },
+  "selector_selectbuttonlabel": "{numberOfItems} என்பதைத் தேர்ந்தெடுக்கவும்",
+  "@selector_selectbuttonlabel": {
+    "description": "The label of the select button in a selector screen.",
+    "placeholders": {
+      "numberOfItems": {
+        "type": "String",
+        "example": "3 items"
+      }
+    }
+  },
+  "server_address": "சேவையக முகவரி",
+  "@server_address": {
+    "description": "The address of the wallabag instance."
+  },
+  "server_apiError": "தவறான பநிஇ பதில்",
+  "@server_apiError": {
+    "description": "An error occurred while communicating with the wallabag API."
+  },
+  "session_fieldTokenExpiration": "கிள்ளாக்கு காலாவதி",
+  "@session_fieldTokenExpiration": {
+    "description": "The label of the token expiration field in the session screen."
+  },
+  "session_forceTokenResfresh": "ஃபோர்ச் கிள்ளாக்கு புதுப்பிப்பு",
+  "@session_forceTokenResfresh": {
+    "description": "The action to force a token refresh."
+  },
+  "session_neverSynced": "ஒருபோதும்",
+  "@session_neverSynced": {
+    "description": "Default value for the last sync time."
+  },
+  "session_renewDialogMessage": "சேவையகம் தற்போதைய அமர்வு கிள்ளாக்கை மறுக்கிறது. ஒத்திசைவை மீண்டும் தொடங்க நீங்கள் மீண்டும் உள்நுழைய வேண்டும்.",
+  "@session_renewDialogMessage": {
+    "description": "The message of the confirmation dialog to renew the session."
+  },
+  "server_emptyField": "உங்கள் {label} ஐ உள்ளிடவும்",
+  "@server_emptyField": {
+    "description": "A message for non-empty check fail on a form field.",
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "session_renewDialogTitle": "புதுப்பித்தல் அமர்வு",
+  "@session_renewDialogTitle": {
+    "description": "The title of the confirmation dialog to renew the session."
+  },
+  "server_invalidUrl": "தவறான முகவரி",
+  "@server_invalidUrl": {
+    "description": "The address of the wallabag instance is invalid."
+  },
+  "server_unreachable": "சேவையகம் அணுக முடியாதது",
+  "@server_unreachable": {
+    "description": "The wallabag instance is unreachable."
+  },
+  "session_copiedToClipboard": "இடைநிலைப்பலகைக்கு நகலெடுக்கப்பட்டது",
+  "@session_copiedToClipboard": {
+    "description": "A message displayed when the value is copied to the clipboard."
+  },
+  "session_invalidToken": "செல்லுபடியாகாத",
+  "@session_invalidToken": {
+    "description": "Placeholder for expiration date when the token is invalid."
+  },
+  "session_logoutDialogConfirm": "விடுபதிகை",
+  "@session_logoutDialogConfirm": {
+    "description": "Confirm the log out from the confirmation dialog."
+  },
+  "session_logoutDialogMessage": "நீங்கள் மீண்டும் உள்நுழைய வேண்டும்.",
+  "@session_logoutDialogMessage": {
+    "description": "The message of the confirmation dialog to log out."
+  },
+  "session_logoutDialogTitle": "அமர்வு வெளியேறவும்",
+  "@session_logoutDialogTitle": {
+    "description": "The title of the confirmation dialog to log out."
+  },
+  "session_logoutSession": "அமர்வு வெளியேறவும்",
+  "@session_logoutSession": {
+    "description": "The action to log out the session."
+  },
+  "session_fieldLastServerSync": "கடைசி சேவையக ஒத்திசைவு",
+  "@session_fieldLastServerSync": {
+    "description": "The label of the last server sync field in the session screen."
+  },
+  "settings_bugReportLink": "ஒரு பிழையைப் புகாரளிக்கவும்",
+  "@settings_bugReportLink": {
+    "description": "The action to open the bug report form."
+  },
+  "settings_clearCacheMessage": "உள்ளக கேச் நீக்கப்பட்டு மீண்டும் சேவையகத்திலிருந்து பெறப்படும்.",
+  "@settings_clearCacheMessage": {
+    "description": "The message of the confirmation dialog to clear the cache."
+  },
+  "settings_itemAppearance": "தோற்றம்",
+  "@settings_itemAppearance": {
+    "description": "Settings for the appearance of the application."
+  },
+  "settings_itemAppBadge": "படிக்காத பேட்சைக் காட்டு",
+  "@settings_itemAppBadge": {
+    "description": "The action to toggle the unread badge on the application icon."
+  },
+  "settings_itemOpenDeeplink": "ஆழமான இணைப்பைத் திறக்கவும்",
+  "@settings_itemOpenDeeplink": {
+    "description": "The action to open a deep link."
+  },
+  "session_title": "அமர்வு விவரங்கள்",
+  "@session_title": {
+    "description": "The title of the session details screen."
+  },
+  "settings_itemLanguage": "மொழி",
+  "@settings_itemLanguage": {
+    "description": "The action to change the language of the application."
+  },
+  "settings_helpToTranslate": "மொழிபெயர்க்க உதவுங்கள்",
+  "@settings_helpToTranslate": {
+    "description": "The action to open the Weblate project in a webview."
+  },
+  "settings_savedArticleTag": "சேமித்த கட்டுரைகளுக்கு ஒரு குறிச்சொல்லைச் சேர்க்கவும்",
+  "@settings_savedArticleTag": {
+    "description": "The action to toggle the addition of a tag to saved articles."
+  },
+  "settings_savedArticleTagLabel": "சேமித்த கட்டுரைகளுக்கான சிட்டை",
+  "@settings_savedArticleTagLabel": {
+    "description": "The label of the tag to add to saved articles."
+  },
+  "settings_itemSessionDetails": "அமர்வு விவரங்கள்",
+  "@settings_itemSessionDetails": {
+    "description": "The action to display the session details screen."
+  },
+  "settings_title": "அமைப்புகள்",
+  "@settings_title": {
+    "description": "The title of the settings screen."
+  },
+  "settings_valueThemeDark": "இருண்ட",
+  "@settings_valueThemeDark": {
+    "description": "The label for the dark theme mode."
+  },
+  "settings_valueThemeLight": "ஒளி",
+  "@settings_valueThemeLight": {
+    "description": "The label for the light theme mode."
+  },
+  "syncer_pendingActions": "{count, plural, =1{1 செயல்} other{{count} செயல்கள்}}",
+  "@syncer_pendingActions": {
+    "description": "Number of pending actions in the RemoteSyncer queue.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "article_refetchContent": "உள்ளடக்கத்தை மீண்டும் பெறவும்",
+  "@article_refetchContent": {
+    "description": "The action to ask the server to fetch the article content again."
+  }
+}
