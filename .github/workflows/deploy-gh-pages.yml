@@ -3,6 +3,13 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      profile_mode:
+        description: 'Build in profile mode'
+        required: false
+        type: boolean
+        default: false
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -17,7 +24,13 @@ jobs:
           cache: true
       - run: flutter config --no-analytics
       - run: flutter pub get
-      - run: flutter build web --base-href "/frigoligo/"
+      - name: Build web
+        run: |
+          if [ "${{ github.event.inputs.profile_mode }}" = "true" ]; then
+            flutter build web --profile --base-href "/frigoligo/"
+          else
+            flutter build web --base-href "/frigoligo/"
+          fi
       - run: mv build/web/ public
       - uses: peaceiris/actions-gh-pages@v4
         with:
