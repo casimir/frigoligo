@@ -8,8 +8,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../db/database.dart';
 import '../db/extensions/remote_action.dart';
 import '../wallabag/client.dart';
-import 'remote_sync_actions/articles.dart';
-import 'remote_sync_actions/base.dart';
+import 'remote_sync_actions.dart';
 import 'wallabag_storage.dart';
 
 part 'remote_sync.freezed.dart';
@@ -69,8 +68,8 @@ class RemoteSyncer extends _$RemoteSyncer {
         (o) => o(
           key: action.hashCode,
           createdAt: DateTime.now(),
-          className: action.runtimeType.toString(),
-          jsonParams: jsonEncode(action.params()),
+          className: action.type.name,
+          jsonParams: jsonEncode(action.params),
         ),
       );
     }

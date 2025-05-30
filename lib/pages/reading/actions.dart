@@ -15,7 +15,7 @@ import '../../constants.dart';
 import '../../db/extensions/article.dart';
 import '../../db/models/article.drift.dart';
 import '../../services/remote_sync.dart';
-import '../../services/remote_sync_actions/articles.dart';
+import '../../services/remote_sync_actions.dart';
 import '../../widget_keys.dart';
 import '../reading_settings_configurator.dart';
 import 'article_sheet.dart';

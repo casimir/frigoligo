@@ -12,7 +12,7 @@ import '../../constants.dart';
 import '../../db/database.dart';
 import '../../db/models/article.drift.dart';
 import '../../services/remote_sync.dart';
-import '../../services/remote_sync_actions/articles.dart';
+import '../../services/remote_sync_actions.dart';
 import '../../widgets/copiable_text.dart';
 import '../../widgets/selectors.dart';
 import '../../widgets/tag_list.dart';
