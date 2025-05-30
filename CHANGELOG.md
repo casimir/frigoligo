@@ -11,6 +11,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 
 - *(reading)* Rework the arrangement of the toolbars ([#338](https://github.com/casimir/frigoligo/pull/338)) ([df32078](https://github.com/casimir/frigoligo/commit/df32078cc20021d8e9f3cd48e9a0ae0d2d8d06cd))
 - *(iOS)* Use native-like modal sheet for article details ([27929d1](https://github.com/casimir/frigoligo/commit/27929d128fc2310e826d8ea92173f5ae13ac6182))
+- *(dev)* Allow to deploy the web app in profile mode by hand ([ed2783c](https://github.com/casimir/frigoligo/commit/ed2783c0b899d241d8f240681a2d6a9bdd8394f6))
 
 ### 🐛 Bug Fixes
 
@@ -25,6 +26,10 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(android)* Don't restrict JVM memory when building ([e46f096](https://github.com/casimir/frigoligo/commit/e46f096c0b71cf509b316d2723d63dbc93c453e6))
 - *(android)* Allocate more memory to the JVM when building ([cbeca1c](https://github.com/casimir/frigoligo/commit/cbeca1cbf506ba30023ce9ddf7eb251d9318f2e3))
 - ArticleSheet tweaks for iOS ([21b0fce](https://github.com/casimir/frigoligo/commit/21b0fcee50613ae1ddac09ec59f941a6f974e12c))
+- *(dev)* Use sed linux syntax ([f67dffa](https://github.com/casimir/frigoligo/commit/f67dffaac275b58a1acb3dea8ff308d6a8122c7e))
+- *(dev)* Change source maps root ([f0f93cf](https://github.com/casimir/frigoligo/commit/f0f93cf4d07c85ecbaf14c43207c5ffce478fe0f))
+- *(dev)* Last attempt at source maps ([4ef6800](https://github.com/casimir/frigoligo/commit/4ef6800364c8d06a3a12dfe09ccb7eb598646a4b))
+- Source maps generation just doesn't work... ([c777380](https://github.com/casimir/frigoligo/commit/c777380ecdcb7df5417f3173d8fe675d251c881f))
 
 ### 🚜 Refactor
 
@@ -66,6 +71,9 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(fastlane)* Add missing metadata for Italian ([969597f](https://github.com/casimir/frigoligo/commit/969597fbcf41bb52bc3f3a71f6ce2df7d9b43db2))
 - *(i18n)* Adjust some translations ([65654ce](https://github.com/casimir/frigoligo/commit/65654ce6d8943bcabb62e225a3f5457465516b75))
 - *(i18n)* Add newly translated languages ([a176a0b](https://github.com/casimir/frigoligo/commit/a176a0be2c623d30426547e2449c626850857e7a))
+- *(dev)* Upload source maps too on GH Pages ([1e5a873](https://github.com/casimir/frigoligo/commit/1e5a873538d36e718f7db6cda299229612658cb2))
+- *(dev)* Also expose the source files on GH pages ([3acf4dd](https://github.com/casimir/frigoligo/commit/3acf4dd9bc7cc5fcb0eae88d0f4acb91bf7ac71b))
+- *(dev)* Patch the source maps root ([9aa03e3](https://github.com/casimir/frigoligo/commit/9aa03e3e2356ae5d072a9d8e195bb1d5a8254726))
 
 ### I18n
 
