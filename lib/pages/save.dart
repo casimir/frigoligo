@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 import '../buildcontext_extension.dart';
 import '../providers/settings.dart';
 import '../services/remote_sync.dart';
-import '../services/remote_sync_actions/articles.dart';
+import '../services/remote_sync_actions.dart';
 import '../wallabag/client.dart';
 
 class SavePage extends ConsumerStatefulWidget {

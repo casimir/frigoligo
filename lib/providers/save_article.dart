@@ -7,7 +7,7 @@ import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../services/remote_sync.dart';
-import '../services/remote_sync_actions/articles.dart';
+import '../services/remote_sync_actions.dart';
 import 'settings.dart';
 
 part 'save_article.freezed.dart';
