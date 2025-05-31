@@ -36,6 +36,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(UI)* Replace the dynamic layout with a cleaner narrow layout ([#347](https://github.com/casimir/frigoligo/pull/347)) ([351449d](https://github.com/casimir/frigoligo/commit/351449dd0dd84b86322a2dbf1289ae858fac23a0))
 - *(wallabag)* Uncouple the wallabag module from flutter ([4d67a67](https://github.com/casimir/frigoligo/commit/4d67a6769b0b2b77c89a3ff2cbc7f8e4e4f51a0f))
 - Remove unused widget key ([eed4d1d](https://github.com/casimir/frigoligo/commit/eed4d1dc404f62049379e8184d995b05e11c65cf))
+- *(sync)* Rework actions serialization to support code mangling ([#363](https://github.com/casimir/frigoligo/pull/363)) ([41715f6](https://github.com/casimir/frigoligo/commit/41715f6182aefb26b3b95d55c984d06a240929b9))
 
 ### ⚡ Performance
 
