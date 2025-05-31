@@ -506,5 +506,9 @@
   "article_unstar": "Entfernung der Favorisierung von diesem Artikel",
   "@article_unstar": {
     "description": "The action to unstar the article."
+  },
+  "settings_nativeArticleRenderer": "Nativer Artikel Renderer",
+  "@settings_nativeArticleRenderer": {
+    "description": "The action to toggle the use of the experimental article renderer."
   }
 }

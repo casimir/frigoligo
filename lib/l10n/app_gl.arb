@@ -506,5 +506,9 @@
   "article_unstar": "Retirar estrela",
   "@article_unstar": {
     "description": "The action to unstar the article."
+  },
+  "settings_nativeArticleRenderer": "Motor de visualización nativo",
+  "@settings_nativeArticleRenderer": {
+    "description": "The action to toggle the use of the experimental article renderer."
   }
 }
