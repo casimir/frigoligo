@@ -30,6 +30,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(dev)* Change source maps root ([f0f93cf](https://github.com/casimir/frigoligo/commit/f0f93cf4d07c85ecbaf14c43207c5ffce478fe0f))
 - *(dev)* Last attempt at source maps ([4ef6800](https://github.com/casimir/frigoligo/commit/4ef6800364c8d06a3a12dfe09ccb7eb598646a4b))
 - Source maps generation just doesn't work... ([c777380](https://github.com/casimir/frigoligo/commit/c777380ecdcb7df5417f3173d8fe675d251c881f))
+- *(deps)* Update dependency go_router to v15.1.3 ([#366](https://github.com/casimir/frigoligo/pull/366)) ([6a7e1bc](https://github.com/casimir/frigoligo/commit/6a7e1bcb379ec660890a2414dca3ddcd1b264f9d))
 
 ### 🚜 Refactor
 
