@@ -19,7 +19,7 @@ jobs:
       - uses: dart-lang/setup-dart@v1
       - run: dart run tools/setup_metadata.dart
       - run: dart run flathub/render_metadata.dart 
-      - uses: stefanzweifel/git-auto-commit-action@v5
+      - uses: stefanzweifel/git-auto-commit-action@v6
         with:
           commit_message: "Automated changelog update"
           file_pattern: CHANGELOG.md fastlane flathub
