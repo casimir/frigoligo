@@ -534,5 +534,9 @@
   "article_share": "Поделиться этой статьёй",
   "@article_share": {
     "description": "The action to share the article."
+  },
+  "settings_nativeArticleRenderer": "Системный отрисовщик статьи",
+  "@settings_nativeArticleRenderer": {
+    "description": "The action to toggle the use of the experimental article renderer."
   }
 }
