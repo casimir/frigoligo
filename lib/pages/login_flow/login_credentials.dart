@@ -31,8 +31,6 @@ class LoginFlowCredentials extends ConsumerStatefulWidget {
     switch (serverType) {
       case ServerType.freon:
         loginController = FreonLoginFlowController();
-      case ServerType.readeck:
-        throw UnimplementedError('readeck not implemented');
       case ServerType.wallabag:
         loginController = WallabagLoginFlowController();
       case ServerType.unknown:
