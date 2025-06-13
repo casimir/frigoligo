@@ -7,9 +7,11 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../db/database.dart';
 import '../db/extensions/remote_action.dart';
-import '../wallabag/client.dart';
+import '../server/clients.dart';
 import 'remote_sync_actions.dart';
 import 'wallabag_storage.dart';
+
+export '../server/clients.dart' show ServerError;
 
 part 'remote_sync.freezed.dart';
 part 'remote_sync.g.dart';

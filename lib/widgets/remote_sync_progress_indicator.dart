@@ -4,9 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../buildcontext_extension.dart';
+import '../server/clients.dart';
 import '../server/providers/client.dart';
 import '../services/remote_sync.dart';
-import '../wallabag/client.dart';
 
 class RemoteSyncProgressIndicator extends ConsumerWidget
     implements PreferredSizeWidget {
@@ -37,10 +37,7 @@ class RemoteSyncProgressIndicator extends ConsumerWidget
             await ref.read(sessionProvider.notifier).invalidate();
             if (context.mounted) {
               final params = session!.wallabag!..token = null;
-              final uri = Uri(
-                path: '/login',
-                queryParameters: params.toJson(),
-              );
+              final uri = Uri(path: '/login', queryParameters: params.toJson());
               context.go(uri.toString());
             }
           }

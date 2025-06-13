@@ -6,8 +6,10 @@ import 'package:logging/logging.dart';
 import 'package:universal_platform/universal_platform.dart';
 
 import '../app_info.dart';
-import '../wallabag/client.dart';
-import '../wallabag/models/info.dart';
+import 'src/clients/api.dart' show newClient;
+import 'src/wallabag/types.dart';
+
+export 'clients.dart' show ServerError;
 
 final _log = Logger('server.check');
 
@@ -39,9 +41,10 @@ Future<ServerCheck> checkServerState(String serverUrl, bool selfSigned) async {
   try {
     final protocol = serverUrl.startsWith('http://') ? 'http' : 'https';
     var trimmed = serverUrl.split('://').last;
-    trimmed = trimmed.endsWith('/')
-        ? trimmed.substring(0, trimmed.length - 1)
-        : trimmed;
+    trimmed =
+        trimmed.endsWith('/')
+            ? trimmed.substring(0, trimmed.length - 1)
+            : trimmed;
     final uri = Uri.parse('$protocol://$trimmed');
 
     final info = await _fetchServerInfo(uri, selfSigned);
@@ -59,7 +62,12 @@ Future<ServerCheck> checkServerState(String serverUrl, bool selfSigned) async {
 
 class ServerCheck {
   const ServerCheck(
-      this.uri, this.info, this.faviconUri, this.error, this.selfSigned);
+    this.uri,
+    this.info,
+    this.faviconUri,
+    this.error,
+    this.selfSigned,
+  );
 
   final Uri? uri;
   final WallabagInfo? info;
@@ -87,12 +95,7 @@ class ServerCheck {
   }
 }
 
-enum ServerCheckErrorKind {
-  invalidUrl,
-  unreachable,
-  apiError,
-  unknown,
-}
+enum ServerCheckErrorKind { invalidUrl, unreachable, apiError, unknown }
 
 class ServerCheckError implements Exception {
   const ServerCheckError(this.kind);
