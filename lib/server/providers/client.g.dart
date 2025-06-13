@@ -21,12 +21,12 @@ final sessionProvider =
     );
 
 typedef _$Session = AutoDisposeAsyncNotifier<ServerSession?>;
-String _$clientHash() => r'fb1c67b2ffc7d32f4c54db3eca42bb4afee9ed6b';
+String _$clientHash() => r'8043b5cceb4164da65446e0f66eb4f418e72a429';
 
 /// See also [Client].
 @ProviderFor(Client)
 final clientProvider =
-    AutoDisposeAsyncNotifierProvider<Client, WallabagClient?>.internal(
+    AutoDisposeAsyncNotifierProvider<Client, ApiClient?>.internal(
       Client.new,
       name: r'clientProvider',
       debugGetCreateSourceHash:
@@ -35,6 +35,6 @@ final clientProvider =
       allTransitiveDependencies: null,
     );
 
-typedef _$Client = AutoDisposeAsyncNotifier<WallabagClient?>;
+typedef _$Client = AutoDisposeAsyncNotifier<ApiClient?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

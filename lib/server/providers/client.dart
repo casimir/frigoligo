@@ -2,9 +2,7 @@ import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../app_info.dart';
-import '../../wallabag/client.dart';
-import '../../wallabag/wallabag.dart';
-import '../freon.dart';
+import '../clients.dart';
 import '../session.dart';
 
 part 'client.g.dart';
@@ -34,20 +32,23 @@ class Session extends _$Session {
 @riverpod
 class Client extends _$Client {
   @override
-  Future<WallabagClient?> build() async {
+  Future<ApiClient?> build() async {
     final session = await ref.watch(sessionProvider.future);
     if (session == null || !session.isValid) return null;
 
     switch (session.type) {
       case ServerType.freon:
-        return FreonWallabagClient(
+        return FreonClient(
           session.freon!,
           userAgent: AppInfo.userAgent,
           selfSignedHost: session.selfSignedHost,
         );
+      case ServerType.readeck:
+        _log.warning('not implemented: ${session.type}: ${session.raw}');
+        return null;
       case ServerType.wallabag:
-        // `session` is not used here because this client manages its own session.
-        return WallabagNativeClient(
+        // `session` is not used here because this client manages its own
+        return WallabagClient(
           NativeSessionWrapper(),
           userAgent: AppInfo.userAgent,
           selfSignedHost: session.selfSignedHost,

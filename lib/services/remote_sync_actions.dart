@@ -89,23 +89,23 @@ class DeleteArticleAction extends RemoteSyncAction {
 class EditArticleAction extends RemoteSyncAction {
   const EditArticleAction(
     this.articleId, {
-    this.archive,
+    this.archived,
     this.starred,
     this.tags,
   }) : super(
          RemoteSyncActionType.editArticle,
-         'patchArticle:$articleId:$archive:$starred:$tags',
+         'patchArticle:$articleId:$archived:$starred:$tags',
        );
 
   final int articleId;
-  final bool? archive;
+  final bool? archived;
   final bool? starred;
   final List<String>? tags;
 
   @override
   ActionParams get params => {
     'articleId': articleId,
-    'archive': archive,
+    'archived': archived,
     'starred': starred,
     'tags': tags,
   };
@@ -113,7 +113,7 @@ class EditArticleAction extends RemoteSyncAction {
   factory EditArticleAction.fromParams(ActionParams params) =>
       EditArticleAction(
         params['articleId'] as int,
-        archive: params['archive'] as bool?,
+        archived: params['archived'] as bool?,
         starred: params['starred'] as bool?,
         tags: (params['tags'] as List?)?.cast<String>(),
       );
@@ -121,7 +121,7 @@ class EditArticleAction extends RemoteSyncAction {
   @override
   Future<void> execute(syncer, storage) => storage.editArticle(
     articleId,
-    archive: archive,
+    archived: archived,
     starred: starred,
     tags: tags,
   );
