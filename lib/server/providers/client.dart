@@ -43,9 +43,6 @@ class Client extends _$Client {
           userAgent: AppInfo.userAgent,
           selfSignedHost: session.selfSignedHost,
         );
-      case ServerType.readeck:
-        _log.warning('not implemented: ${session.type}: ${session.raw}');
-        return null;
       case ServerType.wallabag:
         // `session` is not used here because this client manages its own
         return WallabagClient(

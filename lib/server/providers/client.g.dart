@@ -21,7 +21,7 @@ final sessionProvider =
     );
 
 typedef _$Session = AutoDisposeAsyncNotifier<ServerSession?>;
-String _$clientHash() => r'8043b5cceb4164da65446e0f66eb4f418e72a429';
+String _$clientHash() => r'bfa2f4a51b2d3d48a375e19ebcdcefcaa4461ccb';
 
 /// See also [Client].
 @ProviderFor(Client)
