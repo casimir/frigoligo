@@ -14,7 +14,7 @@ import '../providers/settings.dart';
 import '../server/clients.dart';
 import '../server/providers/client.dart';
 import '../server/session.dart';
-import '../services/wallabag_storage.dart';
+import '../services/local_storage.dart';
 import '../widgets/async/text.dart';
 import '../widgets/copiable_text.dart';
 
@@ -179,7 +179,9 @@ void _logout(BuildContext context, WidgetRef ref) async {
 
   await ref.read(sessionProvider.notifier).logout();
   await ref.read(settingsProvider.notifier).clear();
-  await ref.read(wStorageProvider.notifier).clearArticles(keepPositions: false);
+  await ref
+      .read(localStorageProvider.notifier)
+      .clearArticles(keepPositions: false);
   if (context.mounted) {
     context.go('/login');
   }

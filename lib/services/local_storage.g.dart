@@ -1,25 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'wallabag_storage.dart';
+part of 'local_storage.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$wStorageHash() => r'540ee200966101d7f6a152495831e9ac50cca25e';
+String _$localStorageHash() => r'82ca93f69126bf69928b26dc9f179f6ec0f3c5b2';
 
-/// See also [WStorage].
-@ProviderFor(WStorage)
-final wStorageProvider =
-    AutoDisposeNotifierProvider<WStorage, WStorageToken>.internal(
-      WStorage.new,
-      name: r'wStorageProvider',
+/// See also [LocalStorage].
+@ProviderFor(LocalStorage)
+final localStorageProvider =
+    AutoDisposeNotifierProvider<LocalStorage, LocalStorageToken>.internal(
+      LocalStorage.new,
+      name: r'localStorageProvider',
       debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product') ? null : _$wStorageHash,
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$localStorageHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
 
-typedef _$WStorage = AutoDisposeNotifier<WStorageToken>;
+typedef _$LocalStorage = AutoDisposeNotifier<LocalStorageToken>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
