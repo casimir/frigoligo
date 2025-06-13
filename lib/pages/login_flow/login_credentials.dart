@@ -12,7 +12,6 @@ import '../../providers/server_login_flow.dart';
 import '../../server/check.dart';
 import '../../server/providers/client.dart';
 import '../../server/session.dart';
-import '../../wallabag/client.dart';
 import 'login_freon.dart';
 import 'login_wallabag.dart';
 import 'utils.dart';
@@ -68,32 +67,50 @@ class _LoginFlowCredentialsState extends ConsumerState<LoginFlowCredentials> {
 
   @override
   Widget build(BuildContext context) {
-    final loginFields = widget.loginController
-        .getFields(context)
-        .asMap()
-        .entries
-        .map(
-          (e) => FormBuilderTextField(
-            key: e.value.key,
-            name: e.value.name,
-            validator: (value) => notEmptyValidator(context, value, e.value.label),
-            decoration: InputDecoration(
-              icon: e.value.icon,
-              labelText: e.value.label,
-            ),
-            obscureText: e.value.obscureText,
-            autofocus: true,
-            autocorrect: false,
-            autofillHints: e.value.autofillHints,
-            textInputAction: e.key == widget.loginController.getFields(context).length - 1 
-                ? TextInputAction.go 
-                : TextInputAction.next,
-            onSubmitted: e.key == widget.loginController.getFields(context).length - 1
-                ? (_) => attemptLogin()
-                : null,
-          ) as Widget,
-        )
-        .toList();
+    final loginFields =
+        widget.loginController
+            .getFields(context)
+            .asMap()
+            .entries
+            .map(
+              (e) =>
+                  FormBuilderTextField(
+                        key: e.value.key,
+                        name: e.value.name,
+                        validator:
+                            (value) => notEmptyValidator(
+                              context,
+                              value,
+                              e.value.label,
+                            ),
+                        decoration: InputDecoration(
+                          icon: e.value.icon,
+                          labelText: e.value.label,
+                        ),
+                        obscureText: e.value.obscureText,
+                        autofocus: true,
+                        autocorrect: false,
+                        autofillHints: e.value.autofillHints,
+                        textInputAction:
+                            e.key ==
+                                    widget.loginController
+                                            .getFields(context)
+                                            .length -
+                                        1
+                                ? TextInputAction.go
+                                : TextInputAction.next,
+                        onSubmitted:
+                            e.key ==
+                                    widget.loginController
+                                            .getFields(context)
+                                            .length -
+                                        1
+                                ? (_) => attemptLogin()
+                                : null,
+                      )
+                      as Widget,
+            )
+            .toList();
 
     return Center(
       child: ListView(
@@ -108,7 +125,8 @@ class _LoginFlowCredentialsState extends ConsumerState<LoginFlowCredentials> {
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               subtitle: Text(
-                  '${widget.serverCheck.info!.appname} ${widget.serverCheck.info!.version}'),
+                '${widget.serverCheck.info!.appname} ${widget.serverCheck.info!.version}',
+              ),
               trailing: IconButton(
                 icon: const Icon(Icons.edit),
                 onPressed: () {
@@ -127,7 +145,8 @@ class _LoginFlowCredentialsState extends ConsumerState<LoginFlowCredentials> {
                 // It would be nice to provide a domain for autofill but it's dynamic.
                 // https://developer.apple.com/documentation/xcode/supporting-associated-domains
                 child: Column(
-                  children: loginFields +
+                  children:
+                      loginFields +
                       [
                         C.spacers.verticalContent,
                         ElevatedButton(
@@ -153,8 +172,10 @@ class _LoginFlowCredentialsState extends ConsumerState<LoginFlowCredentials> {
   Future<void> attemptLogin() async {
     if (_formKey.currentState!.saveAndValidate()) {
       try {
-        final session = await widget.loginController
-            .openSession(widget.serverCheck, _formKey.currentState!.value);
+        final session = await widget.loginController.openSession(
+          widget.serverCheck,
+          _formKey.currentState!.value,
+        );
         await session.save();
         ref.invalidate(sessionProvider);
         if (mounted) {
@@ -182,7 +203,9 @@ abstract class LoginFlowController {
   bool dataIsExhaustive(Map<String, String> data);
   List<LoginField> getFields(BuildContext context);
   Future<ServerSession> openSession(
-      ServerCheck check, Map<String, dynamic> values);
+    ServerCheck check,
+    Map<String, dynamic> values,
+  );
 }
 
 class LoginField {
