@@ -536,5 +536,9 @@
   "article_details": "Ulteriori informazioni",
   "@article_details": {
     "description": "The action to show the article details."
+  },
+  "settings_nativeArticleRenderer": "Render articoli nativo",
+  "@settings_nativeArticleRenderer": {
+    "description": "The action to toggle the use of the experimental article renderer."
   }
 }

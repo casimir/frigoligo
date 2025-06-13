@@ -506,5 +506,9 @@
   "article_notFound": "未找到文章",
   "@article_notFound": {
     "description": "Placeholder for when the article is not found."
+  },
+  "settings_nativeArticleRenderer": "本地文章渲染器",
+  "@settings_nativeArticleRenderer": {
+    "description": "The action to toggle the use of the experimental article renderer."
   }
 }
