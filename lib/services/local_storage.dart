@@ -10,16 +10,16 @@ import '../providers/settings.dart';
 import '../server/clients.dart';
 import '../server/providers/client.dart';
 
-part 'wallabag_storage.g.dart';
+part 'local_storage.g.dart';
 
-final _log = Logger('wallabag.storage');
+final _log = Logger('storage');
 
-class WStorageToken {}
+class LocalStorageToken {}
 
 @riverpod
-class WStorage extends _$WStorage {
+class LocalStorage extends _$LocalStorage {
   @override
-  WStorageToken build() => WStorageToken();
+  LocalStorageToken build() => LocalStorageToken();
 
   Future<void> updateAppBadge() async {
     final settings = ref.read(settingsProvider);

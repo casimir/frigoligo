@@ -1,5 +1,5 @@
+import 'local_storage.dart';
 import 'remote_sync.dart';
-import 'wallabag_storage.dart';
 
 typedef ActionParams = Map<String, dynamic>;
 
@@ -26,7 +26,7 @@ abstract class RemoteSyncAction {
     return actionType.buildActionFromParams(params);
   }
 
-  Future<dynamic> execute(RemoteSyncer syncer, WStorage storage);
+  Future<dynamic> execute(RemoteSyncer syncer, LocalStorage storage);
 
   @override
   String toString() {
