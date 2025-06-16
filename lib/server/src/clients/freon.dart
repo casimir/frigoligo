@@ -13,6 +13,6 @@ class FreonClient extends TokenBearerClient
 
   @override
   Future<Uri> buildUri(String path, [Map<String, dynamic>? queryParameters]) {
-    return super.buildUri('wallabag/$path', queryParameters);
+    return super.buildUri('/wallabag$path', queryParameters);
   }
 }

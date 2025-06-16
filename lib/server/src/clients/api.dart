@@ -192,7 +192,7 @@ abstract class TokenBearerClient extends ApiClient {
     Map<String, dynamic>? queryParameters,
   ]) async {
     return _credentials.server.replace(
-      path: '${_credentials.server.path}/$path',
+      path: _credentials.server.path + path,
       queryParameters: queryParameters,
     );
   }
