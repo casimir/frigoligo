@@ -414,7 +414,11 @@
   },
   "server_unreachable": "Server unreachable",
   "@server_unreachable": {
-    "description": "The wallabag instance is unreachable."
+    "description": "The server instance is unreachable."
+  },
+  "server_versionNotSupported": "Server version not supported",
+  "@server_versionNotSupported": {
+    "description": "The server instance is not supported."
   },
   "@_SESSION": {},
   "session_copiedToClipboard": "Copied to clipboard",

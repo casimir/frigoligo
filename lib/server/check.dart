@@ -13,7 +13,24 @@ export 'clients.dart' show ServerError;
 
 final _log = Logger('server.check');
 
+bool assertMinVersion(String version, int major, int minor, int patch) {
+  final match = RegExp(r'^(\d+)\.(\d+)\.(\d+)').firstMatch(version);
+  if (match == null) return false;
+
+  final vMajor = int.parse(match[1]!);
+  if (major < vMajor) return true;
+  if (major > vMajor) return false;
+
+  final vMinor = int.parse(match[2]!);
+  if (minor < vMinor) return true;
+  if (minor > vMinor) return false;
+
+  final vPatch = int.parse(match[3]!);
+  return patch <= vPatch;
+}
+
 Future<WallabagInfo?> _fetchServerInfo(Uri uri, bool selfSigned) async {
+  _log.info('fetching server info from $uri');
   final client = newClient(selfSignedHost: selfSigned ? uri.host : null);
   final response = await client.get(
     uri.replace(path: '${uri.path}/api/info'),
@@ -48,8 +65,22 @@ Future<ServerCheck> checkServerState(String serverUrl, bool selfSigned) async {
     final uri = Uri.parse('$protocol://$trimmed');
 
     final info = await _fetchServerInfo(uri, selfSigned);
-    final faviconUri = await _detectFavicon(uri);
-    check = ServerCheck(uri, info, faviconUri, null, selfSigned);
+
+    ServerCheckError? error;
+    if (info != null) {
+      _log.info('detected a wallabag-like instance (appname: ${info.appname})');
+      if ((info.appname == 'wallabag' &&
+              !assertMinVersion(info.version, 2, 2, 0)) ||
+          (info.appname == 'freon' &&
+              !assertMinVersion(info.version, 0, 1, 0))) {
+        error = const ServerCheckError(
+          ServerCheckErrorKind.versionNotSupported,
+        );
+      }
+
+      final faviconUri = await _detectFavicon(uri);
+      check = ServerCheck(uri, info, faviconUri, error, selfSigned);
+    }
   } on http.ClientException catch (e) {
     final exc = ServerCheckUnknownError(e.message);
     check = ServerCheck(null, null, null, exc, selfSigned);
@@ -95,7 +126,13 @@ class ServerCheck {
   }
 }
 
-enum ServerCheckErrorKind { invalidUrl, unreachable, apiError, unknown }
+enum ServerCheckErrorKind {
+  invalidUrl,
+  unreachable,
+  apiError,
+  versionNotSupported,
+  unknown,
+}
 
 class ServerCheckError implements Exception {
   const ServerCheckError(this.kind);

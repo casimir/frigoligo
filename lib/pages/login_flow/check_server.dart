@@ -131,6 +131,8 @@ class _LoginFlowServerState extends ConsumerState<LoginFlowServer> {
         ServerCheckErrorKind.invalidUrl => context.L.server_invalidUrl,
         ServerCheckErrorKind.unreachable => context.L.server_unreachable,
         ServerCheckErrorKind.apiError => context.L.server_apiError,
+        ServerCheckErrorKind.versionNotSupported =>
+          context.L.server_versionNotSupported,
         ServerCheckErrorKind.unknown => '? ${check.error}',
         null => null,
       };
