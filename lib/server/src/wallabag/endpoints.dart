@@ -1,146 +1,14 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:http/io_client.dart';
-import 'package:http/retry.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:logging/logging.dart';
-import 'package:universal_platform/universal_platform.dart';
 
-import 'models/entry.dart';
-import 'models/info.dart';
+import '../clients/api.dart';
+import 'types.dart';
 
-part 'client.g.dart';
+part 'endpoints.g.dart';
 
-const enableHttpLogs = false;
-
-final _log = Logger('wallabag.client');
-
-void throwOnError(http.Response response, {List<int> expected = const [200]}) {
-  if (!expected.contains(response.statusCode)) {
-    throw ServerError.fromResponse(response);
-  }
-}
-
-class ServerError implements Exception {
-  const ServerError(
-    this.message, {
-    this.source,
-    this.response,
-    this.manuallyInvalidated = false,
-  });
-
-  final String message;
-  final Exception? source;
-  final http.Response? response;
-  final bool manuallyInvalidated;
-
-  @override
-  String toString() {
-    final statusPart = response != null ? ' (${response!.statusCode})' : '';
-    var str = 'ServerError$statusPart: $message';
-    if (source != null) str += ': $source';
-    if (response != null) str += ': ${response!.body}';
-    return str;
-  }
-
-  factory ServerError.fromResponse(http.Response response) {
-    var message = response.body;
-    if (message.length > 100) message = '${message.substring(0, 100)}...';
-    try {
-      final json = jsonDecode(response.body);
-      message = json['error_description'] ?? json['error'];
-    } catch (_) {}
-    return ServerError(message, response: response);
-  }
-  factory ServerError.fromException(Exception e, {http.Response? response}) =>
-      ServerError('unknown error', source: e, response: response);
-
-  bool get isInvalidTokenError {
-    if (manuallyInvalidated) return true;
-
-    if (response?.body == null) return false;
-    try {
-      // wallabag access tokens expired after 14 days (default) it implies a
-      // username/password re-login.
-      // The alternative would be to store the credentials, but no.
-      final json = jsonDecode(response!.body);
-      final description = json['error_description'] as String;
-      // TODO IIRC the status code are different for the 2 tokens and would be a
-      // better way to check the state. I need an expired device to validated that.
-      return json['error'] == 'invalid_grant' &&
-          description.toLowerCase().contains('refresh token');
-    } catch (_) {
-      return false;
-    }
-  }
-}
-
-typedef Decoder<T> = T Function(Map<String, dynamic>);
-
-T safeDecode<T>(http.Response response, Decoder<T> decoder) {
-  try {
-    final json = jsonDecode(response.body);
-    return decoder(json);
-  } catch (source) {
-    throw switch (source) {
-      ServerError e => e,
-      Exception e => ServerError.fromException(e, response: response),
-      _ => ServerError.fromException(Exception(source.toString()),
-          response: response),
-    };
-  }
-}
-
-http.Client newClient({String? selfSignedHost}) {
-  if (selfSignedHost == null) {
-    return http.Client();
-  }
-  return IOClient(
-    HttpClient()
-      ..badCertificateCallback = (cert, host, port) => host == selfSignedHost,
-  );
-}
-
-abstract class WallabagClient extends http.BaseClient {
-  WallabagClient({String? userAgent, String? selfSignedHost})
-      : _userAgent = userAgent,
-        _selfSignedHost = selfSignedHost;
-
-  final String? _userAgent;
-  final String? _selfSignedHost;
-  http.Client? _inner;
-
-  http.Client get innerClient {
-    _inner ??= RetryClient(newClient(selfSignedHost: _selfSignedHost));
-    return _inner!;
-  }
-
-  Logger get logger => _log;
-  String? get userAgent => UniversalPlatform.isWeb ? null : _userAgent;
-
-  Future<Uri> buildUri(String path, [Map<String, dynamic>? queryParameters]);
-
-  void logRequest(http.Request request) {
-    if (!enableHttpLogs) return;
-
-    final lines = [
-          '>' * 80,
-          '${request.method} ${request.url}',
-        ] +
-        request.headers.entries.map((e) => 'H ${e.key}=${e.value}').toList() +
-        [
-          '-' * 80,
-          request.body,
-          '>' * 80,
-        ];
-
-    logger.info('outbound request:\n${lines.join('\n')}');
-  }
-}
-
-extension WallabagClientEndpoints on WallabagClient {
+mixin WallabagClientEndpoints on ApiClient {
   Future<WallabagPaginatedEntries> getEntries({
     int? archive,
     int? starred,
@@ -167,10 +35,12 @@ extension WallabagClientEndpoints on WallabagClient {
       'detail': detail?.name,
       'domain_name': domainName,
     }..removeWhere((_, value) => value == null);
-    final response = await get(await buildUri(
-      '/api/entries',
-      params.map((key, value) => MapEntry(key, value.toString())),
-    ));
+    final response = await get(
+      await buildUri(
+        '/api/entries',
+        params.map((key, value) => MapEntry(key, value.toString())),
+      ),
+    );
     throwOnError(response);
     return safeDecode(response, WallabagPaginatedEntries.fromJson);
   }
@@ -290,7 +160,10 @@ extension WallabagClientEndpoints on WallabagClient {
         );
       } catch (source, st) {
         logger.severe(
-            'error fetching entries (page $pageIndex)', source.toString(), st);
+          'error fetching entries (page $pageIndex)',
+          source.toString(),
+          st,
+        );
         if (source is ServerError) {
           rethrow;
         } else if (source is Exception) {
@@ -315,21 +188,11 @@ extension WallabagClientEndpoints on WallabagClient {
   }
 }
 
-enum SortValue {
-  created,
-  updated,
-  archived,
-}
+enum SortValue { created, updated, archived }
 
-enum SortOrder {
-  asc,
-  desc,
-}
+enum SortOrder { asc, desc }
 
-enum DetailValue {
-  metadata,
-  full,
-}
+enum DetailValue { metadata, full }
 
 @JsonSerializable(createToJson: false)
 class WallabagPaginatedEntries {

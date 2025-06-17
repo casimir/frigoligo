@@ -7,9 +7,11 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../db/database.dart';
 import '../db/extensions/remote_action.dart';
-import '../wallabag/client.dart';
+import '../server/clients.dart';
+import 'local_storage.dart';
 import 'remote_sync_actions.dart';
-import 'wallabag_storage.dart';
+
+export '../server/clients.dart' show ServerError;
 
 part 'remote_sync.freezed.dart';
 part 'remote_sync.g.dart';
@@ -92,7 +94,7 @@ class RemoteSyncer extends _$RemoteSyncer {
     );
 
     try {
-      final storage = ref.read(wStorageProvider.notifier);
+      final storage = ref.read(localStorageProvider.notifier);
 
       res.addAll(await _executeActions(storage));
       if (withFinalRefresh) {
@@ -123,7 +125,7 @@ class RemoteSyncer extends _$RemoteSyncer {
     return res;
   }
 
-  Future<Map<String, dynamic>> _executeActions(WStorage storage) async {
+  Future<Map<String, dynamic>> _executeActions(LocalStorage storage) async {
     final Map<String, dynamic> res = {};
     final db = DB();
 

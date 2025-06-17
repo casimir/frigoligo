@@ -74,6 +74,12 @@ class ArticlesDao extends DatabaseAccessor<DB> with $ArticlesDaoMixin {
     return articleDrift.articleIdsForText(query, predicate: predicate);
   }
 
+  Future<Set<int>> getAllIds() {
+    return (selectOnly(articles)..addColumns([
+      articles.id,
+    ])).map((row) => row.read(articles.id)!).get().then((ids) => ids.toSet());
+  }
+
   Future<List<String>> listAllDomains() {
     return (selectOnly(articles, distinct: true)
           ..addColumns([articles.domainName])

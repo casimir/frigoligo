@@ -3,27 +3,26 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:json_annotation/json_annotation.dart';
 
-import 'client.dart';
-import 'credentials.dart';
-
-export 'models/annotation.dart' show WallabagAnnotation;
-export 'models/entry.dart' show WallabagEntry;
-export 'models/tag.dart' show WallabagTag;
+import '../wallabag/endpoints.dart';
+import 'api.dart';
+import 'wallabag_api.dart';
 
 part 'wallabag.g.dart';
 
-class WallabagNativeClient extends WallabagClient {
+class WallabagClient extends ApiClient
+    with WallabagClientEndpoints, WallabagMethods {
   static String tokenEndpointPath = '/oauth/v2/token';
 
-  WallabagNativeClient(
+  WallabagClient(
     this._credsAdapter, {
     super.userAgent,
     super.selfSignedHost,
+    super.enableHttpLogs,
   });
 
-  final UpdatableCredentialsAdapter _credsAdapter;
+  final UpdatableWallabagCredentialsAdapter _credsAdapter;
 
-  Future<Credentials> _getCredentials() async {
+  Future<WallabagCredentials> _getCredentials() async {
     final credentials = await _credsAdapter.read();
     if (credentials == null) {
       throw const ServerError('No credentials found');
@@ -50,16 +49,22 @@ class WallabagNativeClient extends WallabagClient {
     }
     final stopwatch = Stopwatch()..start();
     logRequest(request as http.Request);
-    return innerClient.send(request).then((response) {
-      logger.info(
-          '${request.method} ${request.url} ${response.statusCode} (${stopwatch.elapsed.inMilliseconds} ms)');
-      return response;
-    }).onError((e, _) => throw ServerError.fromException(e as Exception));
+    return innerClient
+        .send(request)
+        .then((response) {
+          logger.info(
+            '${request.method} ${request.url} ${response.statusCode} (${stopwatch.elapsed.inMilliseconds} ms)',
+          );
+          return response;
+        })
+        .onError((e, _) => throw ServerError.fromException(e as Exception));
   }
 
   @override
-  Future<Uri> buildUri(String path,
-      [Map<String, dynamic>? queryParameters]) async {
+  Future<Uri> buildUri(
+    String path, [
+    Map<String, dynamic>? queryParameters,
+  ]) async {
     final credentials = await _getCredentials();
     return credentials.server.replace(
       path: credentials.server.path + path,
@@ -69,7 +74,8 @@ class WallabagNativeClient extends WallabagClient {
 
   Future<http.Response> authenticate(Map<String, String> grantData) async {
     logger.info(
-        'authentication attempt (grant_type: ${grantData['grant_type']})');
+      'authentication attempt (grant_type: ${grantData['grant_type']})',
+    );
     final credentials = await _getCredentials();
     final payload = {
       'client_id': credentials.clientId,
@@ -78,9 +84,7 @@ class WallabagNativeClient extends WallabagClient {
     };
     final response = await post(
       await buildUri(tokenEndpointPath),
-      headers: {
-        if (userAgent != null) 'User-Agent': userAgent!,
-      },
+      headers: {if (userAgent != null) 'User-Agent': userAgent!},
       body: payload,
     );
     throwOnError(response);
@@ -123,4 +127,60 @@ class OAuthTokenBody {
 
   factory OAuthTokenBody.fromJson(Map<String, dynamic> json) =>
       _$OAuthTokenBodyFromJson(json);
+}
+
+@JsonSerializable()
+class WallabagCredentials {
+  WallabagCredentials(
+    this.server,
+    this.clientId,
+    this.clientSecret, {
+    this.token,
+  });
+
+  final Uri server;
+  final String clientId;
+  final String clientSecret;
+  OAuthToken? token;
+
+  factory WallabagCredentials.fromJson(Map<String, dynamic> json) =>
+      _$WallabagCredentialsFromJson(json);
+  Map<String, dynamic> toJson() => _$WallabagCredentialsToJson(this);
+}
+
+@JsonSerializable()
+class OAuthToken {
+  OAuthToken(this.accessToken, this.expiresAt, this.refreshToken);
+
+  final String accessToken;
+  final int expiresAt;
+  final String refreshToken;
+
+  DateTime get expirationDateTime =>
+      DateTime.fromMillisecondsSinceEpoch(expiresAt * 1000);
+  bool get isExpired => expirationDateTime.isBefore(DateTime.now());
+
+  factory OAuthToken.fromJson(Map<String, dynamic> json) =>
+      _$OAuthTokenFromJson(json);
+  Map<String, dynamic> toJson() => _$OAuthTokenToJson(this);
+}
+
+abstract class UpdatableWallabagCredentialsAdapter {
+  Future<WallabagCredentials?> read();
+  Future<void> write(WallabagCredentials credentials);
+}
+
+class InMemoryCredentials extends UpdatableWallabagCredentialsAdapter {
+  InMemoryCredentials(this._credentials);
+
+  WallabagCredentials? _credentials;
+  WallabagCredentials? get credentials => _credentials;
+
+  @override
+  Future<WallabagCredentials?> read() async => _credentials;
+
+  @override
+  Future<void> write(WallabagCredentials credentials) async {
+    _credentials = credentials;
+  }
 }

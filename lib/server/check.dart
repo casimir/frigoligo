@@ -1,29 +1,29 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
 import 'package:universal_platform/universal_platform.dart';
 
-import '../app_info.dart';
-import '../wallabag/client.dart';
-import '../wallabag/models/info.dart';
+import 'src/server_types.dart';
+
+export 'clients.dart' show ServerError;
 
 final _log = Logger('server.check');
 
-Future<WallabagInfo?> _fetchServerInfo(Uri uri, bool selfSigned) async {
-  final client = newClient(selfSignedHost: selfSigned ? uri.host : null);
-  final response = await client.get(
-    uri.replace(path: '${uri.path}/api/info'),
-    headers: {
-      'Content-Type': 'application/json',
-      if (!UniversalPlatform.isWeb) 'User-Agent': AppInfo.userAgent,
-    },
-  );
-  if (response.statusCode != 200) {
-    throw const ServerCheckError(ServerCheckErrorKind.apiError);
-  }
-  return WallabagInfo.fromJson(jsonDecode(response.body));
+bool assertMinVersion(String version, int major, int minor, int patch) {
+  final match = RegExp(r'^(\d+)\.(\d+)\.(\d+)').firstMatch(version);
+  if (match == null) return false;
+
+  final vMajor = int.parse(match[1]!);
+  if (major < vMajor) return true;
+  if (major > vMajor) return false;
+
+  final vMinor = int.parse(match[2]!);
+  if (minor < vMinor) return true;
+  if (minor > vMinor) return false;
+
+  final vPatch = int.parse(match[3]!);
+  return patch <= vPatch;
 }
 
 Future<Uri?> _detectFavicon(Uri uri) async {
@@ -39,19 +39,39 @@ Future<ServerCheck> checkServerState(String serverUrl, bool selfSigned) async {
   try {
     final protocol = serverUrl.startsWith('http://') ? 'http' : 'https';
     var trimmed = serverUrl.split('://').last;
-    trimmed = trimmed.endsWith('/')
-        ? trimmed.substring(0, trimmed.length - 1)
-        : trimmed;
+    trimmed =
+        trimmed.endsWith('/')
+            ? trimmed.substring(0, trimmed.length - 1)
+            : trimmed;
     final uri = Uri.parse('$protocol://$trimmed');
 
-    final info = await _fetchServerInfo(uri, selfSigned);
-    final faviconUri = await _detectFavicon(uri);
-    check = ServerCheck(uri, info, faviconUri, null, selfSigned);
+    final probeResult = await probeServer(uri, selfSigned);
+    if (probeResult == null) {
+      return ServerCheck.error(
+        const ServerCheckError(ServerCheckErrorKind.unknownServerType),
+        selfSigned,
+      );
+    }
+
+    ServerCheckError? error;
+    if ([ServerType.wallabag, ServerType.freon].contains(probeResult.type)) {
+      if ((probeResult.type == ServerType.wallabag &&
+              !assertMinVersion(probeResult.version, 2, 2, 0)) ||
+          (probeResult.type == ServerType.freon &&
+              !assertMinVersion(probeResult.version, 0, 1, 0))) {
+        error = const ServerCheckError(
+          ServerCheckErrorKind.versionNotSupported,
+        );
+      }
+
+      final faviconUri = await _detectFavicon(uri);
+      check = ServerCheck(probeResult, uri, faviconUri, error, selfSigned);
+    }
   } on http.ClientException catch (e) {
     final exc = ServerCheckUnknownError(e.message);
-    check = ServerCheck(null, null, null, exc, selfSigned);
+    check = ServerCheck.error(exc, selfSigned);
   } on Exception catch (e) {
-    check = ServerCheck(null, null, null, e, selfSigned);
+    check = ServerCheck.error(e, selfSigned);
   }
   _log.info("server check for '$serverUrl' completed: $check");
   return check;
@@ -59,15 +79,20 @@ Future<ServerCheck> checkServerState(String serverUrl, bool selfSigned) async {
 
 class ServerCheck {
   const ServerCheck(
-      this.uri, this.info, this.faviconUri, this.error, this.selfSigned);
+    this.probeResult,
+    this.uri,
+    this.faviconUri,
+    this.error,
+    this.selfSigned,
+  );
 
+  final ServerProbeResult? probeResult;
   final Uri? uri;
-  final WallabagInfo? info;
   final Uri? faviconUri;
   final Exception? error;
   final bool selfSigned;
 
-  bool get isValid => info != null && error == null;
+  bool get isValid => probeResult != null && error == null;
   ServerCheckErrorKind? get errorKind {
     if (error == null) return null;
     if (error is ServerCheckError) {
@@ -83,14 +108,18 @@ class ServerCheck {
 
   @override
   String toString() {
-    return isValid ? 'OK (${info!.version})' : 'KO (${errorKind!.name})';
+    return isValid ? 'OK (${probeResult!.version})' : 'KO (${errorKind!.name})';
   }
+
+  factory ServerCheck.error(Exception error, bool selfSigned) =>
+      ServerCheck(null, null, null, error, selfSigned);
 }
 
 enum ServerCheckErrorKind {
   invalidUrl,
+  unknownServerType,
   unreachable,
-  apiError,
+  versionNotSupported,
   unknown,
 }
 

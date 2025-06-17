@@ -11,10 +11,10 @@ import '../buildcontext_extension.dart';
 import '../datetime_extension.dart';
 import '../db/database.dart';
 import '../providers/settings.dart';
+import '../server/clients.dart';
 import '../server/providers/client.dart';
 import '../server/session.dart';
-import '../services/wallabag_storage.dart';
-import '../wallabag/wallabag.dart';
+import '../services/local_storage.dart';
 import '../widgets/async/text.dart';
 import '../widgets/copiable_text.dart';
 
@@ -33,7 +33,8 @@ Widget _copyText(BuildContext context, String text, [bool obfuscate = false]) {
       Clipboard.setData(ClipboardData(text: text)).then((_) {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(context.L.session_copiedToClipboard)));
+            SnackBar(content: Text(context.L.session_copiedToClipboard)),
+          );
         }
       });
     },
@@ -46,21 +47,24 @@ class SessionDetailsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(context.L.session_title),
-      ),
-      body: ref.watch(sessionProvider).when(
+      appBar: AppBar(title: Text(context.L.session_title)),
+      body: ref
+          .watch(sessionProvider)
+          .when(
             data: (it) => _buildDetails(context, ref, it),
             error: (error, _) => ErrorScreen(error: error),
-            loading: () =>
-                const Center(child: CircularProgressIndicator.adaptive()),
+            loading:
+                () => const Center(child: CircularProgressIndicator.adaptive()),
           ),
     );
   }
 }
 
 Widget _buildDetails(
-    BuildContext context, WidgetRef ref, ServerSession? session) {
+  BuildContext context,
+  WidgetRef ref,
+  ServerSession? session,
+) {
   final sessionFields = switch (session?.type) {
     ServerType.freon => _buildFreonSession(context, session!),
     ServerType.wallabag => _buildWallabagSession(context, session!),
@@ -71,7 +75,8 @@ Widget _buildDetails(
   return ResponsiveContainer(
     padding: C.paddings.group,
     child: ListView(
-      children: sessionFields +
+      children:
+          sessionFields +
           [
             _buildLastSync(context),
             C.spacers.verticalContent,
@@ -85,7 +90,7 @@ Widget _buildDetails(
               ElevatedButton.icon(
                 onPressed: () async {
                   final client = await ref.read(clientProvider.future);
-                  await (client as WallabagNativeClient).refreshToken();
+                  await (client as WallabagClient).refreshToken();
                 },
                 icon: const Icon(Icons.restart_alt),
                 label: Text(context.L.session_forceTokenResfresh),
@@ -110,13 +115,15 @@ List<Widget> _buildFreonSession(BuildContext context, ServerSession session) {
 }
 
 List<Widget> _buildWallabagSession(
-    BuildContext context, ServerSession session) {
+  BuildContext context,
+  ServerSession session,
+) {
   final credentials = session.wallabag!;
   final token = credentials.token;
   final accessToken = token?.accessToken;
   final nextTokenExpiration =
       token?.expirationDateTime.toHumanizedString(context) ??
-          context.L.session_invalidToken;
+      context.L.session_invalidToken;
 
   return [
     ListTile(
@@ -145,16 +152,18 @@ List<Widget> _buildWallabagSession(
 ListTile _buildLastSync(BuildContext context) {
   return ListTile(
     title: Text(context.L.session_fieldLastServerSync),
-    subtitle: AText(builder: (context) async {
-      String sinceLastSync = context.L.session_neverSynced;
-      final lastSync = await DB().metadataDao.getLastSyncTS();
-      if (lastSync != null) {
-        sinceLastSync = DateTime.fromMillisecondsSinceEpoch(lastSync * 1000)
-            // ignore: use_build_context_synchronously
-            .toHumanizedString(context);
-      }
-      return sinceLastSync;
-    }),
+    subtitle: AText(
+      builder: (context) async {
+        String sinceLastSync = context.L.session_neverSynced;
+        final lastSync = await DB().metadataDao.getLastSyncTS();
+        if (lastSync != null) {
+          sinceLastSync = DateTime.fromMillisecondsSinceEpoch(lastSync * 1000)
+          // ignore: use_build_context_synchronously
+          .toHumanizedString(context);
+        }
+        return sinceLastSync;
+      },
+    ),
   );
 }
 
@@ -170,7 +179,9 @@ void _logout(BuildContext context, WidgetRef ref) async {
 
   await ref.read(sessionProvider.notifier).logout();
   await ref.read(settingsProvider.notifier).clear();
-  await ref.read(wStorageProvider.notifier).clearArticles(keepPositions: false);
+  await ref
+      .read(localStorageProvider.notifier)
+      .clearArticles(keepPositions: false);
   if (context.mounted) {
     context.go('/login');
   }

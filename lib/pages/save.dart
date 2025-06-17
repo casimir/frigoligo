@@ -8,7 +8,6 @@ import '../buildcontext_extension.dart';
 import '../providers/settings.dart';
 import '../services/remote_sync.dart';
 import '../services/remote_sync_actions.dart';
-import '../wallabag/client.dart';
 
 class SavePage extends ConsumerStatefulWidget {
   const SavePage({super.key, required this.url});
@@ -83,9 +82,7 @@ class _SavePageState extends ConsumerState<SavePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(context.L.save_title),
-      ),
+      appBar: AppBar(title: Text(context.L.save_title)),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -100,9 +97,7 @@ class _SavePageState extends ConsumerState<SavePage> {
   }
 
   List<Widget> _buildPendingWidgets() {
-    return [
-      const CircularProgressIndicator.adaptive(),
-    ];
+    return [const CircularProgressIndicator.adaptive()];
   }
 
   List<Widget> _buildSuccessWidgets() {
@@ -124,18 +119,11 @@ class _SavePageState extends ConsumerState<SavePage> {
 
   List<Widget> _buildErrorWidgets() {
     return [
-      Text(
-        errorMessage!,
-        style: Theme.of(context).textTheme.headlineSmall,
-      ),
+      Text(errorMessage!, style: Theme.of(context).textTheme.headlineSmall),
       C.spacers.verticalContent,
       const Icon(Icons.error_outline, size: 40),
     ];
   }
 }
 
-enum SaveStep {
-  pending,
-  success,
-  error,
-}
+enum SaveStep { pending, success, error }

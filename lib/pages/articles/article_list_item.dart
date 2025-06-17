@@ -42,9 +42,10 @@ class _ArticleListItemState extends ConsumerState<ArticleListItem> {
 
     final child = Ink(
       key: ValueKey('articles-list-item-${widget.article.id}'),
-      color: widget.showSelection && _isSelected
-          ? Theme.of(context).highlightColor
-          : null,
+      color:
+          widget.showSelection && _isSelected
+              ? Theme.of(context).highlightColor
+              : null,
       child: SizedBox(
         height: listingHeight,
         child: InkWell(
@@ -75,7 +76,8 @@ class _ArticleListItemState extends ConsumerState<ArticleListItem> {
                               ),
                               Text(
                                 context.L.article_readingTime(
-                                    widget.article.readingTime),
+                                  widget.article.readingTime,
+                                ),
                                 style: Theme.of(context).textTheme.labelMedium,
                               ),
                             ],
@@ -86,13 +88,13 @@ class _ArticleListItemState extends ConsumerState<ArticleListItem> {
                             style: const TextStyle(fontWeight: FontWeight.bold),
                             maxLines: 3,
                             overflow: TextOverflow.ellipsis,
-                          )
+                          ),
                         ],
                       ),
                     ),
                   ),
                   if (widget.article.previewPicture != null)
-                    ArticleImagePreview(article: widget.article)
+                    ArticleImagePreview(article: widget.article),
                 ],
               ),
               const Spacer(),
@@ -106,9 +108,10 @@ class _ArticleListItemState extends ConsumerState<ArticleListItem> {
                       padding: const EdgeInsets.only(left: 8.0),
                       child: TagList(
                         tags: widget.article.tags,
-                        onTagPressed: (tag) => ref
-                            .read(queryProvider.notifier)
-                            .overrideWith(WQuery(tags: [tag])),
+                        onTagPressed:
+                            (tag) => ref
+                                .read(queryProvider.notifier)
+                                .overrideWith(WQuery(tags: [tag])),
                       ),
                     ),
                   ),
@@ -122,12 +125,15 @@ class _ArticleListItemState extends ConsumerState<ArticleListItem> {
                           visualDensity: VisualDensity.compact,
                           icon: stateIcons[widget.article.stateValue]!,
                           onPressed: () async {
-                            final syncer =
-                                ref.read(remoteSyncerProvider.notifier);
-                            await syncer.add(EditArticleAction(
-                              widget.article.id,
-                              archive: widget.article.archivedAt == null,
-                            ));
+                            final syncer = ref.read(
+                              remoteSyncerProvider.notifier,
+                            );
+                            await syncer.add(
+                              EditArticleAction(
+                                widget.article.id,
+                                archived: widget.article.archivedAt == null,
+                              ),
+                            );
                             await syncer.synchronize();
                           },
                         ),
@@ -135,12 +141,15 @@ class _ArticleListItemState extends ConsumerState<ArticleListItem> {
                           visualDensity: VisualDensity.compact,
                           icon: starredIcons[widget.article.starredValue]!,
                           onPressed: () async {
-                            final syncer =
-                                ref.read(remoteSyncerProvider.notifier);
-                            await syncer.add(EditArticleAction(
-                              widget.article.id,
-                              starred: widget.article.starredAt == null,
-                            ));
+                            final syncer = ref.read(
+                              remoteSyncerProvider.notifier,
+                            );
+                            await syncer.add(
+                              EditArticleAction(
+                                widget.article.id,
+                                starred: widget.article.starredAt == null,
+                              ),
+                            );
                             await syncer.synchronize();
                           },
                         ),
@@ -163,8 +172,11 @@ class _ArticleListItemState extends ConsumerState<ArticleListItem> {
   }
 
   void _listenToSelectionChange() async {
-    final isSelected = await ref.watch(currentArticleProvider
-        .selectAsync((it) => (it?.id ?? -1) == widget.article.id));
+    final isSelected = await ref.watch(
+      currentArticleProvider.selectAsync(
+        (it) => (it?.id ?? -1) == widget.article.id,
+      ),
+    );
     if (mounted && _isSelected != isSelected) {
       setState(() {
         _isSelected = isSelected;
@@ -186,21 +198,24 @@ class AsyncArticleItem extends ConsumerWidget {
   final bool showSelection;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) =>
-      ref.watch(articleDataProvider(articleId)).when(
-            // Article should never be null but it can happen if provider state
-            // and renderer state are (temporarily) desynchronized.
-            // For example when deleting an article from the reading page.
-            data: (article) => article != null
-                ? ArticleListItem(
-                    article: article,
-                    onTap: onTap,
-                    showSelection: showSelection,
-                  )
-                : const _LoadingWidget(),
-            error: (e, st) => throw Exception('unreachable branch but $e'),
-            loading: () => const _LoadingWidget(),
-          );
+  Widget build(BuildContext context, WidgetRef ref) => ref
+      .watch(articleDataProvider(articleId))
+      .when(
+        // Article should never be null but it can happen if provider state
+        // and renderer state are (temporarily) desynchronized.
+        // For example when deleting an article from the reading page.
+        data:
+            (article) =>
+                article != null
+                    ? ArticleListItem(
+                      article: article,
+                      onTap: onTap,
+                      showSelection: showSelection,
+                    )
+                    : const _LoadingWidget(),
+        error: (e, st) => throw Exception('unreachable branch but $e'),
+        loading: () => const _LoadingWidget(),
+      );
 }
 
 class _LoadingWidget extends StatelessWidget {

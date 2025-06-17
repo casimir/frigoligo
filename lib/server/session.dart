@@ -6,16 +6,9 @@ import 'package:shared_preference_app_group/shared_preference_app_group.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:universal_platform/universal_platform.dart';
 
-import '../wallabag/credentials.dart';
-import 'freon.dart';
+import 'clients.dart';
 
 part 'session.g.dart';
-
-enum ServerType {
-  freon,
-  wallabag,
-  unknown,
-}
 
 const _keyPrefix = kDebugMode ? 'debug.' : '';
 const sessionKey = '${_keyPrefix}server.session';
@@ -23,25 +16,21 @@ const legacyCredentialsKey = '${_keyPrefix}wallabag.credentials';
 
 @JsonSerializable()
 class ServerSession {
-  ServerSession(
-    this.type, {
-    useSelfSigned = false,
-    this.freon,
-    this.wallabag,
-  }) : selfSignedHost =
-            useSelfSigned ? freon?.server.host ?? wallabag?.server.host : null;
+  ServerSession(this.type, {useSelfSigned = false, this.freon, this.wallabag})
+    : selfSignedHost =
+          useSelfSigned ? freon?.server.host ?? wallabag?.server.host : null;
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   String? raw;
   final ServerType type;
-  final FreonCredentials? freon;
-  Credentials? wallabag;
+  final TokenBearerCredentials? freon;
+  WallabagCredentials? wallabag;
   final String? selfSignedHost;
 
   bool get isValid => switch (type) {
-        ServerType.wallabag => wallabag?.token != null,
-        _ => true,
-      };
+    ServerType.wallabag => wallabag?.token != null,
+    _ => true,
+  };
 
   factory ServerSession.fromJson(Map<String, dynamic> json) =>
       _$ServerSessionFromJson(json);
@@ -55,24 +44,16 @@ class ServerSession {
     if (UniversalPlatform.isIOS) {
       await SharedPreferenceAppGroup.setString(sessionKey, encoded);
     } else {
-      await SharedPreferences.getInstance()
-          .then((prefs) => prefs.setString(sessionKey, encoded));
+      await SharedPreferences.getInstance().then(
+        (prefs) => prefs.setString(sessionKey, encoded),
+      );
     }
   }
 
   static Future<ServerSession?> load() async {
-    final legacy = await _loadLegacy();
-
     final raw = await _spLoadString(sessionKey);
     final session =
         raw != null ? ServerSession.fromJson(jsonDecode(raw)) : null;
-
-    if (legacy != null) {
-      final oldSession = ServerSession(ServerType.wallabag, wallabag: legacy);
-      await oldSession.save();
-      await _removeLegacy();
-      return oldSession;
-    }
 
     if (session != null) {
       session.raw = raw;
@@ -81,14 +62,6 @@ class ServerSession {
     return session;
   }
 
-  static Future<Credentials?> _loadLegacy() async {
-    final raw = await _spLoadString(legacyCredentialsKey);
-    if (raw == null) return null;
-    return Credentials.fromJson(jsonDecode(raw));
-  }
-
-  static Future<void> _removeLegacy() => _spRemove(legacyCredentialsKey);
-
   static Future<void> clear() => _spRemove(sessionKey);
 }
 
@@ -96,8 +69,9 @@ Future<String?> _spLoadString(String key) {
   if (UniversalPlatform.isIOS) {
     return SharedPreferenceAppGroup.getString(key);
   } else {
-    return SharedPreferences.getInstance()
-        .then((prefs) => prefs.getString(key));
+    return SharedPreferences.getInstance().then(
+      (prefs) => prefs.getString(key),
+    );
   }
 }
 
@@ -109,15 +83,15 @@ Future<void> _spRemove(String key) async {
   }
 }
 
-class NativeSessionWrapper extends UpdatableCredentialsAdapter {
+class NativeSessionWrapper extends UpdatableWallabagCredentialsAdapter {
   @override
-  Future<Credentials?> read() async {
+  Future<WallabagCredentials?> read() async {
     final session = await ServerSession.load();
     return session?.type == ServerType.wallabag ? session!.wallabag : null;
   }
 
   @override
-  Future<void> write(Credentials credentials) async {
+  Future<void> write(WallabagCredentials credentials) async {
     final session = ServerSession(ServerType.wallabag, wallabag: credentials);
     await session.save();
   }

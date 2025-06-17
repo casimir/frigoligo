@@ -12,13 +12,15 @@ ServerSession _$ServerSessionFromJson(Map<String, dynamic> json) =>
       freon:
           json['freon'] == null
               ? null
-              : FreonCredentials.fromJson(
+              : TokenBearerCredentials.fromJson(
                 json['freon'] as Map<String, dynamic>,
               ),
       wallabag:
           json['wallabag'] == null
               ? null
-              : Credentials.fromJson(json['wallabag'] as Map<String, dynamic>),
+              : WallabagCredentials.fromJson(
+                json['wallabag'] as Map<String, dynamic>,
+              ),
     );
 
 Map<String, dynamic> _$ServerSessionToJson(ServerSession instance) =>
@@ -31,5 +33,4 @@ Map<String, dynamic> _$ServerSessionToJson(ServerSession instance) =>
 const _$ServerTypeEnumMap = {
   ServerType.freon: 'freon',
   ServerType.wallabag: 'wallabag',
-  ServerType.unknown: 'unknown',
 };

@@ -3,7 +3,6 @@ import 'package:cadanse/components/flows/confirmation_modal.dart';
 import 'package:cadanse/components/widgets/adaptive/actions_menu.dart';
 import 'package:cadanse/components/widgets/adaptive/buttons.dart';
 import 'package:cadanse/components/widgets/adaptive/modal_sheet.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -71,7 +70,7 @@ List<Widget> buildActions(
       onPressed: () async {
         final syncer = ref.read(remoteSyncerProvider.notifier);
         await syncer.add(
-          EditArticleAction(article.id, archive: article.archivedAt == null),
+          EditArticleAction(article.id, archived: article.archivedAt == null),
         );
         await syncer.synchronize();
       },
@@ -107,7 +106,7 @@ List<Widget> buildActions(
           () => showModalSheet(
             context: context,
             title: context.L.g_article,
-            builder: (_) => Material(child: const ArticleSheet()),
+            builder: (_) => const Material(child: ArticleSheet()),
           ),
     ),
     ArticleActionKey.openInBrowser: ArticleAction(
