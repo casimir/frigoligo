@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../buildcontext_extension.dart';
-import '../server/clients.dart';
 import '../server/providers/client.dart';
 import '../services/remote_sync.dart';
 

@@ -10,3 +10,5 @@ export 'src/clients/wallabag.dart'
         UpdatableWallabagCredentialsAdapter,
         WallabagClient,
         WallabagCredentials;
+
+export 'src/server_types.dart' show ServerType;

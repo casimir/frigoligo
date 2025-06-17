@@ -10,6 +10,7 @@ import 'package:logging/logging.dart';
 import '../../buildcontext_extension.dart';
 import '../../providers/server_login_flow.dart';
 import '../../server/check.dart';
+import '../../server/clients.dart';
 import '../../server/providers/client.dart';
 import '../../server/session.dart';
 import 'login_freon.dart';
@@ -25,16 +26,11 @@ class LoginFlowCredentials extends ConsumerStatefulWidget {
     this.initial = const {},
     this.onReset,
   }) {
-    final rawServerType = serverCheck.info!.appname;
-    final serverType = ServerType.values.byName(rawServerType);
-
-    switch (serverType) {
+    switch (serverCheck.probeResult!.type) {
       case ServerType.freon:
         loginController = FreonLoginFlowController();
       case ServerType.wallabag:
         loginController = WallabagLoginFlowController();
-      case ServerType.unknown:
-        throw UnknownServerTypeError(rawServerType);
     }
   }
 
@@ -123,7 +119,7 @@ class _LoginFlowCredentialsState extends ConsumerState<LoginFlowCredentials> {
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               subtitle: Text(
-                '${widget.serverCheck.info!.appname} ${widget.serverCheck.info!.version}',
+                '${widget.serverCheck.probeResult!.type} (${widget.serverCheck.probeResult!.version})',
               ),
               trailing: IconButton(
                 icon: const Icon(Icons.edit),
@@ -224,15 +220,4 @@ class LoginField {
   final bool obscureText;
   final bool autofocus;
   final List<String>? autofillHints;
-}
-
-class UnknownServerTypeError implements Exception {
-  const UnknownServerTypeError(this.type);
-
-  final String type;
-
-  @override
-  String toString() {
-    return 'unknown server type: $type';
-  }
 }

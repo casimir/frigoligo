@@ -1,4 +1,3 @@
-import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../app_info.dart';
@@ -6,8 +5,6 @@ import '../clients.dart';
 import '../session.dart';
 
 part 'client.g.dart';
-
-final _log = Logger('server.client');
 
 @riverpod
 class Session extends _$Session {
@@ -50,9 +47,6 @@ class Client extends _$Client {
           userAgent: AppInfo.userAgent,
           selfSignedHost: session.selfSignedHost,
         );
-      case ServerType.unknown:
-        _log.warning('unknown server type: ${session.type}: ${session.raw}');
-        return null;
     }
   }
 }

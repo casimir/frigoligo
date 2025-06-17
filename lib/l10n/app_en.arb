@@ -395,10 +395,6 @@
   "@server_address": {
     "description": "The address of the wallabag instance."
   },
-  "server_apiError": "Invalid API response",
-  "@server_apiError": {
-    "description": "An error occurred while communicating with the wallabag API."
-  },
   "server_emptyField": "Enter your {label}",
   "@server_emptyField": {
     "description": "A message for non-empty check fail on a form field.",
@@ -411,6 +407,10 @@
   "server_invalidUrl": "Invalid address",
   "@server_invalidUrl": {
     "description": "The address of the wallabag instance is invalid."
+  },
+  "server_unknownServerType": "Unknown server type",
+  "@server_unknownServerType": {
+    "description": "The application could not detect the server type."
   },
   "server_unreachable": "Server unreachable",
   "@server_unreachable": {

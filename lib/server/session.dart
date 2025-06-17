@@ -10,8 +10,6 @@ import 'clients.dart';
 
 part 'session.g.dart';
 
-enum ServerType { unknown, freon, wallabag }
-
 const _keyPrefix = kDebugMode ? 'debug.' : '';
 const sessionKey = '${_keyPrefix}server.session';
 const legacyCredentialsKey = '${_keyPrefix}wallabag.credentials';
