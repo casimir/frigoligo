@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:l10n_esperanto/l10n_esperanto.dart';
@@ -93,7 +94,13 @@ class _MyAppState extends ConsumerState<MyApp> {
       routerConfig: ref.watch(routerProvider),
       title: 'Frigoligo',
       theme: ThemeData(colorScheme: schemeLight, useMaterial3: true),
-      darkTheme: ThemeData(colorScheme: schemeDark, useMaterial3: true),
+      darkTheme: ThemeData(
+        colorScheme: schemeDark,
+        useMaterial3: true,
+        cupertinoOverrideTheme: const CupertinoThemeData(
+          textTheme: CupertinoTextThemeData(),
+        ),
+      ),
       themeMode: theme,
       locale: lang.locale,
       localizationsDelegates:
