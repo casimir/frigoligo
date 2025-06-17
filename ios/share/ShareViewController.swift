@@ -120,25 +120,38 @@ class ShareViewController: UIViewController {
     }
   }
   
-  private func doSave() async throws {
-    guard
-      let items = extensionContext?.inputItems as? [NSExtensionItem],
-      let item = items.first,
-      let attachments = item.attachments,
-      let attachment = attachments.first(where: { item in
-        item.hasItemConformingToTypeIdentifier(UTType.url.identifier)
-      })
-    else {
-      throw CompletionError.description("could not extract context attachments")
+  private func findURLAttachment(for typeIdentifier: String) -> NSItemProvider? {
+    extensionContext?.inputItems
+      .compactMap { $0 as? NSExtensionItem }
+      .first?
+      .attachments?
+      .first(where: { $0.hasItemConformingToTypeIdentifier(typeIdentifier) })
+  }
+  
+  private func findSharedUrl() async throws -> URL {
+    for typeIdentifier in [UTType.url.identifier, UTType.plainText.identifier] {
+      guard let attachment = findURLAttachment(for: typeIdentifier) else { continue }
+      
+      do {
+        let item = try await attachment.loadItem(forTypeIdentifier: typeIdentifier)
+        switch typeIdentifier {
+          case UTType.url.identifier:
+            if let url = item as? URL { return url }
+          case UTType.plainText.identifier:
+            if let text = item as? String, let url = URL(string: text) { return url }
+          default:
+            break
+        }
+      } catch {
+        devLog("could not extract URL (type: \(typeIdentifier)): \(error)")
+      }
     }
     
-    let url: URL;
-    do {
-      let item = try await attachment.loadItem(forTypeIdentifier: UTType.url.identifier)
-      url = item as! URL
-    } catch {
-      throw CompletionError.description("unknown error: \(error)")
-    }
+    throw CompletionError.description("no attachment URL found")
+  }
+  
+  private func doSave() async throws {
+    let url = try await findSharedUrl()
     
     do {
       let articleId = try await SavePlugin.shared!.saveArticle(url: url)
