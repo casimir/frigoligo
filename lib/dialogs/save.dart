@@ -8,11 +8,8 @@ import '../buildcontext_extension.dart';
 bool validateURL(String? value) {
   if (value == null || value.isEmpty) return false;
 
-  try {
-    return Uri.parse(value).isAbsolute;
-  } on FormatException {
-    return false;
-  }
+  final uri = Uri.tryParse(value);
+  return uri != null && uri.hasScheme && uri.hasAuthority;
 }
 
 Future<void> showSaveUrlDialog(BuildContext context) async {
@@ -27,11 +24,11 @@ Future<void> showSaveUrlDialog(BuildContext context) async {
     textFields: [
       DialogTextField(
         initialText: initial,
-        validator: (value) =>
-            validateURL(value) ? null : context.L.server_invalidUrl,
+        validator:
+            (value) => validateURL(value) ? null : context.L.server_invalidUrl,
         keyboardType: TextInputType.url,
         autocorrect: false,
-      )
+      ),
     ],
     autoSubmit: true,
   );
