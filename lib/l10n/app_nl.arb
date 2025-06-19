@@ -238,7 +238,7 @@
   "@readdingsettings_textFormatting": {
     "description": "The text formatting to display the content of the article."
   },
-  "readingsettings_title": "Leesinstellingen",
+  "readingsettings_title": "Tekst-instellingen",
   "@readingsettings_title": {
     "description": "The title of the reading settings screen."
   },
@@ -280,10 +280,6 @@
         "example": "3 items"
       }
     }
-  },
-  "server_apiError": "Ongeldig API-antwoord",
-  "@server_apiError": {
-    "description": "An error occurred while communicating with the wallabag API."
   },
   "server_emptyField": "Voer je {label} in",
   "@server_emptyField": {
@@ -504,5 +500,21 @@
   "session_fieldTokenExpiration": "Verval token",
   "@session_fieldTokenExpiration": {
     "description": "The label of the token expiration field in the session screen."
+  },
+  "article_archive": "Artikel archiveren",
+  "@article_archive": {
+    "description": "The action to archive the article."
+  },
+  "article_details": "Meer informatie",
+  "@article_details": {
+    "description": "The action to show the article details."
+  },
+  "article_notFound": "Artikel niet gevonden",
+  "@article_notFound": {
+    "description": "Placeholder for when the article is not found."
+  },
+  "article_share": "Artikel delen",
+  "@article_share": {
+    "description": "The action to share the article."
   }
 }
