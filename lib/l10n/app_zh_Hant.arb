@@ -329,10 +329,6 @@
   "@server_address": {
     "description": "The address of the Wallabag instance."
   },
-  "server_apiError": "無效的 API 回應",
-  "@server_apiError": {
-    "description": "An error occurred while communicating with the Wallabag API."
-  },
   "session_copiedToClipboard": "已複製至剪貼簿",
   "@session_copiedToClipboard": {
     "description": "A message displayed when the value is copied to the clipboard."
