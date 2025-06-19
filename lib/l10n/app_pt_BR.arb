@@ -198,10 +198,6 @@
   "@save_dubiousUrlTitle": {
     "description": "The title of the dubious URL warning dialog."
   },
-  "server_apiError": "Resposta de API inválida",
-  "@server_apiError": {
-    "description": "An error occurred while communicating with the wallabag API."
-  },
   "server_unreachable": "Servidor inacessível",
   "@server_unreachable": {
     "description": "The wallabag instance is unreachable."
@@ -506,5 +502,9 @@
   "article_readingSettings": "Configurações de texto",
   "@article_readingSettings": {
     "description": "The action to open the reading settings sheet."
+  },
+  "settings_nativeArticleRenderer": "Renderizador de artigo nativo",
+  "@settings_nativeArticleRenderer": {
+    "description": "The action to toggle the use of the experimental article renderer."
   }
 }
