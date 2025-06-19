@@ -330,10 +330,6 @@
   "@server_address": {
     "description": "The address of the wallabag instance."
   },
-  "server_apiError": "Vigane API-päringu vastus",
-  "@server_apiError": {
-    "description": "An error occurred while communicating with the wallabag API."
-  },
   "server_emptyField": "Sisesta {label}",
   "@server_emptyField": {
     "description": "A message for non-empty check fail on a form field.",
@@ -540,5 +536,13 @@
   "settings_nativeArticleRenderer": "Rakendusesisene artiklite esitusvalmendus",
   "@settings_nativeArticleRenderer": {
     "description": "The action to toggle the use of the experimental article renderer."
+  },
+  "server_versionNotSupported": "Serveri versiooni pole toetatud",
+  "@server_versionNotSupported": {
+    "description": "The server instance is not supported."
+  },
+  "server_unknownServerType": "Tundmatu serveri tüüp",
+  "@server_unknownServerType": {
+    "description": "The application could not detect the server type."
   }
 }
