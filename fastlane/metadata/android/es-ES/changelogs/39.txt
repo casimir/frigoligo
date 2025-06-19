@@ -1,0 +1,3 @@
+- Ahora es posible guardar un artículo sin conexión.
+- Añade un botón para pedirle al servidor que vuelva a buscar un artículo.
+- Nuevos idiomas: portugués brasileño.
