@@ -311,10 +311,6 @@
   "@server_address": {
     "description": "The address of the wallabag instance."
   },
-  "server_apiError": "Resposta de API inválida",
-  "@server_apiError": {
-    "description": "An error occurred while communicating with the wallabag API."
-  },
   "session_logoutSession": "Sair da sessão",
   "@session_logoutSession": {
     "description": "The action to log out the session."
