@@ -366,10 +366,6 @@
   "@server_address": {
     "description": "The address of the wallabag instance."
   },
-  "server_apiError": "தவறான பநிஇ பதில்",
-  "@server_apiError": {
-    "description": "An error occurred while communicating with the wallabag API."
-  },
   "session_fieldTokenExpiration": "கிள்ளாக்கு காலாவதி",
   "@session_fieldTokenExpiration": {
     "description": "The label of the token expiration field in the session screen."

@@ -274,10 +274,6 @@
   "@server_address": {
     "description": "The address of the Wallabag instance."
   },
-  "server_apiError": "Resposta incorrecta da API",
-  "@server_apiError": {
-    "description": "An error occurred while communicating with the Wallabag API."
-  },
   "server_emptyField": "Escribe o teu {label}",
   "@server_emptyField": {
     "description": "A message for non-empty check fail on a form field.",
@@ -506,5 +502,17 @@
   "article_unstar": "Retirar estrela",
   "@article_unstar": {
     "description": "The action to unstar the article."
+  },
+  "settings_nativeArticleRenderer": "Motor de visualización nativo",
+  "@settings_nativeArticleRenderer": {
+    "description": "The action to toggle the use of the experimental article renderer."
+  },
+  "server_versionNotSupported": "Versión do servidor non compatible",
+  "@server_versionNotSupported": {
+    "description": "The server instance is not supported."
+  },
+  "server_unknownServerType": "Tipo de servidor descoñecido",
+  "@server_unknownServerType": {
+    "description": "The application could not detect the server type."
   }
 }

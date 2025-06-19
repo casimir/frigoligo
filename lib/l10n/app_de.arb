@@ -123,10 +123,6 @@
   "@humanize_seconds": {},
   "humanize_minutes": "{n, plural, =1{1 Minute} other{{n} Minuten}}",
   "@humanize_minutes": {},
-  "server_apiError": "Ungültige API Antwort",
-  "@server_apiError": {
-    "description": "An error occurred while communicating with the Wallabag API."
-  },
   "session_fieldLastServerSync": "Letzte Synchronisierung mit dem Server",
   "@session_fieldLastServerSync": {
     "description": "The label of the last server sync field in the session screen."
@@ -506,5 +502,9 @@
   "article_unstar": "Entfernung der Favorisierung von diesem Artikel",
   "@article_unstar": {
     "description": "The action to unstar the article."
+  },
+  "settings_nativeArticleRenderer": "Nativer Artikel Renderer",
+  "@settings_nativeArticleRenderer": {
+    "description": "The action to toggle the use of the experimental article renderer."
   }
 }

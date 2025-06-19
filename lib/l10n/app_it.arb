@@ -269,10 +269,6 @@
   "@server_address": {
     "description": "The address of the wallabag instance."
   },
-  "server_apiError": "Risposta API non valida",
-  "@server_apiError": {
-    "description": "An error occurred while communicating with the wallabag API."
-  },
   "server_invalidUrl": "Indirizzo non valido",
   "@server_invalidUrl": {
     "description": "The address of the wallabag instance is invalid."
@@ -536,5 +532,17 @@
   "article_details": "Ulteriori informazioni",
   "@article_details": {
     "description": "The action to show the article details."
+  },
+  "settings_nativeArticleRenderer": "Render articoli nativo",
+  "@settings_nativeArticleRenderer": {
+    "description": "The action to toggle the use of the experimental article renderer."
+  },
+  "server_unknownServerType": "Tipo di server sconosciuto",
+  "@server_unknownServerType": {
+    "description": "The application could not detect the server type."
+  },
+  "server_versionNotSupported": "Versione del server non supportata",
+  "@server_versionNotSupported": {
+    "description": "The server instance is not supported."
   }
 }

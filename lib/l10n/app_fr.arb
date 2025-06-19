@@ -175,10 +175,6 @@
   "@login_existingSessionDialogTitle": {
     "description": "The title of the dialog warning about an existing session."
   },
-  "server_apiError": "Réponse de l'API invalide",
-  "@server_apiError": {
-    "description": "An error occurred while communicating with the Wallabag API."
-  },
   "session_fieldLastServerSync": "Dernière synchronisation avec le serveur",
   "@session_fieldLastServerSync": {
     "description": "The label of the last server sync field in the session screen."

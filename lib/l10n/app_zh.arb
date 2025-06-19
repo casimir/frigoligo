@@ -230,10 +230,6 @@
   "@server_address": {
     "description": "The address of the Wallabag instance."
   },
-  "server_apiError": "无效的 API 响应",
-  "@server_apiError": {
-    "description": "An error occurred while communicating with the Wallabag API."
-  },
   "server_emptyField": "输入您的 {label}",
   "@server_emptyField": {
     "description": "A message for non-empty check fail on a form field.",
@@ -506,5 +502,9 @@
   "article_notFound": "未找到文章",
   "@article_notFound": {
     "description": "Placeholder for when the article is not found."
+  },
+  "settings_nativeArticleRenderer": "本地文章渲染器",
+  "@settings_nativeArticleRenderer": {
+    "description": "The action to toggle the use of the experimental article renderer."
   }
 }
