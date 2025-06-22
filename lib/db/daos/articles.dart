@@ -10,15 +10,18 @@ class ArticlesDao extends DatabaseAccessor<DB> with $ArticlesDaoMixin {
 
   Future<int> updateOne(Article article) {
     return db.transaction(() async {
-      var count =
-          await articles.insertOnConflictUpdate(article.toCompanion(false));
+      var count = await articles.insertOnConflictUpdate(
+        article.toCompanion(false),
+      );
 
-      final position = await db.managers.articleScrollPositions
-          .filter((f) => f.id.equals(article.id))
-          .getSingleOrNull();
+      final position =
+          await db.managers.articleScrollPositions
+              .filter((f) => f.id.equals(article.id))
+              .getSingleOrNull();
       if (position != null && position.readingTime != article.readingTime) {
-        count += await articleScrollPositions
-            .deleteWhere((f) => f.id.equals(article.id));
+        count += await articleScrollPositions.deleteWhere(
+          (f) => f.id.equals(article.id),
+        );
       }
 
       return count;
@@ -32,13 +35,17 @@ class ArticlesDao extends DatabaseAccessor<DB> with $ArticlesDaoMixin {
       final t1 = articleScrollPositions;
       final t2 = articles;
 
-      final invalidPositions = await (selectOnly(t1)
-              .join([leftOuterJoin(t2, t1.id.equalsExp(t2.id))])
-            ..addColumns([t1.id])
-            ..where(t1.id.isIn(index.keys) &
-                t1.readingTime.isNotExp(t2.readingTime)))
-          .map((row) => row.read(t1.id)!)
-          .get();
+      final invalidPositions =
+          await (selectOnly(
+                  t1,
+                ).join([leftOuterJoin(t2, t1.id.equalsExp(t2.id))])
+                ..addColumns([t1.id])
+                ..where(
+                  t1.id.isIn(index.keys) &
+                      t1.readingTime.isNotExp(t2.readingTime),
+                ))
+              .map((row) => row.read(t1.id)!)
+              .get();
 
       await db.batch((batch) {
         batch.insertAllOnConflictUpdate(articles, index.values);
@@ -51,8 +58,9 @@ class ArticlesDao extends DatabaseAccessor<DB> with $ArticlesDaoMixin {
     return db.transaction(() async {
       var count = 0;
       count += await articles.deleteWhere((f) => f.id.equals(articleId));
-      count += await articleScrollPositions
-          .deleteWhere((f) => f.id.equals(articleId));
+      count += await articleScrollPositions.deleteWhere(
+        (f) => f.id.equals(articleId),
+      );
       return count;
     });
   }
@@ -67,7 +75,8 @@ class ArticlesDao extends DatabaseAccessor<DB> with $ArticlesDaoMixin {
       SearchTextMode.title => 'title : ',
       SearchTextMode.content => 'content : ',
     };
-    final cleanedText = text.trim().split(RegExp(r'\s+')).join(' AND ');
+    final quotedText = '"$text"';
+    final cleanedText = quotedText.trim().split(RegExp(r'\s+')).join(' AND ');
     final suffix = cleanedText.endsWith('*') ? '' : '*'; // ensure some matches
     final query = columnFilter + cleanedText + suffix;
     final predicate = where != null ? (_, t) => where(t) : null;
@@ -90,9 +99,10 @@ class ArticlesDao extends DatabaseAccessor<DB> with $ArticlesDaoMixin {
   }
 
   Future<List<String>> listAllTags() async {
-    final tagLists = await (articles.selectOnly()..addColumns([articles.tags]))
-        .map((row) => row.readWithConverter(articles.tags)!)
-        .get();
+    final tagLists =
+        await (articles.selectOnly()..addColumns([articles.tags]))
+            .map((row) => row.readWithConverter(articles.tags)!)
+            .get();
     final tags = tagLists.expand((it) => it).toSet().toList();
     tags.sort();
     return tags;
@@ -103,13 +113,13 @@ class ArticlesDao extends DatabaseAccessor<DB> with $ArticlesDaoMixin {
 
   Future<void> saveScrollProgress(Article article, double progress) async {
     await DB().managers.articleScrollPositions.create(
-          (o) => o(
-            id: Value(article.id),
-            readingTime: article.readingTime,
-            progress: progress,
-          ),
-          mode: InsertMode.insertOrReplace,
-        );
+      (o) => o(
+        id: Value(article.id),
+        readingTime: article.readingTime,
+        progress: progress,
+      ),
+      mode: InsertMode.insertOrReplace,
+    );
   }
 }
 
