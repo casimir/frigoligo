@@ -34,6 +34,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(ios/share)* Handle application sharing the URL in plain text ([#377](https://github.com/casimir/frigoligo/pull/377)) ([56fb7ea](https://github.com/casimir/frigoligo/commit/56fb7eac7b7ae8cbd44da7c02c134daa9057ac96))
 - Allow to save URLs with a fragment part ([b87773a](https://github.com/casimir/frigoligo/commit/b87773ac968864683a1e776527c7a209a6153b96))
 - *(UI)* Avoid unreadable text in dark mode for some Cupertino widgets ([4c7fbda](https://github.com/casimir/frigoligo/commit/4c7fbda77cb4c37961cbad2d17188314be334a8d))
+- *(search)* Handle '.' in search terms ([ffcb017](https://github.com/casimir/frigoligo/commit/ffcb017b53e32f863f2329d79cf45a25913f270a))
 
 ### 🚜 Refactor
 
