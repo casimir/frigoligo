@@ -162,10 +162,6 @@
   "@server_address": {
     "description": "The address of the wallabag instance."
   },
-  "server_apiError": "Nevalida API respondo",
-  "@server_apiError": {
-    "description": "An error occurred while communicating with the wallabag API."
-  },
   "server_emptyField": "Enigi vian {label}",
   "@server_emptyField": {
     "description": "A message for non-empty check fail on a form field.",

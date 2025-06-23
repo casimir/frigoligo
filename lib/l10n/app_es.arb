@@ -449,10 +449,6 @@
   "@save_title": {
     "description": "The title of the save screen."
   },
-  "server_apiError": "Respuesta de API no válida",
-  "@server_apiError": {
-    "description": "An error occurred while communicating with the wallabag API."
-  },
   "session_fieldAccessToken": "Token de acceso",
   "@session_fieldAccessToken": {
     "description": "The label of the access token field in the session screen."
@@ -536,5 +532,9 @@
   "article_archive": "Archivar este artículo",
   "@article_archive": {
     "description": "The action to archive the article."
+  },
+  "settings_nativeArticleRenderer": "Renderizador nativo de artículos",
+  "@settings_nativeArticleRenderer": {
+    "description": "The action to toggle the use of the experimental article renderer."
   }
 }

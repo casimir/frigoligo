@@ -1,0 +1,3 @@
+- Agora é possível salvar um artigo offline.
+- Adicione um botão para solicitar ao servidor que recupere um artigo.
+- Novos idiomas: Português do Brasil.

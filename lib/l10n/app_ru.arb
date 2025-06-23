@@ -197,10 +197,6 @@
   "@readdingsettings_textFormatting": {
     "description": "The text formatting to display the content of the article."
   },
-  "server_apiError": "Неверный ответ API",
-  "@server_apiError": {
-    "description": "An error occurred while communicating with the wallabag API."
-  },
   "readingsettings_title": "Настройки текста",
   "@readingsettings_title": {
     "description": "The title of the reading settings screen."
@@ -534,5 +530,9 @@
   "article_share": "Поделиться этой статьёй",
   "@article_share": {
     "description": "The action to share the article."
+  },
+  "settings_nativeArticleRenderer": "Системный отрисовщик статьи",
+  "@settings_nativeArticleRenderer": {
+    "description": "The action to toggle the use of the experimental article renderer."
   }
 }
