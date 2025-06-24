@@ -15,7 +15,7 @@
   <summary xml:lang="pt-BR">Seus artigos com você</summary>
   <summary xml:lang="ru">Ваши статьи с вами</summary>
   <summary xml:lang="ta">உங்களுடன் உங்கள் கட்டுரைகள்</summary>
-  <summary xml:lang="zh-Hans">您的文章随身携带</summary>
+  <summary xml:lang="zh-Hans">你的文章，随时随地</summary>
   <summary xml:lang="zh-Hant">你的文章與你同在</summary>
   
   <metadata_license>MIT</metadata_license>
@@ -139,9 +139,11 @@
       <description>
         <ul>
           <li>New languages: Italian and Dutch.</li>
+          <li xml:lang="es">Nuevos idiomas: italiano y holandés</li>
           <li xml:lang="et">Uued keeled: itaalia keel ja kreeka keel.</li>
           <li xml:lang="fr">Nouvelles langues : italien et néerlandais.</li>
           <li xml:lang="gl">Novos idiomas: italiano e neerlandés.</li>
+          <li xml:lang="pt-BR">Novos idiomas: italiano e holandês.</li>
         </ul>
       </description>
     </release>
@@ -154,6 +156,7 @@
           <li xml:lang="et">Parandasime vea, kus rakenduse käivitamisel tekkis andmekadu.</li>
           <li xml:lang="fr">Correction d'un bug provoquant la perte des données lors du redémarrage de l'application.</li>
           <li xml:lang="gl">Arranxo do problema que causaba a perda de datos ao reiniciar a app.</li>
+          <li xml:lang="pt-BR">Corrigido um bug que causava a perda de dados ao reiniciar o aplicativo.</li>
           <li xml:lang="ru">Исправлена ошибка, приводившая к потере данных при перезапуске приложения.</li>
         </ul>
       </description>
@@ -165,6 +168,9 @@
           <li>Saving an article is now possible offline.</li>
           <li>Add a button to ask the server to re-fetch an article.</li>
           <li>New languages: Brazilian Portuguese.</li>
+          <li xml:lang="es">Ahora es posible guardar un artículo sin conexión.</li>
+          <li xml:lang="es">Añade un botón para pedirle al servidor que vuelva a buscar un artículo.</li>
+          <li xml:lang="es">Nuevos idiomas: portugués brasileño.</li>
           <li xml:lang="et">Artikli salvestamine on nüüd võimalik võrguühenduseta.</li>
           <li xml:lang="et">Lisasime nupu, mis võimaldab artikli serverist uuesti laadida.</li>
           <li xml:lang="et">Uued keeled: Brasiilia portugali keel.</li>
@@ -174,6 +180,9 @@
           <li xml:lang="gl">Agora podes gardar un artigo aínda non tendo conexión.</li>
           <li xml:lang="gl">Engadido un botón para pedirlle ao servidor que volva a obter un artigo.</li>
           <li xml:lang="gl">Novos idiomas: Portugués do Brasil.</li>
+          <li xml:lang="pt-BR">Agora é possível salvar um artigo offline.</li>
+          <li xml:lang="pt-BR">Adicione um botão para solicitar ao servidor que recupere um artigo.</li>
+          <li xml:lang="pt-BR">Novos idiomas: Português do Brasil.</li>
           <li xml:lang="ru">Сохранение статьи теперь возможно в офлайн-режиме.</li>
           <li xml:lang="ru">Добавлена кнопка для повторной загрузки статьи.</li>
           <li xml:lang="ru">Новый язык: бразильский португальский.</li>
@@ -194,10 +203,11 @@
           <li xml:lang="de">Mehrere Fehlerbehebungen im Zusammenhang mit dem Lesefortschritt.</li>
           <li xml:lang="de">Verbindung mit einem Server ohne SSL möglich.</li>
           <li xml:lang="de">Neue Sprachen: Russisch (Русский язык) und Tamil (தமிழ்).</li>
-          <li xml:lang="es">Añadir una forma de crear etiquetas al editar un artículo.</li>
+          <li xml:lang="es">Añade una forma de crear etiquetas al editar un artículo.</li>
           <li xml:lang="es">Mejor experiencia sin conexión.</li>
           <li xml:lang="es">Varias correcciones de errores relacionados con el progreso de lectura.</li>
-          <li xml:lang="es">Permitir conectar con un servidor sin SSL.</li>
+          <li xml:lang="es">Permite conectar con un servidor sin SSL.</li>
+          <li xml:lang="es">Nuevos idiomas: ruso (Русский язык) y támil (தமிழ்).</li>
           <li xml:lang="et">Lisasime võimaluse luua silte artikli muutmise ajal.</li>
           <li xml:lang="et">Paremad kasutusvõimalused võrguühenduseta.</li>
           <li xml:lang="et">Mitmed lugemise edenemisega seotud veaparandused.</li>
