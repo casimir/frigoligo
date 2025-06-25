@@ -279,12 +279,7 @@ String getLanguageLabel(BuildContext context, Language lang) {
   }
 
   final langCode = lang.locale!.toLanguageTag();
-  var normalizedLangCode = langCode;
-  if (lang == Language.zhHant) {
-    normalizedLangCode = 'zh-TW';
-  }
-
-  final localized = LanguageInfoPlus.getLanguageByCode(normalizedLangCode);
+  final localized = LanguageInfoPlus.getLanguageByCode(langCode);
   return '${localized?.name ?? lang.nativeName} ($langCode)';
 }
 
