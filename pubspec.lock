@@ -747,10 +747,10 @@ packages:
     dependency: "direct main"
     description:
       name: language_info_plus
-      sha256: "162d7b0be0ce808d624b0f4e2e092d54a6f660b5d3c703ff3c22f7673027f2b4"
+      sha256: "7f2bdbf082818089cec3eb1ab9e4c6fc54b22997337ba1f58e5d777316463dd1"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.1"
+    version: "1.1.0"
   leak_tracker:
     dependency: transitive
     description:
