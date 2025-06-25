@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:language_info_plus/language_info_plus.dart' hide Language;
 import 'package:logging/logging.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:universal_platform/universal_platform.dart';
@@ -13,8 +14,9 @@ import '../buildcontext_extension.dart';
 import '../constants.dart';
 import '../native/appbadge.dart';
 import '../providers/settings.dart';
-import '../services/remote_sync.dart';
 import '../services/local_storage.dart';
+import '../services/remote_sync.dart';
+import '../src/generated/i18n/app_localizations.dart';
 import '../widget_keys.dart';
 
 final _log = Logger('settings');
@@ -270,10 +272,20 @@ class SettingsPage extends ConsumerWidget {
 }
 
 String getLanguageLabel(BuildContext context, Language lang) {
-  return switch (lang) {
-    Language.system => context.L.g_system,
-    _ => lang.nativeName,
-  };
+  if (lang == Language.system) {
+    final deviceLocale = WidgetsBinding.instance.platformDispatcher.locale;
+    final dL = lookupAppLocalizations(deviceLocale);
+    return dL.g_system;
+  }
+
+  final langCode = lang.locale!.toLanguageTag();
+  var normalizedLangCode = langCode;
+  if (lang == Language.zhHant) {
+    normalizedLangCode = 'zh-TW';
+  }
+
+  final localized = LanguageInfoPlus.getLanguageByCode(normalizedLangCode);
+  return '${localized?.name ?? lang.nativeName} ($langCode)';
 }
 
 String getThemeModeLabel(BuildContext context, ThemeMode mode) {

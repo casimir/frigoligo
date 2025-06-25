@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:l10n_esperanto/l10n_esperanto.dart';
+import 'package:language_info_plus/language_info_plus.dart';
 import 'package:logging/logging.dart';
 import 'package:universal_platform/universal_platform.dart';
 
@@ -31,6 +32,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   log.info('starting app');
+
+  await initializeLanguage();
 
   LinksHandler.init();
 

@@ -243,7 +243,8 @@ class Settings extends _$Settings {
             await UniversalPreferences.setString(key, s);
           default:
             _log.warning(
-                'failed to migrate value: ${value.runtimeType}: $value');
+              'failed to migrate value: ${value.runtimeType}: $value',
+            );
         }
       }
       migrated = true;
@@ -279,9 +280,10 @@ enum Sk {
 
 // Values are displayed in the UI in this order (alphabetical).
 // Languages with a translation completeness under 75% are disabled (commented).
-// See https://www.omniglot.com/language/names.htm for native names.
+// See https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes for native names.
 enum Language {
   system(null, ''),
+  ar(Locale('ar'), 'العربية'),
   de(Locale('de'), 'Deutsch'),
   en(Locale('en'), 'English'),
   es(Locale('es'), 'Español'),
@@ -296,8 +298,7 @@ enum Language {
   ru(Locale('ru'), 'Русский язык'),
   ta(Locale('ta'), 'தமிழ்'),
   zh(Locale('zh'), '中文'),
-  zhHant(Locale('zh', 'Hant'), '漢文'),
-  ;
+  zhHant(Locale('zh', 'Hant'), '漢文');
 
   const Language(this.locale, this.nativeName);
 
