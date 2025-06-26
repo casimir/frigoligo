@@ -12,6 +12,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(reading)* Rework the arrangement of the toolbars ([#338](https://github.com/casimir/frigoligo/pull/338)) ([df32078](https://github.com/casimir/frigoligo/commit/df32078cc20021d8e9f3cd48e9a0ae0d2d8d06cd))
 - *(iOS)* Use native-like modal sheet for article details ([27929d1](https://github.com/casimir/frigoligo/commit/27929d128fc2310e826d8ea92173f5ae13ac6182))
 - *(dev)* Allow to deploy the web app in profile mode by hand ([ed2783c](https://github.com/casimir/frigoligo/commit/ed2783c0b899d241d8f240681a2d6a9bdd8394f6))
+- *(i18n)* Add ar in settings + display languages in the device locale ([4c7a4fd](https://github.com/casimir/frigoligo/commit/4c7a4fd747ce3015051a342e4b39c9ed045d7d46))
 
 ### 🐛 Bug Fixes
 
@@ -35,6 +36,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Allow to save URLs with a fragment part ([b87773a](https://github.com/casimir/frigoligo/commit/b87773ac968864683a1e776527c7a209a6153b96))
 - *(UI)* Avoid unreadable text in dark mode for some Cupertino widgets ([4c7fbda](https://github.com/casimir/frigoligo/commit/4c7fbda77cb4c37961cbad2d17188314be334a8d))
 - *(search)* Handle '.' in search terms ([ffcb017](https://github.com/casimir/frigoligo/commit/ffcb017b53e32f863f2329d79cf45a25913f270a))
+- *(deps)* Update flutter packages (non-major) ([#374](https://github.com/casimir/frigoligo/pull/374)) ([6b772d5](https://github.com/casimir/frigoligo/commit/6b772d55be0834ede011c2755cda13c7e9376f52))
 
 ### 🚜 Refactor
 
@@ -83,6 +85,8 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(dev)* Upload source maps too on GH Pages ([1e5a873](https://github.com/casimir/frigoligo/commit/1e5a873538d36e718f7db6cda299229612658cb2))
 - *(dev)* Also expose the source files on GH pages ([3acf4dd](https://github.com/casimir/frigoligo/commit/3acf4dd9bc7cc5fcb0eae88d0f4acb91bf7ac71b))
 - *(dev)* Patch the source maps root ([9aa03e3](https://github.com/casimir/frigoligo/commit/9aa03e3e2356ae5d072a9d8e195bb1d5a8254726))
+- *(i18n)* Update dependency for localized language labels ([6d7e380](https://github.com/casimir/frigoligo/commit/6d7e380c4c228d53c26f0021a7e452ed753853fd))
+- Bump flutter deps ([6fcd762](https://github.com/casimir/frigoligo/commit/6fcd7622e6d750054f18dfc46e58edb2bb2d9a1f))
 
 ### I18n
 
