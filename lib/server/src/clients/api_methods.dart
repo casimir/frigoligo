@@ -64,6 +64,9 @@ class ArticleOperation {
   final int articleId;
   final DateTime performedAt;
   final ArticleOpType type;
+
+  @override
+  String toString() => 'Op[${type.name}:$articleId]';
 }
 
 enum ArticleOpType { created, updated, deleted }

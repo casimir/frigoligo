@@ -1,8 +1,11 @@
-import '../../../db/models/article.drift.dart';
+import 'package:logging/logging.dart';
 
+import '../../../db/models/article.drift.dart';
 import '../wallabag/endpoints.dart';
 import '../wallabag/types.dart';
 import 'api_methods.dart';
+
+final _log = Logger('clients.wallabag');
 
 Article _toArticle(WallabagEntry entry) => Article(
   id: entry.id,
@@ -125,23 +128,25 @@ mixin WallabagMethods on WallabagClientEndpoints implements ApiMethods {
     final remoteCount = await fetchTotalEntriesCount();
     final delta = localIds.length + creationsCount - remoteCount;
     if (delta > 0) {
+      _log.info('detected delta ($delta) with the server');
       final entriesStream = fetchAllEntries(
         perPage: 300,
         detail: DetailValue.metadata,
       );
       await for (final entries in entriesStream) {
-        for (final e in entries) {
-          if (!localIds.contains(e.id)) {
-            operations.add(
-              ArticleOperation(
-                articleId: e.id,
-                type: ArticleOpType.deleted,
-                // performedAt: e.deletedAt,
-                performedAt: DateTime.now(),
-              ),
-            );
-          }
-        }
+        localIds.removeAll(entries.map((e) => e.id));
+      }
+
+      _log.info('found ${localIds.length} external deletions');
+      for (final id in localIds) {
+        operations.add(
+          ArticleOperation(
+            articleId: id,
+            type: ArticleOpType.deleted,
+            // performedAt: e.deletedAt,
+            performedAt: DateTime.now(),
+          ),
+        );
       }
     }
 
