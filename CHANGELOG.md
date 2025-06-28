@@ -37,6 +37,8 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(UI)* Avoid unreadable text in dark mode for some Cupertino widgets ([4c7fbda](https://github.com/casimir/frigoligo/commit/4c7fbda77cb4c37961cbad2d17188314be334a8d))
 - *(search)* Handle '.' in search terms ([ffcb017](https://github.com/casimir/frigoligo/commit/ffcb017b53e32f863f2329d79cf45a25913f270a))
 - *(deps)* Update flutter packages (non-major) ([#374](https://github.com/casimir/frigoligo/pull/374)) ([6b772d5](https://github.com/casimir/frigoligo/commit/6b772d55be0834ede011c2755cda13c7e9376f52))
+- *(sync/wallabag)* Refactor external deletion detection ([79f9251](https://github.com/casimir/frigoligo/commit/79f92510cc40af44da9b83fb83811700e1a56966))
+- Repair the licenses page ([084753c](https://github.com/casimir/frigoligo/commit/084753c12b03a33896d75c28cfc8021591da2f26))
 
 ### 🚜 Refactor
 
