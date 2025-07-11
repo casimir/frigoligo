@@ -506,5 +506,13 @@
   "settings_nativeArticleRenderer": "本地文章渲染器",
   "@settings_nativeArticleRenderer": {
     "description": "The action to toggle the use of the experimental article renderer."
+  },
+  "server_versionNotSupported": "服务版本不支持",
+  "@server_versionNotSupported": {
+    "description": "The server instance is not supported."
+  },
+  "server_unknownServerType": "未知服务类型",
+  "@server_unknownServerType": {
+    "description": "The application could not detect the server type."
   }
 }
