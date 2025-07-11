@@ -319,7 +319,7 @@
   "@readdingsettings_textFormatting": {
     "description": "The text formatting to display the content of the article."
   },
-  "readingsettings_title": "அமைப்புகளைப் படித்தல்",
+  "readingsettings_title": "உரை அமைப்புகள்",
   "@readingsettings_title": {
     "description": "The title of the reading settings screen."
   },
@@ -500,5 +500,49 @@
   "article_refetchContent": "உள்ளடக்கத்தை மீண்டும் பெறவும்",
   "@article_refetchContent": {
     "description": "The action to ask the server to fetch the article content again."
+  },
+  "article_archive": "இந்த கட்டுரையை காப்பகப்படுத்தவும்",
+  "@article_archive": {
+    "description": "The action to archive the article."
+  },
+  "article_details": "மேலும் செய்தி",
+  "@article_details": {
+    "description": "The action to show the article details."
+  },
+  "article_notFound": "கட்டுரை காணப்படவில்லை",
+  "@article_notFound": {
+    "description": "Placeholder for when the article is not found."
+  },
+  "article_readingSettings": "உரை அமைப்புகள்",
+  "@article_readingSettings": {
+    "description": "The action to open the reading settings sheet."
+  },
+  "article_share": "இந்த கட்டுரையைப் பகிரவும்",
+  "@article_share": {
+    "description": "The action to share the article."
+  },
+  "article_star": "இந்த கட்டுரையை விண்மீன் செய்யுங்கள்",
+  "@article_star": {
+    "description": "The action to star the article."
+  },
+  "article_unarchive": "இந்த கட்டுரையை அறியாதது",
+  "@article_unarchive": {
+    "description": "The action to unarchive the article."
+  },
+  "article_unstar": "இந்த கட்டுரையை உறுதிப்படுத்தவும்",
+  "@article_unstar": {
+    "description": "The action to unstar the article."
+  },
+  "server_unknownServerType": "தெரியாத சேவையக வகை",
+  "@server_unknownServerType": {
+    "description": "The application could not detect the server type."
+  },
+  "server_versionNotSupported": "சேவையக பதிப்பு ஆதரிக்கப்படவில்லை",
+  "@server_versionNotSupported": {
+    "description": "The server instance is not supported."
+  },
+  "settings_nativeArticleRenderer": "சொந்த கட்டுரை ரெண்டரர்",
+  "@settings_nativeArticleRenderer": {
+    "description": "The action to toggle the use of the experimental article renderer."
   }
 }
