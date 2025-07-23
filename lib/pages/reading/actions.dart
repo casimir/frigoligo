@@ -73,6 +73,9 @@ List<Widget> buildActions(
           EditArticleAction(article.id, archived: article.archivedAt == null),
         );
         await syncer.synchronize();
+        if (!withExpander && context.mounted) {
+          context.pop();
+        }
       },
     ),
     ArticleActionKey.delete: ArticleAction(
