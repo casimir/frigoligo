@@ -1,12 +1,9 @@
 import 'package:cadanse/cadanse.dart';
 import 'package:cadanse/tokens/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
-import 'package:fwfh_cached_network_image/fwfh_cached_network_image.dart';
-import 'package:fwfh_url_launcher/fwfh_url_launcher.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
-class HtmlWidgetFactory extends WidgetFactory
-    with CachedNetworkImageFactory, UrlLauncherFactory {
+class HtmlWidgetFactory extends WidgetFactory {
   HtmlWidgetFactory({this.onTreeBuilt});
 
   void Function(Widget)? onTreeBuilt;
