@@ -13,6 +13,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(iOS)* Use native-like modal sheet for article details ([27929d1](https://github.com/casimir/frigoligo/commit/27929d128fc2310e826d8ea92173f5ae13ac6182))
 - *(dev)* Allow to deploy the web app in profile mode by hand ([ed2783c](https://github.com/casimir/frigoligo/commit/ed2783c0b899d241d8f240681a2d6a9bdd8394f6))
 - *(i18n)* Add ar in settings + display languages in the device locale ([4c7a4fd](https://github.com/casimir/frigoligo/commit/4c7a4fd747ce3015051a342e4b39c9ed045d7d46))
+- Support more elements type when rendering web content natively ([11389e3](https://github.com/casimir/frigoligo/commit/11389e33d6daab383740da129577a7debb8c88e4))
 
 ### 🐛 Bug Fixes
 
@@ -39,6 +40,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(deps)* Update flutter packages (non-major) ([#374](https://github.com/casimir/frigoligo/pull/374)) ([6b772d5](https://github.com/casimir/frigoligo/commit/6b772d55be0834ede011c2755cda13c7e9376f52))
 - *(sync/wallabag)* Refactor external deletion detection ([79f9251](https://github.com/casimir/frigoligo/commit/79f92510cc40af44da9b83fb83811700e1a56966))
 - Repair the licenses page ([084753c](https://github.com/casimir/frigoligo/commit/084753c12b03a33896d75c28cfc8021591da2f26))
+- *(UX)* Pop screen to the article list when changing the article state ([2e387e9](https://github.com/casimir/frigoligo/commit/2e387e901744311edfc9cd4f86e997ab89a46cc2))
 
 ### 🚜 Refactor
 
