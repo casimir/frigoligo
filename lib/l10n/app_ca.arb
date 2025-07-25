@@ -1,0 +1,548 @@
+{
+  "g_article": "Article",
+  "@g_article": {
+    "description": "A piece of content fetched from the web. This is one of the main concepts of the app."
+  },
+  "g_check": "Comprova",
+  "@g_check": {
+    "description": "A verb as in to check something."
+  },
+  "g_checking": "S’està comprovant…",
+  "@g_checking": {
+    "description": "Present participle of the verb to check."
+  },
+  "g_delete": "Suprimeix",
+  "@g_delete": {
+    "description": "A verb, as in to delete something."
+  },
+  "g_saveLink": "Desa l’enllaç",
+  "@g_saveLink": {
+    "description": "A verb, as in to save a link."
+  },
+  "g_search": "Cerca",
+  "@g_search": {
+    "description": "A verb, as in to search something."
+  },
+  "g_server": "Servidor",
+  "@g_server": {
+    "description": "A server, as in a computer providing a service."
+  },
+  "g_settings": "Paràmetres",
+  "@g_settings": {
+    "description": "The settings of the application."
+  },
+  "g_share": "Comparteix",
+  "@g_share": {
+    "description": "A verb, as in to share something."
+  },
+  "g_sourceCode": "Codi font",
+  "@g_sourceCode": {
+    "description": "The source code of a software."
+  },
+  "g_synchronize": "Sincronitza",
+  "@g_synchronize": {
+    "description": "A verb, as in to synchronize with the server."
+  },
+  "g_system": "Sistema",
+  "@g_system": {
+    "description": "A name, as in the default configuration (System configuration)."
+  },
+  "g_tag": "Etiqueta",
+  "@g_tag": {
+    "description": "A tag can be attached to an article."
+  },
+  "g_version": "Versió",
+  "@g_version": {
+    "description": "A version, as in the application version."
+  },
+  "humanize_days": "{n, plural, =1{1 dia} other{{n} dies}}",
+  "@humanize_days": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "humanize_future": "d’aquí a {duration}",
+  "@humanize_future": {
+    "description": "Describe a duration until a moment in the future.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "humanize_hours": "{n, plural, =1{1 hora} other{{n} hores}}",
+  "@humanize_hours": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "humanize_minutes": "{n, plural, =1{1 minut} other{{n} minuts}}",
+  "@humanize_minutes": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "humanize_past": "Fa {duration}",
+  "@humanize_past": {
+    "description": "Describe a duration since a moment in the past.",
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "humanize_seconds": "{n, plural, =1{1 segon} other{{n} segons}}",
+  "@humanize_seconds": {
+    "placeholders": {
+      "n": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "article_addTags": "Afegeix etiquetes",
+  "@article_addTags": {
+    "description": "The action to add tags to an article."
+  },
+  "article_archive": "Arxiva aquest article",
+  "@article_archive": {
+    "description": "The action to archive the article."
+  },
+  "article_delete": "Suprimeix aquest article",
+  "@article_delete": {
+    "description": "The action to delete the article."
+  },
+  "article_details": "Més informació",
+  "@article_details": {
+    "description": "The action to show the article details."
+  },
+  "article_noContentFetched": "No s’ha recuperat cap contingut",
+  "@article_noContentFetched": {
+    "description": "Placeholder for when the article content is not available."
+  },
+  "article_notFound": "No s’ha trobat l’article",
+  "@article_notFound": {
+    "description": "Placeholder for when the article is not found."
+  },
+  "article_openInBrowser": "Obre al navegador",
+  "@article_openInBrowser": {
+    "description": "The action to open the article in the web browser."
+  },
+  "article_readingTime": "{minutes} min",
+  "@article_readingTime": {
+    "description": "The estimated reading time of the article.",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "article_readingSettings": "Paràmetres del text",
+  "@article_readingSettings": {
+    "description": "The action to open the reading settings sheet."
+  },
+  "article_share": "Comparteix aquest article",
+  "@article_share": {
+    "description": "The action to share the article."
+  },
+  "article_unarchive": "Desarxiva aquest article",
+  "@article_unarchive": {
+    "description": "The action to unarchive the article."
+  },
+  "articlefields_readingTime": "Temps de lectura",
+  "@articlefields_readingTime": {
+    "description": "The estimated reading time of the article."
+  },
+  "articlefields_tags": "Etiquetes",
+  "@articlefields_tags": {
+    "description": "The tags of the article."
+  },
+  "articlefields_title": "Títol",
+  "@articlefields_title": {
+    "description": "The title of the article."
+  },
+  "articlefields_website": "Lloc web",
+  "@articlefields_website": {
+    "description": "The website (domain) from where the article has been fetched."
+  },
+  "filters_articleDomains": "Dominis",
+  "@filters_articleDomains": {
+    "description": "Filter the domains from where the articles have been fetched."
+  },
+  "filters_articleDomainsCount": "{count, plural, =1{1 domini} other{{count} dominis}}",
+  "@filters_articleDomainsCount": {
+    "description": "The number of articles domains used in filters.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "filters_articleState": "Estat",
+  "@filters_articleState": {
+    "description": "The state of the article."
+  },
+  "filters_articleStateUnread": "Sense llegir",
+  "@filters_articleStateUnread": {
+    "description": "Filter articles with the state 'unread'."
+  },
+  "filters_articleStateArchived": "Arxivats",
+  "@filters_articleStateArchived": {
+    "description": "Filter articles with the state 'archived'."
+  },
+  "filters_articleStateAll": "Tots els estats",
+  "@filters_articleStateAll": {
+    "description": "Don't filter articles by state."
+  },
+  "filters_articleTags": "Etiquetes",
+  "@filters_articleTags": {
+    "description": "Filter articles with the given tag values."
+  },
+  "filters_articleTagsCount": "{count, plural, =1{1 etiqueta} other{{count} etiquetes}}",
+  "@filters_articleTagsCount": {
+    "description": "The number of tags used in filters.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "filters_searchbarHint": "Cerca als articles",
+  "@filters_searchbarHint": {
+    "description": "Search bar hint in the home screen."
+  },
+  "filters_searchMode": "Mode de cerca",
+  "@filters_searchMode": {
+    "description": "The title of the search mode screen (which fields to search text into)."
+  },
+  "filters_searchModeAll": "Tots els camps",
+  "@filters_searchModeAll": {
+    "description": "Search text in all fields."
+  },
+  "filters_searchModeContent": "Contingut",
+  "@filters_searchModeContent": {
+    "description": "Search text only in the content field."
+  },
+  "filters_searchModeTitle": "Títol",
+  "@filters_searchModeTitle": {
+    "description": "Search text only in the title field."
+  },
+  "logconsole_title": "Consola de registres",
+  "@logconsole_title": {
+    "description": "The title of the log console screen."
+  },
+  "listing_noArticles": "No hi ha cap article",
+  "@listing_noArticles": {
+    "description": "Placeholder for when there are no articles to display."
+  },
+  "listing_articlesAll": "Tots els articles",
+  "@listing_articlesAll": {
+    "description": "The title for the list of all the articles."
+  },
+  "listing_articlesArchived": "Articles arxivats",
+  "@listing_articlesArchived": {
+    "description": "The title for the list of the articles with the state Archived."
+  },
+  "listing_articlesUnread": "Articles sense llegir",
+  "@listing_articlesUnread": {
+    "description": "The title for the list of the articles with the state Unread."
+  },
+  "login_acceptSelfSigned": "Accepta certificats autosignats",
+  "@login_acceptSelfSigned": {
+    "description": "Wether or not to accept self-signed certificates when connecting to the wallabag instance."
+  },
+  "login_actionLogin": "Inicia una sessió",
+  "@login_actionLogin": {
+    "description": "The action to log in."
+  },
+  "login_existingSessionDialogConfirm": "Finalitza la sessió",
+  "@login_existingSessionDialogConfirm": {
+    "description": "The action to log out from the existing session."
+  },
+  "login_existingSessionDialogMessage": "Voleu finalitzar la sessió actual i obrir-ne una de nova?",
+  "@login_existingSessionDialogMessage": {
+    "description": "The message of the dialog warning about an existing session."
+  },
+  "login_existingSessionDialogTitle": "Ja hi ha una sessió activa",
+  "@login_existingSessionDialogTitle": {
+    "description": "The title of the dialog warning about an existing session."
+  },
+  "login_fieldClientId": "Id. del client",
+  "@login_fieldClientId": {
+    "description": "The client ID field of the login form."
+  },
+  "login_fieldPassword": "Contrasenya",
+  "@login_fieldPassword": {
+    "description": "The password field of the login form."
+  },
+  "login_fieldUsername": "Nom d’usuari",
+  "@login_fieldUsername": {
+    "description": "The username field of the login form."
+  },
+  "login_openLogConsole": "Obre la consola de registres",
+  "@login_openLogConsole": {
+    "description": "The action to open the log console."
+  },
+  "readingsettings_fontFamily": "Família tipogràfica",
+  "@readingsettings_fontFamily": {
+    "description": "The font family to display the content of the article."
+  },
+  "readingsettings_fontSize": "Mida de la lletra",
+  "@readingsettings_fontSize": {
+    "description": "The font size to display the content of the article."
+  },
+  "readdingsettings_textFormatting": "Formatació del text",
+  "@readdingsettings_textFormatting": {
+    "description": "The text formatting to display the content of the article."
+  },
+  "readingsettings_title": "Paràmetres del text",
+  "@readingsettings_title": {
+    "description": "The title of the reading settings screen."
+  },
+  "save_confirmationTitle": "S’ha desat l’article.",
+  "@save_confirmationTitle": {
+    "description": "The title of the confirmation screen after the article is saved. "
+  },
+  "save_dubiousUrlConfirm": "Desa’l",
+  "@save_dubiousUrlConfirm": {
+    "description": "The confirmation button of the dubious URL warning dialog."
+  },
+  "selector_selectbuttonlabel": "Selecciona {numberOfItems}",
+  "@selector_selectbuttonlabel": {
+    "description": "The label of the select button in a selector screen.",
+    "placeholders": {
+      "numberOfItems": {
+        "type": "String",
+        "example": "3 items"
+      }
+    }
+  },
+  "server_address": "Adreça del servidor",
+  "@server_address": {
+    "description": "The address of the wallabag instance."
+  },
+  "session_copiedToClipboard": "S’ha copiat al porta-retalls",
+  "@session_copiedToClipboard": {
+    "description": "A message displayed when the value is copied to the clipboard."
+  },
+  "session_invalidToken": "no vàlid",
+  "@session_invalidToken": {
+    "description": "Placeholder for expiration date when the token is invalid."
+  },
+  "session_neverSynced": "mai",
+  "@session_neverSynced": {
+    "description": "Default value for the last sync time."
+  },
+  "settings_itemAbout": "Quant a",
+  "@settings_itemAbout": {
+    "description": "The action to display the about screen."
+  },
+  "settings_itemLanguage": "Llengua",
+  "@settings_itemLanguage": {
+    "description": "The action to change the language of the application."
+  },
+  "settings_title": "Paràmetres",
+  "@settings_title": {
+    "description": "The title of the settings screen."
+  },
+  "settings_valueThemeDark": "Fosc",
+  "@settings_valueThemeDark": {
+    "description": "The label for the dark theme mode."
+  },
+  "settings_valueThemeLight": "Clar",
+  "@settings_valueThemeLight": {
+    "description": "The label for the light theme mode."
+  },
+  "save_title": "Desa l’article",
+  "@save_title": {
+    "description": "The title of the save screen."
+  },
+  "save_viewArticle": "Visualitza l’article",
+  "@save_viewArticle": {
+    "description": "The action to view the article after it is saved."
+  },
+  "server_invalidUrl": "L’adreça no és vàlida",
+  "@server_invalidUrl": {
+    "description": "The address of the wallabag instance is invalid."
+  },
+  "session_fieldAccessToken": "Testimoni d’accés",
+  "@session_fieldAccessToken": {
+    "description": "The label of the access token field in the session screen."
+  },
+  "session_fieldApiToken": "Testimoni de l’API",
+  "@session_fieldApiToken": {
+    "description": "The API token field name of in forms."
+  },
+  "session_fieldTokenExpiration": "Caducitat del testimoni",
+  "@session_fieldTokenExpiration": {
+    "description": "The label of the token expiration field in the session screen."
+  },
+  "session_title": "Detalls de la sessió",
+  "@session_title": {
+    "description": "The title of the session details screen."
+  },
+  "settings_itemClearCache": "Neteja la memòria cau",
+  "@settings_itemClearCache": {
+    "description": "The action to clear the offline cache."
+  },
+  "settings_itemLogConsole": "Consola de registres",
+  "@settings_itemLogConsole": {
+    "description": "The action to display the log console screen."
+  },
+  "settings_itemSessionDetails": "Detalls de la sessió",
+  "@settings_itemSessionDetails": {
+    "description": "The action to display the session details screen."
+  },
+  "article_browseOriginal": "Explora l’original",
+  "@article_browseOriginal": {
+    "description": "The action to open the URL of the article in the web browser."
+  },
+  "server_unknownServerType": "Es desconeix el tipus de servidor",
+  "@server_unknownServerType": {
+    "description": "The application could not detect the server type."
+  },
+  "session_fieldLastServerSync": "Darrera sincronització amb el servidor",
+  "@session_fieldLastServerSync": {
+    "description": "The label of the last server sync field in the session screen."
+  },
+  "session_forceTokenResfresh": "Força una actualització del testimoni",
+  "@session_forceTokenResfresh": {
+    "description": "The action to force a token refresh."
+  },
+  "settings_bugReportLink": "Informa d’un error",
+  "@settings_bugReportLink": {
+    "description": "The action to open the bug report form."
+  },
+  "settings_helpToTranslate": "Ajudeu amb la traducció",
+  "@settings_helpToTranslate": {
+    "description": "The action to open the Weblate project in a webview."
+  },
+  "syncer_pendingActions": "{count, plural, =1{1 acció} other{{count} accions}}",
+  "@syncer_pendingActions": {
+    "description": "Number of pending actions in the RemoteSyncer queue.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "settings_itemAppearance": "Aspecte",
+  "@settings_itemAppearance": {
+    "description": "Settings for the appearance of the application."
+  },
+  "session_renewDialogMessage": "El servidor rebutja el testimoni de sessió actual. Haureu d’iniciar sessió de nou per a reprendre la sincronització.",
+  "@session_renewDialogMessage": {
+    "description": "The message of the confirmation dialog to renew the session."
+  },
+  "session_renewDialogTitle": "Renova la sessió",
+  "@session_renewDialogTitle": {
+    "description": "The title of the confirmation dialog to renew the session."
+  },
+  "settings_clearCacheMessage": "La memòria cau local se suprimirà i es recuperarà del servidor un cop més.",
+  "@settings_clearCacheMessage": {
+    "description": "The message of the confirmation dialog to clear the cache."
+  },
+  "settings_savedArticleTag": "Afegeix una etiqueta als articles desats",
+  "@settings_savedArticleTag": {
+    "description": "The action to toggle the addition of a tag to saved articles."
+  },
+  "settings_savedArticleTagLabel": "Etiqueta per als articles desats",
+  "@settings_savedArticleTagLabel": {
+    "description": "The label of the tag to add to saved articles."
+  },
+  "session_logoutDialogMessage": "Haureu d’iniciar sessió de nou.",
+  "@session_logoutDialogMessage": {
+    "description": "The message of the confirmation dialog to log out."
+  },
+  "server_versionNotSupported": "No s’admet la versió del servidor",
+  "@server_versionNotSupported": {
+    "description": "The server instance is not supported."
+  },
+  "settings_itemOpenDeeplink": "Obre un enllaç profund",
+  "@settings_itemOpenDeeplink": {
+    "description": "The action to open a deep link."
+  },
+  "session_logoutSession": "Finalitza la sessió",
+  "@session_logoutSession": {
+    "description": "The action to log out the session."
+  },
+  "session_logoutDialogTitle": "Finalitza la sessió",
+  "@session_logoutDialogTitle": {
+    "description": "The title of the confirmation dialog to log out."
+  },
+  "article_refetchContent": "Torna a recuperar el contingut",
+  "@article_refetchContent": {
+    "description": "The action to ask the server to fetch the article content again."
+  },
+  "article_star": "Destaca aquest article",
+  "@article_star": {
+    "description": "The action to star the article."
+  },
+  "article_unstar": "Deixa de destacar aquest article",
+  "@article_unstar": {
+    "description": "The action to unstar the article."
+  },
+  "filters_articleFavoriteStarred": "Destacats",
+  "@filters_articleFavoriteStarred": {
+    "description": "Filter starred articles."
+  },
+  "login_fieldClientSecret": "Secret del client",
+  "@login_fieldClientSecret": {
+    "description": "The client secret field of the login form."
+  },
+  "save_dubiousUrlMessage": "Aquest URL no s’assembla a un. Voleu desar-lo igualment?\n{url}",
+  "@save_dubiousUrlMessage": {
+    "description": "The message of the dubious URL warning dialog.",
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "save_dubiousUrlTitle": "L’URL és dubtós",
+  "@save_dubiousUrlTitle": {
+    "description": "The title of the dubious URL warning dialog."
+  },
+  "save_noUrl": "No s’ha fornit cap URL",
+  "@save_noUrl": {
+    "description": "The URL was missing from the save request."
+  },
+  "server_emptyField": "Heu d’introduir {label}",
+  "@server_emptyField": {
+    "description": "A message for non-empty check fail on a form field.",
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "server_unreachable": "El servidor no és accessible",
+  "@server_unreachable": {
+    "description": "The server instance is unreachable."
+  },
+  "session_logoutDialogConfirm": "Finalitza la sessió",
+  "@session_logoutDialogConfirm": {
+    "description": "Confirm the log out from the confirmation dialog."
+  },
+  "settings_itemAppBadge": "Mostra la insígnia de no llegits",
+  "@settings_itemAppBadge": {
+    "description": "The action to toggle the unread badge on the application icon."
+  },
+  "settings_nativeArticleRenderer": "Representador d’articles natiu",
+  "@settings_nativeArticleRenderer": {
+    "description": "The action to toggle the use of the experimental article renderer."
+  }
+}
