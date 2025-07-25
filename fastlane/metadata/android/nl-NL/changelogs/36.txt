@@ -1,0 +1,4 @@
+- Het grootste deel van de interface is vernieuwd om deze consistenter en gebruiksvriendelijker te maken.
+- Het opslagsysteem is volledig vernieuwd voor een consistentere en betrouwbaardere ervaring op alle platforms.
+- De logica rond app-badgetellingen is vernieuwd om deze betrouwbaarder te maken.
+- Nieuwe taal: Esperanto.

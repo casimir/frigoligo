@@ -1,0 +1,3 @@
+- Het is nu mogelijk om een artikel offline op te slaan.
+- Voeg een knop toe om de server te vragen een artikel opnieuw op te halen.
+- Nieuwe talen: Braziliaans Portugees.
