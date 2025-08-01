@@ -506,5 +506,13 @@
   "settings_nativeArticleRenderer": "Nativer Artikel Renderer",
   "@settings_nativeArticleRenderer": {
     "description": "The action to toggle the use of the experimental article renderer."
+  },
+  "server_unknownServerType": "Unbekannter Servertyp",
+  "@server_unknownServerType": {
+    "description": "The application could not detect the server type."
+  },
+  "server_versionNotSupported": "Serverversion wird nicht unterstützt",
+  "@server_versionNotSupported": {
+    "description": "The server instance is not supported."
   }
 }
