@@ -1,0 +1,1 @@
+- Er is een bug opgelost waardoor gegevens verloren gingen bij het opnieuw opstarten van de app.

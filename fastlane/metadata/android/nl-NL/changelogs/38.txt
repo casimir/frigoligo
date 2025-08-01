@@ -1,0 +1,5 @@
+- Een manier is toegevoegd om tags aan te maken tijdens het bewerken van een artikel.
+- Verbeterde offline ervaring.
+- Diverse bugfixes met betrekking tot de leesvoortgang.
+- Verbinding met een server zonder SSL mogelijk.
+- Nieuwe talen: Russisch (Русский язык) en Tamil (தமிழ்).
