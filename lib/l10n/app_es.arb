@@ -3,7 +3,7 @@
   "@g_checking": {
     "description": "Present participle of the verb to check."
   },
-  "g_delete": "Borrar",
+  "g_delete": "Eliminar",
   "@g_delete": {
     "description": "A verb, as in to delete something."
   },
@@ -79,7 +79,7 @@
   "@article_browseOriginal": {
     "description": "The action to open the URL of the article in the web browser."
   },
-  "article_delete": "Borrar este artículo",
+  "article_delete": "Eliminar este artículo",
   "@article_delete": {
     "description": "The action to delete the article."
   },
@@ -196,7 +196,7 @@
   "@g_server": {
     "description": "A server, as in a computer providing a service."
   },
-  "g_settings": "Ajustes",
+  "g_settings": "Configuración",
   "@g_settings": {
     "description": "The settings of the application."
   },
@@ -209,7 +209,7 @@
       }
     }
   },
-  "articlefields_website": "Página web",
+  "articlefields_website": "Sitio web",
   "@articlefields_website": {
     "description": "The website (domain) from where the article has been fetched."
   },
@@ -265,15 +265,15 @@
   "@login_existingSessionDialogConfirm": {
     "description": "The action to log out from the existing session."
   },
-  "login_existingSessionDialogMessage": "¿Quieres cerrar la sesión actual y abrir una nueva?",
+  "login_existingSessionDialogMessage": "¿Quiere finalizar la sesión actual y abrir una nueva?",
   "@login_existingSessionDialogMessage": {
     "description": "The message of the dialog warning about an existing session."
   },
-  "login_fieldClientId": "ID del cliente",
+  "login_fieldClientId": "Id. del cliente",
   "@login_fieldClientId": {
     "description": "The client ID field of the login form."
   },
-  "login_fieldClientSecret": "clave secreta del cliente",
+  "login_fieldClientSecret": "Clave secreta del cliente",
   "@login_fieldClientSecret": {
     "description": "The client secret field of the login form."
   },
@@ -289,11 +289,11 @@
   "@login_openLogConsole": {
     "description": "The action to open the log console."
   },
-  "readingsettings_fontFamily": "Familia de fuentes",
+  "readingsettings_fontFamily": "Familia tipográfica",
   "@readingsettings_fontFamily": {
     "description": "The font family to display the content of the article."
   },
-  "readingsettings_fontSize": "Tamaño de fuente",
+  "readingsettings_fontSize": "Tamaño de texto",
   "@readingsettings_fontSize": {
     "description": "The font size to display the content of the article."
   },
@@ -309,7 +309,7 @@
   "@save_viewArticle": {
     "description": "The action to view the article after it is saved."
   },
-  "selector_selectbuttonlabel": "Selecciona {numberOfItems}",
+  "selector_selectbuttonlabel": "Seleccionar {numberOfItems}",
   "@selector_selectbuttonlabel": {
     "description": "The label of the select button in a selector screen.",
     "placeholders": {
@@ -323,7 +323,7 @@
   "@server_address": {
     "description": "The address of the wallabag instance."
   },
-  "server_emptyField": "Ingresa tu {label}",
+  "server_emptyField": "Introduzca su {label}",
   "@server_emptyField": {
     "description": "A message for non-empty check fail on a form field.",
     "placeholders": {
@@ -332,7 +332,7 @@
       }
     }
   },
-  "server_invalidUrl": "Dirección incorrecta",
+  "server_invalidUrl": "Dirección no válida",
   "@server_invalidUrl": {
     "description": "The address of the wallabag instance is invalid."
   },
@@ -392,7 +392,7 @@
   "@settings_itemClearCache": {
     "description": "The action to clear the offline cache."
   },
-  "settings_itemLogConsole": "Consola de registro",
+  "settings_itemLogConsole": "Consola de registros",
   "@settings_itemLogConsole": {
     "description": "The action to display the log console screen."
   },
@@ -428,15 +428,15 @@
   "@login_existingSessionDialogTitle": {
     "description": "The title of the dialog warning about an existing session."
   },
-  "readingsettings_title": "Ajustes de texto",
+  "readingsettings_title": "Configuración del texto",
   "@readingsettings_title": {
     "description": "The title of the reading settings screen."
   },
-  "save_dubiousUrlConfirm": "Guárdala",
+  "save_dubiousUrlConfirm": "Guardarlo",
   "@save_dubiousUrlConfirm": {
     "description": "The confirmation button of the dubious URL warning dialog."
   },
-  "save_dubiousUrlMessage": "Esa URL no parece válida. ¿Guardar de todos modos?\n{url}",
+  "save_dubiousUrlMessage": "Ese URL no parece válido. ¿Quiere guardarlo de todos modos?\n{url}",
   "@save_dubiousUrlMessage": {
     "description": "The message of the dubious URL warning dialog.",
     "placeholders": {
@@ -457,11 +457,11 @@
   "@save_dubiousUrlTitle": {
     "description": "The title of the dubious URL warning dialog."
   },
-  "session_copiedToClipboard": "Copiado al portapapeles",
+  "session_copiedToClipboard": "Se copió en el portapapeles",
   "@session_copiedToClipboard": {
     "description": "A message displayed when the value is copied to the clipboard."
   },
-  "session_invalidToken": "incorrecto",
+  "session_invalidToken": "no válido",
   "@session_invalidToken": {
     "description": "Placeholder for expiration date when the token is invalid."
   },
@@ -469,7 +469,7 @@
   "@session_logoutDialogConfirm": {
     "description": "Confirm the log out from the confirmation dialog."
   },
-  "session_logoutDialogMessage": "Necesitarás iniciar sesión nuevamente.",
+  "session_logoutDialogMessage": "Deberá iniciar sesión nuevamente.",
   "@session_logoutDialogMessage": {
     "description": "The message of the confirmation dialog to log out."
   },
@@ -485,7 +485,7 @@
   "@settings_itemAbout": {
     "description": "The action to display the about screen."
   },
-  "settings_helpToTranslate": "Ayuda con la traducción",
+  "settings_helpToTranslate": "Ayudar a traducir",
   "@settings_helpToTranslate": {
     "description": "The action to open the Weblate project in a webview."
   },
@@ -517,11 +517,11 @@
   "@article_unstar": {
     "description": "The action to unstar the article."
   },
-  "article_readingSettings": "Ajustes de texto",
+  "article_readingSettings": "Configuración del texto",
   "@article_readingSettings": {
     "description": "The action to open the reading settings sheet."
   },
-  "article_unarchive": "Desarchivar artículo",
+  "article_unarchive": "Desarchivar este artículo",
   "@article_unarchive": {
     "description": "The action to unarchive the article."
   },
@@ -533,8 +533,16 @@
   "@article_archive": {
     "description": "The action to archive the article."
   },
-  "settings_nativeArticleRenderer": "Renderizador nativo de artículos",
+  "settings_nativeArticleRenderer": "Representador de artículos nativo",
   "@settings_nativeArticleRenderer": {
     "description": "The action to toggle the use of the experimental article renderer."
+  },
+  "server_versionNotSupported": "Versión del servidor no admitida",
+  "@server_versionNotSupported": {
+    "description": "The server instance is not supported."
+  },
+  "server_unknownServerType": "Tipo de servidor desconocido",
+  "@server_unknownServerType": {
+    "description": "The application could not detect the server type."
   }
 }
