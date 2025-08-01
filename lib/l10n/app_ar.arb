@@ -536,5 +536,13 @@
   "settings_valueThemeLight": "فاتح",
   "@settings_valueThemeLight": {
     "description": "The label for the light theme mode."
+  },
+  "server_unknownServerType": "نوع الخادم غير معروف",
+  "@server_unknownServerType": {
+    "description": "The application could not detect the server type."
+  },
+  "server_versionNotSupported": "نسخة الخادم غير مدعوم",
+  "@server_versionNotSupported": {
+    "description": "The server instance is not supported."
   }
 }
