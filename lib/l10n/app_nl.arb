@@ -516,5 +516,33 @@
   "article_share": "Artikel delen",
   "@article_share": {
     "description": "The action to share the article."
+  },
+  "article_readingSettings": "Text instellingen",
+  "@article_readingSettings": {
+    "description": "The action to open the reading settings sheet."
+  },
+  "article_star": "Geef dit artikel een ster",
+  "@article_star": {
+    "description": "The action to star the article."
+  },
+  "article_unarchive": "Dit artikel uit het archief halen",
+  "@article_unarchive": {
+    "description": "The action to unarchive the article."
+  },
+  "article_unstar": "Verwijder de ster van dit artikel",
+  "@article_unstar": {
+    "description": "The action to unstar the article."
+  },
+  "server_unknownServerType": "Onbekend servertype",
+  "@server_unknownServerType": {
+    "description": "The application could not detect the server type."
+  },
+  "server_versionNotSupported": "Serverversie niet ondersteund",
+  "@server_versionNotSupported": {
+    "description": "The server instance is not supported."
+  },
+  "settings_nativeArticleRenderer": "Native artikelrenderer",
+  "@settings_nativeArticleRenderer": {
+    "description": "The action to toggle the use of the experimental article renderer."
   }
 }

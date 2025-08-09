@@ -1,0 +1,4 @@
+- Veel aanpassingen en verbeteringen aan de gebruikersinterface.
+- De deelknop werkte in sommige gevallen niet.
+- Nieuwe talen: Spaans, Estisch.
+- Vertalingen voor verschillende talen bijgewerkt.

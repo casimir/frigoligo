@@ -534,5 +534,13 @@
   "settings_nativeArticleRenderer": "Системный отрисовщик статьи",
   "@settings_nativeArticleRenderer": {
     "description": "The action to toggle the use of the experimental article renderer."
+  },
+  "server_unknownServerType": "Неизвестный тип сервера",
+  "@server_unknownServerType": {
+    "description": "The application could not detect the server type."
+  },
+  "server_versionNotSupported": "Версия сервера не поддерживается",
+  "@server_versionNotSupported": {
+    "description": "The server instance is not supported."
   }
 }
