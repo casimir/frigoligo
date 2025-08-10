@@ -80,6 +80,12 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
  ([fca7a70](https://github.com/casimir/frigoligo/commit/fca7a70e4b0f924b038363ef6538cb3a38475cc8))
 - Update translations: Portuguese
  ([2577b5d](https://github.com/casimir/frigoligo/commit/2577b5d9cb9d9f3ba79b2bf91836379a7d539f94))
+- Update translations: Tamil
+ ([f4e8982](https://github.com/casimir/frigoligo/commit/f4e89826f9069f8f19f4cc0df792e709c62ac7c0))
+- Update translations: Catalan
+ ([b990cde](https://github.com/casimir/frigoligo/commit/b990cde52f3c1cf935ca8b94570e63d057bb171f))
+- Update translations: Arabic
+ ([8677705](https://github.com/casimir/frigoligo/commit/867770534b6ea68c9b7c3b0093955aedc8d5867e))
 
 ### ⚙️ Miscellaneous Tasks
 

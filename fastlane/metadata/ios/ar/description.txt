@@ -1,0 +1,1 @@
+../../android/ar/full_description.txt

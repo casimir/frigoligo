@@ -139,11 +139,12 @@
       <description>
         <ul>
           <li>New languages: Italian and Dutch.</li>
-          <li xml:lang="es">Nuevos idiomas: italiano y holandés</li>
+          <li xml:lang="es">Idiomas nuevos: italiano y neerlandés.</li>
           <li xml:lang="et">Uued keeled: itaalia keel ja kreeka keel.</li>
           <li xml:lang="fr">Nouvelles langues : italien et néerlandais.</li>
           <li xml:lang="gl">Novos idiomas: italiano e neerlandés.</li>
           <li xml:lang="pt-BR">Novos idiomas: italiano e holandês.</li>
+          <li xml:lang="ru">Новые языки: итальянский и голландский.</li>
         </ul>
       </description>
     </release>
