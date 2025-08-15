@@ -270,6 +270,30 @@
   "@logconsole_title": {
     "description": "The title of the log console screen."
   },
+  "logconsole_export_title": "Export as file",
+  "@logconsole_export_title": {
+    "description": "The title of the export as file dialog."
+  },
+  "logconsole_export_current_session": "Current session ({count, plural, =1{1 line} other{{count} lines}})",
+  "@logconsole_export_current_session": {
+    "description": "Label for exporting only the current session logs.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
+  "logconsole_export_all_logs": "All logs ({count, plural, =1{1 line} other{{count} lines}})",
+  "@logconsole_export_all_logs": {
+    "description": "Label for exporting all available logs.",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "format": "compact"
+      }
+    }
+  },
   "@_LISTING": {},
   "listing_noArticles": "No articles",
   "@listing_noArticles": {

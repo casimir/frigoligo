@@ -8,7 +8,7 @@ import 'app_logs.drift.dart';
 class AppLogsDao extends DatabaseAccessor<DB> with $AppLogsDaoMixin {
   AppLogsDao(super.attachedDatabase);
 
-  Future<int> count() => appLogs.count().getSingle();
+  Future<int> getLineCount() => appLogs.count().getSingle();
 
   Future<AppLog?> index(int n) {
     return (select(appLogs)
@@ -31,24 +31,35 @@ class AppLogsDao extends DatabaseAccessor<DB> with $AppLogsDaoMixin {
       if (firstRecord == null) return 0;
 
       return (delete(appLogs)
-            ..where((t) => t.time.isSmallerThanValue(firstRecord.time)))
-          .go();
+        ..where((t) => t.time.isSmallerThanValue(firstRecord.time))).go();
     });
   }
 
   Future<void> clear() => delete(appLogs).go();
 
-  Future<List<String>> currentRunLoglines() async {
+  Future<int> getCurrentRunLineCount() async {
     final firstRecord = await lastStartingRecord();
-    if (firstRecord == null) return [];
+    if (firstRecord == null) return 0;
 
-    return (selectOnly(appLogs)
-          ..addColumns([appLogs.logline])
-          ..where(appLogs.time.isBiggerOrEqualValue(firstRecord.time))
-          ..orderBy([
-            OrderingTerm(expression: appLogs.time, mode: OrderingMode.asc),
-          ]))
-        .map((row) => row.read(appLogs.logline)!)
-        .get();
+    return await appLogs
+        .count(where: (t) => t.time.isBiggerOrEqualValue(firstRecord.time))
+        .getSingle();
+  }
+
+  Future<List<String>> getLines(bool onlyCurrentRun) async {
+    final query = selectOnly(appLogs)..addColumns([appLogs.logline]);
+
+    if (onlyCurrentRun) {
+      final firstRecord = await lastStartingRecord();
+      if (firstRecord == null) return [];
+
+      query.where(appLogs.time.isBiggerOrEqualValue(firstRecord.time));
+    }
+
+    query.orderBy([
+      OrderingTerm(expression: appLogs.time, mode: OrderingMode.asc),
+    ]);
+
+    return query.map((row) => row.read(appLogs.logline)!).get();
   }
 }

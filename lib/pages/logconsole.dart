@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cadanse/cadanse.dart';
 import 'package:cadanse/components/widgets/adaptive/buttons.dart';
 import 'package:cadanse/components/widgets/adaptive/scaffold.dart';
+import 'package:cadanse/tokens/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -10,7 +12,6 @@ import 'package:share_plus/share_plus.dart';
 import 'package:universal_platform/universal_platform.dart';
 
 import '../buildcontext_extension.dart';
-import '../constants.dart';
 import '../db/database.dart';
 import '../providers/logconsole.dart';
 import '../widgets/async/list.dart';
@@ -42,7 +43,12 @@ class _LogConsolePageState extends ConsumerState<LogConsolePage> {
                 UniversalPlatform.isWeb
                     ? Icons.download
                     : C(context).icons.share,
-            onPressed: _shareLogFile,
+            onPressed: () async {
+              final onlyCurrentRun = await _askForExportType();
+              if (onlyCurrentRun != null) {
+                await _shareExportFile(onlyCurrentRun);
+              }
+            },
           ),
           ActionButton(
             icon: C(context).icons.delete,
@@ -50,33 +56,71 @@ class _LogConsolePageState extends ConsumerState<LogConsolePage> {
           ),
         ],
       ),
-      body: Material(
-        child: AListView.builder(
-          itemCount: logs.count(),
-          itemBuilder: (context, index) async {
-            final record = (await logs.index(index))!;
-            var message = '${record.loggerName}: ${record.message}';
-            if (record.error != null) {
-              message += ' (${record.error})';
-            }
-            return Container(
-              color:
-                  index.isEven && context.mounted
-                      ? colorScheme.surfaceContainerHighest
-                      : colorScheme.surfaceContainerLowest,
-              child: Text(
-                message,
-                style: TextStyle(color: _levelColor(record.level, colorScheme)),
-              ),
-            );
-          },
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: kSpacingInGroup),
+        child: Material(
+          child: AListView.builder(
+            itemCount: logs.getLineCount(),
+            itemBuilder: (context, index) async {
+              final record = (await logs.index(index))!;
+              var message = '${record.loggerName}: ${record.message}';
+              if (record.error != null) {
+                message += ' (${record.error})';
+              }
+              return Container(
+                color:
+                    index.isEven && context.mounted
+                        ? colorScheme.surfaceContainer
+                        : colorScheme.surfaceContainerLowest,
+                child: Text(
+                  message,
+                  style: TextStyle(
+                    color: _levelColor(record.level, colorScheme),
+                  ),
+                ),
+              );
+            },
+          ),
         ),
       ),
     );
   }
 
-  Future<void> _shareLogFile() async {
-    final loglines = await DB().appLogsDao.currentRunLoglines();
+  Future<bool?> _askForExportType() async {
+    final logs = DB().appLogsDao;
+    final currentRunLineCount = await logs.getCurrentRunLineCount();
+
+    if (currentRunLineCount == 0) {
+      return false;
+    }
+
+    final lineCount = await logs.getLineCount();
+
+    if (mounted) {
+      return await showConfirmationDialog(
+        context: context,
+        title: context.L.logconsole_export_title,
+        actions: [
+          AlertDialogAction(
+            key: true,
+            label: context.L.logconsole_export_current_session(
+              currentRunLineCount,
+            ),
+          ),
+          AlertDialogAction(
+            key: false,
+            label: context.L.logconsole_export_all_logs(lineCount),
+            isDefaultAction: false,
+          ),
+        ],
+      );
+    }
+
+    return null;
+  }
+
+  Future<void> _shareExportFile(bool onlyCurrentRun) async {
+    final loglines = await DB().appLogsDao.getLines(onlyCurrentRun);
     final timestamp = DateFormat('yyyyMMddTHHmmss').format(DateTime.now());
 
     final data = utf8.encode(loglines.join('\n'));
