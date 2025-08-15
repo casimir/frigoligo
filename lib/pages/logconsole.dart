@@ -12,11 +12,6 @@ import '../db/database.dart';
 import '../providers/logconsole.dart';
 import '../widgets/async/list.dart';
 
-String _buildLogFileName() {
-  final timestamp = DateFormat('yyyyMMddTHHmmss').format(DateTime.now());
-  return 'frigoligo_$timestamp.log';
-}
-
 class LogConsolePage extends ConsumerStatefulWidget {
   const LogConsolePage({super.key});
 
@@ -31,6 +26,8 @@ class _LogConsolePageState extends ConsumerState<LogConsolePage> {
   Widget build(BuildContext context) {
     ref.watch(logConsoleProvider);
 
+    final colorScheme = Theme.of(context).colorScheme;
+
     final logs = DB().appLogsDao;
     return Scaffold(
       appBar: AppBar(
@@ -42,23 +39,7 @@ class _LogConsolePageState extends ConsumerState<LogConsolePage> {
                 UniversalPlatform.isWeb
                     ? const Icon(Icons.download)
                     : shareIcon,
-            onPressed: () async {
-              final loglines = await logs.currentRunLoglines();
-              final data = utf8.encode(loglines.join('\n'));
-              final fname = _buildLogFileName();
-              final box =
-                  _shareButtonKey.currentContext!.findRenderObject()
-                      as RenderBox?;
-              SharePlus.instance.share(
-                ShareParams(
-                  files: [XFile.fromData(data, mimeType: 'text/plain')],
-                  subject: fname,
-                  sharePositionOrigin:
-                      box!.localToGlobal(Offset.zero) & box.size,
-                  fileNameOverrides: [fname],
-                ),
-              );
-            },
+            onPressed: _shareLogFile,
           ),
           IconButton(
             icon: const Icon(Icons.delete),
@@ -77,29 +58,41 @@ class _LogConsolePageState extends ConsumerState<LogConsolePage> {
           return Container(
             color:
                 index.isEven && context.mounted
-                    ? Theme.of(context).colorScheme.secondaryContainer
-                    : null,
+                    ? colorScheme.surfaceContainerHighest
+                    : colorScheme.surfaceContainerLowest,
             child: Text(
               message,
-              style: TextStyle(color: levelColor(record.level)),
+              style: TextStyle(color: _levelColor(record.level, colorScheme)),
             ),
           );
         },
       ),
     );
   }
-}
 
-Color levelColor(String level) {
-  // FIXME doesn't always work in dark mode
-  switch (level) {
-    case 'INFO':
-      return Colors.black;
-    case 'WARNING':
-      return Colors.orange;
-    case 'SEVERE':
-      return Colors.red;
-    default:
-      return Colors.white;
+  Future<void> _shareLogFile() async {
+    final loglines = await DB().appLogsDao.currentRunLoglines();
+    final timestamp = DateFormat('yyyyMMddTHHmmss').format(DateTime.now());
+
+    final data = utf8.encode(loglines.join('\n'));
+    final fname = 'frigoligo_$timestamp.log';
+    final box =
+        _shareButtonKey.currentContext!.findRenderObject() as RenderBox?;
+
+    SharePlus.instance.share(
+      ShareParams(
+        files: [XFile.fromData(data, mimeType: 'text/plain')],
+        subject: fname,
+        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
+        fileNameOverrides: [fname],
+      ),
+    );
   }
 }
+
+Color? _levelColor(String level, ColorScheme colorScheme) => switch (level) {
+  'INFO' => colorScheme.onSurfaceVariant,
+  'WARNING' => colorScheme.onSurface,
+  'SEVERE' => colorScheme.error,
+  _ => null,
+};
