@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:universal_platform/universal_platform.dart';
 
@@ -10,6 +11,11 @@ import '../constants.dart';
 import '../db/database.dart';
 import '../providers/logconsole.dart';
 import '../widgets/async/list.dart';
+
+String _buildLogFileName() {
+  final timestamp = DateFormat('yyyyMMddTHHmmss').format(DateTime.now());
+  return 'frigoligo_$timestamp.log';
+}
 
 class LogConsolePage extends ConsumerStatefulWidget {
   const LogConsolePage({super.key});
@@ -39,7 +45,7 @@ class _LogConsolePageState extends ConsumerState<LogConsolePage> {
             onPressed: () async {
               final loglines = await logs.currentRunLoglines();
               final data = utf8.encode(loglines.join('\n'));
-              final fname = 'frigoligo_${DateTime.now().toIso8601String()}.log';
+              final fname = _buildLogFileName();
               final box =
                   _shareButtonKey.currentContext!.findRenderObject()
                       as RenderBox?;
