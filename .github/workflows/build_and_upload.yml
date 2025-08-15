@@ -14,7 +14,7 @@ jobs:
     env:
       ARTIFACT: frigoligo-${{ github.head_ref ||  github.ref_name }}.apk
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           submodules: recursive
       - uses: timheuer/base64-to-file@v1.2
@@ -64,7 +64,7 @@ jobs:
     env:
       ARTIFACT: frigoligo-${{ github.head_ref ||  github.ref_name }}-per-abi-apks
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: timheuer/base64-to-file@v1.2
         with:
           fileName: "keystore.jks"
@@ -130,7 +130,7 @@ jobs:
     outputs:
       artifact: ${{ env.ARTIFACT }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - run: echo "version=$(jq -r '.flutter' .fvmrc)" >> $GITHUB_OUTPUT
         id: flutter-version
       - uses: subosito/flutter-action@v2
@@ -179,12 +179,12 @@ jobs:
         run: |
           sudo apt update -y
           sudo apt install libfuse2
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           sparse-checkout: |
             appimage
             assets
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v5
         with:
           name: ${{ env.LINUX_ARTIFACT }}
       - name: Prepare AppImage
@@ -217,7 +217,7 @@ jobs:
     env:
       ARTIFACT: frigoligo-${{ github.head_ref ||  github.ref_name }}-win-x64.zip
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - run: echo "version=$(jq -r '.flutter' .fvmrc)" >> $GITHUB_OUTPUT
         shell: bash
         id: flutter-version
