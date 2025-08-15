@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import 'package:cadanse/cadanse.dart';
+import 'package:cadanse/components/widgets/adaptive/buttons.dart';
+import 'package:cadanse/components/widgets/adaptive/scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -29,43 +32,45 @@ class _LogConsolePageState extends ConsumerState<LogConsolePage> {
     final colorScheme = Theme.of(context).colorScheme;
 
     final logs = DB().appLogsDao;
-    return Scaffold(
-      appBar: AppBar(
+    return AdaptiveScaffold(
+      barData: AdaptiveBarData(
         title: Text(context.L.logconsole_title),
         actions: [
-          IconButton(
+          ActionButton(
             key: _shareButtonKey,
             icon:
                 UniversalPlatform.isWeb
-                    ? const Icon(Icons.download)
-                    : shareIcon,
+                    ? Icons.download
+                    : C(context).icons.share,
             onPressed: _shareLogFile,
           ),
-          IconButton(
-            icon: const Icon(Icons.delete),
+          ActionButton(
+            icon: C(context).icons.delete,
             onPressed: () => logs.clear(),
           ),
         ],
       ),
-      body: AListView.builder(
-        itemCount: logs.count(),
-        itemBuilder: (context, index) async {
-          final record = (await logs.index(index))!;
-          var message = '${record.loggerName}: ${record.message}';
-          if (record.error != null) {
-            message += ' (${record.error})';
-          }
-          return Container(
-            color:
-                index.isEven && context.mounted
-                    ? colorScheme.surfaceContainerHighest
-                    : colorScheme.surfaceContainerLowest,
-            child: Text(
-              message,
-              style: TextStyle(color: _levelColor(record.level, colorScheme)),
-            ),
-          );
-        },
+      body: Material(
+        child: AListView.builder(
+          itemCount: logs.count(),
+          itemBuilder: (context, index) async {
+            final record = (await logs.index(index))!;
+            var message = '${record.loggerName}: ${record.message}';
+            if (record.error != null) {
+              message += ' (${record.error})';
+            }
+            return Container(
+              color:
+                  index.isEven && context.mounted
+                      ? colorScheme.surfaceContainerHighest
+                      : colorScheme.surfaceContainerLowest,
+              child: Text(
+                message,
+                style: TextStyle(color: _levelColor(record.level, colorScheme)),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
