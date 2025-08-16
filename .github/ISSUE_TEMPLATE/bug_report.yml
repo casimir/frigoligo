@@ -1,0 +1,115 @@
+name: 🐛 Bug Report
+about: Create a report to help improve Frigoligo
+title: '[BUG] '
+labels: ['bug', 'triage']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! This helps make Frigoligo better.
+        
+        **Note:** Bugs are tricky to understand - the more details you can provide, the faster I can fix it.
+
+  - type: input
+    id: app-version
+    attributes:
+      label: App Version
+      description: "Tap/Click on Settings → Version to copy/paste"
+      placeholder: "1.2.3+42"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      description: "On which platform did you encounter the bug?"
+      multiple: true
+      options:
+        - Android
+        - iOS
+        - macOS
+        - Windows
+        - Linux
+        - Web
+    validations:
+      required: true
+
+  - type: dropdown
+    id: installation-method
+    attributes:
+      label: How you installed it
+      description: "How did you install Frigoligo?"
+      options:
+        - App Store
+        - Google Play
+        - F-Droid
+        - Flathub
+        - .AppImage
+        - GitHub Releases
+        - Built from source
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: "A clear description of what went wrong"
+      placeholder: "Describe the bug you encountered..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: What should have happened?
+      description: "What you expected to see instead"
+      placeholder: "Describe what you expected to happen..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction-steps
+    attributes:
+      label: How to reproduce
+      description: "Step-by-step instructions to reproduce the bug"
+      placeholder: |
+        1. Go to '...'
+        2. Click on '....'
+        3. See the problem
+    validations:
+      required: true
+
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: Does this happen every time?
+      description: "How often does this bug occur?"
+      options:
+        - Yes, every time
+        - No, only sometimes
+        - Rarely
+        - Not sure
+        
+  - type: textarea
+    id: when-started
+    attributes:
+      label: When did this start?
+      description: "When did you first notice this issue?"
+      placeholder: "e.g., After updating, Always, Sometimes, After a specific action..."
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: "If you can, add a screenshot to help explain the problem"
+      placeholder: "Drag and drop screenshots here or paste image URLs..."
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: "Please include any error messages you see in the app or terminal. For mobile crashes, check if there's a 'Send feedback' or 'Report' option."
+      placeholder: "Paste any logs or error output here..."

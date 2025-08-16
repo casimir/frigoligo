@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Discussions
+    url: https://github.com/casimir/frigoligo/discussions
+    about: For general questions and discussions, please use the Discussions section.
+  - name: 🐛 Bug Report
+    url: https://github.com/casimir/frigoligo/issues/new?template=bug_report.md
+    about: Something's broken? Report it here.
+  - name: 💡 Feature Request 
+    url: https://github.com/casimir/frigoligo/issues/new?template=feature_request.md
+    about: Want a new feature? Ask for it here.
+  - name: 🌐 Matrix
+    url: https://matrix.to/#/#frigoligo:one.ems.host
+    about: For general questions and discussions, you can also join the Matrix channel.
