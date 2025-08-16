@@ -8,7 +8,7 @@ body:
       value: |
         Thanks for taking the time to report a bug! This helps make Frigoligo better.
         
-        **Note:** Bugs are tricky to understand - the more details you can provide, the faster I can fix it.
+        **Note:** Bugs are tricky to understand. The more details you can provide, the faster I can fix it.
 
   - type: input
     id: app-version
