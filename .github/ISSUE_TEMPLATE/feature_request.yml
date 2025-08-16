@@ -1,0 +1,60 @@
+name: 💡 Feature Request
+description: Suggest an idea for Frigoligo.
+title: '[FEAT] '
+labels: ['enhancement', 'triage']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a new feature! This helps make Frigoligo better.
+        
+        Please provide as much detail as possible so I can understand what you're looking for.
+
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: What would you like?
+      description: "A clear description of what you'd like to see added"
+      placeholder: "Describe the feature you want..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: why-needed
+    attributes:
+      label: Why do you want this?
+      description: "What problem would this solve, or what would it make better?"
+      placeholder: "Explain why this feature would be useful..."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: platforms
+    attributes:
+      label: Which platforms?
+      description: "Where should this feature work?"
+      options:
+        - label: "Android"
+        - label: "iOS"
+        - label: "macOS"
+        - label: "Windows"
+        - label: "Linux"
+        - label: "Web"
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: Examples
+      description: "If you can, add a sketch, screenshot, or link to a similar feature in another app"
+      placeholder: "Add examples, sketches, or links to similar features..."
+
+  - type: dropdown
+    id: importance
+    attributes:
+      label: How important is this to you?
+      description: "How much would this feature improve your experience?"
+      options:
+        - Nice to have
+        - Would be useful
+        - Really need this
+        - Can't work without it
