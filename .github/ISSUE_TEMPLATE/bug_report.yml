@@ -1,5 +1,4 @@
 name: 🐛 Bug Report
-about: Create a report to help improve Frigoligo
 title: '[BUG] '
 labels: ['bug', 'triage']
 body:
@@ -19,12 +18,11 @@ body:
     validations:
       required: true
 
-  - type: dropdown
+  - type: checkboxes
     id: platform
     attributes:
       label: Platform
       description: "On which platform did you encounter the bug?"
-      multiple: true
       options:
         - Android
         - iOS

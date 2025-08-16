@@ -1,5 +1,4 @@
 name: 💡 Feature Request
-about: Suggest an idea for Frigoligo
 title: '[FEAT] '
 labels: ['enhancement', 'triage']
 body:
@@ -33,7 +32,6 @@ body:
     attributes:
       label: Which platforms?
       description: "Where should this feature work?"
-      multiple: true
       options:
         - label: "Android"
         - label: "iOS"
