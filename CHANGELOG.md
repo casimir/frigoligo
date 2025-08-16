@@ -14,6 +14,8 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(dev)* Allow to deploy the web app in profile mode by hand ([ed2783c](https://github.com/casimir/frigoligo/commit/ed2783c0b899d241d8f240681a2d6a9bdd8394f6))
 - *(i18n)* Add ar in settings + display languages in the device locale ([4c7a4fd](https://github.com/casimir/frigoligo/commit/4c7a4fd747ce3015051a342e4b39c9ed045d7d46))
 - Support more elements type when rendering web content natively ([11389e3](https://github.com/casimir/frigoligo/commit/11389e33d6daab383740da129577a7debb8c88e4))
+- *(ios/logconsole)* Use Cupertino widgets for the page structure ([f8276e8](https://github.com/casimir/frigoligo/commit/f8276e8ce5501d338652ccbd2daaeb3eb709de93))
+- *(logconsole)* Allow to choose what to export when sharing as file ([df910df](https://github.com/casimir/frigoligo/commit/df910df620c3b7364511486fbb746c6f7aa2ce2b))
 
 ### 🐛 Bug Fixes
 
@@ -41,6 +43,8 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(sync/wallabag)* Refactor external deletion detection ([79f9251](https://github.com/casimir/frigoligo/commit/79f92510cc40af44da9b83fb83811700e1a56966))
 - Repair the licenses page ([084753c](https://github.com/casimir/frigoligo/commit/084753c12b03a33896d75c28cfc8021591da2f26))
 - *(UX)* Pop screen to the article list when changing the article state ([2e387e9](https://github.com/casimir/frigoligo/commit/2e387e901744311edfc9cd4f86e997ab89a46cc2))
+- *(logconsole)* Avoid special characters in exported file name ([da3cdbd](https://github.com/casimir/frigoligo/commit/da3cdbd1c059bf760fae6f5e440f498da8465f5d))
+- *(logconsole)* Fix unreadable log lines in dark mode ([bccc8a5](https://github.com/casimir/frigoligo/commit/bccc8a5d4b05be66502156b4e7707cd1726b6ec4))
 
 ### 🚜 Refactor
 
