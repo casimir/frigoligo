@@ -1,4 +1,5 @@
 name: 💡 Feature Request
+description: Suggest an idea for Frigoligo.
 title: '[FEAT] '
 labels: ['enhancement', 'triage']
 body:
