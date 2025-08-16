@@ -25,12 +25,12 @@ body:
       label: Platform
       description: "On which platform did you encounter the bug?"
       options:
-        - Android
-        - iOS
-        - macOS
-        - Windows
-        - Linux
-        - Web
+        - label: Android
+        - label: iOS
+        - label: macOS
+        - label: Windows
+        - label: Linux
+        - label: Web
     validations:
       required: true
 
