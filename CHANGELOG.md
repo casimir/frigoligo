@@ -101,6 +101,8 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(dev)* Patch the source maps root ([9aa03e3](https://github.com/casimir/frigoligo/commit/9aa03e3e2356ae5d072a9d8e195bb1d5a8254726))
 - *(i18n)* Update dependency for localized language labels ([6d7e380](https://github.com/casimir/frigoligo/commit/6d7e380c4c228d53c26f0021a7e452ed753853fd))
 - Bump flutter deps ([6fcd762](https://github.com/casimir/frigoligo/commit/6fcd7622e6d750054f18dfc46e58edb2bb2d9a1f))
+- Add GH issue templates ([#397](https://github.com/casimir/frigoligo/pull/397)) ([078a67c](https://github.com/casimir/frigoligo/commit/078a67c8e93304a9ac76b1baab9a507c66ce48d3))
+- Remove redundant issue template entries ([0585aac](https://github.com/casimir/frigoligo/commit/0585aacfb1c3c0e53f45cbf2d9cb7f16a848b652))
 
 ### I18n
 
