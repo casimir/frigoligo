@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "frigoligo 1.png",
+      "filename" : "frigoligo.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "frigoligo 2.png",
+      "filename" : "frigoligo.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Frigoligo.png",
+      "filename" : "frigoligo.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
