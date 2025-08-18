@@ -1,546 +1,550 @@
 {
-  "g_version": "Версия",
-  "@g_version": {
-    "description": "A version, as in the application version."
-  },
-  "g_share": "Поделиться",
-  "@g_share": {
-    "description": "A verb, as in to share something."
-  },
-  "g_system": "Система",
-  "@g_system": {},
-  "article_openInBrowser": "Открыть в браузере",
-  "@article_openInBrowser": {
-    "description": "The action to open the article in the web browser."
-  },
-  "listing_articlesAll": "Все статьи",
-  "@listing_articlesAll": {
-    "description": "The title for the list of all the articles."
-  },
-  "settings_itemClearCache": "Очистить кэш",
-  "@settings_itemClearCache": {
-    "description": "The action to clear the offline cache."
-  },
-  "settings_itemLanguage": "Язык",
-  "@settings_itemLanguage": {
-    "description": "The action to change the language of the application."
-  },
-  "g_delete": "Удалить",
-  "@g_delete": {
-    "description": "A verb, as in to delete something."
-  },
-  "g_server": "Сервер",
-  "@g_server": {
-    "description": "A server, as in a computer providing a service."
-  },
-  "g_sourceCode": "Исходный код",
-  "@g_sourceCode": {
-    "description": "The source code of a software."
-  },
-  "filters_articleStateUnread": "Непрочитанные",
-  "@filters_articleStateUnread": {
-    "description": "Filter articles with the state 'unread'."
-  },
-  "filters_articleStateAll": "Все состояния",
-  "@filters_articleStateAll": {
-    "description": "Don't filter articles by state."
-  },
-  "login_fieldPassword": "Пароль",
-  "@login_fieldPassword": {
-    "description": "The password field of the login form."
-  },
-  "login_fieldUsername": "Имя пользователя",
-  "@login_fieldUsername": {
-    "description": "The username field of the login form."
-  },
-  "settings_title": "Настройки",
-  "@settings_title": {
-    "description": "The title of the settings screen."
-  },
-  "session_neverSynced": "никогда",
-  "@session_neverSynced": {
-    "description": "Default value for the last sync time."
-  },
-  "g_check": "Проверка",
-  "@g_check": {
-    "description": "A verb as in to check something."
-  },
-  "g_checking": "Проверка…",
-  "@g_checking": {
-    "description": "Present participle of the verb to check."
-  },
-  "article_addTags": "Добавить теги",
-  "@article_addTags": {
-    "description": "The action to add tags to an article."
-  },
-  "filters_articleState": "Статус",
-  "@filters_articleState": {
-    "description": "The state of the article."
-  },
-  "filters_articleStateArchived": "Архивные",
-  "@filters_articleStateArchived": {
-    "description": "Filter articles with the state 'archived'."
-  },
-  "filters_articleTags": "Теги",
-  "@filters_articleTags": {
-    "description": "Filter articles with the given tag values."
-  },
-  "g_saveLink": "Сохранить ссылку",
-  "@g_saveLink": {
-    "description": "A verb, as in to save a link."
-  },
-  "article_browseOriginal": "Просмотреть оригинал",
-  "@article_browseOriginal": {
-    "description": "The action to open the URL of the article in the web browser."
-  },
-  "article_delete": "Удалить эту статью",
-  "@article_delete": {
-    "description": "The action to delete the article."
-  },
-  "g_settings": "Настройки",
-  "@g_settings": {
-    "description": "The settings of the application."
-  },
-  "g_synchronize": "Синхронизировать",
-  "@g_synchronize": {
-    "description": "A verb, as in to synchronize with the server."
-  },
-  "filters_articleDomains": "Домены",
-  "@filters_articleDomains": {
-    "description": "Filter the domains from where the articles have been fetched."
-  },
-  "filters_searchbarHint": "Поиск в статьях",
-  "@filters_searchbarHint": {
-    "description": "Search bar hint in the home screen."
-  },
-  "filters_searchModeContent": "Контент",
-  "@filters_searchModeContent": {
-    "description": "Search text only in the content field."
-  },
-  "filters_searchModeTitle": "Название",
-  "@filters_searchModeTitle": {
-    "description": "Search text only in the title field."
-  },
-  "g_search": "Поиск",
-  "@g_search": {
-    "description": "A verb, as in to search something."
-  },
-  "articlefields_readingTime": "Время чтения",
-  "@articlefields_readingTime": {
-    "description": "The estimated reading time of the article."
-  },
-  "articlefields_tags": "Теги",
-  "@articlefields_tags": {
-    "description": "The tags of the article."
-  },
-  "articlefields_title": "Название",
-  "@articlefields_title": {
-    "description": "The title of the article."
-  },
-  "articlefields_website": "Веб-сайт",
-  "@articlefields_website": {
-    "description": "The website (domain) from where the article has been fetched."
-  },
-  "filters_searchMode": "Режим поиска",
-  "@filters_searchMode": {
-    "description": "The title of the search mode screen (which fields to search text into)."
-  },
-  "article_noContentFetched": "Содержимое не получено",
-  "@article_noContentFetched": {
-    "description": "Placeholder for when the article content is not available."
-  },
-  "logconsole_title": "Журнал",
-  "@logconsole_title": {
-    "description": "The title of the log console screen."
-  },
-  "listing_noArticles": "Нет статьей",
-  "@listing_noArticles": {
-    "description": "Placeholder for when there are no articles to display."
-  },
-  "session_fieldApiToken": "Токен API",
-  "@session_fieldApiToken": {
-    "description": "The API token field name of in forms."
-  },
-  "login_acceptSelfSigned": "Принимать самоподписанные сертификаты",
-  "@login_acceptSelfSigned": {
-    "description": "Wether or not to accept self-signed certificates when connecting to the wallabag instance."
-  },
-  "session_copiedToClipboard": "Скопировано в буфер обмена",
-  "@session_copiedToClipboard": {
-    "description": "A message displayed when the value is copied to the clipboard."
-  },
-  "session_invalidToken": "некорректно",
-  "@session_invalidToken": {
-    "description": "Placeholder for expiration date when the token is invalid."
-  },
-  "session_fieldAccessToken": "Токен доступа",
-  "@session_fieldAccessToken": {
-    "description": "The label of the access token field in the session screen."
-  },
-  "session_fieldLastServerSync": "Последняя синхронизация сервера",
-  "@session_fieldLastServerSync": {
-    "description": "The label of the last server sync field in the session screen."
-  },
-  "session_logoutSession": "Выйти из сеанса",
-  "@session_logoutSession": {
-    "description": "The action to log out the session."
-  },
-  "settings_itemAbout": "Информация",
-  "@settings_itemAbout": {
-    "description": "The action to display the about screen."
-  },
-  "readingsettings_fontSize": "Размер шрифта",
-  "@readingsettings_fontSize": {
-    "description": "The font size to display the content of the article."
-  },
-  "readdingsettings_textFormatting": "Форматирование текста",
-  "@readdingsettings_textFormatting": {
-    "description": "The text formatting to display the content of the article."
-  },
-  "readingsettings_title": "Настройки текста",
-  "@readingsettings_title": {
-    "description": "The title of the reading settings screen."
-  },
-  "settings_itemAppBadge": "Показать значок «непрочитанное»",
-  "@settings_itemAppBadge": {
-    "description": "The action to toggle the unread badge on the application icon."
-  },
-  "settings_valueThemeLight": "Светлая",
-  "@settings_valueThemeLight": {
-    "description": "The label for the light theme mode."
-  },
-  "g_tag": "Тег",
-  "@g_tag": {
-    "description": "A tag can be attached to an article."
-  },
-  "filters_articleFavoriteStarred": "Отмеченные",
-  "@filters_articleFavoriteStarred": {
-    "description": "Filter starred articles."
-  },
-  "listing_articlesArchived": "Архивные статьи",
-  "@listing_articlesArchived": {
-    "description": "The title for the list of the articles with the state Archived."
-  },
-  "listing_articlesUnread": "Непрочитанные статьи",
-  "@listing_articlesUnread": {
-    "description": "The title for the list of the articles with the state Unread."
-  },
-  "login_actionLogin": "Войти",
-  "@login_actionLogin": {
-    "description": "The action to log in."
-  },
-  "login_existingSessionDialogConfirm": "Выйти",
-  "@login_existingSessionDialogConfirm": {
-    "description": "The action to log out from the existing session."
-  },
-  "login_existingSessionDialogMessage": "Хотите выйти из текущей сессии и открыть новую?",
-  "@login_existingSessionDialogMessage": {
-    "description": "The message of the dialog warning about an existing session."
-  },
-  "login_fieldClientId": "Идентификатор клиента",
-  "@login_fieldClientId": {
-    "description": "The client ID field of the login form."
-  },
-  "save_confirmationTitle": "Статья сохранена!",
-  "@save_confirmationTitle": {
-    "description": "The title of the confirmation screen after the article is saved. "
-  },
-  "save_dubiousUrlMessage": "Этот адрес не похож на URL. Всё равно сохранить?\n{url}",
-  "@save_dubiousUrlMessage": {
-    "description": "The message of the dubious URL warning dialog.",
-    "placeholders": {
-      "url": {
-        "type": "String"
-      }
+    "g_version": "Версия",
+    "@g_version": {
+        "description": "A version, as in the application version."
+    },
+    "g_share": "Поделиться",
+    "@g_share": {
+        "description": "A verb, as in to share something."
+    },
+    "g_system": "Система",
+    "@g_system": {},
+    "article_openInBrowser": "Открыть в браузере",
+    "@article_openInBrowser": {
+        "description": "The action to open the article in the web browser."
+    },
+    "listing_articlesAll": "Все статьи",
+    "@listing_articlesAll": {
+        "description": "The title for the list of all the articles."
+    },
+    "settings_itemClearCache": "Очистить кэш",
+    "@settings_itemClearCache": {
+        "description": "The action to clear the offline cache."
+    },
+    "settings_itemLanguage": "Язык",
+    "@settings_itemLanguage": {
+        "description": "The action to change the language of the application."
+    },
+    "g_delete": "Удалить",
+    "@g_delete": {
+        "description": "A verb, as in to delete something."
+    },
+    "g_server": "Сервер",
+    "@g_server": {
+        "description": "A server, as in a computer providing a service."
+    },
+    "g_sourceCode": "Исходный код",
+    "@g_sourceCode": {
+        "description": "The source code of a software."
+    },
+    "filters_articleStateUnread": "Непрочитанные",
+    "@filters_articleStateUnread": {
+        "description": "Filter articles with the state 'unread'."
+    },
+    "filters_articleStateAll": "Все состояния",
+    "@filters_articleStateAll": {
+        "description": "Don't filter articles by state."
+    },
+    "login_fieldPassword": "Пароль",
+    "@login_fieldPassword": {
+        "description": "The password field of the login form."
+    },
+    "login_fieldUsername": "Имя пользователя",
+    "@login_fieldUsername": {
+        "description": "The username field of the login form."
+    },
+    "settings_title": "Настройки",
+    "@settings_title": {
+        "description": "The title of the settings screen."
+    },
+    "session_neverSynced": "никогда",
+    "@session_neverSynced": {
+        "description": "Default value for the last sync time."
+    },
+    "g_check": "Проверка",
+    "@g_check": {
+        "description": "A verb as in to check something."
+    },
+    "g_checking": "Проверка…",
+    "@g_checking": {
+        "description": "Present participle of the verb to check."
+    },
+    "article_addTags": "Добавить теги",
+    "@article_addTags": {
+        "description": "The action to add tags to an article."
+    },
+    "filters_articleState": "Статус",
+    "@filters_articleState": {
+        "description": "The state of the article."
+    },
+    "filters_articleStateArchived": "Архивные",
+    "@filters_articleStateArchived": {
+        "description": "Filter articles with the state 'archived'."
+    },
+    "filters_articleTags": "Теги",
+    "@filters_articleTags": {
+        "description": "Filter articles with the given tag values."
+    },
+    "g_saveLink": "Сохранить ссылку",
+    "@g_saveLink": {
+        "description": "A verb, as in to save a link."
+    },
+    "article_browseOriginal": "Просмотреть оригинал",
+    "@article_browseOriginal": {
+        "description": "The action to open the URL of the article in the web browser."
+    },
+    "article_delete": "Удалить эту статью",
+    "@article_delete": {
+        "description": "The action to delete the article."
+    },
+    "g_settings": "Настройки",
+    "@g_settings": {
+        "description": "The settings of the application."
+    },
+    "g_synchronize": "Синхронизировать",
+    "@g_synchronize": {
+        "description": "A verb, as in to synchronize with the server."
+    },
+    "filters_articleDomains": "Домены",
+    "@filters_articleDomains": {
+        "description": "Filter the domains from where the articles have been fetched."
+    },
+    "filters_searchbarHint": "Поиск в статьях",
+    "@filters_searchbarHint": {
+        "description": "Search bar hint in the home screen."
+    },
+    "filters_searchModeContent": "Контент",
+    "@filters_searchModeContent": {
+        "description": "Search text only in the content field."
+    },
+    "filters_searchModeTitle": "Название",
+    "@filters_searchModeTitle": {
+        "description": "Search text only in the title field."
+    },
+    "g_search": "Поиск",
+    "@g_search": {
+        "description": "A verb, as in to search something."
+    },
+    "articlefields_readingTime": "Время чтения",
+    "@articlefields_readingTime": {
+        "description": "The estimated reading time of the article."
+    },
+    "articlefields_tags": "Теги",
+    "@articlefields_tags": {
+        "description": "The tags of the article."
+    },
+    "articlefields_title": "Название",
+    "@articlefields_title": {
+        "description": "The title of the article."
+    },
+    "articlefields_website": "Веб-сайт",
+    "@articlefields_website": {
+        "description": "The website (domain) from where the article has been fetched."
+    },
+    "filters_searchMode": "Режим поиска",
+    "@filters_searchMode": {
+        "description": "The title of the search mode screen (which fields to search text into)."
+    },
+    "article_noContentFetched": "Содержимое не получено",
+    "@article_noContentFetched": {
+        "description": "Placeholder for when the article content is not available."
+    },
+    "logconsole_title": "Журнал",
+    "@logconsole_title": {
+        "description": "The title of the log console screen."
+    },
+    "listing_noArticles": "Нет статьей",
+    "@listing_noArticles": {
+        "description": "Placeholder for when there are no articles to display."
+    },
+    "session_fieldApiToken": "Токен API",
+    "@session_fieldApiToken": {
+        "description": "The API token field name of in forms."
+    },
+    "login_acceptSelfSigned": "Принимать самоподписанные сертификаты",
+    "@login_acceptSelfSigned": {
+        "description": "Wether or not to accept self-signed certificates when connecting to the wallabag instance."
+    },
+    "session_copiedToClipboard": "Скопировано в буфер обмена",
+    "@session_copiedToClipboard": {
+        "description": "A message displayed when the value is copied to the clipboard."
+    },
+    "session_invalidToken": "некорректно",
+    "@session_invalidToken": {
+        "description": "Placeholder for expiration date when the token is invalid."
+    },
+    "session_fieldAccessToken": "Токен доступа",
+    "@session_fieldAccessToken": {
+        "description": "The label of the access token field in the session screen."
+    },
+    "session_fieldLastServerSync": "Последняя синхронизация сервера",
+    "@session_fieldLastServerSync": {
+        "description": "The label of the last server sync field in the session screen."
+    },
+    "session_logoutSession": "Выйти из сеанса",
+    "@session_logoutSession": {
+        "description": "The action to log out the session."
+    },
+    "settings_itemAbout": "Информация",
+    "@settings_itemAbout": {
+        "description": "The action to display the about screen."
+    },
+    "readingsettings_fontSize": "Размер шрифта",
+    "@readingsettings_fontSize": {
+        "description": "The font size to display the content of the article."
+    },
+    "readdingsettings_textFormatting": "Форматирование текста",
+    "@readdingsettings_textFormatting": {
+        "description": "The text formatting to display the content of the article."
+    },
+    "readingsettings_title": "Настройки текста",
+    "@readingsettings_title": {
+        "description": "The title of the reading settings screen."
+    },
+    "settings_itemAppBadge": "Показать значок «непрочитанное»",
+    "@settings_itemAppBadge": {
+        "description": "The action to toggle the unread badge on the application icon."
+    },
+    "settings_valueThemeLight": "Светлая",
+    "@settings_valueThemeLight": {
+        "description": "The label for the light theme mode."
+    },
+    "g_tag": "Тег",
+    "@g_tag": {
+        "description": "A tag can be attached to an article."
+    },
+    "filters_articleFavoriteStarred": "Отмеченные",
+    "@filters_articleFavoriteStarred": {
+        "description": "Filter starred articles."
+    },
+    "listing_articlesArchived": "Архивные статьи",
+    "@listing_articlesArchived": {
+        "description": "The title for the list of the articles with the state Archived."
+    },
+    "listing_articlesUnread": "Непрочитанные статьи",
+    "@listing_articlesUnread": {
+        "description": "The title for the list of the articles with the state Unread."
+    },
+    "login_actionLogin": "Войти",
+    "@login_actionLogin": {
+        "description": "The action to log in."
+    },
+    "login_existingSessionDialogConfirm": "Выйти",
+    "@login_existingSessionDialogConfirm": {
+        "description": "The action to log out from the existing session."
+    },
+    "login_existingSessionDialogMessage": "Хотите выйти из текущей сессии и открыть новую?",
+    "@login_existingSessionDialogMessage": {
+        "description": "The message of the dialog warning about an existing session."
+    },
+    "login_fieldClientId": "Идентификатор клиента",
+    "@login_fieldClientId": {
+        "description": "The client ID field of the login form."
+    },
+    "save_confirmationTitle": "Статья сохранена!",
+    "@save_confirmationTitle": {
+        "description": "The title of the confirmation screen after the article is saved. "
+    },
+    "save_dubiousUrlMessage": "Этот адрес не похож на URL. Всё равно сохранить?\n{url}",
+    "@save_dubiousUrlMessage": {
+        "description": "The message of the dubious URL warning dialog.",
+        "placeholders": {
+            "url": {
+                "type": "String"
+            }
+        }
+    },
+    "save_dubiousUrlTitle": "Сомнительный URL",
+    "@save_dubiousUrlTitle": {
+        "description": "The title of the dubious URL warning dialog."
+    },
+    "settings_itemSessionDetails": "Детали сеанса",
+    "@settings_itemSessionDetails": {
+        "description": "The action to display the session details screen."
+    },
+    "settings_valueThemeDark": "Тёмная",
+    "@settings_valueThemeDark": {
+        "description": "The label for the dark theme mode."
+    },
+    "login_existingSessionDialogTitle": "Сеанс в данный момент активен",
+    "@login_existingSessionDialogTitle": {
+        "description": "The title of the dialog warning about an existing session."
+    },
+    "save_dubiousUrlConfirm": "Сохранить",
+    "@save_dubiousUrlConfirm": {
+        "description": "The confirmation button of the dubious URL warning dialog."
+    },
+    "save_title": "Сохранить статью",
+    "@save_title": {
+        "description": "The title of the save screen."
+    },
+    "save_viewArticle": "Посмотреть статью",
+    "@save_viewArticle": {
+        "description": "The action to view the article after it is saved."
+    },
+    "selector_selectbuttonlabel": "Выбрать {numberOfItems}",
+    "@selector_selectbuttonlabel": {
+        "description": "The label of the select button in a selector screen.",
+        "placeholders": {
+            "numberOfItems": {
+                "type": "String",
+                "example": "3 items"
+            }
+        }
+    },
+    "server_address": "Адрес сервера",
+    "@server_address": {
+        "description": "The address of the wallabag instance."
+    },
+    "server_invalidUrl": "Неверный адрес",
+    "@server_invalidUrl": {
+        "description": "The address of the wallabag instance is invalid."
+    },
+    "server_emptyField": "Введите своё {label}",
+    "@server_emptyField": {
+        "description": "A message for non-empty check fail on a form field.",
+        "placeholders": {
+            "label": {
+                "type": "String"
+            }
+        }
+    },
+    "server_unreachable": "Сервер недоступен",
+    "@server_unreachable": {
+        "description": "The wallabag instance is unreachable."
+    },
+    "session_logoutDialogTitle": "Завершение сеанса",
+    "@session_logoutDialogTitle": {
+        "description": "The title of the confirmation dialog to log out."
+    },
+    "session_logoutDialogMessage": "Вам придётся заново войти в систему.",
+    "@session_logoutDialogMessage": {
+        "description": "The message of the confirmation dialog to log out."
+    },
+    "session_renewDialogMessage": "Сервер отказывается использовать токен текущего сеанса. Чтобы возобновить синхронизацию, необходимо снова войти в систему.",
+    "@session_renewDialogMessage": {
+        "description": "The message of the confirmation dialog to renew the session."
+    },
+    "session_title": "Детали сеанса",
+    "@session_title": {
+        "description": "The title of the session details screen."
+    },
+    "settings_bugReportLink": "Сообщить об ошибке",
+    "@settings_bugReportLink": {
+        "description": "The action to open the bug report form."
+    },
+    "settings_clearCacheMessage": "Локальный кэш будет удалён и снова получен с сервера.",
+    "@settings_clearCacheMessage": {
+        "description": "The message of the confirmation dialog to clear the cache."
+    },
+    "settings_itemAppearance": "Тема",
+    "@settings_itemAppearance": {
+        "description": "Settings for the appearance of the application."
+    },
+    "settings_helpToTranslate": "Помочь перевести",
+    "@settings_helpToTranslate": {
+        "description": "The action to open the Weblate project in a webview."
+    },
+    "settings_savedArticleTagLabel": "Ярлык для сохранённых статей",
+    "@settings_savedArticleTagLabel": {
+        "description": "The label of the tag to add to saved articles."
+    },
+    "settings_savedArticleTag": "Добавить тег к сохранённым статьям",
+    "@settings_savedArticleTag": {
+        "description": "The action to toggle the addition of a tag to saved articles."
+    },
+    "g_article": "Статья",
+    "@g_article": {
+        "description": "A piece of content fetched from the web. This is one of the main concepts of the app."
+    },
+    "filters_searchModeAll": "Все поля",
+    "@filters_searchModeAll": {
+        "description": "Search text in all fields."
+    },
+    "readingsettings_fontFamily": "Семейство шрифтов",
+    "@readingsettings_fontFamily": {
+        "description": "The font family to display the content of the article."
+    },
+    "save_noUrl": "URL-адрес не указан",
+    "@save_noUrl": {
+        "description": "The URL was missing from the save request."
+    },
+    "session_logoutDialogConfirm": "Выйти",
+    "@session_logoutDialogConfirm": {
+        "description": "Confirm the log out from the confirmation dialog."
+    },
+    "session_fieldTokenExpiration": "Истечение срока действия токена",
+    "@session_fieldTokenExpiration": {
+        "description": "The label of the token expiration field in the session screen."
+    },
+    "session_forceTokenResfresh": "Принудительное обновление токена",
+    "@session_forceTokenResfresh": {
+        "description": "The action to force a token refresh."
+    },
+    "session_renewDialogTitle": "Обновление сеанса",
+    "@session_renewDialogTitle": {
+        "description": "The title of the confirmation dialog to renew the session."
+    },
+    "login_openLogConsole": "Открыть журнал",
+    "@login_openLogConsole": {
+        "description": "The action to open the log console."
+    },
+    "login_fieldClientSecret": "Секретный ключ клиента",
+    "@login_fieldClientSecret": {
+        "description": "The client secret field of the login form."
+    },
+    "settings_itemLogConsole": "Журнал",
+    "@settings_itemLogConsole": {
+        "description": "The action to display the log console screen."
+    },
+    "settings_itemOpenDeeplink": "Открыть глубинную ссылку",
+    "@settings_itemOpenDeeplink": {
+        "description": "The action to open a deep link."
+    },
+    "article_readingTime": "{minutes} минут(а/ы)",
+    "@article_readingTime": {
+        "description": "The estimated reading time of the article.",
+        "placeholders": {
+            "minutes": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "humanize_future": "продолжительность {duration}",
+    "@humanize_future": {
+        "description": "Describe a duration until a moment in the future.",
+        "placeholders": {
+            "duration": {
+                "type": "String"
+            }
+        }
+    },
+    "humanize_past": "{duration} назад",
+    "@humanize_past": {
+        "description": "Describe a duration since a moment in the past.",
+        "placeholders": {
+            "duration": {
+                "type": "String"
+            }
+        }
+    },
+    "humanize_hours": "{n, plural, =1{1 час} other{{n} час(а/ов)}}",
+    "@humanize_hours": {
+        "placeholders": {
+            "n": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "humanize_seconds": "{n, plural, =1{1 секунда} other{{n} секунд(а/ы)}}",
+    "@humanize_seconds": {
+        "placeholders": {
+            "n": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "humanize_minutes": "{n, plural, =1{1 минута} other{{n} минут(а/ы)}}",
+    "@humanize_minutes": {
+        "placeholders": {
+            "n": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "filters_articleDomainsCount": "{count, plural, =1{1 домен} other{{count} домен(а/ов)}}",
+    "@filters_articleDomainsCount": {
+        "description": "The number of articles domains used in filters.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "filters_articleTagsCount": "{count, plural, =1{1 тег} other{{count} тег(а/ов)}}",
+    "@filters_articleTagsCount": {
+        "description": "The number of tags used in filters.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "humanize_days": "{n, plural, =1{1 день} other{{n} день (дня/дней)}}",
+    "@humanize_days": {
+        "placeholders": {
+            "n": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "syncer_pendingActions": "{count, plural, =1{1 действие} other{{count} действ(ие/ия/ий)}}",
+    "@syncer_pendingActions": {
+        "description": "Number of pending actions in the RemoteSyncer queue.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "article_refetchContent": "Перезагрузить контент",
+    "@article_refetchContent": {
+        "description": "The action to ask the server to fetch the article content again."
+    },
+    "article_archive": "Поместить статью в архив",
+    "@article_archive": {
+        "description": "The action to archive the article."
+    },
+    "article_details": "Больше информации",
+    "@article_details": {
+        "description": "The action to show the article details."
+    },
+    "article_readingSettings": "Текстовые настройки",
+    "@article_readingSettings": {
+        "description": "The action to open the reading settings sheet."
+    },
+    "article_star": "Пометить эту статью",
+    "@article_star": {
+        "description": "The action to star the article."
+    },
+    "article_unarchive": "Вернуть статью из архива",
+    "@article_unarchive": {
+        "description": "The action to unarchive the article."
+    },
+    "article_unstar": "Снять отметку с этой статьи",
+    "@article_unstar": {
+        "description": "The action to unstar the article."
+    },
+    "article_notFound": "Статья не найдена",
+    "@article_notFound": {
+        "description": "Placeholder for when the article is not found."
+    },
+    "article_share": "Поделиться этой статьёй",
+    "@article_share": {
+        "description": "The action to share the article."
+    },
+    "settings_nativeArticleRenderer": "Системный отрисовщик статьи",
+    "@settings_nativeArticleRenderer": {
+        "description": "The action to toggle the use of the experimental article renderer."
+    },
+    "server_unknownServerType": "Неизвестный тип сервера",
+    "@server_unknownServerType": {
+        "description": "The application could not detect the server type."
+    },
+    "server_versionNotSupported": "Версия сервера не поддерживается",
+    "@server_versionNotSupported": {
+        "description": "The server instance is not supported."
+    },
+    "logconsole_export_title": "Экспорт в файл",
+    "@logconsole_export_title": {
+        "description": "The title of the export as file dialog."
     }
-  },
-  "save_dubiousUrlTitle": "Сомнительный URL",
-  "@save_dubiousUrlTitle": {
-    "description": "The title of the dubious URL warning dialog."
-  },
-  "settings_itemSessionDetails": "Детали сеанса",
-  "@settings_itemSessionDetails": {
-    "description": "The action to display the session details screen."
-  },
-  "settings_valueThemeDark": "Тёмная",
-  "@settings_valueThemeDark": {
-    "description": "The label for the dark theme mode."
-  },
-  "login_existingSessionDialogTitle": "Сеанс в данный момент активен",
-  "@login_existingSessionDialogTitle": {
-    "description": "The title of the dialog warning about an existing session."
-  },
-  "save_dubiousUrlConfirm": "Сохранить",
-  "@save_dubiousUrlConfirm": {
-    "description": "The confirmation button of the dubious URL warning dialog."
-  },
-  "save_title": "Сохранить статью",
-  "@save_title": {
-    "description": "The title of the save screen."
-  },
-  "save_viewArticle": "Посмотреть статью",
-  "@save_viewArticle": {
-    "description": "The action to view the article after it is saved."
-  },
-  "selector_selectbuttonlabel": "Выбрать {numberOfItems}",
-  "@selector_selectbuttonlabel": {
-    "description": "The label of the select button in a selector screen.",
-    "placeholders": {
-      "numberOfItems": {
-        "type": "String",
-        "example": "3 items"
-      }
-    }
-  },
-  "server_address": "Адрес сервера",
-  "@server_address": {
-    "description": "The address of the wallabag instance."
-  },
-  "server_invalidUrl": "Неверный адрес",
-  "@server_invalidUrl": {
-    "description": "The address of the wallabag instance is invalid."
-  },
-  "server_emptyField": "Введите своё {label}",
-  "@server_emptyField": {
-    "description": "A message for non-empty check fail on a form field.",
-    "placeholders": {
-      "label": {
-        "type": "String"
-      }
-    }
-  },
-  "server_unreachable": "Сервер недоступен",
-  "@server_unreachable": {
-    "description": "The wallabag instance is unreachable."
-  },
-  "session_logoutDialogTitle": "Завершение сеанса",
-  "@session_logoutDialogTitle": {
-    "description": "The title of the confirmation dialog to log out."
-  },
-  "session_logoutDialogMessage": "Вам придётся заново войти в систему.",
-  "@session_logoutDialogMessage": {
-    "description": "The message of the confirmation dialog to log out."
-  },
-  "session_renewDialogMessage": "Сервер отказывается использовать токен текущего сеанса. Чтобы возобновить синхронизацию, необходимо снова войти в систему.",
-  "@session_renewDialogMessage": {
-    "description": "The message of the confirmation dialog to renew the session."
-  },
-  "session_title": "Детали сеанса",
-  "@session_title": {
-    "description": "The title of the session details screen."
-  },
-  "settings_bugReportLink": "Сообщить об ошибке",
-  "@settings_bugReportLink": {
-    "description": "The action to open the bug report form."
-  },
-  "settings_clearCacheMessage": "Локальный кэш будет удалён и снова получен с сервера.",
-  "@settings_clearCacheMessage": {
-    "description": "The message of the confirmation dialog to clear the cache."
-  },
-  "settings_itemAppearance": "Тема",
-  "@settings_itemAppearance": {
-    "description": "Settings for the appearance of the application."
-  },
-  "settings_helpToTranslate": "Помочь перевести",
-  "@settings_helpToTranslate": {
-    "description": "The action to open the Weblate project in a webview."
-  },
-  "settings_savedArticleTagLabel": "Ярлык для сохранённых статей",
-  "@settings_savedArticleTagLabel": {
-    "description": "The label of the tag to add to saved articles."
-  },
-  "settings_savedArticleTag": "Добавить тег к сохранённым статьям",
-  "@settings_savedArticleTag": {
-    "description": "The action to toggle the addition of a tag to saved articles."
-  },
-  "g_article": "Статья",
-  "@g_article": {
-    "description": "A piece of content fetched from the web. This is one of the main concepts of the app."
-  },
-  "filters_searchModeAll": "Все поля",
-  "@filters_searchModeAll": {
-    "description": "Search text in all fields."
-  },
-  "readingsettings_fontFamily": "Семейство шрифтов",
-  "@readingsettings_fontFamily": {
-    "description": "The font family to display the content of the article."
-  },
-  "save_noUrl": "URL-адрес не указан",
-  "@save_noUrl": {
-    "description": "The URL was missing from the save request."
-  },
-  "session_logoutDialogConfirm": "Выйти",
-  "@session_logoutDialogConfirm": {
-    "description": "Confirm the log out from the confirmation dialog."
-  },
-  "session_fieldTokenExpiration": "Истечение срока действия токена",
-  "@session_fieldTokenExpiration": {
-    "description": "The label of the token expiration field in the session screen."
-  },
-  "session_forceTokenResfresh": "Принудительное обновление токена",
-  "@session_forceTokenResfresh": {
-    "description": "The action to force a token refresh."
-  },
-  "session_renewDialogTitle": "Обновление сеанса",
-  "@session_renewDialogTitle": {
-    "description": "The title of the confirmation dialog to renew the session."
-  },
-  "login_openLogConsole": "Открыть журнал",
-  "@login_openLogConsole": {
-    "description": "The action to open the log console."
-  },
-  "login_fieldClientSecret": "Секретный ключ клиента",
-  "@login_fieldClientSecret": {
-    "description": "The client secret field of the login form."
-  },
-  "settings_itemLogConsole": "Журнал",
-  "@settings_itemLogConsole": {
-    "description": "The action to display the log console screen."
-  },
-  "settings_itemOpenDeeplink": "Открыть глубинную ссылку",
-  "@settings_itemOpenDeeplink": {
-    "description": "The action to open a deep link."
-  },
-  "article_readingTime": "{minutes} минут(а/ы)",
-  "@article_readingTime": {
-    "description": "The estimated reading time of the article.",
-    "placeholders": {
-      "minutes": {
-        "type": "int",
-        "format": "compact"
-      }
-    }
-  },
-  "humanize_future": "продолжительность {duration}",
-  "@humanize_future": {
-    "description": "Describe a duration until a moment in the future.",
-    "placeholders": {
-      "duration": {
-        "type": "String"
-      }
-    }
-  },
-  "humanize_past": "{duration} назад",
-  "@humanize_past": {
-    "description": "Describe a duration since a moment in the past.",
-    "placeholders": {
-      "duration": {
-        "type": "String"
-      }
-    }
-  },
-  "humanize_hours": "{n, plural, =1{1 час} other{{n} час(а/ов)}}",
-  "@humanize_hours": {
-    "placeholders": {
-      "n": {
-        "type": "int",
-        "format": "compact"
-      }
-    }
-  },
-  "humanize_seconds": "{n, plural, =1{1 секунда} other{{n} секунд(а/ы)}}",
-  "@humanize_seconds": {
-    "placeholders": {
-      "n": {
-        "type": "int",
-        "format": "compact"
-      }
-    }
-  },
-  "humanize_minutes": "{n, plural, =1{1 минута} other{{n} минут(а/ы)}}",
-  "@humanize_minutes": {
-    "placeholders": {
-      "n": {
-        "type": "int",
-        "format": "compact"
-      }
-    }
-  },
-  "filters_articleDomainsCount": "{count, plural, =1{1 домен} other{{count} домен(а/ов)}}",
-  "@filters_articleDomainsCount": {
-    "description": "The number of articles domains used in filters.",
-    "placeholders": {
-      "count": {
-        "type": "int",
-        "format": "compact"
-      }
-    }
-  },
-  "filters_articleTagsCount": "{count, plural, =1{1 тег} other{{count} тег(а/ов)}}",
-  "@filters_articleTagsCount": {
-    "description": "The number of tags used in filters.",
-    "placeholders": {
-      "count": {
-        "type": "int",
-        "format": "compact"
-      }
-    }
-  },
-  "humanize_days": "{n, plural, =1{1 день} other{{n} день (дня/дней)}}",
-  "@humanize_days": {
-    "placeholders": {
-      "n": {
-        "type": "int",
-        "format": "compact"
-      }
-    }
-  },
-  "syncer_pendingActions": "{count, plural, =1{1 действие} other{{count} действ(ие/ия/ий)}}",
-  "@syncer_pendingActions": {
-    "description": "Number of pending actions in the RemoteSyncer queue.",
-    "placeholders": {
-      "count": {
-        "type": "int",
-        "format": "compact"
-      }
-    }
-  },
-  "article_refetchContent": "Перезагрузить контент",
-  "@article_refetchContent": {
-    "description": "The action to ask the server to fetch the article content again."
-  },
-  "article_archive": "Поместить статью в архив",
-  "@article_archive": {
-    "description": "The action to archive the article."
-  },
-  "article_details": "Больше информации",
-  "@article_details": {
-    "description": "The action to show the article details."
-  },
-  "article_readingSettings": "Текстовые настройки",
-  "@article_readingSettings": {
-    "description": "The action to open the reading settings sheet."
-  },
-  "article_star": "Пометить эту статью",
-  "@article_star": {
-    "description": "The action to star the article."
-  },
-  "article_unarchive": "Вернуть статью из архива",
-  "@article_unarchive": {
-    "description": "The action to unarchive the article."
-  },
-  "article_unstar": "Снять отметку с этой статьи",
-  "@article_unstar": {
-    "description": "The action to unstar the article."
-  },
-  "article_notFound": "Статья не найдена",
-  "@article_notFound": {
-    "description": "Placeholder for when the article is not found."
-  },
-  "article_share": "Поделиться этой статьёй",
-  "@article_share": {
-    "description": "The action to share the article."
-  },
-  "settings_nativeArticleRenderer": "Системный отрисовщик статьи",
-  "@settings_nativeArticleRenderer": {
-    "description": "The action to toggle the use of the experimental article renderer."
-  },
-  "server_unknownServerType": "Неизвестный тип сервера",
-  "@server_unknownServerType": {
-    "description": "The application could not detect the server type."
-  },
-  "server_versionNotSupported": "Версия сервера не поддерживается",
-  "@server_versionNotSupported": {
-    "description": "The server instance is not supported."
-  }
 }
