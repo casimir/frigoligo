@@ -16,6 +16,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Support more elements type when rendering web content natively ([11389e3](https://github.com/casimir/frigoligo/commit/11389e33d6daab383740da129577a7debb8c88e4))
 - *(ios/logconsole)* Use Cupertino widgets for the page structure ([f8276e8](https://github.com/casimir/frigoligo/commit/f8276e8ce5501d338652ccbd2daaeb3eb709de93))
 - *(logconsole)* Allow to choose what to export when sharing as file ([df910df](https://github.com/casimir/frigoligo/commit/df910df620c3b7364511486fbb746c6f7aa2ce2b))
+- Update app icons and logos ([4658d6b](https://github.com/casimir/frigoligo/commit/4658d6bc8b9bfa08c6821d7b6270fb79abbecccc))
 
 ### 🐛 Bug Fixes
 
@@ -45,6 +46,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(UX)* Pop screen to the article list when changing the article state ([2e387e9](https://github.com/casimir/frigoligo/commit/2e387e901744311edfc9cd4f86e997ab89a46cc2))
 - *(logconsole)* Avoid special characters in exported file name ([da3cdbd](https://github.com/casimir/frigoligo/commit/da3cdbd1c059bf760fae6f5e440f498da8465f5d))
 - *(logconsole)* Fix unreadable log lines in dark mode ([bccc8a5](https://github.com/casimir/frigoligo/commit/bccc8a5d4b05be66502156b4e7707cd1726b6ec4))
+- *(iOS)* Handle a casing issue in AppIcon files ([cf153b0](https://github.com/casimir/frigoligo/commit/cf153b033c6694b1ae1644d7e9b7f9aa9693f92c))
 
 ### 🚜 Refactor
 
@@ -103,6 +105,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Bump flutter deps ([6fcd762](https://github.com/casimir/frigoligo/commit/6fcd7622e6d750054f18dfc46e58edb2bb2d9a1f))
 - Add GH issue templates ([#397](https://github.com/casimir/frigoligo/pull/397)) ([078a67c](https://github.com/casimir/frigoligo/commit/078a67c8e93304a9ac76b1baab9a507c66ce48d3))
 - Remove redundant issue template entries ([0585aac](https://github.com/casimir/frigoligo/commit/0585aacfb1c3c0e53f45cbf2d9cb7f16a848b652))
+- Cleanup ios assets duplicates and names ([2a403ca](https://github.com/casimir/frigoligo/commit/2a403caa59477ffd4d3aab6842832d6d8f2665e3))
 
 ### I18n
 
