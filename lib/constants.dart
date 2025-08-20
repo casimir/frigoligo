@@ -16,19 +16,13 @@ final ColorScheme schemeDark = ColorScheme.fromSeed(
   brightness: Brightness.dark,
 );
 
-// Adaptive icons
-
-final Icon shareIcon = UniversalPlatform.isApple
-    ? const Icon(Icons.ios_share)
-    : const Icon(Icons.share);
-
 // Filters constants
 
 enum StateFilter { all, unread, archived }
 
 final Map<StateFilter, Icon> stateIcons = {
   StateFilter.unread: const Icon(Icons.done),
-  StateFilter.archived: const Icon(Icons.unarchive)
+  StateFilter.archived: const Icon(Icons.unarchive),
 };
 
 enum StarredFilter { all, starred, unstarred }

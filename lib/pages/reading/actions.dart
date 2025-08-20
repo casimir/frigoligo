@@ -129,7 +129,7 @@ List<Widget> buildActions(
           ),
     ),
     ArticleActionKey.share: ArticleAction(
-      icon: shareIcon.icon!,
+      icon: Icons.adaptive.share,
       label: context.L.article_share,
       onPressed: () {
         final box =
