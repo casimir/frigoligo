@@ -21,6 +21,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - run: echo "version=$(jq -r '.flutter' .fvmrc)" >> $GITHUB_OUTPUT
+        shell: bash
+        id: flutter-version
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: ${{ steps.flutter-version.outputs.version }}
+          cache: true
+      - run: flutter config --no-analytics
+      - run: flutter pub get
       - run: find lib -type d -name test -exec dirname {} \; | xargs flutter test 
 
   smoke-platform-run:
