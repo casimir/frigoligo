@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: find lib -type d -name test -exec dirname {} \; | xargs fvm flutter test 
+      - run: find lib -type d -name test -exec dirname {} \; | xargs flutter test 
 
   smoke-platform-run:
     needs: tests
