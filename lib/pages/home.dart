@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../app_info.dart';
 import '../constants.dart';
-import '../providers/expander.dart';
+import '../features/expander/expander.dart';
 import '../services/remote_sync.dart';
 import 'articles/listing.dart';
 import 'reading/article.dart';
@@ -61,11 +61,8 @@ class _HomePageState extends ConsumerState<HomePage> {
     return Row(
       children: [
         if (!expanded) ...[
-          const Flexible(
-            flex: 1,
-            child: ListingPage(),
-          ),
-          const VerticalDivider(width: 1)
+          const Flexible(flex: 1, child: ListingPage()),
+          const VerticalDivider(width: 1),
         ],
         Flexible(
           flex: 2,

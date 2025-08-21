@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../db/models/article.drift.dart';
+import '../../features/expander/expander.dart';
 import '../../providers/article.dart';
-import '../../providers/expander.dart';
 import '../../widget_keys.dart';
 import '../../widgets/remote_sync_progress_indicator.dart';
 import 'actions.dart';
@@ -66,9 +66,11 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
       actions: buildActions(context, ref, article, widget.withExpander),
       withProgressIndicator: widget.withProgressIndicator,
       scrollEnabled: article.content != null,
-      builder: (_) => article.content == null
-          ? ArticleContentEmpty(articleUrl: Uri.parse(article.url))
-          : ArticleContent(article: article),
+      builder:
+          (_) =>
+              article.content == null
+                  ? ArticleContentEmpty(articleUrl: Uri.parse(article.url))
+                  : ArticleContent(article: article),
     );
   }
 }
@@ -92,11 +94,12 @@ class _PageScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final PreferredSizeWidget appBarBottom = withProgressIndicator
-        ? const RemoteSyncProgressIndicator(
-            idleWidget: ReadingProgressIndicator(),
-          )
-        : const ReadingProgressIndicator();
+    final PreferredSizeWidget appBarBottom =
+        withProgressIndicator
+            ? const RemoteSyncProgressIndicator(
+              idleWidget: ReadingProgressIndicator(),
+            )
+            : const ReadingProgressIndicator();
 
     return AdaptiveScaffold(
       barData: AdaptiveBarData(

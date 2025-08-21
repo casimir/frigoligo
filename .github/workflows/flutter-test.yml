@@ -1,4 +1,5 @@
-name: smoke tests
+name: flutter tests
+
 on:
   push:
     branches:
@@ -12,9 +13,18 @@ on:
       - synchronize
       - ready_for_review
   workflow_dispatch:
-jobs:
 
-  smoke-test:
+jobs:
+  
+  tests:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: find lib -type d -name test -exec dirname {} \; | xargs fvm flutter test 
+
+  smoke-platform-run:
+    needs: tests
     if: github.event.pull_request.draft == false
     strategy:
       matrix:
@@ -34,8 +44,9 @@ jobs:
       - run: flutter pub get
       - run: flutter test test/smoke_test.dart
 
-  smoke-build-android:
+  smoke-android-build:
     # for android we only validate the build process, running is too complicated
+    needs: tests
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
@@ -56,6 +67,7 @@ jobs:
       - run: flutter build apk
 
   smoke-build-web:
+    needs: tests
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
