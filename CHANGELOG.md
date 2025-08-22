@@ -55,6 +55,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Remove unused widget key ([eed4d1d](https://github.com/casimir/frigoligo/commit/eed4d1dc404f62049379e8184d995b05e11c65cf))
 - *(sync)* Rework actions serialization to support code mangling ([#363](https://github.com/casimir/frigoligo/pull/363)) ([41715f6](https://github.com/casimir/frigoligo/commit/41715f6182aefb26b3b95d55c984d06a240929b9))
 - *(clients)* Rewrite and reorganize existing API clients ([#376](https://github.com/casimir/frigoligo/pull/376)) ([2f9bdff](https://github.com/casimir/frigoligo/commit/2f9bdff7f69348e5219412867a8e0f8814eb471b))
+- Use flutter's own adpative share icon ([434d36f](https://github.com/casimir/frigoligo/commit/434d36f2e02763624d52f2b3ac64fee3a277effa))
 
 ### ⚡ Performance
 
