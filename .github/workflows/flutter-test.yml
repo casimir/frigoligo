@@ -31,7 +31,7 @@ jobs:
           cache: true
       - run: flutter config --no-analytics
       - run: flutter pub get
-      - run: find lib -type d -name test -exec dirname {} \; | xargs flutter test 
+      - run: flutter test
 
   smoke-platform-run:
     needs: tests
