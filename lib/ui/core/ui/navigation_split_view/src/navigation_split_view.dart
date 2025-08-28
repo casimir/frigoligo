@@ -192,12 +192,12 @@ class NavigationSplitViewState extends State<NavigationSplitView>
 
   Widget _buildDefaultNavigationPlaceholder() {
     // TODO set up a better placeholder
-    return const Center(child: Text('No items'));
+    return const Material(child: Center(child: Text('No items')));
   }
 
   Widget _buildDefaultContentPlaceholder() {
     // TODO set up a better placeholder
-    return const Center(child: Text('Select an item'));
+    return const Material(child: Center(child: Text('Select an item')));
   }
 }
 
