@@ -1,11 +1,7 @@
 import 'package:cadanse/layout.dart';
 import 'package:flutter/material.dart';
 
-/// The width of the navigation pane when the layout is side by side.
-///
-/// This is based on Material 3 navigation drawer width and Material 3
-/// expression navigation rail expanded max width.
-const double kNavigationPaneWidth = 360;
+import 'animated_navigation_pane_slider.dart';
 
 /// A view that present a navigation pane and a content pane. The layout depends
 /// on the available width. It is inspired by [Scaffold] for the architecture
@@ -160,10 +156,11 @@ class NavigationSplitViewState extends State<NavigationSplitView>
 
     final view = Row(
       children: [
-        if (!_isContentExpanded.value) ...[
-          SizedBox(width: kNavigationPaneWidth, child: _buildNavigationPane()),
-          const VerticalDivider(width: 1),
-        ],
+        AnimatedNavigationPaneSlider(
+          isContentExpanded: isContentExpanded,
+          navigationPane: _buildNavigationPane(),
+        ),
+        if (!isContentExpanded) const VerticalDivider(width: 1),
         Expanded(child: content),
       ],
     );

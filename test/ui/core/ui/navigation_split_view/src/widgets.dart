@@ -45,14 +45,19 @@ void expectContentFullLayout(WidgetTester tester) {
 }
 
 void main() {
+  // TODO remove when the dev is over
   runApp(
     SimpleApp(
       child: NavigationSplitView(
-        itemCount: 1,
-        navigationItemBuilder: (context, index) => Text('Item $index'),
+        itemCount: 3,
+        navigationItemBuilder:
+            (context, index) => ListTile(title: Text('Item $index')),
+        navigationContainerBuilder:
+            (context, selectedIndex, child) =>
+                Container(color: Colors.green.withAlpha(128), child: child),
         contentBuilder:
             (context, index) => Scaffold(
-              backgroundColor: Colors.red,
+              backgroundColor: Colors.red.withAlpha(128),
               appBar: AppBar(leading: const ExpandContentButton()),
               body: Center(child: Text('Content $index')),
             ),

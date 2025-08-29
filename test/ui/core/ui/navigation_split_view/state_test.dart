@@ -93,13 +93,13 @@ void main() {
     expectSideBySideLayout(tester);
 
     view.toggleContentExpansion();
-    await tester.pump();
+    await tester.pumpAndSettle();
 
     expect(view.isContentExpanded, isTrue);
     expectContentFullLayout(tester);
 
     view.toggleContentExpansion();
-    await tester.pump();
+    await tester.pumpAndSettle();
 
     expect(view.isContentExpanded, isFalse);
     expectSideBySideLayout(tester);
