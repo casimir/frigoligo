@@ -23,6 +23,7 @@ class ExpandContentButton extends StatelessWidget {
     }
 
     final isExpanded = view.isContentExpanded;
+    final localizations = MaterialLocalizations.of(context);
     // FIXME use a better icons
     final effectiveExpandIcon = expandIcon ?? Icons.expand_more;
     final effectiveCollapseIcon = collapseIcon ?? Icons.expand_less;
@@ -31,8 +32,10 @@ class ExpandContentButton extends StatelessWidget {
       onPressed: () {
         NavigationSplitView.of(context).toggleContentExpansion();
       },
-      // TODO localize
-      tooltip: isExpanded ? 'Collapse content' : 'Expand content',
+      tooltip:
+          isExpanded
+              ? localizations.expandedIconTapHint
+              : localizations.collapsedIconTapHint,
       enableFeedback: true,
       icon: Icon(isExpanded ? effectiveCollapseIcon : effectiveExpandIcon),
     );
