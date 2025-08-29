@@ -16,14 +16,14 @@ class ExpandContentButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final view = NavigationSplitView.maybeOf(context);
+    final scope = NavigationSplitViewScope.maybeOf(context);
 
-    if (view == null) {
+    if (scope == null) {
       return const BackButton();
     }
 
-    final isExpanded = view.isContentExpanded;
     final localizations = MaterialLocalizations.of(context);
+    final isExpanded = scope.isContentExpanded;
     // FIXME use a better icons
     final effectiveExpandIcon = expandIcon ?? Icons.expand_more;
     final effectiveCollapseIcon = collapseIcon ?? Icons.expand_less;

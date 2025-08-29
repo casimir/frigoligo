@@ -1,6 +1,12 @@
 import 'package:cadanse/layout.dart';
 import 'package:flutter/material.dart';
 
+/// The width of the navigation pane when the layout is side by side.
+///
+/// This is based on Material 3 navigation drawer width and Material 3
+/// expression navigation rail expanded max width.
+const double kNavigationPaneWidth = 360;
+
 /// A view that present a navigation pane and a content pane. The layout depends
 /// on the available width. It is inspired by [Scaffold] for the architecture
 /// and SwiftUI's NavigationSplitView for the adaptive layout.
@@ -150,16 +156,21 @@ class NavigationSplitViewState extends State<NavigationSplitView>
     final content =
         _selectedIndex == null
             ? widget.contentPlaceholder ?? _buildDefaultContentPlaceholder()
-            : widget.contentBuilder(context, _selectedIndex!);
+            : _buildContentPane();
 
-    return Row(
+    final view = Row(
       children: [
         if (!_isContentExpanded.value) ...[
-          Flexible(flex: 1, child: _buildNavigationPane()),
+          SizedBox(width: kNavigationPaneWidth, child: _buildNavigationPane()),
           const VerticalDivider(width: 1),
         ],
-        Flexible(flex: 2, child: content),
+        Expanded(child: content),
       ],
+    );
+
+    return NavigationSplitViewScope(
+      isContentExpanded: isContentExpanded,
+      child: view,
     );
   }
 
@@ -195,6 +206,10 @@ class NavigationSplitViewState extends State<NavigationSplitView>
     return const Material(child: Center(child: Text('No items')));
   }
 
+  Widget _buildContentPane() {
+    return widget.contentBuilder(context, _selectedIndex!);
+  }
+
   Widget _buildDefaultContentPlaceholder() {
     // TODO set up a better placeholder
     return const Material(child: Center(child: Text('Select an item')));
@@ -206,3 +221,32 @@ enum _Layout { sideBySide, full }
 /// A builder for the navigation pane container.
 typedef NavigationContainerBuilder =
     Widget Function(BuildContext context, int selectedIndex, Widget child);
+
+/// A scope that is inserted by [NavigationSplitView] and contains information
+/// about its state.
+///
+/// Mainly used by [ExpandContentButton] to adapt to adapt its icon and tooltip
+/// to the ambient content expansion state.
+class NavigationSplitViewScope extends InheritedWidget {
+  /// Creates a new navigation split view scope.
+  const NavigationSplitViewScope({
+    super.key,
+    required super.child,
+    required this.isContentExpanded,
+  });
+
+  /// Whether the content pane is expanded.
+  final bool isContentExpanded;
+
+  @override
+  bool updateShouldNotify(NavigationSplitViewScope oldWidget) {
+    return oldWidget.isContentExpanded != isContentExpanded;
+  }
+
+  /// The closest instance of [NavigationSplitViewScope] that encloses the given
+  /// context, or null if none is found.
+  static NavigationSplitViewScope? maybeOf(BuildContext context) {
+    return context
+        .dependOnInheritedWidgetOfExactType<NavigationSplitViewScope>();
+  }
+}
