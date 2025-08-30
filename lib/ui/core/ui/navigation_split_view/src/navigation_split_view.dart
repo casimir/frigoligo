@@ -2,6 +2,7 @@ import 'package:cadanse/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show LogicalKeyboardKey;
 
+import '../../adaptive/adaptive_page_route.dart';
 import 'animated_navigation_pane_slider.dart';
 
 /// A view that present a navigation pane and a content pane. The layout depends
@@ -139,10 +140,9 @@ class NavigationSplitViewState extends State<NavigationSplitView>
 
     if (_effectiveLayout == _Layout.full && index != null && mounted) {
       Navigator.of(context).push(
-        // TODO best page route widget to use here?
-        MaterialPageRoute(
-          builder:
-              (context) => _buildContentPane(index, widget.enableShortcuts),
+        adaptivePageRouteBuilder(
+          context,
+          (context) => _buildContentPane(index, widget.enableShortcuts),
         ),
       );
     }
