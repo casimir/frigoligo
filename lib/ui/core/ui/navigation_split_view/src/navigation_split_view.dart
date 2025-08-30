@@ -1,5 +1,6 @@
 import 'package:cadanse/layout.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show LogicalKeyboardKey;
 
 import 'animated_navigation_pane_slider.dart';
 
@@ -28,6 +29,7 @@ class NavigationSplitView extends StatefulWidget {
     required this.contentBuilder,
     this.contentPlaceholder,
     this.initialIndex,
+    this.enableShortcuts = true,
     this.restorationId,
   }) : _layout = null;
 
@@ -53,6 +55,9 @@ class NavigationSplitView extends StatefulWidget {
   /// Initial selected index. When not provided, the first item is selected.
   final int? initialIndex;
 
+  /// Feature flag to enable keyboard shortcuts.
+  final bool enableShortcuts;
+
   /// Restoration ID to save and restore the state of the [NavigationSplitView].
   ///
   /// If it is non-null, the [NavigationSplitView] will persist and restore
@@ -66,6 +71,9 @@ class NavigationSplitView extends StatefulWidget {
 
   /// The closest instance of [NavigationSplitViewState] that encloses the given
   /// context, or null if none is found.
+  ///
+  /// When looking for the content expansion state without the intent of mutating
+  /// it, prefer [NavigationSplitViewScope.maybeOf] instead.
   static NavigationSplitViewState? maybeOf(BuildContext context) {
     return context.findAncestorStateOfType<NavigationSplitViewState>();
   }
@@ -123,25 +131,48 @@ class NavigationSplitViewState extends State<NavigationSplitView>
       );
     }
 
-    setState(() {
-      _selectedIndex = index;
-    });
+    if (_effectiveLayout == _Layout.sideBySide) {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
 
     if (_effectiveLayout == _Layout.full && index != null && mounted) {
       Navigator.of(context).push(
         // TODO best page route widget to use here?
         MaterialPageRoute(
-          builder: (context) => widget.contentBuilder(context, index),
+          builder:
+              (context) => _buildContentPane(index, widget.enableShortcuts),
         ),
       );
     }
   }
 
+  /// Whether the content pane is in expanded state.
   bool get isContentExpanded => _isContentExpanded.value;
 
+  /// Toggle the content pane expansion state.
   void toggleContentExpansion() => setState(() {
     _isContentExpanded.value = !_isContentExpanded.value;
   });
+
+  /// Expand the content pane.
+  void expandContent() {
+    if (!isContentExpanded) {
+      setState(() {
+        _isContentExpanded.value = true;
+      });
+    }
+  }
+
+  /// Collapse the content pane.
+  void collapseContent() {
+    if (isContentExpanded) {
+      setState(() {
+        _isContentExpanded.value = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -152,9 +183,11 @@ class NavigationSplitViewState extends State<NavigationSplitView>
     final content =
         _selectedIndex == null
             ? widget.contentPlaceholder ?? _buildDefaultContentPlaceholder()
-            : _buildContentPane();
+            : _buildContentPane(_selectedIndex!, false);
 
-    final view = Row(
+    Widget view;
+
+    view = Row(
       children: [
         AnimatedNavigationPaneSlider(
           isContentExpanded: isContentExpanded,
@@ -164,6 +197,16 @@ class NavigationSplitViewState extends State<NavigationSplitView>
         Expanded(child: content),
       ],
     );
+
+    if (widget.enableShortcuts) {
+      view = CallbackShortcuts(
+        bindings: {
+          const SingleActivator(LogicalKeyboardKey.escape): collapseContent,
+          const SingleActivator(LogicalKeyboardKey.keyF): expandContent,
+        },
+        child: Focus(autofocus: true, child: view),
+      );
+    }
 
     return NavigationSplitViewScope(
       isContentExpanded: isContentExpanded,
@@ -203,8 +246,24 @@ class NavigationSplitViewState extends State<NavigationSplitView>
     return const Material(child: Center(child: Text('No items')));
   }
 
-  Widget _buildContentPane() {
-    return widget.contentBuilder(context, _selectedIndex!);
+  Widget _buildContentPane(int index, bool withShortcuts) {
+    final content = widget.contentBuilder(context, index);
+
+    if (withShortcuts) {
+      return CallbackShortcuts(
+        bindings: {
+          const SingleActivator(LogicalKeyboardKey.escape): () {
+            final navigator = Navigator.of(context);
+            if (mounted && navigator.canPop()) {
+              navigator.pop();
+            }
+          },
+        },
+        child: Focus(autofocus: true, child: content),
+      );
+    } else {
+      return content;
+    }
   }
 
   Widget _buildDefaultContentPlaceholder() {

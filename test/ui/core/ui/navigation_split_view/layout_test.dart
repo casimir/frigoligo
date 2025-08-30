@@ -17,7 +17,7 @@ void main() {
             const MaterialApp(home: SimpleNavigationSplitView()),
           );
 
-          expectSideBySideLayout(tester);
+          expectSimpleSideBySideLayout(tester);
         },
       );
 
@@ -30,7 +30,7 @@ void main() {
           const MaterialApp(home: SimpleNavigationSplitView()),
         );
 
-        expectNavigationFullLayout(tester);
+        expectSimpleNavigationFullLayout(tester);
       });
     });
 
@@ -44,12 +44,12 @@ void main() {
             const MaterialApp(home: SimpleNavigationSplitView()),
           );
 
-          expectSideBySideLayout(tester);
+          expectSimpleSideBySideLayout(tester);
 
           tester.setMediumSize();
           await tester.pump();
 
-          expectNavigationFullLayout(tester);
+          expectSimpleNavigationFullLayout(tester);
         },
       );
 
@@ -62,12 +62,12 @@ void main() {
             const MaterialApp(home: SimpleNavigationSplitView()),
           );
 
-          expectNavigationFullLayout(tester);
+          expectSimpleNavigationFullLayout(tester);
 
           tester.setExpandedSize();
           await tester.pump();
 
-          expectSideBySideLayout(tester);
+          expectSimpleSideBySideLayout(tester);
         },
       );
 
@@ -91,9 +91,9 @@ void main() {
           await tester.pump();
 
           if (size.width >= expandedBreakpoint) {
-            expectSideBySideLayout(tester);
+            expectSimpleSideBySideLayout(tester);
           } else {
-            expectNavigationFullLayout(tester);
+            expectSimpleNavigationFullLayout(tester);
           }
         }
       });

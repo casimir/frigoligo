@@ -90,18 +90,18 @@ void main() {
     );
 
     expect(view.isContentExpanded, isFalse);
-    expectSideBySideLayout(tester);
+    expectSimpleSideBySideLayout(tester);
 
     view.toggleContentExpansion();
     await tester.pumpAndSettle();
 
     expect(view.isContentExpanded, isTrue);
-    expectContentFullLayout(tester);
+    expectSimpleContentFullLayout(tester);
 
     view.toggleContentExpansion();
     await tester.pumpAndSettle();
 
     expect(view.isContentExpanded, isFalse);
-    expectSideBySideLayout(tester);
+    expectSimpleSideBySideLayout(tester);
   });
 }

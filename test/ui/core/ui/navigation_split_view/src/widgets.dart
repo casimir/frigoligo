@@ -29,17 +29,17 @@ class SimpleNavigationSplitView extends StatelessWidget {
   }
 }
 
-void expectSideBySideLayout(WidgetTester tester) {
+void expectSimpleSideBySideLayout(WidgetTester tester) {
   expect(find.text(navigationLabel), findsOneWidget);
   expect(find.text(contentLabel), findsOneWidget);
 }
 
-void expectNavigationFullLayout(WidgetTester tester) {
+void expectSimpleNavigationFullLayout(WidgetTester tester) {
   expect(find.text(navigationLabel), findsOneWidget);
   expect(find.text(contentLabel), findsNothing);
 }
 
-void expectContentFullLayout(WidgetTester tester) {
+void expectSimpleContentFullLayout(WidgetTester tester) {
   expect(find.text(navigationLabel), findsNothing);
   expect(find.text(contentLabel), findsOneWidget);
 }
