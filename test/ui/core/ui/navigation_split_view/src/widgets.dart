@@ -56,10 +56,13 @@ void main() {
             (context, selectedIndex, child) =>
                 Container(color: Colors.green.withAlpha(128), child: child),
         contentBuilder:
-            (context, index) => Scaffold(
-              backgroundColor: Colors.red.withAlpha(128),
-              appBar: AppBar(leading: const ExpandContentButton()),
-              body: Center(child: Text('Content $index')),
+            (context, index) => Container(
+              color: Colors.white,
+              child: Scaffold(
+                backgroundColor: Colors.red.withAlpha(128),
+                appBar: AppBar(leading: const ExpandContentButton()),
+                body: Center(child: Text('Content $index')),
+              ),
             ),
       ),
     ),
