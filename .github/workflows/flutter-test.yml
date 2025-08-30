@@ -1,4 +1,5 @@
-name: smoke tests
+name: flutter tests
+
 on:
   push:
     branches:
@@ -12,9 +13,28 @@ on:
       - synchronize
       - ready_for_review
   workflow_dispatch:
-jobs:
 
-  smoke-test:
+jobs:
+  
+  tests:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "version=$(jq -r '.flutter' .fvmrc)" >> $GITHUB_OUTPUT
+        shell: bash
+        id: flutter-version
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: ${{ steps.flutter-version.outputs.version }}
+          cache: true
+      - run: flutter config --no-analytics
+      - run: flutter pub get
+      - run: flutter test
+
+  smoke-platform-run:
+    needs: tests
     if: github.event.pull_request.draft == false
     strategy:
       matrix:
@@ -34,8 +54,9 @@ jobs:
       - run: flutter pub get
       - run: flutter test test/smoke_test.dart
 
-  smoke-build-android:
+  smoke-android-build:
     # for android we only validate the build process, running is too complicated
+    needs: tests
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
@@ -55,7 +76,9 @@ jobs:
       - run: flutter pub get
       - run: flutter build apk
 
-  smoke-build-web:
+  smoke-web-build:
+    # for web we only validate the build process, running is too complicated
+    needs: tests
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
