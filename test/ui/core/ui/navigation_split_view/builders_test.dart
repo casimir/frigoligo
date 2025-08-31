@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:frigoligo/ui/core/ui/navigation_split_view/navigation_split_view.dart';
+import 'package:frigoligo/ui/core/ui/navigation_split_view.dart';
 
 import 'src/widget_tester_extension.dart';
 import 'src/widgets.dart';

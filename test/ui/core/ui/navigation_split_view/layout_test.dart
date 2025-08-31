@@ -14,7 +14,7 @@ void main() {
           tester.setExpandedSize();
 
           await tester.pumpWidget(
-            const MaterialApp(home: SimpleNavigationSplitView()),
+            const SimpleApp(child: SimpleNavigationSplitView()),
           );
 
           expectSimpleSideBySideLayout(tester);
@@ -27,7 +27,7 @@ void main() {
         tester.setMediumSize();
 
         await tester.pumpWidget(
-          const MaterialApp(home: SimpleNavigationSplitView()),
+          const SimpleApp(child: SimpleNavigationSplitView()),
         );
 
         expectSimpleNavigationFullLayout(tester);
@@ -41,7 +41,7 @@ void main() {
           tester.setExpandedSize();
 
           await tester.pumpWidget(
-            const MaterialApp(home: SimpleNavigationSplitView()),
+            const SimpleApp(child: SimpleNavigationSplitView()),
           );
 
           expectSimpleSideBySideLayout(tester);
@@ -59,7 +59,7 @@ void main() {
           tester.setMediumSize();
 
           await tester.pumpWidget(
-            const MaterialApp(home: SimpleNavigationSplitView()),
+            const SimpleApp(child: SimpleNavigationSplitView()),
           );
 
           expectSimpleNavigationFullLayout(tester);
@@ -77,7 +77,7 @@ void main() {
         tester.setExpandedSize();
 
         await tester.pumpWidget(
-          const MaterialApp(home: SimpleNavigationSplitView()),
+          const SimpleApp(child: SimpleNavigationSplitView()),
         );
 
         const testSizes = [

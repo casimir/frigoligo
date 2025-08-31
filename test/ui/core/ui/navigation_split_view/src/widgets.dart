@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:frigoligo/ui/core/ui/navigation_split_view/navigation_split_view.dart';
+import 'package:frigoligo/ui/core/ui/navigation_split_view.dart';
 
 const navigationLabel = 'Navigation';
 const contentLabel = 'Content';
@@ -12,7 +12,7 @@ class SimpleApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(child: MaterialApp(home: child));
+    return MaterialApp(home: Material(child: child));
   }
 }
 

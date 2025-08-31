@@ -2,7 +2,7 @@ import 'package:cadanse/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show LogicalKeyboardKey;
 
-import '../../adaptive/adaptive_page_route.dart';
+import '../../adaptive.dart';
 import 'animated_navigation_pane_slider.dart';
 
 /// A view that present a navigation pane and a content pane. The layout depends
@@ -19,6 +19,9 @@ import 'animated_navigation_pane_slider.dart';
 /// By default, keyboard shortcuts can be used to expand the content pane with
 /// `F` and to collapse it with `Escape`. On small width, `Escape` will pop the
 /// content pane from the navigation stack.
+///
+/// [NavigationSplitView] uses components that require a [Material] ancestor.
+/// Such ancestor is typically provided by [Scaffold].
 class NavigationSplitView extends StatefulWidget {
   /// Creates a new navigation view.
   const NavigationSplitView({
@@ -223,7 +226,8 @@ class NavigationSplitViewState extends State<NavigationSplitView>
     final navigation = ListView.builder(
       itemCount: widget.itemCount,
       itemBuilder: (context, index) {
-        return GestureDetector(
+        return InkWell(
+          splashFactory: adaptiveSplashFactory(context),
           onTap: () => selectIndex(index),
           child: widget.navigationItemBuilder(context, index),
         );
@@ -243,7 +247,7 @@ class NavigationSplitViewState extends State<NavigationSplitView>
 
   Widget _buildDefaultNavigationPlaceholder() {
     // TODO set up a better placeholder
-    return const Material(child: Center(child: Text('No items')));
+    return const Center(child: Text('No items'));
   }
 
   Widget _buildContentPane(int index, bool withShortcuts) {
@@ -268,7 +272,7 @@ class NavigationSplitViewState extends State<NavigationSplitView>
 
   Widget _buildDefaultContentPlaceholder() {
     // TODO set up a better placeholder
-    return const Material(child: Center(child: Text('Select an item')));
+    return const Center(child: Text('Select an item'));
   }
 }
 
