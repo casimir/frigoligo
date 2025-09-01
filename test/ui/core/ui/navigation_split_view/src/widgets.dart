@@ -53,8 +53,7 @@ void main() {
         navigationItemBuilder:
             (context, index) => ListTile(title: Text('Item $index')),
         navigationContainerBuilder:
-            (context, selectedIndex, child) =>
-                Container(color: Colors.green.withAlpha(128), child: child),
+            (context, selectedIndex, child) => Container(child: child),
         contentBuilder:
             (context, index) => Container(
               color: Colors.white,

@@ -34,6 +34,7 @@ class NavigationSplitView extends StatefulWidget {
     this.contentPlaceholder,
     this.initialIndex,
     this.enableShortcuts = true,
+    this.highlightColor,
     this.restorationId,
   }) : _layout = null;
 
@@ -61,6 +62,9 @@ class NavigationSplitView extends StatefulWidget {
 
   /// Feature flag to enable keyboard shortcuts.
   final bool enableShortcuts;
+
+  /// Color to use to highlight the selected item in the navigation pane.
+  final Color? highlightColor;
 
   /// Restoration ID to save and restore the state of the [NavigationSplitView].
   ///
@@ -226,10 +230,22 @@ class NavigationSplitViewState extends State<NavigationSplitView>
     final navigation = ListView.builder(
       itemCount: widget.itemCount,
       itemBuilder: (context, index) {
+        final isSelected = _selectedIndex == index;
+        final highlightColor =
+            isSelected && _effectiveLayout == _Layout.sideBySide
+                ? widget.highlightColor ?? Theme.of(context).highlightColor
+                : null;
         return InkWell(
           splashFactory: adaptiveSplashFactory(context),
           onTap: () => selectIndex(index),
-          child: widget.navigationItemBuilder(context, index),
+          child: Semantics(
+            button: true,
+            selected: isSelected,
+            child: Ink(
+              color: highlightColor,
+              child: widget.navigationItemBuilder(context, index),
+            ),
+          ),
         );
       },
     );
