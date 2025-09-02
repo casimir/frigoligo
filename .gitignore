@@ -35,6 +35,7 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+/coverage/
 /lib/src/generated/
 
 # Symbolication related
