@@ -30,11 +30,14 @@ class NavigationSplitView extends StatefulWidget {
     required this.navigationItemBuilder,
     this.navigationContainerBuilder,
     this.navigationPlaceholder,
+    this.navigationItemExtent,
+    this.navigationScrollController,
     required this.contentBuilder,
     this.contentPlaceholder,
     this.initialIndex,
     this.enableShortcuts = true,
     this.highlightColor,
+    this.scrollToSelectedItem,
     this.restorationId,
   }) : _layout = null;
 
@@ -51,6 +54,17 @@ class NavigationSplitView extends StatefulWidget {
   /// Placeholder for the navigation pane when no items are provided.
   final Widget? navigationPlaceholder;
 
+  /// Item extent for the navigation items.
+  ///
+  /// This attribute is necessary when [scrollToSelectedItem] is true.
+  ///
+  /// It is passed to [ListView.itemExtent] internally, see the documentation
+  /// for more details.
+  final double? navigationItemExtent;
+
+  /// Scroll controller for the navigation pane.
+  final ScrollController? navigationScrollController;
+
   /// Builder for the content pane.
   final IndexedWidgetBuilder contentBuilder;
 
@@ -66,11 +80,20 @@ class NavigationSplitView extends StatefulWidget {
   /// Color to use to highlight the selected item in the navigation pane.
   final Color? highlightColor;
 
+  /// Whether to scroll to the item when the selection changes.
+  ///
+  /// By default, it is true when [navigationItemExtent] is not null. Note that
+  /// if explicitly set to true, [navigationItemExtent] must be provided.
+  final bool? scrollToSelectedItem;
+
   /// Restoration ID to save and restore the state of the [NavigationSplitView].
   ///
   /// If it is non-null, the [NavigationSplitView] will persist and restore
   /// whether the content was expanded or not.
   final String? restorationId;
+
+  /// Key for the navigation pane to restore the scroll state between redraws.
+  final String navigationPaneKey = 'navigation_pane';
 
   final _Layout? _layout;
 
@@ -109,6 +132,8 @@ class NavigationSplitViewState extends State<NavigationSplitView>
 
   int? _selectedIndex;
   final RestorableBool _isContentExpanded = RestorableBool(false);
+  late final ScrollController _navigationScroller;
+  late final bool _scrollToSelectedItem;
 
   @override
   void initState() {
@@ -118,6 +143,13 @@ class NavigationSplitViewState extends State<NavigationSplitView>
     if (_selectedIndex == null && widget.itemCount > 0) {
       _selectedIndex = 0;
     }
+
+    _navigationScroller =
+        widget.navigationScrollController ?? ScrollController();
+
+    _scrollToSelectedItem =
+        widget.navigationItemExtent != null &&
+        (widget.scrollToSelectedItem ?? true);
 
     if (widget.initialIndex != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -129,6 +161,19 @@ class NavigationSplitViewState extends State<NavigationSplitView>
   _Layout get _effectiveLayout =>
       widget._layout ??
       (Layout.isExpanded(context) ? _Layout.sideBySide : _Layout.full);
+
+  double _computeOffsetForIndex(int index) {
+    final itemPixels = index * widget.navigationItemExtent!;
+    // final targetPixels = (itemPixels - widget.headerOffset);
+    final targetPixels = itemPixels;
+    return targetPixels.clamp(-1, _navigationScroller.position.maxScrollExtent);
+  }
+
+  bool _isNavigationOffsetVisible(double offset) {
+    final top = _navigationScroller.position.pixels;
+    final bottom = top + _navigationScroller.position.viewportDimension;
+    return top <= offset && offset <= bottom;
+  }
 
   /// Change the selected index.
   void selectIndex(int? index) {
@@ -143,6 +188,19 @@ class NavigationSplitViewState extends State<NavigationSplitView>
       setState(() {
         _selectedIndex = index;
       });
+
+      if (_scrollToSelectedItem && index != null) {
+        assert(
+          widget.navigationItemExtent != null,
+          'navigationItemExtent must be provided when scrollToSelectedItem is true',
+        );
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          final offset = _computeOffsetForIndex(index);
+          if (!_isNavigationOffsetVisible(offset)) {
+            _navigationScroller.jumpTo(offset);
+          }
+        });
+      }
     }
 
     if (_effectiveLayout == _Layout.full && index != null && mounted) {
@@ -228,6 +286,8 @@ class NavigationSplitViewState extends State<NavigationSplitView>
     }
 
     final navigation = ListView.builder(
+      key: PageStorageKey<String>(widget.navigationPaneKey),
+      controller: _navigationScroller,
       itemCount: widget.itemCount,
       itemBuilder: (context, index) {
         final isSelected = _selectedIndex == index;
