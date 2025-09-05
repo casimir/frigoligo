@@ -108,6 +108,8 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Remove redundant issue template entries ([0585aac](https://github.com/casimir/frigoligo/commit/0585aacfb1c3c0e53f45cbf2d9cb7f16a848b652))
 - Cleanup ios assets duplicates and names ([2a403ca](https://github.com/casimir/frigoligo/commit/2a403caa59477ffd4d3aab6842832d6d8f2665e3))
 - Change macos icon shape ([c32bb17](https://github.com/casimir/frigoligo/commit/c32bb17d90cb0776fb86a717c39c690f8b9dadb9))
+- Generalize test runs ([ac7395b](https://github.com/casimir/frigoligo/commit/ac7395bff2134265e14c1234c48ebbac3047a17f))
+- Hide generated code in GH diff interface ([bb6e2c1](https://github.com/casimir/frigoligo/commit/bb6e2c18d79f956991d907d700e0110145ba53d0))
 
 ### I18n
 
