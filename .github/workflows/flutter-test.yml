@@ -21,6 +21,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - run: echo "version=$(jq -r '.flutter' .fvmrc)" >> $GITHUB_OUTPUT
         shell: bash
         id: flutter-version
@@ -31,7 +33,10 @@ jobs:
           cache: true
       - run: flutter config --no-analytics
       - run: flutter pub get
-      - run: flutter test
+      - run: flutter test --coverage
+      - uses: SonarSource/sonarqube-scan-action@v5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   smoke-platform-run:
     needs: tests
