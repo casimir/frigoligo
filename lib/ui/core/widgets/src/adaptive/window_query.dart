@@ -37,7 +37,7 @@ enum WindowSizeClass {
     WindowSizeClass.large: 1600,
   };
 
-  /// Returns the window size class for the given width.
+  /// Returns the window size class corresponding to the given width.
   static WindowSizeClass fromWidth(double width) {
     for (final entry in breakpoints.entries) {
       if (width < entry.value) return entry.key;
@@ -46,7 +46,9 @@ enum WindowSizeClass {
   }
 }
 
+/// The root widget that provides the window query data to its descendants.
 class WindowQuery extends StatelessWidget {
+  /// Creates a new window query.
   const WindowQuery({super.key, required this.child});
 
   final Widget child;
@@ -60,22 +62,31 @@ class WindowQuery extends StatelessWidget {
     );
   }
 
+  /// The data of the [WindowQuery] that encloses the given context, or null if
+  /// none is found.
   static WindowQueryData? maybeOf(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<WindowQueryData>();
   }
 
+  /// The data of the [WindowQuery] that encloses the given context.
+  ///
+  /// If no instance is found, this method will assert in debug mode and throw
+  /// an exception in release mode.
   static WindowQueryData of(BuildContext context) {
     return maybeOf(context)!;
   }
 }
 
+/// The data of the parent [WindowQuery] widget.
 class WindowQueryData extends InheritedWidget {
+  /// Creates a new window query data.
   const WindowQueryData({
     super.key,
     required this.sizeClass,
     required super.child,
   });
 
+  /// The window size class for the current window.
   final WindowSizeClass sizeClass;
 
   @override
