@@ -4,6 +4,13 @@ import 'package:flutter/services.dart' show LogicalKeyboardKey;
 import '../../adaptive.dart';
 import 'animated_navigation_pane_slider.dart';
 
+/// The default maximum width for the navigation items container including the
+/// visual feedback area.
+///
+/// The value is arbitrarily derived from [kNavigationPaneWidth] to get a smooth
+/// width transition between the different layouts.
+const double kNavigationItemMaxWidth = kNavigationPaneWidth * 1.33;
+
 /// A view that present a navigation pane and a content pane. The layout depends
 /// on the available width. It is inspired by [Scaffold] for the architecture
 /// and SwiftUI's NavigationSplitView for the adaptive layout.
@@ -299,16 +306,23 @@ class NavigationSplitViewState extends State<NavigationSplitView>
             isSelected && layout == NavigationSplitViewLayout.sideBySide
                 ? widget.highlightColor ?? Theme.of(context).highlightColor
                 : null;
-        return InkWell(
-          splashFactory: adaptiveSplashFactory(context),
-          onTap: () => selectIndex(index),
-          child: Semantics(
-            button: true,
-            selected: isSelected,
-            child: Ink(
-              color: highlightColor,
-              height: widget.navigationItemExtent,
-              child: widget.navigationItemBuilder(context, index),
+        return Center(
+          child: Container(
+            constraints: const BoxConstraints(
+              maxWidth: kNavigationItemMaxWidth,
+            ),
+            child: InkWell(
+              splashFactory: adaptiveSplashFactory(context),
+              onTap: () => selectIndex(index),
+              child: Semantics(
+                button: true,
+                selected: isSelected,
+                child: Ink(
+                  color: highlightColor,
+                  height: widget.navigationItemExtent,
+                  child: widget.navigationItemBuilder(context, index),
+                ),
+              ),
             ),
           ),
         );
