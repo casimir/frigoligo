@@ -155,10 +155,12 @@ class NavigationSplitViewState extends State<NavigationSplitView>
     }
   }
 
-  NavigationSplitViewLayout _getLayout() =>
-      WindowQuery.of(context).sizeClass == WindowSizeClass.expanded
-          ? NavigationSplitViewLayout.sideBySide
-          : NavigationSplitViewLayout.full;
+  NavigationSplitViewLayout _getLayout() {
+    final sizeClass = WindowQuery.of(context).sizeClass;
+    return [WindowSizeClass.compact, WindowSizeClass.medium].contains(sizeClass)
+        ? NavigationSplitViewLayout.full
+        : NavigationSplitViewLayout.sideBySide;
+  }
 
   double _computeOffsetForIndex(int index) {
     final itemPixels = index * widget.navigationItemExtent!;
