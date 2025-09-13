@@ -1,4 +1,3 @@
-import 'package:cadanse/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show LogicalKeyboardKey;
 
@@ -39,7 +38,7 @@ class NavigationSplitView extends StatefulWidget {
     this.highlightColor,
     this.scrollToSelectedItem,
     this.restorationId,
-  }) : _layout = null;
+  });
 
   /// Total count of items in the navigation pane.
   final int itemCount;
@@ -94,8 +93,6 @@ class NavigationSplitView extends StatefulWidget {
 
   /// Key for the navigation pane to restore the scroll state between redraws.
   final String navigationPaneKey = 'navigation_pane';
-
-  final NavigationSplitViewLayout? _layout;
 
   @override
   State<NavigationSplitView> createState() => NavigationSplitViewState();
@@ -158,15 +155,13 @@ class NavigationSplitViewState extends State<NavigationSplitView>
     }
   }
 
-  NavigationSplitViewLayout get _effectiveLayout =>
-      widget._layout ??
-      (Layout.isExpanded(context)
+  NavigationSplitViewLayout _getLayout() =>
+      WindowQuery.of(context).sizeClass == WindowSizeClass.expanded
           ? NavigationSplitViewLayout.sideBySide
-          : NavigationSplitViewLayout.full);
+          : NavigationSplitViewLayout.full;
 
   double _computeOffsetForIndex(int index) {
     final itemPixels = index * widget.navigationItemExtent!;
-    // final targetPixels = (itemPixels - widget.headerOffset);
     final targetPixels = itemPixels;
     return targetPixels.clamp(-1, _navigationScroller.position.maxScrollExtent);
   }
@@ -179,6 +174,8 @@ class NavigationSplitViewState extends State<NavigationSplitView>
 
   /// Change the selected index.
   void selectIndex(int? index) {
+    final layout = _getLayout();
+
     if (index != null) {
       assert(
         index >= 0 && index < widget.itemCount,
@@ -186,7 +183,7 @@ class NavigationSplitViewState extends State<NavigationSplitView>
       );
     }
 
-    if (_effectiveLayout == NavigationSplitViewLayout.sideBySide) {
+    if (layout == NavigationSplitViewLayout.sideBySide) {
       setState(() {
         _selectedIndex = index;
       });
@@ -205,9 +202,7 @@ class NavigationSplitViewState extends State<NavigationSplitView>
       }
     }
 
-    if (_effectiveLayout == NavigationSplitViewLayout.full &&
-        index != null &&
-        mounted) {
+    if (layout == NavigationSplitViewLayout.full && index != null && mounted) {
       Navigator.of(context).push(
         adaptivePageRouteBuilder(
           context,
@@ -245,8 +240,10 @@ class NavigationSplitViewState extends State<NavigationSplitView>
 
   @override
   Widget build(BuildContext context) {
-    if (_effectiveLayout == NavigationSplitViewLayout.full) {
-      return _buildNavigationPane();
+    final layout = _getLayout();
+
+    if (layout == NavigationSplitViewLayout.full) {
+      return _buildNavigationPane(layout);
     }
 
     final content =
@@ -260,7 +257,7 @@ class NavigationSplitViewState extends State<NavigationSplitView>
       children: [
         AnimatedNavigationPaneSlider(
           isContentExpanded: isContentExpanded,
-          navigationPane: _buildNavigationPane(),
+          navigationPane: _buildNavigationPane(layout),
         ),
         if (!isContentExpanded) const VerticalDivider(width: 1),
         Expanded(child: content),
@@ -279,12 +276,12 @@ class NavigationSplitViewState extends State<NavigationSplitView>
 
     return NavigationSplitViewScope(
       isContentExpanded: isContentExpanded,
-      layout: _effectiveLayout,
+      layout: layout,
       child: view,
     );
   }
 
-  Widget _buildNavigationPane() {
+  Widget _buildNavigationPane(NavigationSplitViewLayout layout) {
     if (widget.itemCount == 0) {
       return widget.navigationPlaceholder ??
           _buildDefaultNavigationPlaceholder();
@@ -297,8 +294,7 @@ class NavigationSplitViewState extends State<NavigationSplitView>
       itemBuilder: (context, index) {
         final isSelected = _selectedIndex == index;
         final highlightColor =
-            isSelected &&
-                    _effectiveLayout == NavigationSplitViewLayout.sideBySide
+            isSelected && layout == NavigationSplitViewLayout.sideBySide
                 ? widget.highlightColor ?? Theme.of(context).highlightColor
                 : null;
         return InkWell(
@@ -309,6 +305,7 @@ class NavigationSplitViewState extends State<NavigationSplitView>
             selected: isSelected,
             child: Ink(
               color: highlightColor,
+              height: widget.navigationItemExtent,
               child: widget.navigationItemBuilder(context, index),
             ),
           ),
@@ -374,8 +371,8 @@ typedef NavigationContainerBuilder =
 /// A scope that is inserted by [NavigationSplitView] and contains information
 /// about its state.
 ///
-/// Mainly used by [ExpandContentButton] to adapt to adapt its icon and tooltip
-/// to the ambient content expansion state.
+/// Mainly used by [ExpandContentButton] to adapt its icon and tooltip to the
+/// ambient content expansion state.
 class NavigationSplitViewScope extends InheritedWidget {
   /// Creates a new navigation split view scope.
   const NavigationSplitViewScope({
