@@ -30,6 +30,23 @@ enum AppType {
 
     return _detectedType!;
   }
+
+  @visibleForTesting
+  static AppType detectWithCallback(
+    BuildContext context,
+    void Function(bool) onDetected,
+  ) {
+    onDetected(_detectedType == null);
+    return detect(context);
+  }
+
+  /// Clears the cached detection result. It should never be needed in
+  /// production code.
+  ///
+  /// This is primarily for testing purposes to reset state between tests.
+  static void clearCache() {
+    _detectedType = null;
+  }
 }
 
 /// Create a page route that adapts to the app widget.
