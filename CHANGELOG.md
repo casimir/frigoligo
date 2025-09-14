@@ -110,6 +110,8 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Change macos icon shape ([c32bb17](https://github.com/casimir/frigoligo/commit/c32bb17d90cb0776fb86a717c39c690f8b9dadb9))
 - Generalize test runs ([ac7395b](https://github.com/casimir/frigoligo/commit/ac7395bff2134265e14c1234c48ebbac3047a17f))
 - Hide generated code in GH diff interface ([bb6e2c1](https://github.com/casimir/frigoligo/commit/bb6e2c18d79f956991d907d700e0110145ba53d0))
+- Setup sonarqube ([#404](https://github.com/casimir/frigoligo/pull/404)) ([010a5cb](https://github.com/casimir/frigoligo/commit/010a5cb68ae05b5b94d9ecb6fd9cac8318053ee1))
+- *(analysis)* Include test/ in the sources ([ce10e1b](https://github.com/casimir/frigoligo/commit/ce10e1bf024964b66e09f10fa32b14ea1a5c4bb3))
 
 ### I18n
 
