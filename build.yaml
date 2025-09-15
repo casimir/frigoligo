@@ -7,6 +7,10 @@ global_options:
 targets:
   $default:
     builders:
+      source_gen:combining_builder:
+        options:
+          preamble: |
+            // coverage:ignore-file
       drift_dev:
         # Disable the default builder in favor of the modular builders configured
         # below.
