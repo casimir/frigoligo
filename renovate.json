@@ -8,35 +8,19 @@
   ],
   "packageRules": [
     {
-      "groupName": "drift",
+      "groupName": "Flutters deps depending on source_gen",
       "matchManagers": [
         "pub"
       ],
       "matchPackageNames": [
-        "drift*"
-      ]
-    },
-    {
-      "groupName": "freezed",
-      "matchManagers": [
-        "pub"
-      ],
-      "matchPackageNames": [
-        "freezed*"
-      ]
-    },
-    {
-      "groupName": "riverpod",
-      "matchManagers": [
-        "pub"
-      ],
-      "matchPackageNames": [
+        "drift*",
+        "freezed*",
         "flutter_riverpod",
         "riverpod*"
       ]
     },
     {
-      "groupName": "Flutter packages (non-major)",
+      "groupName": "Flutter deps (non-major)",
       "matchManagers": [
         "pub"
       ],
