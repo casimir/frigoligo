@@ -15,6 +15,7 @@
       "matchPackageNames": [
         "drift*",
         "freezed*",
+        "json_serializable",
         "flutter_riverpod",
         "riverpod*"
       ]
