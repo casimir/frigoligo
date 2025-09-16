@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -13,12 +14,19 @@ part 'article.g.dart';
 
 final _log = Logger('providers.article');
 
+// workaround: provider can't return generated types since riverpod 3.0
+class ArticleModel {
+  ArticleModel({required this.article});
+
+  final Article article;
+}
+
 @riverpod
 class ArticleData extends _$ArticleData {
   StreamSubscription? _watcher;
 
   @override
-  Future<Article?> build(int articleId) async {
+  Future<ArticleModel?> build(int articleId) async {
     final stopwatch = Stopwatch()..start();
 
     _watcher?.cancel();
@@ -26,13 +34,15 @@ class ArticleData extends _$ArticleData {
     ref.onDispose(() => _watcher?.cancel());
 
     final t1 = DB().managers.articles;
-    final ret =
-        await t1.filter((f) => f.id.equals(articleId)).getSingleOrNull();
+    final ret = await t1
+        .filter((f) => f.id.equals(articleId))
+        .getSingleOrNull();
     if (enablePerfLogs) {
       _log.info(
-          'perf: ArticleData.build($articleId): ${stopwatch.elapsedMilliseconds} ms');
+        'perf: ArticleData.build($articleId): ${stopwatch.elapsedMilliseconds} ms',
+      );
     }
-    return ret;
+    return ret != null ? ArticleModel(article: ret) : null;
   }
 
   void _watch(int articleId) {
@@ -40,8 +50,10 @@ class ArticleData extends _$ArticleData {
     _watcher = q.watchSingleOrNull(distinct: false).listen((article) {
       if (state.isLoading || !state.hasValue) return;
       final stateArticle = state.value;
-      if (stateArticle == null || article != stateArticle) {
-        state = AsyncValue.data(article);
+      if (stateArticle == null || article != stateArticle.article) {
+        state = AsyncValue.data(
+          article != null ? ArticleModel(article: article) : null,
+        );
       }
     });
   }
@@ -52,11 +64,12 @@ class CurrentArticle extends _$CurrentArticle {
   StreamSubscription? _watcher;
 
   @override
-  Future<Article?> build() async {
+  Future<ArticleModel?> build() async {
     _watcher?.cancel();
 
-    var articleId =
-        ref.watch(settingsProvider.select((it) => it[Sk.selectedArticleId]));
+    var articleId = ref.watch(
+      settingsProvider.select((it) => it[Sk.selectedArticleId]),
+    );
 
     if (articleId != null) {
       final db = DB();
@@ -93,10 +106,17 @@ class CurrentArticle extends _$CurrentArticle {
   }
 
   void change(int articleId) {
-    if (state.value?.id != articleId) {
+    if (state.value?.article.id != articleId) {
       ref.read(settingsProvider.notifier).set(Sk.selectedArticleId, articleId);
     }
   }
+}
+
+// workaround: provider can't return generated types since riverpod 3.0
+class ArticleScrollPositionModel {
+  ArticleScrollPositionModel({required this.articleScrollPosition});
+
+  final ArticleScrollPosition articleScrollPosition;
 }
 
 @riverpod
@@ -104,19 +124,27 @@ class ScrollPosition extends _$ScrollPosition {
   StreamSubscription? _watcher;
 
   @override
-  Future<ArticleScrollPosition?> build(int articleId) {
-    final q = DB()
-        .managers
-        .articleScrollPositions
-        .filter((f) => f.id.equals(articleId));
+  Future<ArticleScrollPositionModel?> build(int articleId) async {
+    final q = DB().managers.articleScrollPositions.filter(
+      (f) => f.id.equals(articleId),
+    );
 
     _watcher?.cancel();
     _watcher = q.watchSingleOrNull().listen((value) {
       final current = state.maybeWhen(orElse: () => null, data: (asp) => asp);
-      if (value != current) state = AsyncValue.data(value);
+      if (value != current?.articleScrollPosition) {
+        state = AsyncValue.data(
+          value != null
+              ? ArticleScrollPositionModel(articleScrollPosition: value)
+              : null,
+        );
+      }
     });
 
-    return q.getSingleOrNull();
+    final ret = await q.getSingleOrNull();
+    return ret != null
+        ? ArticleScrollPositionModel(articleScrollPosition: ret)
+        : null;
   }
 }
 

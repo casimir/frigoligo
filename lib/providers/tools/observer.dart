@@ -3,45 +3,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RiverpodObserver extends ProviderObserver {
+final class RiverpodObserver extends ProviderObserver {
   const RiverpodObserver();
 
   @override
-  void didAddProvider(
-    ProviderBase<Object?> provider,
-    Object? value,
-    ProviderContainer container,
-  ) {
-    print('RIVERPOD.ADD $provider [$value]');
+  void didAddProvider(ProviderObserverContext context, Object? value) {
+    print('RIVERPOD.ADD ${context.provider} [$value]');
   }
 
   @override
-  void didDisposeProvider(
-    ProviderBase<Object?> provider,
-    ProviderContainer container,
-  ) {
-    print('RIVERPOD.DISPOSE $provider');
+  void didDisposeProvider(ProviderObserverContext context) {
+    print('RIVERPOD.DISPOSE ${context.provider}');
   }
 
   @override
   void didUpdateProvider(
-    ProviderBase<Object?> provider,
+    ProviderObserverContext context,
     Object? previousValue,
     Object? newValue,
-    ProviderContainer container,
   ) {
     final before = previousValue?.toString().characters.take(200);
     final after = newValue?.toString().characters.take(200);
-    print('RIVERPOD.UPDATE $provider [$before] -> [$after]');
+    print('RIVERPOD.UPDATE ${context.provider} [$before] -> [$after]');
   }
 
   @override
   void providerDidFail(
-    ProviderBase<Object?> provider,
+    ProviderObserverContext context,
     Object error,
     StackTrace stackTrace,
-    ProviderContainer container,
   ) {
-    print('RIVERPOD.FAIL $provider $error at $stackTrace');
+    print('RIVERPOD.FAIL ${context.provider} $error at $stackTrace');
   }
 }

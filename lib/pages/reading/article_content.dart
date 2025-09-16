@@ -67,10 +67,10 @@ class ArticleContent extends ConsumerStatefulWidget {
 
 class _ArticleContentState extends ConsumerState<ArticleContent> {
   Future<void> _onScrollReady(ProgressScrollTo scrollTo) async {
-    final scrollPosition = await ref.read(
+    final model = await ref.read(
       scrollPositionProvider(widget.article.id).future,
     );
-    final progress = scrollPosition?.progress;
+    final progress = model?.articleScrollPosition.progress;
     if (progress != null && progress > 0) {
       await scrollTo(progress);
     }
@@ -87,19 +87,20 @@ class _ArticleContentState extends ConsumerState<ArticleContent> {
 
   @override
   Widget build(BuildContext context) {
-    final useNativeRenderer =
-        ref.read(settingsProvider)[Sk.nativeArticleRenderer];
+    final useNativeRenderer = ref.read(
+      settingsProvider,
+    )[Sk.nativeArticleRenderer];
     return nativeArticleRendererSupported && useNativeRenderer
         ? _WebViewContent(
-          article: widget.article,
-          onReadyToScroll: _onScrollReady,
-          onScrollUpdate: _onScroll,
-        )
+            article: widget.article,
+            onReadyToScroll: _onScrollReady,
+            onScrollUpdate: _onScroll,
+          )
         : _HtmlWidgetContent(
-          article: widget.article,
-          onScrollReady: _onScrollReady,
-          onScroll: _onScroll,
-        );
+            article: widget.article,
+            onScrollReady: _onScrollReady,
+            onScroll: _onScroll,
+          );
   }
 }
 
@@ -128,13 +129,12 @@ class _HtmlWidgetContent extends ConsumerWidget {
                 child: HtmlWidgetPlus(
                   article.content!,
                   title: article.title,
-                  onTreeBuilt:
-                      (_) => onScrollReady((progress) async {
-                        final controller = PrimaryScrollController.of(context);
-                        final pixels =
-                            progress * controller.position.maxScrollExtent;
-                        controller.jumpTo(pixels);
-                      }),
+                  onTreeBuilt: (_) => onScrollReady((progress) async {
+                    final controller = PrimaryScrollController.of(context);
+                    final pixels =
+                        progress * controller.position.maxScrollExtent;
+                    controller.jumpTo(pixels);
+                  }),
                   justifyText: settings.justifyText,
                   textStyle: settings.textStyle,
                 ),
@@ -188,11 +188,10 @@ class ArticleContentRenderer {
   }
 
   static Future<void> _unpackAssets(AssetManifest assets) async {
-    final assetFiles =
-        assets
-            .listAssets()
-            .where((key) => key.startsWith(assetsPrefix))
-            .toList();
+    final assetFiles = assets
+        .listAssets()
+        .where((key) => key.startsWith(assetsPrefix))
+        .toList();
     for (final key in assetFiles) {
       final bin = await rootBundle.load(key);
       final target = File(key.replaceFirst(assetsPrefix, rootDir.path));
@@ -204,11 +203,10 @@ class ArticleContentRenderer {
   }
 
   static Future<void> _unpackFonts(AssetManifest assets) async {
-    final fontFiles =
-        assets
-            .listAssets()
-            .where((key) => key.startsWith(fontAssetsPrefix))
-            .toList();
+    final fontFiles = assets
+        .listAssets()
+        .where((key) => key.startsWith(fontAssetsPrefix))
+        .toList();
     if (!fontDir.existsSync()) fontDir.createSync(recursive: true);
     for (final key in fontFiles) {
       final bin = await rootBundle.load(key);
@@ -246,18 +244,18 @@ class ArticleContentRenderer {
     a {
       color: ${colors.primary.toRgbHex()};
     }
-  </style>'''.trim();
+  </style>'''
+        .trim();
   }
 
   String readingSettingsCss(ReaderSettingsValues settings) {
-    final fontSize =
-        {
-          12.0: 'x-small',
-          14.0: 'small',
-          16.0: 'medium',
-          18.0: 'large',
-          20.0: 'x-large',
-        }[settings.fontSize];
+    final fontSize = {
+      12.0: 'x-small',
+      14.0: 'small',
+      16.0: 'medium',
+      18.0: 'large',
+      20.0: 'x-large',
+    }[settings.fontSize];
 
     return '''
   <style>
@@ -268,7 +266,8 @@ class ArticleContentRenderer {
     #content {
       font-size: ${fontSize ?? 'medium'};
     }
-  </style>'''.trim();
+  </style>'''
+        .trim();
   }
 
   String get text => _rendered!;

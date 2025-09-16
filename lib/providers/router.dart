@@ -29,10 +29,11 @@ GoRouter router(Ref ref) {
         redirect: loginRedirect,
         builder: (context, state) {
           final rawArticleId = state.uri.queryParameters['articleId'];
-          final articleId =
-              rawArticleId != null ? int.tryParse(rawArticleId) : null;
-          ref.read(currentArticleProvider.future).then((article) {
-            final currentId = article?.id;
+          final articleId = rawArticleId != null
+              ? int.tryParse(rawArticleId)
+              : null;
+          ref.read(currentArticleProvider.future).then((model) {
+            final currentId = model?.article.id;
             if (articleId != null && articleId != currentId) {
               ref.read(openArticleProvider.notifier).schedule(articleId);
             }

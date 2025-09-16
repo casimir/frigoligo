@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 
 class Expander extends StateNotifier<bool> {
   Expander({bool? expanded}) : super(expanded ?? false);

@@ -6,8 +6,10 @@ import '../../db/models/article.drift.dart';
 import '../../providers/article.dart';
 
 Widget _build(WidgetRef ref, Widget Function(Article?) onArticle) {
-  return ref.watch(currentArticleProvider).when(
-        data: (it) => onArticle(it),
+  return ref
+      .watch(currentArticleProvider)
+      .when(
+        data: (it) => onArticle(it?.article),
         error: (error, _) => ErrorScreen(error: error),
         loading: () =>
             const Center(child: CircularProgressIndicator.adaptive()),
