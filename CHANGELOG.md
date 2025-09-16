@@ -112,6 +112,8 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Hide generated code in GH diff interface ([bb6e2c1](https://github.com/casimir/frigoligo/commit/bb6e2c18d79f956991d907d700e0110145ba53d0))
 - Setup sonarqube ([#404](https://github.com/casimir/frigoligo/pull/404)) ([010a5cb](https://github.com/casimir/frigoligo/commit/010a5cb68ae05b5b94d9ecb6fd9cac8318053ee1))
 - *(analysis)* Include test/ in the sources ([ce10e1b](https://github.com/casimir/frigoligo/commit/ce10e1bf024964b66e09f10fa32b14ea1a5c4bb3))
+- Backport sonarqube settings changes ([7efaf0e](https://github.com/casimir/frigoligo/commit/7efaf0ed76c46ed050365fc6c60320a91344e895))
+- *(tests)* Ignore generated code when calculating coverage ([ab51417](https://github.com/casimir/frigoligo/commit/ab51417e5b25c6619cd17b23aae5eb16209f7b4d))
 
 ### I18n
 
