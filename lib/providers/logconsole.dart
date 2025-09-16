@@ -6,7 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../constants.dart';
 import '../db/database.dart';
 
-part 'logconsole.g.dart';
+part '_g/logconsole.g.dart';
 
 class LogConsoleToken {}
 

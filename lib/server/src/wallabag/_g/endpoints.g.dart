@@ -1,6 +1,9 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'endpoints.dart';
+// coverage:ignore-file
+
+
+part of '../endpoints.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

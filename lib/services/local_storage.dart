@@ -10,13 +10,13 @@ import '../providers/settings.dart';
 import '../server/clients.dart';
 import '../server/providers/client.dart';
 
-part 'local_storage.g.dart';
+part '_g/local_storage.g.dart';
 
 final _log = Logger('storage');
 
 class LocalStorageToken {}
 
-@riverpod
+@Riverpod(keepAlive: true)
 class LocalStorage extends _$LocalStorage {
   @override
   LocalStorageToken build() => LocalStorageToken();
@@ -58,10 +58,9 @@ class LocalStorage extends _$LocalStorage {
     final stopwatch = Stopwatch()..start();
 
     var count = 0;
-    final sinceDT =
-        since != null
-            ? DateTime.fromMillisecondsSinceEpoch(since * 1000)
-            : null;
+    final sinceDT = since != null
+        ? DateTime.fromMillisecondsSinceEpoch(since * 1000)
+        : null;
     _log.info('starting refresh with since=${sinceDT?.toIso8601String()}');
 
     if (since == null) {

@@ -42,10 +42,9 @@ class _ArticleListItemState extends ConsumerState<ArticleListItem> {
 
     final child = Ink(
       key: ValueKey('articles-list-item-${widget.article.id}'),
-      color:
-          widget.showSelection && _isSelected
-              ? Theme.of(context).highlightColor
-              : null,
+      color: widget.showSelection && _isSelected
+          ? Theme.of(context).highlightColor
+          : null,
       child: SizedBox(
         height: listingHeight,
         child: InkWell(
@@ -68,8 +67,9 @@ class _ArticleListItemState extends ConsumerState<ArticleListItem> {
                                 child: Text(
                                   widget.article.domainName ??
                                       widget.article.url,
-                                  style:
-                                      Theme.of(context).textTheme.labelMedium,
+                                  style: Theme.of(
+                                    context,
+                                  ).textTheme.labelMedium,
                                   softWrap: false,
                                   overflow: TextOverflow.fade,
                                 ),
@@ -108,10 +108,9 @@ class _ArticleListItemState extends ConsumerState<ArticleListItem> {
                       padding: const EdgeInsets.only(left: 8.0),
                       child: TagList(
                         tags: widget.article.tags,
-                        onTagPressed:
-                            (tag) => ref
-                                .read(queryProvider.notifier)
-                                .overrideWith(WQuery(tags: [tag])),
+                        onTagPressed: (tag) => ref
+                            .read(queryProvider.notifier)
+                            .overrideWith(WQuery(tags: [tag])),
                       ),
                     ),
                   ),
@@ -174,7 +173,7 @@ class _ArticleListItemState extends ConsumerState<ArticleListItem> {
   void _listenToSelectionChange() async {
     final isSelected = await ref.watch(
       currentArticleProvider.selectAsync(
-        (it) => (it?.id ?? -1) == widget.article.id,
+        (it) => (it?.article.id ?? -1) == widget.article.id,
       ),
     );
     if (mounted && _isSelected != isSelected) {
@@ -204,15 +203,13 @@ class AsyncArticleItem extends ConsumerWidget {
         // Article should never be null but it can happen if provider state
         // and renderer state are (temporarily) desynchronized.
         // For example when deleting an article from the reading page.
-        data:
-            (article) =>
-                article != null
-                    ? ArticleListItem(
-                      article: article,
-                      onTap: onTap,
-                      showSelection: showSelection,
-                    )
-                    : const _LoadingWidget(),
+        data: (model) => model != null
+            ? ArticleListItem(
+                article: model.article,
+                onTap: onTap,
+                showSelection: showSelection,
+              )
+            : const _LoadingWidget(),
         error: (e, st) => throw Exception('unreachable branch but $e'),
         loading: () => const _LoadingWidget(),
       );

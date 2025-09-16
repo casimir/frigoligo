@@ -4,8 +4,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../server/check.dart';
 import '../server/providers/client.dart';
 
-part 'server_login_flow.freezed.dart';
-part 'server_login_flow.g.dart';
+part '_g/server_login_flow.freezed.dart';
+part '_g/server_login_flow.g.dart';
 
 @freezed
 sealed class FlowState with _$FlowState {
