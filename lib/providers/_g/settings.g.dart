@@ -1,6 +1,9 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'remote_sync.dart';
+// coverage:ignore-file
+
+
+part of '../settings.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,52 +12,52 @@ part of 'remote_sync.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(RemoteSyncer)
-const remoteSyncerProvider = RemoteSyncerProvider._();
+@ProviderFor(Settings)
+const settingsProvider = SettingsProvider._();
 
-final class RemoteSyncerProvider
-    extends $NotifierProvider<RemoteSyncer, SyncState> {
-  const RemoteSyncerProvider._()
+final class SettingsProvider
+    extends $NotifierProvider<Settings, Map<Sk, dynamic>> {
+  const SettingsProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'remoteSyncerProvider',
+        name: r'settingsProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$remoteSyncerHash();
+  String debugGetCreateSourceHash() => _$settingsHash();
 
   @$internal
   @override
-  RemoteSyncer create() => RemoteSyncer();
+  Settings create() => Settings();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(SyncState value) {
+  Override overrideWithValue(Map<Sk, dynamic> value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<SyncState>(value),
+      providerOverride: $SyncValueProvider<Map<Sk, dynamic>>(value),
     );
   }
 }
 
-String _$remoteSyncerHash() => r'efc73a1609bda0295a5e4e8f954f743bd15dbda3';
+String _$settingsHash() => r'fbb68aa6313ddaed0a53d3fb7b290b979fdc04b0';
 
-abstract class _$RemoteSyncer extends $Notifier<SyncState> {
-  SyncState build();
+abstract class _$Settings extends $Notifier<Map<Sk, dynamic>> {
+  Map<Sk, dynamic> build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<SyncState, SyncState>;
+    final ref = this.ref as $Ref<Map<Sk, dynamic>, Map<Sk, dynamic>>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<SyncState, SyncState>,
-              SyncState,
+              AnyNotifier<Map<Sk, dynamic>, Map<Sk, dynamic>>,
+              Map<Sk, dynamic>,
               Object?,
               Object?
             >;

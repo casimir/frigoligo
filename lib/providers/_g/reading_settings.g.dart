@@ -1,6 +1,9 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'reading_settings.dart';
+// coverage:ignore-file
+
+
+part of '../reading_settings.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

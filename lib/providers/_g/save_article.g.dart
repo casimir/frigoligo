@@ -1,6 +1,9 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'save_article.dart';
+// coverage:ignore-file
+
+
+part of '../save_article.dart';
 
 // **************************************************************************
 // RiverpodGenerator

@@ -1,6 +1,9 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'logconsole.dart';
+// coverage:ignore-file
+
+
+part of '../remote_sync.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,52 +12,52 @@ part of 'logconsole.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(LogConsole)
-const logConsoleProvider = LogConsoleProvider._();
+@ProviderFor(RemoteSyncer)
+const remoteSyncerProvider = RemoteSyncerProvider._();
 
-final class LogConsoleProvider
-    extends $NotifierProvider<LogConsole, LogConsoleToken> {
-  const LogConsoleProvider._()
+final class RemoteSyncerProvider
+    extends $NotifierProvider<RemoteSyncer, SyncState> {
+  const RemoteSyncerProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'logConsoleProvider',
+        name: r'remoteSyncerProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$logConsoleHash();
+  String debugGetCreateSourceHash() => _$remoteSyncerHash();
 
   @$internal
   @override
-  LogConsole create() => LogConsole();
+  RemoteSyncer create() => RemoteSyncer();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(LogConsoleToken value) {
+  Override overrideWithValue(SyncState value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<LogConsoleToken>(value),
+      providerOverride: $SyncValueProvider<SyncState>(value),
     );
   }
 }
 
-String _$logConsoleHash() => r'b6d63ae92e01a719dd5e1049ab6851801a386294';
+String _$remoteSyncerHash() => r'efc73a1609bda0295a5e4e8f954f743bd15dbda3';
 
-abstract class _$LogConsole extends $Notifier<LogConsoleToken> {
-  LogConsoleToken build();
+abstract class _$RemoteSyncer extends $Notifier<SyncState> {
+  SyncState build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<LogConsoleToken, LogConsoleToken>;
+    final ref = this.ref as $Ref<SyncState, SyncState>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<LogConsoleToken, LogConsoleToken>,
-              LogConsoleToken,
+              AnyNotifier<SyncState, SyncState>,
+              SyncState,
               Object?,
               Object?
             >;

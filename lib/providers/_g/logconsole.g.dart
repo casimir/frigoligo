@@ -1,6 +1,9 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'local_storage.dart';
+// coverage:ignore-file
+
+
+part of '../logconsole.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,52 +12,52 @@ part of 'local_storage.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(LocalStorage)
-const localStorageProvider = LocalStorageProvider._();
+@ProviderFor(LogConsole)
+const logConsoleProvider = LogConsoleProvider._();
 
-final class LocalStorageProvider
-    extends $NotifierProvider<LocalStorage, LocalStorageToken> {
-  const LocalStorageProvider._()
+final class LogConsoleProvider
+    extends $NotifierProvider<LogConsole, LogConsoleToken> {
+  const LogConsoleProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'localStorageProvider',
+        name: r'logConsoleProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$localStorageHash();
+  String debugGetCreateSourceHash() => _$logConsoleHash();
 
   @$internal
   @override
-  LocalStorage create() => LocalStorage();
+  LogConsole create() => LogConsole();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(LocalStorageToken value) {
+  Override overrideWithValue(LogConsoleToken value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<LocalStorageToken>(value),
+      providerOverride: $SyncValueProvider<LogConsoleToken>(value),
     );
   }
 }
 
-String _$localStorageHash() => r'82ca93f69126bf69928b26dc9f179f6ec0f3c5b2';
+String _$logConsoleHash() => r'b6d63ae92e01a719dd5e1049ab6851801a386294';
 
-abstract class _$LocalStorage extends $Notifier<LocalStorageToken> {
-  LocalStorageToken build();
+abstract class _$LogConsole extends $Notifier<LogConsoleToken> {
+  LogConsoleToken build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<LocalStorageToken, LocalStorageToken>;
+    final ref = this.ref as $Ref<LogConsoleToken, LogConsoleToken>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<LocalStorageToken, LocalStorageToken>,
-              LocalStorageToken,
+              AnyNotifier<LogConsoleToken, LogConsoleToken>,
+              LogConsoleToken,
               Object?,
               Object?
             >;

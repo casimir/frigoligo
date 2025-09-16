@@ -10,8 +10,8 @@ import '../services/remote_sync.dart';
 import '../services/remote_sync_actions.dart';
 import 'settings.dart';
 
-part 'save_article.freezed.dart';
-part 'save_article.g.dart';
+part '_g/save_article.freezed.dart';
+part '_g/save_article.g.dart';
 
 @freezed
 sealed class SaveArticleState with _$SaveArticleState {

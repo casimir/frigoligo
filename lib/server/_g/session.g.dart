@@ -1,6 +1,9 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'session.dart';
+// coverage:ignore-file
+
+
+part of '../session.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

@@ -1,6 +1,9 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'server_login_flow.dart';
+// coverage:ignore-file
+
+
+part of '../local_storage.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,52 +12,52 @@ part of 'server_login_flow.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(ServerLoginFlow)
-const serverLoginFlowProvider = ServerLoginFlowProvider._();
+@ProviderFor(LocalStorage)
+const localStorageProvider = LocalStorageProvider._();
 
-final class ServerLoginFlowProvider
-    extends $NotifierProvider<ServerLoginFlow, FlowState> {
-  const ServerLoginFlowProvider._()
+final class LocalStorageProvider
+    extends $NotifierProvider<LocalStorage, LocalStorageToken> {
+  const LocalStorageProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'serverLoginFlowProvider',
+        name: r'localStorageProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$serverLoginFlowHash();
+  String debugGetCreateSourceHash() => _$localStorageHash();
 
   @$internal
   @override
-  ServerLoginFlow create() => ServerLoginFlow();
+  LocalStorage create() => LocalStorage();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(FlowState value) {
+  Override overrideWithValue(LocalStorageToken value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<FlowState>(value),
+      providerOverride: $SyncValueProvider<LocalStorageToken>(value),
     );
   }
 }
 
-String _$serverLoginFlowHash() => r'f0b22ea3001568ae6f48dd5312a4a73c5d85b164';
+String _$localStorageHash() => r'82ca93f69126bf69928b26dc9f179f6ec0f3c5b2';
 
-abstract class _$ServerLoginFlow extends $Notifier<FlowState> {
-  FlowState build();
+abstract class _$LocalStorage extends $Notifier<LocalStorageToken> {
+  LocalStorageToken build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<FlowState, FlowState>;
+    final ref = this.ref as $Ref<LocalStorageToken, LocalStorageToken>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<FlowState, FlowState>,
-              FlowState,
+              AnyNotifier<LocalStorageToken, LocalStorageToken>,
+              LocalStorageToken,
               Object?,
               Object?
             >;

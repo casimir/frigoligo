@@ -10,7 +10,7 @@ import '../db/models/article.drift.dart';
 import 'query.dart';
 import 'settings.dart';
 
-part 'article.g.dart';
+part '_g/article.g.dart';
 
 final _log = Logger('providers.article');
 

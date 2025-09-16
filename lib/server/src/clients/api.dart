@@ -10,7 +10,7 @@ import 'package:universal_platform/universal_platform.dart';
 
 import 'api_methods.dart';
 
-part 'api.g.dart';
+part '_g/api.g.dart';
 
 void throwOnError(http.Response response, {List<int> expected = const [200]}) {
   if (!expected.contains(response.statusCode)) {

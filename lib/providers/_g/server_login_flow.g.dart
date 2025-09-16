@@ -1,6 +1,9 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'settings.dart';
+// coverage:ignore-file
+
+
+part of '../server_login_flow.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,52 +12,52 @@ part of 'settings.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(Settings)
-const settingsProvider = SettingsProvider._();
+@ProviderFor(ServerLoginFlow)
+const serverLoginFlowProvider = ServerLoginFlowProvider._();
 
-final class SettingsProvider
-    extends $NotifierProvider<Settings, Map<Sk, dynamic>> {
-  const SettingsProvider._()
+final class ServerLoginFlowProvider
+    extends $NotifierProvider<ServerLoginFlow, FlowState> {
+  const ServerLoginFlowProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'settingsProvider',
+        name: r'serverLoginFlowProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$settingsHash();
+  String debugGetCreateSourceHash() => _$serverLoginFlowHash();
 
   @$internal
   @override
-  Settings create() => Settings();
+  ServerLoginFlow create() => ServerLoginFlow();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(Map<Sk, dynamic> value) {
+  Override overrideWithValue(FlowState value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<Map<Sk, dynamic>>(value),
+      providerOverride: $SyncValueProvider<FlowState>(value),
     );
   }
 }
 
-String _$settingsHash() => r'fbb68aa6313ddaed0a53d3fb7b290b979fdc04b0';
+String _$serverLoginFlowHash() => r'f0b22ea3001568ae6f48dd5312a4a73c5d85b164';
 
-abstract class _$Settings extends $Notifier<Map<Sk, dynamic>> {
-  Map<Sk, dynamic> build();
+abstract class _$ServerLoginFlow extends $Notifier<FlowState> {
+  FlowState build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<Map<Sk, dynamic>, Map<Sk, dynamic>>;
+    final ref = this.ref as $Ref<FlowState, FlowState>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<Map<Sk, dynamic>, Map<Sk, dynamic>>,
-              Map<Sk, dynamic>,
+              AnyNotifier<FlowState, FlowState>,
+              FlowState,
               Object?,
               Object?
             >;

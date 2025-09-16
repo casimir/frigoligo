@@ -1,6 +1,9 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'wallabag.dart';
+// coverage:ignore-file
+
+
+part of '../wallabag.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

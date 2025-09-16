@@ -13,8 +13,8 @@ import 'remote_sync_actions.dart';
 
 export '../server/clients.dart' show ServerError;
 
-part 'remote_sync.freezed.dart';
-part 'remote_sync.g.dart';
+part '_g/remote_sync.freezed.dart';
+part '_g/remote_sync.g.dart';
 
 final _log = Logger('remote.sync');
 
@@ -61,10 +61,9 @@ class RemoteSyncer extends _$RemoteSyncer {
   Future<void> add(RemoteSyncAction action) async {
     final db = DB();
 
-    final exists =
-        await db.managers.remoteActions
-            .filter((f) => f.key.equals(action.hashCode))
-            .exists();
+    final exists = await db.managers.remoteActions
+        .filter((f) => f.key.equals(action.hashCode))
+        .exists();
     if (!exists) {
       await db.managers.remoteActions.create(
         (o) => o(
@@ -141,10 +140,9 @@ class RemoteSyncer extends _$RemoteSyncer {
         final rsa = action.toRSA();
         _log.info('running action: $rsa');
         res[rsa.key] = await rsa.execute(this, storage);
-        final deleted =
-            await db.managers.remoteActions
-                .filter((f) => f.id.equals(action.id))
-                .delete();
+        final deleted = await db.managers.remoteActions
+            .filter((f) => f.id.equals(action.id))
+            .delete();
         if (deleted == 0) {
           _log.severe('action not deleted after execution: $action');
         }

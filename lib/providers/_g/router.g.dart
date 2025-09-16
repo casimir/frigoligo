@@ -1,6 +1,9 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'background_sync.dart';
+// coverage:ignore-file
+
+
+part of '../router.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,42 +12,43 @@ part of 'background_sync.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(backgroundSync)
-const backgroundSyncProvider = BackgroundSyncProvider._();
+@ProviderFor(router)
+const routerProvider = RouterProvider._();
 
-final class BackgroundSyncProvider extends $FunctionalProvider<void, void, void>
-    with $Provider<void> {
-  const BackgroundSyncProvider._()
+final class RouterProvider
+    extends $FunctionalProvider<GoRouter, GoRouter, GoRouter>
+    with $Provider<GoRouter> {
+  const RouterProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'backgroundSyncProvider',
+        name: r'routerProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$backgroundSyncHash();
+  String debugGetCreateSourceHash() => _$routerHash();
 
   @$internal
   @override
-  $ProviderElement<void> $createElement($ProviderPointer pointer) =>
+  $ProviderElement<GoRouter> $createElement($ProviderPointer pointer) =>
       $ProviderElement(pointer);
 
   @override
-  void create(Ref ref) {
-    return backgroundSync(ref);
+  GoRouter create(Ref ref) {
+    return router(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(void value) {
+  Override overrideWithValue(GoRouter value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<void>(value),
+      providerOverride: $SyncValueProvider<GoRouter>(value),
     );
   }
 }
 
-String _$backgroundSyncHash() => r'f44a55f62886f87a5948f295b41240986d9438ff';
+String _$routerHash() => r'8bcfedf352a5b589937a0174d5d377dd6327ef12';

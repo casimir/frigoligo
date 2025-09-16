@@ -7,7 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'settings.dart';
 
-part 'reading_settings.g.dart';
+part '_g/reading_settings.g.dart';
 
 final _log = Logger('readingsettings');
 
