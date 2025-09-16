@@ -23,7 +23,7 @@ final class SettingsProvider
         argument: null,
         retry: null,
         name: r'settingsProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -44,7 +44,7 @@ final class SettingsProvider
   }
 }
 
-String _$settingsHash() => r'fbb68aa6313ddaed0a53d3fb7b290b979fdc04b0';
+String _$settingsHash() => r'bffcd852e29e387c7eb7ebf88eb36f98706d64d7';
 
 abstract class _$Settings extends $Notifier<Map<Sk, dynamic>> {
   Map<Sk, dynamic> build();

@@ -28,7 +28,7 @@ sealed class SyncState with _$SyncState {
   }) = _SyncState;
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class RemoteSyncer extends _$RemoteSyncer {
   static const _refreshAction = RefreshArticlesAction();
 

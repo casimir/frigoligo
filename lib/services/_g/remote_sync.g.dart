@@ -23,7 +23,7 @@ final class RemoteSyncerProvider
         argument: null,
         retry: null,
         name: r'remoteSyncerProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -44,7 +44,7 @@ final class RemoteSyncerProvider
   }
 }
 
-String _$remoteSyncerHash() => r'efc73a1609bda0295a5e4e8f954f743bd15dbda3';
+String _$remoteSyncerHash() => r'244e311fe5d26fbe35dc93845b4b85d0bffe0ef5';
 
 abstract class _$RemoteSyncer extends $Notifier<SyncState> {
   SyncState build();

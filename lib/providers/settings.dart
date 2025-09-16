@@ -106,7 +106,7 @@ class UniversalPreferences {
   }
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 class Settings extends _$Settings {
   // Target version for the settings. By convention this is the buildnumber where
   // the migration has been introduced.

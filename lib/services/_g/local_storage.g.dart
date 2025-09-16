@@ -23,7 +23,7 @@ final class LocalStorageProvider
         argument: null,
         retry: null,
         name: r'localStorageProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -44,7 +44,7 @@ final class LocalStorageProvider
   }
 }
 
-String _$localStorageHash() => r'82ca93f69126bf69928b26dc9f179f6ec0f3c5b2';
+String _$localStorageHash() => r'5d6cb9ca52b8263dc439c942912511990d87f578';
 
 abstract class _$LocalStorage extends $Notifier<LocalStorageToken> {
   LocalStorageToken build();

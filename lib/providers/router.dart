@@ -11,6 +11,7 @@ import '../pages/save.dart';
 import '../pages/session_details.dart';
 import '../pages/settings.dart';
 import '../server/providers/client.dart';
+import '../services/remote_sync.dart';
 import 'article.dart';
 import 'server_login_flow.dart';
 
@@ -28,6 +29,10 @@ GoRouter router(Ref ref) {
         path: '/',
         redirect: loginRedirect,
         builder: (context, state) {
+          ref
+              .read(remoteSyncerProvider.notifier)
+              .synchronize(withFinalRefresh: true);
+
           final rawArticleId = state.uri.queryParameters['articleId'];
           final articleId = rawArticleId != null
               ? int.tryParse(rawArticleId)
@@ -38,6 +43,7 @@ GoRouter router(Ref ref) {
               ref.read(openArticleProvider.notifier).schedule(articleId);
             }
           });
+
           return const HomePage();
         },
       ),

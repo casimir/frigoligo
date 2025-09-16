@@ -16,7 +16,7 @@ final _log = Logger('storage');
 
 class LocalStorageToken {}
 
-@riverpod
+@Riverpod(keepAlive: true)
 class LocalStorage extends _$LocalStorage {
   @override
   LocalStorageToken build() => LocalStorageToken();
