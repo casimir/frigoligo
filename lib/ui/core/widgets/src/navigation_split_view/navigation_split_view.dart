@@ -221,6 +221,8 @@ class NavigationSplitViewState extends State<NavigationSplitView>
       );
     }
 
+    widget.onSelectedIndexChanged?.call(index);
+
     if (layout == NavigationSplitViewLayout.sideBySide) {
       if (_selectedIndex != index) {
         setState(() {
@@ -250,8 +252,6 @@ class NavigationSplitViewState extends State<NavigationSplitView>
         ),
       );
     }
-
-    widget.onSelectedIndexChanged?.call(_selectedIndex);
   }
 
   @visibleForTesting

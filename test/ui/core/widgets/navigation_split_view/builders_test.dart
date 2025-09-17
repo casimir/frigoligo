@@ -136,6 +136,8 @@ void main() {
       ) async {
         tester.setMediumSize();
 
+        int? callbackIndexValue;
+
         await tester.pumpWidget(
           SimpleApp(
             child: NavigationSplitView(
@@ -143,6 +145,7 @@ void main() {
               navigationItemBuilder:
                   (context, index) => ListTile(title: Text('Item $index')),
               contentBuilder: (context, index) => Text('Content $index'),
+              onSelectedIndexChanged: (index) => callbackIndexValue = index,
             ),
           ),
         );
@@ -152,6 +155,7 @@ void main() {
 
         expect(find.text('Item 1'), findsNothing);
         expect(find.text('Content 1'), findsOneWidget);
+        expect(callbackIndexValue, 1);
 
         final navigator = tester.state<NavigatorState>(find.byType(Navigator));
         navigator.pop();
