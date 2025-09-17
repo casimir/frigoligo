@@ -5,28 +5,60 @@ import 'package:frigoligo/ui/core/widgets/adaptive.dart';
 import 'package:frigoligo/ui/core/widgets/navigation_split_view.dart';
 
 void main() {
-  runApp(
-    MaterialApp(
-      home: Material(
-        child: WindowQuery(
+  runApp(DemoApp());
+}
+
+class DemoApp extends StatelessWidget {
+  DemoApp({super.key});
+
+  final counter = ValueNotifier(3);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: ValueListenableBuilder(
+            valueListenable: counter,
+            builder: (context, value, child) {
+              return Text('NavigationSplitView ($value items)');
+            },
+          ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                counter.value--;
+              },
+              icon: const Icon(Icons.remove_circle_outline),
+            ),
+            IconButton(
+              onPressed: () {
+                counter.value++;
+              },
+              icon: const Icon(Icons.add_circle_outline),
+            ),
+          ],
+          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+        ),
+        body: WindowQuery(
           child: NavigationSplitView(
-            itemCount: 3,
+            itemCount: counter,
             navigationItemBuilder:
                 (context, index) => ListTile(title: Text('Item $index')),
-            navigationContainerBuilder:
-                (context, selectedIndex, child) => Container(child: child),
-            contentBuilder:
-                (context, index) => Container(
-                  color: Colors.white,
-                  child: Scaffold(
-                    backgroundColor: Colors.red.withAlpha(128),
-                    appBar: AppBar(leading: const ExpandContentButton()),
-                    body: Center(child: Text('Content $index')),
-                  ),
+            contentBuilder: (context, index) {
+              return Container(
+                color: Colors.white,
+                child: Scaffold(
+                  backgroundColor: Colors.red.withAlpha(128),
+                  appBar: AppBar(leading: const ExpandContentButton()),
+                  body: Center(child: Text('Content $index')),
                 ),
+              );
+            },
           ),
         ),
       ),
-    ),
-  );
+      debugShowCheckedModeBanner: false,
+    );
+  }
 }

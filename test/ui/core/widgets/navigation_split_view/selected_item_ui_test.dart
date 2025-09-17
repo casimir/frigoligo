@@ -15,7 +15,7 @@ void main() {
       await tester.pumpWidget(
         SimpleApp(
           child: NavigationSplitView(
-            itemCount: 1,
+            itemCount: ValueNotifier(1),
             navigationItemBuilder:
                 (context, index) => const Text(navigationLabel),
             contentBuilder: (context, index) => const Text(contentLabel),
@@ -71,7 +71,7 @@ void main() {
       await tester.pumpWidget(
         SimpleApp(
           child: NavigationSplitView(
-            itemCount: 100,
+            itemCount: ValueNotifier(100),
             navigationItemBuilder: (context, index) => Text('Item $index'),
             navigationItemExtent: 20,
             contentBuilder: (context, index) => Text('Content $index'),
@@ -94,7 +94,7 @@ void main() {
         await tester.pumpWidget(
           SimpleApp(
             child: NavigationSplitView(
-              itemCount: 100,
+              itemCount: ValueNotifier(100),
               navigationItemBuilder: (context, index) => Text('Item $index'),
               navigationItemExtent: 20,
               contentBuilder: (context, index) => Text('Content $index'),

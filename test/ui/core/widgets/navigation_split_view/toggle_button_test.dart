@@ -15,7 +15,7 @@ void main() {
         await tester.pumpWidget(
           SimpleApp(
             child: NavigationSplitView(
-              itemCount: 1,
+              itemCount: ValueNotifier(1),
               navigationItemBuilder: (context, index) => Text('Item $index'),
               contentBuilder:
                   (context, index) => Scaffold(
@@ -54,7 +54,7 @@ void main() {
       await tester.pumpWidget(
         SimpleApp(
           child: NavigationSplitView(
-            itemCount: 1,
+            itemCount: ValueNotifier(1),
             navigationItemBuilder: (context, index) => Text('Item $index'),
             contentBuilder:
                 (context, index) => Scaffold(

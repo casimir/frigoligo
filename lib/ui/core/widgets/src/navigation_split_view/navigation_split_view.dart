@@ -48,7 +48,11 @@ class NavigationSplitView extends StatefulWidget {
   });
 
   /// Total count of items in the navigation pane.
-  final int itemCount;
+  ///
+  /// This is a [ValueNotifier] so that the [NavigationSplitView] can update the
+  /// navigation items without rebuilding the entire widget and more importantly
+  /// without rebuilding the content pane.
+  final ValueNotifier<int> itemCount;
 
   /// Builder for the navigation pane items.
   final NullableIndexedWidgetBuilder navigationItemBuilder;
@@ -144,7 +148,7 @@ class NavigationSplitViewState extends State<NavigationSplitView>
     super.initState();
 
     _selectedIndex = widget.initialIndex;
-    if (_selectedIndex == null && widget.itemCount > 0) {
+    if (_selectedIndex == null && widget.itemCount.value > 0) {
       _selectedIndex = 0;
     }
 
@@ -160,6 +164,26 @@ class NavigationSplitViewState extends State<NavigationSplitView>
         selectIndex(widget.initialIndex);
       });
     }
+
+    widget.itemCount.addListener(() {
+      _onItemCountNotification();
+    });
+  }
+
+  @override
+  void dispose() {
+    widget.itemCount.removeListener(_onItemCountNotification);
+    super.dispose();
+  }
+
+  // When the navigation list is invalidated we want to invalidate the currently
+  // selected index and go back to the top of the list.
+  // A nice behavior would be to try to keep the selection and scroll position
+  // when the displayed section and previous elements are identical but it would
+  // involve a lot of complexity.
+  void _onItemCountNotification() {
+    _selectedIndex = null;
+    _navigationScroller.jumpTo(0);
   }
 
   NavigationSplitViewLayout _getLayout() {
@@ -186,16 +210,19 @@ class NavigationSplitViewState extends State<NavigationSplitView>
     final layout = _getLayout();
 
     if (index != null) {
+      final itemCount = widget.itemCount.value;
       assert(
-        index >= 0 && index < widget.itemCount,
-        'index must be between 0 and ${widget.itemCount - 1} but got $index',
+        index >= 0 && index < itemCount,
+        'index must be between 0 and ${itemCount - 1} but got $index',
       );
     }
 
     if (layout == NavigationSplitViewLayout.sideBySide) {
-      setState(() {
-        _selectedIndex = index;
-      });
+      if (_selectedIndex != index) {
+        setState(() {
+          _selectedIndex = index;
+        });
+      }
 
       if (_scrollToSelectedItem && index != null) {
         assert(
@@ -291,48 +318,55 @@ class NavigationSplitViewState extends State<NavigationSplitView>
   }
 
   Widget _buildNavigationPane(NavigationSplitViewLayout layout) {
-    if (widget.itemCount == 0) {
-      return widget.navigationPlaceholder ??
-          _buildDefaultNavigationPlaceholder();
-    }
-
-    final navigation = ListView.builder(
-      key: PageStorageKey<String>(widget.navigationPaneKey),
-      controller: _navigationScroller,
-      itemCount: widget.itemCount,
-      itemBuilder: (context, index) {
-        final isSelected = _selectedIndex == index;
-        final highlightColor =
-            isSelected && layout == NavigationSplitViewLayout.sideBySide
-                ? widget.highlightColor ?? Theme.of(context).highlightColor
-                : null;
-        return Center(
-          child: Container(
-            constraints: const BoxConstraints(
-              maxWidth: kNavigationItemMaxWidth,
-            ),
-            child: InkWell(
-              splashFactory: adaptiveSplashFactory(context),
-              onTap: () => selectIndex(index),
-              child: Semantics(
-                button: true,
-                selected: isSelected,
-                child: Ink(
-                  color: highlightColor,
-                  height: widget.navigationItemExtent,
-                  child: widget.navigationItemBuilder(context, index),
+    late final Widget navigation;
+    if (widget.itemCount.value == 0) {
+      navigation =
+          widget.navigationPlaceholder ?? _buildDefaultNavigationPlaceholder();
+    } else {
+      navigation = ValueListenableBuilder(
+        valueListenable: widget.itemCount,
+        builder: (context, itemCount, child) {
+          return ListView.builder(
+            key: PageStorageKey<String>(widget.navigationPaneKey),
+            controller: _navigationScroller,
+            itemCount: itemCount,
+            itemBuilder: (context, index) {
+              final isSelected = _selectedIndex == index;
+              final highlightColor =
+                  isSelected && layout == NavigationSplitViewLayout.sideBySide
+                      ? widget.highlightColor ??
+                          Theme.of(context).highlightColor
+                      : null;
+              return Center(
+                child: Container(
+                  constraints: const BoxConstraints(
+                    maxWidth: kNavigationItemMaxWidth,
+                  ),
+                  child: InkWell(
+                    splashFactory: adaptiveSplashFactory(context),
+                    onTap: () => selectIndex(index),
+                    child: Semantics(
+                      button: true,
+                      selected: isSelected,
+                      child: Ink(
+                        color: highlightColor,
+                        height: widget.navigationItemExtent,
+                        child: widget.navigationItemBuilder(context, index),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
-        );
-      },
-    );
+              );
+            },
+          );
+        },
+      );
+    }
 
     if (widget.navigationContainerBuilder != null) {
       return widget.navigationContainerBuilder!(
         context,
-        _selectedIndex!,
+        _selectedIndex,
         navigation,
       );
     } else {
@@ -382,7 +416,7 @@ enum NavigationSplitViewLayout {
 
 /// A builder for the navigation pane container.
 typedef NavigationContainerBuilder =
-    Widget Function(BuildContext context, int selectedIndex, Widget child);
+    Widget Function(BuildContext context, int? selectedIndex, Widget child);
 
 /// A scope that is inserted by [NavigationSplitView] and contains information
 /// about its state.
