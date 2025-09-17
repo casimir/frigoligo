@@ -41,6 +41,7 @@ class NavigationSplitView extends StatefulWidget {
     required this.contentBuilder,
     this.contentPlaceholder,
     this.initialIndex,
+    this.onSelectedIndexChanged,
     this.enableShortcuts = true,
     this.highlightColor,
     this.scrollToSelectedItem,
@@ -83,6 +84,9 @@ class NavigationSplitView extends StatefulWidget {
 
   /// Initial selected index. When not provided, the first item is selected.
   final int? initialIndex;
+
+  /// Callback when the selected index changes.
+  final ValueChanged<int?>? onSelectedIndexChanged;
 
   /// Feature flag to enable keyboard shortcuts.
   final bool enableShortcuts;
@@ -246,6 +250,8 @@ class NavigationSplitViewState extends State<NavigationSplitView>
         ),
       );
     }
+
+    widget.onSelectedIndexChanged?.call(_selectedIndex);
   }
 
   @visibleForTesting

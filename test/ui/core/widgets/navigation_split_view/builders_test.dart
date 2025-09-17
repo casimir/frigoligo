@@ -105,6 +105,8 @@ void main() {
         (tester) async {
           tester.setExpandedSize();
 
+          int? callbackIndexValue;
+
           await tester.pumpWidget(
             SimpleApp(
               child: NavigationSplitView(
@@ -112,17 +114,20 @@ void main() {
                 navigationItemBuilder:
                     (context, index) => ListTile(title: Text('Item $index')),
                 contentBuilder: (context, index) => Text('Content $index'),
+                onSelectedIndexChanged: (index) => callbackIndexValue = index,
               ),
             ),
           );
 
           // Initially the first item should be selected
           expect(find.text('Content 0'), findsOneWidget);
+          expect(callbackIndexValue, null);
 
           await tester.tap(find.text('Item 1'));
           await tester.pump();
 
           expect(find.text('Content 1'), findsOneWidget);
+          expect(callbackIndexValue, 1);
         },
       );
 
