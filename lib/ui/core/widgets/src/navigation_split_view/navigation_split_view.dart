@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show LogicalKeyboardKey;
 
@@ -50,10 +51,10 @@ class NavigationSplitView extends StatefulWidget {
 
   /// Total count of items in the navigation pane.
   ///
-  /// This is a [ValueNotifier] so that the [NavigationSplitView] can update the
-  /// navigation items without rebuilding the entire widget and more importantly
-  /// without rebuilding the content pane.
-  final ValueNotifier<int> itemCount;
+  /// This is a [ValueListenable] so that the [NavigationSplitView] can update
+  /// the navigation items without rebuilding the entire widget and more
+  /// importantly without rebuilding the content pane.
+  final ValueListenable<int> itemCount;
 
   /// Builder for the navigation pane items.
   final NullableIndexedWidgetBuilder navigationItemBuilder;
