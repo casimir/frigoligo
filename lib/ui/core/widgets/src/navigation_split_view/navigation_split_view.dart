@@ -192,7 +192,9 @@ class NavigationSplitViewState extends State<NavigationSplitView>
   // involve a lot of complexity.
   void _onItemCountNotification() {
     _selectedIndex = null;
-    _navigationScroller.jumpTo(0);
+    if (_navigationScroller.hasClients) {
+      _navigationScroller.jumpTo(0);
+    }
   }
 
   NavigationSplitViewLayout _getLayout() {
