@@ -40,6 +40,7 @@ class NavigationSplitView extends StatefulWidget {
     this.navigationItemExtent,
     this.navigationScrollController,
     required this.contentBuilder,
+    this.contentContainerBuilder,
     this.contentPlaceholder,
     this.initialIndex,
     this.onSelectedIndexChanged,
@@ -79,6 +80,9 @@ class NavigationSplitView extends StatefulWidget {
 
   /// Builder for the content pane.
   final IndexedWidgetBuilder contentBuilder;
+
+  /// Builder for the content pane container.
+  final TransitionBuilder? contentContainerBuilder;
 
   /// Placeholder for the content pane when no item is selected.
   final Widget? contentPlaceholder;
@@ -289,11 +293,6 @@ class NavigationSplitViewState extends State<NavigationSplitView>
       return _buildNavigationPane(layout);
     }
 
-    final content =
-        _selectedIndex == null
-            ? widget.contentPlaceholder ?? _buildDefaultContentPlaceholder()
-            : _buildContentPane(_selectedIndex!, false);
-
     Widget view;
 
     view = Row(
@@ -303,7 +302,7 @@ class NavigationSplitViewState extends State<NavigationSplitView>
           navigationPane: _buildNavigationPane(layout),
         ),
         if (!isContentExpanded) const VerticalDivider(width: 1),
-        Expanded(child: content),
+        Expanded(child: _buildContentPane(_selectedIndex, false)),
       ],
     );
 
@@ -382,15 +381,26 @@ class NavigationSplitViewState extends State<NavigationSplitView>
   }
 
   Widget _buildDefaultNavigationPlaceholder() {
-    // TODO set up a better placeholder
-    return const Center(child: Text('No items'));
+    final color = Theme.of(context).colorScheme.onSurface;
+    return Center(
+      child: Icon(
+        Icons.list_alt_outlined,
+        size: 64,
+        color: color.withValues(alpha: 0.3),
+      ),
+    );
   }
 
-  Widget _buildContentPane(int index, bool withShortcuts) {
-    final content = widget.contentBuilder(context, index);
+  Widget _buildContentPane(int? index, bool withShortcuts) {
+    final content =
+        index == null
+            ? widget.contentPlaceholder ?? _buildDefaultContentPlaceholder()
+            : widget.contentBuilder(context, index);
+
+    late final Widget view;
 
     if (withShortcuts) {
-      return CallbackShortcuts(
+      view = CallbackShortcuts(
         bindings: {
           const SingleActivator(LogicalKeyboardKey.escape): () {
             final navigator = Navigator.of(context);
@@ -402,13 +412,25 @@ class NavigationSplitViewState extends State<NavigationSplitView>
         child: Focus(autofocus: true, child: content),
       );
     } else {
-      return content;
+      view = content;
+    }
+
+    if (widget.contentContainerBuilder != null) {
+      return widget.contentContainerBuilder!(context, view);
+    } else {
+      return view;
     }
   }
 
   Widget _buildDefaultContentPlaceholder() {
-    // TODO set up a better placeholder
-    return const Center(child: Text('Select an item'));
+    final color = Theme.of(context).colorScheme.onSurface;
+    return Center(
+      child: Icon(
+        Icons.info_outline,
+        size: 64,
+        color: color.withValues(alpha: 0.3),
+      ),
+    );
   }
 }
 
