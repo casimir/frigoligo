@@ -92,5 +92,39 @@ void main() {
         expect(find.text('Content 50'), findsOne);
       },
     );
+
+    testWidgets(
+      'should switch between the navigation pane and placeholder when the count pass by 0',
+      (tester) async {
+        const placeholderKey = Key('placeholder');
+        final counter = ValueNotifier(3);
+
+        await tester.pumpWidget(
+          SimpleApp(
+            child: NavigationSplitView(
+              itemCount: counter,
+              navigationItemBuilder: (context, index) => Text('Item $index'),
+              navigationPlaceholder: const SizedBox(key: placeholderKey),
+              contentBuilder: (context, index) => Text('Content $index'),
+            ),
+          ),
+        );
+
+        expect(find.text('Item 0'), findsOne);
+        expect(find.byKey(placeholderKey), findsNothing);
+
+        counter.value = 0;
+        await tester.pumpAndSettle();
+
+        expect(find.text('Item 0'), findsNothing);
+        expect(find.byKey(placeholderKey), findsOne);
+
+        counter.value = 1;
+        await tester.pumpAndSettle();
+
+        expect(find.text('Item 0'), findsOne);
+        expect(find.byKey(placeholderKey), findsNothing);
+      },
+    );
   });
 }

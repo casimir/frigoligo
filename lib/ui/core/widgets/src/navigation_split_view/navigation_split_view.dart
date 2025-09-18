@@ -326,14 +326,13 @@ class NavigationSplitViewState extends State<NavigationSplitView>
   }
 
   Widget _buildNavigationPane(NavigationSplitViewLayout layout) {
-    late final Widget navigation;
-    if (widget.itemCount.value == 0) {
-      navigation =
-          widget.navigationPlaceholder ?? _buildDefaultNavigationPlaceholder();
-    } else {
-      navigation = ValueListenableBuilder(
-        valueListenable: widget.itemCount,
-        builder: (context, itemCount, child) {
+    final navigation = ValueListenableBuilder(
+      valueListenable: widget.itemCount,
+      builder: (context, itemCount, child) {
+        if (itemCount == 0) {
+          return widget.navigationPlaceholder ??
+              _buildDefaultNavigationPlaceholder();
+        } else {
           return ListView.builder(
             key: PageStorageKey<String>(widget.navigationPaneKey),
             controller: _navigationScroller,
@@ -367,9 +366,9 @@ class NavigationSplitViewState extends State<NavigationSplitView>
               );
             },
           );
-        },
-      );
-    }
+        }
+      },
+    );
 
     if (widget.navigationContainerBuilder != null) {
       return widget.navigationContainerBuilder!(
