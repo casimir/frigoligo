@@ -34,27 +34,56 @@ void main() {
         expect(find.byIcon(Icons.abc), findsNWidgets(3));
       });
 
-      testWidgets('It should use the custom container when provided', (
+      testWidgets(
+        'It should use the custom navigation container when provided',
+        (tester) async {
+          const customKey = Key('navigation-container');
+
+          await tester.pumpWidget(
+            SimpleApp(
+              child: NavigationSplitView(
+                itemCount: ValueNotifier(1),
+                navigationItemBuilder: (context, index) => Text('Item $index'),
+                contentBuilder: (context, index) => const Placeholder(),
+                navigationContainerBuilder:
+                    (context, selectedIndex, child) =>
+                        Container(key: customKey, child: child),
+              ),
+            ),
+          );
+
+          expect(
+            find.ancestor(
+              of: find.text('Item 0'),
+              matching: find.byKey(customKey),
+            ),
+            findsOneWidget,
+          );
+        },
+      );
+
+      testWidgets('It should use the custom content container when provided', (
         tester,
       ) async {
-        const customKey = Key('navigation-container');
+        tester.setExpandedSize();
+
+        const customKey = Key('content-container');
 
         await tester.pumpWidget(
           SimpleApp(
             child: NavigationSplitView(
               itemCount: ValueNotifier(1),
-              navigationItemBuilder: (context, index) => Text('Item $index'),
-              contentBuilder: (context, index) => const Placeholder(),
-              navigationContainerBuilder:
-                  (context, selectedIndex, child) =>
-                      Container(key: customKey, child: child),
+              navigationItemBuilder: (context, index) => const Placeholder(),
+              contentBuilder: (context, index) => Text('Content $index'),
+              contentContainerBuilder:
+                  (context, child) => Container(key: customKey, child: child),
             ),
           ),
         );
 
         expect(
           find.ancestor(
-            of: find.text('Item 0'),
+            of: find.text('Content 0'),
             matching: find.byKey(customKey),
           ),
           findsOneWidget,
@@ -76,7 +105,7 @@ void main() {
           ),
         );
 
-        expect(find.text('No items'), findsOneWidget);
+        expect(find.byIcon(Icons.list_alt_outlined), findsOneWidget);
       });
 
       testWidgets('It should use the custom placeholder when provided', (
@@ -266,7 +295,7 @@ void main() {
           ),
         );
 
-        expect(find.text('Select an item'), findsOneWidget);
+        expect(find.byIcon(Icons.info_outline), findsOneWidget);
       });
 
       testWidgets('It should use the custom placeholder when provided', (

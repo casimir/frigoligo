@@ -36,7 +36,7 @@ void main() {
         splitView.selectIndex(null);
         await tester.pump();
 
-        expect(find.text('Select an item'), findsOneWidget);
+        expect(find.byIcon(Icons.info_outline), findsOneWidget);
       },
     );
   });

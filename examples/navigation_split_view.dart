@@ -25,11 +25,14 @@ class DemoApp extends StatelessWidget {
             },
           ),
           actions: [
-            IconButton(
-              onPressed: () {
-                counter.value--;
+            ValueListenableBuilder(
+              valueListenable: counter,
+              builder: (context, value, child) {
+                return IconButton(
+                  onPressed: value > 0 ? () => counter.value-- : null,
+                  icon: const Icon(Icons.remove_circle_outline),
+                );
               },
-              icon: const Icon(Icons.remove_circle_outline),
             ),
             IconButton(
               onPressed: () {
@@ -45,13 +48,14 @@ class DemoApp extends StatelessWidget {
             itemCount: counter,
             navigationItemBuilder:
                 (context, index) => ListTile(title: Text('Item $index')),
-            contentBuilder: (context, index) {
+            contentBuilder: (context, index) => Text('Content $index'),
+            contentContainerBuilder: (context, child) {
               return Container(
                 color: Colors.white,
                 child: Scaffold(
                   backgroundColor: Colors.red.withAlpha(128),
                   appBar: AppBar(leading: const ExpandContentButton()),
-                  body: Center(child: Text('Content $index')),
+                  body: Center(child: child),
                 ),
               );
             },
