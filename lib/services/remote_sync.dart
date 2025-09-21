@@ -5,8 +5,8 @@ import 'package:http/http.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../db/database.dart';
-import '../db/extensions/remote_action.dart';
+import '../data/services/local/storage/database/database.dart';
+import '../data/services/local/storage/database/extensions/remote_action.dart';
 import '../server/clients.dart';
 import 'local_storage.dart';
 import 'remote_sync_actions.dart';
@@ -61,10 +61,9 @@ class RemoteSyncer extends _$RemoteSyncer {
   Future<void> add(RemoteSyncAction action) async {
     final db = DB();
 
-    final exists =
-        await db.managers.remoteActions
-            .filter((f) => f.key.equals(action.hashCode))
-            .exists();
+    final exists = await db.managers.remoteActions
+        .filter((f) => f.key.equals(action.hashCode))
+        .exists();
     if (!exists) {
       await db.managers.remoteActions.create(
         (o) => o(
@@ -133,18 +132,17 @@ class RemoteSyncer extends _$RemoteSyncer {
     int i = 1;
     int actionsCount = 0;
     do {
-      final actions =
-          await (db.managers.remoteActions..orderBy((o) => o.createdAt.asc()))
-              .get();
+      final actions = await (db.managers.remoteActions
+            ..orderBy((o) => o.createdAt.asc()))
+          .get();
       actionsCount += actions.length;
       for (final action in actions) {
         final rsa = action.toRSA();
         _log.info('running action: $rsa');
         res[rsa.key] = await rsa.execute(this, storage);
-        final deleted =
-            await db.managers.remoteActions
-                .filter((f) => f.id.equals(action.id))
-                .delete();
+        final deleted = await db.managers.remoteActions
+            .filter((f) => f.id.equals(action.id))
+            .delete();
         if (deleted == 0) {
           _log.severe('action not deleted after execution: $action');
         }

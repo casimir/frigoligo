@@ -1,14 +1,22 @@
 // dart format width=80
 // ignore_for_file: type=lint
 import 'package:drift/drift.dart' as i0;
-import 'package:frigoligo/db/models/remote_action.drift.dart' as i1;
-import 'package:frigoligo/db/models/metadata.drift.dart' as i2;
-import 'package:frigoligo/db/models/article.drift.dart' as i3;
-import 'package:frigoligo/db/models/app_log.drift.dart' as i4;
-import 'package:frigoligo/db/daos/app_logs.dart' as i5;
-import 'package:frigoligo/db/database.dart' as i6;
-import 'package:frigoligo/db/daos/articles.dart' as i7;
-import 'package:frigoligo/db/daos/metadata.dart' as i8;
+import 'package:frigoligo/data/services/local/storage/database/models/remote_action.drift.dart'
+    as i1;
+import 'package:frigoligo/data/services/local/storage/database/models/metadata.drift.dart'
+    as i2;
+import 'package:frigoligo/data/services/local/storage/database/models/article.drift.dart'
+    as i3;
+import 'package:frigoligo/data/services/local/storage/database/models/app_log.drift.dart'
+    as i4;
+import 'package:frigoligo/data/services/local/storage/database/daos/app_logs.dart'
+    as i5;
+import 'package:frigoligo/data/services/local/storage/database/database.dart'
+    as i6;
+import 'package:frigoligo/data/services/local/storage/database/daos/articles.dart'
+    as i7;
+import 'package:frigoligo/data/services/local/storage/database/daos/metadata.dart'
+    as i8;
 import 'package:drift/internal/modular.dart' as i9;
 
 abstract class $DB extends i0.GeneratedDatabase {

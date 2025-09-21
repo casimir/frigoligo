@@ -8,7 +8,7 @@ import 'package:path_provider_foundation/path_provider_foundation.dart';
 import 'package:sqlite3/sqlite3.dart';
 import 'package:universal_platform/universal_platform.dart';
 
-import '../../constants.dart';
+import '../../../../../../constants.dart';
 
 Future<File> getDBPath(bool devmode, {bool container = true}) async {
   late Directory rootDir;

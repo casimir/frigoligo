@@ -13,7 +13,7 @@ import 'app_info.dart';
 import 'app_setups.dart';
 import 'applinks/handler.dart';
 import 'constants.dart';
-import 'db/database.dart';
+import 'data/services/local/storage/database/database.dart';
 import 'native/appbadge.dart';
 import 'native/save.service.dart';
 import 'pages/reading/article_content.dart';
@@ -106,8 +106,7 @@ class _MyAppState extends ConsumerState<MyApp> {
       ),
       themeMode: theme,
       locale: lang.locale,
-      localizationsDelegates:
-          AppLocalizations.localizationsDelegates +
+      localizationsDelegates: AppLocalizations.localizationsDelegates +
           const [
             MaterialLocalizationsEo.delegate,
             CupertinoLocalizationsEo.delegate,

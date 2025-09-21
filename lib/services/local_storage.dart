@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../db/database.dart';
-import '../db/models/article.drift.dart';
+import '../data/services/local/storage/database/database.dart';
+import '../data/services/local/storage/database/models/article.drift.dart';
 import '../native/appbadge.dart';
 import '../providers/settings.dart';
 import '../server/clients.dart';
@@ -58,10 +58,9 @@ class LocalStorage extends _$LocalStorage {
     final stopwatch = Stopwatch()..start();
 
     var count = 0;
-    final sinceDT =
-        since != null
-            ? DateTime.fromMillisecondsSinceEpoch(since * 1000)
-            : null;
+    final sinceDT = since != null
+        ? DateTime.fromMillisecondsSinceEpoch(since * 1000)
+        : null;
     _log.info('starting refresh with since=${sinceDT?.toIso8601String()}');
 
     if (since == null) {

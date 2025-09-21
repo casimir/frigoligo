@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:logging/logging.dart';
 
-import '../utils.dart';
+import '../../../../../utils.dart';
 import 'connection/connection.dart';
 import 'daos/app_logs.dart';
 import 'daos/articles.dart';

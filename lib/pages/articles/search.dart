@@ -5,8 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../buildcontext_extension.dart';
 import '../../constants.dart';
-import '../../db/daos/articles.dart';
-import '../../db/database.dart';
+import '../../data/services/local/storage/database/daos/articles.dart';
+import '../../data/services/local/storage/database/database.dart';
 import '../../providers/query.dart';
 import '../../widgets/async/text.dart';
 import '../../widgets/selectors.dart';

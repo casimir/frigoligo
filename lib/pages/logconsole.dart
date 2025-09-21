@@ -12,7 +12,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:universal_platform/universal_platform.dart';
 
 import '../buildcontext_extension.dart';
-import '../db/database.dart';
+import '../data/services/local/storage/database/database.dart';
 import '../providers/logconsole.dart';
 import '../widgets/async/list.dart';
 
@@ -39,10 +39,9 @@ class _LogConsolePageState extends ConsumerState<LogConsolePage> {
         actions: [
           ActionButton(
             key: _shareButtonKey,
-            icon:
-                UniversalPlatform.isWeb
-                    ? Icons.download
-                    : C(context).icons.share,
+            icon: UniversalPlatform.isWeb
+                ? Icons.download
+                : C(context).icons.share,
             onPressed: () async {
               final onlyCurrentRun = await _askForExportType();
               if (onlyCurrentRun != null) {
@@ -68,10 +67,9 @@ class _LogConsolePageState extends ConsumerState<LogConsolePage> {
                 message += ' (${record.error})';
               }
               return Container(
-                color:
-                    index.isEven && context.mounted
-                        ? colorScheme.surfaceContainer
-                        : colorScheme.surfaceContainerLowest,
+                color: index.isEven && context.mounted
+                    ? colorScheme.surfaceContainer
+                    : colorScheme.surfaceContainerLowest,
                 child: Text(
                   message,
                   style: TextStyle(
@@ -140,8 +138,8 @@ class _LogConsolePageState extends ConsumerState<LogConsolePage> {
 }
 
 Color? _levelColor(String level, ColorScheme colorScheme) => switch (level) {
-  'INFO' => colorScheme.onSurfaceVariant,
-  'WARNING' => colorScheme.onSurface,
-  'SEVERE' => colorScheme.error,
-  _ => null,
-};
+      'INFO' => colorScheme.onSurfaceVariant,
+      'WARNING' => colorScheme.onSurface,
+      'SEVERE' => colorScheme.error,
+      _ => null,
+    };

@@ -1,7 +1,8 @@
 // dart format width=80
 // ignore_for_file: type=lint
 import 'package:drift/drift.dart' as i0;
-import 'package:frigoligo/db/models/metadata.drift.dart' as i1;
+import 'package:frigoligo/data/services/local/storage/database/models/metadata.drift.dart'
+    as i1;
 
 typedef $MetadataCreateCompanionBuilder =
     i1.MetadataCompanion Function({

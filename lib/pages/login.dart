@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../buildcontext_extension.dart';
-import '../db/database.dart';
+import '../data/services/local/storage/database/database.dart';
 import '../providers/server_login_flow.dart';
 import '../server/providers/client.dart';
 import 'login_flow/check_server.dart';

@@ -1,8 +1,10 @@
 // dart format width=80
 // ignore_for_file: type=lint
 import 'package:drift/drift.dart' as i0;
-import 'package:frigoligo/db/models/article.drift.dart' as i1;
-import 'package:frigoligo/db/converters/containers.dart' as i2;
+import 'package:frigoligo/data/services/local/storage/database/models/article.drift.dart'
+    as i1;
+import 'package:frigoligo/data/services/local/storage/database/converters/containers.dart'
+    as i2;
 import 'package:drift/internal/modular.dart' as i3;
 
 typedef $ArticlesCreateCompanionBuilder =

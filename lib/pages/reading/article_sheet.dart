@@ -8,8 +8,8 @@ import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../buildcontext_extension.dart';
-import '../../db/database.dart';
-import '../../db/models/article.drift.dart';
+import '../../data/services/local/storage/database/database.dart';
+import '../../data/services/local/storage/database/models/article.drift.dart';
 import '../../services/remote_sync.dart';
 import '../../services/remote_sync_actions.dart';
 import '../../widgets/copiable_text.dart';
@@ -72,13 +72,13 @@ class ArticleSheet extends ConsumerWidget with CurrentArticleWidget {
             C.spacers.verticalContent,
             article.tags.isNotEmpty
                 ? TagList(
-                  tags: article.tags,
-                  onTagPressed: (_) => _showTagsDialog(context, ref, article),
-                )
+                    tags: article.tags,
+                    onTagPressed: (_) => _showTagsDialog(context, ref, article),
+                  )
                 : TextButton(
-                  onPressed: () => _showTagsDialog(context, ref, article),
-                  child: Text(context.L.article_addTags),
-                ),
+                    onPressed: () => _showTagsDialog(context, ref, article),
+                    child: Text(context.L.article_addTags),
+                  ),
             C.spacers.verticalContent,
             const Divider(),
             C.spacers.verticalContent,

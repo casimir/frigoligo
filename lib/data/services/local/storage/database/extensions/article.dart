@@ -1,4 +1,4 @@
-import '../../constants.dart';
+import '../../../../../../constants.dart';
 import '../models/article.drift.dart';
 
 extension ArticleExtension on Article {

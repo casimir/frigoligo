@@ -4,8 +4,8 @@ import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../constants.dart';
-import '../db/database.dart';
-import '../db/models/article.drift.dart';
+import '../data/services/local/storage/database/database.dart';
+import '../data/services/local/storage/database/models/article.drift.dart';
 import 'query.dart';
 import 'settings.dart';
 

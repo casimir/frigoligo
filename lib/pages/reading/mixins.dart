@@ -2,7 +2,7 @@ import 'package:cadanse/components/widgets/error.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../db/models/article.drift.dart';
+import '../../data/services/local/storage/database/models/article.drift.dart';
 import '../../providers/article.dart';
 
 Widget _build(WidgetRef ref, Widget Function(Article?) onArticle) {

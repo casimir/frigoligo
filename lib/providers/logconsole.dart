@@ -4,7 +4,7 @@ import 'package:drift/drift.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../constants.dart';
-import '../db/database.dart';
+import '../data/services/local/storage/database/database.dart';
 
 part 'logconsole.g.dart';
 
