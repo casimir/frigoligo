@@ -3,8 +3,9 @@ import 'dart:async';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../data/services/local/storage/database/database.dart';
+import '../config/dependencies.dart';
 import '../data/services/local/storage/database/models/article.drift.dart';
+import '../data/services/local/storage/storage_service.dart';
 import '../native/appbadge.dart';
 import '../providers/settings.dart';
 import '../server/clients.dart';
@@ -18,6 +19,8 @@ class LocalStorageToken {}
 
 @riverpod
 class LocalStorage extends _$LocalStorage {
+  final LocalStorageService _storageService = dependencies.get();
+
   @override
   LocalStorageToken build() => LocalStorageToken();
 
@@ -25,7 +28,7 @@ class LocalStorage extends _$LocalStorage {
     final settings = ref.read(settingsProvider);
     if (!AppBadge.isSupportedSync || !settings[Sk.appBadge]) return;
 
-    final unread = await DB().articlesDao.countUnread();
+    final unread = await _storageService.db.articlesDao.countUnread();
     if (unread == 0) {
       return AppBadge.remove();
     } else {
@@ -40,7 +43,7 @@ class LocalStorage extends _$LocalStorage {
   }
 
   Future<void> clearArticles({bool keepPositions = true}) async {
-    DB().clear(keepPositions: keepPositions);
+    _storageService.db.clear(keepPositions: keepPositions);
     _log.info('cleared the local cache (articles and pending actions)');
     updateAppBadge();
   }
@@ -58,9 +61,10 @@ class LocalStorage extends _$LocalStorage {
     final stopwatch = Stopwatch()..start();
 
     var count = 0;
-    final sinceDT = since != null
-        ? DateTime.fromMillisecondsSinceEpoch(since * 1000)
-        : null;
+    final sinceDT =
+        since != null
+            ? DateTime.fromMillisecondsSinceEpoch(since * 1000)
+            : null;
     _log.info('starting refresh with since=${sinceDT?.toIso8601String()}');
 
     if (since == null) {
@@ -71,7 +75,7 @@ class LocalStorage extends _$LocalStorage {
         onProgress: onProgress,
       );
       await for (final articles in articlesStream) {
-        await DB().articlesDao.updateAll(articles);
+        await _storageService.db.articlesDao.updateAll(articles);
         _log.info('saved ${articles.length} articles to the database');
 
         count += articles.length;
@@ -79,7 +83,7 @@ class LocalStorage extends _$LocalStorage {
     } else {
       final operations = await api.listOperations(
         since: sinceDT,
-        localIds: await DB().articlesDao.getAllIds(),
+        localIds: await _storageService.db.articlesDao.getAllIds(),
         onProgress: onProgress,
       );
       for (final op in operations) {
@@ -87,15 +91,17 @@ class LocalStorage extends _$LocalStorage {
           case ArticleOpType.created:
           case ArticleOpType.updated:
             final article = await api.getArticle(op.articleId);
-            count += await DB().articlesDao.updateOne(article);
+            count += await _storageService.db.articlesDao.updateOne(article);
           case ArticleOpType.deleted:
-            count += await DB().articlesDao.deleteOne(op.articleId);
+            count += await _storageService.db.articlesDao.deleteOne(
+              op.articleId,
+            );
         }
       }
     }
 
     final now = DateTime.now().millisecondsSinceEpoch / 1000;
-    await DB().metadataDao.setLastSyncTS(now.toInt());
+    await _storageService.db.metadataDao.setLastSyncTS(now.toInt());
 
     updateAppBadge();
 
@@ -109,7 +115,7 @@ class LocalStorage extends _$LocalStorage {
     int? threshold,
     void Function(double)? onProgress,
   }) async {
-    final int? since = await DB().metadataDao.getLastSyncTS();
+    final int? since = await _storageService.db.metadataDao.getLastSyncTS();
     if (threshold != null && since != null) {
       final now = DateTime.now().millisecondsSinceEpoch / 1000;
       final elapsed = now - since;
@@ -124,7 +130,7 @@ class LocalStorage extends _$LocalStorage {
   }
 
   Future<void> persistArticle(Article article) =>
-      DB().articlesDao.updateOne(article);
+      _storageService.db.articlesDao.updateOne(article);
 
   Future<int> saveArticle(String url, {List<String>? tags}) async {
     final api = (await ref.read(clientProvider.future))!;
@@ -138,7 +144,7 @@ class LocalStorage extends _$LocalStorage {
 
     final result = await api.deleteArticle(articleId);
     if (result == ApiActionResult.succeed) {
-      final deleted = await DB().articlesDao.deleteOne(articleId);
+      final deleted = await _storageService.db.articlesDao.deleteOne(articleId);
       if (deleted > 0) {
         _log.info('deleted article $articleId from the database');
       }

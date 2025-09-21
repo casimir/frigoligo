@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../buildcontext_extension.dart';
+import '../../config/dependencies.dart';
 import '../../constants.dart';
 import '../../data/services/local/storage/database/daos/articles.dart';
-import '../../data/services/local/storage/database/database.dart';
+import '../../data/services/local/storage/storage_service.dart';
 import '../../providers/query.dart';
 import '../../widgets/async/text.dart';
 import '../../widgets/selectors.dart';
@@ -21,17 +22,19 @@ class SearchFilters extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      child: Row(children: [
-        if (indent != null) indent!,
-        _buildState(context, ref),
-        C.spacers.horizontalComponent,
-        _buildStarred(context, ref),
-        C.spacers.horizontalComponent,
-        _buildTags(context, ref),
-        C.spacers.horizontalComponent,
-        _buildDomains(context, ref),
-        if (indent != null) indent!,
-      ]),
+      child: Row(
+        children: [
+          if (indent != null) indent!,
+          _buildState(context, ref),
+          C.spacers.horizontalComponent,
+          _buildStarred(context, ref),
+          C.spacers.horizontalComponent,
+          _buildTags(context, ref),
+          C.spacers.horizontalComponent,
+          _buildDomains(context, ref),
+          if (indent != null) indent!,
+        ],
+      ),
     );
   }
 
@@ -56,8 +59,10 @@ class SearchFilters extends ConsumerWidget {
     return SelectChip(
       title: context.L.filters_articleState,
       initialSelection: StateFilter.all,
-      onSelected: (value) =>
-          ref.read(queryProvider.notifier).overrideWith(WQuery(state: value)),
+      onSelected:
+          (value) => ref
+              .read(queryProvider.notifier)
+              .overrideWith(WQuery(state: value)),
       entries: entries,
       value: ref.watch(queryProvider.select((q) => q.state)),
     );
@@ -67,20 +72,28 @@ class SearchFilters extends ConsumerWidget {
     return FilterChip(
       label: Text(context.L.filters_articleFavoriteStarred),
       selected: ref.watch(
-          queryProvider.select((q) => q.starred == StarredFilter.starred)),
-      onSelected: (value) => ref.read(queryProvider.notifier).overrideWith(
-          WQuery(starred: value ? StarredFilter.starred : StarredFilter.all)),
+        queryProvider.select((q) => q.starred == StarredFilter.starred),
+      ),
+      onSelected:
+          (value) => ref
+              .read(queryProvider.notifier)
+              .overrideWith(
+                WQuery(
+                  starred: value ? StarredFilter.starred : StarredFilter.all,
+                ),
+              ),
     );
   }
 
   Widget _buildTags(BuildContext context, WidgetRef ref) {
     final selection = ref.watch(queryProvider.select((q) => q.tags));
     Future<void> onTap() async {
+      final LocalStorageService storageService = dependencies.get();
       final selected = await showBottomSheetSelector(
         context: context,
         title: context.L.filters_articleTags,
         selectionLabelizer: context.L.filters_articleTagsCount,
-        entriesBuilder: DB().articlesDao.listAllTags(),
+        entriesBuilder: storageService.db.articlesDao.listAllTags(),
         initialSelection: selection?.toSet(),
         leadingIcon: const Icon(Icons.label),
       );
@@ -99,20 +112,23 @@ class SearchFilters extends ConsumerWidget {
       selection: selection,
       onTap: onTap,
       onDeleted: () => ref.read(queryProvider.notifier).clearTags(),
-      labelizer: (count) => count == 0
-          ? context.L.filters_articleTags
-          : context.L.filters_articleTagsCount(count),
+      labelizer:
+          (count) =>
+              count == 0
+                  ? context.L.filters_articleTags
+                  : context.L.filters_articleTagsCount(count),
     );
   }
 
   Widget _buildDomains(BuildContext context, WidgetRef ref) {
     final selection = ref.watch(queryProvider.select((q) => q.domains));
     Future<void> onTap() async {
+      final LocalStorageService storageService = dependencies.get();
       final selected = await showBottomSheetSelector(
         context: context,
         title: context.L.filters_articleDomains,
         selectionLabelizer: context.L.filters_articleDomainsCount,
-        entriesBuilder: DB().articlesDao.listAllDomains(),
+        entriesBuilder: storageService.db.articlesDao.listAllDomains(),
         initialSelection: selection?.toSet(),
         leadingIcon: const Icon(Icons.web),
       );
@@ -131,9 +147,11 @@ class SearchFilters extends ConsumerWidget {
       selection: selection,
       onTap: onTap,
       onDeleted: () => ref.read(queryProvider.notifier).clearDomains(),
-      labelizer: (count) => count == 0
-          ? context.L.filters_articleDomains
-          : context.L.filters_articleDomainsCount(count),
+      labelizer:
+          (count) =>
+              count == 0
+                  ? context.L.filters_articleDomains
+                  : context.L.filters_articleDomainsCount(count),
     );
   }
 }
@@ -170,10 +188,12 @@ class SearchBarWithFilters<T> extends ConsumerWidget {
                       hintText: context.L.filters_searchbarHint,
                       trailing: [
                         AText(
-                          builder: (context) => ref.watch(
-                            queryMetaProvider
-                                .selectAsync((it) => it.count.toString()),
-                          ),
+                          builder:
+                              (context) => ref.watch(
+                                queryMetaProvider.selectAsync(
+                                  (it) => it.count.toString(),
+                                ),
+                              ),
                           style: TextStyle(
                             color:
                                 Theme.of(context).colorScheme.onSurfaceVariant,
@@ -191,16 +211,20 @@ class SearchBarWithFilters<T> extends ConsumerWidget {
                         }
                       },
                       elevation: WidgetStateProperty.all(0.0),
-                      side: WidgetStatePropertyAll(BorderSide(
-                          color: Theme.of(context).colorScheme.outline)),
+                      side: WidgetStatePropertyAll(
+                        BorderSide(
+                          color: Theme.of(context).colorScheme.outline,
+                        ),
+                      ),
                       shape: const WidgetStatePropertyAll(
-                          ContinuousRectangleBorder(
-                        // Freely inspired by the FilterChip shape (height / 4)
-                        borderRadius: BorderRadius.all(Radius.circular(14.0)),
-                      )),
+                        ContinuousRectangleBorder(
+                          // Freely inspired by the FilterChip shape (height / 4)
+                          borderRadius: BorderRadius.all(Radius.circular(14.0)),
+                        ),
+                      ),
                     ),
                   ),
-                  if (menu != null) ...[C.spacers.horizontalComponent, menu!]
+                  if (menu != null) ...[C.spacers.horizontalComponent, menu!],
                 ],
               ),
             ),
@@ -218,27 +242,28 @@ class SearchBarWithFilters<T> extends ConsumerWidget {
     Future<void> onTap() async {
       final value = await showBottomSheetSelect(
         context: context,
-        builder: (context) => Select(
-          title: context.L.filters_searchMode,
-          entries: [
-            DropdownMenuEntry(
-              value: SearchTextMode.all,
-              label: context.L.filters_searchModeAll,
-              leadingIcon: iconFromTextMode(SearchTextMode.all),
+        builder:
+            (context) => Select(
+              title: context.L.filters_searchMode,
+              entries: [
+                DropdownMenuEntry(
+                  value: SearchTextMode.all,
+                  label: context.L.filters_searchModeAll,
+                  leadingIcon: iconFromTextMode(SearchTextMode.all),
+                ),
+                DropdownMenuEntry(
+                  value: SearchTextMode.title,
+                  label: context.L.filters_searchModeTitle,
+                  leadingIcon: iconFromTextMode(SearchTextMode.title),
+                ),
+                DropdownMenuEntry(
+                  value: SearchTextMode.content,
+                  label: context.L.filters_searchModeContent,
+                  leadingIcon: iconFromTextMode(SearchTextMode.content),
+                ),
+              ],
+              initial: textMode ?? SearchTextMode.all,
             ),
-            DropdownMenuEntry(
-              value: SearchTextMode.title,
-              label: context.L.filters_searchModeTitle,
-              leadingIcon: iconFromTextMode(SearchTextMode.title),
-            ),
-            DropdownMenuEntry(
-              value: SearchTextMode.content,
-              label: context.L.filters_searchModeContent,
-              leadingIcon: iconFromTextMode(SearchTextMode.content),
-            ),
-          ],
-          initial: textMode ?? SearchTextMode.all,
-        ),
       );
       if (value != null) {
         ref.read(queryProvider.notifier).overrideWith(WQuery(textMode: value));

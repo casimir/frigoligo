@@ -5,10 +5,11 @@ import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../config/dependencies.dart';
 import '../constants.dart';
 import '../data/services/local/storage/database/daos/articles.dart';
-import '../data/services/local/storage/database/database.dart';
 import '../data/services/local/storage/database/models/article.drift.dart';
+import '../data/services/local/storage/storage_service.dart';
 
 part 'query.g.dart';
 
@@ -33,22 +34,22 @@ class WQuery {
   List<String>? domains;
 
   WQuery dup() => WQuery(
-        text: text,
-        textMode: textMode,
-        state: state,
-        starred: starred,
-        tags: tags,
-        domains: domains,
-      );
+    text: text,
+    textMode: textMode,
+    state: state,
+    starred: starred,
+    tags: tags,
+    domains: domains,
+  );
 
   WQuery override(WQuery wq) => WQuery(
-        text: wq.text ?? text,
-        textMode: wq.textMode ?? textMode,
-        state: wq.state ?? state,
-        starred: wq.starred ?? starred,
-        tags: wq.tags ?? tags,
-        domains: wq.domains ?? domains,
-      );
+    text: wq.text ?? text,
+    textMode: wq.textMode ?? textMode,
+    state: wq.state ?? state,
+    starred: wq.starred ?? starred,
+    tags: wq.tags ?? tags,
+    domains: wq.domains ?? domains,
+  );
 }
 
 @Riverpod(keepAlive: true)
@@ -81,9 +82,11 @@ Expression<bool> _buildFilters(Articles t, WQuery wq) {
   final filters = <Expression<bool>>[];
 
   if (wq.state != null && wq.state != StateFilter.all) {
-    filters.add(wq.state == StateFilter.archived
-        ? t.archivedAt.isNotNull()
-        : t.archivedAt.isNull());
+    filters.add(
+      wq.state == StateFilter.archived
+          ? t.archivedAt.isNotNull()
+          : t.archivedAt.isNull(),
+    );
   }
 
   if (wq.starred == StarredFilter.starred) {
@@ -95,22 +98,25 @@ Expression<bool> _buildFilters(Articles t, WQuery wq) {
   }
 
   if (wq.domains != null) {
-    filters.add(Expression.or(
-        wq.domains!.map((domain) => t.domainName.contains(domain))));
+    filters.add(
+      Expression.or(wq.domains!.map((domain) => t.domainName.contains(domain))),
+    );
   }
 
   return Expression.and(filters);
 }
 
 Selectable<int> _buildIdsQuery(WQuery wq) {
+  final LocalStorageService storageService = dependencies.get();
+
   if (wq.text != null) {
-    return DB().articlesDao.selectArticleIdsForText(
-          wq.text!,
-          mode: wq.textMode ?? SearchTextMode.all,
-          where: (t) => _buildFilters(t, wq),
-        );
+    return storageService.db.articlesDao.selectArticleIdsForText(
+      wq.text!,
+      mode: wq.textMode ?? SearchTextMode.all,
+      where: (t) => _buildFilters(t, wq),
+    );
   } else {
-    final t1 = DB().articles;
+    final t1 = storageService.db.articles;
     return (t1.selectOnly()
           ..addColumns([t1.id])
           ..where(_buildFilters(t1, wq))
@@ -120,10 +126,7 @@ Selectable<int> _buildIdsQuery(WQuery wq) {
 }
 
 class QueryState {
-  const QueryState({
-    required this.query,
-    required this.ids,
-  });
+  const QueryState({required this.query, required this.ids});
 
   final WQuery query;
   final List<int> ids;
@@ -140,10 +143,7 @@ class QueryMeta extends _$QueryMeta {
   Future<QueryState> build() async {
     final stopwatch = Stopwatch()..start();
     final wq = ref.watch(queryProvider);
-    final qs = QueryState(
-      query: wq,
-      ids: await _buildIdsQuery(wq).get(),
-    );
+    final qs = QueryState(query: wq, ids: await _buildIdsQuery(wq).get());
 
     _watch();
 
@@ -157,8 +157,10 @@ class QueryMeta extends _$QueryMeta {
     _watcher?.cancel();
 
     _watcher = _buildIdsQuery(ref.read(queryProvider)).watch().listen((ids) {
-      final selectedIds =
-          state.maybeWhen(orElse: () => null, data: (qs) => qs.ids);
+      final selectedIds = state.maybeWhen(
+        orElse: () => null,
+        data: (qs) => qs.ids,
+      );
       if (selectedIds != null && !listEquals(ids, selectedIds)) {
         ref.invalidateSelf();
       }

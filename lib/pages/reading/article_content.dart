@@ -17,9 +17,10 @@ import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
 import '../../buildcontext_extension.dart';
 import '../../color_extension.dart';
+import '../../config/dependencies.dart';
 import '../../constants.dart';
-import '../../data/services/local/storage/database/database.dart';
 import '../../data/services/local/storage/database/models/article.drift.dart';
+import '../../data/services/local/storage/storage_service.dart';
 import '../../providers/article.dart';
 import '../../providers/reading_settings.dart';
 import '../../providers/settings.dart';
@@ -51,8 +52,8 @@ class ArticleContentEmpty extends StatelessWidget {
   }
 }
 
-typedef ProgressCallback = Future<void> Function(
-    double progress, bool isScrolling);
+typedef ProgressCallback =
+    Future<void> Function(double progress, bool isScrolling);
 typedef ProgressScrollTo = Future<void> Function(double pixels);
 typedef ProgressScroller = Future<void> Function(ProgressScrollTo);
 
@@ -81,7 +82,11 @@ class _ArticleContentState extends ConsumerState<ArticleContent> {
     ref.read(currentReadingProgressProvider.notifier).progress = progress;
 
     if (!isScrolling) {
-      await DB().articlesDao.saveScrollProgress(widget.article, progress);
+      final LocalStorageService storageService = dependencies.get();
+      await storageService.db.articlesDao.saveScrollProgress(
+        widget.article,
+        progress,
+      );
     }
   }
 
@@ -91,15 +96,15 @@ class _ArticleContentState extends ConsumerState<ArticleContent> {
         ref.read(settingsProvider)[Sk.nativeArticleRenderer];
     return nativeArticleRendererSupported && useNativeRenderer
         ? _WebViewContent(
-            article: widget.article,
-            onReadyToScroll: _onScrollReady,
-            onScrollUpdate: _onScroll,
-          )
+          article: widget.article,
+          onReadyToScroll: _onScrollReady,
+          onScrollUpdate: _onScroll,
+        )
         : _HtmlWidgetContent(
-            article: widget.article,
-            onScrollReady: _onScrollReady,
-            onScroll: _onScroll,
-          );
+          article: widget.article,
+          onScrollReady: _onScrollReady,
+          onScroll: _onScroll,
+        );
   }
 }
 
@@ -128,12 +133,13 @@ class _HtmlWidgetContent extends ConsumerWidget {
                 child: HtmlWidgetPlus(
                   article.content!,
                   title: article.title,
-                  onTreeBuilt: (_) => onScrollReady((progress) async {
-                    final controller = PrimaryScrollController.of(context);
-                    final pixels =
-                        progress * controller.position.maxScrollExtent;
-                    controller.jumpTo(pixels);
-                  }),
+                  onTreeBuilt:
+                      (_) => onScrollReady((progress) async {
+                        final controller = PrimaryScrollController.of(context);
+                        final pixels =
+                            progress * controller.position.maxScrollExtent;
+                        controller.jumpTo(pixels);
+                      }),
                   justifyText: settings.justifyText,
                   textStyle: settings.textStyle,
                 ),
@@ -187,10 +193,11 @@ class ArticleContentRenderer {
   }
 
   static Future<void> _unpackAssets(AssetManifest assets) async {
-    final assetFiles = assets
-        .listAssets()
-        .where((key) => key.startsWith(assetsPrefix))
-        .toList();
+    final assetFiles =
+        assets
+            .listAssets()
+            .where((key) => key.startsWith(assetsPrefix))
+            .toList();
     for (final key in assetFiles) {
       final bin = await rootBundle.load(key);
       final target = File(key.replaceFirst(assetsPrefix, rootDir.path));
@@ -202,10 +209,11 @@ class ArticleContentRenderer {
   }
 
   static Future<void> _unpackFonts(AssetManifest assets) async {
-    final fontFiles = assets
-        .listAssets()
-        .where((key) => key.startsWith(fontAssetsPrefix))
-        .toList();
+    final fontFiles =
+        assets
+            .listAssets()
+            .where((key) => key.startsWith(fontAssetsPrefix))
+            .toList();
     if (!fontDir.existsSync()) fontDir.createSync(recursive: true);
     for (final key in fontFiles) {
       final bin = await rootBundle.load(key);
@@ -243,18 +251,18 @@ class ArticleContentRenderer {
     a {
       color: ${colors.primary.toRgbHex()};
     }
-  </style>'''
-        .trim();
+  </style>'''.trim();
   }
 
   String readingSettingsCss(ReaderSettingsValues settings) {
-    final fontSize = {
-      12.0: 'x-small',
-      14.0: 'small',
-      16.0: 'medium',
-      18.0: 'large',
-      20.0: 'x-large',
-    }[settings.fontSize];
+    final fontSize =
+        {
+          12.0: 'x-small',
+          14.0: 'small',
+          16.0: 'medium',
+          18.0: 'large',
+          20.0: 'x-large',
+        }[settings.fontSize];
 
     return '''
   <style>
@@ -265,8 +273,7 @@ class ArticleContentRenderer {
     #content {
       font-size: ${fontSize ?? 'medium'};
     }
-  </style>'''
-        .trim();
+  </style>'''.trim();
   }
 
   String get text => _rendered!;

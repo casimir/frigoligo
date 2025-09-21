@@ -8,8 +8,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../buildcontext_extension.dart';
+import '../config/dependencies.dart';
+import '../data/services/local/storage/storage_service.dart';
 import '../datetime_extension.dart';
-import '../data/services/local/storage/database/database.dart';
 import '../providers/settings.dart';
 import '../server/clients.dart';
 import '../server/providers/client.dart';
@@ -48,11 +49,13 @@ class SessionDetailsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(title: Text(context.L.session_title)),
-      body: ref.watch(sessionProvider).when(
+      body: ref
+          .watch(sessionProvider)
+          .when(
             data: (it) => _buildDetails(context, ref, it),
             error: (error, _) => ErrorScreen(error: error),
-            loading: () =>
-                const Center(child: CircularProgressIndicator.adaptive()),
+            loading:
+                () => const Center(child: CircularProgressIndicator.adaptive()),
           ),
     );
   }
@@ -73,7 +76,8 @@ Widget _buildDetails(
   return ResponsiveContainer(
     padding: C.paddings.group,
     child: ListView(
-      children: sessionFields +
+      children:
+          sessionFields +
           [
             _buildLastSync(context),
             C.spacers.verticalContent,
@@ -120,7 +124,7 @@ List<Widget> _buildWallabagSession(
   final accessToken = token?.accessToken;
   final nextTokenExpiration =
       token?.expirationDateTime.toHumanizedString(context) ??
-          context.L.session_invalidToken;
+      context.L.session_invalidToken;
 
   return [
     ListTile(
@@ -147,16 +151,17 @@ List<Widget> _buildWallabagSession(
 }
 
 ListTile _buildLastSync(BuildContext context) {
+  final LocalStorageService storageService = dependencies.get();
   return ListTile(
     title: Text(context.L.session_fieldLastServerSync),
     subtitle: AText(
       builder: (context) async {
         String sinceLastSync = context.L.session_neverSynced;
-        final lastSync = await DB().metadataDao.getLastSyncTS();
+        final lastSync = await storageService.db.metadataDao.getLastSyncTS();
         if (lastSync != null) {
           sinceLastSync = DateTime.fromMillisecondsSinceEpoch(lastSync * 1000)
-              // ignore: use_build_context_synchronously
-              .toHumanizedString(context);
+          // ignore: use_build_context_synchronously
+          .toHumanizedString(context);
         }
         return sinceLastSync;
       },

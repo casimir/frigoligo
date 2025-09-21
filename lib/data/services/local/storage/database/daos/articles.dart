@@ -112,7 +112,7 @@ class ArticlesDao extends DatabaseAccessor<DB> with $ArticlesDaoMixin {
       articles.count(where: (t) => t.archivedAt.isNull()).getSingle();
 
   Future<void> saveScrollProgress(Article article, double progress) async {
-    await DB().managers.articleScrollPositions.create(
+    await db.managers.articleScrollPositions.create(
       (o) => o(
         id: Value(article.id),
         readingTime: article.readingTime,

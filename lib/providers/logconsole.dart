@@ -3,8 +3,9 @@ import 'dart:async';
 import 'package:drift/drift.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../config/dependencies.dart';
 import '../constants.dart';
-import '../data/services/local/storage/database/database.dart';
+import '../data/services/local/storage/storage_service.dart';
 
 part 'logconsole.g.dart';
 
@@ -17,7 +18,8 @@ class LogConsole extends _$LogConsole {
 
   @override
   LogConsoleToken build() {
-    final t1 = DB().appLogs;
+    final LocalStorageService storageService = dependencies.get();
+    final t1 = storageService.db.appLogs;
 
     _watcher?.cancel();
     _watcher = (t1.selectOnly()..addColumns([t1.id])).watch().listen((ids) {
@@ -25,7 +27,7 @@ class LogConsole extends _$LogConsole {
         // FIXME logs should be truncated without the need to open the console
         var count = ids.length;
         if (count > logCountThreshold) {
-          final deletedCount = await DB().appLogsDao.truncate();
+          final deletedCount = await storageService.db.appLogsDao.truncate();
           count -= deletedCount;
         }
 

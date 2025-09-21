@@ -19,11 +19,7 @@ final _log = Logger('services.local.storage.database');
   daos: [AppLogsDao, ArticlesDao, MetadataDao],
 )
 class DB extends $DB {
-  static final DB _instance = DB._();
-
-  DB._() : super(openConnection());
-
-  factory DB() => _instance;
+  DB() : super(openConnection());
 
   @override
   int get schemaVersion => 6;

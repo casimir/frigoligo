@@ -14,7 +14,7 @@ import 'app_setups.dart';
 import 'applinks/handler.dart';
 import 'config/dependencies.dart';
 import 'constants.dart';
-import 'data/services/local/storage/database/database.dart';
+import 'data/services/local/storage/storage_service.dart';
 import 'native/appbadge.dart';
 import 'native/save.service.dart';
 import 'pages/reading/article_content.dart';
@@ -48,7 +48,7 @@ Future<void> main() async {
   await Settings.init();
 
   log.info('app version: ${AppInfo.versionVerbose}');
-  log.info('db version: ${DB().schemaVersion}');
+  log.info('db version: ${dependencies.get<LocalStorageService>().dbVersion}');
   log.info('platform:    ${UniversalPlatform.operatingSystem}');
   if (!UniversalPlatform.isWeb) {
     log.info('os version:  ${Platform.operatingSystemVersion}');

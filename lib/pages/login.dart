@@ -5,7 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../buildcontext_extension.dart';
-import '../data/services/local/storage/database/database.dart';
+import '../config/dependencies.dart';
+import '../data/services/local/storage/storage_service.dart';
 import '../providers/server_login_flow.dart';
 import '../server/providers/client.dart';
 import 'login_flow/check_server.dart';
@@ -53,8 +54,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
     final flowServer = LoginFlowServer(initial: _currentData?['server']);
     final body = switch (flowState) {
-      FSInitializing() =>
-        const Center(child: CircularProgressIndicator.adaptive()),
+      FSInitializing() => const Center(
+        child: CircularProgressIndicator.adaptive(),
+      ),
       FSReady() || FSChecking() => flowServer,
       FSChecked(check: final check) when !check.isValid => flowServer,
       FSChecked() => null,
@@ -64,9 +66,10 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     return LoginFlowCredentials(
       serverCheck: (flowState as FSChecked).check,
       initial: _currentData ?? {},
-      onReset: () => setState(() {
-        _currentData = null;
-      }),
+      onReset:
+          () => setState(() {
+            _currentData = null;
+          }),
     );
   }
 
@@ -79,7 +82,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
       isDestructiveAction: true,
     );
     if (result == OkCancelResult.ok) {
-      await DB().clear();
+      final LocalStorageService storageService = dependencies.get();
+      await storageService.db.clear();
       await ref.read(sessionProvider.notifier).logout();
     } else {
       if (mounted) context.go('/');

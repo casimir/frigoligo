@@ -3,9 +3,10 @@ import 'dart:async';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../config/dependencies.dart';
 import '../constants.dart';
-import '../data/services/local/storage/database/database.dart';
 import '../data/services/local/storage/database/models/article.drift.dart';
+import '../data/services/local/storage/storage_service.dart';
 import 'query.dart';
 import 'settings.dart';
 
@@ -25,18 +26,23 @@ class ArticleData extends _$ArticleData {
     _watch(articleId);
     ref.onDispose(() => _watcher?.cancel());
 
-    final t1 = DB().managers.articles;
+    final LocalStorageService storageService = dependencies.get();
+    final t1 = storageService.db.managers.articles;
     final ret =
         await t1.filter((f) => f.id.equals(articleId)).getSingleOrNull();
     if (enablePerfLogs) {
       _log.info(
-          'perf: ArticleData.build($articleId): ${stopwatch.elapsedMilliseconds} ms');
+        'perf: ArticleData.build($articleId): ${stopwatch.elapsedMilliseconds} ms',
+      );
     }
     return ret;
   }
 
   void _watch(int articleId) {
-    final q = DB().managers.articles.filter((f) => f.id.equals(articleId));
+    final LocalStorageService storageService = dependencies.get();
+    final q = storageService.db.managers.articles.filter(
+      (f) => f.id.equals(articleId),
+    );
     _watcher = q.watchSingleOrNull(distinct: false).listen((article) {
       if (state.isLoading || !state.hasValue) return;
       final stateArticle = state.value;
@@ -55,14 +61,17 @@ class CurrentArticle extends _$CurrentArticle {
   Future<Article?> build() async {
     _watcher?.cancel();
 
-    var articleId =
-        ref.watch(settingsProvider.select((it) => it[Sk.selectedArticleId]));
+    var articleId = ref.watch(
+      settingsProvider.select((it) => it[Sk.selectedArticleId]),
+    );
 
     if (articleId != null) {
-      final db = DB();
-      final exists = await db.managers.articles
-          .filter((f) => f.id.equals(articleId))
-          .exists();
+      final LocalStorageService storageService = dependencies.get();
+      final db = storageService.db;
+      final exists =
+          await db.managers.articles
+              .filter((f) => f.id.equals(articleId))
+              .exists();
       if (!exists) {
         articleId = null;
       }
@@ -105,10 +114,10 @@ class ScrollPosition extends _$ScrollPosition {
 
   @override
   Future<ArticleScrollPosition?> build(int articleId) {
-    final q = DB()
-        .managers
-        .articleScrollPositions
-        .filter((f) => f.id.equals(articleId));
+    final LocalStorageService storageService = dependencies.get();
+    final q = storageService.db.managers.articleScrollPositions.filter(
+      (f) => f.id.equals(articleId),
+    );
 
     _watcher?.cancel();
     _watcher = q.watchSingleOrNull().listen((value) {

@@ -12,7 +12,8 @@ import 'package:share_plus/share_plus.dart';
 import 'package:universal_platform/universal_platform.dart';
 
 import '../buildcontext_extension.dart';
-import '../data/services/local/storage/database/database.dart';
+import '../config/dependencies.dart';
+import '../data/services/local/storage/storage_service.dart';
 import '../providers/logconsole.dart';
 import '../widgets/async/list.dart';
 
@@ -32,16 +33,18 @@ class _LogConsolePageState extends ConsumerState<LogConsolePage> {
 
     final colorScheme = Theme.of(context).colorScheme;
 
-    final logs = DB().appLogsDao;
+    final LocalStorageService storageService = dependencies.get();
+    final logs = storageService.db.appLogsDao;
     return AdaptiveScaffold(
       barData: AdaptiveBarData(
         title: Text(context.L.logconsole_title),
         actions: [
           ActionButton(
             key: _shareButtonKey,
-            icon: UniversalPlatform.isWeb
-                ? Icons.download
-                : C(context).icons.share,
+            icon:
+                UniversalPlatform.isWeb
+                    ? Icons.download
+                    : C(context).icons.share,
             onPressed: () async {
               final onlyCurrentRun = await _askForExportType();
               if (onlyCurrentRun != null) {
@@ -67,9 +70,10 @@ class _LogConsolePageState extends ConsumerState<LogConsolePage> {
                 message += ' (${record.error})';
               }
               return Container(
-                color: index.isEven && context.mounted
-                    ? colorScheme.surfaceContainer
-                    : colorScheme.surfaceContainerLowest,
+                color:
+                    index.isEven && context.mounted
+                        ? colorScheme.surfaceContainer
+                        : colorScheme.surfaceContainerLowest,
                 child: Text(
                   message,
                   style: TextStyle(
@@ -85,7 +89,8 @@ class _LogConsolePageState extends ConsumerState<LogConsolePage> {
   }
 
   Future<bool?> _askForExportType() async {
-    final logs = DB().appLogsDao;
+    final LocalStorageService storageService = dependencies.get();
+    final logs = storageService.db.appLogsDao;
     final currentRunLineCount = await logs.getCurrentRunLineCount();
 
     if (currentRunLineCount == 0) {
@@ -118,7 +123,10 @@ class _LogConsolePageState extends ConsumerState<LogConsolePage> {
   }
 
   Future<void> _shareExportFile(bool onlyCurrentRun) async {
-    final loglines = await DB().appLogsDao.getLines(onlyCurrentRun);
+    final LocalStorageService storageService = dependencies.get();
+    final loglines = await storageService.db.appLogsDao.getLines(
+      onlyCurrentRun,
+    );
     final timestamp = DateFormat('yyyyMMddTHHmmss').format(DateTime.now());
 
     final data = utf8.encode(loglines.join('\n'));
@@ -138,8 +146,8 @@ class _LogConsolePageState extends ConsumerState<LogConsolePage> {
 }
 
 Color? _levelColor(String level, ColorScheme colorScheme) => switch (level) {
-      'INFO' => colorScheme.onSurfaceVariant,
-      'WARNING' => colorScheme.onSurface,
-      'SEVERE' => colorScheme.error,
-      _ => null,
-    };
+  'INFO' => colorScheme.onSurfaceVariant,
+  'WARNING' => colorScheme.onSurface,
+  'SEVERE' => colorScheme.error,
+  _ => null,
+};
