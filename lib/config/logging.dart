@@ -1,6 +1,8 @@
 import 'package:logging/logging.dart';
 
-String loglineFromRecord(LogRecord record) {
+export 'package:logging/logging.dart' show LogRecord;
+
+String formatRecord(LogRecord record) {
   var line =
       '[${record.time}] ${record.level.name} ${record.loggerName} ${record.message}';
   if (record.error != null) {

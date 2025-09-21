@@ -12,6 +12,7 @@ import 'package:universal_platform/universal_platform.dart';
 import 'app_info.dart';
 import 'app_setups.dart';
 import 'applinks/handler.dart';
+import 'config/dependencies.dart';
 import 'constants.dart';
 import 'data/services/local/storage/database/database.dart';
 import 'native/appbadge.dart';
@@ -24,6 +25,8 @@ import 'providers/tools/observer.dart';
 import 'src/generated/i18n/app_localizations.dart';
 
 Future<void> main() async {
+  setupDependencies();
+
   final log = Logger('main');
   setupLogger(log);
   setupGoogleFonts();
@@ -106,7 +109,8 @@ class _MyAppState extends ConsumerState<MyApp> {
       ),
       themeMode: theme,
       locale: lang.locale,
-      localizationsDelegates: AppLocalizations.localizationsDelegates +
+      localizationsDelegates:
+          AppLocalizations.localizationsDelegates +
           const [
             MaterialLocalizationsEo.delegate,
             CupertinoLocalizationsEo.delegate,

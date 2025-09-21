@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 
+import '../../../../../../config/logging.dart';
 import '../database.dart';
 import '../models/app_log.drift.dart';
 import 'app_logs.drift.dart';
@@ -7,6 +8,20 @@ import 'app_logs.drift.dart';
 @DriftAccessor(include: {'../models/app_log.drift'})
 class AppLogsDao extends DatabaseAccessor<DB> with $AppLogsDaoMixin {
   AppLogsDao(super.attachedDatabase);
+
+  Future<int> appendRecord(LogRecord record) {
+    return into(appLogs).insert(
+      AppLogsCompanion.insert(
+        time: record.time,
+        level: record.level.name,
+        loggerName: record.loggerName,
+        message: record.message,
+        error: Value.absentIfNull(record.error?.toString()),
+        stackTrace: Value.absentIfNull(record.stackTrace?.toString()),
+        logline: formatRecord(record),
+      ),
+    );
+  }
 
   Future<int> getLineCount() => appLogs.count().getSingle();
 
