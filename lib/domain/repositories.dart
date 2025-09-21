@@ -6,7 +6,7 @@ import '../config/logging.dart';
 abstract class LoggerRepository {
   Future<int> appendLog(LogRecord record);
 
-  void registerLogHandlers(bool enableDebugLogs) {
+  void registerLogHandler(bool enableDebugLogs) {
     Logger.root.level = enableDebugLogs ? Level.FINE : Level.INFO;
     Logger.root.onRecord.listen((record) {
       appendLog(record);

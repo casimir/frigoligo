@@ -7,7 +7,7 @@ import 'config/dependencies.dart';
 import 'constants.dart';
 
 void setupLogger(Logger errorLogger) {
-  dependencies.get<LoggerRepository>().registerLogHandlers(enableDebugLogs);
+  dependencies.get<LoggerRepository>().registerLogHandler(enableDebugLogs);
 
   FlutterError.onError = (errorDetails) {
     final repr = errorDetails.exceptionAsString();
