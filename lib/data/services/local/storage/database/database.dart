@@ -1,10 +1,13 @@
 import 'package:drift/drift.dart';
+import 'package:logging/logging.dart';
 
 import 'connection/connection.dart';
 import 'daos/app_logs.dart';
 import 'daos/articles.dart';
 import 'daos/metadata.dart';
 import 'database.drift.dart';
+
+final _log = Logger('services.local.storage.database');
 
 @DriftDatabase(
   include: {
@@ -30,6 +33,7 @@ class DB extends $DB {
     // The migration strategy is pretty simple: the DB is just a local cache.
     // If the schema version changes, let's just restart from a clean slate.
     onUpgrade: (m, from, to) async {
+      _log.info('migrating from version $from to $to');
       if (from != to) {
         final keepTables = [appLogs.actualTableName];
         for (final table in m.database.allTables.toList().reversed) {
