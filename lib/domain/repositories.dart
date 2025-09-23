@@ -13,7 +13,7 @@ abstract class LoggerRepository {
   Future<List<LogEntry>> getLogs();
   Future<List<LogEntry>> getCurrentRunLogs();
 
-  Future<int> clearLogs();
+  Future<int> clear();
 
   void registerLogHandler(bool enableDebugLogs) {
     Logger.root.level = enableDebugLogs ? Level.FINE : Level.INFO;

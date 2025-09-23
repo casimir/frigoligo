@@ -10,6 +10,12 @@ class LoggerRepositoryImpl extends LoggerRepository {
   // TODO clean up old log records
 
   final LocalStorageService _storage;
+  AppLog? _startingRecord;
+
+  Future<DateTime?> _getStartingRecordTime() async {
+    _startingRecord ??= await _storage.lastStartingRecord();
+    return _startingRecord?.time;
+  }
 
   @override
   Future<int> appendLog(LogRecord record) {
@@ -22,8 +28,11 @@ class LoggerRepositoryImpl extends LoggerRepository {
   }
 
   @override
-  Future<int> getCurrentRunLogCount() {
-    return _storage.getLogCount(onlyCurrentRun: true);
+  Future<int> getCurrentRunLogCount() async {
+    final startingRecordTime = await _getStartingRecordTime();
+    if (startingRecordTime == null) return 0;
+
+    return _storage.getLogCount(since: startingRecordTime);
   }
 
   @override
@@ -34,12 +43,15 @@ class LoggerRepositoryImpl extends LoggerRepository {
 
   @override
   Future<List<LogEntry>> getCurrentRunLogs() async {
-    final logs = await _storage.getLogs(onlyCurrentRun: true);
+    final startingRecordTime = await _getStartingRecordTime();
+    if (startingRecordTime == null) return [];
+
+    final logs = await _storage.getLogs(since: startingRecordTime);
     return logs.map(_fromAppLog).toList();
   }
 
   @override
-  Future<int> clearLogs() {
+  Future<int> clear() {
     return _storage.clearLogs();
   }
 }

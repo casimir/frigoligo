@@ -25,7 +25,7 @@ class LogConsoleViewModel extends ChangeNotifier {
       _loggerRepository.getCurrentRunLogCount();
 
   Future<void> clearLogs() async {
-    await _loggerRepository.clearLogs();
+    await _loggerRepository.clear();
     notifyListeners();
   }
 

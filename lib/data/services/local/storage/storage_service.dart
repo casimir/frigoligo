@@ -32,13 +32,6 @@ extension LoggerStorageService on LocalStorageService {
         );
   }
 
-  Future<int> getLogCount({bool onlyCurrentRun = false}) async {
-    if (onlyCurrentRun) {
-      return await _getCurrentRunLogCount();
-    }
-    return await _db.appLogs.count().getSingle();
-  }
-
   Future<AppLog?> lastStartingRecord() {
     return (_db.select(_db.appLogs)
           ..where((t) => t.message.equals(startingAppMessage))
@@ -47,41 +40,28 @@ extension LoggerStorageService on LocalStorageService {
         .getSingleOrNull();
   }
 
-  Future<int> _getCurrentRunLogCount() async {
-    final firstRecord = await lastStartingRecord();
-    if (firstRecord == null) return 0;
-
-    return await _db.appLogs
-        .count(where: (t) => t.time.isBiggerOrEqualValue(firstRecord.time))
-        .getSingle();
-  }
-
-  Future<List<AppLog>> getLogs({bool onlyCurrentRun = false}) async {
-    if (onlyCurrentRun) {
-      return await _getCurrentRunLogs();
+  Future<int> getLogCount({DateTime? since}) async {
+    Expression<bool> Function(AppLogs)? where;
+    if (since != null) {
+      where = (t) => t.time.isBiggerOrEqualValue(since);
     }
-    return await (_db.select(_db.appLogs)
-      ..orderBy([(t) => OrderingTerm.asc(t.time)])).get();
+    return await _db.appLogs.count(where: where).getSingle();
   }
 
-  Future<List<AppLog>> _getCurrentRunLogs() async {
-    final firstRecord = await lastStartingRecord();
-    if (firstRecord == null) return [];
+  Future<List<AppLog>> getLogs({DateTime? since}) async {
+    final query = _db.select(_db.appLogs);
 
-    return (_db.select(_db.appLogs)
-          ..where((t) => t.time.isBiggerOrEqualValue(firstRecord.time))
-          ..orderBy([(t) => OrderingTerm.asc(t.time)]))
-        .get();
+    if (since != null) {
+      query.where((t) => t.time.isBiggerOrEqualValue(since));
+    }
+
+    query.orderBy([(t) => OrderingTerm.asc(t.time)]);
+    return await query.get();
   }
 
-  Future<int> removeLogsBeforeCurrentRun() {
-    return _db.transaction(() async {
-      final firstRecord = await lastStartingRecord();
-      if (firstRecord == null) return 0;
-
-      return (_db.delete(_db.appLogs)
-        ..where((t) => t.time.isSmallerThanValue(firstRecord.time))).go();
-    });
+  Future<int> removeLogsBefore(DateTime time) {
+    return (_db.delete(_db.appLogs)
+      ..where((t) => t.time.isSmallerThanValue(time))).go();
   }
 
   Future<int> clearLogs() {
