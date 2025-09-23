@@ -5,6 +5,5 @@ CREATE TABLE app_logs (
     logger_name TEXT NOT NULL,
     message TEXT NOT NULL,
     error TEXT,
-    stack_trace TEXT,
-    logline TEXT NOT NULL
+    stack_trace TEXT
 );

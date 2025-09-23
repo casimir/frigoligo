@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
+import 'package:logging/logging.dart';
 
-import '../../../../config/logging.dart';
 import 'database/database.dart';
 import 'database/models/app_log.drift.dart';
 
@@ -17,24 +17,21 @@ class LocalStorageService {
 
 extension LoggerStorageService on LocalStorageService {
   Future<int> appendLog(LogRecord record) {
-    return _db.appLogsDao
-        .into(_db.appLogs)
-        .insert(
-          AppLogsCompanion.insert(
-            time: record.time,
-            level: record.level.name,
-            loggerName: record.loggerName,
-            message: record.message,
-            error: Value.absentIfNull(record.error?.toString()),
-            stackTrace: Value.absentIfNull(record.stackTrace?.toString()),
-            logline: formatRecord(record),
-          ),
-        );
+    return _db.appLogs.insertOne(
+      AppLogsCompanion.insert(
+        time: record.time,
+        level: record.level.name,
+        loggerName: record.loggerName,
+        message: record.message,
+        error: Value.absentIfNull(record.error?.toString()),
+        stackTrace: Value.absentIfNull(record.stackTrace?.toString()),
+      ),
+    );
   }
 
-  Future<AppLog?> lastStartingRecord() {
+  Future<AppLog?> latestOccurrenceOf(String message) {
     return (_db.select(_db.appLogs)
-          ..where((t) => t.message.equals(startingAppMessage))
+          ..where((t) => t.message.equals(message))
           ..orderBy([(t) => OrderingTerm.desc(t.time)])
           ..limit(1))
         .getSingleOrNull();

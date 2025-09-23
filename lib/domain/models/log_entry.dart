@@ -4,6 +4,8 @@ class LogEntry {
     required this.level,
     required this.loggerName,
     required this.message,
+  });
+
   final DateTime time;
   final String level;
   final String loggerName;

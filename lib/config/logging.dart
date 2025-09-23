@@ -4,6 +4,8 @@ export 'package:logging/logging.dart' show LogRecord;
 
 const String startingAppMessage = 'starting app';
 
+const int maxLogCount = 1000;
+
 String formatRecord(LogRecord record) {
   var line =
       '[${record.time}] ${record.level.name} ${record.loggerName} ${record.message}';

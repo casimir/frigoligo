@@ -5,6 +5,7 @@ import 'package:cadanse/components/widgets/adaptive/scaffold.dart';
 import 'package:cadanse/tokens/constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../buildcontext_extension.dart';
 import '../config/logging.dart';
@@ -89,11 +90,14 @@ class _LogConsolePageState extends State<LogConsolePage> {
             child: ListView.builder(
               controller: _scrollController,
               itemCount: logs.length,
-              prototypeItem: LogEntryMessage(
-                entry: logs[0],
-                colorScheme: colorScheme,
-                alternativeBackground: false,
-              ),
+              prototypeItem:
+                  logs.isNotEmpty
+                      ? LogEntryMessage(
+                        entry: logs[0],
+                        colorScheme: colorScheme,
+                        alternativeBackground: false,
+                      )
+                      : null,
               itemBuilder: (context, index) {
                 return LogEntryMessage(
                   entry: logs[index],
@@ -110,8 +114,10 @@ class _LogConsolePageState extends State<LogConsolePage> {
 
   void _scheduleScrollToBottom() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
-      _hasScrolledToBottom = true;
+      if (_scrollController.hasClients) {
+        _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+        _hasScrolledToBottom = true;
+      }
     });
   }
 
@@ -179,20 +185,21 @@ class LogEntryMessage extends StatelessWidget {
         entry.message == startingAppMessage
             ? colorScheme.primary
             : _colorForLevel;
+    final timestamp = DateFormat('yyyy-MM-dd HH:mm:ss').format(entry.time);
 
     return Container(
       color: backgroundColor,
       child: Text.rich(
         TextSpan(
           children: [
-            TextSpan(text: entry.time.toIso8601String()),
+            TextSpan(text: timestamp),
+            separator,
+            TextSpan(text: entry.level.characters.first),
             separator,
             TextSpan(
               text: entry.loggerName,
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
-            separator,
-            TextSpan(text: entry.level),
             separator,
             TextSpan(text: entry.message),
           ],

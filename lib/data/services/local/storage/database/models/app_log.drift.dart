@@ -13,7 +13,6 @@ typedef $AppLogsCreateCompanionBuilder =
       required String message,
       i0.Value<String?> error,
       i0.Value<String?> stackTrace,
-      required String logline,
     });
 typedef $AppLogsUpdateCompanionBuilder =
     i1.AppLogsCompanion Function({
@@ -24,7 +23,6 @@ typedef $AppLogsUpdateCompanionBuilder =
       i0.Value<String> message,
       i0.Value<String?> error,
       i0.Value<String?> stackTrace,
-      i0.Value<String> logline,
     });
 
 class $AppLogsFilterComposer
@@ -68,11 +66,6 @@ class $AppLogsFilterComposer
 
   i0.ColumnFilters<String> get stackTrace => $composableBuilder(
     column: $table.stackTrace,
-    builder: (column) => i0.ColumnFilters(column),
-  );
-
-  i0.ColumnFilters<String> get logline => $composableBuilder(
-    column: $table.logline,
     builder: (column) => i0.ColumnFilters(column),
   );
 }
@@ -120,11 +113,6 @@ class $AppLogsOrderingComposer
     column: $table.stackTrace,
     builder: (column) => i0.ColumnOrderings(column),
   );
-
-  i0.ColumnOrderings<String> get logline => $composableBuilder(
-    column: $table.logline,
-    builder: (column) => i0.ColumnOrderings(column),
-  );
 }
 
 class $AppLogsAnnotationComposer
@@ -160,9 +148,6 @@ class $AppLogsAnnotationComposer
     column: $table.stackTrace,
     builder: (column) => column,
   );
-
-  i0.GeneratedColumn<String> get logline =>
-      $composableBuilder(column: $table.logline, builder: (column) => column);
 }
 
 class $AppLogsTableManager
@@ -203,7 +188,6 @@ class $AppLogsTableManager
                 i0.Value<String> message = const i0.Value.absent(),
                 i0.Value<String?> error = const i0.Value.absent(),
                 i0.Value<String?> stackTrace = const i0.Value.absent(),
-                i0.Value<String> logline = const i0.Value.absent(),
               }) => i1.AppLogsCompanion(
                 id: id,
                 time: time,
@@ -212,7 +196,6 @@ class $AppLogsTableManager
                 message: message,
                 error: error,
                 stackTrace: stackTrace,
-                logline: logline,
               ),
           createCompanionCallback:
               ({
@@ -223,7 +206,6 @@ class $AppLogsTableManager
                 required String message,
                 i0.Value<String?> error = const i0.Value.absent(),
                 i0.Value<String?> stackTrace = const i0.Value.absent(),
-                required String logline,
               }) => i1.AppLogsCompanion.insert(
                 id: id,
                 time: time,
@@ -232,7 +214,6 @@ class $AppLogsTableManager
                 message: message,
                 error: error,
                 stackTrace: stackTrace,
-                logline: logline,
               ),
           withReferenceMapper:
               (p0) =>
@@ -348,17 +329,6 @@ class AppLogs extends i0.Table with i0.TableInfo<AppLogs, i1.AppLog> {
     requiredDuringInsert: false,
     $customConstraints: '',
   );
-  static const i0.VerificationMeta _loglineMeta = const i0.VerificationMeta(
-    'logline',
-  );
-  late final i0.GeneratedColumn<String> logline = i0.GeneratedColumn<String>(
-    'logline',
-    aliasedName,
-    false,
-    type: i0.DriftSqlType.string,
-    requiredDuringInsert: true,
-    $customConstraints: 'NOT NULL',
-  );
   @override
   List<i0.GeneratedColumn> get $columns => [
     id,
@@ -368,7 +338,6 @@ class AppLogs extends i0.Table with i0.TableInfo<AppLogs, i1.AppLog> {
     message,
     error,
     stackTrace,
-    logline,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -429,14 +398,6 @@ class AppLogs extends i0.Table with i0.TableInfo<AppLogs, i1.AppLog> {
         stackTrace.isAcceptableOrUnknown(data['stack_trace']!, _stackTraceMeta),
       );
     }
-    if (data.containsKey('logline')) {
-      context.handle(
-        _loglineMeta,
-        logline.isAcceptableOrUnknown(data['logline']!, _loglineMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_loglineMeta);
-    }
     return context;
   }
 
@@ -479,11 +440,6 @@ class AppLogs extends i0.Table with i0.TableInfo<AppLogs, i1.AppLog> {
         i0.DriftSqlType.string,
         data['${effectivePrefix}stack_trace'],
       ),
-      logline:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.string,
-            data['${effectivePrefix}logline'],
-          )!,
     );
   }
 
@@ -504,7 +460,6 @@ class AppLog extends i0.DataClass implements i0.Insertable<i1.AppLog> {
   final String message;
   final String? error;
   final String? stackTrace;
-  final String logline;
   const AppLog({
     required this.id,
     required this.time,
@@ -513,7 +468,6 @@ class AppLog extends i0.DataClass implements i0.Insertable<i1.AppLog> {
     required this.message,
     this.error,
     this.stackTrace,
-    required this.logline,
   });
   @override
   Map<String, i0.Expression> toColumns(bool nullToAbsent) {
@@ -529,7 +483,6 @@ class AppLog extends i0.DataClass implements i0.Insertable<i1.AppLog> {
     if (!nullToAbsent || stackTrace != null) {
       map['stack_trace'] = i0.Variable<String>(stackTrace);
     }
-    map['logline'] = i0.Variable<String>(logline);
     return map;
   }
 
@@ -548,7 +501,6 @@ class AppLog extends i0.DataClass implements i0.Insertable<i1.AppLog> {
           stackTrace == null && nullToAbsent
               ? const i0.Value.absent()
               : i0.Value(stackTrace),
-      logline: i0.Value(logline),
     );
   }
 
@@ -565,7 +517,6 @@ class AppLog extends i0.DataClass implements i0.Insertable<i1.AppLog> {
       message: serializer.fromJson<String>(json['message']),
       error: serializer.fromJson<String?>(json['error']),
       stackTrace: serializer.fromJson<String?>(json['stack_trace']),
-      logline: serializer.fromJson<String>(json['logline']),
     );
   }
   @override
@@ -579,7 +530,6 @@ class AppLog extends i0.DataClass implements i0.Insertable<i1.AppLog> {
       'message': serializer.toJson<String>(message),
       'error': serializer.toJson<String?>(error),
       'stack_trace': serializer.toJson<String?>(stackTrace),
-      'logline': serializer.toJson<String>(logline),
     };
   }
 
@@ -591,7 +541,6 @@ class AppLog extends i0.DataClass implements i0.Insertable<i1.AppLog> {
     String? message,
     i0.Value<String?> error = const i0.Value.absent(),
     i0.Value<String?> stackTrace = const i0.Value.absent(),
-    String? logline,
   }) => i1.AppLog(
     id: id ?? this.id,
     time: time ?? this.time,
@@ -600,7 +549,6 @@ class AppLog extends i0.DataClass implements i0.Insertable<i1.AppLog> {
     message: message ?? this.message,
     error: error.present ? error.value : this.error,
     stackTrace: stackTrace.present ? stackTrace.value : this.stackTrace,
-    logline: logline ?? this.logline,
   );
   AppLog copyWithCompanion(i1.AppLogsCompanion data) {
     return AppLog(
@@ -613,7 +561,6 @@ class AppLog extends i0.DataClass implements i0.Insertable<i1.AppLog> {
       error: data.error.present ? data.error.value : this.error,
       stackTrace:
           data.stackTrace.present ? data.stackTrace.value : this.stackTrace,
-      logline: data.logline.present ? data.logline.value : this.logline,
     );
   }
 
@@ -626,23 +573,14 @@ class AppLog extends i0.DataClass implements i0.Insertable<i1.AppLog> {
           ..write('loggerName: $loggerName, ')
           ..write('message: $message, ')
           ..write('error: $error, ')
-          ..write('stackTrace: $stackTrace, ')
-          ..write('logline: $logline')
+          ..write('stackTrace: $stackTrace')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(
-    id,
-    time,
-    level,
-    loggerName,
-    message,
-    error,
-    stackTrace,
-    logline,
-  );
+  int get hashCode =>
+      Object.hash(id, time, level, loggerName, message, error, stackTrace);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -653,8 +591,7 @@ class AppLog extends i0.DataClass implements i0.Insertable<i1.AppLog> {
           other.loggerName == this.loggerName &&
           other.message == this.message &&
           other.error == this.error &&
-          other.stackTrace == this.stackTrace &&
-          other.logline == this.logline);
+          other.stackTrace == this.stackTrace);
 }
 
 class AppLogsCompanion extends i0.UpdateCompanion<i1.AppLog> {
@@ -665,7 +602,6 @@ class AppLogsCompanion extends i0.UpdateCompanion<i1.AppLog> {
   final i0.Value<String> message;
   final i0.Value<String?> error;
   final i0.Value<String?> stackTrace;
-  final i0.Value<String> logline;
   const AppLogsCompanion({
     this.id = const i0.Value.absent(),
     this.time = const i0.Value.absent(),
@@ -674,7 +610,6 @@ class AppLogsCompanion extends i0.UpdateCompanion<i1.AppLog> {
     this.message = const i0.Value.absent(),
     this.error = const i0.Value.absent(),
     this.stackTrace = const i0.Value.absent(),
-    this.logline = const i0.Value.absent(),
   });
   AppLogsCompanion.insert({
     this.id = const i0.Value.absent(),
@@ -684,12 +619,10 @@ class AppLogsCompanion extends i0.UpdateCompanion<i1.AppLog> {
     required String message,
     this.error = const i0.Value.absent(),
     this.stackTrace = const i0.Value.absent(),
-    required String logline,
   }) : time = i0.Value(time),
        level = i0.Value(level),
        loggerName = i0.Value(loggerName),
-       message = i0.Value(message),
-       logline = i0.Value(logline);
+       message = i0.Value(message);
   static i0.Insertable<i1.AppLog> custom({
     i0.Expression<int>? id,
     i0.Expression<DateTime>? time,
@@ -698,7 +631,6 @@ class AppLogsCompanion extends i0.UpdateCompanion<i1.AppLog> {
     i0.Expression<String>? message,
     i0.Expression<String>? error,
     i0.Expression<String>? stackTrace,
-    i0.Expression<String>? logline,
   }) {
     return i0.RawValuesInsertable({
       if (id != null) 'id': id,
@@ -708,7 +640,6 @@ class AppLogsCompanion extends i0.UpdateCompanion<i1.AppLog> {
       if (message != null) 'message': message,
       if (error != null) 'error': error,
       if (stackTrace != null) 'stack_trace': stackTrace,
-      if (logline != null) 'logline': logline,
     });
   }
 
@@ -720,7 +651,6 @@ class AppLogsCompanion extends i0.UpdateCompanion<i1.AppLog> {
     i0.Value<String>? message,
     i0.Value<String?>? error,
     i0.Value<String?>? stackTrace,
-    i0.Value<String>? logline,
   }) {
     return i1.AppLogsCompanion(
       id: id ?? this.id,
@@ -730,7 +660,6 @@ class AppLogsCompanion extends i0.UpdateCompanion<i1.AppLog> {
       message: message ?? this.message,
       error: error ?? this.error,
       stackTrace: stackTrace ?? this.stackTrace,
-      logline: logline ?? this.logline,
     );
   }
 
@@ -758,9 +687,6 @@ class AppLogsCompanion extends i0.UpdateCompanion<i1.AppLog> {
     if (stackTrace.present) {
       map['stack_trace'] = i0.Variable<String>(stackTrace.value);
     }
-    if (logline.present) {
-      map['logline'] = i0.Variable<String>(logline.value);
-    }
     return map;
   }
 
@@ -773,8 +699,7 @@ class AppLogsCompanion extends i0.UpdateCompanion<i1.AppLog> {
           ..write('loggerName: $loggerName, ')
           ..write('message: $message, ')
           ..write('error: $error, ')
-          ..write('stackTrace: $stackTrace, ')
-          ..write('logline: $logline')
+          ..write('stackTrace: $stackTrace')
           ..write(')'))
         .toString();
   }

@@ -21,7 +21,7 @@ class DB extends $DB {
   DB() : super(openConnection());
 
   @override
-  int get schemaVersion => 6;
+  int get schemaVersion => 7;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -29,14 +29,19 @@ class DB extends $DB {
     // If the schema version changes, let's just restart from a clean slate.
     onUpgrade: (m, from, to) async {
       _log.info('migrating from version $from to $to');
-      if (from != to) {
-        final keepTables = [appLogs.actualTableName];
-        for (final table in m.database.allTables.toList().reversed) {
-          if (keepTables.contains(table.actualTableName)) continue;
-          await m.deleteTable(table.actualTableName);
-        }
-        await m.createAll();
+      if (from == to) return;
+
+      final keepTables = [appLogs.actualTableName];
+      for (final table in m.database.allTables.toList().reversed) {
+        if (keepTables.contains(table.actualTableName)) continue;
+        await m.deleteTable(table.actualTableName);
       }
+
+      if (from == 6) {
+        await m.deleteTable(appLogs.actualTableName);
+      }
+
+      await m.createAll();
     },
   );
 

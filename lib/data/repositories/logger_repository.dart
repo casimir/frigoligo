@@ -1,25 +1,45 @@
-import 'package:logging/logging.dart';
-
+import '../../config/logging.dart';
 import '../../domain/models/log_entry.dart';
 import '../../domain/repositories.dart';
 import '../services/local/storage/database/models/app_log.drift.dart';
 import '../services/local/storage/storage_service.dart';
 
 class LoggerRepositoryImpl extends LoggerRepository {
+  static int _logIndex = 0;
+
   LoggerRepositoryImpl(this._storage);
-  // TODO clean up old log records
 
   final LocalStorageService _storage;
   AppLog? _startingRecord;
 
   Future<DateTime?> _getStartingRecordTime() async {
-    _startingRecord ??= await _storage.lastStartingRecord();
+    if (_startingRecord == null) {
+      _startingRecord = await _storage.latestOccurrenceOf(startingAppMessage);
+      _logIndex =
+          _startingRecord != null
+              ? await _storage.getLogCount(since: _startingRecord?.time)
+              : 0;
+    }
     return _startingRecord?.time;
+  }
+
+  Future<void> _truncateLogs() async {
+    final startingRecordTime = await _getStartingRecordTime();
+    if (startingRecordTime == null) return;
+
+    await _storage.removeLogsBefore(startingRecordTime);
+    _logIndex = 0;
   }
 
   @override
   Future<int> appendLog(LogRecord record) {
-    return _storage.appendLog(record);
+    final result = _storage.appendLog(record);
+
+    if (_logIndex >= maxLogCount) {
+      _truncateLogs();
+    }
+
+    return result;
   }
 
   @override

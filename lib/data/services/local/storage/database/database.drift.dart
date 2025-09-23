@@ -9,15 +9,13 @@ import 'package:frigoligo/data/services/local/storage/database/models/article.dr
     as i3;
 import 'package:frigoligo/data/services/local/storage/database/models/app_log.drift.dart'
     as i4;
-import 'package:frigoligo/data/services/local/storage/database/daos/app_logs.dart'
+import 'package:frigoligo/data/services/local/storage/database/daos/articles.dart'
     as i5;
 import 'package:frigoligo/data/services/local/storage/database/database.dart'
     as i6;
-import 'package:frigoligo/data/services/local/storage/database/daos/articles.dart'
-    as i7;
 import 'package:frigoligo/data/services/local/storage/database/daos/metadata.dart'
-    as i8;
-import 'package:drift/internal/modular.dart' as i9;
+    as i7;
+import 'package:drift/internal/modular.dart' as i8;
 
 abstract class $DB extends i0.GeneratedDatabase {
   $DB(i0.QueryExecutor e) : super(e);
@@ -29,10 +27,9 @@ abstract class $DB extends i0.GeneratedDatabase {
       i3.ArticleScrollPositions(this);
   late final i3.ArticlesFts articlesFts = i3.ArticlesFts(this);
   late final i4.AppLogs appLogs = i4.AppLogs(this);
-  late final i5.AppLogsDao appLogsDao = i5.AppLogsDao(this as i6.DB);
-  late final i7.ArticlesDao articlesDao = i7.ArticlesDao(this as i6.DB);
-  late final i8.MetadataDao metadataDao = i8.MetadataDao(this as i6.DB);
-  i3.ArticleDrift get articleDrift => i9.ReadDatabaseContainer(
+  late final i5.ArticlesDao articlesDao = i5.ArticlesDao(this as i6.DB);
+  late final i7.MetadataDao metadataDao = i7.MetadataDao(this as i6.DB);
+  i3.ArticleDrift get articleDrift => i8.ReadDatabaseContainer(
     this,
   ).accessor<i3.ArticleDrift>(i3.ArticleDrift.new);
   @override
