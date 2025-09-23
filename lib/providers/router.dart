@@ -5,7 +5,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../config/dependencies.dart';
 import '../pages/home.dart';
-import '../ui/logconsole/widgets/logconsole_screen.dart';
 import '../pages/login.dart';
 import '../pages/reading/article.dart';
 import '../pages/save.dart';
@@ -13,6 +12,7 @@ import '../pages/session_details.dart';
 import '../pages/settings.dart';
 import '../server/providers/client.dart';
 import '../ui/logconsole/viewmodels/logconsole_viewmodel.dart';
+import '../ui/logconsole/widgets/logconsole_screen.dart';
 import 'article.dart';
 import 'server_login_flow.dart';
 
