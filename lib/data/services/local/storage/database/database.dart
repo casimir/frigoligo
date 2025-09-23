@@ -2,7 +2,6 @@ import 'package:drift/drift.dart';
 import 'package:logging/logging.dart';
 
 import 'connection/connection.dart';
-import 'daos/app_logs.dart';
 import 'daos/articles.dart';
 import 'daos/metadata.dart';
 import 'database.drift.dart';
@@ -16,7 +15,7 @@ final _log = Logger('services.local.storage.database');
     'models/metadata.drift',
     'models/remote_action.drift',
   },
-  daos: [AppLogsDao, ArticlesDao, MetadataDao],
+  daos: [ArticlesDao, MetadataDao],
 )
 class DB extends $DB {
   DB() : super(openConnection());

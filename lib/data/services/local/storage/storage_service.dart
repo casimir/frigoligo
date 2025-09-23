@@ -39,8 +39,16 @@ extension LoggerStorageService on LocalStorageService {
     return await _db.appLogs.count().getSingle();
   }
 
+  Future<AppLog?> lastStartingRecord() {
+    return (_db.select(_db.appLogs)
+          ..where((t) => t.message.equals(startingAppMessage))
+          ..orderBy([(t) => OrderingTerm.desc(t.time)])
+          ..limit(1))
+        .getSingleOrNull();
+  }
+
   Future<int> _getCurrentRunLogCount() async {
-    final firstRecord = await _db.appLogsDao.lastStartingRecord();
+    final firstRecord = await lastStartingRecord();
     if (firstRecord == null) return 0;
 
     return await _db.appLogs
@@ -57,13 +65,23 @@ extension LoggerStorageService on LocalStorageService {
   }
 
   Future<List<AppLog>> _getCurrentRunLogs() async {
-    final firstRecord = await _db.appLogsDao.lastStartingRecord();
+    final firstRecord = await lastStartingRecord();
     if (firstRecord == null) return [];
 
     return (_db.select(_db.appLogs)
           ..where((t) => t.time.isBiggerOrEqualValue(firstRecord.time))
           ..orderBy([(t) => OrderingTerm.asc(t.time)]))
         .get();
+  }
+
+  Future<int> removeLogsBeforeCurrentRun() {
+    return _db.transaction(() async {
+      final firstRecord = await lastStartingRecord();
+      if (firstRecord == null) return 0;
+
+      return (_db.delete(_db.appLogs)
+        ..where((t) => t.time.isSmallerThanValue(firstRecord.time))).go();
+    });
   }
 
   Future<int> clearLogs() {
