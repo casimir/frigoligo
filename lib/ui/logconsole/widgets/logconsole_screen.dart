@@ -7,22 +7,22 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../buildcontext_extension.dart';
-import '../config/logging.dart';
-import '../domain/models/log_entry.dart';
-import '../ui/core/widgets/future_loader.dart';
-import '../ui/logconsole/logconsole_viewmodel.dart';
+import '../../../buildcontext_extension.dart';
+import '../../../config/logging.dart';
+import '../../../domain/models/log_entry.dart';
+import '../../core/widgets/future_loader.dart';
+import '../viewmodels/logconsole_viewmodel.dart';
 
-class LogConsolePage extends StatefulWidget {
-  const LogConsolePage({super.key, required this.viewModel});
+class LogConsoleScreen extends StatefulWidget {
+  const LogConsoleScreen({super.key, required this.viewModel});
 
   final LogConsoleViewModel viewModel;
 
   @override
-  State<LogConsolePage> createState() => _LogConsolePageState();
+  State<LogConsoleScreen> createState() => _LogConsoleScreenState();
 }
 
-class _LogConsolePageState extends State<LogConsolePage> {
+class _LogConsoleScreenState extends State<LogConsoleScreen> {
   final GlobalKey _shareButtonKey = GlobalKey();
   final ScrollController _scrollController = ScrollController();
   bool _hasScrolledToBottom = false;
