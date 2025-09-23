@@ -1,13 +1,10 @@
-import 'dart:convert';
-
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cadanse/cadanse.dart';
 import 'package:cadanse/components/widgets/adaptive/buttons.dart';
 import 'package:cadanse/components/widgets/adaptive/scaffold.dart';
 import 'package:cadanse/tokens/constants.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:universal_platform/universal_platform.dart';
 
 import '../buildcontext_extension.dart';
 import '../config/logging.dart';
@@ -15,16 +12,16 @@ import '../domain/models/log_entry.dart';
 import '../ui/core/widgets/future_loader.dart';
 import '../ui/logconsole/logconsole_viewmodel.dart';
 
-class LogConsolePage extends ConsumerStatefulWidget {
+class LogConsolePage extends StatefulWidget {
   const LogConsolePage({super.key, required this.viewModel});
 
   final LogConsoleViewModel viewModel;
 
   @override
-  ConsumerState<LogConsolePage> createState() => _LogConsolePageState();
+  State<LogConsolePage> createState() => _LogConsolePageState();
 }
 
-class _LogConsolePageState extends ConsumerState<LogConsolePage> {
+class _LogConsolePageState extends State<LogConsolePage> {
   final GlobalKey _shareButtonKey = GlobalKey();
   final ScrollController _scrollController = ScrollController();
   bool _hasScrolledToBottom = false;
@@ -62,10 +59,7 @@ class _LogConsolePageState extends ConsumerState<LogConsolePage> {
         actions: [
           ActionButton(
             key: _shareButtonKey,
-            icon:
-                UniversalPlatform.isWeb
-                    ? Icons.download
-                    : C(context).icons.share,
+            icon: kIsWeb ? Icons.download : Icons.adaptive.share,
             onPressed: () async {
               final onlyCurrentRun = await _askForExportType();
               if (onlyCurrentRun != null) {
