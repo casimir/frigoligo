@@ -13,12 +13,16 @@ import 'package:universal_platform/universal_platform.dart';
 
 import '../buildcontext_extension.dart';
 import '../config/dependencies.dart';
+import '../config/logging.dart';
 import '../data/services/local/storage/storage_service.dart';
-import '../providers/logconsole.dart';
-import '../widgets/async/list.dart';
+import '../domain/models/log_entry.dart';
+import '../ui/core/widgets/future_loader.dart';
+import '../ui/logconsole/logconsole_viewmodel.dart';
 
 class LogConsolePage extends ConsumerStatefulWidget {
-  const LogConsolePage({super.key});
+  const LogConsolePage({super.key, required this.viewModel});
+
+  final LogConsoleViewModel viewModel;
 
   @override
   ConsumerState<LogConsolePage> createState() => _LogConsolePageState();
@@ -26,15 +30,30 @@ class LogConsolePage extends ConsumerStatefulWidget {
 
 class _LogConsolePageState extends ConsumerState<LogConsolePage> {
   final GlobalKey _shareButtonKey = GlobalKey();
+  final ScrollController _scrollController = ScrollController();
+  bool _hasScrolledToBottom = false;
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    ref.watch(logConsoleProvider);
+    return FutureLoader(
+      future: widget.viewModel.getCurrentRunLogs(),
+      builder: buildLoaded,
+    );
+  }
+
+  Widget buildLoaded(BuildContext context, List<LogEntry> logs) {
+    if (!_hasScrolledToBottom) {
+      _scheduleScrollToBottom();
+    }
 
     final colorScheme = Theme.of(context).colorScheme;
 
-    final LocalStorageService storageService = dependencies.get();
-    final logs = storageService.db.appLogsDao;
     return AdaptiveScaffold(
       barData: AdaptiveBarData(
         title: Text(context.L.logconsole_title),
@@ -54,50 +73,57 @@ class _LogConsolePageState extends ConsumerState<LogConsolePage> {
           ),
           ActionButton(
             icon: C(context).icons.delete,
-            onPressed: () => logs.clear(),
+            onPressed: () async {
+              await widget.viewModel.clearLogs();
+              // this screen is useless without data, let's go back
+              if (context.mounted) {
+                Navigator.pop(context);
+              }
+            },
           ),
         ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: kSpacingInGroup),
         child: Material(
-          child: AListView.builder(
-            itemCount: logs.getLineCount(),
-            itemBuilder: (context, index) async {
-              final record = (await logs.index(index))!;
-              var message = '${record.loggerName}: ${record.message}';
-              if (record.error != null) {
-                message += ' (${record.error})';
-              }
-              return Container(
-                color:
-                    index.isEven && context.mounted
-                        ? colorScheme.surfaceContainer
-                        : colorScheme.surfaceContainerLowest,
-                child: Text(
-                  message,
-                  style: TextStyle(
-                    color: _levelColor(record.level, colorScheme),
-                  ),
-                ),
-              );
-            },
+          child: SelectionArea(
+            child: ListView.builder(
+              controller: _scrollController,
+              itemCount: logs.length,
+              prototypeItem: LogEntryMessage(
+                entry: logs[0],
+                colorScheme: colorScheme,
+                alternativeBackground: false,
+              ),
+              itemBuilder: (context, index) {
+                return LogEntryMessage(
+                  entry: logs[index],
+                  colorScheme: colorScheme,
+                  alternativeBackground: index.isOdd,
+                );
+              },
+            ),
           ),
         ),
       ),
     );
   }
 
+  void _scheduleScrollToBottom() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+      _hasScrolledToBottom = true;
+    });
+  }
+
   Future<bool?> _askForExportType() async {
-    final LocalStorageService storageService = dependencies.get();
-    final logs = storageService.db.appLogsDao;
-    final currentRunLineCount = await logs.getCurrentRunLineCount();
+    final currentRunLineCount = await widget.viewModel.getCurrentRunLogCount();
 
     if (currentRunLineCount == 0) {
       return false;
     }
 
-    final lineCount = await logs.getLineCount();
+    final lineCount = await widget.viewModel.getLogCount();
 
     if (mounted) {
       return await showConfirmationDialog(
@@ -123,6 +149,7 @@ class _LogConsolePageState extends ConsumerState<LogConsolePage> {
   }
 
   Future<void> _shareExportFile(bool onlyCurrentRun) async {
+    // TODO factor into a sharing service and pass by the viewmodel
     final LocalStorageService storageService = dependencies.get();
     final loglines = await storageService.db.appLogsDao.getLines(
       onlyCurrentRun,
@@ -145,9 +172,58 @@ class _LogConsolePageState extends ConsumerState<LogConsolePage> {
   }
 }
 
-Color? _levelColor(String level, ColorScheme colorScheme) => switch (level) {
-  'INFO' => colorScheme.onSurfaceVariant,
-  'WARNING' => colorScheme.onSurface,
-  'SEVERE' => colorScheme.error,
-  _ => null,
-};
+class LogEntryMessage extends StatelessWidget {
+  const LogEntryMessage({
+    super.key,
+    required this.entry,
+    required this.colorScheme,
+    required this.alternativeBackground,
+  });
+
+  final LogEntry entry;
+  final ColorScheme colorScheme;
+  final bool alternativeBackground;
+
+  Color? get _colorForLevel => switch (entry.level) {
+    'INFO' => colorScheme.onSurfaceVariant,
+    'WARNING' => colorScheme.onSurface,
+    'SEVERE' => colorScheme.error,
+    _ => null,
+  };
+
+  @override
+  Widget build(BuildContext context) {
+    const separator = TextSpan(text: ' ');
+
+    final backgroundColor =
+        alternativeBackground
+            ? colorScheme.surfaceContainerLowest
+            : colorScheme.surfaceContainer;
+    final textColor =
+        entry.message == startingAppMessage
+            ? colorScheme.primary
+            : _colorForLevel;
+
+    return Container(
+      color: backgroundColor,
+      child: Text.rich(
+        TextSpan(
+          children: [
+            TextSpan(text: entry.time.toIso8601String()),
+            separator,
+            TextSpan(
+              text: entry.loggerName,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            separator,
+            TextSpan(text: entry.level),
+            separator,
+            TextSpan(text: entry.message),
+          ],
+        ),
+        style: TextStyle(color: textColor),
+        softWrap: false,
+      ),
+    );
+  }
+}

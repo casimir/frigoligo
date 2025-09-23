@@ -1,6 +1,5 @@
 import 'package:drift/drift.dart';
 
-import '../../../../../../config/logging.dart';
 import '../database.dart';
 import '../models/app_log.drift.dart';
 import 'app_logs.drift.dart';
@@ -8,29 +7,6 @@ import 'app_logs.drift.dart';
 @DriftAccessor(include: {'../models/app_log.drift'})
 class AppLogsDao extends DatabaseAccessor<DB> with $AppLogsDaoMixin {
   AppLogsDao(super.attachedDatabase);
-
-  Future<int> appendRecord(LogRecord record) {
-    return into(appLogs).insert(
-      AppLogsCompanion.insert(
-        time: record.time,
-        level: record.level.name,
-        loggerName: record.loggerName,
-        message: record.message,
-        error: Value.absentIfNull(record.error?.toString()),
-        stackTrace: Value.absentIfNull(record.stackTrace?.toString()),
-        logline: formatRecord(record),
-      ),
-    );
-  }
-
-  Future<int> getLineCount() => appLogs.count().getSingle();
-
-  Future<AppLog?> index(int n) {
-    return (select(appLogs)
-          ..orderBy([(t) => OrderingTerm.desc(t.time)])
-          ..limit(1, offset: n))
-        .getSingleOrNull();
-  }
 
   Future<AppLog?> lastStartingRecord() {
     return (select(appLogs)
@@ -48,17 +24,6 @@ class AppLogsDao extends DatabaseAccessor<DB> with $AppLogsDaoMixin {
       return (delete(appLogs)
         ..where((t) => t.time.isSmallerThanValue(firstRecord.time))).go();
     });
-  }
-
-  Future<void> clear() => delete(appLogs).go();
-
-  Future<int> getCurrentRunLineCount() async {
-    final firstRecord = await lastStartingRecord();
-    if (firstRecord == null) return 0;
-
-    return await appLogs
-        .count(where: (t) => t.time.isBiggerOrEqualValue(firstRecord.time))
-        .getSingle();
   }
 
   Future<List<String>> getLines(bool onlyCurrentRun) async {

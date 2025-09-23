@@ -13,6 +13,7 @@ import 'app_info.dart';
 import 'app_setups.dart';
 import 'applinks/handler.dart';
 import 'config/dependencies.dart';
+import 'config/logging.dart';
 import 'constants.dart';
 import 'data/services/local/storage/storage_service.dart';
 import 'native/appbadge.dart';
@@ -34,7 +35,7 @@ Future<void> main() async {
   // after this line using `await` is OK
   WidgetsFlutterBinding.ensureInitialized();
 
-  log.info('starting app');
+  log.info(startingAppMessage);
 
   await initializeLanguage();
 
