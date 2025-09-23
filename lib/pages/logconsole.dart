@@ -202,6 +202,10 @@ class LogEntryMessage extends StatelessWidget {
             ),
             separator,
             TextSpan(text: entry.message),
+            if (entry.error != null) ...[
+              separator,
+              TextSpan(text: '(${entry.error})'),
+            ],
           ],
         ),
         style: TextStyle(color: textColor),

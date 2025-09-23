@@ -82,5 +82,6 @@ LogEntry _fromAppLog(AppLog record) {
     level: record.level,
     loggerName: record.loggerName,
     message: record.message,
+    error: record.error,
   );
 }
