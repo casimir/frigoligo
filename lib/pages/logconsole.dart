@@ -7,14 +7,10 @@ import 'package:cadanse/components/widgets/adaptive/scaffold.dart';
 import 'package:cadanse/tokens/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:universal_platform/universal_platform.dart';
 
 import '../buildcontext_extension.dart';
-import '../config/dependencies.dart';
 import '../config/logging.dart';
-import '../data/services/local/storage/storage_service.dart';
 import '../domain/models/log_entry.dart';
 import '../ui/core/widgets/future_loader.dart';
 import '../ui/logconsole/logconsole_viewmodel.dart';
@@ -37,6 +33,12 @@ class _LogConsolePageState extends ConsumerState<LogConsolePage> {
   void dispose() {
     _scrollController.dispose();
     super.dispose();
+  }
+
+  Rect get _sharePositionOrigin {
+    final box =
+        _shareButtonKey.currentContext!.findRenderObject() as RenderBox?;
+    return box!.localToGlobal(Offset.zero) & box.size;
   }
 
   @override
@@ -67,7 +69,10 @@ class _LogConsolePageState extends ConsumerState<LogConsolePage> {
             onPressed: () async {
               final onlyCurrentRun = await _askForExportType();
               if (onlyCurrentRun != null) {
-                await _shareExportFile(onlyCurrentRun);
+                await widget.viewModel.shareLogs(
+                  onlyCurrentRun,
+                  _sharePositionOrigin,
+                );
               }
             },
           ),
@@ -146,29 +151,6 @@ class _LogConsolePageState extends ConsumerState<LogConsolePage> {
     }
 
     return null;
-  }
-
-  Future<void> _shareExportFile(bool onlyCurrentRun) async {
-    // TODO factor into a sharing service and pass by the viewmodel
-    final LocalStorageService storageService = dependencies.get();
-    final loglines = await storageService.db.appLogsDao.getLines(
-      onlyCurrentRun,
-    );
-    final timestamp = DateFormat('yyyyMMddTHHmmss').format(DateTime.now());
-
-    final data = utf8.encode(loglines.join('\n'));
-    final fname = 'frigoligo_$timestamp.log';
-    final box =
-        _shareButtonKey.currentContext!.findRenderObject() as RenderBox?;
-
-    SharePlus.instance.share(
-      ShareParams(
-        files: [XFile.fromData(data, mimeType: 'text/plain')],
-        subject: fname,
-        sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
-        fileNameOverrides: [fname],
-      ),
-    );
   }
 }
 

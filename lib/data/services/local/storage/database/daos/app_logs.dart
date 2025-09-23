@@ -16,6 +16,7 @@ class AppLogsDao extends DatabaseAccessor<DB> with $AppLogsDaoMixin {
         .getSingleOrNull();
   }
 
+  // TODO move into LoggerRepository
   Future<int> truncate() {
     return transaction(() async {
       final firstRecord = await lastStartingRecord();
@@ -24,22 +25,5 @@ class AppLogsDao extends DatabaseAccessor<DB> with $AppLogsDaoMixin {
       return (delete(appLogs)
         ..where((t) => t.time.isSmallerThanValue(firstRecord.time))).go();
     });
-  }
-
-  Future<List<String>> getLines(bool onlyCurrentRun) async {
-    final query = selectOnly(appLogs)..addColumns([appLogs.logline]);
-
-    if (onlyCurrentRun) {
-      final firstRecord = await lastStartingRecord();
-      if (firstRecord == null) return [];
-
-      query.where(appLogs.time.isBiggerOrEqualValue(firstRecord.time));
-    }
-
-    query.orderBy([
-      OrderingTerm(expression: appLogs.time, mode: OrderingMode.asc),
-    ]);
-
-    return query.map((row) => row.read(appLogs.logline)!).get();
   }
 }

@@ -67,6 +67,7 @@ GoRouter router(Ref ref) {
         builder: (context, state) {
           final viewModel = LogConsoleViewModel(
             loggerRepository: dependencies.get(),
+            sharingService: dependencies.get(),
           );
           return LogConsolePage(viewModel: viewModel);
         },
