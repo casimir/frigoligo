@@ -1,7 +1,5 @@
-import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 
-import '../config/logging.dart';
 import 'models/log_entry.dart';
 
 abstract class LoggerRepository {
@@ -17,9 +15,6 @@ abstract class LoggerRepository {
 
   void registerLogHandler(bool enableDebugLogs) {
     Logger.root.level = enableDebugLogs ? Level.FINE : Level.INFO;
-    Logger.root.onRecord.listen((record) {
-      appendLog(record);
-      debugPrint(formatRecord(record));
-    });
+    Logger.root.onRecord.listen(appendLog);
   }
 }

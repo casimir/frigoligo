@@ -4,10 +4,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:logging/logging.dart';
 
 import 'config/dependencies.dart';
-import 'constants.dart';
+import 'config/logging.dart';
 
 void setupLogger(Logger errorLogger) {
   dependencies.get<LoggerRepository>().registerLogHandler(enableDebugLogs);
+  Logger.root.onRecord.listen((record) {
+    if (kDebugMode) {
+      debugPrint(formatRecord(record));
+    }
+  });
 
   FlutterError.onError = (errorDetails) {
     final repr = errorDetails.exceptionAsString();
