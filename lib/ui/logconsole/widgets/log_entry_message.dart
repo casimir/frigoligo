@@ -35,16 +35,17 @@ class LogEntryMessage extends StatelessWidget {
         entry.message == startingAppMessage
             ? colorScheme.primary
             : _colorForLevel;
-    final timestamp = DateFormat('yyyy-MM-dd HH:mm:ss').format(entry.time);
+    final levelLetter =
+        entry.level.isNotEmpty ? entry.level.characters.first : ' ';
 
     return Container(
       color: backgroundColor,
       child: Text.rich(
         TextSpan(
           children: [
-            TextSpan(text: timestamp),
+            TextSpan(text: formatTimestamp(entry.time)),
             separator,
-            TextSpan(text: entry.level.characters.first),
+            TextSpan(text: levelLetter),
             separator,
             TextSpan(
               text: entry.loggerName,
@@ -62,5 +63,9 @@ class LogEntryMessage extends StatelessWidget {
         softWrap: false,
       ),
     );
+  }
+
+  static String formatTimestamp(DateTime time) {
+    return DateFormat('yyyy-MM-dd HH:mm:ss').format(time);
   }
 }
