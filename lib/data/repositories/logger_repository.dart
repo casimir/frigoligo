@@ -93,5 +93,6 @@ LogEntry _fromAppLog(AppLog record) {
     loggerName: record.loggerName,
     message: record.message,
     error: record.error,
+    stackTrace: record.stackTrace,
   );
 }

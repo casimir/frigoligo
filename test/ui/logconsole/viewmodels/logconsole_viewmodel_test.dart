@@ -13,6 +13,9 @@ class MockSharingService extends Mock implements SharingService {}
 
 void main() {
   group('LogConsoleViewModel', () {
+    const startingAppMessage = 'BEGIN';
+    const logMessages = ['pre begin', startingAppMessage, 'post begin'];
+
     late LogConsoleViewModel viewModel;
     late LoggerRepository loggerRepository;
     late MockSharingService mockSharingService;
@@ -20,13 +23,13 @@ void main() {
     setUp(() {
       loggerRepository = LoggerRepositoryImpl(
         loggingStorageService: InMemoryLoggingStorageService(),
-        startingAppMessage: 'BEGIN',
+        startingAppMessage: startingAppMessage,
         maxLogCount: 10,
       )..registerLogHandler(false);
 
-      Logger.root.info('pre begin');
-      Logger.root.info('BEGIN');
-      Logger.root.info('post begin');
+      for (var message in logMessages) {
+        Logger.root.info(message);
+      }
 
       mockSharingService = MockSharingService();
       viewModel = LogConsoleViewModel(
@@ -80,7 +83,10 @@ void main() {
               ).captured;
 
           final content = captured[1] as String;
-          expect(content, equals('BEGIN\npost begin'));
+          for (final line in content.split('\n').indexed) {
+            // skip the first message to begin with the starting app message
+            expect(line.$2.endsWith(logMessages[1 + line.$1]), isTrue);
+          }
         },
       );
 
@@ -105,7 +111,9 @@ void main() {
             ).captured;
 
         final content = captured[1] as String;
-        expect(content, equals('pre begin\nBEGIN\npost begin'));
+        for (final line in content.split('\n').indexed) {
+          expect(line.$2.endsWith(logMessages[line.$1]), isTrue);
+        }
       });
     });
   });

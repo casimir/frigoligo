@@ -35,7 +35,7 @@ class LogConsoleViewModel extends ChangeNotifier {
 
     await _sharingService.shareAsTextFile(
       'frigoligo_$timestamp.log',
-      logs.map((e) => e.message).join('\n'),
+      logs.map((e) => e.format()).join('\n'),
       sharePositionOrigin: sharePositionOrigin,
     );
   }
