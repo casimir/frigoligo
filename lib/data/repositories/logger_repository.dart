@@ -42,7 +42,7 @@ class LoggerRepositoryImpl extends LoggerRepository {
 
   @override
   Future<int> appendLog(LogRecord record) async {
-    final result = _loggingStorageService.append(record);
+    final result = await _loggingStorageService.append(record);
     _logIndex++;
 
     if (_logIndex > maxLogCount) {
