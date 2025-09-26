@@ -17,9 +17,10 @@ import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
 import '../../buildcontext_extension.dart';
 import '../../color_extension.dart';
+import '../../config/dependencies.dart';
 import '../../constants.dart';
-import '../../db/database.dart';
-import '../../db/models/article.drift.dart';
+import '../../data/services/local/storage/database/models/article.drift.dart';
+import '../../data/services/local/storage/storage_service.dart';
 import '../../providers/article.dart';
 import '../../providers/reading_settings.dart';
 import '../../providers/settings.dart';
@@ -81,7 +82,11 @@ class _ArticleContentState extends ConsumerState<ArticleContent> {
     ref.read(currentReadingProgressProvider.notifier).progress = progress;
 
     if (!isScrolling) {
-      await DB().articlesDao.saveScrollProgress(widget.article, progress);
+      final LocalStorageService storageService = dependencies.get();
+      await storageService.db.articlesDao.saveScrollProgress(
+        widget.article,
+        progress,
+      );
     }
   }
 

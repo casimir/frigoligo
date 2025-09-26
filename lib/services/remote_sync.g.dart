@@ -1,12 +1,15 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// coverage:ignore-file
+
+
 part of 'remote_sync.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$remoteSyncerHash() => r'efc73a1609bda0295a5e4e8f954f743bd15dbda3';
+String _$remoteSyncerHash() => r'729969f59a6038db642dd792ea2012edd45e4886';
 
 /// See also [RemoteSyncer].
 @ProviderFor(RemoteSyncer)

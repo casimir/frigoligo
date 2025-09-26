@@ -3,14 +3,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../config/dependencies.dart';
 import '../pages/home.dart';
-import '../pages/logconsole.dart';
 import '../pages/login.dart';
 import '../pages/reading/article.dart';
 import '../pages/save.dart';
 import '../pages/session_details.dart';
 import '../pages/settings.dart';
 import '../server/providers/client.dart';
+import '../ui/logconsole/viewmodels/logconsole_viewmodel.dart';
+import '../ui/logconsole/widgets/logconsole_screen.dart';
 import 'article.dart';
 import 'server_login_flow.dart';
 
@@ -62,7 +64,13 @@ GoRouter router(Ref ref) {
       ),
       GoRoute(
         path: '/logs',
-        builder: (context, state) => const LogConsolePage(),
+        builder: (context, state) {
+          final viewModel = LogConsoleViewModel(
+            loggerRepository: dependencies.get(),
+            sharingService: dependencies.get(),
+          );
+          return LogConsoleScreen(viewModel: viewModel);
+        },
       ),
       GoRoute(
         path: '/articles/current',
@@ -82,8 +90,8 @@ GoRouter router(Ref ref) {
       GoRoute(
         path: '/save',
         redirect: loginRedirect,
-        builder: (context, state) =>
-            SavePage(url: state.uri.queryParameters['url']),
+        builder:
+            (context, state) => SavePage(url: state.uri.queryParameters['url']),
       ),
     ],
   );

@@ -3,16 +3,17 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logging/logging.dart';
 
-import 'constants.dart';
-import 'db/database.dart';
-import 'utils.dart';
+import 'config/dependencies.dart';
+import 'config/logging.dart';
 
 void setupLogger(Logger errorLogger) {
-  Logger.root.level = enableDebugLogs ? Level.FINE : Level.INFO;
+  dependencies.get<LoggerRepository>().registerLogHandler(enableDebugLogs);
   Logger.root.onRecord.listen((record) {
-    DB().appendLog(record);
-    debugPrint(loglineFromRecord(record));
+    if (kDebugMode) {
+      debugPrint(formatRecord(record));
+    }
   });
+
   FlutterError.onError = (errorDetails) {
     final repr = errorDetails.exceptionAsString();
     errorLogger.severe('uncaught error', repr, errorDetails.stack);

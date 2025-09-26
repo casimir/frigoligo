@@ -1,12 +1,15 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// coverage:ignore-file
+
+
 part of 'router.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$routerHash() => r'c2259c8d57051385e9320dbb7105f1d6120f92e4';
+String _$routerHash() => r'168788235c9f2e65919312686eb9d34a856039c8';
 
 /// See also [router].
 @ProviderFor(router)

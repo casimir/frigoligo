@@ -12,8 +12,10 @@ import 'package:universal_platform/universal_platform.dart';
 import 'app_info.dart';
 import 'app_setups.dart';
 import 'applinks/handler.dart';
+import 'config/dependencies.dart';
+import 'config/logging.dart';
 import 'constants.dart';
-import 'db/database.dart';
+import 'data/services/local/storage/storage_service.dart';
 import 'native/appbadge.dart';
 import 'native/save.service.dart';
 import 'pages/reading/article_content.dart';
@@ -24,6 +26,8 @@ import 'providers/tools/observer.dart';
 import 'src/generated/i18n/app_localizations.dart';
 
 Future<void> main() async {
+  setupDependencies();
+
   final log = Logger('main');
   setupLogger(log);
   setupGoogleFonts();
@@ -31,7 +35,7 @@ Future<void> main() async {
   // after this line using `await` is OK
   WidgetsFlutterBinding.ensureInitialized();
 
-  log.info('starting app');
+  log.info(startingAppMessage);
 
   await initializeLanguage();
 
@@ -45,7 +49,7 @@ Future<void> main() async {
   await Settings.init();
 
   log.info('app version: ${AppInfo.versionVerbose}');
-  log.info('db version: ${DB().schemaVersion}');
+  log.info('db version: ${dependencies.get<LocalStorageService>().dbVersion}');
   log.info('platform:    ${UniversalPlatform.operatingSystem}');
   if (!UniversalPlatform.isWeb) {
     log.info('os version:  ${Platform.operatingSystemVersion}');

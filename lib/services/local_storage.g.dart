@@ -1,12 +1,15 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// coverage:ignore-file
+
+
 part of 'local_storage.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$localStorageHash() => r'82ca93f69126bf69928b26dc9f179f6ec0f3c5b2';
+String _$localStorageHash() => r'df0da519f55472a00777367d67967ddb56ed4a51';
 
 /// See also [LocalStorage].
 @ProviderFor(LocalStorage)

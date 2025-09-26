@@ -1,4 +1,4 @@
-import '../../../db/models/article.drift.dart';
+import '../../../data/services/local/storage/database/models/article.drift.dart';
 
 mixin ApiMethods {
   /// Create a new article.

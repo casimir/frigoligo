@@ -5,8 +5,9 @@ import 'package:http/http.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../db/database.dart';
-import '../db/extensions/remote_action.dart';
+import '../config/dependencies.dart';
+import '../data/services/local/storage/database/extensions/remote_action.dart';
+import '../data/services/local/storage/storage_service.dart';
 import '../server/clients.dart';
 import 'local_storage.dart';
 import 'remote_sync_actions.dart';
@@ -55,11 +56,14 @@ class RemoteSyncer extends _$RemoteSyncer {
     return error;
   }
 
-  Future<int> _fetchPendingCount() =>
-      DB().managers.remoteActions.count(distinct: false);
+  Future<int> _fetchPendingCount() {
+    final LocalStorageService storageService = dependencies.get();
+    return storageService.db.managers.remoteActions.count(distinct: false);
+  }
 
   Future<void> add(RemoteSyncAction action) async {
-    final db = DB();
+    final LocalStorageService storageService = dependencies.get();
+    final db = storageService.db;
 
     final exists =
         await db.managers.remoteActions
@@ -126,8 +130,10 @@ class RemoteSyncer extends _$RemoteSyncer {
   }
 
   Future<Map<String, dynamic>> _executeActions(LocalStorage storage) async {
+    final LocalStorageService storageService = dependencies.get();
+
     final Map<String, dynamic> res = {};
-    final db = DB();
+    final db = storageService.db;
 
     setProgress(null);
     int i = 1;

@@ -270,6 +270,10 @@
   "@logconsole_title": {
     "description": "The title of the log console screen."
   },
+  "logconsole_clear_logs": "Clear logs",
+  "@logconsole_clear_logs": {
+    "description": "The action to clear the logs."
+  },
   "logconsole_export_title": "Export as file",
   "@logconsole_export_title": {
     "description": "The title of the export as file dialog."

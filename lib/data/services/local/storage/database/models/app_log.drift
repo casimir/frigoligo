@@ -1,0 +1,9 @@
+CREATE TABLE app_logs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    time DATETIME NOT NULL,
+    level TEXT NOT NULL,
+    logger_name TEXT NOT NULL,
+    message TEXT NOT NULL,
+    error TEXT,
+    stack_trace TEXT
+);

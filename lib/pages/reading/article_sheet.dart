@@ -8,8 +8,9 @@ import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../buildcontext_extension.dart';
-import '../../db/database.dart';
-import '../../db/models/article.drift.dart';
+import '../../config/dependencies.dart';
+import '../../data/services/local/storage/database/models/article.drift.dart';
+import '../../data/services/local/storage/storage_service.dart';
 import '../../services/remote_sync.dart';
 import '../../services/remote_sync_actions.dart';
 import '../../widgets/copiable_text.dart';
@@ -127,11 +128,12 @@ void _showTagsDialog(
   WidgetRef ref,
   Article article,
 ) async {
+  final LocalStorageService storageService = dependencies.get();
   final tags = await showBottomSheetSelector(
     context: context,
     title: context.L.filters_articleTags,
     selectionLabelizer: context.L.filters_articleTagsCount,
-    entriesBuilder: DB().articlesDao.listAllTags(),
+    entriesBuilder: storageService.db.articlesDao.listAllTags(),
     initialSelection: article.tags.toSet(),
     leadingIcon: const Icon(Icons.label),
     addEntryIcon: const Icon(Icons.new_label_outlined),
