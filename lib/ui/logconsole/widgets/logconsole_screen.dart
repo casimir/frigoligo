@@ -60,6 +60,7 @@ class _LogConsoleScreenState extends State<LogConsoleScreen> {
           ActionButton(
             key: _shareButtonKey,
             icon: kIsWeb ? Icons.download : Icons.adaptive.share,
+            tooltip: context.L.logconsole_export_title,
             onPressed: () async {
               final onlyCurrentRun = await _askForExportType();
               if (onlyCurrentRun != null) {
@@ -72,6 +73,7 @@ class _LogConsoleScreenState extends State<LogConsoleScreen> {
           ),
           ActionButton(
             icon: C(context).icons.delete,
+            tooltip: context.L.logconsole_clear_logs,
             onPressed: () async {
               await widget.viewModel.clearLogs();
               // this screen is useless without data, let's go back
@@ -129,26 +131,26 @@ class _LogConsoleScreenState extends State<LogConsoleScreen> {
 
     final lineCount = await widget.viewModel.getLogCount();
 
-    if (mounted) {
-      return await showConfirmationDialog(
-        context: context,
-        title: context.L.logconsole_export_title,
-        actions: [
-          AlertDialogAction(
-            key: true,
-            label: context.L.logconsole_export_current_session(
-              currentRunLineCount,
-            ),
-          ),
-          AlertDialogAction(
-            key: false,
-            label: context.L.logconsole_export_all_logs(lineCount),
-            isDefaultAction: false,
-          ),
-        ],
-      );
+    if (!mounted) {
+      return null;
     }
 
-    return null;
+    return await showConfirmationDialog(
+      context: context,
+      title: context.L.logconsole_export_title,
+      actions: [
+        AlertDialogAction(
+          key: true,
+          label: context.L.logconsole_export_current_session(
+            currentRunLineCount,
+          ),
+        ),
+        AlertDialogAction(
+          key: false,
+          label: context.L.logconsole_export_all_logs(lineCount),
+          isDefaultAction: false,
+        ),
+      ],
+    );
   }
 }
