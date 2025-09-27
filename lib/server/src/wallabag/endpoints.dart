@@ -6,7 +6,7 @@ import 'package:json_annotation/json_annotation.dart';
 import '../clients/api.dart';
 import 'types.dart';
 
-part 'endpoints.g.dart';
+part '_g/endpoints.g.dart';
 
 mixin WallabagClientEndpoints on ApiClient {
   Future<WallabagPaginatedEntries> getEntries({

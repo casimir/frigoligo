@@ -3,7 +3,7 @@
 // coverage:ignore-file
 
 
-part of 'remote_sync.dart';
+part of '../remote_sync.dart';
 
 // **************************************************************************
 // RiverpodGenerator

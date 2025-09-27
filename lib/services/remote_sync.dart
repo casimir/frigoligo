@@ -14,8 +14,8 @@ import 'remote_sync_actions.dart';
 
 export '../server/clients.dart' show ServerError;
 
-part 'remote_sync.freezed.dart';
-part 'remote_sync.g.dart';
+part '_g/remote_sync.freezed.dart';
+part '_g/remote_sync.g.dart';
 
 final _log = Logger('remote.sync');
 

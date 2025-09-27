@@ -11,7 +11,7 @@ import '../data/services/local/storage/database/daos/articles.dart';
 import '../data/services/local/storage/database/models/article.drift.dart';
 import '../data/services/local/storage/storage_service.dart';
 
-part 'query.g.dart';
+part '_g/query.g.dart';
 
 final _log = Logger('providers.query');
 

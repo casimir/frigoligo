@@ -10,7 +10,7 @@ import 'package:universal_platform/universal_platform.dart';
 
 import '../constants.dart';
 
-part 'settings.g.dart';
+part '_g/settings.g.dart';
 
 final _log = Logger('settings');
 

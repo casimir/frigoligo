@@ -7,7 +7,7 @@ import '../wallabag/endpoints.dart';
 import 'api.dart';
 import 'wallabag_api.dart';
 
-part 'wallabag.g.dart';
+part '_g/wallabag.g.dart';
 
 class WallabagClient extends ApiClient
     with WallabagClientEndpoints, WallabagMethods {

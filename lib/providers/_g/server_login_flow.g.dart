@@ -3,26 +3,28 @@
 // coverage:ignore-file
 
 
-part of 'settings.dart';
+part of '../server_login_flow.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$settingsHash() => r'fbb68aa6313ddaed0a53d3fb7b290b979fdc04b0';
+String _$serverLoginFlowHash() => r'f0b22ea3001568ae6f48dd5312a4a73c5d85b164';
 
-/// See also [Settings].
-@ProviderFor(Settings)
-final settingsProvider =
-    AutoDisposeNotifierProvider<Settings, Map<Sk, dynamic>>.internal(
-      Settings.new,
-      name: r'settingsProvider',
+/// See also [ServerLoginFlow].
+@ProviderFor(ServerLoginFlow)
+final serverLoginFlowProvider =
+    AutoDisposeNotifierProvider<ServerLoginFlow, FlowState>.internal(
+      ServerLoginFlow.new,
+      name: r'serverLoginFlowProvider',
       debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product') ? null : _$settingsHash,
+          const bool.fromEnvironment('dart.vm.product')
+              ? null
+              : _$serverLoginFlowHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
 
-typedef _$Settings = AutoDisposeNotifier<Map<Sk, dynamic>>;
+typedef _$ServerLoginFlow = AutoDisposeNotifier<FlowState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -8,7 +8,7 @@ import 'package:universal_platform/universal_platform.dart';
 
 import 'clients.dart';
 
-part 'session.g.dart';
+part '_g/session.g.dart';
 
 const _keyPrefix = kDebugMode ? 'debug.' : '';
 const sessionKey = '${_keyPrefix}server.session';

@@ -6,7 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'settings.dart';
 
-part 'reading_settings.g.dart';
+part '_g/reading_settings.g.dart';
 
 final _log = Logger('readingsettings');
 
@@ -14,8 +14,9 @@ final _log = Logger('readingsettings');
 class ReadingSettings extends _$ReadingSettings {
   @override
   ReaderSettingsValues build() {
-    final values =
-        ref.watch(settingsProvider.select((it) => it[Sk.readingSettings]));
+    final values = ref.watch(
+      settingsProvider.select((it) => it[Sk.readingSettings]),
+    );
     try {
       return ReaderSettingsValues.fromJson(values);
     } catch (e) {
@@ -75,8 +76,8 @@ TextStyle textStyleFromFontFamily(String family) {
 
 @JsonSerializable()
 class ReaderSettingsValues {
-// The default values are based on Material's "Body Large" text theme.
-// https://api.flutter.dev/flutter/material/TextTheme-class.html
+  // The default values are based on Material's "Body Large" text theme.
+  // https://api.flutter.dev/flutter/material/TextTheme-class.html
   ReaderSettingsValues({
     this.fontSize = 16.0,
     this.height = 1.5,
@@ -91,12 +92,9 @@ class ReaderSettingsValues {
   String fontFamily;
   bool justifyText;
 
-  TextStyle get textStyle =>
-      textStyleFromFontFamily(fontFamily).merge(TextStyle(
-        fontSize: fontSize,
-        height: height,
-        letterSpacing: letterSpacing,
-      ));
+  TextStyle get textStyle => textStyleFromFontFamily(fontFamily).merge(
+    TextStyle(fontSize: fontSize, height: height, letterSpacing: letterSpacing),
+  );
 
   factory ReaderSettingsValues.fromJson(Map<String, dynamic> json) =>
       _$ReaderSettingsValuesFromJson(json);

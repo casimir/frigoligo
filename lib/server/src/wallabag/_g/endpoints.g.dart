@@ -3,7 +3,7 @@
 // coverage:ignore-file
 
 
-part of 'endpoints.dart';
+part of '../endpoints.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

@@ -3,7 +3,7 @@
 // coverage:ignore-file
 
 
-part of 'query.dart';
+part of '../query.dart';
 
 // **************************************************************************
 // RiverpodGenerator

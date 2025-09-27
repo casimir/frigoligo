@@ -4,7 +4,7 @@ import '../../app_info.dart';
 import '../clients.dart';
 import '../session.dart';
 
-part 'client.g.dart';
+part '_g/client.g.dart';
 
 @riverpod
 class Session extends _$Session {

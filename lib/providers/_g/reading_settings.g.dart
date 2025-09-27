@@ -3,7 +3,7 @@
 // coverage:ignore-file
 
 
-part of 'reading_settings.dart';
+part of '../reading_settings.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

@@ -3,7 +3,7 @@
 // coverage:ignore-file
 
 
-part of 'wallabag.dart';
+part of '../wallabag.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

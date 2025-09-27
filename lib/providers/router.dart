@@ -16,7 +16,7 @@ import '../ui/logconsole/widgets/logconsole_screen.dart';
 import 'article.dart';
 import 'server_login_flow.dart';
 
-part 'router.g.dart';
+part '_g/router.g.dart';
 
 @riverpod
 GoRouter router(Ref ref) {

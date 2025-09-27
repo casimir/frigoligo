@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'types.g.dart';
+part '_g/types.g.dart';
 
 bool int2bool(int value) => value == 1;
 

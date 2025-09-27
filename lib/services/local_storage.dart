@@ -11,7 +11,7 @@ import '../providers/settings.dart';
 import '../server/clients.dart';
 import '../server/providers/client.dart';
 
-part 'local_storage.g.dart';
+part '_g/local_storage.g.dart';
 
 final _log = Logger('storage');
 
