@@ -56,6 +56,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(sync)* Rework actions serialization to support code mangling ([#363](https://github.com/casimir/frigoligo/pull/363)) ([41715f6](https://github.com/casimir/frigoligo/commit/41715f6182aefb26b3b95d55c984d06a240929b9))
 - *(clients)* Rewrite and reorganize existing API clients ([#376](https://github.com/casimir/frigoligo/pull/376)) ([2f9bdff](https://github.com/casimir/frigoligo/commit/2f9bdff7f69348e5219412867a8e0f8814eb471b))
 - Use flutter's own adpative share icon ([434d36f](https://github.com/casimir/frigoligo/commit/434d36f2e02763624d52f2b3ac64fee3a277effa))
+- Rework logging management ([#410](https://github.com/casimir/frigoligo/pull/410)) ([2eb2de5](https://github.com/casimir/frigoligo/commit/2eb2de504372acbe039c850bcc94234399470069))
 
 ### ⚡ Performance
 
