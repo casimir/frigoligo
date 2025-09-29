@@ -538,5 +538,9 @@
                 "format": "compact"
             }
         }
+    },
+    "logconsole_clear_logs": "Limpar rexistro",
+    "@logconsole_clear_logs": {
+        "description": "The action to clear the logs."
     }
 }
