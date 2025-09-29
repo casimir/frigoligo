@@ -13,8 +13,9 @@ import '../../../../../../constants.dart';
 Future<File> getDBPath(bool devmode, {bool container = true}) async {
   late Directory rootDir;
   if (UniversalPlatform.isIOS && container) {
-    final containerPath = await PathProviderFoundation()
-        .getContainerPath(appGroupIdentifier: appGroupId);
+    final containerPath = await PathProviderFoundation().getContainerPath(
+      appGroupIdentifier: appGroupId,
+    );
     rootDir = Directory(containerPath!);
   } else {
     rootDir = await getApplicationSupportDirectory();
@@ -70,4 +71,11 @@ Future<void> _moveToContainer(bool devmode) async {
     source.copySync(dest.path);
     source.deleteSync();
   }
+}
+
+QueryExecutor inMemory() {
+  return DatabaseConnection(
+    NativeDatabase.memory(),
+    closeStreamsSynchronously: true,
+  );
 }

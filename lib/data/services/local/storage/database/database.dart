@@ -18,7 +18,7 @@ final _log = Logger('services.local.storage.database');
   daos: [ArticlesDao, MetadataDao],
 )
 class DB extends $DB {
-  DB() : super(openConnection());
+  DB([QueryExecutor? e]) : super(e ?? openConnection());
 
   @override
   int get schemaVersion => 7;

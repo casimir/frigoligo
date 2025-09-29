@@ -1,13 +1,14 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:frigoligo/data/repositories/logger_repository.dart';
+import 'package:frigoligo/data/services/local/storage/database/connection/native.dart';
+import 'package:frigoligo/data/services/local/storage/database/database.dart';
+import 'package:frigoligo/data/services/local/storage/logging_storage_service.dart';
 import 'package:frigoligo/data/services/platform/sharing/sharing_service.dart';
 import 'package:frigoligo/domain/repositories.dart';
 import 'package:frigoligo/ui/logconsole/viewmodels/logconsole_viewmodel.dart';
 import 'package:logging/logging.dart';
 import 'package:mocktail/mocktail.dart';
-
-import '../../../../testing/services/inmemory_logging_storage_service.dart';
 
 class MockSharingService extends Mock implements SharingService {}
 
@@ -17,18 +18,24 @@ void main() {
     const logMessages = ['pre begin', startingAppMessage, 'post begin'];
 
     late LogConsoleViewModel viewModel;
+    late DB db;
     late LoggerRepository loggerRepository;
     late MockSharingService mockSharingService;
 
     setUp(() {
+      db = DB(inMemory());
       loggerRepository = LoggerRepositoryImpl(
-        loggingStorageService: InMemoryLoggingStorageService(),
+        loggingStorageService: LoggingStorageService(db: db),
         startingAppMessage: startingAppMessage,
         maxLogCount: 10,
       )..registerLogHandler(false);
 
+      int loggerOffset = 1;
       for (var message in logMessages) {
-        Logger.root.info(message);
+        loggerRepository.appendLog(
+          LogRecord(Level.INFO, message, ''),
+          offset: Duration(seconds: loggerOffset++),
+        );
       }
 
       mockSharingService = MockSharingService();
@@ -38,8 +45,9 @@ void main() {
       );
     });
 
-    tearDown(() {
-      Logger.root.clearListeners();
+    tearDown(() async {
+      loggerRepository.unregisterLogHandler();
+      await db.close();
     });
 
     test('get*LogCount methods should return the correct counts', () async {

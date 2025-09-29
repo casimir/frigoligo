@@ -6,25 +6,16 @@ import 'database/models/app_log.drift.dart';
 
 export 'database/models/app_log.drift.dart' show AppLog;
 
-abstract interface class LoggingStorageService {
-  Future<int> append(LogRecord record);
-  Future<int> getCount({DateTime? since});
-  Future<List<AppLog>> getAll({DateTime? since});
-  Future<int> deleteBefore(DateTime time);
-  Future<int> deleteAll();
-  Future<AppLog?> findLatestOf(String message);
-}
-
-class LoggingStorageServiceImpl implements LoggingStorageService {
-  LoggingStorageServiceImpl({required DB db}) : _db = db;
+class LoggingStorageService {
+  LoggingStorageService({required DB db}) : _db = db;
 
   final DB _db;
 
   @override
-  Future<int> append(LogRecord record) {
+  Future<int> append(LogRecord record, {Duration? offset}) {
     return _db.appLogs.insertOne(
       AppLogsCompanion.insert(
-        time: record.time,
+        time: record.time.add(offset ?? Duration.zero),
         level: record.level.name,
         loggerName: record.loggerName,
         message: record.message,

@@ -20,7 +20,7 @@ void setupDependencies() {
   final db = DB();
   d.registerLazySingleton(() => LocalStorageService(db: db));
   d.registerLazySingleton<LoggingStorageService>(
-    () => LoggingStorageServiceImpl(db: db),
+    () => LoggingStorageService(db: db),
   );
 
   // platorm services

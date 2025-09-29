@@ -1,22 +1,31 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:frigoligo/data/repositories/logger_repository.dart';
+import 'package:frigoligo/data/services/local/storage/database/connection/native.dart';
+import 'package:frigoligo/data/services/local/storage/database/database.dart';
+import 'package:frigoligo/data/services/local/storage/logging_storage_service.dart';
 import 'package:frigoligo/domain/repositories.dart';
 import 'package:logging/logging.dart';
 
-import '../../../testing/services/inmemory_logging_storage_service.dart';
-
 void main() {
   group('LoggerRepositoryImpl', () {
-    late LoggerRepository loggerRepository;
     const startingAppMessage = 'BEGIN';
     const maxLogCount = 10;
 
+    late DB db;
+    late LoggerRepository loggerRepository;
+
     setUp(() {
+      db = DB(inMemory());
       loggerRepository = LoggerRepositoryImpl(
-        loggingStorageService: InMemoryLoggingStorageService(),
+        loggingStorageService: LoggingStorageService(db: db),
         startingAppMessage: startingAppMessage,
         maxLogCount: maxLogCount,
       )..registerLogHandler(false);
+    });
+
+    tearDown(() async {
+      loggerRepository.unregisterLogHandler();
+      await db.close();
     });
 
     test('should append log sent by the loggers', () async {
@@ -33,13 +42,21 @@ void main() {
     });
 
     test('should be able to isolate the current run logs', () async {
-      Logger.root.info('message pre');
+      int logOffset = 1;
+      Future<void> appendLogWithOffset(String message) async {
+        await loggerRepository.appendLog(
+          LogRecord(Level.INFO, message, ''),
+          offset: Duration(seconds: logOffset++),
+        );
+      }
+
+      await appendLogWithOffset('message pre');
 
       expect(await loggerRepository.getLogCount(), equals(1));
       expect(await loggerRepository.getCurrentRunLogCount(), equals(0));
 
-      Logger.root.info(startingAppMessage);
-      Logger.root.info('message post');
+      await appendLogWithOffset(startingAppMessage);
+      await appendLogWithOffset('message post');
 
       expect(await loggerRepository.getCurrentRunLogCount(), equals(2));
 
@@ -76,14 +93,22 @@ void main() {
     });
 
     test('should truncate logs when max log count is reached', () async {
-      for (var i = 0; i < maxLogCount - 1; i++) {
-        Logger.root.info('message $i');
+      int logOffset = maxLogCount + 1;
+      Future<void> appendLogWithOffset(String message) async {
+        await loggerRepository.appendLog(
+          LogRecord(Level.INFO, message, ''),
+          offset: Duration(seconds: -(logOffset--)),
+        );
       }
-      Logger.root.info(startingAppMessage);
+
+      for (var i = 0; i < maxLogCount - 1; i++) {
+        await appendLogWithOffset('message $i');
+      }
+      await appendLogWithOffset(startingAppMessage);
 
       expect(await loggerRepository.getLogCount(), equals(maxLogCount));
 
-      //direct call because we need to wait for the background logic to finish
+      // direct call because we need to wait for the background logic to finish
       await loggerRepository.appendLog(LogRecord(Level.INFO, 'message+1', ''));
 
       expect(await loggerRepository.getLogCount(), equals(2));
