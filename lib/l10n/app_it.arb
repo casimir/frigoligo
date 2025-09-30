@@ -568,5 +568,9 @@
                 "format": "compact"
             }
         }
+    },
+    "logconsole_clear_logs": "Elimina registri",
+    "@logconsole_clear_logs": {
+        "description": "The action to clear the logs."
     }
 }
