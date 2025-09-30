@@ -47,6 +47,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(logconsole)* Avoid special characters in exported file name ([da3cdbd](https://github.com/casimir/frigoligo/commit/da3cdbd1c059bf760fae6f5e440f498da8465f5d))
 - *(logconsole)* Fix unreadable log lines in dark mode ([bccc8a5](https://github.com/casimir/frigoligo/commit/bccc8a5d4b05be66502156b4e7707cd1726b6ec4))
 - *(iOS)* Handle a casing issue in AppIcon files ([cf153b0](https://github.com/casimir/frigoligo/commit/cf153b033c6694b1ae1644d7e9b7f9aa9693f92c))
+- Add a missing import ([095fb57](https://github.com/casimir/frigoligo/commit/095fb5703aeaac2a960da08cf46d9e4b55651c86))
 
 ### 🚜 Refactor
 
@@ -63,6 +64,10 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 ### ⚡ Performance
 
 - *(sync)* Avoid duplicate refresh actions on session change ([3e0ae22](https://github.com/casimir/frigoligo/commit/3e0ae22fcd2007d7057d6baf981c1ca6e1b9b5c3))
+
+### 🧪 Testing
+
+- *(logging)* Use a real (in memory) database for in tests ([7434744](https://github.com/casimir/frigoligo/commit/74347449727f12db8f0ec5b05eeb0527e1046b21))
 
 ### 🌐 Translations
 
