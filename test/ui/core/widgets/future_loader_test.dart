@@ -9,7 +9,7 @@ import 'package:frigoligo/ui/core/widgets/future_loader.dart';
 void main() {
   group('FutureLoader', () {
     testWidgets(
-      'should show loading indicator until the data is loaded and the builder is called',
+      'should show a loading indicator until the data is loaded and the builder is called',
       (tester) async {
         final completer = Completer();
 
@@ -33,7 +33,7 @@ void main() {
       },
     );
 
-    testWidgets('should show error when the future fails', (tester) async {
+    testWidgets('should show an error when the future fails', (tester) async {
       final completer = Completer();
 
       await tester.pumpWidget(
