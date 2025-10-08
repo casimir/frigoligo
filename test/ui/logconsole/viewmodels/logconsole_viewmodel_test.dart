@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 import 'package:frigoligo/data/repositories/logger_repository.dart';
 import 'package:frigoligo/data/services/local/storage/database/connection/native.dart';
 import 'package:frigoligo/data/services/local/storage/database/database.dart';
@@ -31,7 +31,7 @@ void main() {
       )..registerLogHandler(false);
 
       int loggerOffset = 1;
-      for (var message in logMessages) {
+      for (final message in logMessages) {
         loggerRepository.appendLog(
           LogRecord(Level.INFO, message, ''),
           offset: Duration(seconds: loggerOffset++),

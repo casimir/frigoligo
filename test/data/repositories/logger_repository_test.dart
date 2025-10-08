@@ -1,4 +1,4 @@
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 import 'package:frigoligo/data/repositories/logger_repository.dart';
 import 'package:frigoligo/data/services/local/storage/database/connection/native.dart';
 import 'package:frigoligo/data/services/local/storage/database/database.dart';
