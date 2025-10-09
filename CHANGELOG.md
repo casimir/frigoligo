@@ -60,6 +60,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Rework logging management ([#410](https://github.com/casimir/frigoligo/pull/410)) ([2eb2de5](https://github.com/casimir/frigoligo/commit/2eb2de504372acbe039c850bcc94234399470069))
 - *(ui)* Introduce NavigationSplitView in preparation for the home layout rework ([#401](https://github.com/casimir/frigoligo/pull/401)) ([7169d4b](https://github.com/casimir/frigoligo/commit/7169d4bcde5f8c90e4389a8c7896f4c61982f516))
 - Change generated source convention (moved into a _g/ dir) ([a0f5ddf](https://github.com/casimir/frigoligo/commit/a0f5ddf2ffffb62a4ded07c5b1fdc910b3dda756))
+- *(core)* Add another async loader for AsyncValue ([f7e220e](https://github.com/casimir/frigoligo/commit/f7e220ed540f4a0f7367006cbe08448d55e48050))
 
 ### ⚡ Performance
 
@@ -68,6 +69,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 ### 🧪 Testing
 
 - *(logging)* Use a real (in memory) database for in tests ([7434744](https://github.com/casimir/frigoligo/commit/74347449727f12db8f0ec5b05eeb0527e1046b21))
+- Avoid using flutter_test when not needed ([c244f0a](https://github.com/casimir/frigoligo/commit/c244f0a37ff2a3f4936281f8f0c57f738ed559d3))
 
 ### 🌐 Translations
 
