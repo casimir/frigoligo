@@ -51,3 +51,8 @@ articleIdsForText ($predicate = TRUE): SELECT articles.id FROM articles_fts
     WHERE articles_fts MATCH :query
       AND $predicate
     ORDER BY rank;
+
+articleCountForText ($predicate = TRUE): SELECT COUNT(articles.id) FROM articles_fts
+    JOIN articles ON articles.id = articles_fts.rowid
+    WHERE articles_fts MATCH :query
+      AND $predicate;

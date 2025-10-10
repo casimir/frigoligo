@@ -11,7 +11,6 @@ class LoggingStorageService {
 
   final DB _db;
 
-  @override
   Future<int> append(LogRecord record, {Duration? offset}) {
     return _db.appLogs.insertOne(
       AppLogsCompanion.insert(
@@ -25,7 +24,6 @@ class LoggingStorageService {
     );
   }
 
-  @override
   Future<int> getCount({DateTime? since}) async {
     Expression<bool> Function(AppLogs)? where;
     if (since != null) {
@@ -34,7 +32,6 @@ class LoggingStorageService {
     return await _db.appLogs.count(where: where).getSingle();
   }
 
-  @override
   Future<List<AppLog>> getAll({DateTime? since}) async {
     final query = _db.select(_db.appLogs);
 
@@ -46,18 +43,15 @@ class LoggingStorageService {
     return await query.get();
   }
 
-  @override
   Future<int> deleteBefore(DateTime time) {
     return (_db.delete(_db.appLogs)
       ..where((t) => t.time.isSmallerThanValue(time))).go();
   }
 
-  @override
   Future<int> deleteAll() {
     return _db.delete(_db.appLogs).go();
   }
 
-  @override
   Future<AppLog?> findLatestOf(String message) {
     return (_db.select(_db.appLogs)
           ..where((t) => t.message.equals(message))
