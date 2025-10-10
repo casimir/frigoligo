@@ -2,6 +2,7 @@
 
 [![Chat on Matrix](https://img.shields.io/matrix/frigoligo%3Aone.ems.host?server_fqdn=matrix.org)](https://matrix.to/#/#frigoligo:one.ems.host)
 [![Translation status](https://hosted.weblate.org/widget/frigoligo/flutter/svg-badge.svg)](https://hosted.weblate.org/engage/frigoligo/)
+[![Test coverage](https://sonarcloud.io/api/project_badges/measure?project=casimir_frigoligo&metric=coverage)](https://sonarcloud.io/summary/new_code?id=casimir_frigoligo)
 
 Frigoligo is a [wallabag](https://wallabag.org/) client crafted using [Flutter](https://flutter.dev/). Its core philosophy is to prioritize pragmatism and adhere to best practices when it makes sense.
 
