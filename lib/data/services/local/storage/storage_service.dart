@@ -195,7 +195,7 @@ class ArticlesManager {
         : StorageQuery(_db.articles.count(where: predicate));
   }
 
-  Selectable<int> listIds({
+  StorageQuery<int> listIds({
     required String text,
     required TextMode textMode,
     required bool? archived,
@@ -210,15 +210,17 @@ class ArticlesManager {
       tags: tags,
       domains: domains,
     );
-    return text.isNotEmpty
-        ? _db.articleDrift.articleIdsForText(
-          _buildTextQuery(text),
-          predicate: (_, _) => whereStatement,
-        )
-        : (t.selectOnly()
-              ..addColumns([t.id])
-              ..where(whereStatement))
-            .map((row) => row.read(t.id)!);
+    final statement =
+        text.isNotEmpty
+            ? _db.articleDrift.articleIdsForText(
+              _buildTextQuery(text),
+              predicate: (_, _) => whereStatement,
+            )
+            : (t.selectOnly()
+                  ..addColumns([t.id])
+                  ..where(whereStatement))
+                .map((row) => row.read(t.id)!);
+    return StorageQuery(statement);
   }
 
   Future<List<String>> listDomains({
