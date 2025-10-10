@@ -1,0 +1,3 @@
+– Das Speichern von Artikeln ist jetzt offline möglich.
+– Eine Schaltfläche wurde hinzugefügt, um den Server zum erneuten Abrufen eines Artikels aufzufordern.
+– Neue Sprachen: Brasilianisches Portugiesisch.
