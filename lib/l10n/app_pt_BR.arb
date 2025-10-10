@@ -40,7 +40,7 @@
     "@g_share": {
         "description": "A verb, as in to share something."
     },
-    "g_sourceCode": "Código fonte",
+    "g_sourceCode": "Código-fonte",
     "@g_sourceCode": {
         "description": "The source code of a software."
     },
@@ -71,7 +71,7 @@
     "@article_browseOriginal": {
         "description": "The action to open the URL of the article in the web browser."
     },
-    "article_delete": "Deletar esse article",
+    "article_delete": "Deletar este artigo",
     "@article_delete": {
         "description": "The action to delete the article."
     },
@@ -471,7 +471,7 @@
     "@article_refetchContent": {
         "description": "The action to ask the server to fetch the article content again."
     },
-    "article_archive": "Arquivar esse artigo",
+    "article_archive": "Arquivar este artigo",
     "@article_archive": {
         "description": "The action to archive the article."
     },
@@ -483,19 +483,19 @@
     "@article_notFound": {
         "description": "Placeholder for when the article is not found."
     },
-    "article_share": "Compartilhar esse artigo",
+    "article_share": "Compartilhar este artigo",
     "@article_share": {
         "description": "The action to share the article."
     },
-    "article_star": "Favoritar esse artigo",
+    "article_star": "Favoritar este artigo",
     "@article_star": {
         "description": "The action to star the article."
     },
-    "article_unarchive": "Desarquivar esse artigo",
+    "article_unarchive": "Desarquivar este artigo",
     "@article_unarchive": {
         "description": "The action to unarchive the article."
     },
-    "article_unstar": "Desfavoritar esse artigo",
+    "article_unstar": "Desfavoritar este artigo",
     "@article_unstar": {
         "description": "The action to unstar the article."
     },
@@ -515,7 +515,7 @@
     "@server_versionNotSupported": {
         "description": "The server instance is not supported."
     },
-    "logconsole_export_title": "Exportar como um documento",
+    "logconsole_export_title": "Exportar como um arquivo",
     "@logconsole_export_title": {
         "description": "The title of the export as file dialog."
     },
@@ -538,5 +538,9 @@
                 "format": "compact"
             }
         }
+    },
+    "logconsole_clear_logs": "Limpar logs",
+    "@logconsole_clear_logs": {
+        "description": "The action to clear the logs."
     }
 }
