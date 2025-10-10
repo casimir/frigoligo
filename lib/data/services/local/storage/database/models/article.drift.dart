@@ -2010,6 +2010,28 @@ class ArticleDrift extends i3.ModularAccessor {
     ).map((i0.QueryRow row) => row.read<int>('id'));
   }
 
+  i0.Selectable<int> articleCountForText(
+    String query, {
+    ArticleCountForText$predicate? predicate,
+  }) {
+    var $arrayStartIndex = 2;
+    final generatedpredicate = $write(
+      predicate?.call(this.articlesFts, this.articles) ??
+          const i0.CustomExpression('(TRUE)'),
+      hasMultipleTables: true,
+      startIndex: $arrayStartIndex,
+    );
+    $arrayStartIndex += generatedpredicate.amountOfVariables;
+    return customSelect(
+      'SELECT COUNT(articles.id) AS _c0 FROM articles_fts JOIN articles ON articles.id = articles_fts."rowid" WHERE articles_fts MATCH ?1 AND ${generatedpredicate.sql}',
+      variables: [
+        i0.Variable<String>(query),
+        ...generatedpredicate.introducedVariables,
+      ],
+      readsFrom: {articles, articlesFts, ...generatedpredicate.watchedTables},
+    ).map((i0.QueryRow row) => row.read<int>('_c0'));
+  }
+
   i1.ArticlesFts get articlesFts => i3.ReadDatabaseContainer(
     attachedDatabase,
   ).resultSet<i1.ArticlesFts>('articles_fts');
@@ -2019,6 +2041,11 @@ class ArticleDrift extends i3.ModularAccessor {
 }
 
 typedef ArticleIdsForText$predicate =
+    i0.Expression<bool> Function(
+      i1.ArticlesFts articles_fts,
+      i1.Articles articles,
+    );
+typedef ArticleCountForText$predicate =
     i0.Expression<bool> Function(
       i1.ArticlesFts articles_fts,
       i1.Articles articles,

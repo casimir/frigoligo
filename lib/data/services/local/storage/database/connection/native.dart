@@ -75,7 +75,7 @@ Future<void> _moveToContainer(bool devmode) async {
 
 QueryExecutor inMemory() {
   return DatabaseConnection(
-    NativeDatabase.memory(),
+    NativeDatabase.memory(logStatements: enableSqlLogs),
     closeStreamsSynchronously: true,
   );
 }
