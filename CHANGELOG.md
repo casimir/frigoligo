@@ -61,6 +61,11 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(ui)* Introduce NavigationSplitView in preparation for the home layout rework ([#401](https://github.com/casimir/frigoligo/pull/401)) ([7169d4b](https://github.com/casimir/frigoligo/commit/7169d4bcde5f8c90e4389a8c7896f4c61982f516))
 - Change generated source convention (moved into a _g/ dir) ([a0f5ddf](https://github.com/casimir/frigoligo/commit/a0f5ddf2ffffb62a4ded07c5b1fdc910b3dda756))
 - *(core)* Add another async loader for AsyncValue ([f7e220e](https://github.com/casimir/frigoligo/commit/f7e220ed540f4a0f7367006cbe08448d55e48050))
+- Introduce more data repositories ([#411](https://github.com/casimir/frigoligo/pull/411)) ([2f56c07](https://github.com/casimir/frigoligo/commit/2f56c071d726e54dd41cbd6585c72b31af2a2ce9))
+
+### 📚 Documentation
+
+- Assume the situation about automated testing ([3f0a206](https://github.com/casimir/frigoligo/commit/3f0a206edc5175d9f66271b68081e38f22e301af))
 
 ### ⚡ Performance
 
