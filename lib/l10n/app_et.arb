@@ -568,5 +568,9 @@
                 "format": "compact"
             }
         }
+    },
+    "logconsole_clear_logs": "Kustuta logid",
+    "@logconsole_clear_logs": {
+        "description": "The action to clear the logs."
     }
 }

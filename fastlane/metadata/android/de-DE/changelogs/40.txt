@@ -1,0 +1,1 @@
+- Ein Fehler wurde behoben, der dazu führte, dass die Daten beim Neustart der App verloren gingen.
