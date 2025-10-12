@@ -139,12 +139,14 @@
       <description>
         <ul>
           <li>New languages: Italian and Dutch.</li>
+          <li xml:lang="de">Neue Sprachen: Italienisch und Niederländisch.</li>
           <li xml:lang="es">Idiomas nuevos: italiano y neerlandés.</li>
           <li xml:lang="et">Uued keeled: itaalia keel ja kreeka keel.</li>
           <li xml:lang="fr">Nouvelles langues : italien et néerlandais.</li>
           <li xml:lang="gl">Novos idiomas: italiano e neerlandés.</li>
           <li xml:lang="pt-BR">Novos idiomas: italiano e holandês.</li>
           <li xml:lang="ru">Новые языки: итальянский и голландский.</li>
+          <li xml:lang="zh-Hans">新增支持语言：意大利语和荷兰语。</li>
         </ul>
       </description>
     </release>
@@ -153,12 +155,14 @@
       <description>
         <ul>
           <li>Fixed a bug causing the data to be lost when restarting the app.</li>
+          <li xml:lang="de">Ein Fehler wurde behoben, der dazu führte, dass die Daten beim Neustart der App verloren gingen.</li>
           <li xml:lang="es">Se corrigió un error que causaba que se perdieran los datos al reiniciar la aplicación.</li>
           <li xml:lang="et">Parandasime vea, kus rakenduse käivitamisel tekkis andmekadu.</li>
           <li xml:lang="fr">Correction d'un bug provoquant la perte des données lors du redémarrage de l'application.</li>
           <li xml:lang="gl">Arranxo do problema que causaba a perda de datos ao reiniciar a app.</li>
           <li xml:lang="pt-BR">Corrigido um bug que causava a perda de dados ao reiniciar o aplicativo.</li>
           <li xml:lang="ru">Исправлена ошибка, приводившая к потере данных при перезапуске приложения.</li>
+          <li xml:lang="zh-Hans">修复了应用重启时导致数据丢失的缺陷。</li>
         </ul>
       </description>
     </release>
@@ -169,6 +173,9 @@
           <li>Saving an article is now possible offline.</li>
           <li>Add a button to ask the server to re-fetch an article.</li>
           <li>New languages: Brazilian Portuguese.</li>
+          <li xml:lang="de">– Das Speichern von Artikeln ist jetzt offline möglich.</li>
+          <li xml:lang="de">– Eine Schaltfläche wurde hinzugefügt, um den Server zum erneuten Abrufen eines Artikels aufzufordern.</li>
+          <li xml:lang="de">– Neue Sprachen: Brasilianisches Portugiesisch.</li>
           <li xml:lang="es">Ahora es posible guardar un artículo sin conexión.</li>
           <li xml:lang="es">Añade un botón para pedirle al servidor que vuelva a buscar un artículo.</li>
           <li xml:lang="es">Nuevos idiomas: portugués brasileño.</li>
@@ -187,6 +194,9 @@
           <li xml:lang="ru">Сохранение статьи теперь возможно в офлайн-режиме.</li>
           <li xml:lang="ru">Добавлена кнопка для повторной загрузки статьи.</li>
           <li xml:lang="ru">Новый язык: бразильский португальский.</li>
+          <li xml:lang="zh-Hans">现已支持离线保存文章。</li>
+          <li xml:lang="zh-Hans">新增重新获取文章的服务端请求按钮。</li>
+          <li xml:lang="zh-Hans">新增支持语言：巴西葡萄牙语。</li>
         </ul>
       </description>
     </release>
