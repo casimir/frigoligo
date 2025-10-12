@@ -15,21 +15,23 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
-import '../../buildcontext_extension.dart';
-import '../../color_extension.dart';
-import '../../config/dependencies.dart';
-import '../../constants.dart';
-import '../../data/services/local/storage/database/models/article.drift.dart';
-import '../../data/services/local/storage/storage_service.dart';
-import '../../providers/article.dart';
-import '../../providers/reading_settings.dart';
-import '../../providers/settings.dart';
-import '../../widgets/html_widget_plus.dart';
+import '../../../buildcontext_extension.dart';
+import '../../../color_extension.dart';
+import '../../../config/dependencies.dart';
+import '../../../constants.dart';
+import '../../../data/services/local/storage/storage_service.dart';
+import '../../../providers/article.dart' hide ArticleData;
+import '../../../providers/reading_settings.dart';
+import '../../../providers/settings.dart';
+import '../../../widgets/html_widget_plus.dart';
+import '../../core/widgets/async_value_loader.dart';
+import '../../core/widgets/future_loader.dart';
+import '../states.dart';
 
 class ArticleContentEmpty extends StatelessWidget {
   const ArticleContentEmpty({super.key, required this.articleUrl});
 
-  final Uri articleUrl;
+  final Uri? articleUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -42,10 +44,11 @@ class ArticleContentEmpty extends StatelessWidget {
             style: Theme.of(context).textTheme.headlineSmall,
           ),
           C.spacers.verticalContent,
-          ElevatedButton(
-            onPressed: () => launchUrl(articleUrl),
-            child: Text(context.L.article_openInBrowser),
-          ),
+          if (articleUrl != null)
+            ElevatedButton(
+              onPressed: () => launchUrl(articleUrl!),
+              child: Text(context.L.article_openInBrowser),
+            ),
         ],
       ),
     );
@@ -57,65 +60,80 @@ typedef ProgressCallback =
 typedef ProgressScrollTo = Future<void> Function(double pixels);
 typedef ProgressScroller = Future<void> Function(ProgressScrollTo);
 
-class ArticleContent extends ConsumerStatefulWidget {
-  const ArticleContent({super.key, required this.article});
+class ArticleContent extends ConsumerWidget {
+  const ArticleContent({super.key, required this.articleId});
 
-  final Article article;
+  final int articleId;
 
   @override
-  ConsumerState<ArticleContent> createState() => _ArticleContentState();
-}
-
-class _ArticleContentState extends ConsumerState<ArticleContent> {
-  Future<void> _onScrollReady(ProgressScrollTo scrollTo) async {
-    final scrollPosition = await ref.read(
-      scrollPositionProvider(widget.article.id).future,
+  Widget build(BuildContext context, WidgetRef ref) {
+    print('ArticleContent build');
+    return AsyncValueLoader(
+      value: ref.watch(articleContentStateProvider(articleId)),
+      builder: (context, content) => buildLoaded(context, ref, content!),
     );
-    final progress = scrollPosition?.progress;
-    if (progress != null && progress > 0) {
-      await scrollTo(progress);
-    }
   }
 
-  Future<void> _onScroll(double progress, bool isScrolling) async {
-    if (progress.isNaN) progress = 0;
-    ref.read(currentReadingProgressProvider.notifier).progress = progress;
-
-    if (!isScrolling) {
-      final LocalStorageService storageService = dependencies.get();
-      await storageService.db.articlesDao.saveScrollProgress(
-        widget.article,
-        progress,
+  Widget buildLoaded(BuildContext context, WidgetRef ref, String content) {
+    Future<void> onScrollReady(ProgressScrollTo scrollTo) async {
+      final scrollPosition = await ref.read(
+        scrollPositionProvider(articleId).future,
       );
+      final progress = scrollPosition?.progress;
+      if (progress != null && progress > 0) {
+        await scrollTo(progress);
+      }
     }
-  }
 
-  @override
-  Widget build(BuildContext context) {
-    final useNativeRenderer =
-        ref.read(settingsProvider)[Sk.nativeArticleRenderer];
-    return nativeArticleRendererSupported && useNativeRenderer
-        ? _WebViewContent(
-          article: widget.article,
-          onReadyToScroll: _onScrollReady,
-          onScrollUpdate: _onScroll,
-        )
-        : _HtmlWidgetContent(
-          article: widget.article,
-          onScrollReady: _onScrollReady,
-          onScroll: _onScroll,
+    Future<void> onScroll(double progress, bool isScrolling) async {
+      if (progress.isNaN) progress = 0;
+      ref.read(currentReadingProgressProvider.notifier).progress = progress;
+
+      final LocalStorageService localStorageService = dependencies.get();
+
+      if (!isScrolling) {
+        await localStorageService.db.articlesDao.saveScrollProgress(
+          articleId,
+          progress,
         );
+      }
+    }
+
+    return FutureLoader(
+      future: ref.watch(
+        articleStateProvider(articleId).selectAsync((a) => a?.title),
+      ),
+      builder: (context, title) {
+        final useNativeRenderer =
+            ref.read(settingsProvider)[Sk.nativeArticleRenderer];
+        return nativeArticleRendererSupported && useNativeRenderer
+            ? _WebViewContent(
+              title: title!,
+              content: content,
+              onReadyToScroll: onScrollReady,
+              onScrollUpdate: onScroll,
+            )
+            : _HtmlWidgetContent(
+              title: title!,
+              content: content,
+              onScrollReady: onScrollReady,
+              onScroll: onScroll,
+            );
+      },
+    );
   }
 }
 
 class _HtmlWidgetContent extends ConsumerWidget {
   const _HtmlWidgetContent({
-    required this.article,
+    required this.title,
+    required this.content,
     required this.onScrollReady,
     required this.onScroll,
   });
 
-  final Article article;
+  final String title;
+  final String content;
   final ProgressScroller onScrollReady;
   final ProgressCallback onScroll;
 
@@ -131,8 +149,8 @@ class _HtmlWidgetContent extends ConsumerWidget {
             children: [
               PaddedGroup(
                 child: HtmlWidgetPlus(
-                  article.content!,
-                  title: article.title,
+                  content,
+                  title: title,
                   onTreeBuilt:
                       (_) => onScrollReady((progress) async {
                         final controller = PrimaryScrollController.of(context);
@@ -222,16 +240,17 @@ class ArticleContentRenderer {
     }
   }
 
-  ArticleContentRenderer({required this.article});
+  ArticleContentRenderer({required this.title, required this.content});
 
-  final Article article;
+  final String title;
+  final String content;
   String? _rendered;
 
   void execute(ColorScheme colors, ReaderSettingsValues settings) {
     final context = {
       'articleClass': settings.justifyText ? 'justified' : '',
-      'articleContent': article.content!,
-      'articleTitle': const HtmlEscape().convert(article.title),
+      'articleContent': content,
+      'articleTitle': const HtmlEscape().convert(title),
       'colorScheme': colorSchemeCss(colors),
       'readingSettings': readingSettingsCss(settings),
     };
@@ -283,12 +302,14 @@ class ArticleContentRenderer {
 
 class _WebViewContent extends ConsumerStatefulWidget {
   const _WebViewContent({
-    required this.article,
+    required this.title,
+    required this.content,
     this.onReadyToScroll,
     this.onScrollUpdate,
   });
 
-  final Article article;
+  final String title;
+  final String content;
   final ProgressScroller? onReadyToScroll;
   final ProgressCallback? onScrollUpdate;
 
@@ -307,7 +328,10 @@ class _WebViewArticleRendererState extends ConsumerState<_WebViewContent> {
   void initState() {
     super.initState();
 
-    _renderer = ArticleContentRenderer(article: widget.article);
+    _renderer = ArticleContentRenderer(
+      title: widget.title,
+      content: widget.content,
+    );
 
     late final PlatformWebViewControllerCreationParams params;
     if (WebViewPlatform.instance is WebKitWebViewPlatform) {

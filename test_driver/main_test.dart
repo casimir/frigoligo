@@ -79,7 +79,6 @@ Future<void> main() async {
       await driver.enterText(testCredentials.password);
       await driver.sendTextInputAction(TextInputAction.next);
       await takeScreenshot('loginflow-credentials');
-      // await driver.tap(find.byValueKey(wkLoginFlowLogIn));
     });
 
     test('listing', () async {

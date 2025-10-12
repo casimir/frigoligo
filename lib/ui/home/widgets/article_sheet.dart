@@ -1,33 +1,27 @@
 import 'package:cadanse/cadanse.dart';
 import 'package:cadanse/components/layouts/grouping.dart';
-import 'package:cadanse/components/widgets/error.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../buildcontext_extension.dart';
-import '../../config/dependencies.dart';
-import '../../data/services/local/storage/database/models/article.drift.dart';
-import '../../data/services/local/storage/storage_service.dart';
-import '../../services/remote_sync.dart';
-import '../../services/remote_sync_actions.dart';
-import '../../widgets/copiable_text.dart';
-import '../../widgets/selectors.dart';
-import '../../widgets/tag_list.dart';
-import 'mixins.dart';
+import '../../../buildcontext_extension.dart';
+import '../../../config/dependencies.dart';
+import '../../../domain/models/article_data.dart';
+import '../../../services/remote_sync.dart';
+import '../../../services/remote_sync_actions.dart';
+import '../../../widgets/copiable_text.dart';
+import '../../../widgets/selectors.dart';
+import '../../../widgets/tag_list.dart';
 
-class ArticleSheet extends ConsumerWidget with CurrentArticleWidget {
-  const ArticleSheet({super.key});
+class ArticleSheet extends ConsumerWidget {
+  const ArticleSheet({super.key, required this.data});
+
+  final ArticleData data;
 
   @override
-  Widget buildArticle(BuildContext context, WidgetRef ref, Article? article) {
-    if (article == null) {
-      // Should never happen but the mixin signature imposes this check.
-      return ErrorScreen(error: context.L.article_notFound);
-    }
-
+  Widget build(BuildContext context, WidgetRef ref) {
     return SingleChildScrollView(
       child: PaddedGroup(
         child: Column(
@@ -36,19 +30,19 @@ class ArticleSheet extends ConsumerWidget with CurrentArticleWidget {
             ..._buildField(
               context,
               context.L.articlefields_title,
-              value: article.title,
+              value: data.title,
             ),
             C.spacers.verticalContent,
             ..._buildField(
               context,
               context.L.articlefields_website,
-              value: article.domainName ?? article.url,
+              value: data.domainName ?? data.url,
             ),
             C.spacers.verticalContent,
             ..._buildField(
               context,
               context.L.articlefields_readingTime,
-              value: context.L.article_readingTime(article.readingTime),
+              value: context.L.article_readingTime(data.readingTime),
             ),
             C.spacers.verticalContent,
             ActionChip(
@@ -59,7 +53,7 @@ class ArticleSheet extends ConsumerWidget with CurrentArticleWidget {
                   context.pop();
                 }
                 final syncer = ref.read(remoteSyncerProvider.notifier);
-                await syncer.add(RefetchArticleAction(article.id));
+                await syncer.add(RefetchArticleAction(data.id));
                 await syncer.synchronize();
               },
             ),
@@ -71,13 +65,15 @@ class ArticleSheet extends ConsumerWidget with CurrentArticleWidget {
               style: Theme.of(context).textTheme.titleMedium,
             ),
             C.spacers.verticalContent,
-            article.tags.isNotEmpty
+            data.tags.isNotEmpty
                 ? TagList(
-                  tags: article.tags,
-                  onTagPressed: (_) => _showTagsDialog(context, ref, article),
+                  tags: data.tags,
+                  onTagPressed:
+                      (_) => _showTagsDialog(context, ref, data.id, data.tags),
                 )
                 : TextButton(
-                  onPressed: () => _showTagsDialog(context, ref, article),
+                  onPressed:
+                      () => _showTagsDialog(context, ref, data.id, data.tags),
                   child: Text(context.L.article_addTags),
                 ),
             C.spacers.verticalContent,
@@ -87,12 +83,12 @@ class ArticleSheet extends ConsumerWidget with CurrentArticleWidget {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  _ShareChip(article),
+                  _ShareChip(data.title, data.url),
                   C.spacers.horizontalComponent,
                   ActionChip(
                     avatar: const Icon(Icons.open_in_browser),
                     label: Text(context.L.article_openInBrowser),
-                    onPressed: () => launchUrl(Uri.parse(article.url)),
+                    onPressed: () => launchUrl(Uri.parse(data.url)),
                   ),
                 ],
               ),
@@ -126,29 +122,31 @@ class ArticleSheet extends ConsumerWidget with CurrentArticleWidget {
 void _showTagsDialog(
   BuildContext context,
   WidgetRef ref,
-  Article article,
+  int articleId,
+  List<String> articleTags,
 ) async {
-  final LocalStorageService storageService = dependencies.get();
+  final TagRepository tagRepository = dependencies.get();
   final tags = await showBottomSheetSelector(
     context: context,
     title: context.L.filters_articleTags,
     selectionLabelizer: context.L.filters_articleTagsCount,
-    entriesBuilder: storageService.db.articlesDao.listAllTags(),
-    initialSelection: article.tags.toSet(),
+    entriesBuilder: tagRepository.getAll(),
+    initialSelection: articleTags.toSet(),
     leadingIcon: const Icon(Icons.label),
     addEntryIcon: const Icon(Icons.new_label_outlined),
   );
   if (tags != null) {
     final syncer = ref.read(remoteSyncerProvider.notifier);
-    await syncer.add(EditArticleAction(article.id, tags: tags.toList()));
+    await syncer.add(EditArticleAction(articleId, tags: tags.toList()));
     await syncer.synchronize();
   }
 }
 
 class _ShareChip extends StatefulWidget {
-  const _ShareChip(this.article);
+  const _ShareChip(this.title, this.url);
 
-  final Article article;
+  final String title;
+  final String url;
 
   @override
   State<_ShareChip> createState() => _ShareChipState();
@@ -167,8 +165,8 @@ class _ShareChipState extends State<_ShareChip> {
         final box = context.findRenderObject() as RenderBox?;
         SharePlus.instance.share(
           ShareParams(
-            text: widget.article.url,
-            subject: widget.article.title,
+            text: widget.url,
+            subject: widget.title,
             sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
           ),
         );
