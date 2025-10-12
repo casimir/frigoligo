@@ -8,26 +8,6 @@ import 'articles.drift.dart';
 class ArticlesDao extends DatabaseAccessor<DB> with $ArticlesDaoMixin {
   ArticlesDao(super.attachedDatabase);
 
-  Future<int> updateOne(Article article) {
-    return db.transaction(() async {
-      var count = await articles.insertOnConflictUpdate(
-        article.toCompanion(false),
-      );
-
-      final position =
-          await db.managers.articleScrollPositions
-              .filter((f) => f.id.equals(article.id))
-              .getSingleOrNull();
-      if (position != null && position.readingTime != article.readingTime) {
-        count += await articleScrollPositions.deleteWhere(
-          (f) => f.id.equals(article.id),
-        );
-      }
-
-      return count;
-    });
-  }
-
   Future<void> updateAll(Iterable<Article> allArticles) async {
     final index = {for (final it in allArticles) it.id: it.toCompanion(false)};
 
@@ -51,17 +31,6 @@ class ArticlesDao extends DatabaseAccessor<DB> with $ArticlesDaoMixin {
         batch.insertAllOnConflictUpdate(articles, index.values);
         batch.deleteWhere(t1, (f) => f.id.isIn(invalidPositions));
       });
-    });
-  }
-
-  Future<int> deleteOne(int articleId) {
-    return db.transaction(() async {
-      var count = 0;
-      count += await articles.deleteWhere((f) => f.id.equals(articleId));
-      count += await articleScrollPositions.deleteWhere(
-        (f) => f.id.equals(articleId),
-      );
-      return count;
     });
   }
 
@@ -98,28 +67,26 @@ class ArticlesDao extends DatabaseAccessor<DB> with $ArticlesDaoMixin {
         .get();
   }
 
-  Future<List<String>> listAllTags() async {
-    final tagLists =
-        await (articles.selectOnly()..addColumns([articles.tags]))
-            .map((row) => row.readWithConverter(articles.tags)!)
-            .get();
-    final tags = tagLists.expand((it) => it).toSet().toList();
-    tags.sort();
-    return tags;
-  }
-
   Future<int> countUnread() =>
       articles.count(where: (t) => t.archivedAt.isNull()).getSingle();
 
-  Future<void> saveScrollProgress(Article article, double progress) async {
-    await db.managers.articleScrollPositions.create(
-      (o) => o(
-        id: Value(article.id),
-        readingTime: article.readingTime,
-        progress: progress,
-      ),
-      mode: InsertMode.insertOrReplace,
-    );
+  Future<void> saveScrollProgress(int articleId, double progress) async {
+    await db.transaction(() async {
+      final readingTime =
+          await (db.articles.selectOnly()
+                ..addColumns([articles.readingTime])
+                ..where(articles.id.equals(articleId)))
+              .map((row) => row.read(articles.readingTime)!)
+              .getSingle();
+      await db.managers.articleScrollPositions.create(
+        (o) => o(
+          id: Value(articleId),
+          readingTime: readingTime,
+          progress: progress,
+        ),
+        mode: InsertMode.insertOrReplace,
+      );
+    });
   }
 }
 
