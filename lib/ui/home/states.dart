@@ -73,26 +73,35 @@ class QueryState with EquatableMixin {
 Future<QueryState> queryState(Ref ref) async {
   final queryRepository = ref.watch(queryRepositoryProvider);
 
-  final subscription = queryRepository.queryStream.listen((query) {
-    ref.invalidateSelf();
+  Set<int>? articleIds;
+  final subscription = queryRepository.watchArticleIds().listen((result) {
+    if (articleIds == null) {
+      articleIds = result.toSet();
+    } else if (articleIds != result.toSet()) {
+      ref.invalidateSelf();
+    }
   });
   ref.onDispose(() => subscription.cancel());
 
+  final query = queryRepository.query;
+  var availableDomains = query.domains.isNotEmpty ? query.domains : null;
+  var availableTags = query.tags.isNotEmpty ? query.tags : null;
+
   late final int resultCount;
-  late final List<String> availableDomains;
-  late final List<String> availableTags;
   await Future.wait([
     queryRepository.getResultCount().then((count) => resultCount = count),
-    queryRepository.listAvailableDomains().then(
-      (domains) => availableDomains = domains,
-    ),
-    queryRepository.listAvailableTags().then((tags) => availableTags = tags),
+    if (query.domains.isEmpty)
+      queryRepository.listAvailableDomains().then(
+        (domains) => availableDomains = domains,
+      ),
+    if (query.tags.isEmpty)
+      queryRepository.listAvailableTags().then((tags) => availableTags = tags),
   ]);
 
   return QueryState(
-    query: queryRepository.query,
+    query: query,
     resultCount: resultCount,
-    availableDomains: availableDomains,
-    availableTags: availableTags,
+    availableDomains: availableDomains!,
+    availableTags: availableTags!,
   );
 }
