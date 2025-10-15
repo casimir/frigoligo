@@ -11,9 +11,9 @@ import '../../../config/dependencies.dart';
 import '../../../domain/models/article_data.dart';
 import '../../../services/remote_sync.dart';
 import '../../../services/remote_sync_actions.dart';
-import '../../../widgets/copiable_text.dart';
 import '../../../widgets/selectors.dart';
 import '../../../widgets/tag_list.dart';
+import '../../core/widgets/copyable_text.dart';
 
 class ArticleSheet extends ConsumerWidget {
   const ArticleSheet({super.key, required this.data});
@@ -114,7 +114,8 @@ class ArticleSheet extends ConsumerWidget {
         ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
       ),
       C.spacers.verticalComponent,
-      valueWidget is Text ? CopiableText(valueWidget) : valueWidget,
+      // FIXME this line looks fishy
+      valueWidget is Text ? CopyableText(text: valueWidget) : valueWidget,
     ];
   }
 }
