@@ -3,7 +3,6 @@ import 'package:cadanse/cadanse.dart';
 import 'package:cadanse/components/layouts/container.dart';
 import 'package:cadanse/components/widgets/error.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -16,31 +15,8 @@ import '../server/clients.dart';
 import '../server/providers/client.dart';
 import '../server/session.dart';
 import '../services/local_storage.dart';
+import '../ui/core/widgets/copyable_text.dart';
 import '../widgets/async/text.dart';
-import '../widgets/copiable_text.dart';
-
-Widget _copyText(BuildContext context, String text, [bool obfuscate = false]) {
-  var content = text;
-  if (obfuscate) {
-    const showLen = 8;
-    final prefix = text.substring(0, showLen);
-    final suffix = text.substring(text.length - showLen);
-    content = '$prefix...$suffix';
-  }
-  return CopiableText(
-    Text(content, style: const TextStyle(fontFamily: 'monospace')),
-    value: text,
-    onCopy: (data) {
-      Clipboard.setData(ClipboardData(text: text)).then((_) {
-        if (context.mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(context.L.session_copiedToClipboard)),
-          );
-        }
-      });
-    },
-  );
-}
 
 class SessionDetailsPage extends ConsumerWidget {
   const SessionDetailsPage({super.key});
@@ -106,11 +82,11 @@ List<Widget> _buildFreonSession(BuildContext context, ServerSession session) {
   return [
     ListTile(
       title: Text(context.L.g_server),
-      subtitle: _copyText(context, credentials.server.toString()),
+      subtitle: _DataField(text: credentials.server.toString()),
     ),
     ListTile(
       title: Text(context.L.session_fieldApiToken),
-      subtitle: _copyText(context, credentials.apiToken, true),
+      subtitle: _DataField(text: credentials.apiToken, obfuscate: true),
     ),
   ];
 }
@@ -129,19 +105,22 @@ List<Widget> _buildWallabagSession(
   return [
     ListTile(
       title: Text(context.L.g_server),
-      subtitle: _copyText(context, credentials.server.toString()),
+      subtitle: _DataField(text: credentials.server.toString()),
     ),
     ListTile(
       title: Text(context.L.login_fieldClientId),
-      subtitle: _copyText(context, credentials.clientId, true),
+      subtitle: _DataField(text: credentials.clientId, obfuscate: true),
     ),
     ListTile(
       title: Text(context.L.login_fieldClientSecret),
-      subtitle: _copyText(context, credentials.clientSecret, true),
+      subtitle: _DataField(text: credentials.clientSecret, obfuscate: true),
     ),
     ListTile(
       title: Text(context.L.session_fieldAccessToken),
-      subtitle: _copyText(context, accessToken.toString(), accessToken != null),
+      subtitle: _DataField(
+        text: accessToken.toString(),
+        obfuscate: accessToken != null,
+      ),
     ),
     ListTile(
       title: Text(context.L.session_fieldTokenExpiration),
@@ -186,5 +165,30 @@ void _logout(BuildContext context, WidgetRef ref) async {
       .clearArticles(keepPositions: false);
   if (context.mounted) {
     context.go('/login');
+  }
+}
+
+class _DataField extends StatelessWidget {
+  const _DataField({required this.text, this.obfuscate = false});
+
+  final String text;
+  final bool obfuscate;
+
+  @override
+  Widget build(BuildContext context) {
+    late final String display;
+    if (obfuscate) {
+      const showLen = 8;
+      final prefix = text.substring(0, showLen);
+      final suffix = text.substring(text.length - showLen);
+      display = '$prefix...$suffix';
+    } else {
+      display = text;
+    }
+
+    return CopyableText(
+      text: Text(display, style: const TextStyle(fontFamily: 'monospace')),
+      data: text,
+    );
   }
 }

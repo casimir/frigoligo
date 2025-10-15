@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CopiableText extends StatelessWidget {
+  @Deprecated('Use the core version instead')
   const CopiableText(
     this.text, {
     super.key,
