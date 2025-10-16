@@ -7,7 +7,8 @@ import '../data/repositories/tag_repository.dart';
 import '../data/services/local/storage/database/database.dart';
 import '../data/services/local/storage/logging_storage_service.dart';
 import '../data/services/local/storage/storage_service.dart';
-import '../data/services/platform/sharing/sharing_service.dart';
+import '../data/services/platform/sharing_service.dart';
+import '../data/services/platform/urllauncher_service.dart';
 import '../domain/repositories.dart';
 import 'logging.dart';
 
@@ -28,7 +29,8 @@ void setupDependencies({DB? withDB}) {
 
   // platorm services
 
-  d.registerLazySingleton(() => SharingService());
+  d.registerLazySingleton(() => const SharingService());
+  d.registerLazySingleton(() => const UrlLauncherService());
 
   // repositories
 

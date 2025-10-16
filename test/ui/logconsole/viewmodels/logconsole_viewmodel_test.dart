@@ -4,7 +4,7 @@ import 'package:frigoligo/data/repositories/logger_repository.dart';
 import 'package:frigoligo/data/services/local/storage/database/connection/native.dart';
 import 'package:frigoligo/data/services/local/storage/database/database.dart';
 import 'package:frigoligo/data/services/local/storage/logging_storage_service.dart';
-import 'package:frigoligo/data/services/platform/sharing/sharing_service.dart';
+import 'package:frigoligo/data/services/platform/sharing_service.dart';
 import 'package:frigoligo/domain/repositories.dart';
 import 'package:frigoligo/ui/logconsole/viewmodels/logconsole_viewmodel.dart';
 import 'package:logging/logging.dart';

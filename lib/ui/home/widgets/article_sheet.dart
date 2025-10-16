@@ -2,22 +2,18 @@ import 'package:cadanse/cadanse.dart';
 import 'package:cadanse/components/layouts/grouping.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../buildcontext_extension.dart';
-import '../../../config/dependencies.dart';
 import '../../../domain/models/article_data.dart';
-import '../../../services/remote_sync.dart';
-import '../../../services/remote_sync_actions.dart';
 import '../../../widgets/selectors.dart';
-import '../../../widgets/tag_list.dart';
+import 'tag_list.dart';
 import '../../core/widgets/copyable_text.dart';
+import '../controllers/article_sheet_controller.dart';
 
 class ArticleSheet extends ConsumerWidget {
-  const ArticleSheet({super.key, required this.data});
+  const ArticleSheet({super.key, required this.controller, required this.data});
 
+  final ArticleSheetController controller;
   final ArticleData data;
 
   @override
@@ -49,12 +45,8 @@ class ArticleSheet extends ConsumerWidget {
               avatar: const Icon(Icons.refresh),
               label: Text(context.L.article_refetchContent),
               onPressed: () async {
-                if (context.mounted) {
-                  context.pop();
-                }
-                final syncer = ref.read(remoteSyncerProvider.notifier);
-                await syncer.add(RefetchArticleAction(data.id));
-                await syncer.synchronize();
+                Navigator.of(context).pop();
+                await controller.refetchContent();
               },
             ),
             C.spacers.verticalComponent,
@@ -69,11 +61,11 @@ class ArticleSheet extends ConsumerWidget {
                 ? TagList(
                   tags: data.tags,
                   onTagPressed:
-                      (_) => _showTagsDialog(context, ref, data.id, data.tags),
+                      (_) => _showTagsDialog(context, controller, data.tags),
                 )
                 : TextButton(
                   onPressed:
-                      () => _showTagsDialog(context, ref, data.id, data.tags),
+                      () => _showTagsDialog(context, controller, data.tags),
                   child: Text(context.L.article_addTags),
                 ),
             C.spacers.verticalContent,
@@ -83,12 +75,13 @@ class ArticleSheet extends ConsumerWidget {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  _ShareChip(data.title, data.url),
+                  _ShareChip(controller, data),
                   C.spacers.horizontalComponent,
                   ActionChip(
                     avatar: const Icon(Icons.open_in_browser),
                     label: Text(context.L.article_openInBrowser),
-                    onPressed: () => launchUrl(Uri.parse(data.url)),
+                    onPressed:
+                        () => controller.openInBrowser(Uri.parse(data.url)),
                   ),
                 ],
               ),
@@ -103,74 +96,53 @@ class ArticleSheet extends ConsumerWidget {
     BuildContext context,
     String label, {
     String? value,
-    Widget? child,
   }) {
-    final valueWidget = child ?? Text(value ?? '');
+    final textTheme = Theme.of(context).textTheme;
     return [
       Text(
         label,
-        style: Theme.of(
-          context,
-        ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+        style: textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
       ),
       C.spacers.verticalComponent,
-      // FIXME this line looks fishy
-      valueWidget is Text ? CopyableText(text: valueWidget) : valueWidget,
+      CopyableText(text: Text(value ?? '')),
     ];
   }
 }
 
 void _showTagsDialog(
   BuildContext context,
-  WidgetRef ref,
-  int articleId,
+  ArticleSheetController controller,
   List<String> articleTags,
 ) async {
-  final TagRepository tagRepository = dependencies.get();
   final tags = await showBottomSheetSelector(
     context: context,
     title: context.L.filters_articleTags,
     selectionLabelizer: context.L.filters_articleTagsCount,
-    entriesBuilder: tagRepository.getAll(),
+    entriesBuilder: controller.allTags(),
     initialSelection: articleTags.toSet(),
     leadingIcon: const Icon(Icons.label),
     addEntryIcon: const Icon(Icons.new_label_outlined),
   );
   if (tags != null) {
-    final syncer = ref.read(remoteSyncerProvider.notifier);
-    await syncer.add(EditArticleAction(articleId, tags: tags.toList()));
-    await syncer.synchronize();
+    await controller.setTags(tags.toList());
   }
 }
 
-class _ShareChip extends StatefulWidget {
-  const _ShareChip(this.title, this.url);
+class _ShareChip extends StatelessWidget {
+  const _ShareChip(this.controller, this.data);
 
-  final String title;
-  final String url;
-
-  @override
-  State<_ShareChip> createState() => _ShareChipState();
-}
-
-class _ShareChipState extends State<_ShareChip> {
-  final _shareButtonKey = GlobalKey();
+  final ArticleSheetController controller;
+  final ArticleData data;
 
   @override
   Widget build(BuildContext context) {
     return ActionChip(
-      key: _shareButtonKey,
       avatar: Icon(Icons.adaptive.share),
       label: Text(context.L.g_share),
-      onPressed: () {
+      onPressed: () async {
         final box = context.findRenderObject() as RenderBox?;
-        SharePlus.instance.share(
-          ShareParams(
-            text: widget.url,
-            subject: widget.title,
-            sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
-          ),
-        );
+        final sharePositionOrigin = box!.localToGlobal(Offset.zero) & box.size;
+        await controller.share(data.title, data.url, sharePositionOrigin);
       },
     );
   }

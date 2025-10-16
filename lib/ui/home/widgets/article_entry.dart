@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../buildcontext_extension.dart';
 import '../../../constants.dart';
 import '../../../domain/models/article_data.dart';
-import '../../../widgets/tag_list.dart';
+import 'tag_list.dart';
 import '../../core/widgets/async_value_loader.dart';
 import '../controllers/article_entry_controller.dart';
 import '../states.dart';
