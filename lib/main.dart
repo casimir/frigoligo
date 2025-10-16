@@ -131,6 +131,8 @@ class _MyAppState extends ConsumerState<MyApp> {
 
 @pragma('vm:entry-point')
 Future<void> mainNativeShare() async {
+  setupDependencies();
+
   final log = Logger('mainNativeShare');
   setupLogger(log);
 
