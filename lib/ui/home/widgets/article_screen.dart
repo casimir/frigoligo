@@ -11,6 +11,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../buildcontext_extension.dart';
+import '../../../config/dependencies.dart';
 import '../../../constants.dart';
 import '../../../domain/models/article_data.dart';
 import '../../../pages/reading_settings_configurator.dart';
@@ -20,6 +21,7 @@ import '../../../widget_keys.dart';
 import '../../../widgets/remote_sync_progress_indicator.dart';
 import '../../core/widgets/async_value_loader.dart';
 import '../../core/widgets/navigation_split_view.dart';
+import '../controllers/article_sheet_controller.dart';
 import '../states.dart';
 import 'article_content.dart';
 import 'article_sheet.dart';
@@ -238,7 +240,19 @@ List<Widget> buildActions(
           () => showModalSheet(
             context: context,
             title: context.L.g_article,
-            builder: (_) => Material(child: ArticleSheet(data: data)),
+            builder:
+                (_) => Material(
+                  child: ArticleSheet(
+                    controller: ArticleSheetController(
+                      syncer: ref.read(remoteSyncerProvider.notifier),
+                      tagRepository: dependencies.get(),
+                      sharingService: dependencies.get(),
+                      urlLauncherService: dependencies.get(),
+                      articleId: data.id,
+                    ),
+                    data: data,
+                  ),
+                ),
           ),
     ),
     ArticleActionKey.openInBrowser: ArticleAction(
