@@ -62,6 +62,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Change generated source convention (moved into a _g/ dir) ([a0f5ddf](https://github.com/casimir/frigoligo/commit/a0f5ddf2ffffb62a4ded07c5b1fdc910b3dda756))
 - *(core)* Add another async loader for AsyncValue ([f7e220e](https://github.com/casimir/frigoligo/commit/f7e220ed540f4a0f7367006cbe08448d55e48050))
 - Introduce more data repositories ([#411](https://github.com/casimir/frigoligo/pull/411)) ([2f56c07](https://github.com/casimir/frigoligo/commit/2f56c071d726e54dd41cbd6585c72b31af2a2ce9))
+- *(core/ui)* Consolidate "copyable text" widgets ([f8a349e](https://github.com/casimir/frigoligo/commit/f8a349e46bcaebbc4a398c823938807559b8f0ed))
 
 ### 📚 Documentation
 
@@ -129,10 +130,15 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(analysis)* Include test/ in the sources ([ce10e1b](https://github.com/casimir/frigoligo/commit/ce10e1bf024964b66e09f10fa32b14ea1a5c4bb3))
 - Backport sonarqube settings changes ([7efaf0e](https://github.com/casimir/frigoligo/commit/7efaf0ed76c46ed050365fc6c60320a91344e895))
 - *(tests)* Ignore generated code when calculating coverage ([ab51417](https://github.com/casimir/frigoligo/commit/ab51417e5b25c6619cd17b23aae5eb16209f7b4d))
+- Don't run sonarqube scan without the secret + avoid double linux run ([7632406](https://github.com/casimir/frigoligo/commit/76324061f507d64e8a75f2ffc989d081e9649265))
 
 ### I18n
 
 - Adjust a wording ([86222a5](https://github.com/casimir/frigoligo/commit/86222a5f179fb455d7ed9086f3a7d78e7b87de8d))
+
+### Security
+
+- *(GHA)* Update SonarQube scan action to version 6 ([40202ae](https://github.com/casimir/frigoligo/commit/40202aecca59b7268bd235f6106b24849bede1d6))
 
 **Full Changelog**: [v2.4.0..HEAD](https://github.com/casimir/frigoligo/compare/v2.4.0..HEAD)
 
