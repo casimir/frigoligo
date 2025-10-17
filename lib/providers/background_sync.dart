@@ -52,5 +52,8 @@ void backgroundSync(Ref ref) {
         .catchError((e) {
           _log.info('failed to configure background task: $e');
         });
+  } else {
+    _log.info('starting one-shot background sync');
+    ref.read(remoteSyncerProvider.notifier).synchronize(withFinalRefresh: true);
   }
 }

@@ -7,7 +7,6 @@ import '../config/dependencies.dart';
 import '../constants.dart';
 import '../data/services/local/storage/database/models/article.drift.dart';
 import '../data/services/local/storage/storage_service.dart';
-import 'query.dart';
 import 'settings.dart';
 
 part '_g/article.g.dart';
@@ -77,29 +76,29 @@ class CurrentArticle extends _$CurrentArticle {
       }
     }
 
-    if (articleId == null) {
-      final meta = await ref.read(queryMetaProvider.future);
-      if (meta.ids.isNotEmpty) {
-        articleId = meta.ids.first;
-      } else {
-        _waitForArticles(meta);
-        return null;
-      }
-    }
+    // if (articleId == null) {
+    //   final meta = await ref.read(queryMetaProvider.future);
+    //   if (meta.ids.isNotEmpty) {
+    //     articleId = meta.ids.first;
+    //   } else {
+    //     _waitForArticles(meta);
+    //     return null;
+    //   }
+    // }
 
     return articleId != null
         ? ref.watch(articleDataProvider(articleId!).future)
         : null;
   }
 
-  void _waitForArticles(QueryState qs) {
-    ref.onDispose(() => _watcher?.cancel());
-    _watcher = qs.idsQuery.watch().listen((ids) {
-      if (ids.isNotEmpty) {
-        ref.invalidateSelf();
-      }
-    });
-  }
+  // void _waitForArticles(QueryState qs) {
+  //   ref.onDispose(() => _watcher?.cancel());
+  //   _watcher = qs.idsQuery.watch().listen((ids) {
+  //     if (ids.isNotEmpty) {
+  //       ref.invalidateSelf();
+  //     }
+  //   });
+  // }
 
   void change(int articleId) {
     if (state.value?.id != articleId) {
