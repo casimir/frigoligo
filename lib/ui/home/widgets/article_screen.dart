@@ -18,7 +18,6 @@ import '../../../pages/reading_settings_configurator.dart';
 import '../../../services/remote_sync.dart';
 import '../../../services/remote_sync_actions.dart';
 import '../../../widget_keys.dart';
-import '../../../widgets/remote_sync_progress_indicator.dart';
 import '../../core/widgets/async_value_loader.dart';
 import '../../core/widgets/navigation_split_view.dart';
 import '../../repository_providers.dart';
@@ -27,6 +26,7 @@ import '../states.dart';
 import 'article_content.dart';
 import 'article_sheet.dart';
 import 'reading_progress_indicator.dart';
+import 'remote_sync.dart';
 
 class ArticleScreen extends ConsumerStatefulWidget {
   const ArticleScreen({super.key, required this.articleId});
