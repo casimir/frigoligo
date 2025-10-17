@@ -3,9 +3,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../buildcontext_extension.dart';
-import '../server/providers/client.dart';
-import '../services/remote_sync.dart';
+import '../../../buildcontext_extension.dart';
+import '../../../server/providers/client.dart';
+import '../../../services/remote_sync.dart';
+
+class RemoteSyncFAB extends ConsumerWidget {
+  const RemoteSyncFAB({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final syncState = ref.watch(remoteSyncerProvider);
+    final syncer = ref.read(remoteSyncerProvider.notifier);
+
+    if (!syncState.isWorking && syncState.pendingCount > 0) {
+      return FloatingActionButton.extended(
+        icon: const Icon(Icons.sync),
+        label: Text(context.L.syncer_pendingActions(syncState.pendingCount)),
+        onPressed: () => syncer.synchronize(),
+      );
+    } else {
+      return const SizedBox.shrink();
+    }
+  }
+}
 
 class RemoteSyncProgressIndicator extends ConsumerWidget
     implements PreferredSizeWidget {
@@ -25,6 +45,7 @@ class RemoteSyncProgressIndicator extends ConsumerWidget
     if (error != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         if (error is ServerError && error.isInvalidTokenError) {
+          // FIXME refactor to avoid abstraction leaks
           final result = await showOkCancelAlertDialog(
             context: context,
             title: context.L.session_renewDialogTitle,

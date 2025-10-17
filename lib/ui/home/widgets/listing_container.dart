@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:logging/logging.dart';
 
 import '../../../buildcontext_extension.dart';
-import '../../../config/dependencies.dart';
 import '../../../dialogs/save.dart';
-import '../../../services/remote_sync.dart';
 import '../../../widget_keys.dart';
-import '../../../widgets/remote_sync_fab.dart';
-import '../../../widgets/remote_sync_progress_indicator.dart';
-import '../../core/widgets/src/navigation_split_view/navigation_split_view.dart';
+import '../../repository_providers.dart';
+import '../controllers/listing_container_controller.dart';
 import '../controllers/search_panel_controller.dart';
+import 'remote_sync.dart';
 import 'search_panel.dart';
-
-final _log = Logger('frigoligo.listing');
 
 enum MenuAction { synchronize, saveLink, settings }
 
-// FIXME this is a Consumer form only for the use of `ref` in doSave
 class ListingContainer extends ConsumerStatefulWidget {
-  const ListingContainer({super.key, required this.child});
+  const ListingContainer({
+    super.key,
+    required this.controller,
+    required this.child,
+  });
 
+  final ListingContainerController controller;
   final Widget child;
 
   @override
@@ -34,12 +33,6 @@ class _ListingContainerState extends ConsumerState<ListingContainer> {
   @override
   Widget build(BuildContext context) {
     final headerColor = Theme.of(context).colorScheme.surfaceContainerLow;
-    final navigationSplitViewScope = NavigationSplitViewScope.maybeOf(context);
-    final withProgressIndicator =
-        navigationSplitViewScope == null ||
-        (navigationSplitViewScope.layout ==
-                NavigationSplitViewLayout.sideBySide &&
-            !navigationSplitViewScope.isContentExpanded);
 
     return Scaffold(
       body: SafeArea(
@@ -51,36 +44,29 @@ class _ListingContainerState extends ConsumerState<ListingContainer> {
                 PinnedHeaderSliver(
                   child: SearchPanel(
                     controller: SearchPanelController(
-                      queryRepository: dependencies.get(),
+                      queryRepository: ref.watch(queryRepositoryProvider),
                     ),
-                    menu: _buildMenu(context),
+                    menu: _buildMenu(context, widget.controller),
                     backgroundColor: headerColor,
                   ),
                 ),
-                if (withProgressIndicator)
-                  const PinnedHeaderSliver(
-                    child: RemoteSyncProgressIndicator(),
-                  ),
+                const PinnedHeaderSliver(child: RemoteSyncProgressIndicator()),
               ],
 
           body: widget.child,
         ),
       ),
-      floatingActionButton: RemoteSyncFAB(showIf: withProgressIndicator),
+      floatingActionButton: const RemoteSyncFAB(),
       backgroundColor: headerColor,
       resizeToAvoidBottomInset: false,
       restorationId: 'listing.scaffold',
     );
   }
 
-  Future<void> doRefresh() async {
-    _log.info('triggered refresh');
-    await ref
-        .read(remoteSyncerProvider.notifier)
-        .synchronize(withFinalRefresh: true);
-  }
-
-  PopupMenuButton _buildMenu(BuildContext context) => PopupMenuButton(
+  PopupMenuButton _buildMenu(
+    BuildContext context,
+    ListingContainerController controller,
+  ) => PopupMenuButton(
     key: const Key(wkListingPopupMenu),
     itemBuilder:
         (context) => [
@@ -110,7 +96,7 @@ class _ListingContainerState extends ConsumerState<ListingContainer> {
     onSelected:
         (action) => switch (action as MenuAction) {
           MenuAction.saveLink => showSaveUrlDialog(context),
-          MenuAction.synchronize => doRefresh(),
+          MenuAction.synchronize => controller.refresh(),
           MenuAction.settings => context.push('/settings'),
         },
   );

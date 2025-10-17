@@ -8,6 +8,7 @@ import '../../core/widgets/navigation_split_view.dart';
 import '../../repository_providers.dart';
 import '../controllers/article_entry_controller.dart';
 import '../controllers/home_screen_controller.dart';
+import '../controllers/listing_container_controller.dart';
 import 'article_entry.dart';
 import 'article_screen.dart';
 import 'listing_container.dart';
@@ -58,7 +59,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         },
         navigationItemExtent: ArticleEntry.itemExtent,
         navigationContainerBuilder:
-            (context, index, child) => ListingContainer(child: child),
+            (context, index, child) => ListingContainer(
+              controller: ListingContainerController(
+                remoteSyncer: ref.read(remoteSyncerProvider.notifier),
+              ),
+              child: child,
+            ),
         contentBuilder: (context, index) {
           return ArticleScreen(
             key: ValueKey('article-screen-$index'),
