@@ -48,6 +48,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(logconsole)* Fix unreadable log lines in dark mode ([bccc8a5](https://github.com/casimir/frigoligo/commit/bccc8a5d4b05be66502156b4e7707cd1726b6ec4))
 - *(iOS)* Handle a casing issue in AppIcon files ([cf153b0](https://github.com/casimir/frigoligo/commit/cf153b033c6694b1ae1644d7e9b7f9aa9693f92c))
 - Add a missing import ([095fb57](https://github.com/casimir/frigoligo/commit/095fb5703aeaac2a960da08cf46d9e4b55651c86))
+- *(ios/share)* Prevent a crash when sharing an URL from the sheet ([0995d26](https://github.com/casimir/frigoligo/commit/0995d26b8002c3b18b92667a5378bd0c14b4d3de))
 
 ### 🚜 Refactor
 
