@@ -1,23 +1,22 @@
 import 'package:cadanse/cadanse.dart';
 import 'package:cadanse/components/layouts/grouping.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../buildcontext_extension.dart';
 import '../../../domain/models/article_data.dart';
 import '../../../widgets/selectors.dart';
-import 'tag_list.dart';
 import '../../core/widgets/copyable_text.dart';
 import '../controllers/article_sheet_controller.dart';
+import 'tag_list.dart';
 
-class ArticleSheet extends ConsumerWidget {
+class ArticleSheet extends StatelessWidget {
   const ArticleSheet({super.key, required this.controller, required this.data});
 
   final ArticleSheetController controller;
   final ArticleData data;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: PaddedGroup(
         child: Column(
