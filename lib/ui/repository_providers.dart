@@ -10,3 +10,6 @@ ArticleRepository articleRepository(Ref ref) => dependencies.get();
 
 @riverpod
 QueryRepository queryRepository(Ref ref) => dependencies.get();
+
+@riverpod
+TagRepository tagRepository(Ref ref) => dependencies.get();

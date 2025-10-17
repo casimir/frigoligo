@@ -21,6 +21,7 @@ import '../../../widget_keys.dart';
 import '../../../widgets/remote_sync_progress_indicator.dart';
 import '../../core/widgets/async_value_loader.dart';
 import '../../core/widgets/navigation_split_view.dart';
+import '../../repository_providers.dart';
 import '../controllers/article_sheet_controller.dart';
 import '../states.dart';
 import 'article_content.dart';
@@ -245,7 +246,7 @@ List<Widget> buildActions(
                   child: ArticleSheet(
                     controller: ArticleSheetController(
                       syncer: ref.read(remoteSyncerProvider.notifier),
-                      tagRepository: dependencies.get(),
+                      tagRepository: ref.watch(tagRepositoryProvider),
                       sharingService: dependencies.get(),
                       urlLauncherService: dependencies.get(),
                       articleId: data.id,
