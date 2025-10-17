@@ -152,7 +152,7 @@ class _ArticleExistsStateProviderElement
   int get articleId => (origin as ArticleExistsStateProvider).articleId;
 }
 
-String _$queryStateHash() => r'46c763b074a6d6fbd64ee61c306b637ba2532443';
+String _$queryStateHash() => r'cd16e0f8dff7e8b3c2a8074ea24fad4583aaa786';
 
 /// See also [queryState].
 @ProviderFor(queryState)
