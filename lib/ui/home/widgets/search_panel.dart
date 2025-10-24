@@ -10,6 +10,9 @@ import '../../core/widgets/future_loader.dart';
 import '../controllers/search_panel_controller.dart';
 import '../states.dart';
 
+const kFilterDomainsKey = Key('search.filters.domains');
+const kFilterTagsKey = Key('search.filters.tags');
+
 class SearchPanel extends ConsumerWidget {
   const SearchPanel({
     super.key,
@@ -93,7 +96,9 @@ class SearchPanel extends ConsumerWidget {
                   spacing: kSpacingInGroup,
                   children: [
                     _StateSelector(onSelected: controller.setState),
-                    _StarredToggle(onSelected: controller.setOnlyStarred),
+                    _StarredToggle(
+                      onSelected: (value) => controller.setOnlyStarred(value),
+                    ),
                     _TagsSelector(onSelected: controller.setTags),
                     _DomainsSelector(onSelected: controller.setDomains),
                   ],
@@ -105,15 +110,6 @@ class SearchPanel extends ConsumerWidget {
       ),
     );
   }
-}
-
-Icon iconFromTextMode(SearchTextMode textMode) {
-  final iconData = switch (textMode) {
-    SearchTextMode.all => Icons.manage_search_outlined,
-    SearchTextMode.title => Icons.title_outlined,
-    SearchTextMode.content => Icons.article_outlined,
-  };
-  return Icon(iconData);
 }
 
 class _TextModeSelector extends ConsumerWidget {
@@ -164,9 +160,14 @@ class _TextModeSelector extends ConsumerWidget {
     }
 
     final iconData = _iconFor(textMode);
+    final tooltip = context.L.filters_searchMode;
     return textMode == SearchTextMode.all
-        ? IconButton(icon: iconData, onPressed: onTap)
-        : IconButton.filledTonal(icon: iconData, onPressed: onTap);
+        ? IconButton(icon: iconData, onPressed: onTap, tooltip: tooltip)
+        : IconButton.filledTonal(
+          icon: iconData,
+          onPressed: onTap,
+          tooltip: tooltip,
+        );
   }
 
   Icon _iconFor(SearchTextMode textMode) {
@@ -285,6 +286,7 @@ class _TagsSelector extends ConsumerWidget {
     }
 
     return SelectorChip(
+      key: kFilterTagsKey,
       selection: selectorChoices.initialSelection.toList(),
       onTap: onTap,
       onDeleted: () => onSelected([]),
@@ -336,6 +338,7 @@ class _DomainsSelector extends ConsumerWidget {
     }
 
     return SelectorChip(
+      key: kFilterDomainsKey,
       selection: selectorChoices.initialSelection.toList(),
       onTap: onTap,
       onDeleted: () => onSelected([]),
