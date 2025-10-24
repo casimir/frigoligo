@@ -1,7 +1,10 @@
+// coverage:ignore-file
+// - ArticleContentRenderer needs native path resolution and storage access
+// - _WebViewContent needs native platform specific implementation
+
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:cadanse/cadanse.dart';
 import 'package:cadanse/components/layouts/grouping.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +18,6 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
-import '../../../buildcontext_extension.dart';
 import '../../../color_extension.dart';
 import '../../../config/dependencies.dart';
 import '../../../constants.dart';
@@ -27,33 +29,6 @@ import '../../../widgets/html_widget_plus.dart';
 import '../../core/widgets/async_value_loader.dart';
 import '../../core/widgets/future_loader.dart';
 import '../states.dart';
-
-class ArticleContentEmpty extends StatelessWidget {
-  const ArticleContentEmpty({super.key, required this.articleUrl});
-
-  final Uri? articleUrl;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            context.L.article_noContentFetched,
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-          C.spacers.verticalContent,
-          if (articleUrl != null)
-            ElevatedButton(
-              onPressed: () => launchUrl(articleUrl!),
-              child: Text(context.L.article_openInBrowser),
-            ),
-        ],
-      ),
-    );
-  }
-}
 
 typedef ProgressCallback =
     Future<void> Function(double progress, bool isScrolling);

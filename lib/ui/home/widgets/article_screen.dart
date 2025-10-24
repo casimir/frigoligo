@@ -24,6 +24,7 @@ import '../../repository_providers.dart';
 import '../controllers/article_sheet_controller.dart';
 import '../states.dart';
 import 'article_content.dart';
+import 'article_content_placeholder.dart';
 import 'article_sheet.dart';
 import 'reading_progress_indicator.dart';
 import 'remote_sync.dart';
@@ -93,7 +94,10 @@ class _ArticleScreenState extends ConsumerState<ArticleScreen> {
           builder:
               (_) =>
                   !data.hasContent
-                      ? ArticleContentEmpty(articleUrl: Uri.parse(data.url))
+                      ? ArticleContentPlaceholder(
+                        articleUrl: Uri.parse(data.url),
+                        openUrlCallback: (url) => launchUrl(url),
+                      )
                       : ArticleContent(articleId: data.id),
         );
       },
