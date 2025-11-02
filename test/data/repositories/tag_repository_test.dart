@@ -1,10 +1,10 @@
-import 'package:test/test.dart';
 import 'package:frigoligo/data/repositories/tag_repository.dart';
 import 'package:frigoligo/data/services/local/storage/database/connection/native.dart';
 import 'package:frigoligo/data/services/local/storage/database/database.dart';
 import 'package:frigoligo/data/services/local/storage/database/models/article.drift.dart';
 import 'package:frigoligo/data/services/local/storage/storage_service.dart';
 import 'package:frigoligo/domain/repositories.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('TagRepositoryImpl', () {

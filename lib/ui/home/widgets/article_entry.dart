@@ -5,10 +5,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../buildcontext_extension.dart';
 import '../../../constants.dart';
 import '../../../domain/models/article_data.dart';
-import 'tag_list.dart';
 import '../../core/widgets/async_value_loader.dart';
 import '../controllers/article_entry_controller.dart';
 import '../states.dart';
+import 'tag_list.dart';
 
 class ArticleEntry extends ConsumerWidget {
   static const double itemExtent = 136;
