@@ -35,14 +35,21 @@ typedef ProgressCallback =
 typedef ProgressScrollTo = Future<void> Function(double pixels);
 typedef ProgressScroller = Future<void> Function(ProgressScrollTo);
 
+typedef ContentBuilder =
+    Widget Function(BuildContext context, String? title, String content);
+
 class ArticleContent extends ConsumerWidget {
-  const ArticleContent({super.key, required this.articleId});
+  const ArticleContent({
+    super.key,
+    required this.articleId,
+    this.contentBuilder,
+  });
 
   final int articleId;
+  final ContentBuilder? contentBuilder;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print('ArticleContent build');
     return AsyncValueLoader(
       value: ref.watch(articleContentStateProvider(articleId)),
       builder: (context, content) => buildLoaded(context, ref, content!),
@@ -74,26 +81,35 @@ class ArticleContent extends ConsumerWidget {
       }
     }
 
+    Widget defaultContentBuilder(
+      BuildContext context,
+      String? title,
+      String content,
+    ) {
+      final useNativeRenderer =
+          ref.read(settingsProvider)[Sk.nativeArticleRenderer];
+      return nativeArticleRendererSupported && useNativeRenderer
+          ? _WebViewContent(
+            title: title!,
+            content: content,
+            onReadyToScroll: onScrollReady,
+            onScrollUpdate: onScroll,
+          )
+          : _HtmlWidgetContent(
+            title: title!,
+            content: content,
+            onScrollReady: onScrollReady,
+            onScroll: onScroll,
+          );
+    }
+
     return FutureLoader(
       future: ref.watch(
         articleStateProvider(articleId).selectAsync((a) => a?.title),
       ),
       builder: (context, title) {
-        final useNativeRenderer =
-            ref.read(settingsProvider)[Sk.nativeArticleRenderer];
-        return nativeArticleRendererSupported && useNativeRenderer
-            ? _WebViewContent(
-              title: title!,
-              content: content,
-              onReadyToScroll: onScrollReady,
-              onScrollUpdate: onScroll,
-            )
-            : _HtmlWidgetContent(
-              title: title!,
-              content: content,
-              onScrollReady: onScrollReady,
-              onScroll: onScroll,
-            );
+        final ContentBuilder builder = contentBuilder ?? defaultContentBuilder;
+        return builder(context, title, content);
       },
     );
   }

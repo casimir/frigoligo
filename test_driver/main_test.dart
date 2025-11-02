@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:emulators/emulators.dart';
 import 'package:flutter_driver/flutter_driver.dart';
+import 'package:frigoligo/ui/home/widgets/article_screen.dart';
 import 'package:frigoligo/widget_keys.dart';
 import 'package:test/test.dart';
 
@@ -102,7 +103,7 @@ Future<void> main() async {
     }
 
     openReadingSettings() async {
-      await driver.tap(find.byValueKey(wkArticleReadingSettings));
+      await driver.tap(find.byValueKey(kArticleActionReadingSettings));
     }
 
     test('reading settings', () async {

@@ -7,8 +7,6 @@ import 'package:cadanse/components/widgets/adaptive/scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../buildcontext_extension.dart';
 import '../../../config/dependencies.dart';
@@ -16,11 +14,10 @@ import '../../../constants.dart';
 import '../../../domain/models/article_data.dart';
 import '../../../pages/reading_settings_configurator.dart';
 import '../../../services/remote_sync.dart';
-import '../../../services/remote_sync_actions.dart';
-import '../../../widget_keys.dart';
 import '../../core/widgets/async_value_loader.dart';
 import '../../core/widgets/navigation_split_view.dart';
 import '../../repository_providers.dart';
+import '../controllers/article_screen_controller.dart';
 import '../controllers/article_sheet_controller.dart';
 import '../states.dart';
 import 'article_content.dart';
@@ -30,9 +27,14 @@ import 'reading_progress_indicator.dart';
 import 'remote_sync.dart';
 
 class ArticleScreen extends ConsumerStatefulWidget {
-  const ArticleScreen({super.key, required this.articleId});
+  const ArticleScreen({
+    super.key,
+    required this.controller,
+    this.contentBuilder,
+  });
 
-  final int articleId;
+  final ArticleScreenController controller;
+  final ContentBuilder? contentBuilder;
 
   @override
   ConsumerState<ArticleScreen> createState() => _ArticleScreenState();
@@ -40,6 +42,10 @@ class ArticleScreen extends ConsumerStatefulWidget {
 
 class _ArticleScreenState extends ConsumerState<ArticleScreen> {
   final ScrollController scroller = ScrollController();
+
+  bool get _isSideBySideLayout =>
+      NavigationSplitViewScope.maybeOf(context)?.layout ==
+      NavigationSplitViewLayout.sideBySide;
 
   @override
   void dispose() {
@@ -49,18 +55,15 @@ class _ArticleScreenState extends ConsumerState<ArticleScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print('ArticleScreen build');
-
     final navigationSplitViewScope = NavigationSplitViewScope.maybeOf(context);
     final isSideBySideExpandedLayout =
-        navigationSplitViewScope?.layout ==
-            NavigationSplitViewLayout.sideBySide &&
+        _isSideBySideLayout &&
         navigationSplitViewScope?.isContentExpanded == true;
     final withProgressIndicator =
         navigationSplitViewScope == null || isSideBySideExpandedLayout;
 
     return AsyncValueLoader(
-      value: ref.watch(articleExistsStateProvider(widget.articleId)),
+      value: ref.watch(articleExistsStateProvider(widget.controller.articleId)),
       builder: (context, exists) {
         return exists
             ? _buildContent(context, withProgressIndicator)
@@ -70,19 +73,15 @@ class _ArticleScreenState extends ConsumerState<ArticleScreen> {
   }
 
   Widget _buildContent(BuildContext context, bool withProgressIndicator) {
-    final navigationSplitViewScope = NavigationSplitViewScope.maybeOf(context);
-    final isSideBySideLayout =
-        navigationSplitViewScope?.layout ==
-        NavigationSplitViewLayout.sideBySide;
-
     return AsyncValueLoader(
-      value: ref.watch(articleStateProvider(widget.articleId)),
+      value: ref.watch(articleStateProvider(widget.controller.articleId)),
       builder: (context, data) {
         final List<Widget> actions = buildActions(
+          widget.controller,
           context,
           ref,
           data!,
-          isSideBySideLayout,
+          _isSideBySideLayout,
         );
 
         return _PageScaffold(
@@ -96,9 +95,13 @@ class _ArticleScreenState extends ConsumerState<ArticleScreen> {
                   !data.hasContent
                       ? ArticleContentPlaceholder(
                         articleUrl: Uri.parse(data.url),
-                        openUrlCallback: (url) => launchUrl(url),
+                        openUrlCallback:
+                            (url) => widget.controller.openInBrowser(url),
                       )
-                      : ArticleContent(articleId: data.id),
+                      : ArticleContent(
+                        articleId: data.id,
+                        contentBuilder: widget.contentBuilder,
+                      ),
         );
       },
     );
@@ -163,26 +166,33 @@ enum ArticleActionKey {
 
 class ArticleAction {
   const ArticleAction({
+    this.key,
     required this.icon,
     required this.label,
     required this.onPressed,
-    this.key,
     this.isDestructive = false,
   });
 
+  final Key? key;
   final IconData icon;
   final String label;
   final void Function() onPressed;
-  final Key? key;
   final bool isDestructive;
 
   ActionButton toActionButton() =>
       ActionButton(key: key, icon: icon, tooltip: label, onPressed: onPressed);
-
-  ListTile toListTile() => ListTile(leading: Icon(icon), title: Text(label));
 }
 
+const kArticleActionArchive = Key('article.actions.archive');
+const kArticleActionDelete = Key('article.actions.delete');
+const kArticleActionDetails = Key('article.actions.details');
+const kArticleActionOpenInBrowser = Key('article.actions.openInBrowser');
+const kArticleActionReadingSettings = Key('article.actions.readingSettings');
+const kArticleActionShare = Key('article.actions.share');
+const kArticleActionStar = Key('article.actions.star');
+
 List<Widget> buildActions(
+  ArticleScreenController controller,
   BuildContext context,
   WidgetRef ref,
   ArticleData data,
@@ -194,6 +204,7 @@ List<Widget> buildActions(
 
   final Map<ArticleActionKey, ArticleAction> actions = {
     ArticleActionKey.archive: ArticleAction(
+      key: kArticleActionArchive,
       icon:
           stateIcons[data.isArchived
                   ? StateFilter.archived
@@ -204,17 +215,14 @@ List<Widget> buildActions(
               ? context.L.article_unarchive
               : context.L.article_archive,
       onPressed: () async {
-        final syncer = ref.read(remoteSyncerProvider.notifier);
-        await syncer.add(
-          EditArticleAction(data.id, archived: !data.isArchived),
-        );
-        await syncer.synchronize();
+        await controller.setArchived(!data.isArchived);
         if (!withExpander && context.mounted) {
-          context.pop();
+          Navigator.of(context).pop();
         }
       },
     ),
     ArticleActionKey.delete: ArticleAction(
+      key: kArticleActionDelete,
       icon: C(context).icons.delete,
       label: context.L.article_delete,
       onPressed: () async {
@@ -229,9 +237,7 @@ List<Widget> buildActions(
         );
 
         if (!confirmed) return;
-        final syncer = ref.read(remoteSyncerProvider.notifier);
-        await syncer.add(DeleteArticleAction(data.id));
-        await syncer.synchronize();
+        await controller.deleteArticle();
         if (!withExpander && context.mounted) {
           context.go('/');
         }
@@ -239,6 +245,7 @@ List<Widget> buildActions(
       isDestructive: true,
     ),
     ArticleActionKey.details: ArticleAction(
+      key: kArticleActionDetails,
       icon: C(context).icons.info,
       label: context.L.article_details,
       onPressed:
@@ -261,14 +268,15 @@ List<Widget> buildActions(
           ),
     ),
     ArticleActionKey.openInBrowser: ArticleAction(
+      key: kArticleActionOpenInBrowser,
       icon: Icons.open_in_browser,
       label: context.L.article_openInBrowser,
-      onPressed: () => launchUrl(Uri.parse(data.url)),
+      onPressed: () => controller.openInBrowser(Uri.parse(data.url)),
     ),
     ArticleActionKey.readingSettings: ArticleAction(
+      key: kArticleActionReadingSettings,
       icon: Icons.format_size,
       label: context.L.article_readingSettings,
-      key: const Key(wkArticleReadingSettings),
       onPressed:
           () => showModalBottomSheet(
             context: context,
@@ -277,21 +285,18 @@ List<Widget> buildActions(
           ),
     ),
     ArticleActionKey.share: ArticleAction(
+      key: kArticleActionShare,
       icon: Icons.adaptive.share,
       label: context.L.article_share,
       onPressed: () {
         final box =
-            popupMenuKey.currentContext!.findRenderObject() as RenderBox?;
-        SharePlus.instance.share(
-          ShareParams(
-            text: data.url,
-            subject: data.title,
-            sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
-          ),
-        );
+            popupMenuKey.currentContext!.findRenderObject() as RenderBox;
+        final sharePositionOrigin = box.localToGlobal(Offset.zero) & box.size;
+        controller.shareArticle(data.title, data.url, sharePositionOrigin);
       },
     ),
     ArticleActionKey.star: ArticleAction(
+      key: kArticleActionStar,
       icon:
           starredIcons[isStarred
                   ? StarredFilter.starred
@@ -299,9 +304,7 @@ List<Widget> buildActions(
               .icon!,
       label: isStarred ? context.L.article_unstar : context.L.article_star,
       onPressed: () async {
-        final syncer = ref.read(remoteSyncerProvider.notifier);
-        await syncer.add(EditArticleAction(data.id, starred: !isStarred));
-        await syncer.synchronize();
+        await controller.setStarred(!isStarred);
       },
     ),
   };
@@ -329,6 +332,7 @@ List<Widget> buildActions(
                 (key) =>
                     key != null
                         ? ActionsMenuEntry(
+                          key: actions[key]!.key,
                           title: actions[key]!.label,
                           icon: actions[key]!.icon,
                           onTap: () => actions[key]!.onPressed(),

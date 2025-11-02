@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../config/dependencies.dart';
 import '../../../services/remote_sync.dart';
 import '../../core/widgets/adaptive.dart';
 import '../../core/widgets/future_loader.dart';
 import '../../core/widgets/navigation_split_view.dart';
 import '../../repository_providers.dart';
 import '../controllers/article_entry_controller.dart';
+import '../controllers/article_screen_controller.dart';
 import '../controllers/home_screen_controller.dart';
 import '../controllers/listing_container_controller.dart';
 import 'article_entry.dart';
@@ -68,7 +70,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         contentBuilder: (context, index) {
           return ArticleScreen(
             key: ValueKey('article-screen-$index'),
-            articleId: itemCounter!.getArticleId(index)!,
+            controller: ArticleScreenController(
+              syncer: ref.read(remoteSyncerProvider.notifier),
+              sharingService: dependencies.get(),
+              urlLauncherService: dependencies.get(),
+              articleId: itemCounter!.getArticleId(index)!,
+            ),
           );
         },
       ),
