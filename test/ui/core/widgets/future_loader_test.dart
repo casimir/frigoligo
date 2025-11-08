@@ -78,5 +78,53 @@ void main() {
       expect(find.text('Custom Loading'), findsNothing);
       expect(find.text('Loaded: success'), findsOneWidget);
     });
+
+    testWidgets('should use custom errorBuilder when provided',
+        (tester) async {
+      final completer = Completer();
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: FutureLoader(
+            future: completer.future,
+            builder: (context, data) => Text('Loaded: $data'),
+            errorBuilder: (context, error) => const Text('Custom Error'),
+          ),
+        ),
+      );
+
+      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+      expect(find.text('Custom Error'), findsNothing);
+
+      completer.completeError('error');
+      await tester.pumpAndSettle();
+
+      expect(find.byType(CircularProgressIndicator), findsNothing);
+      expect(find.text('Custom Error'), findsOneWidget);
+      expect(find.byType(ErrorScreen), findsNothing);
+    });
+
+    testWidgets('should use default ErrorScreen when errorBuilder is not provided',
+        (tester) async {
+      final completer = Completer();
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: FutureLoader(
+            future: completer.future,
+            builder: (context, data) => Text('Loaded: $data'),
+          ),
+        ),
+      );
+
+      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+      expect(find.byType(ErrorScreen), findsNothing);
+
+      completer.completeError('error');
+      await tester.pumpAndSettle();
+
+      expect(find.byType(CircularProgressIndicator), findsNothing);
+      expect(find.byType(ErrorScreen), findsOneWidget);
+    });
   });
 }
