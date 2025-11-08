@@ -538,5 +538,9 @@
                 "format": "compact"
             }
         }
+    },
+    "logconsole_clear_logs": "清除日志",
+    "@logconsole_clear_logs": {
+        "description": "The action to clear the logs."
     }
 }
