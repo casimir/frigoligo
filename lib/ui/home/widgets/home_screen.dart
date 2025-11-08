@@ -16,9 +16,10 @@ import 'article_screen.dart';
 import 'listing_container.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
-  const HomeScreen({super.key, required this.controller});
+  const HomeScreen({super.key, required this.controller, this.contentBuilder});
 
   final HomeScreenController controller;
+  final ContentBuilder? contentBuilder;
 
   @override
   ConsumerState<HomeScreen> createState() => _HomeScreenState();
@@ -76,6 +77,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               urlLauncherService: dependencies.get(),
               articleId: itemCounter!.getArticleId(index)!,
             ),
+            contentBuilder: widget.contentBuilder,
           );
         },
       ),

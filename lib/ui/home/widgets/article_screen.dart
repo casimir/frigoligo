@@ -26,6 +26,8 @@ import 'article_sheet.dart';
 import 'reading_progress_indicator.dart';
 import 'remote_sync.dart';
 
+export 'article_content.dart' show ContentBuilder;
+
 class ArticleScreen extends ConsumerStatefulWidget {
   const ArticleScreen({
     super.key,
