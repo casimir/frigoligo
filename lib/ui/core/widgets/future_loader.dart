@@ -2,10 +2,16 @@ import 'package:cadanse/components/widgets/error.dart';
 import 'package:flutter/material.dart';
 
 class FutureLoader<T> extends StatelessWidget {
-  const FutureLoader({super.key, required this.future, required this.builder});
+  const FutureLoader({
+    super.key,
+    required this.future,
+    required this.builder,
+    this.loadingBuilder,
+  });
 
   final Future<T> future;
   final Widget Function(BuildContext context, T) builder;
+  final WidgetBuilder? loadingBuilder;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +19,9 @@ class FutureLoader<T> extends StatelessWidget {
       future: future,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator.adaptive());
+          return loadingBuilder != null
+              ? loadingBuilder!(context)
+              : const Center(child: CircularProgressIndicator.adaptive());
         }
 
         if (snapshot.hasError) {

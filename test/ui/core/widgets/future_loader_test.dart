@@ -54,5 +54,29 @@ void main() {
       expect(find.byType(CircularProgressIndicator), findsNothing);
       expect(find.byType(ErrorScreen), findsOneWidget);
     });
+
+    testWidgets('should use custom loadingBuilder when provided',
+        (tester) async {
+      final completer = Completer();
+
+      await tester.pumpWidget(
+        MaterialApp(
+          home: FutureLoader(
+            future: completer.future,
+            builder: (context, data) => Text('Loaded: $data'),
+            loadingBuilder: (context) => const Text('Custom Loading'),
+          ),
+        ),
+      );
+
+      expect(find.text('Custom Loading'), findsOneWidget);
+      expect(find.byType(CircularProgressIndicator), findsNothing);
+
+      completer.complete('success');
+      await tester.pumpAndSettle();
+
+      expect(find.text('Custom Loading'), findsNothing);
+      expect(find.text('Loaded: success'), findsOneWidget);
+    });
   });
 }
