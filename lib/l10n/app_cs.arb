@@ -1,0 +1,58 @@
+{
+    "g_article": "Článek",
+    "@g_article": {
+        "description": "A piece of content fetched from the web. This is one of the main concepts of the app."
+    },
+    "g_check": "Kontrola",
+    "@g_check": {
+        "description": "A verb as in to check something."
+    },
+    "g_checking": "Kontroluji…",
+    "@g_checking": {
+        "description": "Present participle of the verb to check."
+    },
+    "g_delete": "Smazat",
+    "@g_delete": {
+        "description": "A verb, as in to delete something."
+    },
+    "g_saveLink": "Uložit odkaz",
+    "@g_saveLink": {
+        "description": "A verb, as in to save a link."
+    },
+    "g_search": "Hledat",
+    "@g_search": {
+        "description": "A verb, as in to search something."
+    },
+    "g_server": "Server",
+    "@g_server": {
+        "description": "A server, as in a computer providing a service."
+    },
+    "g_settings": "Nastavení",
+    "@g_settings": {
+        "description": "The settings of the application."
+    },
+    "g_share": "Sdílet",
+    "@g_share": {
+        "description": "A verb, as in to share something."
+    },
+    "g_sourceCode": "Zdrojový kód",
+    "@g_sourceCode": {
+        "description": "The source code of a software."
+    },
+    "g_synchronize": "Synchronizace",
+    "@g_synchronize": {
+        "description": "A verb, as in to synchronize with the server."
+    },
+    "g_system": "Systém",
+    "@g_system": {
+        "description": "A name, as in the default configuration (System configuration)."
+    },
+    "g_tag": "Tag",
+    "@g_tag": {
+        "description": "A tag can be attached to an article."
+    },
+    "g_version": "Verze",
+    "@g_version": {
+        "description": "A version, as in the application version."
+    }
+}
