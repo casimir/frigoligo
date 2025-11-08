@@ -40,7 +40,7 @@ class SearchPanel extends ConsumerWidget {
                 children: [
                   _TextModeSelector(onSelected: controller.setTextMode),
                   C.spacers.horizontalComponent,
-                  Flexible(
+                  Expanded(
                     child: SearchBar(
                       hintText: context.L.filters_searchbarHint,
                       trailing: [
@@ -50,6 +50,20 @@ class SearchPanel extends ConsumerWidget {
                               (state) => state.resultCount,
                             ),
                           ),
+                          loadingBuilder: (context) {
+                            return const SizedBox(
+                              width: 16,
+                              height: 16,
+                              child: CircularProgressIndicator.adaptive(),
+                            );
+                          },
+                          errorBuilder: (context, error) {
+                            return const SizedBox(
+                              width: 16,
+                              height: 16,
+                              child: Icon(Icons.error_outline, size: 16),
+                            );
+                          },
                           builder: (context, resultCount) {
                             return Text(
                               resultCount.toString(),
@@ -123,6 +137,18 @@ class _TextModeSelector extends ConsumerWidget {
       future: ref.watch(
         queryStateProvider.selectAsync((state) => state.query.textMode),
       ),
+      loadingBuilder: (context) {
+        return const IconButton(
+          icon: Icon(Icons.manage_search_outlined),
+          onPressed: null,
+        );
+      },
+      errorBuilder: (context, error) {
+        return const IconButton(
+          icon: Icon(Icons.error_outline),
+          onPressed: null,
+        );
+      },
       builder: buildLoaded,
     );
   }
@@ -180,6 +206,10 @@ class _TextModeSelector extends ConsumerWidget {
   }
 }
 
+Widget _buildLoadingChip(BuildContext context, String label) {
+  return FilterChip(label: Text(label), onSelected: null);
+}
+
 class _StateSelector extends ConsumerWidget {
   const _StateSelector({required this.onSelected});
 
@@ -191,6 +221,12 @@ class _StateSelector extends ConsumerWidget {
       future: ref.watch(
         queryStateProvider.selectAsync((state) => state.query.state),
       ),
+      loadingBuilder:
+          (context) =>
+              _buildLoadingChip(context, context.L.filters_articleStateAll),
+      errorBuilder:
+          (context, error) =>
+              _buildLoadingChip(context, context.L.filters_articleStateAll),
       builder: buildLoaded,
     );
   }
@@ -234,6 +270,16 @@ class _StarredToggle extends ConsumerWidget {
       future: ref.watch(
         queryStateProvider.selectAsync((state) => state.query.onlyStarred),
       ),
+      loadingBuilder:
+          (context) => _buildLoadingChip(
+            context,
+            context.L.filters_articleFavoriteStarred,
+          ),
+      errorBuilder:
+          (context, error) => _buildLoadingChip(
+            context,
+            context.L.filters_articleFavoriteStarred,
+          ),
       builder: buildLoaded,
     );
   }
@@ -247,110 +293,6 @@ class _StarredToggle extends ConsumerWidget {
   }
 }
 
-class _TagsSelector extends ConsumerWidget {
-  const _TagsSelector({required this.onSelected});
-
-  final void Function(List<String>) onSelected;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return FutureLoader(
-      future: ref.watch(
-        queryStateProvider.selectAsync(
-          (state) => _SelectorChoices(
-            choices: state.availableTags,
-            initialSelection: state.query.tags.toSet(),
-          ),
-        ),
-      ),
-      builder: buildLoaded,
-    );
-  }
-
-  Widget buildLoaded(
-    BuildContext context,
-    _SelectorChoices<String> selectorChoices,
-  ) {
-    Future<void> onTap() async {
-      final selected = await showBottomSheetSelector(
-        context: context,
-        title: context.L.filters_articleTags,
-        selectionLabelizer: context.L.filters_articleTagsCount,
-        entriesBuilder: Future.value(selectorChoices.choices),
-        initialSelection: selectorChoices.initialSelection,
-        leadingIcon: const Icon(Icons.label),
-      );
-      if (selected != null) {
-        onSelected(selected.toList());
-      }
-    }
-
-    return SelectorChip(
-      key: kFilterTagsKey,
-      selection: selectorChoices.initialSelection.toList(),
-      onTap: onTap,
-      onDeleted: () => onSelected([]),
-      labelizer:
-          (count) =>
-              count == 0
-                  ? context.L.filters_articleTags
-                  : context.L.filters_articleTagsCount(count),
-    );
-  }
-}
-
-class _DomainsSelector extends ConsumerWidget {
-  const _DomainsSelector({required this.onSelected});
-
-  final void Function(List<String>) onSelected;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return FutureLoader(
-      future: ref.watch(
-        queryStateProvider.selectAsync(
-          (state) => _SelectorChoices(
-            choices: state.availableDomains,
-            initialSelection: state.query.domains.toSet(),
-          ),
-        ),
-      ),
-      builder: buildLoaded,
-    );
-  }
-
-  Widget buildLoaded(
-    BuildContext context,
-    _SelectorChoices<String> selectorChoices,
-  ) {
-    Future<void> onTap() async {
-      final selected = await showBottomSheetSelector(
-        context: context,
-        title: context.L.filters_articleDomains,
-        selectionLabelizer: context.L.filters_articleDomainsCount,
-        entriesBuilder: Future.value(selectorChoices.choices),
-        initialSelection: selectorChoices.initialSelection,
-        leadingIcon: const Icon(Icons.web),
-      );
-      if (selected != null) {
-        onSelected(selected.toList());
-      }
-    }
-
-    return SelectorChip(
-      key: kFilterDomainsKey,
-      selection: selectorChoices.initialSelection.toList(),
-      onTap: onTap,
-      onDeleted: () => onSelected([]),
-      labelizer:
-          (count) =>
-              count == 0
-                  ? context.L.filters_articleDomains
-                  : context.L.filters_articleDomainsCount(count),
-    );
-  }
-}
-
 class _SelectorChoices<T> {
   const _SelectorChoices({
     required this.choices,
@@ -359,4 +301,108 @@ class _SelectorChoices<T> {
 
   final List<T> choices;
   final Set<T> initialSelection;
+}
+
+class _MultiSelectFilterChip extends ConsumerWidget {
+  const _MultiSelectFilterChip({
+    required this.chipKey,
+    required this.chipLabel,
+    required this.selector,
+    required this.onSelected,
+    required this.labelizer,
+    required this.leadingIcon,
+  });
+
+  final Key chipKey;
+  final String chipLabel;
+  final Future<_SelectorChoices<String>> Function(WidgetRef) selector;
+  final void Function(List<String>) onSelected;
+  final String Function(int) labelizer;
+  final Icon leadingIcon;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return FutureLoader(
+      future: selector(ref),
+      loadingBuilder: (context) => _buildLoadingChip(context, chipLabel),
+      errorBuilder: (context, error) => _buildLoadingChip(context, chipLabel),
+      builder: buildLoaded,
+    );
+  }
+
+  Widget buildLoaded(BuildContext context, _SelectorChoices<String> choices) {
+    Future<void> onTap() async {
+      final selected = await showBottomSheetSelector(
+        context: context,
+        title: chipLabel,
+        selectionLabelizer: labelizer,
+        entriesBuilder: Future.value(choices.choices),
+        initialSelection: choices.initialSelection,
+        leadingIcon: leadingIcon,
+      );
+      if (selected != null) {
+        onSelected(selected.toList());
+      }
+    }
+
+    return SelectorChip(
+      key: chipKey,
+      selection: choices.initialSelection.toList(),
+      onTap: onTap,
+      onDeleted: () => onSelected([]),
+      labelizer: (count) => count == 0 ? chipLabel : labelizer(count),
+    );
+  }
+}
+
+class _TagsSelector extends StatelessWidget {
+  const _TagsSelector({required this.onSelected});
+
+  final void Function(List<String>) onSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return _MultiSelectFilterChip(
+      chipKey: kFilterTagsKey,
+      chipLabel: context.L.filters_articleTags,
+      selector:
+          (ref) => ref.watch(
+            queryStateProvider.selectAsync(
+              (state) => _SelectorChoices(
+                choices: state.availableTags,
+                initialSelection: state.query.tags.toSet(),
+              ),
+            ),
+          ),
+      onSelected: onSelected,
+      labelizer: context.L.filters_articleTagsCount,
+      leadingIcon: const Icon(Icons.label),
+    );
+  }
+}
+
+class _DomainsSelector extends StatelessWidget {
+  const _DomainsSelector({required this.onSelected});
+
+  final void Function(List<String>) onSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return _MultiSelectFilterChip(
+      chipKey: kFilterDomainsKey,
+      chipLabel: context.L.filters_articleDomains,
+      selector:
+          (ref) => ref.watch(
+            queryStateProvider.selectAsync(
+              (state) => _SelectorChoices(
+                choices: state.availableDomains,
+                initialSelection: state.query.domains.toSet(),
+              ),
+            ),
+          ),
+      onSelected: onSelected,
+      labelizer: context.L.filters_articleDomainsCount,
+      leadingIcon: const Icon(Icons.web),
+    );
+  }
 }

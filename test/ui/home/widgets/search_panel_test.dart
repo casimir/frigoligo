@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -41,6 +43,52 @@ void main() {
 
     setUp(() {
       mockController = MockSearchPanelController();
+    });
+
+    group('(state loading)', () {
+      // The default widgets from [FutureLoader] are too big for this widget. This
+      // test groups checks that the custom widgets render correctly.
+
+      Widget buildFutureWidget(Completer<QueryState> completer) {
+        return ProviderScope(
+          overrides: [
+            // ignore: scoped_providers_should_specify_dependencies
+            queryStateProvider.overrideWith((ref) => completer.future),
+          ],
+          child: MaterialApp(
+            home: Scaffold(
+              body: SizedBox(
+                width: kNavigationPaneWidth,
+                child: SearchPanel(controller: mockController),
+              ),
+            ),
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+          ),
+        );
+      }
+
+      testWidgets('should show a loading indicator while state is loading', (
+        tester,
+      ) async {
+        final completer = Completer<QueryState>();
+
+        await tester.pumpWidget(buildFutureWidget(completer));
+        await tester.pump();
+
+        expect(find.byType(CircularProgressIndicator), findsOneWidget);
+      });
+
+      testWidgets('should show an error when the state loading fails', (
+        tester,
+      ) async {
+        final completer = Completer<QueryState>();
+
+        await tester.pumpWidget(buildFutureWidget(completer));
+        completer.completeError(Exception('test error'));
+        await tester.pumpAndSettle();
+
+        expect(find.byIcon(Icons.error_outline), findsAtLeastNWidgets(1));
+      });
     });
 
     Widget buildWidget({
