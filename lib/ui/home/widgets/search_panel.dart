@@ -126,17 +126,42 @@ class SearchPanel extends ConsumerWidget {
   }
 }
 
-class _TextModeSelector extends ConsumerWidget {
+class _AsyncFilterWidget<T> extends ConsumerWidget {
+  const _AsyncFilterWidget({
+    required this.selector,
+    required this.loadingBuilder,
+    required this.errorBuilder,
+    required this.builder,
+  });
+
+  final Future<T> Function(WidgetRef) selector;
+  final WidgetBuilder loadingBuilder;
+  final Widget Function(BuildContext, Object) errorBuilder;
+  final Widget Function(BuildContext, T) builder;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return FutureLoader(
+      future: selector(ref),
+      loadingBuilder: loadingBuilder,
+      errorBuilder: errorBuilder,
+      builder: builder,
+    );
+  }
+}
+
+class _TextModeSelector extends StatelessWidget {
   const _TextModeSelector({required this.onSelected});
 
   final void Function(SearchTextMode) onSelected;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return FutureLoader(
-      future: ref.watch(
-        queryStateProvider.selectAsync((state) => state.query.textMode),
-      ),
+  Widget build(BuildContext context) {
+    return _AsyncFilterWidget(
+      selector:
+          (ref) => ref.watch(
+            queryStateProvider.selectAsync((state) => state.query.textMode),
+          ),
       loadingBuilder: (context) {
         return const IconButton(
           icon: Icon(Icons.manage_search_outlined),
@@ -210,17 +235,18 @@ Widget _buildLoadingChip(BuildContext context, String label) {
   return FilterChip(label: Text(label), onSelected: null);
 }
 
-class _StateSelector extends ConsumerWidget {
+class _StateSelector extends StatelessWidget {
   const _StateSelector({required this.onSelected});
 
   final void Function(StateFilter) onSelected;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return FutureLoader(
-      future: ref.watch(
-        queryStateProvider.selectAsync((state) => state.query.state),
-      ),
+  Widget build(BuildContext context) {
+    return _AsyncFilterWidget(
+      selector:
+          (ref) => ref.watch(
+            queryStateProvider.selectAsync((state) => state.query.state),
+          ),
       loadingBuilder:
           (context) =>
               _buildLoadingChip(context, context.L.filters_articleStateAll),
@@ -259,17 +285,18 @@ class _StateSelector extends ConsumerWidget {
   }
 }
 
-class _StarredToggle extends ConsumerWidget {
+class _StarredToggle extends StatelessWidget {
   const _StarredToggle({required this.onSelected});
 
   final void Function(bool) onSelected;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return FutureLoader(
-      future: ref.watch(
-        queryStateProvider.selectAsync((state) => state.query.onlyStarred),
-      ),
+  Widget build(BuildContext context) {
+    return _AsyncFilterWidget(
+      selector:
+          (ref) => ref.watch(
+            queryStateProvider.selectAsync((state) => state.query.onlyStarred),
+          ),
       loadingBuilder:
           (context) => _buildLoadingChip(
             context,
@@ -303,7 +330,7 @@ class _SelectorChoices<T> {
   final Set<T> initialSelection;
 }
 
-class _MultiSelectFilterChip extends ConsumerWidget {
+class _MultiSelectFilterChip extends StatelessWidget {
   const _MultiSelectFilterChip({
     required this.chipKey,
     required this.chipLabel,
@@ -321,9 +348,9 @@ class _MultiSelectFilterChip extends ConsumerWidget {
   final Icon leadingIcon;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return FutureLoader(
-      future: selector(ref),
+  Widget build(BuildContext context) {
+    return _AsyncFilterWidget(
+      selector: selector,
       loadingBuilder: (context) => _buildLoadingChip(context, chipLabel),
       errorBuilder: (context, error) => _buildLoadingChip(context, chipLabel),
       builder: buildLoaded,
