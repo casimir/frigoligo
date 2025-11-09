@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../config/dependencies.dart';
+import '../../../providers/settings.dart';
 import '../../../services/remote_sync.dart';
 import '../../core/widgets/adaptive.dart';
 import '../../core/widgets/future_loader.dart';
@@ -80,6 +81,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             contentBuilder: widget.contentBuilder,
           );
         },
+        onSelectedIndexChanged: (index) {
+          if (index != null) {
+            final articleId = itemCounter!.getArticleId(index);
+            if (articleId != null) {
+              // TODO move to the controller after settings are refactored
+              ref
+                  .read(settingsProvider.notifier)
+                  .set(Sk.selectedArticleId, articleId);
+            }
+          }
+        },
+        restorationId: 'home-screen',
       ),
     );
   }
