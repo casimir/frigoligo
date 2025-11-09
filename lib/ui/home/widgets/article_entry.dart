@@ -11,7 +11,7 @@ import '../states.dart';
 import 'tag_list.dart';
 
 class ArticleEntry extends ConsumerWidget {
-  static const double itemExtent = 136;
+  static const double itemExtent = 144;
 
   const ArticleEntry({super.key, required this.controller});
 
@@ -70,7 +70,6 @@ class ArticleEntry extends ConsumerWidget {
               _ImagePreview(url: data.previewPicture!, width: 80, height: 80),
           ],
         ),
-        const Spacer(),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.end,
