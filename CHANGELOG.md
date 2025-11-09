@@ -132,6 +132,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Backport sonarqube settings changes ([7efaf0e](https://github.com/casimir/frigoligo/commit/7efaf0ed76c46ed050365fc6c60320a91344e895))
 - *(tests)* Ignore generated code when calculating coverage ([ab51417](https://github.com/casimir/frigoligo/commit/ab51417e5b25c6619cd17b23aae5eb16209f7b4d))
 - Don't run sonarqube scan without the secret + avoid double linux run ([7632406](https://github.com/casimir/frigoligo/commit/76324061f507d64e8a75f2ffc989d081e9649265))
+- *(flutter)* Upgrade to 3.35.7 ([819ee50](https://github.com/casimir/frigoligo/commit/819ee50caaa19ecd2fc3e022e6c494e13c6e4073))
 
 ### I18n
 
