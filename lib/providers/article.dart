@@ -1,56 +1,13 @@
 import 'dart:async';
 
-import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../config/dependencies.dart';
-import '../constants.dart';
 import '../data/services/local/storage/database/models/article.drift.dart';
 import '../data/services/local/storage/storage_service.dart';
 import 'settings.dart';
 
 part '_g/article.g.dart';
-
-final _log = Logger('providers.article');
-
-@riverpod
-class ArticleData extends _$ArticleData {
-  StreamSubscription? _watcher;
-
-  @override
-  Future<Article?> build(int articleId) async {
-    final stopwatch = Stopwatch()..start();
-
-    _watcher?.cancel();
-    _watch(articleId);
-    ref.onDispose(() => _watcher?.cancel());
-
-    final LocalStorageService storageService = dependencies.get();
-    final t1 = storageService.db.managers.articles;
-    final ret =
-        await t1.filter((f) => f.id.equals(articleId)).getSingleOrNull();
-    if (enablePerfLogs) {
-      _log.info(
-        'perf: ArticleData.build($articleId): ${stopwatch.elapsedMilliseconds} ms',
-      );
-    }
-    return ret;
-  }
-
-  void _watch(int articleId) {
-    final LocalStorageService storageService = dependencies.get();
-    final q = storageService.db.managers.articles.filter(
-      (f) => f.id.equals(articleId),
-    );
-    _watcher = q.watchSingleOrNull(distinct: false).listen((article) {
-      if (state.isLoading || !state.hasValue) return;
-      final stateArticle = state.value;
-      if (stateArticle == null || article != stateArticle) {
-        state = AsyncValue.data(article);
-      }
-    });
-  }
-}
 
 @riverpod
 class CurrentArticle extends _$CurrentArticle {
@@ -86,9 +43,7 @@ class CurrentArticle extends _$CurrentArticle {
     //   }
     // }
 
-    return articleId != null
-        ? ref.watch(articleDataProvider(articleId!).future)
-        : null;
+    return null;
   }
 
   // void _waitForArticles(QueryState qs) {
@@ -99,12 +54,6 @@ class CurrentArticle extends _$CurrentArticle {
   //     }
   //   });
   // }
-
-  void change(int articleId) {
-    if (state.value?.id != articleId) {
-      ref.read(settingsProvider.notifier).set(Sk.selectedArticleId, articleId);
-    }
-  }
 }
 
 @riverpod

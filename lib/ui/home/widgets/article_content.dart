@@ -22,7 +22,7 @@ import '../../../color_extension.dart';
 import '../../../config/dependencies.dart';
 import '../../../constants.dart';
 import '../../../data/services/local/storage/storage_service.dart';
-import '../../../providers/article.dart' hide ArticleData;
+import '../../../providers/article.dart';
 import '../../../providers/reading_settings.dart';
 import '../../../providers/settings.dart';
 import '../../../widgets/html_widget_plus.dart';
