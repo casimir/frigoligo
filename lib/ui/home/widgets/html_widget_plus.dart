@@ -1,3 +1,6 @@
+// coverage:ignore-file
+// skipped just like ArticleContentRenderer
+
 import 'package:cadanse/cadanse.dart';
 import 'package:cadanse/tokens/constants.dart';
 import 'package:flutter/material.dart';
