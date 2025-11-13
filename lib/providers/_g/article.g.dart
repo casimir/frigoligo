@@ -8,23 +8,6 @@ part of '../article.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$currentArticleHash() => r'a45b53ee837963c02d18a6e7069c584c5ca6c3ff';
-
-/// See also [CurrentArticle].
-@ProviderFor(CurrentArticle)
-final currentArticleProvider =
-    AutoDisposeAsyncNotifierProvider<CurrentArticle, Article?>.internal(
-      CurrentArticle.new,
-      name: r'currentArticleProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$currentArticleHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
-
-typedef _$CurrentArticle = AutoDisposeAsyncNotifier<Article?>;
 String _$scrollPositionHash() => r'e814ac99fa25d96a1a09e9726b5687d836defece';
 
 /// Copied from Dart SDK

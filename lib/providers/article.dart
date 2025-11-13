@@ -10,53 +10,6 @@ import 'settings.dart';
 part '_g/article.g.dart';
 
 @riverpod
-class CurrentArticle extends _$CurrentArticle {
-  StreamSubscription? _watcher;
-
-  @override
-  Future<Article?> build() async {
-    _watcher?.cancel();
-
-    var articleId = ref.watch(
-      settingsProvider.select((it) => it[Sk.selectedArticleId]),
-    );
-
-    if (articleId != null) {
-      final LocalStorageService storageService = dependencies.get();
-      final db = storageService.db;
-      final exists =
-          await db.managers.articles
-              .filter((f) => f.id.equals(articleId))
-              .exists();
-      if (!exists) {
-        articleId = null;
-      }
-    }
-
-    // if (articleId == null) {
-    //   final meta = await ref.read(queryMetaProvider.future);
-    //   if (meta.ids.isNotEmpty) {
-    //     articleId = meta.ids.first;
-    //   } else {
-    //     _waitForArticles(meta);
-    //     return null;
-    //   }
-    // }
-
-    return null;
-  }
-
-  // void _waitForArticles(QueryState qs) {
-  //   ref.onDispose(() => _watcher?.cancel());
-  //   _watcher = qs.idsQuery.watch().listen((ids) {
-  //     if (ids.isNotEmpty) {
-  //       ref.invalidateSelf();
-  //     }
-  //   });
-  // }
-}
-
-@riverpod
 class ScrollPosition extends _$ScrollPosition {
   StreamSubscription? _watcher;
 
