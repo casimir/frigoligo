@@ -34,12 +34,6 @@ GoRouter router(Ref ref) {
           final rawArticleId = state.uri.queryParameters['articleId'];
           final articleId =
               rawArticleId != null ? int.tryParse(rawArticleId) : null;
-          ref.read(currentArticleProvider.future).then((article) {
-            final currentId = article?.id;
-            if (articleId != null && articleId != currentId) {
-              ref.read(openArticleProvider.notifier).schedule(articleId);
-            }
-          });
           return HomeScreen(
             controller: HomeScreenController(
               queryRepository: dependencies.get(),
