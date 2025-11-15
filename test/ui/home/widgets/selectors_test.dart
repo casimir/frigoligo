@@ -115,9 +115,7 @@ void main() {
     });
 
     testWidgets('should allow adding new entries', (tester) async {
-      await tester.pumpWidget(
-        buildWidget(addEntryIcon: const Icon(Icons.add)),
-      );
+      await tester.pumpWidget(buildWidget(addEntryIcon: const Icon(Icons.add)));
 
       await tester.tap(find.byIcon(Icons.add));
       await tester.pumpAndSettle();
@@ -168,7 +166,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: SelectorChip<String>(
-              selection: [],
+              selection: const [],
               onTap: () {},
               onDeleted: () {},
               labelizer: (count) => '$count tags',
@@ -189,7 +187,7 @@ void main() {
         MaterialApp(
           home: Scaffold(
             body: SelectorChip<String>(
-              selection: ['tag1', 'tag2'],
+              selection: const ['tag1', 'tag2'],
               onTap: () {},
               onDeleted: () {},
               labelizer: (count) => '$count tags',
@@ -367,13 +365,14 @@ void main() {
                   onPressed: () {
                     showBottomSheetSelect<int>(
                       context: context,
-                      builder: (ctx) => Select<int>(
-                        title: 'Choose Option',
-                        entries: const [
-                          DropdownMenuEntry(value: 1, label: 'Option 1'),
-                          DropdownMenuEntry(value: 2, label: 'Option 2'),
-                        ],
-                      ),
+                      builder:
+                          (ctx) => const Select<int>(
+                            title: 'Choose Option',
+                            entries: [
+                              DropdownMenuEntry(value: 1, label: 'Option 1'),
+                              DropdownMenuEntry(value: 2, label: 'Option 2'),
+                            ],
+                          ),
                     );
                   },
                   child: const Text('Open'),
