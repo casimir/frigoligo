@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:frigoligo/src/generated/i18n/app_localizations.dart';
 import 'package:frigoligo/ui/core/widgets/material_sheet.dart';
-import 'package:frigoligo/ui/home/widgets/selectors.dart';
+import 'package:frigoligo/ui/core/widgets/selectors.dart';
 
 void main() {
   group('MultiSelect', () {

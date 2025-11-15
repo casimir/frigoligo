@@ -5,14 +5,14 @@ import '../../../config/dependencies.dart';
 import '../../../services/remote_sync.dart';
 import '../../core/widgets/adaptive.dart';
 import '../../core/widgets/future_loader.dart';
+import '../../article/controllers/article_screen_controller.dart';
+import '../../article/widgets/article_screen.dart';
 import '../../core/widgets/navigation_split_view.dart';
 import '../../repository_providers.dart';
 import '../controllers/article_entry_controller.dart';
-import '../controllers/article_screen_controller.dart';
 import '../controllers/home_screen_controller.dart';
 import '../controllers/listing_container_controller.dart';
 import 'article_entry.dart';
-import 'article_screen.dart';
 import 'listing_container.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {

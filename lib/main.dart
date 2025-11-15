@@ -23,7 +23,7 @@ import 'providers/router.dart';
 import 'providers/settings.dart';
 import 'providers/tools/observer.dart';
 import 'src/generated/i18n/app_localizations.dart';
-import 'ui/home/widgets/article_content.dart';
+import 'ui/article/widgets/article_content.dart';
 
 Future<void> main() async {
   setupDependencies();

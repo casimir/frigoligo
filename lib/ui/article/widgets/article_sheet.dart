@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 
 import '../../../buildcontext_extension.dart';
 import '../../../domain/models/article_data.dart';
-import 'selectors.dart';
 import '../../core/widgets/copyable_text.dart';
+import '../../core/widgets/selectors.dart';
+import '../../core/widgets/tag_list.dart';
 import '../controllers/article_sheet_controller.dart';
-import 'tag_list.dart';
 
 class ArticleSheet extends StatelessWidget {
   const ArticleSheet({super.key, required this.controller, required this.data});

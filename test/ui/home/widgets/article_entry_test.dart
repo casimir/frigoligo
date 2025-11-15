@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:frigoligo/domain/models/article_data.dart';
 import 'package:frigoligo/src/generated/i18n/app_localizations.dart';
+import 'package:frigoligo/ui/core/states.dart';
 import 'package:frigoligo/ui/home/controllers/article_entry_controller.dart';
-import 'package:frigoligo/ui/home/states.dart';
 import 'package:frigoligo/ui/home/widgets/article_entry.dart';
 import 'package:mocktail/mocktail.dart';
 

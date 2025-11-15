@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:frigoligo/services/remote_sync.dart';
 import 'package:frigoligo/src/generated/i18n/app_localizations.dart';
-import 'package:frigoligo/ui/home/widgets/remote_sync.dart';
+import 'package:frigoligo/ui/core/widgets/remote_sync.dart';
 
 class _FakeRemoteSyncer extends RemoteSyncer {
   _FakeRemoteSyncer(this._state);

@@ -5,10 +5,10 @@ import 'package:go_router/go_router.dart';
 import '../../../buildcontext_extension.dart';
 import '../../../dialogs/save.dart';
 import '../../../widget_keys.dart';
+import '../../core/widgets/remote_sync.dart';
 import '../../repository_providers.dart';
 import '../controllers/listing_container_controller.dart';
 import '../controllers/search_panel_controller.dart';
-import 'remote_sync.dart';
 import 'search_panel.dart';
 
 enum MenuAction { synchronize, saveLink, settings }

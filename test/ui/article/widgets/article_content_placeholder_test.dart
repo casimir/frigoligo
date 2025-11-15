@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:frigoligo/src/generated/i18n/app_localizations.dart';
-import 'package:frigoligo/ui/home/widgets/article_content_placeholder.dart';
+import 'package:frigoligo/ui/article/widgets/article_content_placeholder.dart';
 
 void main() {
   group('ArticleContentEmpty', () {

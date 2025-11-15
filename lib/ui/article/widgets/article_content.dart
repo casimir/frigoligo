@@ -25,9 +25,9 @@ import '../../../data/services/local/storage/storage_service.dart';
 import '../../../providers/article.dart';
 import '../../../providers/reading_settings.dart';
 import '../../../providers/settings.dart';
+import '../../core/states.dart';
 import '../../core/widgets/async_value_loader.dart';
 import '../../core/widgets/future_loader.dart';
-import '../states.dart';
 import 'html_widget_plus.dart';
 
 typedef ProgressCallback =

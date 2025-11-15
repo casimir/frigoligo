@@ -8,13 +8,13 @@ import 'package:frigoligo/data/services/local/storage/database/database.dart';
 import 'package:frigoligo/domain/models/article_data.dart';
 import 'package:frigoligo/services/remote_sync.dart';
 import 'package:frigoligo/src/generated/i18n/app_localizations.dart';
+import 'package:frigoligo/ui/article/controllers/article_screen_controller.dart';
+import 'package:frigoligo/ui/article/widgets/article_content.dart';
+import 'package:frigoligo/ui/article/widgets/article_content_placeholder.dart';
+import 'package:frigoligo/ui/article/widgets/article_screen.dart';
+import 'package:frigoligo/ui/core/states.dart';
+import 'package:frigoligo/ui/core/widgets/remote_sync.dart';
 import 'package:frigoligo/ui/core/widgets/src/navigation_split_view/navigation_split_view.dart';
-import 'package:frigoligo/ui/home/controllers/article_screen_controller.dart';
-import 'package:frigoligo/ui/home/states.dart';
-import 'package:frigoligo/ui/home/widgets/article_content.dart';
-import 'package:frigoligo/ui/home/widgets/article_content_placeholder.dart';
-import 'package:frigoligo/ui/home/widgets/article_screen.dart';
-import 'package:frigoligo/ui/home/widgets/remote_sync.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockArticleScreenController extends Mock

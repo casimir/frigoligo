@@ -14,17 +14,17 @@ import '../../../constants.dart';
 import '../../../domain/models/article_data.dart';
 import '../../../pages/reading_settings_configurator.dart';
 import '../../../services/remote_sync.dart';
+import '../../core/states.dart';
 import '../../core/widgets/async_value_loader.dart';
 import '../../core/widgets/navigation_split_view.dart';
 import '../../repository_providers.dart';
 import '../controllers/article_screen_controller.dart';
 import '../controllers/article_sheet_controller.dart';
-import '../states.dart';
+import '../../core/widgets/reading_progress_indicator.dart';
+import '../../core/widgets/remote_sync.dart';
 import 'article_content.dart';
 import 'article_content_placeholder.dart';
 import 'article_sheet.dart';
-import 'reading_progress_indicator.dart';
-import 'remote_sync.dart';
 
 export 'article_content.dart' show ContentBuilder;
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:frigoligo/providers/article.dart';
-import 'package:frigoligo/ui/home/widgets/reading_progress_indicator.dart';
+import 'package:frigoligo/ui/core/widgets/reading_progress_indicator.dart';
 
 class _FakeCurrentReadingProgress extends CurrentReadingProgress {
   _FakeCurrentReadingProgress(this._value);
