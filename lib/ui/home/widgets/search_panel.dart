@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../buildcontext_extension.dart';
 import '../../../domain/models/query.dart';
-import '../../../widgets/selectors.dart';
+import 'selectors.dart';
 import '../../core/widgets/future_loader.dart';
 import '../controllers/search_panel_controller.dart';
 import '../states.dart';

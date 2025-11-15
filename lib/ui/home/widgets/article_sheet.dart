@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../buildcontext_extension.dart';
 import '../../../domain/models/article_data.dart';
-import '../../../widgets/selectors.dart';
+import 'selectors.dart';
 import '../../core/widgets/copyable_text.dart';
 import '../controllers/article_sheet_controller.dart';
 import 'tag_list.dart';

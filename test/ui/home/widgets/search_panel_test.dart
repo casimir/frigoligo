@@ -5,11 +5,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:frigoligo/domain/models/query.dart';
 import 'package:frigoligo/src/generated/i18n/app_localizations.dart';
+import 'package:frigoligo/ui/core/widgets/material_sheet.dart';
 import 'package:frigoligo/ui/core/widgets/src/navigation_split_view/animated_navigation_pane_slider.dart';
 import 'package:frigoligo/ui/home/controllers/search_panel_controller.dart';
 import 'package:frigoligo/ui/home/states.dart';
 import 'package:frigoligo/ui/home/widgets/search_panel.dart';
-import 'package:frigoligo/widgets/material_sheet.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockSearchPanelController extends Mock implements SearchPanelController {}

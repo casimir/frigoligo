@@ -4,8 +4,8 @@ import 'package:cadanse/components/widgets/error.dart';
 import 'package:cadanse/tokens/constants.dart';
 import 'package:flutter/material.dart';
 
-import '../buildcontext_extension.dart';
-import 'material_sheet.dart';
+import '../../../buildcontext_extension.dart';
+import '../../core/widgets/material_sheet.dart';
 
 class SelectorBottomSheet extends StatelessWidget {
   const SelectorBottomSheet({
