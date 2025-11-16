@@ -10,7 +10,7 @@ codegen:
 
 .PHONY: lint
 lint:
-	$(FLUTTER) analyze --no-fatal-warnings --no-fatal-infos
+	$(FLUTTER) analyze --no-fatal-warnings --no-fatal-infos lib test examples tools flathub
 	$(DART) format --output=none --set-exit-if-changed .
 
 .PHONY: test

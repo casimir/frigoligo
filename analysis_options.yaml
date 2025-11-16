@@ -27,3 +27,4 @@ analyzer:
     - "**/*.drift.dart"
     - "**/*.freezed.dart"
     - "**/*.g.dart"
+    - "lib/src/generated/**"
