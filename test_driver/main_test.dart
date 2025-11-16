@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:emulators/emulators.dart';
 import 'package:flutter_driver/flutter_driver.dart';
-import 'package:frigoligo/ui/home/widgets/article_screen.dart';
+import 'package:frigoligo/ui/article/widgets/article_screen.dart';
 import 'package:frigoligo/widget_keys.dart';
 import 'package:test/test.dart';
 
