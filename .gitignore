@@ -36,7 +36,6 @@ migrate_working_dir/
 .pub/
 /build/
 /coverage/
-/lib/src/generated/
 
 # Symbolication related
 app.*.symbols

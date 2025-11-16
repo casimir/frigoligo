@@ -15,7 +15,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  tests:
+  lint-and-tests:
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
@@ -31,15 +31,15 @@ jobs:
           flutter-version: ${{ steps.flutter-version.outputs.version }}
           cache: true
       - run: flutter config --no-analytics
-      - run: flutter pub get
-      - run: flutter test --coverage
+      - run: make lint
+      - run: make test-coverage
       - uses: SonarSource/sonarqube-scan-action@v6
         if: ${{ env.SONAR_TOKEN != '' }}
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   smoke-platform-run:
-    needs: tests
+    needs: lint-and-tests
     if: github.event.pull_request.draft == false
     strategy:
       matrix:
@@ -61,7 +61,7 @@ jobs:
 
   smoke-android-build:
     # for android we only validate the build process, running is too complicated
-    needs: tests
+    needs: lint-and-tests
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
@@ -83,7 +83,7 @@ jobs:
 
   smoke-web-build:
     # for web we only validate the build process, running is too complicated
-    needs: tests
+    needs: lint-and-tests
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:

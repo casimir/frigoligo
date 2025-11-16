@@ -105,7 +105,6 @@ mixin WallabagMethods on WallabagClientEndpoints implements ApiMethods {
               type: ArticleOpType.created,
               performedAt: e.createdAt,
             );
-          } else if (false) {
             // will be available in a future version of the API
             // } else if (e.deletedAt != null) {
             // return ArticleOperation(
