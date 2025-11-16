@@ -46,28 +46,33 @@ class _ListingPageState extends ConsumerState<ListingPage> {
         bottom: false,
         child: NestedScrollView(
           key: _scrollKey,
-          headerSliverBuilder: (context, innerBoxIsScrolled) => [
-            PinnedHeaderSliver(
-              child: SearchBarWithFilters(
-                doRefresh: () => doRefresh(),
-                menu: _buildMenu(context),
-                backgroundColor: headerColor,
-              ),
-            ),
-            if (widget.withProgressIndicator)
-              const PinnedHeaderSliver(child: RemoteSyncProgressIndicator()),
-          ],
+          headerSliverBuilder:
+              (context, innerBoxIsScrolled) => [
+                PinnedHeaderSliver(
+                  child: SearchBarWithFilters(
+                    doRefresh: () => doRefresh(),
+                    menu: _buildMenu(context),
+                    backgroundColor: headerColor,
+                  ),
+                ),
+                if (widget.withProgressIndicator)
+                  const PinnedHeaderSliver(
+                    child: RemoteSyncProgressIndicator(),
+                  ),
+              ],
           body: Ink(
             color: Theme.of(context).colorScheme.surface,
-            child: Builder(builder: (context) {
-              return ArticleListView(
-                controller: _scrollKey.currentState!.innerController,
-                doRefresh: () => doRefresh(),
-                onItemSelect: widget.onItemSelect,
-                sideBySideMode: widget.sideBySideMode,
-                headerOffset: 122.0, // height of SearchBarWithFilters
-              );
-            }),
+            child: Builder(
+              builder: (context) {
+                return ArticleListView(
+                  controller: _scrollKey.currentState!.innerController,
+                  doRefresh: () => doRefresh(),
+                  onItemSelect: widget.onItemSelect,
+                  sideBySideMode: widget.sideBySideMode,
+                  headerOffset: 122.0, // height of SearchBarWithFilters
+                );
+              },
+            ),
           ),
         ),
       ),
@@ -86,8 +91,9 @@ class _ListingPageState extends ConsumerState<ListingPage> {
   }
 
   PopupMenuButton _buildMenu(BuildContext context) => PopupMenuButton(
-        key: const Key(wkListingPopupMenu),
-        itemBuilder: (context) => [
+    key: const Key(wkListingPopupMenu),
+    itemBuilder:
+        (context) => [
           PopupMenuItem(
             value: MenuAction.saveLink,
             child: ListTile(
@@ -111,10 +117,11 @@ class _ListingPageState extends ConsumerState<ListingPage> {
             ),
           ),
         ],
-        onSelected: (action) => switch (action as MenuAction) {
+    onSelected:
+        (action) => switch (action as MenuAction) {
           MenuAction.saveLink => showSaveUrlDialog(context),
           MenuAction.synchronize => doRefresh(),
           MenuAction.settings => context.push('/settings'),
         },
-      );
+  );
 }

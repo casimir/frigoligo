@@ -66,9 +66,11 @@ class _ArticlePageState extends ConsumerState<ArticlePage>
       actions: buildActions(context, ref, article, widget.withExpander),
       withProgressIndicator: widget.withProgressIndicator,
       scrollEnabled: article.content != null,
-      builder: (_) => article.content == null
-          ? ArticleContentEmpty(articleUrl: Uri.parse(article.url))
-          : ArticleContent(article: article),
+      builder:
+          (_) =>
+              article.content == null
+                  ? ArticleContentEmpty(articleUrl: Uri.parse(article.url))
+                  : ArticleContent(article: article),
     );
   }
 }
@@ -92,11 +94,12 @@ class _PageScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final PreferredSizeWidget appBarBottom = withProgressIndicator
-        ? const RemoteSyncProgressIndicator(
-            idleWidget: ReadingProgressIndicator(),
-          )
-        : const ReadingProgressIndicator();
+    final PreferredSizeWidget appBarBottom =
+        withProgressIndicator
+            ? const RemoteSyncProgressIndicator(
+              idleWidget: ReadingProgressIndicator(),
+            )
+            : const ReadingProgressIndicator();
 
     return AdaptiveScaffold(
       barData: AdaptiveBarData(

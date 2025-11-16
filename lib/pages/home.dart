@@ -61,11 +61,8 @@ class _HomePageState extends ConsumerState<HomePage> {
     return Row(
       children: [
         if (!expanded) ...[
-          const Flexible(
-            flex: 1,
-            child: ListingPage(),
-          ),
-          const VerticalDivider(width: 1)
+          const Flexible(flex: 1, child: ListingPage()),
+          const VerticalDivider(width: 1),
         ],
         Flexible(
           flex: 2,

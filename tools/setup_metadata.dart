@@ -7,11 +7,7 @@ const androidMetadataRoot = '$metadataRoot/android';
 const iosMetadataRoot = '$metadataRoot/ios';
 
 // unsupported languages on Apple App Store
-const langSkips = [
-  'et',
-  'gl-ES',
-  'ta-IN',
-];
+const langSkips = ['et', 'gl-ES', 'ta-IN'];
 // different language codes for Apple App Store
 const langRewrite = {
   'it-IT': 'it',
@@ -43,12 +39,13 @@ void main() {
 }
 
 List<String> detectLanguages(String root) {
-  final langs = Directory(root)
-      .listSync()
-      .whereType<Directory>()
-      .map((e) => e.path.split('/').last)
-      .where((e) => !langSkips.contains(e))
-      .toList();
+  final langs =
+      Directory(root)
+          .listSync()
+          .whereType<Directory>()
+          .map((e) => e.path.split('/').last)
+          .where((e) => !langSkips.contains(e))
+          .toList();
   langs.sort();
   return langs;
 }
@@ -89,7 +86,11 @@ void unlinkPath(String path) {
 }
 
 void manageChangelogs(
-    Directory androidDir, Directory iosDir, String lang, int version) {
+  Directory androidDir,
+  Directory iosDir,
+  String lang,
+  int version,
+) {
   final f = File('${iosDir.path}/release_notes.txt');
   var targetSuffix = 'changelogs/$version.txt';
   var target = File('${androidDir.path}/$targetSuffix');

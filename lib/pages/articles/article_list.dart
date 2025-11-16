@@ -83,25 +83,29 @@ class _ArticleListState extends ConsumerState<ArticleListView> {
       itemCount: ref.watch(queryMetaProvider.selectAsync((it) => it.count)),
       itemBuilder: (context, index) async {
         return AsyncArticleItem(
-          articleId: await ref
-              .watch(queryMetaProvider.selectAsync((it) => it.ids[index])),
+          articleId: await ref.watch(
+            queryMetaProvider.selectAsync((it) => it.ids[index]),
+          ),
           onTap: (article) => _openArticle(article.id),
           showSelection: widget.sideBySideMode,
         );
       },
       itemHeight: listingHeight,
       separatorBuilder: (context, index) => const Divider(),
-      create: (context, child) => Center(
-          child: RefreshIndicator.adaptive(
-        onRefresh: widget.doRefresh,
-        child: child,
-      )),
-      emptyBuilder: (context) => Center(
-        child: Text(
-          context.L.listing_noArticles,
-          style: Theme.of(context).textTheme.headlineMedium,
-        ),
-      ),
+      create:
+          (context, child) => Center(
+            child: RefreshIndicator.adaptive(
+              onRefresh: widget.doRefresh,
+              child: child,
+            ),
+          ),
+      emptyBuilder:
+          (context) => Center(
+            child: Text(
+              context.L.listing_noArticles,
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+          ),
       restorationId: 'listing.listview',
     );
   }

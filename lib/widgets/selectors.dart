@@ -22,9 +22,7 @@ class SelectorBottomSheet extends StatelessWidget {
     return MaterialSheet.modal(
       context: context,
       title: title,
-      child: Column(
-        children: children,
-      ),
+      child: Column(children: children),
     );
   }
 }
@@ -71,64 +69,72 @@ class _MultiSelectState<T> extends State<MultiSelect<T>> {
       title: widget.title,
       children: [
         Padding(
-          padding:
-              const EdgeInsets.symmetric(horizontal: kSpacingBetweenGroups),
-          child: Row(children: [
-            Expanded(
-              child: TextField(
-                controller: _searchController,
-                decoration: InputDecoration(
-                  icon: const Icon(Icons.search),
-                  hintText: context.L.g_search,
-                  border: InputBorder.none,
+          padding: const EdgeInsets.symmetric(
+            horizontal: kSpacingBetweenGroups,
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _searchController,
+                  decoration: InputDecoration(
+                    icon: const Icon(Icons.search),
+                    hintText: context.L.g_search,
+                    border: InputBorder.none,
+                  ),
+                  onChanged: (_) => setState(() {}),
+                  autocorrect: false,
                 ),
-                onChanged: (_) => setState(() {}),
-                autocorrect: false,
               ),
-            ),
-            C.spacers.horizontalComponent,
-            IconButton(
+              C.spacers.horizontalComponent,
+              IconButton(
                 icon: const Icon(Icons.clear_all),
                 onPressed: () {
                   _selected.clear();
                   _searchController.clear();
                   setState(() {});
-                }),
-            // FIXME this predicate can provoke a weird and surprising behavior
-            if (widget.addEntryIcon != null && T == String)
-              IconButton(
-                icon: widget.addEntryIcon!,
-                onPressed: () async {
-                  final input = await showTextInputDialog(
-                    context: context,
-                    textFields: [const DialogTextField(autocorrect: false)],
-                  );
-                  if (input?.length != 1) return;
-                  final label = input!.first;
-                  final entry = DropdownMenuEntry(
-                    value: label,
-                    label: label,
-                    leadingIcon: widget.newEntryLeading,
-                  );
-                  setState(() {
-                    _index[label] = entry as DropdownMenuEntry<T>;
-                    _selected.add(label as T);
-                  });
                 },
               ),
-          ]),
+              // FIXME this predicate can provoke a weird and surprising behavior
+              if (widget.addEntryIcon != null && T == String)
+                IconButton(
+                  icon: widget.addEntryIcon!,
+                  onPressed: () async {
+                    final input = await showTextInputDialog(
+                      context: context,
+                      textFields: [const DialogTextField(autocorrect: false)],
+                    );
+                    if (input?.length != 1) return;
+                    final label = input!.first;
+                    final entry = DropdownMenuEntry(
+                      value: label,
+                      label: label,
+                      leadingIcon: widget.newEntryLeading,
+                    );
+                    setState(() {
+                      _index[label] = entry as DropdownMenuEntry<T>;
+                      _selected.add(label as T);
+                    });
+                  },
+                ),
+            ],
+          ),
         ),
         const Divider(),
         Expanded(
           child: ListView(
-              children: search(_searchController.text, _index.keys.toList(),
-                      selected: _selected.map((e) => _index[e]!.label).toSet())
-                  .map((m) => _buildItem(context, _index[m.entry]!))
-                  .toList()),
+            children:
+                search(
+                  _searchController.text,
+                  _index.keys.toList(),
+                  selected: _selected.map((e) => _index[e]!.label).toSet(),
+                ).map((m) => _buildItem(context, _index[m.entry]!)).toList(),
+          ),
         ),
         MaterialSheetActionButton(
           label: context.L.selector_selectbuttonlabel(
-              widget.selectionLabelizer(_selected.length)),
+            widget.selectionLabelizer(_selected.length),
+          ),
           onPressed: () {
             widget.onConfirm?.call(_selected);
             Navigator.of(context).pop(_selected);
@@ -171,10 +177,7 @@ class EntryScore {
   String toString() => '$entry ($score)';
 
   EntryScore copyWith({String? entry, double? score}) {
-    return EntryScore(
-      entry ?? this.entry,
-      score ?? this.score,
-    );
+    return EntryScore(entry ?? this.entry, score ?? this.score);
   }
 }
 
@@ -188,25 +191,28 @@ List<EntryScore> search(
   if (query.isEmpty) {
     results = entries.map((e) => EntryScore(e, 0.0)).toList();
   } else {
-    final preparedQuery =
-        query.split(RegExp(r'\s+')).map((e) => '($e)').join('.*');
+    final preparedQuery = query
+        .split(RegExp(r'\s+'))
+        .map((e) => '($e)')
+        .join('.*');
     final re = RegExp(preparedQuery, caseSensitive: false);
-    results = entries
-        .map((e) => EntryScore(e, _computeScore(re.allMatches(e))))
-        .where((e) => e.score > 0.0)
-        .toList();
+    results =
+        entries
+            .map((e) => EntryScore(e, _computeScore(re.allMatches(e))))
+            .where((e) => e.score > 0.0)
+            .toList();
   }
 
-  results = results.map((e) {
-    final boost = selected?.contains(e.entry) == true ? selectedBoost : 0;
-    return boost > 0 ? e.copyWith(score: e.score + boost) : e;
-  }).toList();
+  results =
+      results.map((e) {
+        final boost = selected?.contains(e.entry) == true ? selectedBoost : 0;
+        return boost > 0 ? e.copyWith(score: e.score + boost) : e;
+      }).toList();
 
-  return results
-    ..sort((a, b) {
-      final delta = b.score.compareTo(a.score);
-      return delta == 0 ? a.entry.compareTo(b.entry) : delta;
-    });
+  return results..sort((a, b) {
+    final delta = b.score.compareTo(a.score);
+    return delta == 0 ? a.entry.compareTo(b.entry) : delta;
+  });
 }
 
 double _computeScore(Iterable<RegExpMatch> matches) {
@@ -228,32 +234,37 @@ Future<Iterable<T>?> showBottomSheetSelector<T>({
 }) {
   return showModalBottomSheet(
     context: context,
-    builder: (_) => FutureBuilder(
-        future: entriesBuilder,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator.adaptive());
-          }
-          if (snapshot.hasError) {
-            // TODO center vertically
-            return Center(child: ErrorScreen(error: snapshot.error!));
-          }
+    builder:
+        (_) => FutureBuilder(
+          future: entriesBuilder,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator.adaptive());
+            }
+            if (snapshot.hasError) {
+              // TODO center vertically
+              return Center(child: ErrorScreen(error: snapshot.error!));
+            }
 
-          return MultiSelect(
-            title: title,
-            selectionLabelizer: selectionLabelizer,
-            entries: snapshot.data!
-                .map((it) => DropdownMenuEntry(
-                      value: it,
-                      label: it.toString(),
-                      leadingIcon: leadingIcon,
-                    ))
-                .toList(),
-            initialSelection: initialSelection,
-            addEntryIcon: addEntryIcon,
-            newEntryLeading: leadingIcon,
-          );
-        }),
+            return MultiSelect(
+              title: title,
+              selectionLabelizer: selectionLabelizer,
+              entries:
+                  snapshot.data!
+                      .map(
+                        (it) => DropdownMenuEntry(
+                          value: it,
+                          label: it.toString(),
+                          leadingIcon: leadingIcon,
+                        ),
+                      )
+                      .toList(),
+              initialSelection: initialSelection,
+              addEntryIcon: addEntryIcon,
+              newEntryLeading: leadingIcon,
+            );
+          },
+        ),
     backgroundColor: Theme.of(context).colorScheme.surface,
     isScrollControlled: true,
     useSafeArea: true,
@@ -318,10 +329,7 @@ class Select<T> extends StatelessWidget {
       title: title,
       children: [
         const Divider(),
-        ListView(
-          shrinkWrap: true,
-          children: entries.map(buildItem).toList(),
-        ),
+        ListView(shrinkWrap: true, children: entries.map(buildItem).toList()),
       ],
     );
   }
@@ -329,8 +337,10 @@ class Select<T> extends StatelessWidget {
 
 typedef SelectBuilder = Select Function(BuildContext context);
 
-Future<T?> showBottomSheetSelect<T>(
-    {required BuildContext context, required SelectBuilder builder}) {
+Future<T?> showBottomSheetSelect<T>({
+  required BuildContext context,
+  required SelectBuilder builder,
+}) {
   return showModalBottomSheet(
     context: context,
     builder: builder,
@@ -359,11 +369,12 @@ class SelectChip<T> extends StatelessWidget {
     Future<void> onTap() async {
       final selected = await showBottomSheetSelect(
         context: context,
-        builder: (context) => Select(
-          title: title,
-          entries: entries,
-          initial: value ?? initialSelection,
-        ),
+        builder:
+            (context) => Select(
+              title: title,
+              entries: entries,
+              initial: value ?? initialSelection,
+            ),
       );
       if (selected != null) {
         onSelected(selected);

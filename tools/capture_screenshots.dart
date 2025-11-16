@@ -42,11 +42,7 @@ Future<void> main() async {
             device,
             'test_driver/main.dart',
             args: ['--no-pub'],
-            config: {
-              ...c,
-              'deviceName': emulatorId,
-              'deviceType': entry.key,
-            },
+            config: {...c, 'deviceName': emulatorId, 'deviceType': entry.key},
           );
           stderr.addStream(proc.stderr);
           await stdout.addStream(proc.stdout);

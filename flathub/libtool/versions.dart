@@ -15,12 +15,14 @@ class Versions {
     } on PathNotFoundException catch (_) {
       lines = [];
     }
-    _entries = Map.fromEntries(lines.where((e) => e.isNotEmpty).map((e) {
-      final parts = e.split('\t');
-      final versionNum = int.parse(parts[0]);
-      final versionName = parts.sublist(1).join('\t');
-      return MapEntry(versionNum, versionName);
-    }));
+    _entries = Map.fromEntries(
+      lines.where((e) => e.isNotEmpty).map((e) {
+        final parts = e.split('\t');
+        final versionNum = int.parse(parts[0]);
+        final versionName = parts.sublist(1).join('\t');
+        return MapEntry(versionNum, versionName);
+      }),
+    );
   }
 
   Iterable<RawVersion> get anteChronological {

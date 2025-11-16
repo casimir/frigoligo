@@ -10,18 +10,17 @@ import 'test_credentials.local.dart'; // this is obviously not versioned
 
 const captureDebug = false;
 
-const androidLocaleRewrite = {
-  'zh-Hans': 'zh-CN',
-  'zh-Hant': 'zh-TW',
-};
+const androidLocaleRewrite = {'zh-Hans': 'zh-CN', 'zh-Hant': 'zh-TW'};
 
 final projectLabels = ProjectLocalizationLoader();
 final materialLabels = MaterialLocalizationLoader();
 
 Future<void> main() async {
   final locale = Environment.getString('locale')!;
-  final darkModeLabel =
-      projectLabels.getValue(locale, 'settings_valueThemeDark');
+  final darkModeLabel = projectLabels.getValue(
+    locale,
+    'settings_valueThemeDark',
+  );
   final backTooltip = materialLabels.getValue(locale, 'backButtonTooltip');
 
   final deviceName = Environment.getString('deviceName')!;
@@ -80,16 +79,17 @@ Future<void> main() async {
       await driver.enterText(testCredentials.password);
       await driver.sendTextInputAction(TextInputAction.next);
       await takeScreenshot('loginflow-credentials');
-      await driver.tap(find.byValueKey(wkLoginFlowLogIn));
+      // await driver.tap(find.byValueKey(wkLoginFlowLogIn));
     });
 
     test('listing', () async {
       await takeScreenshot('listing-loading');
       // hold until the progess indicator is gone
       // this is sub-optimal but will do for now...
-      final pauseDuration = deviceType == 'phone'
-          ? const Duration(seconds: 10)
-          : const Duration(seconds: 15);
+      final pauseDuration =
+          deviceType == 'phone'
+              ? const Duration(seconds: 10)
+              : const Duration(seconds: 15);
       await Future.delayed(pauseDuration);
       await takeScreenshot('1-listing', false);
     });

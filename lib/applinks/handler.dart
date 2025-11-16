@@ -22,7 +22,10 @@ class LinksHandler {
   }
 
   static Deeplink _handle(
-      RouteConfiguration router, Uri uri, OnLinkData onData) {
+    RouteConfiguration router,
+    Uri uri,
+    OnLinkData onData,
+  ) {
     _log.info('trying to open $uri');
 
     if (uri.pathSegments.isEmpty) return Deeplink.invalid;
@@ -45,16 +48,13 @@ class LinksHandler {
   }
 
   static StreamSubscription<Uri> listen(
-      RouteConfiguration router, OnLinkData onLinkData) {
-    return appLinks.uriLinkStream
-        .listen((uri) => _handle(router, uri, onLinkData));
+    RouteConfiguration router,
+    OnLinkData onLinkData,
+  ) {
+    return appLinks.uriLinkStream.listen(
+      (uri) => _handle(router, uri, onLinkData),
+    );
   }
 }
 
-enum Deeplink {
-  article,
-  invalid,
-  login,
-  logs,
-  save,
-}
+enum Deeplink { article, invalid, login, logs, save }

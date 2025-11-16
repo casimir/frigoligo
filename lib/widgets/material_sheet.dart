@@ -5,11 +5,7 @@ import 'package:flutter/material.dart';
 // - https://m3.material.io/components/side-sheets/specs
 
 class MaterialSheet extends StatelessWidget {
-  const MaterialSheet({
-    super.key,
-    required this.title,
-    required this.child,
-  });
+  const MaterialSheet({super.key, required this.title, required this.child});
 
   final Widget title;
   final Widget child;
@@ -19,8 +15,9 @@ class MaterialSheet extends StatelessWidget {
     return SafeArea(
       bottom: false,
       child: Padding(
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
         child: Container(
           decoration: ShapeDecoration(
             color: Theme.of(context).colorScheme.surface,
@@ -29,12 +26,7 @@ class MaterialSheet extends StatelessWidget {
             ),
           ),
           constraints: const BoxConstraints(maxWidth: 400),
-          child: Column(
-            children: [
-              title,
-              Expanded(child: child),
-            ],
-          ),
+          child: Column(children: [title, Expanded(child: child)]),
         ),
       ),
     );
@@ -49,10 +41,7 @@ class MaterialSheet extends StatelessWidget {
       title: Padding(
         padding: const EdgeInsets.only(left: 16, right: 24, top: 24),
         child: Row(
-          children: [
-            _MaterialSheetCloseButton(),
-            _MaterialSheetTitle(title),
-          ],
+          children: [_MaterialSheetCloseButton(), _MaterialSheetTitle(title)],
         ),
       ),
       child: child,
@@ -91,8 +80,8 @@ class _MaterialSheetTitle extends StatelessWidget {
     return Text(
       title,
       style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            color: Theme.of(context).colorScheme.onSurfaceVariant,
-          ),
+        color: Theme.of(context).colorScheme.onSurfaceVariant,
+      ),
     );
   }
 }
@@ -125,14 +114,13 @@ class MaterialSheetActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
-      child: Row(children: [
-        Expanded(
-          child: FilledButton(
-            onPressed: onPressed,
-            child: Text(label),
+      child: Row(
+        children: [
+          Expanded(
+            child: FilledButton(onPressed: onPressed, child: Text(label)),
           ),
-        ),
-      ]),
+        ],
+      ),
     );
   }
 }

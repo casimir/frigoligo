@@ -17,15 +17,12 @@ class ArticleImagePreview extends StatelessWidget {
       child:
           // https://github.com/Baseflow/flutter_cached_network_image/issues/383
           article.previewPicture!.endsWith('.svg')
-              ? SvgPicture.network(
-                  article.previewPicture!,
-                  fit: BoxFit.cover,
-                )
+              ? SvgPicture.network(article.previewPicture!, fit: BoxFit.cover)
               : CachedNetworkImage(
-                  imageUrl: article.previewPicture!,
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                  fit: BoxFit.cover,
-                ),
+                imageUrl: article.previewPicture!,
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+                fit: BoxFit.cover,
+              ),
     );
   }
 }

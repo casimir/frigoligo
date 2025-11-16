@@ -29,9 +29,10 @@ class ReadingSettingsConfigurator extends ConsumerWidget {
                   min: 12.0,
                   max: 20.0,
                   divisions: 4,
-                  onChanged: (size) => ref
-                      .read(readingSettingsProvider.notifier)
-                      .fontSize = size,
+                  onChanged:
+                      (size) =>
+                          ref.read(readingSettingsProvider.notifier).fontSize =
+                              size,
                 ),
               ),
               C.spacers.verticalContent,
@@ -42,22 +43,23 @@ class ReadingSettingsConfigurator extends ConsumerWidget {
                   alignment: WrapAlignment.center,
                   spacing: kSpacingInGroup,
                   runSpacing: !UniversalPlatform.isMobile ? 10.0 : 0.0,
-                  children: readingFonts.map((family) {
-                    return ChoiceChip(
-                      label: Text(
-                        family,
-                        style: textStyleFromFontFamily(family),
-                      ),
-                      selected: values.fontFamily == family,
-                      onSelected: (selected) {
-                        if (selected) {
-                          ref
-                              .read(readingSettingsProvider.notifier)
-                              .fontFamily = family;
-                        }
-                      },
-                    );
-                  }).toList(),
+                  children:
+                      readingFonts.map((family) {
+                        return ChoiceChip(
+                          label: Text(
+                            family,
+                            style: textStyleFromFontFamily(family),
+                          ),
+                          selected: values.fontFamily == family,
+                          onSelected: (selected) {
+                            if (selected) {
+                              ref
+                                  .read(readingSettingsProvider.notifier)
+                                  .fontFamily = family;
+                            }
+                          },
+                        );
+                      }).toList(),
                 ),
               ),
               C.spacers.verticalContent,
@@ -79,10 +81,12 @@ class ReadingSettingsConfigurator extends ConsumerWidget {
                         ),
                       ],
                       selected: {values.justifyText},
-                      onSelectionChanged: (selected) => ref
-                          .read(readingSettingsProvider.notifier)
-                          .justifyText = selected.first,
-                    )
+                      onSelectionChanged:
+                          (selected) =>
+                              ref
+                                  .read(readingSettingsProvider.notifier)
+                                  .justifyText = selected.first,
+                    ),
                   ],
                 ),
               ),
@@ -98,15 +102,11 @@ List<Widget> _buildSection(BuildContext context, String label, Widget child) {
   return [
     Text(
       label,
-      style: Theme.of(context)
-          .textTheme
-          .titleMedium
-          ?.copyWith(fontWeight: FontWeight.bold),
+      style: Theme.of(
+        context,
+      ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
     ),
     C.spacers.verticalComponent,
-    SizedBox(
-      width: double.infinity,
-      child: child,
-    ),
+    SizedBox(width: double.infinity, child: child),
   ];
 }

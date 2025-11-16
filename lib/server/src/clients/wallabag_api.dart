@@ -8,20 +8,20 @@ import 'api_methods.dart';
 final _log = Logger('clients.wallabag');
 
 Article _toArticle(WallabagEntry entry) => Article(
-      id: entry.id,
-      createdAt: entry.createdAt,
-      updatedAt: entry.updatedAt,
-      title: entry.title!,
-      domainName: entry.domainName,
-      url: entry.url!,
-      content: entry.content,
-      language: entry.language,
-      readingTime: entry.readingTime,
-      previewPicture: entry.previewPicture,
-      archivedAt: entry.archivedAt,
-      starredAt: entry.starredAt,
-      tags: entry.tags.map((e) => e.label).toList(),
-    );
+  id: entry.id,
+  createdAt: entry.createdAt,
+  updatedAt: entry.updatedAt,
+  title: entry.title!,
+  domainName: entry.domainName,
+  url: entry.url!,
+  content: entry.content,
+  language: entry.language,
+  readingTime: entry.readingTime,
+  previewPicture: entry.previewPicture,
+  archivedAt: entry.archivedAt,
+  starredAt: entry.starredAt,
+  tags: entry.tags.map((e) => e.label).toList(),
+);
 
 int? _toTimestamp(DateTime? date) =>
     date != null ? date.millisecondsSinceEpoch ~/ 1000 : null;

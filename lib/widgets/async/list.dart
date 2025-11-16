@@ -61,8 +61,8 @@ class AListView extends StatelessWidget {
             controller: controller,
             itemCount: count,
             itemBuilder: (context, index) => itemBuilder(context, index),
-            separatorBuilder: (context, index) =>
-                separatorBuilder!(context, index),
+            separatorBuilder:
+                (context, index) => separatorBuilder!(context, index),
             restorationId: restorationId,
           );
         }
@@ -85,10 +85,9 @@ class AListView extends StatelessWidget {
       key: key,
       controller: controller,
       itemCount: itemCount,
-      itemBuilder: (context, index) => AListItemBuilder(
-        builder: itemBuilder,
-        index: index,
-      ),
+      itemBuilder:
+          (context, index) =>
+              AListItemBuilder(builder: itemBuilder, index: index),
       itemExtent: itemExtent,
       create: create,
       emptyBuilder: emptyBuilder,
@@ -111,11 +110,12 @@ class AListView extends StatelessWidget {
       key: key,
       controller: controller,
       itemCount: itemCount,
-      itemBuilder: (context, index) => AListItemBuilder(
-        builder: itemBuilder,
-        index: index,
-        height: itemHeight,
-      ),
+      itemBuilder:
+          (context, index) => AListItemBuilder(
+            builder: itemBuilder,
+            index: index,
+            height: itemHeight,
+          ),
       separatorBuilder: separatorBuilder,
       create: create,
       emptyBuilder: emptyBuilder,

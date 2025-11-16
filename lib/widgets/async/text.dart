@@ -49,10 +49,12 @@ class _AnimatedEllipsisState extends State<AnimatedEllipsis>
   }
 
   void _registerAnimatedDot(int index) {
-    _controllers.add(AnimationController(
-      duration: const Duration(milliseconds: 200),
-      vsync: this,
-    ));
+    _controllers.add(
+      AnimationController(
+        duration: const Duration(milliseconds: 200),
+        vsync: this,
+      ),
+    );
 
     const tweenEnd = 8.0;
     _animations.add(
@@ -70,10 +72,7 @@ class _AnimatedEllipsisState extends State<AnimatedEllipsis>
         }),
     );
 
-    _dots.add(_EllipseDot(
-      listenable: _animations[index],
-      style: widget.style,
-    ));
+    _dots.add(_EllipseDot(listenable: _animations[index], style: widget.style));
   }
 
   @override
@@ -89,10 +88,7 @@ class _AnimatedEllipsisState extends State<AnimatedEllipsis>
   Widget build(BuildContext context) {
     final fontSize =
         widget.style?.fontSize ?? DefaultTextStyle.of(context).style.fontSize!;
-    return SizedBox(
-      height: fontSize * 1.5,
-      child: Row(children: _dots),
-    );
+    return SizedBox(height: fontSize * 1.5, child: Row(children: _dots));
   }
 }
 

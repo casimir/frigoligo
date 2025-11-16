@@ -81,9 +81,14 @@ class Renderer {
         if (content == null) return null;
         return [
           '${shift * 2}<p${langAttr(lang)}>',
-          ...content.split('\n').map((e) => e.isNotEmpty
-              ? '${shift * 3}$e'
-              : '${shift * 2}</p>\n${shift * 2}<p${langAttr(lang)}>'),
+          ...content
+              .split('\n')
+              .map(
+                (e) =>
+                    e.isNotEmpty
+                        ? '${shift * 3}$e'
+                        : '${shift * 2}</p>\n${shift * 2}<p${langAttr(lang)}>',
+              ),
           '${shift * 2}</p>',
         ].join('\n');
       }),
@@ -97,7 +102,8 @@ class Renderer {
     for (final (num, name, date) in versions.anteChronological) {
       lines.add('${shift * 2}<release version="$name" date="$date">');
       lines.add(
-          '${shift * 3}<url type="details">https://github.com/casimir/frigoligo/releases/tag/$name</url>');
+        '${shift * 3}<url type="details">https://github.com/casimir/frigoligo/releases/tag/$name</url>',
+      );
       final description = _genReleaseDescription(num);
       if (description != null) {
         lines.add(description);
