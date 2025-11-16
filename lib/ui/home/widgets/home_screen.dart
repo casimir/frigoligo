@@ -3,10 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../config/dependencies.dart';
 import '../../../services/remote_sync.dart';
-import '../../core/widgets/adaptive.dart';
-import '../../core/widgets/future_loader.dart';
 import '../../article/controllers/article_screen_controller.dart';
 import '../../article/widgets/article_screen.dart';
+import '../../core/widgets/adaptive.dart';
+import '../../core/widgets/future_loader.dart';
 import '../../core/widgets/navigation_split_view.dart';
 import '../../repository_providers.dart';
 import '../controllers/article_entry_controller.dart';

@@ -175,7 +175,9 @@ void main() {
     testWidgets('should allow to change the starred filter', (tester) async {
       when(() => mockController.setOnlyStarred(any())).thenAnswer((_) async {});
 
-      await tester.pumpWidget(buildWidget(query: const Query(onlyStarred: false)));
+      await tester.pumpWidget(
+        buildWidget(query: const Query(onlyStarred: false)),
+      );
       await tester.pumpAndSettle();
 
       final BuildContext context = tester.element(find.byType(SearchPanel));
@@ -192,9 +194,6 @@ void main() {
 
       await tester.pumpWidget(buildWidget(availableTags: ['tag1', 'tag2']));
       await tester.pumpAndSettle();
-
-      final BuildContext context = tester.element(find.byType(SearchPanel));
-      final l = AppLocalizations.of(context)!;
 
       // Scroll to tags filter and tap it
       final tagsFinder = find.byKey(kFilterTagsKey);
@@ -223,9 +222,6 @@ void main() {
 
       await tester.pumpWidget(buildWidget(availableDomains: ['domain1']));
       await tester.pumpAndSettle();
-
-      final BuildContext context = tester.element(find.byType(SearchPanel));
-      final l = AppLocalizations.of(context)!;
 
       final domainsFinder = find.byKey(kFilterDomainsKey);
       await tester.scrollUntilVisible(

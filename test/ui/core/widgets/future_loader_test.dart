@@ -55,8 +55,9 @@ void main() {
       expect(find.byType(ErrorScreen), findsOneWidget);
     });
 
-    testWidgets('should use custom loadingBuilder when provided',
-        (tester) async {
+    testWidgets('should use custom loadingBuilder when provided', (
+      tester,
+    ) async {
       final completer = Completer();
 
       await tester.pumpWidget(
@@ -79,8 +80,7 @@ void main() {
       expect(find.text('Loaded: success'), findsOneWidget);
     });
 
-    testWidgets('should use custom errorBuilder when provided',
-        (tester) async {
+    testWidgets('should use custom errorBuilder when provided', (tester) async {
       final completer = Completer();
 
       await tester.pumpWidget(
@@ -104,27 +104,29 @@ void main() {
       expect(find.byType(ErrorScreen), findsNothing);
     });
 
-    testWidgets('should use default ErrorScreen when errorBuilder is not provided',
-        (tester) async {
-      final completer = Completer();
+    testWidgets(
+      'should use default ErrorScreen when errorBuilder is not provided',
+      (tester) async {
+        final completer = Completer();
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: FutureLoader(
-            future: completer.future,
-            builder: (context, data) => Text('Loaded: $data'),
+        await tester.pumpWidget(
+          MaterialApp(
+            home: FutureLoader(
+              future: completer.future,
+              builder: (context, data) => Text('Loaded: $data'),
+            ),
           ),
-        ),
-      );
+        );
 
-      expect(find.byType(CircularProgressIndicator), findsOneWidget);
-      expect(find.byType(ErrorScreen), findsNothing);
+        expect(find.byType(CircularProgressIndicator), findsOneWidget);
+        expect(find.byType(ErrorScreen), findsNothing);
 
-      completer.completeError('error');
-      await tester.pumpAndSettle();
+        completer.completeError('error');
+        await tester.pumpAndSettle();
 
-      expect(find.byType(CircularProgressIndicator), findsNothing);
-      expect(find.byType(ErrorScreen), findsOneWidget);
-    });
+        expect(find.byType(CircularProgressIndicator), findsNothing);
+        expect(find.byType(ErrorScreen), findsOneWidget);
+      },
+    );
   });
 }

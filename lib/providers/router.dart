@@ -32,6 +32,7 @@ GoRouter router(Ref ref) {
         builder: (context, state) {
           // FIXME opening an article with deeplinking is broken for now
           final rawArticleId = state.uri.queryParameters['articleId'];
+          // ignore: unused_local_variable
           final articleId =
               rawArticleId != null ? int.tryParse(rawArticleId) : null;
           return HomeScreen(
