@@ -9,14 +9,13 @@ targets:
     builders:
       source_gen:combining_builder:
         options:
-          preamble: |
-            // coverage:ignore-file
+          preamble: // coverage:ignore-file
           build_extensions:
-            '^lib/{{path}}/{{file}}.dart': 'lib/{{path}}/_g/{{file}}.g.dart'
+            "^lib/{{path}}/{{file}}.dart": "lib/{{path}}/_g/{{file}}.g.dart"
       freezed:
         options:
           build_extensions:
-            '^lib/{{path}}/{{file}}.dart': 'lib/{{path}}/_g/{{file}}.freezed.dart'
+            "^lib/{{path}}/{{file}}.dart": "lib/{{path}}/_g/{{file}}.freezed.dart"
       drift_dev:
         # Disable the default builder in favor of the modular builders configured
         # below.
