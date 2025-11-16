@@ -5,6 +5,8 @@ import '../wallabag/endpoints.dart';
 import '../wallabag/types.dart';
 import 'api_methods.dart';
 
+const bool expDeletionDetection = false;
+
 final _log = Logger('clients.wallabag');
 
 Article _toArticle(WallabagEntry entry) => Article(
@@ -105,7 +107,7 @@ mixin WallabagMethods on WallabagClientEndpoints implements ApiMethods {
               type: ArticleOpType.created,
               performedAt: e.createdAt,
             );
-          } else if (false) {
+          } else if (expDeletionDetection) {
             // will be available in a future version of the API
             // } else if (e.deletedAt != null) {
             // return ArticleOperation(
