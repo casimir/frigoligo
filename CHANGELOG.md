@@ -49,6 +49,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(iOS)* Handle a casing issue in AppIcon files ([cf153b0](https://github.com/casimir/frigoligo/commit/cf153b033c6694b1ae1644d7e9b7f9aa9693f92c))
 - Add a missing import ([095fb57](https://github.com/casimir/frigoligo/commit/095fb5703aeaac2a960da08cf46d9e4b55651c86))
 - *(ios/share)* Prevent a crash when sharing an URL from the sheet ([0995d26](https://github.com/casimir/frigoligo/commit/0995d26b8002c3b18b92667a5378bd0c14b4d3de))
+- *(codegen)* Make code generation compatible with formatting rules ([126275c](https://github.com/casimir/frigoligo/commit/126275c0d8554147f7be0e6e2596da74e67e2009))
 
 ### 🚜 Refactor
 
@@ -133,6 +134,8 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(tests)* Ignore generated code when calculating coverage ([ab51417](https://github.com/casimir/frigoligo/commit/ab51417e5b25c6619cd17b23aae5eb16209f7b4d))
 - Don't run sonarqube scan without the secret + avoid double linux run ([7632406](https://github.com/casimir/frigoligo/commit/76324061f507d64e8a75f2ffc989d081e9649265))
 - *(flutter)* Upgrade to 3.35.7 ([819ee50](https://github.com/casimir/frigoligo/commit/819ee50caaa19ecd2fc3e022e6c494e13c6e4073))
+- Reformat everything with 3.8 formatting rules ([0c56a6c](https://github.com/casimir/frigoligo/commit/0c56a6c691f68c17f7e8afae9cb12a4c6d641e7b))
+- Introduce a Makefile and enforce lint in CI ([#416](https://github.com/casimir/frigoligo/pull/416)) ([1ccb0af](https://github.com/casimir/frigoligo/commit/1ccb0af7f73348e158019606df8739daf8a5e9e8))
 
 ### I18n
 
