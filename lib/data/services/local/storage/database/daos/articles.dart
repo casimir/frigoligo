@@ -34,37 +34,10 @@ class ArticlesDao extends DatabaseAccessor<DB> with $ArticlesDaoMixin {
     });
   }
 
-  Selectable<int> selectArticleIdsForText(
-    String text, {
-    SearchTextMode mode = SearchTextMode.all,
-    Expression<bool> Function(Articles t)? where,
-  }) {
-    final columnFilter = switch (mode) {
-      SearchTextMode.all => '',
-      SearchTextMode.title => 'title : ',
-      SearchTextMode.content => 'content : ',
-    };
-    final quotedText = '"$text"';
-    final cleanedText = quotedText.trim().split(RegExp(r'\s+')).join(' AND ');
-    final suffix = cleanedText.endsWith('*') ? '' : '*'; // ensure some matches
-    final query = columnFilter + cleanedText + suffix;
-    final predicate = where != null ? (_, t) => where(t) : null;
-    return articleDrift.articleIdsForText(query, predicate: predicate);
-  }
-
   Future<Set<int>> getAllIds() {
     return (selectOnly(articles)..addColumns([
       articles.id,
     ])).map((row) => row.read(articles.id)!).get().then((ids) => ids.toSet());
-  }
-
-  Future<List<String>> listAllDomains() {
-    return (selectOnly(articles, distinct: true)
-          ..addColumns([articles.domainName])
-          ..where(articles.domainName.isNotNull())
-          ..orderBy([OrderingTerm.asc(articles.domainName)]))
-        .map((row) => row.read(articles.domainName)!)
-        .get();
   }
 
   Future<int> countUnread() =>
