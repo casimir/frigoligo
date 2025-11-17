@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
-import '../../../data/services/platform/sharing/sharing_service.dart';
+import '../../../data/services/platform/sharing_service.dart';
 import '../../../domain/models/log_entry.dart';
 import '../../../domain/repositories.dart';
 
