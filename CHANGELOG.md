@@ -17,6 +17,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(ios/logconsole)* Use Cupertino widgets for the page structure ([f8276e8](https://github.com/casimir/frigoligo/commit/f8276e8ce5501d338652ccbd2daaeb3eb709de93))
 - *(logconsole)* Allow to choose what to export when sharing as file ([df910df](https://github.com/casimir/frigoligo/commit/df910df620c3b7364511486fbb746c6f7aa2ce2b))
 - Update app icons and logos ([4658d6b](https://github.com/casimir/frigoligo/commit/4658d6bc8b9bfa08c6821d7b6270fb79abbecccc))
+- *(data/services/platform)* Add an URL launcher service ([#417](https://github.com/casimir/frigoligo/pull/417)) ([3953ab1](https://github.com/casimir/frigoligo/commit/3953ab1ac5a2b59a3ce17addb76d81725cab3e0b))
 
 ### 🐛 Bug Fixes
 
