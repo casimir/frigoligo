@@ -19,15 +19,14 @@ import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
 import '../../../color_extension.dart';
-import '../../../config/dependencies.dart';
 import '../../../constants.dart';
-import '../../../data/services/local/storage/storage_service.dart';
 import '../../../providers/article.dart';
 import '../../../providers/reading_settings.dart';
 import '../../../providers/settings.dart';
 import '../../core/states.dart';
 import '../../core/widgets/async_value_loader.dart';
 import '../../core/widgets/future_loader.dart';
+import '../controllers/article_content_controller.dart';
 import 'html_widget_plus.dart';
 
 typedef ProgressCallback =
@@ -41,17 +40,17 @@ typedef ContentBuilder =
 class ArticleContent extends ConsumerWidget {
   const ArticleContent({
     super.key,
-    required this.articleId,
+    required this.controller,
     this.contentBuilder,
   });
 
-  final int articleId;
+  final ArticleContentController controller;
   final ContentBuilder? contentBuilder;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AsyncValueLoader(
-      value: ref.watch(articleContentStateProvider(articleId)),
+      value: ref.watch(articleContentStateProvider(controller.articleId)),
       builder: (context, content) => buildLoaded(context, ref, content!),
     );
   }
@@ -59,7 +58,7 @@ class ArticleContent extends ConsumerWidget {
   Widget buildLoaded(BuildContext context, WidgetRef ref, String content) {
     Future<void> onScrollReady(ProgressScrollTo scrollTo) async {
       final scrollPosition = await ref.read(
-        scrollPositionProvider(articleId).future,
+        scrollPositionProvider(controller.articleId).future,
       );
       final progress = scrollPosition?.progress;
       if (progress != null && progress > 0) {
@@ -71,13 +70,8 @@ class ArticleContent extends ConsumerWidget {
       if (progress.isNaN) progress = 0;
       ref.read(currentReadingProgressProvider.notifier).progress = progress;
 
-      final LocalStorageService localStorageService = dependencies.get();
-
       if (!isScrolling) {
-        await localStorageService.db.articlesDao.saveScrollProgress(
-          articleId,
-          progress,
-        );
+        await controller.setReadingProgress(progress);
       }
     }
 
@@ -105,7 +99,7 @@ class ArticleContent extends ConsumerWidget {
 
     return FutureLoader(
       future: ref.watch(
-        articleStateProvider(articleId).selectAsync((a) => a?.title),
+        articleStateProvider(controller.articleId).selectAsync((a) => a?.title),
       ),
       builder: (context, title) {
         final ContentBuilder builder = contentBuilder ?? defaultContentBuilder;

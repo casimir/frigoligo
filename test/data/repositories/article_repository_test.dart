@@ -87,5 +87,30 @@ void main() {
       await localStorageService.articles.delete(1);
       expect(await stream.elementAt(0), equals(null));
     });
+
+    test('should get and set reading progress', () async {
+      final article = Article(
+        id: 1,
+        createdAt: DateTime(2000),
+        updatedAt: DateTime(2000),
+        title: 'Title',
+        url: 'https://somewhere.org/articles/1',
+        content: 'Content',
+        readingTime: 1,
+        tags: [],
+      );
+
+      final stream = articleRepository.watchReadingProgress(1);
+      expect(await stream.elementAt(0), equals(null));
+
+      await localStorageService.articles.update(article);
+      expect(await stream.elementAt(0), equals(null));
+
+      await articleRepository.setReadingProgress(1, 0.5);
+      expect(await stream.elementAt(0), equals(0.5));
+
+      await localStorageService.articles.delete(1);
+      expect(await stream.elementAt(0), equals(null));
+    });
   });
 }

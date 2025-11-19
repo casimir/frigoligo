@@ -33,4 +33,16 @@ class ArticleRepositoryImpl implements ArticleRepository {
   Stream<String?> watchContent(int id) {
     return _localStorageService.articles.getContent(id).watchSingleOrNull();
   }
+
+  @override
+  Stream<double?> watchReadingProgress(int id) {
+    return _localStorageService.articles
+        .getReadingProgress(id)
+        .watchSingleOrNull();
+  }
+
+  @override
+  Future<void> setReadingProgress(int id, double progress) {
+    return _localStorageService.articles.setReadingProgress(id, progress);
+  }
 }

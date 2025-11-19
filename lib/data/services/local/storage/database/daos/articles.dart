@@ -42,25 +42,6 @@ class ArticlesDao extends DatabaseAccessor<DB> with $ArticlesDaoMixin {
 
   Future<int> countUnread() =>
       articles.count(where: (t) => t.archivedAt.isNull()).getSingle();
-
-  Future<void> saveScrollProgress(int articleId, double progress) async {
-    await db.transaction(() async {
-      final readingTime =
-          await (db.articles.selectOnly()
-                ..addColumns([articles.readingTime])
-                ..where(articles.id.equals(articleId)))
-              .map((row) => row.read(articles.readingTime)!)
-              .getSingle();
-      await db.managers.articleScrollPositions.create(
-        (o) => o(
-          id: Value(articleId),
-          readingTime: readingTime,
-          progress: progress,
-        ),
-        mode: InsertMode.insertOrReplace,
-      );
-    });
-  }
 }
 
 enum SearchTextMode { all, title, content }

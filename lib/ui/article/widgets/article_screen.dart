@@ -20,6 +20,7 @@ import '../../core/widgets/navigation_split_view.dart';
 import '../../core/widgets/reading_progress_indicator.dart';
 import '../../core/widgets/remote_sync.dart';
 import '../../repository_providers.dart';
+import '../controllers/article_content_controller.dart';
 import '../controllers/article_screen_controller.dart';
 import '../controllers/article_sheet_controller.dart';
 import 'article_content.dart';
@@ -101,7 +102,12 @@ class _ArticleScreenState extends ConsumerState<ArticleScreen> {
                             (url) => widget.controller.openInBrowser(url),
                       )
                       : ArticleContent(
-                        articleId: data.id,
+                        controller: ArticleContentController(
+                          articleRepository: ref.watch(
+                            articleRepositoryProvider,
+                          ),
+                          articleId: data.id,
+                        ),
                         contentBuilder: widget.contentBuilder,
                       ),
         );
