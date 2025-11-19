@@ -19,8 +19,9 @@ void main() {
     });
 
     test('should set reading progress on repository', () async {
-      when(() => mockRepository.setReadingProgress(any(), any()))
-          .thenAnswer((_) async {});
+      when(
+        () => mockRepository.setReadingProgress(any(), any()),
+      ).thenAnswer((_) async {});
 
       await controller.setReadingProgress(0.75);
 
