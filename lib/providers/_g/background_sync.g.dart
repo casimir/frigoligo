@@ -8,7 +8,7 @@ part of '../background_sync.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$backgroundSyncHash() => r'f44a55f62886f87a5948f295b41240986d9438ff';
+String _$backgroundSyncHash() => r'e177313ea90da9294c4a579444654c5453f5e6ed';
 
 /// See also [backgroundSync].
 @ProviderFor(backgroundSync)

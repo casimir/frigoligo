@@ -268,6 +268,30 @@ class ArticlesManager {
     tags.sort();
     return tags;
   }
+
+  StorageQuery<double?> getReadingProgress(int id) {
+    final t = _db.articleScrollPositions;
+    final query = (t.selectOnly()
+          ..addColumns([t.progress])
+          ..where(t.id.equals(id)))
+        .map((row) => row.read(t.progress));
+    return StorageQuery(query);
+  }
+
+  Future<void> setReadingProgress(int id, double progress) async {
+    await _db.transaction(() async {
+      final readingTime =
+          await (_db.articles.selectOnly()
+                ..addColumns([_db.articles.readingTime])
+                ..where(_db.articles.id.equals(id)))
+              .map((row) => row.read(_db.articles.readingTime)!)
+              .getSingle();
+      await _db.managers.articleScrollPositions.create(
+        (o) => o(id: Value(id), readingTime: readingTime, progress: progress),
+        mode: InsertMode.insertOrReplace,
+      );
+    });
+  }
 }
 
 class TagsManager {

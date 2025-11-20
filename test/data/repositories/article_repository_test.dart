@@ -87,5 +87,89 @@ void main() {
       await localStorageService.articles.delete(1);
       expect(await stream.elementAt(0), equals(null));
     });
+
+    test('should get and set reading progress', () async {
+      final article = Article(
+        id: 1,
+        createdAt: DateTime(2000),
+        updatedAt: DateTime(2000),
+        title: 'Title',
+        url: 'https://somewhere.org/articles/1',
+        content: 'Content',
+        readingTime: 1,
+        tags: [],
+      );
+
+      final stream = articleRepository.watchReadingProgress(1);
+      expect(await stream.elementAt(0), equals(null));
+
+      await localStorageService.articles.update(article);
+      expect(await stream.elementAt(0), equals(null));
+
+      await articleRepository.setReadingProgress(1, 0.5);
+      expect(await stream.elementAt(0), equals(0.5));
+
+      await localStorageService.articles.delete(1);
+      expect(await stream.elementAt(0), equals(null));
+    });
+
+    test('should evict scroll position when readingTime changes', () async {
+      final article = Article(
+        id: 1,
+        createdAt: DateTime(2000),
+        updatedAt: DateTime(2000),
+        title: 'Title',
+        url: 'https://somewhere.org/articles/1',
+        content: 'Content',
+        readingTime: 5,
+        tags: [],
+      );
+
+      // Insert article and set scroll position
+      await localStorageService.articles.update(article);
+      await articleRepository.setReadingProgress(1, 0.5);
+
+      // Verify scroll position exists
+      final stream = articleRepository.watchReadingProgress(1);
+      expect(await stream.elementAt(0), equals(0.5));
+
+      // Update article with different readingTime
+      final updatedArticle = article.copyWith(readingTime: 10);
+      await localStorageService.articles.update(updatedArticle);
+
+      // Verify scroll position was evicted
+      expect(await stream.elementAt(0), equals(null));
+    });
+
+    test(
+      'should preserve scroll position when readingTime unchanged',
+      () async {
+        final article = Article(
+          id: 1,
+          createdAt: DateTime(2000),
+          updatedAt: DateTime(2000),
+          title: 'Title',
+          url: 'https://somewhere.org/articles/1',
+          content: 'Content',
+          readingTime: 5,
+          tags: [],
+        );
+
+        // Insert article and set scroll position
+        await localStorageService.articles.update(article);
+        await articleRepository.setReadingProgress(1, 0.5);
+
+        // Verify scroll position exists
+        final stream = articleRepository.watchReadingProgress(1);
+        expect(await stream.elementAt(0), equals(0.5));
+
+        // Update article with same readingTime but different title
+        final updatedArticle = article.copyWith(title: 'Updated Title');
+        await localStorageService.articles.update(updatedArticle);
+
+        // Verify scroll position still exists
+        expect(await stream.elementAt(0), equals(0.5));
+      },
+    );
   });
 }

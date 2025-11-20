@@ -263,7 +263,6 @@ enum Sk {
   appBadge('appBadge', false),
   language('locale', Language.system, EnumCodec(Language.values)),
   nativeArticleRenderer('nativeArticleRenderer', true),
-  selectedArticleId('selectedArticleId', -1),
   readingSettings('readingSettings', Object()),
   tagSaveEnabled('tagSaveEnabled', false),
   tagSaveLabel('tagSaveLabel', 'inbox'),

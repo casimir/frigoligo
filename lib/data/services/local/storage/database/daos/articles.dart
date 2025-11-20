@@ -8,26 +8,6 @@ import 'articles.drift.dart';
 class ArticlesDao extends DatabaseAccessor<DB> with $ArticlesDaoMixin {
   ArticlesDao(super.attachedDatabase);
 
-  Future<int> updateOne(Article article) {
-    return db.transaction(() async {
-      var count = await articles.insertOnConflictUpdate(
-        article.toCompanion(false),
-      );
-
-      final position =
-          await db.managers.articleScrollPositions
-              .filter((f) => f.id.equals(article.id))
-              .getSingleOrNull();
-      if (position != null && position.readingTime != article.readingTime) {
-        count += await articleScrollPositions.deleteWhere(
-          (f) => f.id.equals(article.id),
-        );
-      }
-
-      return count;
-    });
-  }
-
   Future<void> updateAll(Iterable<Article> allArticles) async {
     final index = {for (final it in allArticles) it.id: it.toCompanion(false)};
 
@@ -54,73 +34,14 @@ class ArticlesDao extends DatabaseAccessor<DB> with $ArticlesDaoMixin {
     });
   }
 
-  Future<int> deleteOne(int articleId) {
-    return db.transaction(() async {
-      var count = 0;
-      count += await articles.deleteWhere((f) => f.id.equals(articleId));
-      count += await articleScrollPositions.deleteWhere(
-        (f) => f.id.equals(articleId),
-      );
-      return count;
-    });
-  }
-
-  Selectable<int> selectArticleIdsForText(
-    String text, {
-    SearchTextMode mode = SearchTextMode.all,
-    Expression<bool> Function(Articles t)? where,
-  }) {
-    final columnFilter = switch (mode) {
-      SearchTextMode.all => '',
-      SearchTextMode.title => 'title : ',
-      SearchTextMode.content => 'content : ',
-    };
-    final quotedText = '"$text"';
-    final cleanedText = quotedText.trim().split(RegExp(r'\s+')).join(' AND ');
-    final suffix = cleanedText.endsWith('*') ? '' : '*'; // ensure some matches
-    final query = columnFilter + cleanedText + suffix;
-    final predicate = where != null ? (_, t) => where(t) : null;
-    return articleDrift.articleIdsForText(query, predicate: predicate);
-  }
-
   Future<Set<int>> getAllIds() {
     return (selectOnly(articles)..addColumns([
       articles.id,
     ])).map((row) => row.read(articles.id)!).get().then((ids) => ids.toSet());
   }
 
-  Future<List<String>> listAllDomains() {
-    return (selectOnly(articles, distinct: true)
-          ..addColumns([articles.domainName])
-          ..where(articles.domainName.isNotNull())
-          ..orderBy([OrderingTerm.asc(articles.domainName)]))
-        .map((row) => row.read(articles.domainName)!)
-        .get();
-  }
-
-  Future<List<String>> listAllTags() async {
-    final tagLists =
-        await (articles.selectOnly()..addColumns([articles.tags]))
-            .map((row) => row.readWithConverter(articles.tags)!)
-            .get();
-    final tags = tagLists.expand((it) => it).toSet().toList();
-    tags.sort();
-    return tags;
-  }
-
   Future<int> countUnread() =>
       articles.count(where: (t) => t.archivedAt.isNull()).getSingle();
-
-  Future<void> saveScrollProgress(Article article, double progress) async {
-    await db.managers.articleScrollPositions.create(
-      (o) => o(
-        id: Value(article.id),
-        readingTime: article.readingTime,
-        progress: progress,
-      ),
-      mode: InsertMode.insertOrReplace,
-    );
-  }
 }
 
 enum SearchTextMode { all, title, content }

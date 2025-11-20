@@ -18,12 +18,12 @@ import 'constants.dart';
 import 'data/services/local/storage/storage_service.dart';
 import 'native/appbadge.dart';
 import 'native/save.service.dart';
-import 'pages/reading/article_content.dart';
 import 'providers/background_sync.dart';
 import 'providers/router.dart';
 import 'providers/settings.dart';
 import 'providers/tools/observer.dart';
 import 'src/generated/i18n/app_localizations.dart';
+import 'ui/article/widgets/article_content.dart';
 
 Future<void> main() async {
   setupDependencies();
@@ -49,7 +49,7 @@ Future<void> main() async {
   await Settings.init();
 
   log.info('app version: ${AppInfo.versionVerbose}');
-  log.info('db version: ${dependencies.get<LocalStorageService>().dbVersion}');
+  log.info('db version:  ${dependencies.get<LocalStorageService>().dbVersion}');
   log.info('platform:    ${UniversalPlatform.operatingSystem}');
   if (!UniversalPlatform.isWeb) {
     log.info('os version:  ${Platform.operatingSystemVersion}');

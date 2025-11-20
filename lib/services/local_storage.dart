@@ -91,11 +91,9 @@ class LocalStorage extends _$LocalStorage {
           case ArticleOpType.created:
           case ArticleOpType.updated:
             final article = await api.getArticle(op.articleId);
-            count += await _storageService.db.articlesDao.updateOne(article);
+            count += await _storageService.articles.update(article);
           case ArticleOpType.deleted:
-            count += await _storageService.db.articlesDao.deleteOne(
-              op.articleId,
-            );
+            count += await _storageService.articles.delete(op.articleId);
         }
       }
     }
@@ -130,7 +128,7 @@ class LocalStorage extends _$LocalStorage {
   }
 
   Future<void> persistArticle(Article article) =>
-      _storageService.db.articlesDao.updateOne(article);
+      _storageService.articles.update(article);
 
   Future<int> saveArticle(String url, {List<String>? tags}) async {
     final api = (await ref.read(clientProvider.future))!;
@@ -144,7 +142,7 @@ class LocalStorage extends _$LocalStorage {
 
     final result = await api.deleteArticle(articleId);
     if (result == ApiActionResult.succeed) {
-      final deleted = await _storageService.db.articlesDao.deleteOne(articleId);
+      final deleted = await _storageService.articles.delete(articleId);
       if (deleted > 0) {
         _log.info('deleted article $articleId from the database');
       }

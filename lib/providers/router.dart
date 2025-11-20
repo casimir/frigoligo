@@ -4,13 +4,13 @@ import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../config/dependencies.dart';
-import '../pages/home.dart';
 import '../pages/login.dart';
-import '../pages/reading/article.dart';
 import '../pages/save.dart';
 import '../pages/session_details.dart';
 import '../pages/settings.dart';
 import '../server/providers/client.dart';
+import '../ui/home/controllers/home_screen_controller.dart';
+import '../ui/home/widgets/home_screen.dart';
 import '../ui/logconsole/viewmodels/logconsole_viewmodel.dart';
 import '../ui/logconsole/widgets/logconsole_screen.dart';
 import 'article.dart';
@@ -30,16 +30,16 @@ GoRouter router(Ref ref) {
         path: '/',
         redirect: loginRedirect,
         builder: (context, state) {
+          // FIXME opening an article with deeplinking is broken for now
           final rawArticleId = state.uri.queryParameters['articleId'];
+          // ignore: unused_local_variable
           final articleId =
               rawArticleId != null ? int.tryParse(rawArticleId) : null;
-          ref.read(currentArticleProvider.future).then((article) {
-            final currentId = article?.id;
-            if (articleId != null && articleId != currentId) {
-              ref.read(openArticleProvider.notifier).schedule(articleId);
-            }
-          });
-          return const HomePage();
+          return HomeScreen(
+            controller: HomeScreenController(
+              queryRepository: dependencies.get(),
+            ),
+          );
         },
       ),
       GoRoute(
@@ -71,10 +71,6 @@ GoRouter router(Ref ref) {
           );
           return LogConsoleScreen(viewModel: viewModel);
         },
-      ),
-      GoRoute(
-        path: '/articles/current',
-        builder: (context, state) => const ArticlePage(),
       ),
       GoRoute(
         path: '/articles/:id',
