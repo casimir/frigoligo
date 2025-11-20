@@ -9,7 +9,7 @@ jobs:
     name: Update all changelogs
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - uses: orhun/git-cliff-action@v4
@@ -19,7 +19,7 @@ jobs:
       - uses: dart-lang/setup-dart@v1
       - run: dart run tools/setup_metadata.dart
       - run: dart run flathub/render_metadata.dart 
-      - uses: stefanzweifel/git-auto-commit-action@v6
+      - uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "Automated changelog update"
           file_pattern: CHANGELOG.md fastlane flathub
