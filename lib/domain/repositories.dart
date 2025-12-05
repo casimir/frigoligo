@@ -9,6 +9,9 @@ import 'models/query.dart';
 abstract class ArticleRepository {
   Stream<ArticleData?> watchData(int id);
   Stream<String?> watchContent(int id);
+
+  Stream<double?> watchReadingProgress(int id);
+  Future<void> setReadingProgress(int id, double progress);
 }
 
 abstract class LoggerRepository {
