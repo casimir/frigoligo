@@ -9,8 +9,8 @@ import '../../constants.dart';
 import '../../data/services/local/storage/database/daos/articles.dart';
 import '../../data/services/local/storage/storage_service.dart';
 import '../../providers/query.dart';
+import '../../ui/core/widgets/selectors.dart';
 import '../../widgets/async/text.dart';
-import '../../widgets/selectors.dart';
 
 class SearchFilters extends ConsumerWidget {
   const SearchFilters({super.key, this.indent});

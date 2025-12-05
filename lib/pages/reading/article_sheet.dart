@@ -13,9 +13,9 @@ import '../../data/services/local/storage/database/models/article.drift.dart';
 import '../../data/services/local/storage/storage_service.dart';
 import '../../services/remote_sync.dart';
 import '../../services/remote_sync_actions.dart';
+import '../../ui/core/widgets/selectors.dart';
+import '../../ui/core/widgets/tag_list.dart';
 import '../../widgets/copiable_text.dart';
-import '../../widgets/selectors.dart';
-import '../../widgets/tag_list.dart';
 import 'mixins.dart';
 
 class ArticleSheet extends ConsumerWidget with CurrentArticleWidget {

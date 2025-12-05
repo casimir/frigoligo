@@ -1,11 +1,11 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cadanse/cadanse.dart';
-import 'package:cadanse/components/widgets/error.dart';
 import 'package:cadanse/tokens/constants.dart';
 import 'package:flutter/material.dart';
 
-import '../buildcontext_extension.dart';
-import 'material_sheet.dart';
+import '../../../buildcontext_extension.dart';
+import '../../core/widgets/future_loader.dart';
+import '../../core/widgets/material_sheet.dart';
 
 class SelectorBottomSheet extends StatelessWidget {
   const SelectorBottomSheet({
@@ -235,22 +235,14 @@ Future<Iterable<T>?> showBottomSheetSelector<T>({
   return showModalBottomSheet(
     context: context,
     builder:
-        (_) => FutureBuilder(
+        (_) => FutureLoader(
           future: entriesBuilder,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator.adaptive());
-            }
-            if (snapshot.hasError) {
-              // TODO center vertically
-              return Center(child: ErrorScreen(error: snapshot.error!));
-            }
-
+          builder: (context, data) {
             return MultiSelect(
               title: title,
               selectionLabelizer: selectionLabelizer,
               entries:
-                  snapshot.data!
+                  data
                       .map(
                         (it) => DropdownMenuEntry(
                           value: it,
