@@ -10,8 +10,8 @@ import '../../providers/article.dart';
 import '../../providers/query.dart';
 import '../../services/remote_sync.dart';
 import '../../services/remote_sync_actions.dart';
+import '../../ui/core/widgets/tag_list.dart';
 import '../../widgets/article_image_preview.dart';
-import '../../widgets/tag_list.dart';
 import 'article_list.dart';
 
 class ArticleListItem extends ConsumerStatefulWidget {
