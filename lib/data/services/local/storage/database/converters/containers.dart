@@ -36,7 +36,7 @@ class _EquatableList<T> extends ListBase<T> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is _EquatableList<T> && this.hashCode == other.hashCode);
+      (other is _EquatableList<T> && hashCode == other.hashCode);
 
   @override
   int get hashCode => Object.hashAllUnordered(_inner);
