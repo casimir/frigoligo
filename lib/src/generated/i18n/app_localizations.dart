@@ -1,3 +1,6 @@
+// GENERATED FILE, DO NOT EDIT MANUALLY
+// coverage:ignore-file
+
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
