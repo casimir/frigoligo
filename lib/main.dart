@@ -49,7 +49,7 @@ Future<void> main() async {
   await Settings.init();
 
   log.info('app version: ${AppInfo.versionVerbose}');
-  log.info('db version: ${dependencies.get<LocalStorageService>().dbVersion}');
+  log.info('db version:  ${dependencies.get<LocalStorageService>().dbVersion}');
   log.info('platform:    ${UniversalPlatform.operatingSystem}');
   if (!UniversalPlatform.isWeb) {
     log.info('os version:  ${Platform.operatingSystemVersion}');
