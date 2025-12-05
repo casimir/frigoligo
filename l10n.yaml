@@ -1,5 +1,8 @@
 arb-dir: lib/l10n
 template-arb-file: app_en.arb
 output-dir: lib/src/generated/i18n
+header: |
+  // GENERATED FILE, DO NOT EDIT MANUALLY
+  // coverage:ignore-file
 preferred-supported-locales:
   - en

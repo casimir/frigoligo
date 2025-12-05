@@ -12,7 +12,7 @@ class AppInfoData {
 class AppInfo {
   static AppInfoData? _data;
 
-  static init() async {
+  static Future<void> init() async {
     IosDeviceInfo? iosInfo;
     if (UniversalPlatform.isIOS) {
       iosInfo = await DeviceInfoPlugin().iosInfo;
