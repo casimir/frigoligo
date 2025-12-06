@@ -18,6 +18,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(logconsole)* Allow to choose what to export when sharing as file ([df910df](https://github.com/casimir/frigoligo/commit/df910df620c3b7364511486fbb746c6f7aa2ce2b))
 - Update app icons and logos ([4658d6b](https://github.com/casimir/frigoligo/commit/4658d6bc8b9bfa08c6821d7b6270fb79abbecccc))
 - *(data/services/platform)* Add an URL launcher service ([#417](https://github.com/casimir/frigoligo/pull/417)) ([3953ab1](https://github.com/casimir/frigoligo/commit/3953ab1ac5a2b59a3ce17addb76d81725cab3e0b))
+- *(ui)* Add shared ui/core infrastructure layer ([#421](https://github.com/casimir/frigoligo/pull/421)) ([558a1a0](https://github.com/casimir/frigoligo/commit/558a1a0bedf44ace321c5fe6e99f65e630a555a2))
 
 ### 🐛 Bug Fixes
 
@@ -66,6 +67,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(core)* Add another async loader for AsyncValue ([f7e220e](https://github.com/casimir/frigoligo/commit/f7e220ed540f4a0f7367006cbe08448d55e48050))
 - Introduce more data repositories ([#411](https://github.com/casimir/frigoligo/pull/411)) ([2f56c07](https://github.com/casimir/frigoligo/commit/2f56c071d726e54dd41cbd6585c72b31af2a2ce9))
 - *(core/ui)* Consolidate "copyable text" widgets ([f8a349e](https://github.com/casimir/frigoligo/commit/f8a349e46bcaebbc4a398c823938807559b8f0ed))
+- *(data)* Make a cleaner reading progress implementation ([#419](https://github.com/casimir/frigoligo/pull/419)) ([5237765](https://github.com/casimir/frigoligo/commit/5237765402deae2014111afd160de906ed2b8b1a))
 
 ### 📚 Documentation
 
@@ -137,6 +139,8 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(flutter)* Upgrade to 3.35.7 ([819ee50](https://github.com/casimir/frigoligo/commit/819ee50caaa19ecd2fc3e022e6c494e13c6e4073))
 - Reformat everything with 3.8 formatting rules ([0c56a6c](https://github.com/casimir/frigoligo/commit/0c56a6c691f68c17f7e8afae9cb12a4c6d641e7b))
 - Introduce a Makefile and enforce lint in CI ([#416](https://github.com/casimir/frigoligo/pull/416)) ([1ccb0af](https://github.com/casimir/frigoligo/commit/1ccb0af7f73348e158019606df8739daf8a5e9e8))
+- Batch of various small fixes ([#420](https://github.com/casimir/frigoligo/pull/420)) ([1a33e14](https://github.com/casimir/frigoligo/commit/1a33e1410fb379a6bff251365e38944d72748530))
+- *(coverage)* Sonarqube doesn't follow in file instructions ([318331f](https://github.com/casimir/frigoligo/commit/318331f2ad49fb210441af8b13f799dd26c5ed10))
 
 ### I18n
 
