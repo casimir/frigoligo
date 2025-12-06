@@ -25,7 +25,7 @@ void main() {
     });
 
     test(
-      'shoud provide an ItemCounter that reacts to the query changes',
+      'should provide an ItemCounter that reacts to the query changes',
       () async {
         final itemCounter = await controller.getItemCounter();
 
