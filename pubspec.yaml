@@ -28,7 +28,7 @@ dependencies:
 
   # dev & tooling
   equatable: 2.0.7
-  flutter_riverpod: 2.6.1
+  flutter_riverpod: 3.0.3
   freezed_annotation: 3.0.0
   get_it: 8.2.0
   go_router: 16.0.0
@@ -37,7 +37,7 @@ dependencies:
   logging: 1.3.0
   path_provider: 2.1.5
   path_provider_foundation: any
-  riverpod_annotation: 2.6.1
+  riverpod_annotation: 3.0.3
   sqlite3: any
 
   # UI
@@ -82,14 +82,14 @@ dev_dependencies:
   # lints
   custom_lint: 0.7.5
   flutter_lints: 6.0.0
-  riverpod_lint: 2.6.5
+  riverpod_lint: 3.0.3
 
   # code generation
   build_runner: any
   drift_dev: 2.27.0
   freezed: 3.0.6
   json_serializable: 6.9.5
-  riverpod_generator: 2.6.5
+  riverpod_generator: 3.0.3
 
   # automated testing
   emulators: 0.7.0
