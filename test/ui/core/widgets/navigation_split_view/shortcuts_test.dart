@@ -1,5 +1,5 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:frigoligo/ui/core/widgets/src/navigation_split_view/navigation_split_view.dart';
 
@@ -78,6 +78,60 @@ void main() {
         );
 
         expectSimpleSideBySideLayout(tester);
+
+        await tester.sendKeyEvent(LogicalKeyboardKey.keyF);
+        await tester.pumpAndSettle();
+
+        expectSimpleSideBySideLayout(tester);
+      });
+
+      testWidgets('It should not expand when F key is pressed in SearchBar', (
+        tester,
+      ) async {
+        tester.setExpandedSize();
+
+        final controller = TextEditingController();
+
+        await tester.pumpWidget(
+          SimpleApp(
+            child: NavigationSplitView(
+              itemCount: ValueNotifier(1),
+              navigationItemBuilder:
+                  (context, index) => const Text(navigationLabel),
+              navigationContainerBuilder: (context, index, child) {
+                return Column(
+                  children: [
+                    SearchBar(
+                      hintText: 'Search',
+                      controller: controller,
+                      onChanged: (_) {},
+                    ),
+                    Expanded(child: child),
+                  ],
+                );
+              },
+              contentBuilder: (context, index) => const Text(contentLabel),
+            ),
+          ),
+        );
+
+        expectSimpleSideBySideLayout(tester);
+
+        await tester.enterText(find.byType(SearchBar), 'test');
+        await tester.pumpAndSettle();
+
+        expect(controller.text, 'test');
+
+        final textField = find.descendant(
+          of: find.byType(SearchBar),
+          matching: find.byType(TextField),
+        );
+        expect(textField, findsOneWidget);
+
+        final editableText = tester.widget<EditableText>(
+          find.descendant(of: textField, matching: find.byType(EditableText)),
+        );
+        expect(editableText.focusNode.hasFocus, isTrue);
 
         await tester.sendKeyEvent(LogicalKeyboardKey.keyF);
         await tester.pumpAndSettle();

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show LogicalKeyboardKey;
+import 'package:flutter/services.dart'
+    show HardwareKeyboard, KeyDownEvent, LogicalKeyboardKey;
 
 import '../../adaptive.dart';
 import 'animated_navigation_pane_slider.dart';
@@ -11,6 +12,11 @@ import 'animated_navigation_pane_slider.dart';
 /// The value is arbitrarily derived from [kNavigationPaneWidth] to get a smooth
 /// width transition between the different layouts.
 const double kNavigationItemMaxWidth = kNavigationPaneWidth * 1.33;
+
+bool _isTextFieldFocused() {
+  final focus = FocusManager.instance.primaryFocus;
+  return focus?.context?.findAncestorStateOfType<EditableTextState>() != null;
+}
 
 /// A view that present a navigation pane and a content pane. The layout depends
 /// on the available width. It is inspired by [Scaffold] for the architecture
@@ -177,12 +183,42 @@ class NavigationSplitViewState extends State<NavigationSplitView>
     widget.itemCount.addListener(() {
       _onItemCountNotification();
     });
+
+    if (widget.enableShortcuts) {
+      HardwareKeyboard.instance.addHandler(_handleKeyEvent);
+    }
   }
 
   @override
   void dispose() {
     widget.itemCount.removeListener(_onItemCountNotification);
+
+    if (widget.enableShortcuts) {
+      HardwareKeyboard.instance.removeHandler(_handleKeyEvent);
+    }
+
     super.dispose();
+  }
+
+  bool _handleKeyEvent(KeyEvent event) {
+    if (event is! KeyDownEvent) return false;
+    if (_getLayout() != NavigationSplitViewLayout.sideBySide) return false;
+
+    if (event.logicalKey == LogicalKeyboardKey.keyF) {
+      if (!_isTextFieldFocused()) {
+        expandContent();
+        return true;
+      }
+    }
+    if (event.logicalKey == LogicalKeyboardKey.escape) {
+      // Allow Escape even if text field is focused when content is expanded,
+      // since the text field is hidden behind the expanded content pane.
+      if (isContentExpanded || !_isTextFieldFocused()) {
+        collapseContent();
+        return true;
+      }
+    }
+    return false;
   }
 
   // When the navigation list is invalidated we want to invalidate the currently
@@ -308,16 +344,6 @@ class NavigationSplitViewState extends State<NavigationSplitView>
       ],
     );
 
-    if (widget.enableShortcuts) {
-      view = CallbackShortcuts(
-        bindings: {
-          const SingleActivator(LogicalKeyboardKey.escape): collapseContent,
-          const SingleActivator(LogicalKeyboardKey.keyF): expandContent,
-        },
-        child: Focus(autofocus: true, child: view),
-      );
-    }
-
     return NavigationSplitViewScope(
       isContentExpanded: isContentExpanded,
       layout: layout,
@@ -401,17 +427,7 @@ class NavigationSplitViewState extends State<NavigationSplitView>
     late final Widget view;
 
     if (withShortcuts) {
-      view = CallbackShortcuts(
-        bindings: {
-          const SingleActivator(LogicalKeyboardKey.escape): () {
-            final navigator = Navigator.of(context);
-            if (mounted && navigator.canPop()) {
-              navigator.pop();
-            }
-          },
-        },
-        child: Focus(autofocus: true, child: content),
-      );
+      view = _EscapePopHandler(child: content);
     } else {
       view = content;
     }
@@ -480,4 +496,47 @@ class NavigationSplitViewScope extends InheritedWidget {
     return context
         .dependOnInheritedWidgetOfExactType<NavigationSplitViewScope>();
   }
+}
+
+/// A widget that pops the Navigator when Escape is pressed.
+///
+/// Used for full layout mode where content is pushed on a route.
+class _EscapePopHandler extends StatefulWidget {
+  const _EscapePopHandler({required this.child});
+
+  final Widget child;
+
+  @override
+  State<_EscapePopHandler> createState() => _EscapePopHandlerState();
+}
+
+class _EscapePopHandlerState extends State<_EscapePopHandler> {
+  @override
+  void initState() {
+    super.initState();
+    HardwareKeyboard.instance.addHandler(_handleKeyEvent);
+  }
+
+  @override
+  void dispose() {
+    HardwareKeyboard.instance.removeHandler(_handleKeyEvent);
+    super.dispose();
+  }
+
+  bool _handleKeyEvent(KeyEvent event) {
+    if (event is! KeyDownEvent) return false;
+    if (_isTextFieldFocused()) return false;
+
+    if (event.logicalKey == LogicalKeyboardKey.escape) {
+      final navigator = Navigator.of(context);
+      if (mounted && navigator.canPop()) {
+        navigator.pop();
+        return true;
+      }
+    }
+    return false;
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.child;
 }
