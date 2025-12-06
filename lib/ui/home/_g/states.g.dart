@@ -2,29 +2,27 @@
 
 // coverage:ignore-file
 
-part of '../background_sync.dart';
+part of '../states.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$backgroundSyncHash() => r'e177313ea90da9294c4a579444654c5453f5e6ed';
+String _$queryStateHash() => r'cd16e0f8dff7e8b3c2a8074ea24fad4583aaa786';
 
-/// See also [backgroundSync].
-@ProviderFor(backgroundSync)
-final backgroundSyncProvider = AutoDisposeProvider<void>.internal(
-  backgroundSync,
-  name: r'backgroundSyncProvider',
+/// See also [queryState].
+@ProviderFor(queryState)
+final queryStateProvider = AutoDisposeFutureProvider<QueryState>.internal(
+  queryState,
+  name: r'queryStateProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$backgroundSyncHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$queryStateHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef BackgroundSyncRef = AutoDisposeProviderRef<void>;
+typedef QueryStateRef = AutoDisposeFutureProviderRef<QueryState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

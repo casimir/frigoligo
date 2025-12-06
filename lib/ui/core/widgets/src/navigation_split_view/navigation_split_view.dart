@@ -227,7 +227,16 @@ class NavigationSplitViewState extends State<NavigationSplitView>
   // when the displayed section and previous elements are identical but it would
   // involve a lot of complexity.
   void _onItemCountNotification() {
-    _selectedIndex = null;
+    final newItemCount = widget.itemCount.value;
+
+    if (newItemCount == 0) {
+      _selectedIndex = null;
+    } else if (_selectedIndex == null) {
+      setState(() {
+        _selectedIndex = 0;
+      });
+    }
+
     if (_navigationScroller.hasClients) {
       _navigationScroller.jumpTo(0);
     }

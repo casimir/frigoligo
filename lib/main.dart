@@ -18,12 +18,12 @@ import 'constants.dart';
 import 'data/services/local/storage/storage_service.dart';
 import 'native/appbadge.dart';
 import 'native/save.service.dart';
-import 'pages/reading/article_content.dart';
 import 'providers/background_sync.dart';
 import 'providers/router.dart';
 import 'providers/settings.dart';
 import 'providers/tools/observer.dart';
 import 'src/generated/i18n/app_localizations.dart';
+import 'ui/article/widgets/article_content.dart';
 
 Future<void> main() async {
   setupDependencies();
