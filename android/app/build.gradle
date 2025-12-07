@@ -49,9 +49,7 @@ android {
 
     defaultConfig {
         applicationId "net.casimirlab.frigoligo"
-        // hardcoded instead of flutter.minSdkVersion because some dependencies use Jetpack/AndroidX
-        // and this is also the first version to support multidex format natively
-        minSdkVersion 21
+        minSdkVersion flutter.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
