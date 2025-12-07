@@ -52,6 +52,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Add a missing import ([095fb57](https://github.com/casimir/frigoligo/commit/095fb5703aeaac2a960da08cf46d9e4b55651c86))
 - *(ios/share)* Prevent a crash when sharing an URL from the sheet ([0995d26](https://github.com/casimir/frigoligo/commit/0995d26b8002c3b18b92667a5378bd0c14b4d3de))
 - *(codegen)* Make code generation compatible with formatting rules ([126275c](https://github.com/casimir/frigoligo/commit/126275c0d8554147f7be0e6e2596da74e67e2009))
+- *(ui)* Prevent keyboard shortcuts from swallowing text input ([#422](https://github.com/casimir/frigoligo/pull/422)) ([d594a09](https://github.com/casimir/frigoligo/commit/d594a09198ca8fe26addd49c2e65b3a1db6e704f))
 
 ### 🚜 Refactor
 
@@ -68,6 +69,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Introduce more data repositories ([#411](https://github.com/casimir/frigoligo/pull/411)) ([2f56c07](https://github.com/casimir/frigoligo/commit/2f56c071d726e54dd41cbd6585c72b31af2a2ce9))
 - *(core/ui)* Consolidate "copyable text" widgets ([f8a349e](https://github.com/casimir/frigoligo/commit/f8a349e46bcaebbc4a398c823938807559b8f0ed))
 - *(data)* Make a cleaner reading progress implementation ([#419](https://github.com/casimir/frigoligo/pull/419)) ([5237765](https://github.com/casimir/frigoligo/commit/5237765402deae2014111afd160de906ed2b8b1a))
+- *(ui/home)* Cleaner home screen with test coverage ([#412](https://github.com/casimir/frigoligo/pull/412)) ([ad627eb](https://github.com/casimir/frigoligo/commit/ad627ebf3ed82efcf674205a9ccb9d8ea53449d6))
 
 ### 📚 Documentation
 
