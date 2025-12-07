@@ -8,22 +8,43 @@ part of '../states.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$queryStateHash() => r'cd16e0f8dff7e8b3c2a8074ea24fad4583aaa786';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [queryState].
 @ProviderFor(queryState)
-final queryStateProvider = AutoDisposeFutureProvider<QueryState>.internal(
-  queryState,
-  name: r'queryStateProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$queryStateHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const queryStateProvider = QueryStateProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef QueryStateRef = AutoDisposeFutureProviderRef<QueryState>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class QueryStateProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<QueryState>,
+          QueryState,
+          FutureOr<QueryState>
+        >
+    with $FutureModifier<QueryState>, $FutureProvider<QueryState> {
+  const QueryStateProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'queryStateProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$queryStateHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<QueryState> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<QueryState> create(Ref ref) {
+    return queryState(ref);
+  }
+}
+
+String _$queryStateHash() => r'cd16e0f8dff7e8b3c2a8074ea24fad4583aaa786';

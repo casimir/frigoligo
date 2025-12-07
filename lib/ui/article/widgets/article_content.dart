@@ -58,10 +58,10 @@ class ArticleContent extends ConsumerWidget {
 
   Widget buildLoaded(BuildContext context, WidgetRef ref, String content) {
     Future<void> onScrollReady(ProgressScrollTo scrollTo) async {
-      final scrollPosition = await ref.read(
+      final model = await ref.read(
         scrollPositionProvider(controller.articleId).future,
       );
-      final progress = scrollPosition?.progress;
+      final progress = model?.articleScrollPosition.progress;
       if (progress != null && progress > 0) {
         await scrollTo(progress);
       }

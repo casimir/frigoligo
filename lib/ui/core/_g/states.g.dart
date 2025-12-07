@@ -8,279 +8,165 @@ part of '../states.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$articleExistsStateHash() =>
-    r'892a0d41e3714f0abb6de0d1b1e8bc5a52760173';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
+@ProviderFor(ArticleState)
+const articleStateProvider = ArticleStateFamily._();
 
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
-
-/// See also [articleExistsState].
-@ProviderFor(articleExistsState)
-const articleExistsStateProvider = ArticleExistsStateFamily();
-
-/// See also [articleExistsState].
-class ArticleExistsStateFamily extends Family<AsyncValue<bool>> {
-  /// See also [articleExistsState].
-  const ArticleExistsStateFamily();
-
-  /// See also [articleExistsState].
-  ArticleExistsStateProvider call(int articleId) {
-    return ArticleExistsStateProvider(articleId);
-  }
+final class ArticleStateProvider
+    extends $AsyncNotifierProvider<ArticleState, ArticleData?> {
+  const ArticleStateProvider._({
+    required ArticleStateFamily super.from,
+    required int super.argument,
+  }) : super(
+         retry: null,
+         name: r'articleStateProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
   @override
-  ArticleExistsStateProvider getProviderOverride(
-    covariant ArticleExistsStateProvider provider,
-  ) {
-    return call(provider.articleId);
+  String debugGetCreateSourceHash() => _$articleStateHash();
+
+  @override
+  String toString() {
+    return r'articleStateProvider'
+        ''
+        '($argument)';
   }
 
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
+  @$internal
   @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'articleExistsStateProvider';
-}
-
-/// See also [articleExistsState].
-class ArticleExistsStateProvider extends AutoDisposeFutureProvider<bool> {
-  /// See also [articleExistsState].
-  ArticleExistsStateProvider(int articleId)
-    : this._internal(
-        (ref) => articleExistsState(ref as ArticleExistsStateRef, articleId),
-        from: articleExistsStateProvider,
-        name: r'articleExistsStateProvider',
-        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-            ? null
-            : _$articleExistsStateHash,
-        dependencies: ArticleExistsStateFamily._dependencies,
-        allTransitiveDependencies:
-            ArticleExistsStateFamily._allTransitiveDependencies,
-        articleId: articleId,
-      );
-
-  ArticleExistsStateProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.articleId,
-  }) : super.internal();
-
-  final int articleId;
-
-  @override
-  Override overrideWith(
-    FutureOr<bool> Function(ArticleExistsStateRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: ArticleExistsStateProvider._internal(
-        (ref) => create(ref as ArticleExistsStateRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        articleId: articleId,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeFutureProviderElement<bool> createElement() {
-    return _ArticleExistsStateProviderElement(this);
-  }
+  ArticleState create() => ArticleState();
 
   @override
   bool operator ==(Object other) {
-    return other is ArticleExistsStateProvider && other.articleId == articleId;
+    return other is ArticleStateProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, articleId.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
-}
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin ArticleExistsStateRef on AutoDisposeFutureProviderRef<bool> {
-  /// The parameter `articleId` of this provider.
-  int get articleId;
-}
-
-class _ArticleExistsStateProviderElement
-    extends AutoDisposeFutureProviderElement<bool>
-    with ArticleExistsStateRef {
-  _ArticleExistsStateProviderElement(super.provider);
-
-  @override
-  int get articleId => (origin as ArticleExistsStateProvider).articleId;
 }
 
 String _$articleStateHash() => r'eb62b02258ec7d3b8b090e8f78dbdecd7852f083';
 
-abstract class _$ArticleState
-    extends BuildlessAutoDisposeAsyncNotifier<ArticleData?> {
-  late final int articleId;
-
-  FutureOr<ArticleData?> build(int articleId);
-}
-
-/// See also [ArticleState].
-@ProviderFor(ArticleState)
-const articleStateProvider = ArticleStateFamily();
-
-/// See also [ArticleState].
-class ArticleStateFamily extends Family<AsyncValue<ArticleData?>> {
-  /// See also [ArticleState].
-  const ArticleStateFamily();
-
-  /// See also [ArticleState].
-  ArticleStateProvider call(int articleId) {
-    return ArticleStateProvider(articleId);
-  }
-
-  @override
-  ArticleStateProvider getProviderOverride(
-    covariant ArticleStateProvider provider,
-  ) {
-    return call(provider.articleId);
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'articleStateProvider';
-}
-
-/// See also [ArticleState].
-class ArticleStateProvider
-    extends AutoDisposeAsyncNotifierProviderImpl<ArticleState, ArticleData?> {
-  /// See also [ArticleState].
-  ArticleStateProvider(int articleId)
-    : this._internal(
-        () => ArticleState()..articleId = articleId,
-        from: articleStateProvider,
+final class ArticleStateFamily extends $Family
+    with
+        $ClassFamilyOverride<
+          ArticleState,
+          AsyncValue<ArticleData?>,
+          ArticleData?,
+          FutureOr<ArticleData?>,
+          int
+        > {
+  const ArticleStateFamily._()
+    : super(
+        retry: null,
         name: r'articleStateProvider',
-        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-            ? null
-            : _$articleStateHash,
-        dependencies: ArticleStateFamily._dependencies,
-        allTransitiveDependencies:
-            ArticleStateFamily._allTransitiveDependencies,
-        articleId: articleId,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
       );
 
-  ArticleStateProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.articleId,
-  }) : super.internal();
-
-  final int articleId;
+  ArticleStateProvider call(int articleId) =>
+      ArticleStateProvider._(argument: articleId, from: this);
 
   @override
-  FutureOr<ArticleData?> runNotifierBuild(covariant ArticleState notifier) {
-    return notifier.build(articleId);
+  String toString() => r'articleStateProvider';
+}
+
+abstract class _$ArticleState extends $AsyncNotifier<ArticleData?> {
+  late final _$args = ref.$arg as int;
+  int get articleId => _$args;
+
+  FutureOr<ArticleData?> build(int articleId);
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build(_$args);
+    final ref = this.ref as $Ref<AsyncValue<ArticleData?>, ArticleData?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<ArticleData?>, ArticleData?>,
+              AsyncValue<ArticleData?>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}
+
+@ProviderFor(articleExistsState)
+const articleExistsStateProvider = ArticleExistsStateFamily._();
+
+final class ArticleExistsStateProvider
+    extends $FunctionalProvider<AsyncValue<bool>, bool, FutureOr<bool>>
+    with $FutureModifier<bool>, $FutureProvider<bool> {
+  const ArticleExistsStateProvider._({
+    required ArticleExistsStateFamily super.from,
+    required int super.argument,
+  }) : super(
+         retry: null,
+         name: r'articleExistsStateProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$articleExistsStateHash();
+
+  @override
+  String toString() {
+    return r'articleExistsStateProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  Override overrideWith(ArticleState Function() create) {
-    return ProviderOverride(
-      origin: this,
-      override: ArticleStateProvider._internal(
-        () => create()..articleId = articleId,
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        articleId: articleId,
-      ),
-    );
-  }
+  $FutureProviderElement<bool> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
 
   @override
-  AutoDisposeAsyncNotifierProviderElement<ArticleState, ArticleData?>
-  createElement() {
-    return _ArticleStateProviderElement(this);
+  FutureOr<bool> create(Ref ref) {
+    final argument = this.argument as int;
+    return articleExistsState(ref, argument);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is ArticleStateProvider && other.articleId == articleId;
+    return other is ArticleExistsStateProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, articleId.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin ArticleStateRef on AutoDisposeAsyncNotifierProviderRef<ArticleData?> {
-  /// The parameter `articleId` of this provider.
-  int get articleId;
-}
+String _$articleExistsStateHash() =>
+    r'892a0d41e3714f0abb6de0d1b1e8bc5a52760173';
 
-class _ArticleStateProviderElement
-    extends AutoDisposeAsyncNotifierProviderElement<ArticleState, ArticleData?>
-    with ArticleStateRef {
-  _ArticleStateProviderElement(super.provider);
+final class ArticleExistsStateFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<bool>, int> {
+  const ArticleExistsStateFamily._()
+    : super(
+        retry: null,
+        name: r'articleExistsStateProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  ArticleExistsStateProvider call(int articleId) =>
+      ArticleExistsStateProvider._(argument: articleId, from: this);
 
   @override
-  int get articleId => (origin as ArticleStateProvider).articleId;
+  String toString() => r'articleExistsStateProvider';
 }
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

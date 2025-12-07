@@ -8,157 +8,103 @@ part of '../save_article.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$saveArticleHash() => r'495cfa73659130e9484ce897bfd94921508e8cc6';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
-
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
-
-abstract class _$SaveArticle
-    extends BuildlessAutoDisposeNotifier<SaveArticleState> {
-  late final String url;
-
-  SaveArticleState build(String url);
-}
-
-/// See also [SaveArticle].
 @ProviderFor(SaveArticle)
-const saveArticleProvider = SaveArticleFamily();
+const saveArticleProvider = SaveArticleFamily._();
 
-/// See also [SaveArticle].
-class SaveArticleFamily extends Family<SaveArticleState> {
-  /// See also [SaveArticle].
-  const SaveArticleFamily();
+final class SaveArticleProvider
+    extends $NotifierProvider<SaveArticle, SaveArticleState> {
+  const SaveArticleProvider._({
+    required SaveArticleFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'saveArticleProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
 
-  /// See also [SaveArticle].
-  SaveArticleProvider call(String url) {
-    return SaveArticleProvider(url);
+  @override
+  String debugGetCreateSourceHash() => _$saveArticleHash();
+
+  @override
+  String toString() {
+    return r'saveArticleProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  SaveArticleProvider getProviderOverride(
-    covariant SaveArticleProvider provider,
-  ) {
-    return call(provider.url);
-  }
+  SaveArticle create() => SaveArticle();
 
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'saveArticleProvider';
-}
-
-/// See also [SaveArticle].
-class SaveArticleProvider
-    extends AutoDisposeNotifierProviderImpl<SaveArticle, SaveArticleState> {
-  /// See also [SaveArticle].
-  SaveArticleProvider(String url)
-    : this._internal(
-        () => SaveArticle()..url = url,
-        from: saveArticleProvider,
-        name: r'saveArticleProvider',
-        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-            ? null
-            : _$saveArticleHash,
-        dependencies: SaveArticleFamily._dependencies,
-        allTransitiveDependencies: SaveArticleFamily._allTransitiveDependencies,
-        url: url,
-      );
-
-  SaveArticleProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.url,
-  }) : super.internal();
-
-  final String url;
-
-  @override
-  SaveArticleState runNotifierBuild(covariant SaveArticle notifier) {
-    return notifier.build(url);
-  }
-
-  @override
-  Override overrideWith(SaveArticle Function() create) {
-    return ProviderOverride(
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SaveArticleState value) {
+    return $ProviderOverride(
       origin: this,
-      override: SaveArticleProvider._internal(
-        () => create()..url = url,
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        url: url,
-      ),
+      providerOverride: $SyncValueProvider<SaveArticleState>(value),
     );
   }
 
   @override
-  AutoDisposeNotifierProviderElement<SaveArticle, SaveArticleState>
-  createElement() {
-    return _SaveArticleProviderElement(this);
-  }
-
-  @override
   bool operator ==(Object other) {
-    return other is SaveArticleProvider && other.url == url;
+    return other is SaveArticleProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, url.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin SaveArticleRef on AutoDisposeNotifierProviderRef<SaveArticleState> {
-  /// The parameter `url` of this provider.
-  String get url;
-}
+String _$saveArticleHash() => r'495cfa73659130e9484ce897bfd94921508e8cc6';
 
-class _SaveArticleProviderElement
-    extends AutoDisposeNotifierProviderElement<SaveArticle, SaveArticleState>
-    with SaveArticleRef {
-  _SaveArticleProviderElement(super.provider);
+final class SaveArticleFamily extends $Family
+    with
+        $ClassFamilyOverride<
+          SaveArticle,
+          SaveArticleState,
+          SaveArticleState,
+          SaveArticleState,
+          String
+        > {
+  const SaveArticleFamily._()
+    : super(
+        retry: null,
+        name: r'saveArticleProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  SaveArticleProvider call(String url) =>
+      SaveArticleProvider._(argument: url, from: this);
 
   @override
-  String get url => (origin as SaveArticleProvider).url;
+  String toString() => r'saveArticleProvider';
 }
 
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+abstract class _$SaveArticle extends $Notifier<SaveArticleState> {
+  late final _$args = ref.$arg as String;
+  String get url => _$args;
+
+  SaveArticleState build(String url);
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build(_$args);
+    final ref = this.ref as $Ref<SaveArticleState, SaveArticleState>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<SaveArticleState, SaveArticleState>,
+              SaveArticleState,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

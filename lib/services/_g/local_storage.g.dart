@@ -8,21 +8,58 @@ part of '../local_storage.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(LocalStorage)
+const localStorageProvider = LocalStorageProvider._();
+
+final class LocalStorageProvider
+    extends $NotifierProvider<LocalStorage, LocalStorageToken> {
+  const LocalStorageProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'localStorageProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$localStorageHash();
+
+  @$internal
+  @override
+  LocalStorage create() => LocalStorage();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(LocalStorageToken value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<LocalStorageToken>(value),
+    );
+  }
+}
+
 String _$localStorageHash() => r'0546bf9894a95036efa90012a10cb6a920c602d2';
 
-/// See also [LocalStorage].
-@ProviderFor(LocalStorage)
-final localStorageProvider =
-    AutoDisposeNotifierProvider<LocalStorage, LocalStorageToken>.internal(
-      LocalStorage.new,
-      name: r'localStorageProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$localStorageHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
-
-typedef _$LocalStorage = AutoDisposeNotifier<LocalStorageToken>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+abstract class _$LocalStorage extends $Notifier<LocalStorageToken> {
+  LocalStorageToken build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<LocalStorageToken, LocalStorageToken>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<LocalStorageToken, LocalStorageToken>,
+              LocalStorageToken,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}
