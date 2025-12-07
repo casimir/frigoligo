@@ -1863,6 +1863,7 @@ POSSIBILITY OF SUCH DAMAGE.
 --------------------------------------------------------------------------------
 animations
 cross_file
+go_router
 path_provider_android
 path_provider_foundation
 shared_preferences_android
@@ -7203,7 +7204,6 @@ SOFTWARE.
 
 --------------------------------------------------------------------------------
 flutter_lints
-go_router
 path_provider
 path_provider_linux
 path_provider_platform_interface
