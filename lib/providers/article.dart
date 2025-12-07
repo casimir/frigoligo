@@ -30,20 +30,6 @@ class ScrollPosition extends _$ScrollPosition {
 }
 
 @riverpod
-class OpenArticle extends _$OpenArticle {
-  @override
-  int? build() => null;
-
-  void schedule(int articleId) {
-    state = articleId;
-  }
-
-  void reset() {
-    state = null;
-  }
-}
-
-@riverpod
 class CurrentReadingProgress extends _$CurrentReadingProgress {
   @override
   double? build() => null;

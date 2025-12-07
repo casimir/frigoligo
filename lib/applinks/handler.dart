@@ -28,18 +28,23 @@ class LinksHandler {
   ) {
     _log.info('trying to open $uri');
 
-    if (uri.pathSegments.isEmpty) return Deeplink.invalid;
-
     final matches = router.findMatch(uri);
     if (matches.isEmpty) return Deeplink.invalid;
 
-    final linkType = switch (uri.pathSegments.first) {
-      'articles' => Deeplink.article,
-      'login' => Deeplink.login,
-      'logs' => Deeplink.logs,
-      'save' => Deeplink.save,
-      _ => Deeplink.invalid,
-    };
+    final Deeplink linkType;
+    if (uri.pathSegments.isEmpty) {
+      linkType =
+          uri.queryParameters.containsKey('articleId')
+              ? Deeplink.article
+              : Deeplink.invalid;
+    } else {
+      linkType = switch (uri.pathSegments.first) {
+        'login' => Deeplink.login,
+        'logs' => Deeplink.logs,
+        'save' => Deeplink.save,
+        _ => Deeplink.invalid,
+      };
+    }
     if (linkType != Deeplink.invalid) {
       _log.info('validated $linkType: $uri');
       onData(linkType, uri);

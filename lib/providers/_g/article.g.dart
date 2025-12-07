@@ -176,23 +176,6 @@ class _ScrollPositionProviderElement
   int get articleId => (origin as ScrollPositionProvider).articleId;
 }
 
-String _$openArticleHash() => r'b539747977d0b7cb779381e3963b083b1651616d';
-
-/// See also [OpenArticle].
-@ProviderFor(OpenArticle)
-final openArticleProvider =
-    AutoDisposeNotifierProvider<OpenArticle, int?>.internal(
-      OpenArticle.new,
-      name: r'openArticleProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$openArticleHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
-
-typedef _$OpenArticle = AutoDisposeNotifier<int?>;
 String _$currentReadingProgressHash() =>
     r'06fa7d21b93662369fbaa0c83372aae4009c87de';
 
