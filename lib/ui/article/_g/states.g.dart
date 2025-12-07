@@ -84,10 +84,9 @@ class ArticleContentStateProvider
         () => ArticleContentState()..articleId = articleId,
         from: articleContentStateProvider,
         name: r'articleContentStateProvider',
-        debugGetCreateSourceHash:
-            const bool.fromEnvironment('dart.vm.product')
-                ? null
-                : _$articleContentStateHash,
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$articleContentStateHash,
         dependencies: ArticleContentStateFamily._dependencies,
         allTransitiveDependencies:
             ArticleContentStateFamily._allTransitiveDependencies,

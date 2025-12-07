@@ -16,8 +16,8 @@ void main() {
         SimpleApp(
           child: NavigationSplitView(
             itemCount: ValueNotifier(1),
-            navigationItemBuilder:
-                (context, index) => const Text(navigationLabel),
+            navigationItemBuilder: (context, index) =>
+                const Text(navigationLabel),
             contentBuilder: (context, index) => const Text(contentLabel),
             highlightColor: highlightColor,
           ),

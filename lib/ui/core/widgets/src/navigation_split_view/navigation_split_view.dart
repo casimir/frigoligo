@@ -376,9 +376,8 @@ class NavigationSplitViewState extends State<NavigationSplitView>
               final isSelected = _selectedIndex == index;
               final highlightColor =
                   isSelected && layout == NavigationSplitViewLayout.sideBySide
-                      ? widget.highlightColor ??
-                          Theme.of(context).highlightColor
-                      : null;
+                  ? widget.highlightColor ?? Theme.of(context).highlightColor
+                  : null;
               return Center(
                 child: Container(
                   constraints: const BoxConstraints(
@@ -428,10 +427,9 @@ class NavigationSplitViewState extends State<NavigationSplitView>
   }
 
   Widget _buildContentPane(int? index, bool withShortcuts) {
-    final content =
-        index == null
-            ? widget.contentPlaceholder ?? _buildDefaultContentPlaceholder()
-            : widget.contentBuilder(context, index);
+    final content = index == null
+        ? widget.contentPlaceholder ?? _buildDefaultContentPlaceholder()
+        : widget.contentBuilder(context, index);
 
     late final Widget view;
 

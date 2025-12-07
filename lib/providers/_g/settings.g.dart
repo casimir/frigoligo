@@ -16,8 +16,9 @@ final settingsProvider =
     AutoDisposeNotifierProvider<Settings, Map<Sk, dynamic>>.internal(
       Settings.new,
       name: r'settingsProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product') ? null : _$settingsHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$settingsHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );

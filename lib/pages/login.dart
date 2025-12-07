@@ -66,10 +66,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     return LoginFlowCredentials(
       serverCheck: (flowState as FSChecked).check,
       initial: _currentData ?? {},
-      onReset:
-          () => setState(() {
-            _currentData = null;
-          }),
+      onReset: () => setState(() {
+        _currentData = null;
+      }),
     );
   }
 

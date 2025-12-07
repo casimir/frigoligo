@@ -26,7 +26,12 @@ class MaterialSheet extends StatelessWidget {
             ),
           ),
           constraints: const BoxConstraints(maxWidth: 400),
-          child: Column(children: [title, Expanded(child: child)]),
+          child: Column(
+            children: [
+              title,
+              Expanded(child: child),
+            ],
+          ),
         ),
       ),
     );

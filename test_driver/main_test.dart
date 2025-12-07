@@ -31,8 +31,9 @@ Future<void> main() async {
   final driver = await FlutterDriver.connect();
   final emulators = await Emulators.build();
 
-  final androidImageDirectory =
-      deviceType == 'phone' ? 'phoneScreenshots' : 'tenInchScreenshots';
+  final androidImageDirectory = deviceType == 'phone'
+      ? 'phoneScreenshots'
+      : 'tenInchScreenshots';
   final androidLocale = androidLocaleRewrite[locale] ?? locale;
   final screenshots = emulators.screenshotHelper(
     iosPath: 'fastlane/screenshots/ios/$locale',
@@ -86,10 +87,9 @@ Future<void> main() async {
       await takeScreenshot('listing-loading');
       // hold until the progess indicator is gone
       // this is sub-optimal but will do for now...
-      final pauseDuration =
-          deviceType == 'phone'
-              ? const Duration(seconds: 10)
-              : const Duration(seconds: 15);
+      final pauseDuration = deviceType == 'phone'
+          ? const Duration(seconds: 10)
+          : const Duration(seconds: 15);
       await Future.delayed(pauseDuration);
       await takeScreenshot('1-listing', false);
     });

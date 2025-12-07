@@ -113,12 +113,12 @@ class $MetadataTableManager
         i0.TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => i1.$MetadataFilterComposer($db: db, $table: table),
-          createOrderingComposer:
-              () => i1.$MetadataOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer:
-              () => i1.$MetadataAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              i1.$MetadataFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              i1.$MetadataOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              i1.$MetadataAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 i0.Value<int> id = const i0.Value.absent(),
@@ -131,16 +131,9 @@ class $MetadataTableManager
                 required String key,
                 required String value,
               }) => i1.MetadataCompanion.insert(id: id, key: key, value: value),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          i0.BaseReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), i0.BaseReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback: null,
         ),
       );
@@ -241,21 +234,18 @@ class Metadata extends i0.Table with i0.TableInfo<Metadata, i1.MetadataData> {
   i1.MetadataData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return i1.MetadataData(
-      id:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.int,
-            data['${effectivePrefix}id'],
-          )!,
-      key:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.string,
-            data['${effectivePrefix}key'],
-          )!,
-      value:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.string,
-            data['${effectivePrefix}value'],
-          )!,
+      id: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      key: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.string,
+        data['${effectivePrefix}key'],
+      )!,
+      value: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.string,
+        data['${effectivePrefix}value'],
+      )!,
     );
   }
 

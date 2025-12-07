@@ -84,10 +84,9 @@ class Renderer {
           ...content
               .split('\n')
               .map(
-                (e) =>
-                    e.isNotEmpty
-                        ? '${shift * 3}$e'
-                        : '${shift * 2}</p>\n${shift * 2}<p${langAttr(lang)}>',
+                (e) => e.isNotEmpty
+                    ? '${shift * 3}$e'
+                    : '${shift * 2}</p>\n${shift * 2}<p${langAttr(lang)}>',
               ),
           '${shift * 2}</p>',
         ].join('\n');

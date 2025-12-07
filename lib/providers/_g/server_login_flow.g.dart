@@ -16,10 +16,9 @@ final serverLoginFlowProvider =
     AutoDisposeNotifierProvider<ServerLoginFlow, FlowState>.internal(
       ServerLoginFlow.new,
       name: r'serverLoginFlowProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$serverLoginFlowHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$serverLoginFlowHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );

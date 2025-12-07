@@ -40,10 +40,9 @@ final readingSettingsProvider =
     AutoDisposeNotifierProvider<ReadingSettings, ReaderSettingsValues>.internal(
       ReadingSettings.new,
       name: r'readingSettingsProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$readingSettingsHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$readingSettingsHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );

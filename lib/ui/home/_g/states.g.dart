@@ -15,8 +15,9 @@ String _$queryStateHash() => r'cd16e0f8dff7e8b3c2a8074ea24fad4583aaa786';
 final queryStateProvider = AutoDisposeFutureProvider<QueryState>.internal(
   queryState,
   name: r'queryStateProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$queryStateHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$queryStateHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

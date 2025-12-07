@@ -81,21 +81,22 @@ class ArticleContent extends ConsumerWidget {
       String? title,
       String content,
     ) {
-      final useNativeRenderer =
-          ref.read(settingsProvider)[Sk.nativeArticleRenderer];
+      final useNativeRenderer = ref.read(
+        settingsProvider,
+      )[Sk.nativeArticleRenderer];
       return nativeArticleRendererSupported && useNativeRenderer
           ? _WebViewContent(
-            title: title!,
-            content: content,
-            onReadyToScroll: onScrollReady,
-            onScrollUpdate: onScroll,
-          )
+              title: title!,
+              content: content,
+              onReadyToScroll: onScrollReady,
+              onScrollUpdate: onScroll,
+            )
           : _HtmlWidgetContent(
-            title: title!,
-            content: content,
-            onScrollReady: onScrollReady,
-            onScroll: onScroll,
-          );
+              title: title!,
+              content: content,
+              onScrollReady: onScrollReady,
+              onScroll: onScroll,
+            );
     }
 
     return FutureLoader(
@@ -137,13 +138,12 @@ class _HtmlWidgetContent extends ConsumerWidget {
                 child: HtmlWidgetPlus(
                   content,
                   title: title,
-                  onTreeBuilt:
-                      (_) => onScrollReady((progress) async {
-                        final controller = PrimaryScrollController.of(context);
-                        final pixels =
-                            progress * controller.position.maxScrollExtent;
-                        controller.jumpTo(pixels);
-                      }),
+                  onTreeBuilt: (_) => onScrollReady((progress) async {
+                    final controller = PrimaryScrollController.of(context);
+                    final pixels =
+                        progress * controller.position.maxScrollExtent;
+                    controller.jumpTo(pixels);
+                  }),
                   justifyText: settings.justifyText,
                   textStyle: settings.textStyle,
                 ),
@@ -197,11 +197,10 @@ class ArticleContentRenderer {
   }
 
   static Future<void> _unpackAssets(AssetManifest assets) async {
-    final assetFiles =
-        assets
-            .listAssets()
-            .where((key) => key.startsWith(assetsPrefix))
-            .toList();
+    final assetFiles = assets
+        .listAssets()
+        .where((key) => key.startsWith(assetsPrefix))
+        .toList();
     for (final key in assetFiles) {
       final bin = await rootBundle.load(key);
       final target = File(key.replaceFirst(assetsPrefix, rootDir.path));
@@ -213,11 +212,10 @@ class ArticleContentRenderer {
   }
 
   static Future<void> _unpackFonts(AssetManifest assets) async {
-    final fontFiles =
-        assets
-            .listAssets()
-            .where((key) => key.startsWith(fontAssetsPrefix))
-            .toList();
+    final fontFiles = assets
+        .listAssets()
+        .where((key) => key.startsWith(fontAssetsPrefix))
+        .toList();
     if (!fontDir.existsSync()) fontDir.createSync(recursive: true);
     for (final key in fontFiles) {
       final bin = await rootBundle.load(key);
@@ -256,18 +254,18 @@ class ArticleContentRenderer {
     a {
       color: ${colors.primary.toRgbHex()};
     }
-  </style>'''.trim();
+  </style>'''
+        .trim();
   }
 
   String readingSettingsCss(ReaderSettingsValues settings) {
-    final fontSize =
-        {
-          12.0: 'x-small',
-          14.0: 'small',
-          16.0: 'medium',
-          18.0: 'large',
-          20.0: 'x-large',
-        }[settings.fontSize];
+    final fontSize = {
+      12.0: 'x-small',
+      14.0: 'small',
+      16.0: 'medium',
+      18.0: 'large',
+      20.0: 'x-large',
+    }[settings.fontSize];
 
     return '''
   <style>
@@ -278,7 +276,8 @@ class ArticleContentRenderer {
     #content {
       font-size: ${fontSize ?? 'medium'};
     }
-  </style>'''.trim();
+  </style>'''
+        .trim();
   }
 
   String get text => _rendered!;

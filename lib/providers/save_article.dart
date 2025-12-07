@@ -41,10 +41,9 @@ class SaveArticle extends _$SaveArticle {
     }
 
     final settings = ref.read(settingsProvider);
-    final tags =
-        settings[Sk.tagSaveEnabled]
-            ? [settings[Sk.tagSaveLabel] as String]
-            : null;
+    final tags = settings[Sk.tagSaveEnabled]
+        ? [settings[Sk.tagSaveLabel] as String]
+        : null;
 
     try {
       final action = SaveArticleAction(parsedUri!, tags: tags);
@@ -53,10 +52,9 @@ class SaveArticle extends _$SaveArticle {
       final res = await syncer.synchronize();
 
       final int? articleId = res[action.key];
-      state =
-          articleId != null
-              ? SASSuccess(res[action.key])
-              : const SASPostponed();
+      state = articleId != null
+          ? SASSuccess(res[action.key])
+          : const SASPostponed();
     } catch (e, st) {
       _log.severe('failed to save URL: $url', e, st);
       state = SaveArticleState.error(e);

@@ -173,12 +173,12 @@ class $AppLogsTableManager
         i0.TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => i1.$AppLogsFilterComposer($db: db, $table: table),
-          createOrderingComposer:
-              () => i1.$AppLogsOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer:
-              () => i1.$AppLogsAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              i1.$AppLogsFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              i1.$AppLogsOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              i1.$AppLogsAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 i0.Value<int> id = const i0.Value.absent(),
@@ -215,16 +215,9 @@ class $AppLogsTableManager
                 error: error,
                 stackTrace: stackTrace,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          i0.BaseReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), i0.BaseReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback: null,
         ),
       );
@@ -407,31 +400,26 @@ class AppLogs extends i0.Table with i0.TableInfo<AppLogs, i1.AppLog> {
   i1.AppLog map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return i1.AppLog(
-      id:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.int,
-            data['${effectivePrefix}id'],
-          )!,
-      time:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.dateTime,
-            data['${effectivePrefix}time'],
-          )!,
-      level:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.string,
-            data['${effectivePrefix}level'],
-          )!,
-      loggerName:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.string,
-            data['${effectivePrefix}logger_name'],
-          )!,
-      message:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.string,
-            data['${effectivePrefix}message'],
-          )!,
+      id: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      time: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.dateTime,
+        data['${effectivePrefix}time'],
+      )!,
+      level: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.string,
+        data['${effectivePrefix}level'],
+      )!,
+      loggerName: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.string,
+        data['${effectivePrefix}logger_name'],
+      )!,
+      message: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.string,
+        data['${effectivePrefix}message'],
+      )!,
       error: attachedDatabase.typeMapping.read(
         i0.DriftSqlType.string,
         data['${effectivePrefix}error'],
@@ -493,14 +481,12 @@ class AppLog extends i0.DataClass implements i0.Insertable<i1.AppLog> {
       level: i0.Value(level),
       loggerName: i0.Value(loggerName),
       message: i0.Value(message),
-      error:
-          error == null && nullToAbsent
-              ? const i0.Value.absent()
-              : i0.Value(error),
-      stackTrace:
-          stackTrace == null && nullToAbsent
-              ? const i0.Value.absent()
-              : i0.Value(stackTrace),
+      error: error == null && nullToAbsent
+          ? const i0.Value.absent()
+          : i0.Value(error),
+      stackTrace: stackTrace == null && nullToAbsent
+          ? const i0.Value.absent()
+          : i0.Value(stackTrace),
     );
   }
 
@@ -555,12 +541,14 @@ class AppLog extends i0.DataClass implements i0.Insertable<i1.AppLog> {
       id: data.id.present ? data.id.value : this.id,
       time: data.time.present ? data.time.value : this.time,
       level: data.level.present ? data.level.value : this.level,
-      loggerName:
-          data.loggerName.present ? data.loggerName.value : this.loggerName,
+      loggerName: data.loggerName.present
+          ? data.loggerName.value
+          : this.loggerName,
       message: data.message.present ? data.message.value : this.message,
       error: data.error.present ? data.error.value : this.error,
-      stackTrace:
-          data.stackTrace.present ? data.stackTrace.value : this.stackTrace,
+      stackTrace: data.stackTrace.present
+          ? data.stackTrace.value
+          : this.stackTrace,
     );
   }
 

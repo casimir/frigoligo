@@ -59,8 +59,8 @@ void main() {
               controller: HomeScreenController(
                 queryRepository: dependencies.get(),
               ),
-              contentBuilder:
-                  (context, title, content) => Center(child: Text(content)),
+              contentBuilder: (context, title, content) =>
+                  Center(child: Text(content)),
             ),
             localizationsDelegates: AppLocalizations.localizationsDelegates,
           ),
@@ -93,8 +93,8 @@ void main() {
                 queryRepository: dependencies.get(),
               ),
               initialArticleId: 2,
-              contentBuilder:
-                  (context, title, content) => Center(child: Text(content)),
+              contentBuilder: (context, title, content) =>
+                  Center(child: Text(content)),
             ),
             localizationsDelegates: AppLocalizations.localizationsDelegates,
           ),
@@ -129,8 +129,8 @@ void main() {
                   queryRepository: dependencies.get(),
                 ),
                 initialArticleId: 999, // non-existent
-                contentBuilder:
-                    (context, title, content) => Center(child: Text(content)),
+                contentBuilder: (context, title, content) =>
+                    Center(child: Text(content)),
               ),
               localizationsDelegates: AppLocalizations.localizationsDelegates,
             ),

@@ -33,10 +33,9 @@ class LinksHandler {
 
     final Deeplink linkType;
     if (uri.pathSegments.isEmpty) {
-      linkType =
-          uri.queryParameters.containsKey('articleId')
-              ? Deeplink.article
-              : Deeplink.invalid;
+      linkType = uri.queryParameters.containsKey('articleId')
+          ? Deeplink.article
+          : Deeplink.invalid;
     } else {
       linkType = switch (uri.pathSegments.first) {
         'login' => Deeplink.login,

@@ -39,13 +39,12 @@ void main() {
 }
 
 List<String> detectLanguages(String root) {
-  final langs =
-      Directory(root)
-          .listSync()
-          .whereType<Directory>()
-          .map((e) => e.path.split('/').last)
-          .where((e) => !langSkips.contains(e))
-          .toList();
+  final langs = Directory(root)
+      .listSync()
+      .whereType<Directory>()
+      .map((e) => e.path.split('/').last)
+      .where((e) => !langSkips.contains(e))
+      .toList();
   langs.sort();
   return langs;
 }

@@ -46,8 +46,8 @@ class DemoApp extends StatelessWidget {
         body: WindowQuery(
           child: NavigationSplitView(
             itemCount: counter,
-            navigationItemBuilder:
-                (context, index) => ListTile(title: Text('Item $index')),
+            navigationItemBuilder: (context, index) =>
+                ListTile(title: Text('Item $index')),
             contentBuilder: (context, index) => Text('Content $index'),
             contentContainerBuilder: (context, child) {
               return Container(

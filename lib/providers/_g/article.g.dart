@@ -87,10 +87,9 @@ class ScrollPositionProvider
         () => ScrollPosition()..articleId = articleId,
         from: scrollPositionProvider,
         name: r'scrollPositionProvider',
-        debugGetCreateSourceHash:
-            const bool.fromEnvironment('dart.vm.product')
-                ? null
-                : _$scrollPositionHash,
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$scrollPositionHash,
         dependencies: ScrollPositionFamily._dependencies,
         allTransitiveDependencies:
             ScrollPositionFamily._allTransitiveDependencies,
@@ -185,10 +184,9 @@ final currentReadingProgressProvider =
     AutoDisposeNotifierProvider<CurrentReadingProgress, double?>.internal(
       CurrentReadingProgress.new,
       name: r'currentReadingProgressProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$currentReadingProgressHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$currentReadingProgressHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );

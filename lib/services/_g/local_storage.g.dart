@@ -16,10 +16,9 @@ final localStorageProvider =
     AutoDisposeNotifierProvider<LocalStorage, LocalStorageToken>.internal(
       LocalStorage.new,
       name: r'localStorageProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$localStorageHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$localStorageHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );

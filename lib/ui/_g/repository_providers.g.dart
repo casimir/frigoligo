@@ -16,10 +16,9 @@ final articleRepositoryProvider =
     AutoDisposeProvider<ArticleRepository>.internal(
       articleRepository,
       name: r'articleRepositoryProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$articleRepositoryHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$articleRepositoryHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
@@ -34,10 +33,9 @@ String _$queryRepositoryHash() => r'1170814cef35b7a27956948eec3a1bbdcb6f94ff';
 final queryRepositoryProvider = AutoDisposeProvider<QueryRepository>.internal(
   queryRepository,
   name: r'queryRepositoryProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$queryRepositoryHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$queryRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
@@ -52,10 +50,9 @@ String _$tagRepositoryHash() => r'75a7afb89fe152f499d78c33ee2a4490c0e86594';
 final tagRepositoryProvider = AutoDisposeProvider<TagRepository>.internal(
   tagRepository,
   name: r'tagRepositoryProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$tagRepositoryHash,
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$tagRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

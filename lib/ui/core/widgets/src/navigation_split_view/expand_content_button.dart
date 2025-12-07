@@ -31,10 +31,9 @@ class ExpandContentButton extends StatelessWidget {
       onPressed: () {
         NavigationSplitView.of(context).toggleContentExpansion();
       },
-      tooltip:
-          isExpanded
-              ? localizations.expandedIconTapHint
-              : localizations.collapsedIconTapHint,
+      tooltip: isExpanded
+          ? localizations.expandedIconTapHint
+          : localizations.collapsedIconTapHint,
       enableFeedback: true,
       icon: Icon(isExpanded ? effectiveCollapseIcon : effectiveExpandIcon),
     );

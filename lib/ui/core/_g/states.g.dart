@@ -76,10 +76,9 @@ class ArticleExistsStateProvider extends AutoDisposeFutureProvider<bool> {
         (ref) => articleExistsState(ref as ArticleExistsStateRef, articleId),
         from: articleExistsStateProvider,
         name: r'articleExistsStateProvider',
-        debugGetCreateSourceHash:
-            const bool.fromEnvironment('dart.vm.product')
-                ? null
-                : _$articleExistsStateHash,
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$articleExistsStateHash,
         dependencies: ArticleExistsStateFamily._dependencies,
         allTransitiveDependencies:
             ArticleExistsStateFamily._allTransitiveDependencies,
@@ -205,10 +204,9 @@ class ArticleStateProvider
         () => ArticleState()..articleId = articleId,
         from: articleStateProvider,
         name: r'articleStateProvider',
-        debugGetCreateSourceHash:
-            const bool.fromEnvironment('dart.vm.product')
-                ? null
-                : _$articleStateHash,
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$articleStateHash,
         dependencies: ArticleStateFamily._dependencies,
         allTransitiveDependencies:
             ArticleStateFamily._allTransitiveDependencies,

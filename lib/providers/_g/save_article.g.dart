@@ -83,10 +83,9 @@ class SaveArticleProvider
         () => SaveArticle()..url = url,
         from: saveArticleProvider,
         name: r'saveArticleProvider',
-        debugGetCreateSourceHash:
-            const bool.fromEnvironment('dart.vm.product')
-                ? null
-                : _$saveArticleHash,
+        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+            ? null
+            : _$saveArticleHash,
         dependencies: SaveArticleFamily._dependencies,
         allTransitiveDependencies: SaveArticleFamily._allTransitiveDependencies,
         url: url,

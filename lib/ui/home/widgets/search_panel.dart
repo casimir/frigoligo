@@ -68,10 +68,9 @@ class SearchPanel extends ConsumerWidget {
                             return Text(
                               resultCount.toString(),
                               style: TextStyle(
-                                color:
-                                    Theme.of(
-                                      context,
-                                    ).colorScheme.onSurfaceVariant,
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSurfaceVariant,
                               ),
                             );
                           },
@@ -158,10 +157,9 @@ class _TextModeSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _AsyncFilterWidget(
-      selector:
-          (ref) => ref.watch(
-            queryStateProvider.selectAsync((state) => state.query.textMode),
-          ),
+      selector: (ref) => ref.watch(
+        queryStateProvider.selectAsync((state) => state.query.textMode),
+      ),
       loadingBuilder: (context) {
         return const IconButton(
           icon: Icon(Icons.manage_search_outlined),
@@ -182,28 +180,27 @@ class _TextModeSelector extends StatelessWidget {
     Future<void> onTap() async {
       final value = await showBottomSheetSelect(
         context: context,
-        builder:
-            (context) => Select(
-              title: context.L.filters_searchMode,
-              entries: [
-                DropdownMenuEntry(
-                  value: SearchTextMode.all,
-                  label: context.L.filters_searchModeAll,
-                  leadingIcon: _iconFor(SearchTextMode.all),
-                ),
-                DropdownMenuEntry(
-                  value: SearchTextMode.title,
-                  label: context.L.filters_searchModeTitle,
-                  leadingIcon: _iconFor(SearchTextMode.title),
-                ),
-                DropdownMenuEntry(
-                  value: SearchTextMode.content,
-                  label: context.L.filters_searchModeContent,
-                  leadingIcon: _iconFor(SearchTextMode.content),
-                ),
-              ],
-              initial: textMode,
+        builder: (context) => Select(
+          title: context.L.filters_searchMode,
+          entries: [
+            DropdownMenuEntry(
+              value: SearchTextMode.all,
+              label: context.L.filters_searchModeAll,
+              leadingIcon: _iconFor(SearchTextMode.all),
             ),
+            DropdownMenuEntry(
+              value: SearchTextMode.title,
+              label: context.L.filters_searchModeTitle,
+              leadingIcon: _iconFor(SearchTextMode.title),
+            ),
+            DropdownMenuEntry(
+              value: SearchTextMode.content,
+              label: context.L.filters_searchModeContent,
+              leadingIcon: _iconFor(SearchTextMode.content),
+            ),
+          ],
+          initial: textMode,
+        ),
       );
       if (value != null) {
         onSelected(value);
@@ -215,10 +212,10 @@ class _TextModeSelector extends StatelessWidget {
     return textMode == SearchTextMode.all
         ? IconButton(icon: iconData, onPressed: onTap, tooltip: tooltip)
         : IconButton.filledTonal(
-          icon: iconData,
-          onPressed: onTap,
-          tooltip: tooltip,
-        );
+            icon: iconData,
+            onPressed: onTap,
+            tooltip: tooltip,
+          );
   }
 
   Icon _iconFor(SearchTextMode textMode) {
@@ -243,16 +240,13 @@ class _StateSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _AsyncFilterWidget(
-      selector:
-          (ref) => ref.watch(
-            queryStateProvider.selectAsync((state) => state.query.state),
-          ),
-      loadingBuilder:
-          (context) =>
-              _buildLoadingChip(context, context.L.filters_articleStateAll),
-      errorBuilder:
-          (context, error) =>
-              _buildLoadingChip(context, context.L.filters_articleStateAll),
+      selector: (ref) => ref.watch(
+        queryStateProvider.selectAsync((state) => state.query.state),
+      ),
+      loadingBuilder: (context) =>
+          _buildLoadingChip(context, context.L.filters_articleStateAll),
+      errorBuilder: (context, error) =>
+          _buildLoadingChip(context, context.L.filters_articleStateAll),
       builder: buildLoaded,
     );
   }
@@ -293,20 +287,13 @@ class _StarredToggle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _AsyncFilterWidget(
-      selector:
-          (ref) => ref.watch(
-            queryStateProvider.selectAsync((state) => state.query.onlyStarred),
-          ),
-      loadingBuilder:
-          (context) => _buildLoadingChip(
-            context,
-            context.L.filters_articleFavoriteStarred,
-          ),
-      errorBuilder:
-          (context, error) => _buildLoadingChip(
-            context,
-            context.L.filters_articleFavoriteStarred,
-          ),
+      selector: (ref) => ref.watch(
+        queryStateProvider.selectAsync((state) => state.query.onlyStarred),
+      ),
+      loadingBuilder: (context) =>
+          _buildLoadingChip(context, context.L.filters_articleFavoriteStarred),
+      errorBuilder: (context, error) =>
+          _buildLoadingChip(context, context.L.filters_articleFavoriteStarred),
       builder: buildLoaded,
     );
   }
@@ -392,15 +379,14 @@ class _TagsSelector extends StatelessWidget {
     return _MultiSelectFilterChip(
       chipKey: kFilterTagsKey,
       chipLabel: context.L.filters_articleTags,
-      selector:
-          (ref) => ref.watch(
-            queryStateProvider.selectAsync(
-              (state) => _SelectorChoices(
-                choices: state.availableTags,
-                initialSelection: state.query.tags.toSet(),
-              ),
-            ),
+      selector: (ref) => ref.watch(
+        queryStateProvider.selectAsync(
+          (state) => _SelectorChoices(
+            choices: state.availableTags,
+            initialSelection: state.query.tags.toSet(),
           ),
+        ),
+      ),
       onSelected: onSelected,
       labelizer: context.L.filters_articleTagsCount,
       leadingIcon: const Icon(Icons.label),
@@ -418,15 +404,14 @@ class _DomainsSelector extends StatelessWidget {
     return _MultiSelectFilterChip(
       chipKey: kFilterDomainsKey,
       chipLabel: context.L.filters_articleDomains,
-      selector:
-          (ref) => ref.watch(
-            queryStateProvider.selectAsync(
-              (state) => _SelectorChoices(
-                choices: state.availableDomains,
-                initialSelection: state.query.domains.toSet(),
-              ),
-            ),
+      selector: (ref) => ref.watch(
+        queryStateProvider.selectAsync(
+          (state) => _SelectorChoices(
+            choices: state.availableDomains,
+            initialSelection: state.query.domains.toSet(),
           ),
+        ),
+      ),
       onSelected: onSelected,
       labelizer: context.L.filters_articleDomainsCount,
       leadingIcon: const Icon(Icons.web),

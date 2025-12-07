@@ -16,10 +16,9 @@ final remoteSyncerProvider =
     AutoDisposeNotifierProvider<RemoteSyncer, SyncState>.internal(
       RemoteSyncer.new,
       name: r'remoteSyncerProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$remoteSyncerHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$remoteSyncerHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );

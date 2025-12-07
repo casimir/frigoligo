@@ -52,13 +52,12 @@ class HtmlWidgetPlus extends StatelessWidget {
 
     final widget = HtmlWidget(
       content,
-      factoryBuilder:
-          () => HtmlWidgetFactory(
-            onTreeBuilt:
-                (child) => WidgetsBinding.instance.addPostFrameCallback((_) {
-                  onTreeBuilt?.call(child);
-                }),
-          ),
+      factoryBuilder: () => HtmlWidgetFactory(
+        onTreeBuilt: (child) =>
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              onTreeBuilt?.call(child);
+            }),
+      ),
       textStyle: textStyle,
     );
 

@@ -14,9 +14,10 @@ class AppBadge {
   static Future<void> remove() => _channel.invokeMethod('remove');
 
   static Future<bool> isSupported() async => switch (currentUniversalPlatform) {
-    UniversalPlatformType.Android => _channel
-        .invokeMethod<bool>('isSupported')
-        .then((value) => value ?? false),
+    UniversalPlatformType.Android =>
+      _channel
+          .invokeMethod<bool>('isSupported')
+          .then((value) => value ?? false),
     UniversalPlatformType.IOS || UniversalPlatformType.MacOS => true,
     _ => false,
   };

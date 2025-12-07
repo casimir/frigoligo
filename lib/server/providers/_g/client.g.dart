@@ -16,8 +16,9 @@ final sessionProvider =
     AutoDisposeAsyncNotifierProvider<Session, ServerSession?>.internal(
       Session.new,
       name: r'sessionProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product') ? null : _$sessionHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$sessionHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );
@@ -31,8 +32,9 @@ final clientProvider =
     AutoDisposeAsyncNotifierProvider<Client, ApiClient?>.internal(
       Client.new,
       name: r'clientProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product') ? null : _$clientHash,
+      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+          ? null
+          : _$clientHash,
       dependencies: null,
       allTransitiveDependencies: null,
     );

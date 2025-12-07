@@ -20,10 +20,9 @@ void backgroundSync(Ref ref) {
       interval: periodicSyncInterval,
       name: 'background-sync',
       timeout: periodicSyncTimeout,
-      task:
-          () async => await ref
-              .read(remoteSyncerProvider.notifier)
-              .synchronize(withFinalRefresh: true),
+      task: () async => await ref
+          .read(remoteSyncerProvider.notifier)
+          .synchronize(withFinalRefresh: true),
     ).start();
   } else if (UniversalPlatform.isMobile) {
     BackgroundFetch.configure(

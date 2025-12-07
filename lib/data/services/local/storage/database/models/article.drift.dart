@@ -271,12 +271,12 @@ class $ArticlesTableManager
         i0.TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => i1.$ArticlesFilterComposer($db: db, $table: table),
-          createOrderingComposer:
-              () => i1.$ArticlesOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer:
-              () => i1.$ArticlesAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              i1.$ArticlesFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              i1.$ArticlesOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              i1.$ArticlesAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 i0.Value<int> id = const i0.Value.absent(),
@@ -337,16 +337,9 @@ class $ArticlesTableManager
                 starredAt: starredAt,
                 tags: tags,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          i0.BaseReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), i0.BaseReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback: null,
         ),
       );
@@ -482,18 +475,12 @@ class $ArticleScrollPositionsTableManager
         i0.TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => i1.$ArticleScrollPositionsFilterComposer(
-                $db: db,
-                $table: table,
-              ),
-          createOrderingComposer:
-              () => i1.$ArticleScrollPositionsOrderingComposer(
-                $db: db,
-                $table: table,
-              ),
-          createComputedFieldComposer:
-              () => i1.$ArticleScrollPositionsAnnotationComposer(
+          createFilteringComposer: () =>
+              i1.$ArticleScrollPositionsFilterComposer($db: db, $table: table),
+          createOrderingComposer: () => i1
+              .$ArticleScrollPositionsOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              i1.$ArticleScrollPositionsAnnotationComposer(
                 $db: db,
                 $table: table,
               ),
@@ -517,16 +504,9 @@ class $ArticleScrollPositionsTableManager
                 readingTime: readingTime,
                 progress: progress,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          i0.BaseReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), i0.BaseReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback: null,
         ),
       );
@@ -649,12 +629,12 @@ class $ArticlesFtsTableManager
         i0.TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => i1.$ArticlesFtsFilterComposer($db: db, $table: table),
-          createOrderingComposer:
-              () => i1.$ArticlesFtsOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer:
-              () => i1.$ArticlesFtsAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              i1.$ArticlesFtsFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              i1.$ArticlesFtsOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              i1.$ArticlesFtsAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 i0.Value<String> title = const i0.Value.absent(),
@@ -675,16 +655,9 @@ class $ArticlesFtsTableManager
                 content: content,
                 rowid: rowid,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          i0.BaseReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), i0.BaseReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback: null,
         ),
       );
@@ -976,35 +949,30 @@ class Articles extends i0.Table with i0.TableInfo<Articles, i1.Article> {
   i1.Article map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return i1.Article(
-      id:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.int,
-            data['${effectivePrefix}id'],
-          )!,
-      createdAt:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.dateTime,
-            data['${effectivePrefix}created_at'],
-          )!,
-      updatedAt:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.dateTime,
-            data['${effectivePrefix}updated_at'],
-          )!,
-      title:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.string,
-            data['${effectivePrefix}title'],
-          )!,
+      id: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
+      title: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.string,
+        data['${effectivePrefix}title'],
+      )!,
       domainName: attachedDatabase.typeMapping.read(
         i0.DriftSqlType.string,
         data['${effectivePrefix}domain_name'],
       ),
-      url:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.string,
-            data['${effectivePrefix}url'],
-          )!,
+      url: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.string,
+        data['${effectivePrefix}url'],
+      )!,
       content: attachedDatabase.typeMapping.read(
         i0.DriftSqlType.string,
         data['${effectivePrefix}content'],
@@ -1013,11 +981,10 @@ class Articles extends i0.Table with i0.TableInfo<Articles, i1.Article> {
         i0.DriftSqlType.string,
         data['${effectivePrefix}language'],
       ),
-      readingTime:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.int,
-            data['${effectivePrefix}reading_time'],
-          )!,
+      readingTime: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.int,
+        data['${effectivePrefix}reading_time'],
+      )!,
       previewPicture: attachedDatabase.typeMapping.read(
         i0.DriftSqlType.string,
         data['${effectivePrefix}preview_picture'],
@@ -1118,32 +1085,26 @@ class Article extends i0.DataClass implements i0.Insertable<i1.Article> {
       createdAt: i0.Value(createdAt),
       updatedAt: i0.Value(updatedAt),
       title: i0.Value(title),
-      domainName:
-          domainName == null && nullToAbsent
-              ? const i0.Value.absent()
-              : i0.Value(domainName),
+      domainName: domainName == null && nullToAbsent
+          ? const i0.Value.absent()
+          : i0.Value(domainName),
       url: i0.Value(url),
-      content:
-          content == null && nullToAbsent
-              ? const i0.Value.absent()
-              : i0.Value(content),
-      language:
-          language == null && nullToAbsent
-              ? const i0.Value.absent()
-              : i0.Value(language),
+      content: content == null && nullToAbsent
+          ? const i0.Value.absent()
+          : i0.Value(content),
+      language: language == null && nullToAbsent
+          ? const i0.Value.absent()
+          : i0.Value(language),
       readingTime: i0.Value(readingTime),
-      previewPicture:
-          previewPicture == null && nullToAbsent
-              ? const i0.Value.absent()
-              : i0.Value(previewPicture),
-      archivedAt:
-          archivedAt == null && nullToAbsent
-              ? const i0.Value.absent()
-              : i0.Value(archivedAt),
-      starredAt:
-          starredAt == null && nullToAbsent
-              ? const i0.Value.absent()
-              : i0.Value(starredAt),
+      previewPicture: previewPicture == null && nullToAbsent
+          ? const i0.Value.absent()
+          : i0.Value(previewPicture),
+      archivedAt: archivedAt == null && nullToAbsent
+          ? const i0.Value.absent()
+          : i0.Value(archivedAt),
+      starredAt: starredAt == null && nullToAbsent
+          ? const i0.Value.absent()
+          : i0.Value(starredAt),
       tags: i0.Value(tags),
     );
   }
@@ -1213,8 +1174,9 @@ class Article extends i0.DataClass implements i0.Insertable<i1.Article> {
     content: content.present ? content.value : this.content,
     language: language.present ? language.value : this.language,
     readingTime: readingTime ?? this.readingTime,
-    previewPicture:
-        previewPicture.present ? previewPicture.value : this.previewPicture,
+    previewPicture: previewPicture.present
+        ? previewPicture.value
+        : this.previewPicture,
     archivedAt: archivedAt.present ? archivedAt.value : this.archivedAt,
     starredAt: starredAt.present ? starredAt.value : this.starredAt,
     tags: tags ?? this.tags,
@@ -1225,19 +1187,21 @@ class Article extends i0.DataClass implements i0.Insertable<i1.Article> {
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
       title: data.title.present ? data.title.value : this.title,
-      domainName:
-          data.domainName.present ? data.domainName.value : this.domainName,
+      domainName: data.domainName.present
+          ? data.domainName.value
+          : this.domainName,
       url: data.url.present ? data.url.value : this.url,
       content: data.content.present ? data.content.value : this.content,
       language: data.language.present ? data.language.value : this.language,
-      readingTime:
-          data.readingTime.present ? data.readingTime.value : this.readingTime,
-      previewPicture:
-          data.previewPicture.present
-              ? data.previewPicture.value
-              : this.previewPicture,
-      archivedAt:
-          data.archivedAt.present ? data.archivedAt.value : this.archivedAt,
+      readingTime: data.readingTime.present
+          ? data.readingTime.value
+          : this.readingTime,
+      previewPicture: data.previewPicture.present
+          ? data.previewPicture.value
+          : this.previewPicture,
+      archivedAt: data.archivedAt.present
+          ? data.archivedAt.value
+          : this.archivedAt,
       starredAt: data.starredAt.present ? data.starredAt.value : this.starredAt,
       tags: data.tags.present ? data.tags.value : this.tags,
     );
@@ -1564,21 +1528,18 @@ class ArticleScrollPositions extends i0.Table
   }) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return i1.ArticleScrollPosition(
-      id:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.int,
-            data['${effectivePrefix}id'],
-          )!,
-      readingTime:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.int,
-            data['${effectivePrefix}reading_time'],
-          )!,
-      progress:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.double,
-            data['${effectivePrefix}progress'],
-          )!,
+      id: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      readingTime: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.int,
+        data['${effectivePrefix}reading_time'],
+      )!,
+      progress: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.double,
+        data['${effectivePrefix}progress'],
+      )!,
     );
   }
 
@@ -1653,8 +1614,9 @@ class ArticleScrollPosition extends i0.DataClass
   ) {
     return ArticleScrollPosition(
       id: data.id.present ? data.id.value : this.id,
-      readingTime:
-          data.readingTime.present ? data.readingTime.value : this.readingTime,
+      readingTime: data.readingTime.present
+          ? data.readingTime.value
+          : this.readingTime,
       progress: data.progress.present ? data.progress.value : this.progress,
     );
   }
@@ -1815,16 +1777,14 @@ class ArticlesFts extends i0.Table
   i1.ArticlesFt map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return i1.ArticlesFt(
-      title:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.string,
-            data['${effectivePrefix}title'],
-          )!,
-      content:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.string,
-            data['${effectivePrefix}content'],
-          )!,
+      title: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.string,
+        data['${effectivePrefix}title'],
+      )!,
+      content: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.string,
+        data['${effectivePrefix}content'],
+      )!,
     );
   }
 

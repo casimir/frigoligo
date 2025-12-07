@@ -25,20 +25,18 @@ class AnimatedNavigationPaneSlider extends StatelessWidget {
       duration: const Duration(milliseconds: 200),
       switchInCurve: Curves.easeIn,
       switchOutCurve: Curves.easeIn,
-      transitionBuilder:
-          (child, animation) => SizeTransition(
-            axis: Axis.horizontal,
-            sizeFactor: animation,
-            child: child,
-          ),
-      child:
-          isContentExpanded
-              ? const SizedBox(key: ValueKey(0))
-              : SizedBox(
-                key: const ValueKey(1),
-                width: kNavigationPaneWidth,
-                child: navigationPane,
-              ),
+      transitionBuilder: (child, animation) => SizeTransition(
+        axis: Axis.horizontal,
+        sizeFactor: animation,
+        child: child,
+      ),
+      child: isContentExpanded
+          ? const SizedBox(key: ValueKey(0))
+          : SizedBox(
+              key: const ValueKey(1),
+              width: kNavigationPaneWidth,
+              child: navigationPane,
+            ),
     );
   }
 }

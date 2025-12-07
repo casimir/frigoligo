@@ -55,26 +55,27 @@ class ArticlesManager {
     final columns = t.$columns.where((c) => c.name != 'content').toList();
     final contentIsNotNull = t.content.isNotNull();
 
-    final query = (t.selectOnly()
-          ..addColumns([...columns, contentIsNotNull])
-          ..where(t.id.equals(id)))
-        .map(
-          (row) => Article(
-            id: row.read(t.id)!,
-            createdAt: row.read(t.createdAt)!,
-            updatedAt: row.read(t.updatedAt)!,
-            title: row.read(t.title)!,
-            domainName: row.read(t.domainName),
-            url: row.read(t.url)!,
-            content: row.read(contentIsNotNull) != null ? '' : null,
-            language: row.read(t.language),
-            readingTime: row.read(t.readingTime)!,
-            previewPicture: row.read(t.previewPicture),
-            archivedAt: row.read(t.archivedAt),
-            starredAt: row.read(t.starredAt),
-            tags: row.readWithConverter(t.tags)!,
-          ),
-        );
+    final query =
+        (t.selectOnly()
+              ..addColumns([...columns, contentIsNotNull])
+              ..where(t.id.equals(id)))
+            .map(
+              (row) => Article(
+                id: row.read(t.id)!,
+                createdAt: row.read(t.createdAt)!,
+                updatedAt: row.read(t.updatedAt)!,
+                title: row.read(t.title)!,
+                domainName: row.read(t.domainName),
+                url: row.read(t.url)!,
+                content: row.read(contentIsNotNull) != null ? '' : null,
+                language: row.read(t.language),
+                readingTime: row.read(t.readingTime)!,
+                previewPicture: row.read(t.previewPicture),
+                archivedAt: row.read(t.archivedAt),
+                starredAt: row.read(t.starredAt),
+                tags: row.readWithConverter(t.tags)!,
+              ),
+            );
 
     return StorageQuery(query);
   }
@@ -82,10 +83,11 @@ class ArticlesManager {
   /// Get the content of the article.
   StorageQuery<String?> getContent(int id) {
     final t = _db.articles;
-    final query = (t.selectOnly()
-          ..addColumns([t.content])
-          ..where(t.id.equals(id)))
-        .map((row) => row.read(t.content));
+    final query =
+        (t.selectOnly()
+              ..addColumns([t.content])
+              ..where(t.id.equals(id)))
+            .map((row) => row.read(t.content));
     return StorageQuery(query);
   }
 
@@ -99,10 +101,9 @@ class ArticlesManager {
         article.toCompanion(false),
       );
 
-      final position =
-          await _db.managers.articleScrollPositions
-              .filter((f) => f.id.equals(article.id))
-              .getSingleOrNull();
+      final position = await _db.managers.articleScrollPositions
+          .filter((f) => f.id.equals(article.id))
+          .getSingleOrNull();
       if (position != null && position.readingTime != article.readingTime) {
         count += await _db.articleScrollPositions.deleteWhere(
           (f) => f.id.equals(article.id),
@@ -187,11 +188,11 @@ class ArticlesManager {
     );
     return text.isNotEmpty
         ? StorageQuery(
-          _db.articleDrift.articleCountForText(
-            _buildTextQuery(text),
-            predicate: predicate,
-          ),
-        )
+            _db.articleDrift.articleCountForText(
+              _buildTextQuery(text),
+              predicate: predicate,
+            ),
+          )
         : StorageQuery(_db.articles.count(where: predicate));
   }
 
@@ -210,16 +211,15 @@ class ArticlesManager {
       tags: tags,
       domains: domains,
     );
-    final statement =
-        text.isNotEmpty
-            ? _db.articleDrift.articleIdsForText(
-              _buildTextQuery(text),
-              predicate: (_, _) => whereStatement,
-            )
-            : (t.selectOnly()
-                  ..addColumns([t.id])
-                  ..where(whereStatement))
-                .map((row) => row.read(t.id)!);
+    final statement = text.isNotEmpty
+        ? _db.articleDrift.articleIdsForText(
+            _buildTextQuery(text),
+            predicate: (_, _) => whereStatement,
+          )
+        : (t.selectOnly()
+                ..addColumns([t.id])
+                ..where(whereStatement))
+              .map((row) => row.read(t.id)!);
     return StorageQuery(statement);
   }
 
@@ -271,10 +271,11 @@ class ArticlesManager {
 
   StorageQuery<double?> getReadingProgress(int id) {
     final t = _db.articleScrollPositions;
-    final query = (t.selectOnly()
-          ..addColumns([t.progress])
-          ..where(t.id.equals(id)))
-        .map((row) => row.read(t.progress));
+    final query =
+        (t.selectOnly()
+              ..addColumns([t.progress])
+              ..where(t.id.equals(id)))
+            .map((row) => row.read(t.progress));
     return StorageQuery(query);
   }
 
@@ -302,10 +303,9 @@ class TagsManager {
   /// Returns a list of all tag names.
   Future<List<String>> getAll() async {
     final t = _db.articles;
-    final tagLists =
-        await (t.selectOnly()..addColumns([t.tags]))
-            .map((row) => row.readWithConverter(t.tags)!)
-            .get();
+    final tagLists = await (t.selectOnly()..addColumns([t.tags]))
+        .map((row) => row.readWithConverter(t.tags)!)
+        .get();
     return tagLists.expand((it) => it).toSet().toList();
   }
 }

@@ -39,19 +39,18 @@ class _ListingContainerState extends ConsumerState<ListingContainer> {
         bottom: false,
         child: NestedScrollView(
           key: _scrollKey,
-          headerSliverBuilder:
-              (context, innerBoxIsScrolled) => [
-                PinnedHeaderSliver(
-                  child: SearchPanel(
-                    controller: SearchPanelController(
-                      queryRepository: ref.watch(queryRepositoryProvider),
-                    ),
-                    menu: _buildMenu(context, widget.controller),
-                    backgroundColor: headerColor,
-                  ),
+          headerSliverBuilder: (context, innerBoxIsScrolled) => [
+            PinnedHeaderSliver(
+              child: SearchPanel(
+                controller: SearchPanelController(
+                  queryRepository: ref.watch(queryRepositoryProvider),
                 ),
-                const PinnedHeaderSliver(child: RemoteSyncProgressIndicator()),
-              ],
+                menu: _buildMenu(context, widget.controller),
+                backgroundColor: headerColor,
+              ),
+            ),
+            const PinnedHeaderSliver(child: RemoteSyncProgressIndicator()),
+          ],
           body: RefreshIndicator.adaptive(
             onRefresh: widget.controller.refresh,
             child: widget.child,
@@ -70,36 +69,34 @@ class _ListingContainerState extends ConsumerState<ListingContainer> {
     ListingContainerController controller,
   ) => PopupMenuButton(
     key: const Key(wkListingPopupMenu),
-    itemBuilder:
-        (context) => [
-          PopupMenuItem(
-            value: MenuAction.saveLink,
-            child: ListTile(
-              leading: const Icon(Icons.add_link),
-              title: Text(context.L.g_saveLink),
-            ),
-          ),
-          PopupMenuItem(
-            value: MenuAction.synchronize,
-            child: ListTile(
-              leading: const Icon(Icons.sync),
-              title: Text(context.L.g_synchronize),
-            ),
-          ),
-          PopupMenuItem(
-            value: MenuAction.settings,
-            child: ListTile(
-              key: const Key(wkListingSettings),
-              leading: const Icon(Icons.settings),
-              title: Text(context.L.g_settings),
-            ),
-          ),
-        ],
-    onSelected:
-        (action) => switch (action as MenuAction) {
-          MenuAction.saveLink => showSaveUrlDialog(context),
-          MenuAction.synchronize => controller.refresh(),
-          MenuAction.settings => context.push('/settings'),
-        },
+    itemBuilder: (context) => [
+      PopupMenuItem(
+        value: MenuAction.saveLink,
+        child: ListTile(
+          leading: const Icon(Icons.add_link),
+          title: Text(context.L.g_saveLink),
+        ),
+      ),
+      PopupMenuItem(
+        value: MenuAction.synchronize,
+        child: ListTile(
+          leading: const Icon(Icons.sync),
+          title: Text(context.L.g_synchronize),
+        ),
+      ),
+      PopupMenuItem(
+        value: MenuAction.settings,
+        child: ListTile(
+          key: const Key(wkListingSettings),
+          leading: const Icon(Icons.settings),
+          title: Text(context.L.g_settings),
+        ),
+      ),
+    ],
+    onSelected: (action) => switch (action as MenuAction) {
+      MenuAction.saveLink => showSaveUrlDialog(context),
+      MenuAction.synchronize => controller.refresh(),
+      MenuAction.settings => context.push('/settings'),
+    },
   );
 }

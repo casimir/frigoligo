@@ -123,12 +123,11 @@ class _MultiSelectState<T> extends State<MultiSelect<T>> {
         const Divider(),
         Expanded(
           child: ListView(
-            children:
-                search(
-                  _searchController.text,
-                  _index.keys.toList(),
-                  selected: _selected.map((e) => _index[e]!.label).toSet(),
-                ).map((m) => _buildItem(context, _index[m.entry]!)).toList(),
+            children: search(
+              _searchController.text,
+              _index.keys.toList(),
+              selected: _selected.map((e) => _index[e]!.label).toSet(),
+            ).map((m) => _buildItem(context, _index[m.entry]!)).toList(),
           ),
         ),
         MaterialSheetActionButton(
@@ -196,18 +195,16 @@ List<EntryScore> search(
         .map((e) => '($e)')
         .join('.*');
     final re = RegExp(preparedQuery, caseSensitive: false);
-    results =
-        entries
-            .map((e) => EntryScore(e, _computeScore(re.allMatches(e))))
-            .where((e) => e.score > 0.0)
-            .toList();
+    results = entries
+        .map((e) => EntryScore(e, _computeScore(re.allMatches(e))))
+        .where((e) => e.score > 0.0)
+        .toList();
   }
 
-  results =
-      results.map((e) {
-        final boost = selected?.contains(e.entry) == true ? selectedBoost : 0;
-        return boost > 0 ? e.copyWith(score: e.score + boost) : e;
-      }).toList();
+  results = results.map((e) {
+    final boost = selected?.contains(e.entry) == true ? selectedBoost : 0;
+    return boost > 0 ? e.copyWith(score: e.score + boost) : e;
+  }).toList();
 
   return results..sort((a, b) {
     final delta = b.score.compareTo(a.score);
@@ -234,29 +231,27 @@ Future<Iterable<T>?> showBottomSheetSelector<T>({
 }) {
   return showModalBottomSheet(
     context: context,
-    builder:
-        (_) => FutureLoader(
-          future: entriesBuilder,
-          builder: (context, data) {
-            return MultiSelect(
-              title: title,
-              selectionLabelizer: selectionLabelizer,
-              entries:
-                  data
-                      .map(
-                        (it) => DropdownMenuEntry(
-                          value: it,
-                          label: it.toString(),
-                          leadingIcon: leadingIcon,
-                        ),
-                      )
-                      .toList(),
-              initialSelection: initialSelection,
-              addEntryIcon: addEntryIcon,
-              newEntryLeading: leadingIcon,
-            );
-          },
-        ),
+    builder: (_) => FutureLoader(
+      future: entriesBuilder,
+      builder: (context, data) {
+        return MultiSelect(
+          title: title,
+          selectionLabelizer: selectionLabelizer,
+          entries: data
+              .map(
+                (it) => DropdownMenuEntry(
+                  value: it,
+                  label: it.toString(),
+                  leadingIcon: leadingIcon,
+                ),
+              )
+              .toList(),
+          initialSelection: initialSelection,
+          addEntryIcon: addEntryIcon,
+          newEntryLeading: leadingIcon,
+        );
+      },
+    ),
     backgroundColor: Theme.of(context).colorScheme.surface,
     isScrollControlled: true,
     useSafeArea: true,
@@ -361,12 +356,11 @@ class SelectChip<T> extends StatelessWidget {
     Future<void> onTap() async {
       final selected = await showBottomSheetSelect(
         context: context,
-        builder:
-            (context) => Select(
-              title: title,
-              entries: entries,
-              initial: value ?? initialSelection,
-            ),
+        builder: (context) => Select(
+          title: title,
+          entries: entries,
+          initial: value ?? initialSelection,
+        ),
       );
       if (selected != null) {
         onSelected(selected);

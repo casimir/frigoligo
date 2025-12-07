@@ -154,8 +154,8 @@ void main() {
             home: Material(
               child: ArticleScreen(
                 controller: mockController,
-                contentBuilder:
-                    (context, title, content) => const Placeholder(),
+                contentBuilder: (context, title, content) =>
+                    const Placeholder(),
               ),
             ),
             localizationsDelegates: AppLocalizations.localizationsDelegates,

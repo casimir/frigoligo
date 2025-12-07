@@ -109,8 +109,9 @@ void main() {
             ),
           );
 
-          final usedColor =
-              tester.widget<Container>(find.byType(Container)).color;
+          final usedColor = tester
+              .widget<Container>(find.byType(Container))
+              .color;
           colors.add(usedColor);
         }
 
