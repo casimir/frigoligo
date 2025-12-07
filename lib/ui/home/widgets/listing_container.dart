@@ -52,8 +52,10 @@ class _ListingContainerState extends ConsumerState<ListingContainer> {
                 ),
                 const PinnedHeaderSliver(child: RemoteSyncProgressIndicator()),
               ],
-
-          body: widget.child,
+          body: RefreshIndicator.adaptive(
+            onRefresh: widget.controller.refresh,
+            child: widget.child,
+          ),
         ),
       ),
       floatingActionButton: const RemoteSyncFAB(),
