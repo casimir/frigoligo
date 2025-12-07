@@ -68,7 +68,7 @@ dependencies:
   device_info_plus: 11.5.0
   language_info_plus: 1.1.0
   neat_periodic_task: 2.0.1
-  package_info_plus: 8.3.0
+  package_info_plus: 9.0.0
   universal_platform: 1.1.0
   url_launcher: 6.3.1
   share_plus: 11.0.0
