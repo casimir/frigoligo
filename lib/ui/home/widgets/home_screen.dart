@@ -16,9 +16,15 @@ import 'article_entry.dart';
 import 'listing_container.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
-  const HomeScreen({super.key, required this.controller, this.contentBuilder});
+  const HomeScreen({
+    super.key,
+    required this.controller,
+    this.initialArticleId,
+    this.contentBuilder,
+  });
 
   final HomeScreenController controller;
+  final int? initialArticleId;
   final ContentBuilder? contentBuilder;
 
   @override
@@ -46,9 +52,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   Widget buildLoaded(BuildContext context, WidgetRef ref) {
+    final initialIndex =
+        widget.initialArticleId != null
+            ? itemCounter!.getIndexForArticleId(widget.initialArticleId!)
+            : null;
+
     return WindowQuery(
       child: NavigationSplitView(
         itemCount: itemCounter!,
+        initialIndex: initialIndex,
         navigationItemBuilder: (context, index) {
           final articleId = itemCounter!.getArticleId(index)!;
           return ArticleEntry(

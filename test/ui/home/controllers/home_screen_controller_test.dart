@@ -59,5 +59,46 @@ void main() {
         itemCounter.dispose();
       },
     );
+
+    test('getIndexForArticleId returns index when article exists', () async {
+      final LocalStorageService localStorageService = dependencies.get();
+      await localStorageService.articles.update(
+        Article(
+          id: 42,
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
+          title: '',
+          url: '',
+          readingTime: 0,
+          tags: [],
+        ),
+      );
+      await localStorageService.articles.update(
+        Article(
+          id: 99,
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
+          title: '',
+          url: '',
+          readingTime: 0,
+          tags: [],
+        ),
+      );
+
+      final itemCounter = await controller.getItemCounter();
+
+      expect(itemCounter.getIndexForArticleId(42), equals(0));
+      expect(itemCounter.getIndexForArticleId(99), equals(1));
+
+      itemCounter.dispose();
+    });
+
+    test('getIndexForArticleId returns null when article not found', () async {
+      final itemCounter = await controller.getItemCounter();
+
+      expect(itemCounter.getIndexForArticleId(999), isNull);
+
+      itemCounter.dispose();
+    });
   });
 }

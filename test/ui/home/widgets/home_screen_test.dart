@@ -72,5 +72,77 @@ void main() {
       expect(find.byType(HomeScreen), findsOneWidget);
       expect(find.text('Test content 1'), findsOneWidget);
     });
+
+    testWidgets('should open article specified by initialArticleId', (
+      tester,
+    ) async {
+      // setup side by side layout
+      tester.view.physicalSize = const Size(900, 600);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.reset);
+
+      for (int i = 1; i <= 3; i++) {
+        await insertArticle(id: i);
+      }
+
+      await tester.pumpWidget(
+        ProviderScope(
+          child: MaterialApp(
+            home: HomeScreen(
+              controller: HomeScreenController(
+                queryRepository: dependencies.get(),
+              ),
+              initialArticleId: 2,
+              contentBuilder:
+                  (context, title, content) => Center(child: Text(content)),
+            ),
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+
+      expect(find.byType(HomeScreen), findsOneWidget);
+      // Article 2 should be selected, not article 1
+      expect(find.text('Test content 2'), findsOneWidget);
+      expect(find.text('Test content 1'), findsNothing);
+    });
+
+    testWidgets(
+      'should fallback to first article when initialArticleId not found',
+      (tester) async {
+        // setup side by side layout
+        tester.view.physicalSize = const Size(900, 600);
+        tester.view.devicePixelRatio = 1;
+        addTearDown(tester.view.reset);
+
+        for (int i = 1; i <= 2; i++) {
+          await insertArticle(id: i);
+        }
+
+        await tester.pumpWidget(
+          ProviderScope(
+            child: MaterialApp(
+              home: HomeScreen(
+                controller: HomeScreenController(
+                  queryRepository: dependencies.get(),
+                ),
+                initialArticleId: 999, // non-existent
+                contentBuilder:
+                    (context, title, content) => Center(child: Text(content)),
+              ),
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+            ),
+          ),
+        );
+
+        await tester.pumpAndSettle();
+
+        expect(find.byType(HomeScreen), findsOneWidget);
+        // Should fallback to first article
+        expect(find.text('Test content 1'), findsOneWidget);
+      },
+    );
   });
 }

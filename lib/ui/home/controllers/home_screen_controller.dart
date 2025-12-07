@@ -41,6 +41,11 @@ class ItemCounter extends ChangeNotifier implements ValueListenable<int> {
 
   int? getArticleId(int index) => _value.elementAtOrNull(index);
 
+  int? getIndexForArticleId(int articleId) {
+    final index = _value.indexOf(articleId);
+    return index >= 0 ? index : null;
+  }
+
   static Future<ItemCounter> fromStream(Stream<List<int>> stream) async {
     return ItemCounter(await stream.first, stream);
   }

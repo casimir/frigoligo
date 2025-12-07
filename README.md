@@ -50,7 +50,7 @@ frigoligo://x/action?param1=hello&param2=G%C3%BCnther
 
 ### Actions
 
-#### `/articles/:articleId`
+#### `/?articleId=:articleId`
 
 Open the article with the given ID respecting the correct app navigation mode.
 
