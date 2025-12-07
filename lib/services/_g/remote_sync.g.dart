@@ -8,22 +8,58 @@ part of '../remote_sync.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(RemoteSyncer)
+const remoteSyncerProvider = RemoteSyncerProvider._();
+
+final class RemoteSyncerProvider
+    extends $NotifierProvider<RemoteSyncer, SyncState> {
+  const RemoteSyncerProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'remoteSyncerProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$remoteSyncerHash();
+
+  @$internal
+  @override
+  RemoteSyncer create() => RemoteSyncer();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SyncState value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SyncState>(value),
+    );
+  }
+}
+
 String _$remoteSyncerHash() => r'729969f59a6038db642dd792ea2012edd45e4886';
 
-/// See also [RemoteSyncer].
-@ProviderFor(RemoteSyncer)
-final remoteSyncerProvider =
-    AutoDisposeNotifierProvider<RemoteSyncer, SyncState>.internal(
-      RemoteSyncer.new,
-      name: r'remoteSyncerProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$remoteSyncerHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
-
-typedef _$RemoteSyncer = AutoDisposeNotifier<SyncState>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+abstract class _$RemoteSyncer extends $Notifier<SyncState> {
+  SyncState build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<SyncState, SyncState>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<SyncState, SyncState>,
+              SyncState,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

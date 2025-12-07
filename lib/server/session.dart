@@ -17,8 +17,9 @@ const legacyCredentialsKey = '${_keyPrefix}wallabag.credentials';
 @JsonSerializable()
 class ServerSession {
   ServerSession(this.type, {useSelfSigned = false, this.freon, this.wallabag})
-    : selfSignedHost =
-          useSelfSigned ? freon?.server.host ?? wallabag?.server.host : null;
+    : selfSignedHost = useSelfSigned
+          ? freon?.server.host ?? wallabag?.server.host
+          : null;
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   String? raw;
@@ -52,8 +53,9 @@ class ServerSession {
 
   static Future<ServerSession?> load() async {
     final raw = await _spLoadString(sessionKey);
-    final session =
-        raw != null ? ServerSession.fromJson(jsonDecode(raw)) : null;
+    final session = raw != null
+        ? ServerSession.fromJson(jsonDecode(raw))
+        : null;
 
     if (session != null) {
       session.raw = raw;

@@ -58,15 +58,15 @@ class ArticleSheet extends StatelessWidget {
             C.spacers.verticalContent,
             data.tags.isNotEmpty
                 ? TagList(
-                  tags: data.tags,
-                  onTagPressed:
-                      (_) => _showTagsDialog(context, controller, data.tags),
-                )
+                    tags: data.tags,
+                    onTagPressed: (_) =>
+                        _showTagsDialog(context, controller, data.tags),
+                  )
                 : TextButton(
-                  onPressed:
-                      () => _showTagsDialog(context, controller, data.tags),
-                  child: Text(context.L.article_addTags),
-                ),
+                    onPressed: () =>
+                        _showTagsDialog(context, controller, data.tags),
+                    child: Text(context.L.article_addTags),
+                  ),
             C.spacers.verticalContent,
             const Divider(),
             C.spacers.verticalContent,
@@ -79,8 +79,8 @@ class ArticleSheet extends StatelessWidget {
                   ActionChip(
                     avatar: const Icon(Icons.open_in_browser),
                     label: Text(context.L.article_openInBrowser),
-                    onPressed:
-                        () => controller.openInBrowser(Uri.parse(data.url)),
+                    onPressed: () =>
+                        controller.openInBrowser(Uri.parse(data.url)),
                   ),
                 ],
               ),

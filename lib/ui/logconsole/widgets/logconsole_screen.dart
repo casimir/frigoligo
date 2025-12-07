@@ -91,14 +91,13 @@ class _LogConsoleScreenState extends State<LogConsoleScreen> {
             child: ListView.builder(
               controller: _scrollController,
               itemCount: logs.length,
-              prototypeItem:
-                  logs.isNotEmpty
-                      ? LogEntryMessage(
-                        entry: logs[0],
-                        colorScheme: colorScheme,
-                        alternativeBackground: false,
-                      )
-                      : null,
+              prototypeItem: logs.isNotEmpty
+                  ? LogEntryMessage(
+                      entry: logs[0],
+                      colorScheme: colorScheme,
+                      alternativeBackground: false,
+                    )
+                  : null,
               itemBuilder: (context, index) {
                 return LogEntryMessage(
                   entry: logs[index],

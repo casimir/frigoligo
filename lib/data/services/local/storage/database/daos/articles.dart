@@ -35,9 +35,10 @@ class ArticlesDao extends DatabaseAccessor<DB> with $ArticlesDaoMixin {
   }
 
   Future<Set<int>> getAllIds() {
-    return (selectOnly(articles)..addColumns([
-      articles.id,
-    ])).map((row) => row.read(articles.id)!).get().then((ids) => ids.toSet());
+    return (selectOnly(articles)..addColumns([articles.id]))
+        .map((row) => row.read(articles.id)!)
+        .get()
+        .then((ids) => ids.toSet());
   }
 
   Future<int> countUnread() =>

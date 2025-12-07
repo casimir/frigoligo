@@ -103,8 +103,9 @@ void main() {
         );
         await tester.pumpAndSettle();
 
-        final captured =
-            verify(() => mockViewModel.shareLogs(captureAny(), any())).captured;
+        final captured = verify(
+          () => mockViewModel.shareLogs(captureAny(), any()),
+        ).captured;
 
         final bool onlyCurrentRun = captured[0];
         expect(onlyCurrentRun, true);
@@ -148,8 +149,9 @@ void main() {
         await tester.tap(find.text(l.logconsole_export_all_logs(logCount * 2)));
         await tester.pumpAndSettle();
 
-        final captured =
-            verify(() => mockViewModel.shareLogs(captureAny(), any())).captured;
+        final captured = verify(
+          () => mockViewModel.shareLogs(captureAny(), any()),
+        ).captured;
 
         final bool onlyCurrentRun = captured[0];
         expect(onlyCurrentRun, false);

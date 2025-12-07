@@ -61,10 +61,9 @@ class LocalStorage extends _$LocalStorage {
     final stopwatch = Stopwatch()..start();
 
     var count = 0;
-    final sinceDT =
-        since != null
-            ? DateTime.fromMillisecondsSinceEpoch(since * 1000)
-            : null;
+    final sinceDT = since != null
+        ? DateTime.fromMillisecondsSinceEpoch(since * 1000)
+        : null;
     _log.info('starting refresh with since=${sinceDT?.toIso8601String()}');
 
     if (since == null) {

@@ -27,16 +27,15 @@ class LogEntryMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     const separator = TextSpan(text: ' ');
 
-    final backgroundColor =
-        alternativeBackground
-            ? colorScheme.surfaceContainerLowest
-            : colorScheme.surfaceContainer;
-    final textColor =
-        entry.message == startingAppMessage
-            ? colorScheme.primary
-            : _colorForLevel;
-    final levelLetter =
-        entry.level.isNotEmpty ? entry.level.characters.first : ' ';
+    final backgroundColor = alternativeBackground
+        ? colorScheme.surfaceContainerLowest
+        : colorScheme.surfaceContainer;
+    final textColor = entry.message == startingAppMessage
+        ? colorScheme.primary
+        : _colorForLevel;
+    final levelLetter = entry.level.isNotEmpty
+        ? entry.level.characters.first
+        : ' ';
 
     return Container(
       color: backgroundColor,

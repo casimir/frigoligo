@@ -61,8 +61,8 @@ PageRoute<T> adaptivePageRouteBuilder<T>(
       return CupertinoPageRoute<T>(builder: builder);
     case AppType.widgets:
       return PageRouteBuilder<T>(
-        pageBuilder:
-            (context, animation, secondaryAnimation) => builder(context),
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            builder(context),
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
       );

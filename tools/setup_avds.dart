@@ -14,19 +14,18 @@ Future<void> main() async {
 
   for (final device in devices) {
     print('Creating ${device.$1} ...');
-    final proc =
-        await emulators.toolchain.avdmanager([
-          'create',
-          'avd',
-          '--force',
-          '--name',
-          device.$1,
-          '--package',
-          'system-images;android-34;google_apis;x86_64',
-          // 'system-images;android-34;google_apis;arm64-v8a',
-          '--device',
-          device.$2,
-        ]).process();
+    final proc = await emulators.toolchain.avdmanager([
+      'create',
+      'avd',
+      '--force',
+      '--name',
+      device.$1,
+      '--package',
+      'system-images;android-34;google_apis;x86_64',
+      // 'system-images;android-34;google_apis;arm64-v8a',
+      '--device',
+      device.$2,
+    ]).process();
     stderr.addStream(proc.stderr);
     await stdout.addStream(proc.stdout);
   }

@@ -23,10 +23,10 @@ final _log = Logger('settings');
 
 final _settingsSectionSplitter =
     UniversalPlatform.isAndroid ||
-            UniversalPlatform.isLinux ||
-            UniversalPlatform.isFuchsia
-        ? const Text('')
-        : null;
+        UniversalPlatform.isLinux ||
+        UniversalPlatform.isFuchsia
+    ? const Text('')
+    : null;
 
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
@@ -99,10 +99,9 @@ class SettingsPage extends ConsumerWidget {
                   leading: const Icon(Icons.tag),
                   title: Text(context.L.settings_savedArticleTag),
                   initialValue: settings[Sk.tagSaveEnabled],
-                  onToggle:
-                      (value) => ref
-                          .read(settingsProvider.notifier)
-                          .set(Sk.tagSaveEnabled, value),
+                  onToggle: (value) => ref
+                      .read(settingsProvider.notifier)
+                      .set(Sk.tagSaveEnabled, value),
                 ),
                 SettingsTile.navigation(
                   leading: const Icon(Icons.tag),
@@ -159,10 +158,9 @@ class SettingsPage extends ConsumerWidget {
                   leading: const Icon(Icons.handyman),
                   trailing: const Icon(Icons.open_in_new),
                   title: Text(context.L.settings_helpToTranslate),
-                  onPressed:
-                      (_) => launchUrlString(
-                        'https://hosted.weblate.org/projects/frigoligo/',
-                      ),
+                  onPressed: (_) => launchUrlString(
+                    'https://hosted.weblate.org/projects/frigoligo/',
+                  ),
                 ),
               ],
             ),
@@ -191,30 +189,26 @@ class SettingsPage extends ConsumerWidget {
                   leading: const Icon(Icons.code),
                   trailing: const Icon(Icons.open_in_new),
                   title: Text(context.L.g_sourceCode),
-                  onPressed:
-                      (_) => launchUrlString(
-                        'https://github.com/casimir/frigoligo',
-                      ),
+                  onPressed: (_) =>
+                      launchUrlString('https://github.com/casimir/frigoligo'),
                 ),
                 SettingsTile(
                   leading: const Icon(Icons.bug_report),
                   trailing: const Icon(Icons.open_in_new),
                   title: Text(context.L.settings_bugReportLink),
-                  onPressed:
-                      (_) => launchUrlString(
-                        'https://github.com/casimir/frigoligo/issues',
-                      ),
+                  onPressed: (_) => launchUrlString(
+                    'https://github.com/casimir/frigoligo/issues',
+                  ),
                 ),
                 SettingsTile.navigation(
                   leading: const Icon(Icons.description),
                   title: Text(
                     MaterialLocalizations.of(context).viewLicensesButtonLabel,
                   ),
-                  onPressed:
-                      (context) => showLicensePage(
-                        context: context,
-                        applicationLegalese: '© 2023 Casimir Lab',
-                      ),
+                  onPressed: (context) => showLicensePage(
+                    context: context,
+                    applicationLegalese: '© 2023 Casimir Lab',
+                  ),
                 ),
               ],
             ),
@@ -257,10 +251,9 @@ class SettingsPage extends ConsumerWidget {
                     leading: const Icon(Icons.settings_suggest),
                     title: Text(context.L.settings_nativeArticleRenderer),
                     initialValue: settings[Sk.nativeArticleRenderer],
-                    onToggle:
-                        (value) => ref
-                            .read(settingsProvider.notifier)
-                            .set(Sk.nativeArticleRenderer, value),
+                    onToggle: (value) => ref
+                        .read(settingsProvider.notifier)
+                        .set(Sk.nativeArticleRenderer, value),
                   ),
               ],
             ),

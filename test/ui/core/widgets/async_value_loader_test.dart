@@ -61,7 +61,10 @@ void main() {
     testWidgets('should rebuild when AsyncValue changes from loading to data', (
       tester,
     ) async {
-      final testProvider = StateNotifierProvider((ref) => AsyncString());
+      final testProvider =
+          NotifierProvider<AsyncStringNotifier, AsyncValue<String>>(
+            AsyncStringNotifier.new,
+          );
 
       await tester.pumpWidget(
         ProviderScope(
@@ -93,8 +96,9 @@ void main() {
   });
 }
 
-class AsyncString extends StateNotifier<AsyncValue<String>> {
-  AsyncString() : super(const AsyncValue.loading());
+class AsyncStringNotifier extends Notifier<AsyncValue<String>> {
+  @override
+  AsyncValue<String> build() => const AsyncValue.loading();
 
   void setData(String data) {
     state = AsyncValue.data(data);

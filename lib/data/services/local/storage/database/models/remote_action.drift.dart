@@ -145,12 +145,12 @@ class $RemoteActionsTableManager
         i0.TableManagerState(
           db: db,
           table: table,
-          createFilteringComposer:
-              () => i1.$RemoteActionsFilterComposer($db: db, $table: table),
-          createOrderingComposer:
-              () => i1.$RemoteActionsOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer:
-              () => i1.$RemoteActionsAnnotationComposer($db: db, $table: table),
+          createFilteringComposer: () =>
+              i1.$RemoteActionsFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              i1.$RemoteActionsOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              i1.$RemoteActionsAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 i0.Value<int> id = const i0.Value.absent(),
@@ -179,16 +179,9 @@ class $RemoteActionsTableManager
                 className: className,
                 jsonParams: jsonParams,
               ),
-          withReferenceMapper:
-              (p0) =>
-                  p0
-                      .map(
-                        (e) => (
-                          e.readTable(table),
-                          i0.BaseReferences(db, table, e),
-                        ),
-                      )
-                      .toList(),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), i0.BaseReferences(db, table, e)))
+              .toList(),
           prefetchHooksCallback: null,
         ),
       );
@@ -339,31 +332,26 @@ class RemoteActions extends i0.Table
   i1.RemoteAction map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return i1.RemoteAction(
-      id:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.int,
-            data['${effectivePrefix}id'],
-          )!,
-      createdAt:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.dateTime,
-            data['${effectivePrefix}created_at'],
-          )!,
-      key:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.int,
-            data['${effectivePrefix}key'],
-          )!,
-      className:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.string,
-            data['${effectivePrefix}class_name'],
-          )!,
-      jsonParams:
-          attachedDatabase.typeMapping.read(
-            i0.DriftSqlType.string,
-            data['${effectivePrefix}json_params'],
-          )!,
+      id: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      createdAt: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.dateTime,
+        data['${effectivePrefix}created_at'],
+      )!,
+      key: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.int,
+        data['${effectivePrefix}key'],
+      )!,
+      className: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.string,
+        data['${effectivePrefix}class_name'],
+      )!,
+      jsonParams: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.string,
+        data['${effectivePrefix}json_params'],
+      )!,
     );
   }
 
@@ -455,8 +443,9 @@ class RemoteAction extends i0.DataClass
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
       key: data.key.present ? data.key.value : this.key,
       className: data.className.present ? data.className.value : this.className,
-      jsonParams:
-          data.jsonParams.present ? data.jsonParams.value : this.jsonParams,
+      jsonParams: data.jsonParams.present
+          ? data.jsonParams.value
+          : this.jsonParams,
     );
   }
 

@@ -15,14 +15,13 @@ void main() {
           SimpleApp(
             child: NavigationSplitView(
               itemCount: ValueNotifier(3),
-              navigationItemBuilder:
-                  (context, index) => Row(
-                    spacing: 10,
-                    children: [
-                      const Icon(Icons.abc),
-                      Flexible(child: Text('Item $index')),
-                    ],
-                  ),
+              navigationItemBuilder: (context, index) => Row(
+                spacing: 10,
+                children: [
+                  const Icon(Icons.abc),
+                  Flexible(child: Text('Item $index')),
+                ],
+              ),
               contentBuilder: (context, index) => Text('Content $index'),
             ),
           ),
@@ -45,9 +44,8 @@ void main() {
                 itemCount: ValueNotifier(1),
                 navigationItemBuilder: (context, index) => Text('Item $index'),
                 contentBuilder: (context, index) => const Placeholder(),
-                navigationContainerBuilder:
-                    (context, selectedIndex, child) =>
-                        Container(key: customKey, child: child),
+                navigationContainerBuilder: (context, selectedIndex, child) =>
+                    Container(key: customKey, child: child),
               ),
             ),
           );
@@ -75,8 +73,8 @@ void main() {
               itemCount: ValueNotifier(1),
               navigationItemBuilder: (context, index) => const Placeholder(),
               contentBuilder: (context, index) => Text('Content $index'),
-              contentContainerBuilder:
-                  (context, child) => Container(key: customKey, child: child),
+              contentContainerBuilder: (context, child) =>
+                  Container(key: customKey, child: child),
             ),
           ),
         );
@@ -140,8 +138,8 @@ void main() {
             SimpleApp(
               child: NavigationSplitView(
                 itemCount: ValueNotifier(2),
-                navigationItemBuilder:
-                    (context, index) => ListTile(title: Text('Item $index')),
+                navigationItemBuilder: (context, index) =>
+                    ListTile(title: Text('Item $index')),
                 contentBuilder: (context, index) => Text('Content $index'),
                 onSelectedIndexChanged: (index) => callbackIndexValue = index,
               ),
@@ -171,8 +169,8 @@ void main() {
           SimpleApp(
             child: NavigationSplitView(
               itemCount: ValueNotifier(2),
-              navigationItemBuilder:
-                  (context, index) => ListTile(title: Text('Item $index')),
+              navigationItemBuilder: (context, index) =>
+                  ListTile(title: Text('Item $index')),
               contentBuilder: (context, index) => Text('Content $index'),
               onSelectedIndexChanged: (index) => callbackIndexValue = index,
             ),

@@ -44,8 +44,9 @@ class LoggingStorageService {
   }
 
   Future<int> deleteBefore(DateTime time) {
-    return (_db.delete(_db.appLogs)
-      ..where((t) => t.time.isSmallerThanValue(time))).go();
+    return (_db.delete(
+      _db.appLogs,
+    )..where((t) => t.time.isSmallerThanValue(time))).go();
   }
 
   Future<int> deleteAll() {

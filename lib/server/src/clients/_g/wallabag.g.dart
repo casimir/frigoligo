@@ -20,10 +20,9 @@ WallabagCredentials _$WallabagCredentialsFromJson(Map<String, dynamic> json) =>
       Uri.parse(json['server'] as String),
       json['clientId'] as String,
       json['clientSecret'] as String,
-      token:
-          json['token'] == null
-              ? null
-              : OAuthToken.fromJson(json['token'] as Map<String, dynamic>),
+      token: json['token'] == null
+          ? null
+          : OAuthToken.fromJson(json['token'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$WallabagCredentialsToJson(

@@ -39,10 +39,9 @@ Future<ServerCheck> checkServerState(String serverUrl, bool selfSigned) async {
   try {
     final protocol = serverUrl.startsWith('http://') ? 'http' : 'https';
     var trimmed = serverUrl.split('://').last;
-    trimmed =
-        trimmed.endsWith('/')
-            ? trimmed.substring(0, trimmed.length - 1)
-            : trimmed;
+    trimmed = trimmed.endsWith('/')
+        ? trimmed.substring(0, trimmed.length - 1)
+        : trimmed;
     final uri = Uri.parse('$protocol://$trimmed');
 
     final probeResult = await probeServer(uri, selfSigned);

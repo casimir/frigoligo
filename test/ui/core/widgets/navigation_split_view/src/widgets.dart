@@ -13,7 +13,9 @@ class SimpleApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: Material(child: WindowQuery(child: child)));
+    return MaterialApp(
+      home: Material(child: WindowQuery(child: child)),
+    );
   }
 }
 

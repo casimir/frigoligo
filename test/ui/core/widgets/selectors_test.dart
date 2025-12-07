@@ -365,14 +365,13 @@ void main() {
                   onPressed: () {
                     showBottomSheetSelect<int>(
                       context: context,
-                      builder:
-                          (ctx) => const Select<int>(
-                            title: 'Choose Option',
-                            entries: [
-                              DropdownMenuEntry(value: 1, label: 'Option 1'),
-                              DropdownMenuEntry(value: 2, label: 'Option 2'),
-                            ],
-                          ),
+                      builder: (ctx) => const Select<int>(
+                        title: 'Choose Option',
+                        entries: [
+                          DropdownMenuEntry(value: 1, label: 'Option 1'),
+                          DropdownMenuEntry(value: 2, label: 'Option 2'),
+                        ],
+                      ),
                     );
                   },
                   child: const Text('Open'),

@@ -29,8 +29,9 @@ GoRouter router(Ref ref) {
         redirect: loginRedirect,
         builder: (context, state) {
           final rawArticleId = state.uri.queryParameters['articleId'];
-          final articleId =
-              rawArticleId != null ? int.tryParse(rawArticleId) : null;
+          final articleId = rawArticleId != null
+              ? int.tryParse(rawArticleId)
+              : null;
           return HomeScreen(
             controller: HomeScreenController(
               queryRepository: dependencies.get(),
@@ -72,8 +73,8 @@ GoRouter router(Ref ref) {
       GoRoute(
         path: '/save',
         redirect: loginRedirect,
-        builder:
-            (context, state) => SavePage(url: state.uri.queryParameters['url']),
+        builder: (context, state) =>
+            SavePage(url: state.uri.queryParameters['url']),
       ),
     ],
   );

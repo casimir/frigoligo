@@ -17,11 +17,10 @@ void main() {
             child: NavigationSplitView(
               itemCount: ValueNotifier(1),
               navigationItemBuilder: (context, index) => Text('Item $index'),
-              contentBuilder:
-                  (context, index) => Scaffold(
-                    appBar: AppBar(leading: const ExpandContentButton()),
-                    body: Text('Content $index'),
-                  ),
+              contentBuilder: (context, index) => Scaffold(
+                appBar: AppBar(leading: const ExpandContentButton()),
+                body: Text('Content $index'),
+              ),
             ),
           ),
         );
@@ -56,11 +55,10 @@ void main() {
           child: NavigationSplitView(
             itemCount: ValueNotifier(1),
             navigationItemBuilder: (context, index) => Text('Item $index'),
-            contentBuilder:
-                (context, index) => Scaffold(
-                  appBar: AppBar(leading: const ExpandContentButton()),
-                  body: Text('Content $index'),
-                ),
+            contentBuilder: (context, index) => Scaffold(
+              appBar: AppBar(leading: const ExpandContentButton()),
+              body: Text('Content $index'),
+            ),
             initialIndex: 0,
           ),
         ),

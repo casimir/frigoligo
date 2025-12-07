@@ -81,14 +81,13 @@ void main() {
 
           await viewModel.shareLogs(true, Rect.zero);
 
-          final captured =
-              verify(
-                () => mockSharingService.shareAsTextFile(
-                  captureAny(),
-                  captureAny(),
-                  sharePositionOrigin: any(named: 'sharePositionOrigin'),
-                ),
-              ).captured;
+          final captured = verify(
+            () => mockSharingService.shareAsTextFile(
+              captureAny(),
+              captureAny(),
+              sharePositionOrigin: any(named: 'sharePositionOrigin'),
+            ),
+          ).captured;
 
           final content = captured[1] as String;
           for (final line in content.split('\n').indexed) {
@@ -109,14 +108,13 @@ void main() {
 
         await viewModel.shareLogs(false, Rect.zero);
 
-        final captured =
-            verify(
-              () => mockSharingService.shareAsTextFile(
-                captureAny(),
-                captureAny(),
-                sharePositionOrigin: any(named: 'sharePositionOrigin'),
-              ),
-            ).captured;
+        final captured = verify(
+          () => mockSharingService.shareAsTextFile(
+            captureAny(),
+            captureAny(),
+            sharePositionOrigin: any(named: 'sharePositionOrigin'),
+          ),
+        ).captured;
 
         final content = captured[1] as String;
         for (final line in content.split('\n').indexed) {

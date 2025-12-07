@@ -8,23 +8,45 @@ part of '../background_sync.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$backgroundSyncHash() => r'e177313ea90da9294c4a579444654c5453f5e6ed';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [backgroundSync].
 @ProviderFor(backgroundSync)
-final backgroundSyncProvider = AutoDisposeProvider<void>.internal(
-  backgroundSync,
-  name: r'backgroundSyncProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$backgroundSyncHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+const backgroundSyncProvider = BackgroundSyncProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef BackgroundSyncRef = AutoDisposeProviderRef<void>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+final class BackgroundSyncProvider extends $FunctionalProvider<void, void, void>
+    with $Provider<void> {
+  const BackgroundSyncProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'backgroundSyncProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$backgroundSyncHash();
+
+  @$internal
+  @override
+  $ProviderElement<void> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  void create(Ref ref) {
+    return backgroundSync(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(void value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<void>(value),
+    );
+  }
+}
+
+String _$backgroundSyncHash() => r'e177313ea90da9294c4a579444654c5453f5e6ed';

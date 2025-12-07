@@ -32,22 +32,58 @@ Map<String, dynamic> _$ReaderSettingsValuesToJson(
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(ReadingSettings)
+const readingSettingsProvider = ReadingSettingsProvider._();
+
+final class ReadingSettingsProvider
+    extends $NotifierProvider<ReadingSettings, ReaderSettingsValues> {
+  const ReadingSettingsProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'readingSettingsProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$readingSettingsHash();
+
+  @$internal
+  @override
+  ReadingSettings create() => ReadingSettings();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(ReaderSettingsValues value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<ReaderSettingsValues>(value),
+    );
+  }
+}
+
 String _$readingSettingsHash() => r'c10dfcc2b6e885c4d5e5ebe24dee9758a5487691';
 
-/// See also [ReadingSettings].
-@ProviderFor(ReadingSettings)
-final readingSettingsProvider =
-    AutoDisposeNotifierProvider<ReadingSettings, ReaderSettingsValues>.internal(
-      ReadingSettings.new,
-      name: r'readingSettingsProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$readingSettingsHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
-
-typedef _$ReadingSettings = AutoDisposeNotifier<ReaderSettingsValues>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+abstract class _$ReadingSettings extends $Notifier<ReaderSettingsValues> {
+  ReaderSettingsValues build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<ReaderSettingsValues, ReaderSettingsValues>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<ReaderSettingsValues, ReaderSettingsValues>,
+              ReaderSettingsValues,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

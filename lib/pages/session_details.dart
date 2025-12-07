@@ -30,8 +30,8 @@ class SessionDetailsPage extends ConsumerWidget {
           .when(
             data: (it) => _buildDetails(context, ref, it),
             error: (error, _) => ErrorScreen(error: error),
-            loading:
-                () => const Center(child: CircularProgressIndicator.adaptive()),
+            loading: () =>
+                const Center(child: CircularProgressIndicator.adaptive()),
           ),
     );
   }
@@ -139,8 +139,8 @@ ListTile _buildLastSync(BuildContext context) {
         final lastSync = await storageService.db.metadataDao.getLastSyncTS();
         if (lastSync != null) {
           sinceLastSync = DateTime.fromMillisecondsSinceEpoch(lastSync * 1000)
-          // ignore: use_build_context_synchronously
-          .toHumanizedString(context);
+              // ignore: use_build_context_synchronously
+              .toHumanizedString(context);
         }
         return sinceLastSync;
       },

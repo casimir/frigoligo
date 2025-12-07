@@ -52,10 +52,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   Widget buildLoaded(BuildContext context, WidgetRef ref) {
-    final initialIndex =
-        widget.initialArticleId != null
-            ? itemCounter!.getIndexForArticleId(widget.initialArticleId!)
-            : null;
+    final initialIndex = widget.initialArticleId != null
+        ? itemCounter!.getIndexForArticleId(widget.initialArticleId!)
+        : null;
 
     return WindowQuery(
       child: NavigationSplitView(
@@ -73,13 +72,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           );
         },
         navigationItemExtent: ArticleEntry.itemExtent,
-        navigationContainerBuilder:
-            (context, index, child) => ListingContainer(
-              controller: ListingContainerController(
-                remoteSyncer: ref.read(remoteSyncerProvider.notifier),
-              ),
-              child: child,
-            ),
+        navigationContainerBuilder: (context, index, child) => ListingContainer(
+          controller: ListingContainerController(
+            remoteSyncer: ref.read(remoteSyncerProvider.notifier),
+          ),
+          child: child,
+        ),
         contentBuilder: (context, index) {
           return ArticleScreen(
             key: ValueKey('article-screen-$index'),

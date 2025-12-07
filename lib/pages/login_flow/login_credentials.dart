@@ -61,50 +61,39 @@ class _LoginFlowCredentialsState extends ConsumerState<LoginFlowCredentials> {
 
   @override
   Widget build(BuildContext context) {
-    final loginFields =
-        widget.loginController
-            .getFields(context)
-            .asMap()
-            .entries
-            .map(
-              (e) =>
-                  FormBuilderTextField(
-                        key: e.value.key,
-                        name: e.value.name,
-                        validator:
-                            (value) => notEmptyValidator(
-                              context,
-                              value,
-                              e.value.label,
-                            ),
-                        decoration: InputDecoration(
-                          icon: e.value.icon,
-                          labelText: e.value.label,
-                        ),
-                        obscureText: e.value.obscureText,
-                        autofocus: true,
-                        autocorrect: false,
-                        autofillHints: e.value.autofillHints,
-                        textInputAction:
-                            e.key ==
-                                    widget.loginController
-                                            .getFields(context)
-                                            .length -
-                                        1
-                                ? TextInputAction.go
-                                : TextInputAction.next,
-                        onSubmitted:
-                            e.key ==
-                                    widget.loginController
-                                            .getFields(context)
-                                            .length -
-                                        1
-                                ? (_) => attemptLogin()
-                                : null,
-                      )
-                      as Widget,
-            )
-            .toList();
+    final loginFields = widget.loginController
+        .getFields(context)
+        .asMap()
+        .entries
+        .map(
+          (e) =>
+              FormBuilderTextField(
+                    key: e.value.key,
+                    name: e.value.name,
+                    validator: (value) =>
+                        notEmptyValidator(context, value, e.value.label),
+                    decoration: InputDecoration(
+                      icon: e.value.icon,
+                      labelText: e.value.label,
+                    ),
+                    obscureText: e.value.obscureText,
+                    autofocus: true,
+                    autocorrect: false,
+                    autofillHints: e.value.autofillHints,
+                    textInputAction:
+                        e.key ==
+                            widget.loginController.getFields(context).length - 1
+                        ? TextInputAction.go
+                        : TextInputAction.next,
+                    onSubmitted:
+                        e.key ==
+                            widget.loginController.getFields(context).length - 1
+                        ? (_) => attemptLogin()
+                        : null,
+                  )
+                  as Widget,
+        )
+        .toList();
 
     return Center(
       child: ListView(

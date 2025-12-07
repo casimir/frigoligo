@@ -7,7 +7,9 @@ import 'package:frigoligo/ui/core/widgets/copyable_text.dart';
 void main() {
   Widget buildWidget(String text, [String? data]) {
     return MaterialApp(
-      home: Scaffold(body: CopyableText(text: Text(text), data: data)),
+      home: Scaffold(
+        body: CopyableText(text: Text(text), data: data),
+      ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
     );
   }

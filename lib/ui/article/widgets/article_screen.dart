@@ -93,23 +93,19 @@ class _ArticleScreenState extends ConsumerState<ArticleScreen> {
           actions: actions,
           withProgressIndicator: withProgressIndicator,
           scrollEnabled: data.hasContent,
-          builder:
-              (_) =>
-                  !data.hasContent
-                      ? ArticleContentPlaceholder(
-                        articleUrl: Uri.parse(data.url),
-                        openUrlCallback:
-                            (url) => widget.controller.openInBrowser(url),
-                      )
-                      : ArticleContent(
-                        controller: ArticleContentController(
-                          articleRepository: ref.watch(
-                            articleRepositoryProvider,
-                          ),
-                          articleId: data.id,
-                        ),
-                        contentBuilder: widget.contentBuilder,
-                      ),
+          builder: (_) => !data.hasContent
+              ? ArticleContentPlaceholder(
+                  articleUrl: Uri.parse(data.url),
+                  openUrlCallback: (url) =>
+                      widget.controller.openInBrowser(url),
+                )
+              : ArticleContent(
+                  controller: ArticleContentController(
+                    articleRepository: ref.watch(articleRepositoryProvider),
+                    articleId: data.id,
+                  ),
+                  contentBuilder: widget.contentBuilder,
+                ),
         );
       },
     );
@@ -144,12 +140,11 @@ class _PageScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final PreferredSizeWidget appBarBottom =
-        withProgressIndicator
-            ? const RemoteSyncProgressIndicator(
-              idleWidget: ReadingProgressIndicator(),
-            )
-            : const ReadingProgressIndicator();
+    final PreferredSizeWidget appBarBottom = withProgressIndicator
+        ? const RemoteSyncProgressIndicator(
+            idleWidget: ReadingProgressIndicator(),
+          )
+        : const ReadingProgressIndicator();
 
     return AdaptiveScaffold(
       barData: AdaptiveBarData(
@@ -218,10 +213,9 @@ List<Widget> buildActions(
                   ? StateFilter.archived
                   : StateFilter.unread]!
               .icon!,
-      label:
-          data.isArchived
-              ? context.L.article_unarchive
-              : context.L.article_archive,
+      label: data.isArchived
+          ? context.L.article_unarchive
+          : context.L.article_archive,
       onPressed: () async {
         await controller.setArchived(!data.isArchived);
         if (!withExpander && context.mounted) {
@@ -256,24 +250,22 @@ List<Widget> buildActions(
       key: kArticleActionDetails,
       icon: C(context).icons.info,
       label: context.L.article_details,
-      onPressed:
-          () => showModalSheet(
-            context: context,
-            title: context.L.g_article,
-            builder:
-                (_) => Material(
-                  child: ArticleSheet(
-                    controller: ArticleSheetController(
-                      syncer: ref.read(remoteSyncerProvider.notifier),
-                      tagRepository: ref.watch(tagRepositoryProvider),
-                      sharingService: dependencies.get(),
-                      urlLauncherService: dependencies.get(),
-                      articleId: data.id,
-                    ),
-                    data: data,
-                  ),
-                ),
+      onPressed: () => showModalSheet(
+        context: context,
+        title: context.L.g_article,
+        builder: (_) => Material(
+          child: ArticleSheet(
+            controller: ArticleSheetController(
+              syncer: ref.read(remoteSyncerProvider.notifier),
+              tagRepository: ref.watch(tagRepositoryProvider),
+              sharingService: dependencies.get(),
+              urlLauncherService: dependencies.get(),
+              articleId: data.id,
+            ),
+            data: data,
           ),
+        ),
+      ),
     ),
     ArticleActionKey.openInBrowser: ArticleAction(
       key: kArticleActionOpenInBrowser,
@@ -285,12 +277,11 @@ List<Widget> buildActions(
       key: kArticleActionReadingSettings,
       icon: Icons.format_size,
       label: context.L.article_readingSettings,
-      onPressed:
-          () => showModalBottomSheet(
-            context: context,
-            builder: (_) => const ReadingSettingsConfigurator(),
-            barrierColor: Colors.transparent,
-          ),
+      onPressed: () => showModalBottomSheet(
+        context: context,
+        builder: (_) => const ReadingSettingsConfigurator(),
+        barrierColor: Colors.transparent,
+      ),
     ),
     ArticleActionKey.share: ArticleAction(
       key: kArticleActionShare,
@@ -334,21 +325,19 @@ List<Widget> buildActions(
     ...mainActions.map((key) => actions[key]!.toActionButton()),
     ActionsMenuButton(
       key: popupMenuKey,
-      actions:
-          moreActions
-              .map(
-                (key) =>
-                    key != null
-                        ? ActionsMenuEntry(
-                          key: actions[key]!.key,
-                          title: actions[key]!.label,
-                          icon: actions[key]!.icon,
-                          onTap: () => actions[key]!.onPressed(),
-                          isDestructive: actions[key]!.isDestructive,
-                        )
-                        : null,
-              )
-              .toList(),
+      actions: moreActions
+          .map(
+            (key) => key != null
+                ? ActionsMenuEntry(
+                    key: actions[key]!.key,
+                    title: actions[key]!.label,
+                    icon: actions[key]!.icon,
+                    onTap: () => actions[key]!.onPressed(),
+                    isDestructive: actions[key]!.isDestructive,
+                  )
+                : null,
+          )
+          .toList(),
       // the blur effect doesn't work on top of the native webview
       applyBlurEffect: false,
     ),
