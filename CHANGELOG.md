@@ -53,6 +53,11 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(ios/share)* Prevent a crash when sharing an URL from the sheet ([0995d26](https://github.com/casimir/frigoligo/commit/0995d26b8002c3b18b92667a5378bd0c14b4d3de))
 - *(codegen)* Make code generation compatible with formatting rules ([126275c](https://github.com/casimir/frigoligo/commit/126275c0d8554147f7be0e6e2596da74e67e2009))
 - *(ui)* Prevent keyboard shortcuts from swallowing text input ([#422](https://github.com/casimir/frigoligo/pull/422)) ([d594a09](https://github.com/casimir/frigoligo/commit/d594a09198ca8fe26addd49c2e65b3a1db6e704f))
+- Bring back the pull to refresh indicator ([3688d84](https://github.com/casimir/frigoligo/commit/3688d84e461d8dfb42a42dd724572c41d9022fde))
+- *(deps)* Update dependency get_it to v9 ([#414](https://github.com/casimir/frigoligo/pull/414)) ([c541668](https://github.com/casimir/frigoligo/commit/c541668d51e88bc9f12b24c11077e0672e4c5f50))
+- Bring back opening an article using a deeplink ([#424](https://github.com/casimir/frigoligo/pull/424)) ([58b0104](https://github.com/casimir/frigoligo/commit/58b010437bd916cc3596be85b987811d8b7ed6c5))
+- Android build min versions ([fff78f2](https://github.com/casimir/frigoligo/commit/fff78f2c12e07896a1a56ec361adefe9727cdd5e))
+- *(deps)* Update dependency go_router to v17 ([#415](https://github.com/casimir/frigoligo/pull/415)) ([462c28e](https://github.com/casimir/frigoligo/commit/462c28e0a8f55bb4a768f7e3a7665988eb18c06b))
 
 ### 🚜 Refactor
 
