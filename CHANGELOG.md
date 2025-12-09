@@ -58,6 +58,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Bring back opening an article using a deeplink ([#424](https://github.com/casimir/frigoligo/pull/424)) ([58b0104](https://github.com/casimir/frigoligo/commit/58b010437bd916cc3596be85b987811d8b7ed6c5))
 - Android build min versions ([fff78f2](https://github.com/casimir/frigoligo/commit/fff78f2c12e07896a1a56ec361adefe9727cdd5e))
 - *(deps)* Update dependency go_router to v17 ([#415](https://github.com/casimir/frigoligo/pull/415)) ([462c28e](https://github.com/casimir/frigoligo/commit/462c28e0a8f55bb4a768f7e3a7665988eb18c06b))
+- *(deps)* Regen podfiles ([7bdd65c](https://github.com/casimir/frigoligo/commit/7bdd65c50e0a14e59d0590de8918a75e80ca3306))
 
 ### 🚜 Refactor
 
