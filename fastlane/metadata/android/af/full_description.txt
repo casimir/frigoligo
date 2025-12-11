@@ -1,0 +1,3 @@
+Neem jou skakels enige plek en hou hulle vars! Frigoligo is 'n wallabag-kliënt wat daarna streef om eenvoudig, maar ook vinnig en maklik om te gebruik te wees. Net soos wallabag, is Frigoligo gratis om te gebruik, advertensievry en oopbron.
+
+Jy benodig 'n wallabag-instansie om hierdie toepassing te gebruik.
