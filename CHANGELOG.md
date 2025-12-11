@@ -149,6 +149,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Introduce a Makefile and enforce lint in CI ([#416](https://github.com/casimir/frigoligo/pull/416)) ([1ccb0af](https://github.com/casimir/frigoligo/commit/1ccb0af7f73348e158019606df8739daf8a5e9e8))
 - Batch of various small fixes ([#420](https://github.com/casimir/frigoligo/pull/420)) ([1a33e14](https://github.com/casimir/frigoligo/commit/1a33e1410fb379a6bff251365e38944d72748530))
 - *(coverage)* Sonarqube doesn't follow in file instructions ([318331f](https://github.com/casimir/frigoligo/commit/318331f2ad49fb210441af8b13f799dd26c5ed10))
+- Cleanup redundant riverpod imports ([4f17ed9](https://github.com/casimir/frigoligo/commit/4f17ed9b69f1573217c75317c4ca072da97cc53e))
 
 ### I18n
 
