@@ -34,13 +34,6 @@ void runConfigStoreBackendContractTests(
     expect(result, isEmpty);
   });
 
-  test('set and getAll stores value', () async {
-    await backend.set('key1', 'value1');
-
-    final result = await backend.getAll();
-    expect(result, {'key1': 'value1'});
-  });
-
   test('set multiple values with different types', () async {
     await backend.set('key1', 'value1');
     await backend.set('key2', 42);
@@ -48,10 +41,7 @@ void runConfigStoreBackendContractTests(
     await backend.set('key4', 3.14);
 
     final result = await backend.getAll();
-    expect(
-      result,
-      {'key1': 'value1', 'key2': 42, 'key3': true, 'key4': 3.14},
-    );
+    expect(result, {'key1': 'value1', 'key2': 42, 'key3': true, 'key4': 3.14});
   });
 
   test('set overwrites existing value', () async {
