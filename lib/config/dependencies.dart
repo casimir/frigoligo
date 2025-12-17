@@ -31,6 +31,7 @@ void setupDependencies({
       withConfigStoreBackend ?? SharedPreferencesBackend(appGroupId);
   d.registerLazySingleton<ConfigStoreService>(
     () => ConfigStoreService(configStoreBackend),
+    dispose: (obj) => obj.dispose(),
   );
 
   final db = withDB ?? DB();

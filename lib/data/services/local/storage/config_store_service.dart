@@ -128,4 +128,12 @@ class ConfigStoreService {
     _cache.clear();
     await _backend.clear();
   }
+
+  /// Dispose of the service and close all stream controllers.
+  void dispose() {
+    for (final controller in _controllers.values) {
+      controller.close();
+    }
+    _controllers.clear();
+  }
 }
