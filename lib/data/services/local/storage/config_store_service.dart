@@ -1,7 +1,7 @@
 import 'dart:async';
 
 abstract class ConfigStoreBackend {
-  /// Initialize hook. Garanteed to be called before any other operation.
+  /// Initialize hook. Guaranteed to be called before any other operation.
   Future<void> initialize();
 
   /// Retrieve all key-value pairs from storage. Typically used during
@@ -51,7 +51,7 @@ class ConfigStoreService {
     }
   }
 
-  /// Reload all data from disk into memory cache. Typically Used when external
+  /// Reload all data from disk into memory cache. Typically used when external
   /// processes (e.g. native extensions) may have modified the config outside
   /// app context.
   Future<void> reload() async {
