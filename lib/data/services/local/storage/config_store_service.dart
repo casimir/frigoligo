@@ -28,7 +28,7 @@ class ConfigStoreService {
 
   /// Initialize the store and load all data into memory cache. Must be called
   /// only once, typically at app startup before any other operations.
-  Future<void> initialize(dynamic params) async {
+  Future<void> initialize() async {
     if (_initialized) {
       throw StateError('ConfigStoreService already initialized');
     }

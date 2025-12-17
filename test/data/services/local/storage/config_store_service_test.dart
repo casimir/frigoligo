@@ -15,9 +15,9 @@ void main() {
 
     group('initialization', () {
       test('throws StateError when initialized twice', () async {
-        await service.initialize(null);
+        await service.initialize();
 
-        expect(() => service.initialize(null), throwsA(isA<StateError>()));
+        expect(() => service.initialize(), throwsA(isA<StateError>()));
       });
 
       test('loads existing backend data into cache', () async {
@@ -25,7 +25,7 @@ void main() {
         await backend.set('key1', 'value1');
         await backend.set('key2', 42);
 
-        await service.initialize(null);
+        await service.initialize();
 
         expect(service.get('key1'), 'value1');
         expect(service.get('key2'), 42);
@@ -42,7 +42,7 @@ void main() {
 
     group('set', () {
       setUp(() async {
-        await service.initialize(null);
+        await service.initialize();
       });
 
       test('updates cache and persists to backend', () async {
@@ -64,7 +64,7 @@ void main() {
 
     group('remove', () {
       setUp(() async {
-        await service.initialize(null);
+        await service.initialize();
       });
 
       test('removes from cache and backend', () async {
@@ -80,7 +80,7 @@ void main() {
 
     group('clear', () {
       setUp(() async {
-        await service.initialize(null);
+        await service.initialize();
       });
 
       test('clears cache and backend', () async {
@@ -99,7 +99,7 @@ void main() {
 
     group('watch', () {
       setUp(() async {
-        await service.initialize(null);
+        await service.initialize();
       });
 
       test('emits new value on set', () async {
@@ -153,7 +153,7 @@ void main() {
 
     group('reload', () {
       setUp(() async {
-        await service.initialize(null);
+        await service.initialize();
       });
 
       test('updates cache with backend changes', () async {

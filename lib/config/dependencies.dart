@@ -1,9 +1,12 @@
 import 'package:get_it/get_it.dart';
 
+import '../constants.dart';
 import '../data/repositories/article_repository.dart';
 import '../data/repositories/logger_repository.dart';
 import '../data/repositories/query_repository.dart';
 import '../data/repositories/tag_repository.dart';
+import '../data/services/local/storage/config_store_backends/shared_preferences_backend.dart';
+import '../data/services/local/storage/config_store_service.dart';
 import '../data/services/local/storage/database/database.dart';
 import '../data/services/local/storage/logging_storage_service.dart';
 import '../data/services/local/storage/storage_service.dart';
@@ -16,10 +19,19 @@ export '../domain/repositories.dart';
 
 final dependencies = GetIt.instance;
 
-void setupDependencies({DB? withDB}) {
+void setupDependencies({
+  ConfigStoreBackend? withConfigStoreBackend,
+  DB? withDB,
+}) {
   final d = dependencies;
 
   // data services
+
+  final configStoreBackend =
+      withConfigStoreBackend ?? SharedPreferencesBackend(appGroupId);
+  d.registerLazySingleton<ConfigStoreService>(
+    () => ConfigStoreService(configStoreBackend),
+  );
 
   final db = withDB ?? DB();
   d.registerLazySingleton(() => LocalStorageService(db: db));

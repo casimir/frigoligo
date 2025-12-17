@@ -15,6 +15,7 @@ import 'applinks/handler.dart';
 import 'config/dependencies.dart';
 import 'config/logging.dart';
 import 'constants.dart';
+import 'data/services/local/storage/config_store_service.dart';
 import 'data/services/local/storage/storage_service.dart';
 import 'native/appbadge.dart';
 import 'native/save.service.dart';
@@ -38,6 +39,8 @@ Future<void> main() async {
   log.info(startingAppMessage);
 
   await initializeLanguage();
+
+  await dependencies.get<ConfigStoreService>().initialize();
 
   LinksHandler.init();
 
@@ -70,12 +73,13 @@ class MyApp extends ConsumerStatefulWidget {
   ConsumerState<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends ConsumerState<MyApp> {
+class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
   StreamSubscription? _deeplinksSubscription;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
 
     final router = ref.read(routerProvider);
 
@@ -87,6 +91,14 @@ class _MyAppState extends ConsumerState<MyApp> {
         router.go(uri.toString());
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _deeplinksSubscription?.cancel();
+
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   @override
@@ -123,9 +135,10 @@ class _MyAppState extends ConsumerState<MyApp> {
   }
 
   @override
-  void dispose() {
-    _deeplinksSubscription?.cancel();
-    super.dispose();
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      dependencies.get<ConfigStoreService>().reload();
+    }
   }
 }
 
@@ -140,6 +153,8 @@ Future<void> mainNativeShare() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   log.info('starting share extension');
+
+  await dependencies.get<ConfigStoreService>().initialize();
 
   await AppBadge.init(enable: false);
   await AppInfo.init();
