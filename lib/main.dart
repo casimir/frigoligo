@@ -17,7 +17,7 @@ import 'config/logging.dart';
 import 'constants.dart';
 import 'data/services/local/storage/config_store_service.dart';
 import 'data/services/local/storage/storage_service.dart';
-import 'native/appbadge.dart';
+import 'data/services/platform/appbadge_service.dart';
 import 'native/save.service.dart';
 import 'providers/background_sync.dart';
 import 'providers/router.dart';
@@ -40,11 +40,11 @@ Future<void> main() async {
 
   await initializeLanguage();
 
+  await dependencies.get<AppBadgeService>().initSupportedCache();
   await dependencies.get<ConfigStoreService>().initialize();
 
   LinksHandler.init();
 
-  await AppBadge.init();
   await AppInfo.init();
   if (!UniversalPlatform.isWeb) {
     await ArticleContentRenderer.preload();
@@ -156,7 +156,6 @@ Future<void> mainNativeShare() async {
 
   await dependencies.get<ConfigStoreService>().initialize();
 
-  await AppBadge.init(enable: false);
   await AppInfo.init();
   await Settings.init();
 

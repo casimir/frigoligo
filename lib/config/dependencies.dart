@@ -10,6 +10,7 @@ import '../data/services/local/storage/config_store_service.dart';
 import '../data/services/local/storage/database/database.dart';
 import '../data/services/local/storage/logging_storage_service.dart';
 import '../data/services/local/storage/storage_service.dart';
+import '../data/services/platform/appbadge_service.dart';
 import '../data/services/platform/sharing_service.dart';
 import '../data/services/platform/urllauncher_service.dart';
 import '../domain/repositories.dart';
@@ -42,6 +43,8 @@ void setupDependencies({
 
   // platorm services
 
+  // if used only in one service it should be handled just like `db`
+  d.registerLazySingleton(() => const AppBadgeService());
   d.registerLazySingleton(() => const SharingService());
   d.registerLazySingleton(() => const UrlLauncherService());
 
