@@ -1,4 +1,6 @@
 // coverage:ignore-file
+// This just a wrapper around a native capabilities.
+
 import 'dart:async';
 
 import 'package:flutter/services.dart';
