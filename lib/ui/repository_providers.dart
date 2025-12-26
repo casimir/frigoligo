@@ -11,4 +11,7 @@ ArticleRepository articleRepository(Ref ref) => dependencies.get();
 QueryRepository queryRepository(Ref ref) => dependencies.get();
 
 @riverpod
+ServerSessionRepository serverSessionRepository(Ref ref) => dependencies.get();
+
+@riverpod
 TagRepository tagRepository(Ref ref) => dependencies.get();

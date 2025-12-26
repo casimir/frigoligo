@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:logging/logging.dart';
 
+import '../server/session.dart';
 import 'models/article_data.dart';
 import 'models/log_entry.dart';
 import 'models/query.dart';
@@ -50,6 +51,13 @@ abstract class QueryRepository {
 
   Future<List<String>> listAvailableDomains();
   Future<List<String>> listAvailableTags();
+}
+
+abstract class ServerSessionRepository {
+  ServerSession? getSession();
+  Stream<ServerSession?> watchSession();
+  Future<void> save(ServerSession session);
+  Future<void> clear();
 }
 
 abstract class TagRepository {

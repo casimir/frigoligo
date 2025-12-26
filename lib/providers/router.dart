@@ -6,7 +6,6 @@ import '../pages/login.dart';
 import '../pages/save.dart';
 import '../pages/session_details.dart';
 import '../pages/settings.dart';
-import '../server/providers/client.dart';
 import '../ui/home/controllers/home_screen_controller.dart';
 import '../ui/home/widgets/home_screen.dart';
 import '../ui/logconsole/viewmodels/logconsole_viewmodel.dart';
@@ -17,9 +16,11 @@ part '_g/router.g.dart';
 
 @riverpod
 GoRouter router(Ref ref) {
-  Future<String?> loginRedirect(context, state) => ref
-      .read(sessionProvider.future)
-      .then((session) => session == null ? '/login' : null);
+  String? loginRedirect(context, state) {
+    ServerSessionRepository serverSessionRepository = dependencies.get();
+    final session = serverSessionRepository.getSession();
+    return session == null ? '/login' : null;
+  }
 
   return GoRouter(
     routes: [

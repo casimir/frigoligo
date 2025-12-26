@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../buildcontext_extension.dart';
-import '../../../server/providers/client.dart';
+import '../../../config/dependencies.dart';
 import '../../../services/remote_sync.dart';
 
 class RemoteSyncFAB extends ConsumerWidget {
@@ -45,7 +45,6 @@ class RemoteSyncProgressIndicator extends ConsumerWidget
     if (error != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         if (error is ServerError && error.isInvalidTokenError) {
-          // FIXME refactor to avoid abstraction leaks
           final result = await showOkCancelAlertDialog(
             context: context,
             title: context.L.session_renewDialogTitle,
@@ -53,10 +52,12 @@ class RemoteSyncProgressIndicator extends ConsumerWidget
             okLabel: context.L.login_actionLogin,
           );
           if (result == OkCancelResult.ok) {
-            final session = await ref.read(sessionProvider.future);
-            await ref.read(sessionProvider.notifier).invalidate();
+            final ServerSessionRepository serverSessionRepository = dependencies
+                .get();
+            final session = serverSessionRepository.getSession();
+            await serverSessionRepository.save(session!.invalidated());
             if (context.mounted) {
-              final params = session!.wallabag!..token = null;
+              final params = session.wallabag!;
               final uri = Uri(path: '/login', queryParameters: params.toJson());
               context.go(uri.toString());
             }
