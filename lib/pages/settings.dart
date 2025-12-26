@@ -12,7 +12,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../app_info.dart';
 import '../buildcontext_extension.dart';
 import '../constants.dart';
-import '../native/appbadge.dart';
+import '../data/services/platform/appbadge_service.dart';
 import '../providers/settings.dart';
 import '../services/local_storage.dart';
 import '../services/remote_sync.dart';
@@ -72,7 +72,7 @@ class SettingsPage extends ConsumerWidget {
                     }
                   },
                 ),
-                if (AppBadge.isSupportedSync)
+                if (AppBadgeService.isSupportedSync)
                   SettingsTile.switchTile(
                     leading: const Icon(Icons.markunread_mailbox),
                     title: Text(context.L.settings_itemAppBadge),

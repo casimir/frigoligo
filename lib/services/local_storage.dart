@@ -6,7 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../config/dependencies.dart';
 import '../data/services/local/storage/database/models/article.drift.dart';
 import '../data/services/local/storage/storage_service.dart';
-import '../native/appbadge.dart';
+import '../data/services/platform/appbadge_service.dart';
 import '../providers/settings.dart';
 import '../server/clients.dart';
 import '../server/providers/client.dart';
@@ -26,21 +26,13 @@ class LocalStorage extends _$LocalStorage {
 
   Future<void> updateAppBadge() async {
     final settings = ref.read(settingsProvider);
-    if (!AppBadge.isSupportedSync || !settings[Sk.appBadge]) return;
+    if (!AppBadgeService.isSupportedSync || !settings[Sk.appBadge]) return;
 
     final unread = await _storageService.db.articlesDao.countUnread();
-    if (unread == 0) {
-      return AppBadge.remove();
-    } else {
-      _log.info('updating app badge to $unread');
-      return AppBadge.update(unread);
-    }
+    await dependencies.get<AppBadgeService>().update(unread);
   }
 
-  Future<void> removeAppBadge() async {
-    if (!AppBadge.isSupportedSync) return;
-    return AppBadge.remove();
-  }
+  Future<void> removeAppBadge() => dependencies.get<AppBadgeService>().clear();
 
   Future<void> clearArticles({bool keepPositions = true}) async {
     _storageService.db.clear(keepPositions: keepPositions);

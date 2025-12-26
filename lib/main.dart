@@ -15,8 +15,9 @@ import 'applinks/handler.dart';
 import 'config/dependencies.dart';
 import 'config/logging.dart';
 import 'constants.dart';
+import 'data/services/local/storage/config_store_service.dart';
 import 'data/services/local/storage/storage_service.dart';
-import 'native/appbadge.dart';
+import 'data/services/platform/appbadge_service.dart';
 import 'native/save.service.dart';
 import 'providers/background_sync.dart';
 import 'providers/router.dart';
@@ -39,9 +40,11 @@ Future<void> main() async {
 
   await initializeLanguage();
 
+  await dependencies.get<AppBadgeService>().initSupportedCache();
+  await dependencies.get<ConfigStoreService>().initialize();
+
   LinksHandler.init();
 
-  await AppBadge.init();
   await AppInfo.init();
   if (!UniversalPlatform.isWeb) {
     await ArticleContentRenderer.preload();
@@ -70,12 +73,13 @@ class MyApp extends ConsumerStatefulWidget {
   ConsumerState<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends ConsumerState<MyApp> {
+class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
   StreamSubscription? _deeplinksSubscription;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
 
     final router = ref.read(routerProvider);
 
@@ -87,6 +91,14 @@ class _MyAppState extends ConsumerState<MyApp> {
         router.go(uri.toString());
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _deeplinksSubscription?.cancel();
+
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   @override
@@ -123,9 +135,10 @@ class _MyAppState extends ConsumerState<MyApp> {
   }
 
   @override
-  void dispose() {
-    _deeplinksSubscription?.cancel();
-    super.dispose();
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      dependencies.get<ConfigStoreService>().reload();
+    }
   }
 }
 
@@ -141,7 +154,8 @@ Future<void> mainNativeShare() async {
 
   log.info('starting share extension');
 
-  await AppBadge.init(enable: false);
+  await dependencies.get<ConfigStoreService>().initialize();
+
   await AppInfo.init();
   await Settings.init();
 
