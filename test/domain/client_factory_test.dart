@@ -52,15 +52,16 @@ void main() {
       expect(client, isA<WallabagClient>());
     });
 
-    test('returns null when session is null', () {
+    test('throws StateError when session is null', () {
       when(() => mockRepository.getSession()).thenReturn(null);
 
-      final client = mockRepository.createClient(userAgent: testUserAgent);
-
-      expect(client, isNull);
+      expect(
+        () => mockRepository.createClient(userAgent: testUserAgent),
+        throwsStateError,
+      );
     });
 
-    test('returns null when session is invalid', () {
+    test('throws ServerError when session is invalid', () {
       final session = ServerSession(
         ServerType.wallabag,
         wallabag: WallabagCredentials(
@@ -71,9 +72,10 @@ void main() {
       );
       when(() => mockRepository.getSession()).thenReturn(session);
 
-      final client = mockRepository.createClient(userAgent: testUserAgent);
-
-      expect(client, isNull);
+      expect(
+        () => mockRepository.createClient(userAgent: testUserAgent),
+        throwsA(isA<ServerError>()),
+      );
     });
   });
 }

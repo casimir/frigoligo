@@ -47,10 +47,6 @@ class LocalStorage extends _$LocalStorage {
     void Function(double)? onProgress,
   }) async {
     final api = _sessionRepository.createClient(userAgent: AppInfo.userAgent);
-    if (api == null) {
-      // at this point the session can't be null, it must have been invalidated
-      throw const ServerError('invalid session', manuallyInvalidated: true);
-    }
 
     final stopwatch = Stopwatch()..start();
 
@@ -125,9 +121,6 @@ class LocalStorage extends _$LocalStorage {
 
   Future<int> saveArticle(String url, {List<String>? tags}) async {
     final api = _sessionRepository.createClient(userAgent: AppInfo.userAgent);
-    if (api == null) {
-      throw const ServerError('invalid session', manuallyInvalidated: true);
-    }
     final article = await api.createArticle(url, tags: tags);
     await persistArticle(article);
     return article.id;
@@ -135,9 +128,6 @@ class LocalStorage extends _$LocalStorage {
 
   Future<void> deleteArticle(int articleId) async {
     final api = _sessionRepository.createClient(userAgent: AppInfo.userAgent);
-    if (api == null) {
-      throw const ServerError('invalid session', manuallyInvalidated: true);
-    }
 
     final result = await api.deleteArticle(articleId);
     if (result == ApiActionResult.succeed) {
@@ -155,9 +145,6 @@ class LocalStorage extends _$LocalStorage {
     List<String>? tags,
   }) async {
     final api = _sessionRepository.createClient(userAgent: AppInfo.userAgent);
-    if (api == null) {
-      throw const ServerError('invalid session', manuallyInvalidated: true);
-    }
 
     final article = await api.updateArticle(
       articleId,
@@ -170,9 +157,6 @@ class LocalStorage extends _$LocalStorage {
 
   Future<bool> refetchArticle(int articleId) async {
     final api = _sessionRepository.createClient(userAgent: AppInfo.userAgent);
-    if (api == null) {
-      throw const ServerError('invalid session', manuallyInvalidated: true);
-    }
 
     final result = await api.recrawlArticle(articleId);
     final reloaded = result == ApiActionResult.succeed;

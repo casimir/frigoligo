@@ -3,9 +3,14 @@ import '../server/clients.dart';
 import 'repositories.dart';
 
 extension ClientFactory on ServerSessionRepository {
-  ApiClient? createClient({required String userAgent}) {
+  ApiClient createClient({required String userAgent}) {
     final session = getSession();
-    if (session == null || !session.isValid) return null;
+    if (session == null) {
+      throw StateError('No active session');
+    }
+    if (!session.isValid) {
+      throw const ServerError('Invalid session', manuallyInvalidated: true);
+    }
 
     switch (session.type) {
       case ServerType.freon:
