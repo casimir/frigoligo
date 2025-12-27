@@ -22,13 +22,6 @@ class ServerSessionRepositoryImpl implements ServerSessionRepository {
   }
 
   @override
-  Stream<ServerSession?> watchSession() {
-    return _configStoreService.watch<String>(sessionKey).map((raw) {
-      return raw != null ? ServerSession.fromRawJson(raw) : null;
-    });
-  }
-
-  @override
   Future<void> save(ServerSession session) async {
     final encoded = jsonEncode(session.toJson());
     return _configStoreService.set(sessionKey, encoded);

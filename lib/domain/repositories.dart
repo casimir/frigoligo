@@ -55,7 +55,6 @@ abstract class QueryRepository {
 
 abstract class ServerSessionRepository {
   ServerSession? getSession();
-  Stream<ServerSession?> watchSession();
   Future<void> save(ServerSession session);
   Future<void> clear();
 }
