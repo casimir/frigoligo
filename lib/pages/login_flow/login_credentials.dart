@@ -9,10 +9,10 @@ import 'package:logging/logging.dart';
 
 import '../../buildcontext_extension.dart';
 import '../../config/dependencies.dart';
+import '../../domain/models/server_session.dart';
 import '../../providers/server_login_flow.dart';
 import '../../server/check.dart';
 import '../../server/clients.dart';
-import '../../server/session.dart';
 import 'login_freon.dart';
 import 'login_wallabag.dart';
 import 'utils.dart';

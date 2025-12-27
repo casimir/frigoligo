@@ -2,7 +2,7 @@
 
 // coverage:ignore-file
 
-part of '../session.dart';
+part of '../server_session.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../buildcontext_extension.dart';
+import '../../domain/models/server_session.dart';
 import '../../server/check.dart';
 import '../../server/clients.dart';
-import '../../server/session.dart';
 import '../../widget_keys.dart';
 import 'login_credentials.dart';
 

@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import 'clients.dart';
+import '../../server/clients.dart';
 
-part '_g/session.g.dart';
+part '_g/server_session.g.dart';
 
 @JsonSerializable()
 class ServerSession with EquatableMixin {

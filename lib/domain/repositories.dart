@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:logging/logging.dart';
 
-import '../server/session.dart';
 import 'models/article_data.dart';
 import 'models/log_entry.dart';
 import 'models/query.dart';
+import 'models/server_session.dart';
 
 abstract class ArticleRepository {
   Stream<ArticleData?> watchData(int id);

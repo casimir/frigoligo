@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:frigoligo/domain/client_factory.dart';
+import 'package:frigoligo/domain/models/server_session.dart';
 import 'package:frigoligo/domain/repositories.dart';
 import 'package:frigoligo/server/clients.dart';
-import 'package:frigoligo/server/session.dart';
 import 'package:frigoligo/server/src/clients/wallabag.dart';
 import 'package:mocktail/mocktail.dart';
 
