@@ -76,6 +76,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(core/ui)* Consolidate "copyable text" widgets ([f8a349e](https://github.com/casimir/frigoligo/commit/f8a349e46bcaebbc4a398c823938807559b8f0ed))
 - *(data)* Make a cleaner reading progress implementation ([#419](https://github.com/casimir/frigoligo/pull/419)) ([5237765](https://github.com/casimir/frigoligo/commit/5237765402deae2014111afd160de906ed2b8b1a))
 - *(ui/home)* Cleaner home screen with test coverage ([#412](https://github.com/casimir/frigoligo/pull/412)) ([ad627eb](https://github.com/casimir/frigoligo/commit/ad627ebf3ed82efcf674205a9ccb9d8ea53449d6))
+- *(platform)* Extract ConfigStoreService + AppBadgeService ([#428](https://github.com/casimir/frigoligo/pull/428)) ([c075c5c](https://github.com/casimir/frigoligo/commit/c075c5cde9d693ec4bac7c6fcd7ea13b3cd2ed31))
 
 ### 📚 Documentation
 
