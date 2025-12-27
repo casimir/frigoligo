@@ -100,54 +100,6 @@ final class QueryRepositoryProvider
 
 String _$queryRepositoryHash() => r'1170814cef35b7a27956948eec3a1bbdcb6f94ff';
 
-@ProviderFor(serverSessionRepository)
-const serverSessionRepositoryProvider = ServerSessionRepositoryProvider._();
-
-final class ServerSessionRepositoryProvider
-    extends
-        $FunctionalProvider<
-          ServerSessionRepository,
-          ServerSessionRepository,
-          ServerSessionRepository
-        >
-    with $Provider<ServerSessionRepository> {
-  const ServerSessionRepositoryProvider._()
-    : super(
-        from: null,
-        argument: null,
-        retry: null,
-        name: r'serverSessionRepositoryProvider',
-        isAutoDispose: true,
-        dependencies: null,
-        $allTransitiveDependencies: null,
-      );
-
-  @override
-  String debugGetCreateSourceHash() => _$serverSessionRepositoryHash();
-
-  @$internal
-  @override
-  $ProviderElement<ServerSessionRepository> $createElement(
-    $ProviderPointer pointer,
-  ) => $ProviderElement(pointer);
-
-  @override
-  ServerSessionRepository create(Ref ref) {
-    return serverSessionRepository(ref);
-  }
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ServerSessionRepository value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<ServerSessionRepository>(value),
-    );
-  }
-}
-
-String _$serverSessionRepositoryHash() =>
-    r'c009bb10abe99689ca967699d2848b6835629505';
-
 @ProviderFor(tagRepository)
 const tagRepositoryProvider = TagRepositoryProvider._();
 
