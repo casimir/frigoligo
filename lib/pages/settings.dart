@@ -89,8 +89,8 @@ class SettingsPage extends ConsumerWidget {
                         dependencies.get<AppBadgeService>().clear();
                       } else if (!previous && value) {
                         // disabled -> enabled
-                        final configStore =
-                            dependencies.get<ConfigStoreService>();
+                        final configStore = dependencies
+                            .get<ConfigStoreService>();
                         final storage = dependencies.get<LocalStorageService>();
                         final appBadge = dependencies.get<AppBadgeService>();
 
@@ -247,8 +247,8 @@ class SettingsPage extends ConsumerWidget {
                     _log.info('user action > cache rebuild');
                     if (context.mounted) {
                       final storage = dependencies.get<LocalStorageService>();
-                      final configStore =
-                          dependencies.get<ConfigStoreService>();
+                      final configStore = dependencies
+                          .get<ConfigStoreService>();
                       final appBadge = dependencies.get<AppBadgeService>();
 
                       await storage.clear(keepPositions: true);
