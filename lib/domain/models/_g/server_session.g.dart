@@ -18,6 +18,7 @@ ServerSession _$ServerSessionFromJson(
   wallabag: json['wallabag'] == null
       ? null
       : WallabagCredentials.fromJson(json['wallabag'] as Map<String, dynamic>),
+  selfSignedHost: json['selfSignedHost'] as String?,
 );
 
 Map<String, dynamic> _$ServerSessionToJson(ServerSession instance) =>
@@ -25,6 +26,7 @@ Map<String, dynamic> _$ServerSessionToJson(ServerSession instance) =>
       'type': _$ServerTypeEnumMap[instance.type]!,
       'freon': instance.freon,
       'wallabag': instance.wallabag,
+      'selfSignedHost': instance.selfSignedHost,
     };
 
 const _$ServerTypeEnumMap = {
