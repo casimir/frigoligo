@@ -5,11 +5,15 @@ import 'package:http/http.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../app_info.dart';
 import '../config/dependencies.dart';
+import '../data/services/local/storage/config_store_service.dart';
 import '../data/services/local/storage/database/extensions/remote_action.dart';
 import '../data/services/local/storage/storage_service.dart';
+import '../data/services/platform/appbadge_service.dart';
+import '../domain/client_factory.dart';
+import '../providers/settings.dart';
 import '../server/clients.dart';
-import 'local_storage.dart';
 import 'remote_sync_actions.dart';
 
 export '../server/clients.dart' show ServerError;
@@ -97,15 +101,18 @@ class RemoteSyncer extends _$RemoteSyncer {
     );
 
     try {
-      final storage = ref.read(localStorageProvider.notifier);
-
-      res.addAll(await _executeActions(storage));
+      res.addAll(await _executeActions());
       if (withFinalRefresh) {
         setProgress(null);
         _log.info('running action: $_refreshAction');
-        await _refreshAction.execute(this, storage);
+        final sessionRepo = dependencies.get<ServerSessionRepository>();
+        final storage = dependencies.get<LocalStorageService>();
+        final api = sessionRepo.createClient(userAgent: AppInfo.userAgent);
+        await _refreshAction.execute(api, storage, setProgress);
       }
-      await storage.updateAppBadge();
+
+      // Systematic badge update after all actions complete
+      await _updateAppBadge();
     } on ServerError catch (e) {
       _log.severe('communication error', e);
       // Report error in the UI only if it's not a network issue. In that case
@@ -128,11 +135,15 @@ class RemoteSyncer extends _$RemoteSyncer {
     return res;
   }
 
-  Future<Map<String, dynamic>> _executeActions(LocalStorage storage) async {
-    final LocalStorageService storageService = dependencies.get();
+  Future<Map<String, dynamic>> _executeActions() async {
+    final storage = dependencies.get<LocalStorageService>();
+    final sessionRepo = dependencies.get<ServerSessionRepository>();
 
     final Map<String, dynamic> res = {};
-    final db = storageService.db;
+    final db = storage.db;
+
+    // Create API client once for all actions
+    final api = sessionRepo.createClient(userAgent: AppInfo.userAgent);
 
     setProgress(null);
     int i = 1;
@@ -145,7 +156,7 @@ class RemoteSyncer extends _$RemoteSyncer {
       for (final action in actions) {
         final rsa = action.toRSA();
         _log.info('running action: $rsa');
-        res[rsa.key] = await rsa.execute(this, storage);
+        res[rsa.key] = await rsa.execute(api, storage, setProgress);
         final deleted = await db.managers.remoteActions
             .filter((f) => f.id.equals(action.id))
             .delete();
@@ -163,5 +174,18 @@ class RemoteSyncer extends _$RemoteSyncer {
     } while (i < actionsCount);
 
     return res;
+  }
+
+  Future<void> _updateAppBadge() async {
+    final configStore = dependencies.get<ConfigStoreService>();
+    final storage = dependencies.get<LocalStorageService>();
+    final appBadge = dependencies.get<AppBadgeService>();
+
+    final badgeEnabled = configStore.get<bool>(Sk.appBadge.key) ?? false;
+    if (!AppBadgeService.isSupportedSync || !badgeEnabled) return;
+
+    final unread = await storage.countUnread();
+    await appBadge.update(unread);
+    _log.fine('updated app badge: $unread unread');
   }
 }

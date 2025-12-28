@@ -1,7 +1,11 @@
-import 'local_storage.dart';
-import 'remote_sync.dart';
+import 'package:logging/logging.dart';
+
+import '../data/services/local/storage/storage_service.dart';
+import '../server/src/clients/api.dart';
+import '../server/src/clients/api_methods.dart';
 
 typedef ActionParams = Map<String, dynamic>;
+typedef ProgressCallback = void Function(double? progress);
 
 abstract class RemoteSyncAction {
   const RemoteSyncAction(this.type, this.key);
@@ -26,7 +30,11 @@ abstract class RemoteSyncAction {
     return actionType.buildActionFromParams(params);
   }
 
-  Future<dynamic> execute(RemoteSyncer syncer, LocalStorage storage);
+  Future<dynamic> execute(
+    ApiClient api,
+    LocalStorageService storage,
+    ProgressCallback onProgress,
+  );
 
   @override
   String toString() {
@@ -56,6 +64,8 @@ class RefreshArticlesAction extends RemoteSyncAction {
   const RefreshArticlesAction()
     : super(RemoteSyncActionType.refreshArticles, 'refreshArticles');
 
+  static final _log = Logger('sync.refresh');
+
   @override
   ActionParams get params => {};
 
@@ -63,9 +73,69 @@ class RefreshArticlesAction extends RemoteSyncAction {
       const RefreshArticlesAction();
 
   @override
-  Future<void> execute(syncer, storage) async {
-    await storage.incrementalRefresh(
-      onProgress: (progress) => syncer.setProgress(progress),
+  Future<void> execute(api, storage, onProgress) async {
+    // Incremental refresh with throttling
+    final int? since = await storage.getLastSyncTS();
+    const int threshold = 60; // seconds
+    if (since != null) {
+      final now = (DateTime.now().millisecondsSinceEpoch / 1000).toInt();
+      final elapsed = now - since;
+      if (elapsed < threshold) {
+        _log.info(
+          'incremental refresh throttled (last: ${elapsed.toStringAsFixed(0)} s)',
+        );
+        return;
+      }
+    }
+
+    // Full refresh logic (inline from LocalStorage.fullRefresh)
+    final stopwatch = Stopwatch()..start();
+    var count = 0;
+
+    final sinceDT = since != null
+        ? DateTime.fromMillisecondsSinceEpoch(since * 1000)
+        : null;
+    _log.info('starting refresh with since=${sinceDT?.toIso8601String()}');
+
+    if (since == null) {
+      // Full sync: clear and reload all
+      await storage.clear(keepPositions: true);
+      _log.info('cleared the local cache (articles and pending actions)');
+
+      final articlesStream = api.listArticles(
+        since: sinceDT,
+        onProgress: onProgress,
+      );
+      await for (final articles in articlesStream) {
+        await storage.updateAllArticles(articles);
+        _log.info('saved ${articles.length} articles to the database');
+        count += articles.length;
+      }
+    } else {
+      // Incremental sync: apply operations
+      final operations = await api.listOperations(
+        since: sinceDT,
+        localIds: await storage.getAllArticleIds(),
+        onProgress: onProgress,
+      );
+      for (final op in operations) {
+        switch (op.type) {
+          case ArticleOpType.created:
+          case ArticleOpType.updated:
+            final article = await api.getArticle(op.articleId);
+            count += await storage.articles.update(article);
+          case ArticleOpType.deleted:
+            count += await storage.articles.delete(op.articleId);
+        }
+      }
+    }
+
+    // Update sync metadata
+    final now = (DateTime.now().millisecondsSinceEpoch / 1000).toInt();
+    await storage.setLastSyncTS(now);
+
+    _log.info(
+      'completed refresh of $count entries in ${stopwatch.elapsed.inSeconds} s',
     );
   }
 }
@@ -83,7 +153,10 @@ class DeleteArticleAction extends RemoteSyncAction {
       DeleteArticleAction(params['articleId'] as int);
 
   @override
-  Future<void> execute(syncer, storage) => storage.deleteArticle(articleId);
+  Future<void> execute(api, storage, onProgress) async {
+    await api.deleteArticle(articleId);
+    await storage.articles.delete(articleId);
+  }
 }
 
 class EditArticleAction extends RemoteSyncAction {
@@ -119,12 +192,15 @@ class EditArticleAction extends RemoteSyncAction {
       );
 
   @override
-  Future<void> execute(syncer, storage) => storage.editArticle(
-    articleId,
-    archived: archived,
-    starred: starred,
-    tags: tags,
-  );
+  Future<void> execute(api, storage, onProgress) async {
+    final article = await api.updateArticle(
+      articleId,
+      archived: archived,
+      starred: starred,
+      tags: tags,
+    );
+    await storage.articles.update(article);
+  }
 }
 
 class SaveArticleAction extends RemoteSyncAction {
@@ -144,8 +220,12 @@ class SaveArticleAction extends RemoteSyncAction {
       );
 
   @override
-  Future<int> execute(syncer, storage) =>
-      storage.saveArticle(url.toString(), tags: tags);
+  Future<int> execute(api, storage, onProgress) async {
+    final article = await api.createArticle(url.toString(), tags: tags);
+    await storage.articles.update(article);
+
+    return article.id;
+  }
 }
 
 class RefetchArticleAction extends RemoteSyncAction {
@@ -161,5 +241,14 @@ class RefetchArticleAction extends RemoteSyncAction {
       RefetchArticleAction(params['articleId'] as int);
 
   @override
-  Future<bool> execute(syncer, storage) => storage.refetchArticle(articleId);
+  Future<bool> execute(api, storage, onProgress) async {
+    try {
+      await api.recrawlArticle(articleId);
+      final article = await api.getArticle(articleId);
+      await storage.articles.update(article);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 }
