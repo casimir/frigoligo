@@ -43,7 +43,13 @@ class NativeSessionWrapper extends UpdatableWallabagCredentialsAdapter {
 
   @override
   Future<void> write(WallabagCredentials credentials) async {
-    final session = ServerSession(ServerType.wallabag, wallabag: credentials);
-    await _serverSessionRepository.save(session);
+    // if there is no existing session we have other issues
+    final session = _serverSessionRepository.getSession()!;
+    final newSession = ServerSession(
+      ServerType.wallabag,
+      wallabag: credentials,
+      selfSignedHost: session.selfSignedHost,
+    );
+    await _serverSessionRepository.save(newSession);
   }
 }
