@@ -10,13 +10,10 @@ part '_g/server_session.g.dart';
 class ServerSession {
   ServerSession(
     this.type, {
-    bool useSelfSigned = false,
     this.freon,
     this.wallabag,
-    String? selfSignedHost,
-  }) : selfSignedHost =
-           selfSignedHost ??
-           (useSelfSigned ? freon?.server.host ?? wallabag?.server.host : null);
+    this.selfSignedHost,
+  });
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   late final String? raw;

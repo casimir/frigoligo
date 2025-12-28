@@ -14,24 +14,11 @@ void main() {
       token: testToken,
     );
 
-    test(
-      'should set selfSignedHost from credentials when useSelfSigned true',
-      () {
-        final session = ServerSession(
-          ServerType.wallabag,
-          useSelfSigned: true,
-          wallabag: testWallabagCredentials,
-        );
-
-        expect(session.selfSignedHost, testUri.host);
-      },
-    );
-
     test('should invalidate wallabag session', () {
       final session = ServerSession(
         ServerType.wallabag,
-        useSelfSigned: true,
         wallabag: testWallabagCredentials,
+        selfSignedHost: testUri.host,
       );
 
       final invalidated = session.invalidated();

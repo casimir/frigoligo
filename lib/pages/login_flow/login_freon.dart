@@ -28,8 +28,8 @@ class FreonLoginFlowController implements LoginFlowController {
   ) async {
     final session = ServerSession(
       ServerType.freon,
-      useSelfSigned: check.selfSigned,
       freon: TokenBearerCredentials(check.uri!, values['apiToken']),
+      selfSignedHost: check.selfSigned ? check.uri!.host : null,
     );
     final freon = FreonClient(session.freon!);
     await freon.getInfo();

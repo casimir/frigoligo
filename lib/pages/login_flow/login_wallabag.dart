@@ -60,8 +60,8 @@ class WallabagLoginFlowController implements LoginFlowController {
     await wallabag.fetchToken(values['username'], values['password']);
     return ServerSession(
       ServerType.wallabag,
-      useSelfSigned: check.selfSigned,
       wallabag: credsAdapter.credentials,
+      selfSignedHost: check.selfSigned ? check.uri!.host : null,
     );
   }
 }
