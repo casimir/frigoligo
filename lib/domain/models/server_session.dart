@@ -8,12 +8,7 @@ part '_g/server_session.g.dart';
 
 @JsonSerializable()
 class ServerSession {
-  ServerSession(
-    this.type, {
-    this.freon,
-    this.wallabag,
-    this.selfSignedHost,
-  });
+  ServerSession(this.type, {this.freon, this.wallabag, this.selfSignedHost});
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   late final String? raw;
