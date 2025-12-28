@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../config/dependencies.dart';
 import '../server/check.dart';
-import '../server/providers/client.dart';
 
 part '_g/server_login_flow.freezed.dart';
 part '_g/server_login_flow.g.dart';
@@ -37,7 +37,9 @@ class ServerLoginFlow extends _$ServerLoginFlow {
 
     if (_currentData == null) {
       state = const FlowState.initializing();
-      final session = await ref.read(sessionProvider.future);
+      final ServerSessionRepository serverSessionRepository = dependencies
+          .get();
+      final session = serverSessionRepository.getSession();
       if (session?.wallabag != null) {
         _currentData = Map.castFrom(session!.wallabag!.toJson());
       }

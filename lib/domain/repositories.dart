@@ -5,6 +5,7 @@ import 'package:logging/logging.dart';
 import 'models/article_data.dart';
 import 'models/log_entry.dart';
 import 'models/query.dart';
+import 'models/server_session.dart';
 
 abstract class ArticleRepository {
   Stream<ArticleData?> watchData(int id);
@@ -50,6 +51,12 @@ abstract class QueryRepository {
 
   Future<List<String>> listAvailableDomains();
   Future<List<String>> listAvailableTags();
+}
+
+abstract class ServerSessionRepository {
+  ServerSession? getSession();
+  Future<void> save(ServerSession session);
+  Future<void> clear();
 }
 
 abstract class TagRepository {

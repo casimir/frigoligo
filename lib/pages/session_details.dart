@@ -1,19 +1,19 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cadanse/cadanse.dart';
 import 'package:cadanse/components/layouts/container.dart';
-import 'package:cadanse/components/widgets/error.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../app_info.dart';
 import '../buildcontext_extension.dart';
 import '../config/dependencies.dart';
 import '../data/services/local/storage/storage_service.dart';
 import '../datetime_extension.dart';
+import '../domain/client_factory.dart';
+import '../domain/models/server_session.dart';
 import '../providers/settings.dart';
 import '../server/clients.dart';
-import '../server/providers/client.dart';
-import '../server/session.dart';
 import '../services/local_storage.dart';
 import '../ui/core/widgets/copyable_text.dart';
 import '../widgets/async/text.dart';
@@ -23,16 +23,10 @@ class SessionDetailsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final ServerSessionRepository serverSessionRepository = dependencies.get();
     return Scaffold(
       appBar: AppBar(title: Text(context.L.session_title)),
-      body: ref
-          .watch(sessionProvider)
-          .when(
-            data: (it) => _buildDetails(context, ref, it),
-            error: (error, _) => ErrorScreen(error: error),
-            loading: () =>
-                const Center(child: CircularProgressIndicator.adaptive()),
-          ),
+      body: _buildDetails(context, ref, serverSessionRepository.getSession()),
     );
   }
 }
@@ -66,8 +60,14 @@ Widget _buildDetails(
             if (showRefreshToken)
               ElevatedButton.icon(
                 onPressed: () async {
-                  final client = await ref.read(clientProvider.future);
-                  await (client as WallabagClient).refreshToken();
+                  final sessionRepository = dependencies
+                      .get<ServerSessionRepository>();
+                  final client = sessionRepository.createClient(
+                    userAgent: AppInfo.userAgent,
+                  );
+                  if (client is WallabagClient) {
+                    await client.refreshToken();
+                  }
                 },
                 icon: const Icon(Icons.restart_alt),
                 label: Text(context.L.session_forceTokenResfresh),
@@ -158,7 +158,8 @@ void _logout(BuildContext context, WidgetRef ref) async {
   );
   if (result == OkCancelResult.cancel) return;
 
-  await ref.read(sessionProvider.notifier).logout();
+  final ServerSessionRepository repository = dependencies.get();
+  await repository.clear();
   await ref.read(settingsProvider.notifier).clear();
   await ref
       .read(localStorageProvider.notifier)

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../buildcontext_extension.dart';
+import '../../domain/models/server_session.dart';
 import '../../server/check.dart';
 import '../../server/clients.dart';
-import '../../server/session.dart';
 import 'login_credentials.dart';
 
 class FreonLoginFlowController implements LoginFlowController {
@@ -28,8 +28,8 @@ class FreonLoginFlowController implements LoginFlowController {
   ) async {
     final session = ServerSession(
       ServerType.freon,
-      useSelfSigned: check.selfSigned,
       freon: TokenBearerCredentials(check.uri!, values['apiToken']),
+      selfSignedHost: check.selfSigned ? check.uri!.host : null,
     );
     final freon = FreonClient(session.freon!);
     await freon.getInfo();

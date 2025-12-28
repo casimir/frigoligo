@@ -8,7 +8,6 @@ import '../buildcontext_extension.dart';
 import '../config/dependencies.dart';
 import '../data/services/local/storage/storage_service.dart';
 import '../providers/server_login_flow.dart';
-import '../server/providers/client.dart';
 import 'login_flow/check_server.dart';
 import 'login_flow/login_credentials.dart';
 
@@ -43,11 +42,11 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         // ask for confirmation if there is an existing session
         // skip it if some initial data is provided (deeplink)
         if (initial == null) {
-          ref.read(sessionProvider.future).then((session) {
-            if (session != null) {
-              _triggerConfirmationDialog();
-            }
-          });
+          final ServerSessionRepository repository = dependencies.get();
+          final session = repository.getSession();
+          if (session != null) {
+            _triggerConfirmationDialog();
+          }
         }
       });
     }
@@ -83,7 +82,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     if (result == OkCancelResult.ok) {
       final LocalStorageService storageService = dependencies.get();
       await storageService.db.clear();
-      await ref.read(sessionProvider.notifier).logout();
+      final ServerSessionRepository serverSessionRepository = dependencies
+          .get();
+      await serverSessionRepository.clear();
     } else {
       if (mounted) context.go('/');
     }

@@ -3,13 +3,14 @@ import 'dart:async';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../app_info.dart';
 import '../config/dependencies.dart';
 import '../data/services/local/storage/database/models/article.drift.dart';
 import '../data/services/local/storage/storage_service.dart';
 import '../data/services/platform/appbadge_service.dart';
+import '../domain/client_factory.dart';
 import '../providers/settings.dart';
 import '../server/clients.dart';
-import '../server/providers/client.dart';
 
 part '_g/local_storage.g.dart';
 
@@ -20,6 +21,7 @@ class LocalStorageToken {}
 @riverpod
 class LocalStorage extends _$LocalStorage {
   final LocalStorageService _storageService = dependencies.get();
+  final ServerSessionRepository _sessionRepository = dependencies.get();
 
   @override
   LocalStorageToken build() => LocalStorageToken();
@@ -44,11 +46,7 @@ class LocalStorage extends _$LocalStorage {
     int? since,
     void Function(double)? onProgress,
   }) async {
-    final api = await ref.read(clientProvider.future);
-    if (api == null) {
-      // at this point the session can't be null, it must have been invalidated
-      throw const ServerError('invalid session', manuallyInvalidated: true);
-    }
+    final api = _sessionRepository.createClient(userAgent: AppInfo.userAgent);
 
     final stopwatch = Stopwatch()..start();
 
@@ -122,14 +120,14 @@ class LocalStorage extends _$LocalStorage {
       _storageService.articles.update(article);
 
   Future<int> saveArticle(String url, {List<String>? tags}) async {
-    final api = (await ref.read(clientProvider.future))!;
+    final api = _sessionRepository.createClient(userAgent: AppInfo.userAgent);
     final article = await api.createArticle(url, tags: tags);
     await persistArticle(article);
     return article.id;
   }
 
   Future<void> deleteArticle(int articleId) async {
-    final api = (await ref.read(clientProvider.future))!;
+    final api = _sessionRepository.createClient(userAgent: AppInfo.userAgent);
 
     final result = await api.deleteArticle(articleId);
     if (result == ApiActionResult.succeed) {
@@ -146,7 +144,7 @@ class LocalStorage extends _$LocalStorage {
     bool? starred,
     List<String>? tags,
   }) async {
-    final api = (await ref.read(clientProvider.future))!;
+    final api = _sessionRepository.createClient(userAgent: AppInfo.userAgent);
 
     final article = await api.updateArticle(
       articleId,
@@ -158,7 +156,7 @@ class LocalStorage extends _$LocalStorage {
   }
 
   Future<bool> refetchArticle(int articleId) async {
-    final api = (await ref.read(clientProvider.future))!;
+    final api = _sessionRepository.createClient(userAgent: AppInfo.userAgent);
 
     final result = await api.recrawlArticle(articleId);
     final reloaded = result == ApiActionResult.succeed;

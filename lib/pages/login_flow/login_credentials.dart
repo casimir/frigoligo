@@ -8,11 +8,11 @@ import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 
 import '../../buildcontext_extension.dart';
+import '../../config/dependencies.dart';
+import '../../domain/models/server_session.dart';
 import '../../providers/server_login_flow.dart';
 import '../../server/check.dart';
 import '../../server/clients.dart';
-import '../../server/providers/client.dart';
-import '../../server/session.dart';
 import 'login_freon.dart';
 import 'login_wallabag.dart';
 import 'utils.dart';
@@ -159,8 +159,9 @@ class _LoginFlowCredentialsState extends ConsumerState<LoginFlowCredentials> {
           widget.serverCheck,
           _formKey.currentState!.value,
         );
-        await session.save();
-        ref.invalidate(sessionProvider);
+        final ServerSessionRepository serverSessionRepository = dependencies
+            .get();
+        await serverSessionRepository.save(session);
         if (mounted) {
           context.go('/');
         }
