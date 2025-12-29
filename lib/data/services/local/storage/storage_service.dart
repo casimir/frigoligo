@@ -218,7 +218,8 @@ class ArticlesManager {
           )
         : (t.selectOnly()
                 ..addColumns([t.id])
-                ..where(whereStatement))
+                ..where(whereStatement)
+                ..orderBy([OrderingTerm.desc(t.createdAt)]))
               .map((row) => row.read(t.id)!);
     return StorageQuery(statement);
   }

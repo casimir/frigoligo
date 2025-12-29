@@ -62,11 +62,12 @@ void main() {
 
     test('getIndexForArticleId returns index when article exists', () async {
       final LocalStorageService localStorageService = dependencies.get();
+      final now = DateTime.now();
       await localStorageService.articles.update(
         Article(
           id: 42,
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
+          createdAt: now.subtract(const Duration(seconds: 1)),
+          updatedAt: now,
           title: '',
           url: '',
           readingTime: 0,
@@ -76,8 +77,8 @@ void main() {
       await localStorageService.articles.update(
         Article(
           id: 99,
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
+          createdAt: now,
+          updatedAt: now,
           title: '',
           url: '',
           readingTime: 0,
@@ -87,8 +88,8 @@ void main() {
 
       final itemCounter = await controller.getItemCounter();
 
-      expect(itemCounter.getIndexForArticleId(42), equals(0));
-      expect(itemCounter.getIndexForArticleId(99), equals(1));
+      expect(itemCounter.getIndexForArticleId(99), equals(0));
+      expect(itemCounter.getIndexForArticleId(42), equals(1));
 
       itemCounter.dispose();
     });
