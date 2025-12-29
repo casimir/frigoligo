@@ -70,7 +70,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byType(HomeScreen), findsOneWidget);
-      expect(find.text('Test content 1'), findsOneWidget);
+      expect(find.text('Test content 2'), findsOneWidget);
     });
 
     testWidgets('should open article specified by initialArticleId', (
@@ -140,8 +140,8 @@ void main() {
         await tester.pumpAndSettle();
 
         expect(find.byType(HomeScreen), findsOneWidget);
-        // Should fallback to first article
-        expect(find.text('Test content 1'), findsOneWidget);
+        // Should fallback to first article (most recently updated)
+        expect(find.text('Test content 2'), findsOneWidget);
       },
     );
   });
