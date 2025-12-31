@@ -19,7 +19,8 @@ class RemoteSyncFAB extends ConsumerWidget {
       return FloatingActionButton.extended(
         icon: const Icon(Icons.sync),
         label: Text(context.L.syncer_pendingActions(syncState.pendingCount)),
-        onPressed: () => SyncManager.instance.synchronize(withFinalRefresh: false),
+        onPressed: () =>
+            SyncManager.instance.synchronize(withFinalRefresh: false),
       );
     } else {
       return const SizedBox.shrink();

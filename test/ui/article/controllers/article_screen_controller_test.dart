@@ -65,32 +65,39 @@ void main() {
           ),
         );
 
-        when(() => mockSyncManager.addAction(any())).thenAnswer((_) async => {});
-        when(() => mockSyncManager.synchronize(withFinalRefresh: false))
-            .thenAnswer((_) async => {});
+        when(
+          () => mockSyncManager.addAction(any()),
+        ).thenAnswer((_) async => {});
+        when(
+          () => mockSyncManager.synchronize(withFinalRefresh: false),
+        ).thenAnswer((_) async => {});
 
         await controller.setArchived(true);
         verify(
-          () => mockSyncManager
-              .addAction(const EditArticleAction(1, archived: true)),
+          () => mockSyncManager.addAction(
+            const EditArticleAction(1, archived: true),
+          ),
         ).called(1);
 
         await controller.setStarred(true);
         verify(
-          () => mockSyncManager
-              .addAction(const EditArticleAction(1, starred: true)),
+          () => mockSyncManager.addAction(
+            const EditArticleAction(1, starred: true),
+          ),
         ).called(1);
 
-        verify(() => mockSyncManager.synchronize(withFinalRefresh: false))
-            .called(2);
+        verify(
+          () => mockSyncManager.synchronize(withFinalRefresh: false),
+        ).called(2);
       },
     );
 
     test('should be able to delete the article', () async {
       final mockSyncManager = MockSyncManager();
       when(() => mockSyncManager.addAction(any())).thenAnswer((_) async => {});
-      when(() => mockSyncManager.synchronize(withFinalRefresh: false))
-          .thenAnswer((_) async => {});
+      when(
+        () => mockSyncManager.synchronize(withFinalRefresh: false),
+      ).thenAnswer((_) async => {});
 
       final controller = ArticleScreenController(
         syncManager: mockSyncManager,
@@ -103,8 +110,9 @@ void main() {
       verify(
         () => mockSyncManager.addAction(const DeleteArticleAction(1)),
       ).called(1);
-      verify(() => mockSyncManager.synchronize(withFinalRefresh: false))
-          .called(1);
+      verify(
+        () => mockSyncManager.synchronize(withFinalRefresh: false),
+      ).called(1);
     });
 
     test('should be able to share the article', () async {

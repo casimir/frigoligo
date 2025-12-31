@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../config/dependencies.dart';
 import '../../../domain/managers/sync_manager.dart';
-import '../../../ui/core/states.dart';
 import '../../article/controllers/article_screen_controller.dart';
 import '../../article/widgets/article_screen.dart';
 import '../../core/widgets/adaptive.dart';

@@ -4,7 +4,6 @@ import 'package:neat_periodic_task/neat_periodic_task.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:universal_platform/universal_platform.dart';
 
-import '../config/dependencies.dart';
 import '../constants.dart';
 import '../domain/managers/sync_manager.dart';
 
@@ -20,7 +19,8 @@ void backgroundSync(Ref ref) {
       interval: periodicSyncInterval,
       name: 'background-sync',
       timeout: periodicSyncTimeout,
-      task: () async => await SyncManager.instance.synchronize(withFinalRefresh: true),
+      task: () async =>
+          await SyncManager.instance.synchronize(withFinalRefresh: true),
     ).start();
   } else if (UniversalPlatform.isMobile) {
     BackgroundFetch.configure(

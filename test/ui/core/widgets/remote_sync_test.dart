@@ -33,7 +33,9 @@ void main() {
     return ProviderScope(
       overrides: [
         // ignore: scoped_providers_should_specify_dependencies
-        syncManagerStateProvider.overrideWith(() => _FakeSyncManagerState(state)),
+        syncManagerStateProvider.overrideWith(
+          () => _FakeSyncManagerState(state),
+        ),
       ],
       child: const MaterialApp(
         home: Scaffold(
@@ -140,7 +142,9 @@ void main() {
         ProviderScope(
           overrides: [
             // ignore: scoped_providers_should_specify_dependencies
-            syncManagerStateProvider.overrideWith(() => _FakeSyncManagerState(state)),
+            syncManagerStateProvider.overrideWith(
+              () => _FakeSyncManagerState(state),
+            ),
           ],
           child: const MaterialApp(
             home: Scaffold(appBar: RemoteSyncProgressIndicator()),

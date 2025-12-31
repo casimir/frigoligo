@@ -21,12 +21,16 @@ class ArticleScreenController {
   final int articleId;
 
   Future<void> setArchived(bool archived) async {
-    await _syncManager.addAction(EditArticleAction(articleId, archived: archived));
+    await _syncManager.addAction(
+      EditArticleAction(articleId, archived: archived),
+    );
     await _syncManager.synchronize(withFinalRefresh: false);
   }
 
   Future<void> setStarred(bool starred) async {
-    await _syncManager.addAction(EditArticleAction(articleId, starred: starred));
+    await _syncManager.addAction(
+      EditArticleAction(articleId, starred: starred),
+    );
     await _syncManager.synchronize(withFinalRefresh: false);
   }
 

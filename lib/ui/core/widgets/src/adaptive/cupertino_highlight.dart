@@ -62,7 +62,9 @@ class CupertinoHighlight extends InteractiveInkFeature {
           ..addListener(controller.markNeedsPaint)
           ..addStatusListener(_handleAlphaStatusChanged)
           ..forward();
-    _alpha = _alphaController.drive(IntTween(begin: 0, end: color.alpha));
+    _alpha = _alphaController.drive(
+      IntTween(begin: 0, end: (color.a * 255.0).round() & 0xff),
+    );
 
     controller.addInkFeature(this);
   }

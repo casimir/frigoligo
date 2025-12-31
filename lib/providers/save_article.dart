@@ -5,7 +5,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../config/dependencies.dart';
 import '../domain/managers/sync_manager.dart';
 import '../services/remote_sync_actions.dart';
 import 'settings.dart';
@@ -48,7 +47,9 @@ class SaveArticle extends _$SaveArticle {
     try {
       final action = SaveArticleAction(parsedUri!, tags: tags);
       await SyncManager.instance.addAction(action);
-      final res = await SyncManager.instance.synchronize(withFinalRefresh: false);
+      final res = await SyncManager.instance.synchronize(
+        withFinalRefresh: false,
+      );
 
       final int? articleId = res[action.key];
       state = articleId != null

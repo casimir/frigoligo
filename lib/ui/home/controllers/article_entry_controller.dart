@@ -1,5 +1,5 @@
-import '../../../domain/repositories.dart';
 import '../../../domain/managers/sync_manager.dart';
+import '../../../domain/repositories.dart';
 import '../../../services/remote_sync_actions.dart';
 
 class ArticleEntryController {
@@ -19,12 +19,16 @@ class ArticleEntryController {
   }
 
   Future<void> setArchived(bool archived) async {
-    await _syncManager.addAction(EditArticleAction(articleId, archived: archived));
+    await _syncManager.addAction(
+      EditArticleAction(articleId, archived: archived),
+    );
     await _syncManager.synchronize(withFinalRefresh: false);
   }
 
   Future<void> setStarred(bool starred) async {
-    await _syncManager.addAction(EditArticleAction(articleId, starred: starred));
+    await _syncManager.addAction(
+      EditArticleAction(articleId, starred: starred),
+    );
     await _syncManager.synchronize(withFinalRefresh: false);
   }
 }

@@ -63,9 +63,12 @@ void main() {
 
     test('refetchContent', () async {
       final syncManager = MockSyncManager();
-      when(() => syncManager.addAction(captureAny())).thenAnswer((_) async => {});
-      when(() => syncManager.synchronize(withFinalRefresh: false))
-          .thenAnswer((_) async => {});
+      when(
+        () => syncManager.addAction(captureAny()),
+      ).thenAnswer((_) async => {});
+      when(
+        () => syncManager.synchronize(withFinalRefresh: false),
+      ).thenAnswer((_) async => {});
 
       final controller = ArticleSheetController(
         syncManager: syncManager,
@@ -84,9 +87,12 @@ void main() {
 
     test('setTags', () async {
       final syncManager = MockSyncManager();
-      when(() => syncManager.addAction(captureAny())).thenAnswer((_) async => {});
-      when(() => syncManager.synchronize(withFinalRefresh: false))
-          .thenAnswer((_) async => {});
+      when(
+        () => syncManager.addAction(captureAny()),
+      ).thenAnswer((_) async => {});
+      when(
+        () => syncManager.synchronize(withFinalRefresh: false),
+      ).thenAnswer((_) async => {});
 
       final controller = ArticleSheetController(
         syncManager: syncManager,
@@ -98,7 +104,8 @@ void main() {
       await controller.setTags(['tag1', 'tag2']);
 
       verify(
-        () => syncManager.addAction(EditArticleAction(1, tags: ['tag1', 'tag2'])),
+        () =>
+            syncManager.addAction(EditArticleAction(1, tags: ['tag1', 'tag2'])),
       ).called(1);
       verify(() => syncManager.synchronize(withFinalRefresh: false)).called(1);
     });
