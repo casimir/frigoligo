@@ -6,6 +6,7 @@ import 'package:frigoligo/data/services/local/storage/database/connection/native
 import 'package:frigoligo/data/services/local/storage/database/database.dart';
 import 'package:frigoligo/data/services/local/storage/database/models/article.drift.dart';
 import 'package:frigoligo/data/services/local/storage/storage_service.dart';
+import 'package:frigoligo/domain/managers/sync_manager.dart';
 import 'package:frigoligo/src/generated/i18n/app_localizations.dart';
 import 'package:frigoligo/ui/home/controllers/home_screen_controller.dart';
 import 'package:frigoligo/ui/home/widgets/home_screen.dart';
@@ -19,6 +20,12 @@ void main() {
     setUp(() async {
       db = DB(inMemory());
       setupDependencies(withDB: db);
+      SyncManager.init(
+        storage: dependencies.get(),
+        sessionRepo: dependencies.get(),
+        configStore: dependencies.get(),
+        appBadge: dependencies.get(),
+      );
     });
 
     tearDown(() async {

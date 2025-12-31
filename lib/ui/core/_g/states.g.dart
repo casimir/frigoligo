@@ -170,3 +170,74 @@ final class ArticleExistsStateFamily extends $Family
   @override
   String toString() => r'articleExistsStateProvider';
 }
+
+/// Riverpod provider that exposes SyncManager state for UI consumption.
+///
+/// This provider listens to SyncManager state changes and rebuilds widgets.
+/// All business logic is in SyncManager - this is purely for UI reactivity.
+
+@ProviderFor(SyncManagerState)
+const syncManagerStateProvider = SyncManagerStateProvider._();
+
+/// Riverpod provider that exposes SyncManager state for UI consumption.
+///
+/// This provider listens to SyncManager state changes and rebuilds widgets.
+/// All business logic is in SyncManager - this is purely for UI reactivity.
+final class SyncManagerStateProvider
+    extends $NotifierProvider<SyncManagerState, SyncState> {
+  /// Riverpod provider that exposes SyncManager state for UI consumption.
+  ///
+  /// This provider listens to SyncManager state changes and rebuilds widgets.
+  /// All business logic is in SyncManager - this is purely for UI reactivity.
+  const SyncManagerStateProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'syncManagerStateProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$syncManagerStateHash();
+
+  @$internal
+  @override
+  SyncManagerState create() => SyncManagerState();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(SyncState value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<SyncState>(value),
+    );
+  }
+}
+
+String _$syncManagerStateHash() => r'a43b36ce77e883cb319d1b9a38a5514cc59700e8';
+
+/// Riverpod provider that exposes SyncManager state for UI consumption.
+///
+/// This provider listens to SyncManager state changes and rebuilds widgets.
+/// All business logic is in SyncManager - this is purely for UI reactivity.
+
+abstract class _$SyncManagerState extends $Notifier<SyncState> {
+  SyncState build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<SyncState, SyncState>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<SyncState, SyncState>,
+              SyncState,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}

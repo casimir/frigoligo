@@ -1,32 +1,30 @@
 import '../../../domain/repositories.dart';
-import '../../../services/remote_sync.dart';
+import '../../../domain/managers/sync_manager.dart';
 import '../../../services/remote_sync_actions.dart';
 
 class ArticleEntryController {
   const ArticleEntryController({
     required QueryRepository queryRepository,
-    required RemoteSyncer syncer,
+    required SyncManager syncManager,
     required this.articleId,
   }) : _queryRepository = queryRepository,
-       _syncer = syncer;
+       _syncManager = syncManager;
 
   final QueryRepository _queryRepository;
-  final RemoteSyncer _syncer;
+  final SyncManager _syncManager;
   final int articleId;
 
   void changeTagsSearchFilterTo(String tag) {
     _queryRepository.query = _queryRepository.query.copyWith(tags: [tag]);
   }
 
-  Future<void> setArchived(bool archived) {
-    return _syncer
-        .add(EditArticleAction(articleId, archived: archived))
-        .then((_) => _syncer.synchronize());
+  Future<void> setArchived(bool archived) async {
+    await _syncManager.addAction(EditArticleAction(articleId, archived: archived));
+    await _syncManager.synchronize(withFinalRefresh: false);
   }
 
-  Future<void> setStarred(bool starred) {
-    return _syncer
-        .add(EditArticleAction(articleId, starred: starred))
-        .then((_) => _syncer.synchronize());
+  Future<void> setStarred(bool starred) async {
+    await _syncManager.addAction(EditArticleAction(articleId, starred: starred));
+    await _syncManager.synchronize(withFinalRefresh: false);
   }
 }

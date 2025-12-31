@@ -3,22 +3,22 @@ import 'dart:ui';
 import '../../../data/services/platform/sharing_service.dart';
 import '../../../data/services/platform/urllauncher_service.dart';
 import '../../../domain/repositories.dart';
-import '../../../services/remote_sync.dart';
+import '../../../domain/managers/sync_manager.dart';
 import '../../../services/remote_sync_actions.dart';
 
 class ArticleSheetController {
   const ArticleSheetController({
-    required RemoteSyncer syncer,
+    required SyncManager syncManager,
     required TagRepository tagRepository,
     required SharingService sharingService,
     required UrlLauncherService urlLauncherService,
     required this.articleId,
-  }) : _syncer = syncer,
+  }) : _syncManager = syncManager,
        _tagRepository = tagRepository,
        _sharingService = sharingService,
        _urlLauncherService = urlLauncherService;
 
-  final RemoteSyncer _syncer;
+  final SyncManager _syncManager;
   final TagRepository _tagRepository;
   final SharingService _sharingService;
   final UrlLauncherService _urlLauncherService;
@@ -26,16 +26,14 @@ class ArticleSheetController {
 
   Future<List<String>> allTags() => _tagRepository.getAll();
 
-  Future<void> refetchContent() {
-    return _syncer
-        .add(RefetchArticleAction(articleId))
-        .then((_) => _syncer.synchronize());
+  Future<void> refetchContent() async {
+    await _syncManager.addAction(RefetchArticleAction(articleId));
+    await _syncManager.synchronize(withFinalRefresh: false);
   }
 
-  Future<void> setTags(List<String> tags) {
-    return _syncer
-        .add(EditArticleAction(articleId, tags: tags))
-        .then((_) => _syncer.synchronize());
+  Future<void> setTags(List<String> tags) async {
+    await _syncManager.addAction(EditArticleAction(articleId, tags: tags));
+    await _syncManager.synchronize(withFinalRefresh: false);
   }
 
   Future<void> share(String title, String url, Rect sharePositionOrigin) {

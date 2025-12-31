@@ -5,8 +5,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../buildcontext_extension.dart';
+import '../config/dependencies.dart';
+import '../domain/managers/sync_manager.dart';
 import '../providers/settings.dart';
-import '../services/remote_sync.dart';
+import '../ui/core/states.dart';
 import '../services/remote_sync_actions.dart';
 
 class SavePage extends ConsumerStatefulWidget {
@@ -59,9 +61,8 @@ class _SavePageState extends ConsumerState<SavePage> {
 
     try {
       final action = SaveArticleAction(url!, tags: tags);
-      final syncer = ref.read(remoteSyncerProvider.notifier);
-      await syncer.add(action);
-      final res = await syncer.synchronize();
+      await SyncManager.instance.addAction(action);
+      final res = await SyncManager.instance.synchronize(withFinalRefresh: false);
 
       setState(() {
         step = SaveStep.success;

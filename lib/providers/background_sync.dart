@@ -4,8 +4,9 @@ import 'package:neat_periodic_task/neat_periodic_task.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:universal_platform/universal_platform.dart';
 
+import '../config/dependencies.dart';
 import '../constants.dart';
-import '../services/remote_sync.dart';
+import '../domain/managers/sync_manager.dart';
 
 part '_g/background_sync.g.dart';
 
@@ -19,9 +20,7 @@ void backgroundSync(Ref ref) {
       interval: periodicSyncInterval,
       name: 'background-sync',
       timeout: periodicSyncTimeout,
-      task: () async => await ref
-          .read(remoteSyncerProvider.notifier)
-          .synchronize(withFinalRefresh: true),
+      task: () async => await SyncManager.instance.synchronize(withFinalRefresh: true),
     ).start();
   } else if (UniversalPlatform.isMobile) {
     BackgroundFetch.configure(
@@ -39,9 +38,7 @@ void backgroundSync(Ref ref) {
           ),
           (String taskId) async {
             _log.info('starting background sync');
-            await ref
-                .read(remoteSyncerProvider.notifier)
-                .synchronize(withFinalRefresh: true);
+            await SyncManager.instance.synchronize(withFinalRefresh: true);
           },
         )
         .then((int status) {
@@ -52,6 +49,6 @@ void backgroundSync(Ref ref) {
         });
   } else {
     _log.info('starting one-shot background sync');
-    ref.read(remoteSyncerProvider.notifier).synchronize(withFinalRefresh: true);
+    SyncManager.instance.synchronize(withFinalRefresh: true);
   }
 }

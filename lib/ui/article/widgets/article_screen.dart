@@ -12,8 +12,9 @@ import '../../../buildcontext_extension.dart';
 import '../../../config/dependencies.dart';
 import '../../../constants.dart';
 import '../../../domain/models/article_data.dart';
+import '../../../domain/managers/sync_manager.dart';
 import '../../../pages/reading_settings_configurator.dart';
-import '../../../services/remote_sync.dart';
+import '../../../ui/core/states.dart';
 import '../../core/states.dart';
 import '../../core/widgets/async_value_loader.dart';
 import '../../core/widgets/navigation_split_view.dart';
@@ -256,7 +257,7 @@ List<Widget> buildActions(
         builder: (_) => Material(
           child: ArticleSheet(
             controller: ArticleSheetController(
-              syncer: ref.read(remoteSyncerProvider.notifier),
+              syncManager: SyncManager.instance,
               tagRepository: ref.watch(tagRepositoryProvider),
               sharingService: dependencies.get(),
               urlLauncherService: dependencies.get(),

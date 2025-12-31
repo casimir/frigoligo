@@ -2,40 +2,37 @@ import 'dart:ui';
 
 import '../../../data/services/platform/sharing_service.dart';
 import '../../../data/services/platform/urllauncher_service.dart';
-import '../../../services/remote_sync.dart';
+import '../../../domain/managers/sync_manager.dart';
 import '../../../services/remote_sync_actions.dart';
 
 class ArticleScreenController {
   ArticleScreenController({
-    required RemoteSyncer syncer,
+    required SyncManager syncManager,
     required SharingService sharingService,
     required UrlLauncherService urlLauncherService,
     required this.articleId,
-  }) : _syncer = syncer,
+  }) : _syncManager = syncManager,
        _sharingService = sharingService,
        _urlLauncherService = urlLauncherService;
 
-  final RemoteSyncer _syncer;
+  final SyncManager _syncManager;
   final SharingService _sharingService;
   final UrlLauncherService _urlLauncherService;
   final int articleId;
 
-  Future<void> setArchived(bool archived) {
-    return _syncer
-        .add(EditArticleAction(articleId, archived: archived))
-        .then((_) => _syncer.synchronize());
+  Future<void> setArchived(bool archived) async {
+    await _syncManager.addAction(EditArticleAction(articleId, archived: archived));
+    await _syncManager.synchronize(withFinalRefresh: false);
   }
 
-  Future<void> setStarred(bool starred) {
-    return _syncer
-        .add(EditArticleAction(articleId, starred: starred))
-        .then((_) => _syncer.synchronize());
+  Future<void> setStarred(bool starred) async {
+    await _syncManager.addAction(EditArticleAction(articleId, starred: starred));
+    await _syncManager.synchronize(withFinalRefresh: false);
   }
 
-  Future<void> deleteArticle() {
-    return _syncer
-        .add(DeleteArticleAction(articleId))
-        .then((_) => _syncer.synchronize());
+  Future<void> deleteArticle() async {
+    await _syncManager.addAction(DeleteArticleAction(articleId));
+    await _syncManager.synchronize(withFinalRefresh: false);
   }
 
   Future<void> shareArticle(
