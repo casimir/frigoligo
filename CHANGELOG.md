@@ -59,6 +59,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Android build min versions ([fff78f2](https://github.com/casimir/frigoligo/commit/fff78f2c12e07896a1a56ec361adefe9727cdd5e))
 - *(deps)* Update dependency go_router to v17 ([#415](https://github.com/casimir/frigoligo/pull/415)) ([462c28e](https://github.com/casimir/frigoligo/commit/462c28e0a8f55bb4a768f7e3a7665988eb18c06b))
 - *(deps)* Regen podfiles ([7bdd65c](https://github.com/casimir/frigoligo/commit/7bdd65c50e0a14e59d0590de8918a75e80ca3306))
+- Sort article by descending creation date again ([a5ec147](https://github.com/casimir/frigoligo/commit/a5ec1474dbcb438dd12b1cb75270ffc6d0c1fd90))
 
 ### 🚜 Refactor
 
