@@ -20,6 +20,23 @@ class LocalStorageService {
 
   @Deprecated('this getter will be deleted at some point')
   DB get db => _db;
+
+  // Non-deprecated methods for sync operations
+
+  Future<int?> getLastSyncTS() => _db.metadataDao.getLastSyncTS();
+
+  Future<void> setLastSyncTS(int timestamp) =>
+      _db.metadataDao.setLastSyncTS(timestamp);
+
+  Future<void> clear({bool keepPositions = false}) =>
+      _db.clear(keepPositions: keepPositions);
+
+  Future<int> countUnread() => _db.articlesDao.countUnread();
+
+  Future<Set<int>> getAllArticleIds() => _db.articlesDao.getAllIds();
+
+  Future<void> updateAllArticles(List<Article> articles) =>
+      _db.articlesDao.updateAll(articles);
 }
 
 // A simple wrapper to avoid leaking drift outside of the service.

@@ -18,6 +18,7 @@ import 'constants.dart';
 import 'data/services/local/storage/config_store_service.dart';
 import 'data/services/local/storage/storage_service.dart';
 import 'data/services/platform/appbadge_service.dart';
+import 'domain/managers/sync_manager.dart';
 import 'native/save.service.dart';
 import 'providers/background_sync.dart';
 import 'providers/router.dart';
@@ -50,6 +51,13 @@ Future<void> main() async {
     await ArticleContentRenderer.preload();
   }
   await Settings.init();
+
+  SyncManager.init(
+    storage: dependencies.get(),
+    sessionRepo: dependencies.get(),
+    configStore: dependencies.get(),
+    appBadge: dependencies.get(),
+  );
 
   log.info('app version: ${AppInfo.versionVerbose}');
   log.info('db version:  ${dependencies.get<LocalStorageService>().dbVersion}');
@@ -158,6 +166,13 @@ Future<void> mainNativeShare() async {
 
   await AppInfo.init();
   await Settings.init();
+
+  SyncManager.init(
+    storage: dependencies.get(),
+    sessionRepo: dependencies.get(),
+    configStore: dependencies.get(),
+    appBadge: dependencies.get(),
+  );
 
   SaveService.setup();
 }

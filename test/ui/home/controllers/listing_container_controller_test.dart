@@ -1,29 +1,29 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:frigoligo/services/remote_sync.dart';
+import 'package:frigoligo/domain/managers/sync_manager.dart';
 import 'package:frigoligo/ui/home/controllers/listing_container_controller.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockRemoteSyncer extends Mock implements RemoteSyncer {}
+class MockSyncManager extends Mock implements SyncManager {}
 
 void main() {
   group('ListingContainerController', () {
-    late MockRemoteSyncer mockRemoteSyncer;
+    late MockSyncManager mockSyncManager;
     late ListingContainerController controller;
 
     setUp(() {
-      mockRemoteSyncer = MockRemoteSyncer();
-      controller = ListingContainerController(remoteSyncer: mockRemoteSyncer);
+      mockSyncManager = MockSyncManager();
+      controller = ListingContainerController(syncManager: mockSyncManager);
     });
 
     test('refresh', () async {
       when(
-        () => mockRemoteSyncer.synchronize(withFinalRefresh: true),
+        () => mockSyncManager.synchronize(withFinalRefresh: true),
       ).thenAnswer((_) async => {});
 
       await controller.refresh();
 
       verify(
-        () => mockRemoteSyncer.synchronize(withFinalRefresh: true),
+        () => mockSyncManager.synchronize(withFinalRefresh: true),
       ).called(1);
     });
   });
