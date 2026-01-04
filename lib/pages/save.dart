@@ -5,9 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../buildcontext_extension.dart';
-import '../domain/managers/sync_manager.dart';
+import '../domain/sync/sync_manager.dart';
 import '../providers/settings.dart';
-import '../services/remote_sync_actions.dart';
 import '../ui/core/states.dart';
 
 class SavePage extends ConsumerStatefulWidget {

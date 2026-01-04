@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../buildcontext_extension.dart';
 import '../../../config/dependencies.dart';
-import '../../../domain/managers/sync_manager.dart';
+import '../../../domain/sync/sync_manager.dart';
 import '../states.dart';
 
 class RemoteSyncFAB extends ConsumerWidget {

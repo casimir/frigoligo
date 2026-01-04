@@ -10,13 +10,13 @@ import '../../data/services/local/storage/storage_service.dart';
 import '../../data/services/platform/appbadge_service.dart';
 import '../../providers/settings.dart';
 import '../../server/clients.dart';
-import '../../services/remote_sync_actions.dart';
 import '../client_factory.dart';
 import '../repositories.dart';
+import 'remote_actions.dart';
+
+export 'remote_actions.dart';
 
 final _log = Logger('sync.manager');
-
-typedef ProgressCallback = void Function(double? progress);
 
 const _refreshAction = RefreshArticlesAction();
 
@@ -121,7 +121,7 @@ class SyncManager {
     }
   }
 
-  Future<void> addAction(RemoteSyncAction action) async {
+  Future<void> addAction(RemoteAction action) async {
     final exists = await _storage.db.managers.remoteActions
         .filter((f) => f.key.equals(action.hashCode))
         .exists();
@@ -160,9 +160,13 @@ class SyncManager {
       actionsCount += actions.length;
 
       for (final action in actions) {
-        final rsa = action.toRSA();
-        _log.info('running action: $rsa');
-        res[rsa.key] = await rsa.execute(api, _storage, onProgress);
+        final remoteAction = action.toRemoteAction();
+        _log.info('running action: $remoteAction');
+        res[remoteAction.key] = await remoteAction.execute(
+          api,
+          _storage,
+          onProgress,
+        );
 
         final deleted = await _storage.db.managers.remoteActions
             .filter((f) => f.id.equals(action.id))

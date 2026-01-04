@@ -5,8 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../domain/managers/sync_manager.dart';
-import '../services/remote_sync_actions.dart';
+import '../../../domain/sync/sync_manager.dart';
 import 'settings.dart';
 
 part '_g/save_article.freezed.dart';

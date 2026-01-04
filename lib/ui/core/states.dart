@@ -1,10 +1,10 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../domain/managers/sync_manager.dart';
 import '../../domain/models/article_data.dart';
+import '../../domain/sync/sync_manager.dart';
 import '../repository_providers.dart';
 
-export '../../domain/managers/sync_manager.dart' show SyncState;
+export '../../domain/sync/sync_manager.dart' show SyncState;
 export '../../server/clients.dart' show ServerError;
 
 part '_g/states.g.dart';

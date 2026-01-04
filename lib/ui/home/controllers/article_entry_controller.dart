@@ -1,6 +1,5 @@
-import '../../../domain/managers/sync_manager.dart';
 import '../../../domain/repositories.dart';
-import '../../../services/remote_sync_actions.dart';
+import '../../../domain/sync/sync_manager.dart';
 
 class ArticleEntryController {
   const ArticleEntryController({

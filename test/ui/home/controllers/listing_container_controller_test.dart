@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:frigoligo/domain/managers/sync_manager.dart';
+import 'package:frigoligo/domain/sync/sync_manager.dart';
 import 'package:frigoligo/ui/home/controllers/listing_container_controller.dart';
 import 'package:mocktail/mocktail.dart';
 

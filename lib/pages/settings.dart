@@ -16,7 +16,7 @@ import '../constants.dart';
 import '../data/services/local/storage/config_store_service.dart';
 import '../data/services/local/storage/storage_service.dart';
 import '../data/services/platform/appbadge_service.dart';
-import '../domain/managers/sync_manager.dart';
+import '../domain/sync/sync_manager.dart';
 import '../providers/settings.dart' show Language, Sk, settingsProvider;
 import '../src/generated/i18n/app_localizations.dart';
 import '../widget_keys.dart';

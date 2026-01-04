@@ -1,4 +1,4 @@
-import '../../../domain/managers/sync_manager.dart';
+import '../../../domain/sync/sync_manager.dart';
 
 class ListingContainerController {
   const ListingContainerController({required SyncManager syncManager})

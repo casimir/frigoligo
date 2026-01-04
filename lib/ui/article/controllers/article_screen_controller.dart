@@ -2,8 +2,7 @@ import 'dart:ui';
 
 import '../../../data/services/platform/sharing_service.dart';
 import '../../../data/services/platform/urllauncher_service.dart';
-import '../../../domain/managers/sync_manager.dart';
-import '../../../services/remote_sync_actions.dart';
+import '../../../domain/sync/sync_manager.dart';
 
 class ArticleScreenController {
   ArticleScreenController({

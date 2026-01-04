@@ -7,8 +7,7 @@ import 'package:frigoligo/data/services/local/storage/database/models/article.dr
 import 'package:frigoligo/data/services/local/storage/storage_service.dart';
 import 'package:frigoligo/data/services/platform/sharing_service.dart';
 import 'package:frigoligo/data/services/platform/urllauncher_service.dart';
-import 'package:frigoligo/domain/managers/sync_manager.dart';
-import 'package:frigoligo/services/remote_sync_actions.dart';
+import 'package:frigoligo/domain/sync/sync_manager.dart';
 import 'package:frigoligo/ui/article/controllers/article_screen_controller.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';

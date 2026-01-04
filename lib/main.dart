@@ -18,7 +18,7 @@ import 'constants.dart';
 import 'data/services/local/storage/config_store_service.dart';
 import 'data/services/local/storage/storage_service.dart';
 import 'data/services/platform/appbadge_service.dart';
-import 'domain/managers/sync_manager.dart';
+import 'domain/sync/sync_manager.dart';
 import 'native/save.service.dart';
 import 'providers/background_sync.dart';
 import 'providers/router.dart';

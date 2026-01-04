@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:universal_platform/universal_platform.dart';
 
 import '../constants.dart';
-import '../domain/managers/sync_manager.dart';
+import '../domain/sync/sync_manager.dart';
 
 part '_g/background_sync.g.dart';
 

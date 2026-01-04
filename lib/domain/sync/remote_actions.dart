@@ -1,32 +1,28 @@
 import 'package:logging/logging.dart';
 
-import '../data/services/local/storage/storage_service.dart';
-import '../server/src/clients/api.dart';
-import '../server/src/clients/api_methods.dart';
+import '../../data/services/local/storage/storage_service.dart';
+import '../../server/src/clients/api.dart';
+import '../../server/src/clients/api_methods.dart';
 
 typedef ActionParams = Map<String, dynamic>;
 typedef ProgressCallback = void Function(double? progress);
 
-abstract class RemoteSyncAction {
-  const RemoteSyncAction(this.type, this.key);
+abstract class RemoteAction {
+  const RemoteAction(this.type, this.key);
 
   final String key;
-  final RemoteSyncActionType type;
+  final RemoteActionType type;
 
   @override
-  bool operator ==(Object other) =>
-      other is RemoteSyncAction && key == other.key;
+  bool operator ==(Object other) => other is RemoteAction && key == other.key;
 
   @override
   int get hashCode => key.hashCode;
 
   ActionParams get params;
 
-  factory RemoteSyncAction.fromParams(
-    String actionTypeName,
-    ActionParams params,
-  ) {
-    final actionType = RemoteSyncActionType.values.byName(actionTypeName);
+  factory RemoteAction.fromParams(String actionTypeName, ActionParams params) {
+    final actionType = RemoteActionType.values.byName(actionTypeName);
     return actionType.buildActionFromParams(params);
   }
 
@@ -42,9 +38,9 @@ abstract class RemoteSyncAction {
   }
 }
 
-typedef ActionBuilder = RemoteSyncAction Function(ActionParams);
+typedef ActionBuilder = RemoteAction Function(ActionParams);
 
-enum RemoteSyncActionType {
+enum RemoteActionType {
   refreshArticles,
   deleteArticle,
   editArticle,
@@ -52,17 +48,17 @@ enum RemoteSyncActionType {
   refetchArticle;
 
   ActionBuilder get buildActionFromParams => switch (this) {
-    RemoteSyncActionType.refreshArticles => RefreshArticlesAction.fromParams,
-    RemoteSyncActionType.deleteArticle => DeleteArticleAction.fromParams,
-    RemoteSyncActionType.editArticle => EditArticleAction.fromParams,
-    RemoteSyncActionType.saveArticle => SaveArticleAction.fromParams,
-    RemoteSyncActionType.refetchArticle => RefetchArticleAction.fromParams,
+    RemoteActionType.refreshArticles => RefreshArticlesAction.fromParams,
+    RemoteActionType.deleteArticle => DeleteArticleAction.fromParams,
+    RemoteActionType.editArticle => EditArticleAction.fromParams,
+    RemoteActionType.saveArticle => SaveArticleAction.fromParams,
+    RemoteActionType.refetchArticle => RefetchArticleAction.fromParams,
   };
 }
 
-class RefreshArticlesAction extends RemoteSyncAction {
+class RefreshArticlesAction extends RemoteAction {
   const RefreshArticlesAction()
-    : super(RemoteSyncActionType.refreshArticles, 'refreshArticles');
+    : super(RemoteActionType.refreshArticles, 'refreshArticles');
 
   static final _log = Logger('sync.refresh');
 
@@ -140,9 +136,9 @@ class RefreshArticlesAction extends RemoteSyncAction {
   }
 }
 
-class DeleteArticleAction extends RemoteSyncAction {
+class DeleteArticleAction extends RemoteAction {
   const DeleteArticleAction(this.articleId)
-    : super(RemoteSyncActionType.deleteArticle, 'deleteArticle:$articleId');
+    : super(RemoteActionType.deleteArticle, 'deleteArticle:$articleId');
 
   final int articleId;
 
@@ -159,14 +155,14 @@ class DeleteArticleAction extends RemoteSyncAction {
   }
 }
 
-class EditArticleAction extends RemoteSyncAction {
+class EditArticleAction extends RemoteAction {
   const EditArticleAction(
     this.articleId, {
     this.archived,
     this.starred,
     this.tags,
   }) : super(
-         RemoteSyncActionType.editArticle,
+         RemoteActionType.editArticle,
          'patchArticle:$articleId:$archived:$starred:$tags',
        );
 
@@ -203,9 +199,9 @@ class EditArticleAction extends RemoteSyncAction {
   }
 }
 
-class SaveArticleAction extends RemoteSyncAction {
+class SaveArticleAction extends RemoteAction {
   SaveArticleAction(this.url, {this.tags})
-    : super(RemoteSyncActionType.saveArticle, 'saveArticle:$url:$tags');
+    : super(RemoteActionType.saveArticle, 'saveArticle:$url:$tags');
 
   final Uri url;
   final List<String>? tags;
@@ -228,9 +224,9 @@ class SaveArticleAction extends RemoteSyncAction {
   }
 }
 
-class RefetchArticleAction extends RemoteSyncAction {
+class RefetchArticleAction extends RemoteAction {
   const RefetchArticleAction(this.articleId)
-    : super(RemoteSyncActionType.refetchArticle, 'refetchArticle:$articleId');
+    : super(RemoteActionType.refetchArticle, 'refetchArticle:$articleId');
 
   final int articleId;
 
