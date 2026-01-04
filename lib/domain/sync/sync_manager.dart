@@ -5,7 +5,6 @@ import 'package:logging/logging.dart';
 
 import '../../app_info.dart';
 import '../../data/services/local/storage/config_store_service.dart';
-import '../../data/services/local/storage/database/extensions/remote_action.dart';
 import '../../data/services/local/storage/storage_service.dart';
 import '../../data/services/platform/appbadge_service.dart';
 import '../../providers/settings.dart';
@@ -160,7 +159,8 @@ class SyncManager {
       actionsCount += actions.length;
 
       for (final action in actions) {
-        final remoteAction = action.toRemoteAction();
+        final params = jsonDecode(action.jsonParams) as ActionParams;
+        final remoteAction = RemoteAction.fromParams(action.className, params);
         _log.info('running action: $remoteAction');
         res[remoteAction.key] = await remoteAction.execute(
           api,
