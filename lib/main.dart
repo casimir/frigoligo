@@ -53,10 +53,10 @@ Future<void> main() async {
   await Settings.init();
 
   SyncManager.init(
-    storage: dependencies.get(),
-    sessionRepo: dependencies.get(),
-    configStore: dependencies.get(),
-    appBadge: dependencies.get(),
+    localStorageService: dependencies.get(),
+    serverSessionRepository: dependencies.get(),
+    configStoreService: dependencies.get(),
+    appBadgeService: dependencies.get(),
   );
 
   log.info('app version: ${AppInfo.versionVerbose}');
@@ -168,10 +168,10 @@ Future<void> mainNativeShare() async {
   await Settings.init();
 
   SyncManager.init(
-    storage: dependencies.get(),
-    sessionRepo: dependencies.get(),
-    configStore: dependencies.get(),
-    appBadge: dependencies.get(),
+    localStorageService: dependencies.get(),
+    serverSessionRepository: dependencies.get(),
+    configStoreService: dependencies.get(),
+    appBadgeService: dependencies.get(),
   );
 
   SaveService.setup();

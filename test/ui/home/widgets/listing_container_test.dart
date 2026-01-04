@@ -27,10 +27,10 @@ void main() {
       db = DB(inMemory());
       setupDependencies(withDB: db);
       SyncManager.init(
-        storage: dependencies.get(),
-        sessionRepo: dependencies.get(),
-        configStore: dependencies.get(),
-        appBadge: dependencies.get(),
+        localStorageService: dependencies.get(),
+        serverSessionRepository: dependencies.get(),
+        configStoreService: dependencies.get(),
+        appBadgeService: dependencies.get(),
       );
 
       mockController = MockListingContainerController();

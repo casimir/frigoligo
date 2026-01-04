@@ -60,28 +60,28 @@ class SyncManager {
   static SyncManager get instance => _instance;
 
   static void init({
-    required LocalStorageService storage,
-    required ServerSessionRepository sessionRepo,
-    required ConfigStoreService configStore,
-    required AppBadgeService appBadge,
+    required LocalStorageService localStorageService,
+    required ServerSessionRepository serverSessionRepository,
+    required ConfigStoreService configStoreService,
+    required AppBadgeService appBadgeService,
   }) {
     _instance = SyncManager(
-      storage: storage,
-      sessionRepo: sessionRepo,
-      configStore: configStore,
-      appBadge: appBadge,
+      localStorageService: localStorageService,
+      serverSessionRepository: serverSessionRepository,
+      configStoreService: configStoreService,
+      appBadgeService: appBadgeService,
     );
   }
 
   SyncManager({
-    required LocalStorageService storage,
-    required ServerSessionRepository sessionRepo,
-    required ConfigStoreService configStore,
-    required AppBadgeService appBadge,
-  }) : _storage = storage,
-       _sessionRepo = sessionRepo,
-       _configStore = configStore,
-       _appBadge = appBadge,
+    required LocalStorageService localStorageService,
+    required ServerSessionRepository serverSessionRepository,
+    required ConfigStoreService configStoreService,
+    required AppBadgeService appBadgeService,
+  }) : _localStorageService = localStorageService,
+       _serverSessionRepository = serverSessionRepository,
+       _configStoreService = configStoreService,
+       _appBadgeService = appBadgeService,
        _state = const SyncState(
          isWorking: false,
          progressValue: null,
@@ -89,10 +89,10 @@ class SyncManager {
          pendingCount: 0,
        );
 
-  final LocalStorageService _storage;
-  final ServerSessionRepository _sessionRepo;
-  final ConfigStoreService _configStore;
-  final AppBadgeService _appBadge;
+  final LocalStorageService _localStorageService;
+  final ServerSessionRepository _serverSessionRepository;
+  final ConfigStoreService _configStoreService;
+  final AppBadgeService _appBadgeService;
 
   SyncState _state;
   SyncState get state => _state;
@@ -121,11 +121,11 @@ class SyncManager {
   }
 
   Future<void> addAction(RemoteAction action) async {
-    final exists = await _storage.db.managers.remoteActions
+    final exists = await _localStorageService.db.managers.remoteActions
         .filter((f) => f.key.equals(action.hashCode))
         .exists();
     if (!exists) {
-      await _storage.db.managers.remoteActions.create(
+      await _localStorageService.db.managers.remoteActions.create(
         (o) => o(
           key: action.hashCode,
           createdAt: DateTime.now(),
@@ -138,14 +138,18 @@ class SyncManager {
   }
 
   Future<int> getPendingCount() {
-    return _storage.db.managers.remoteActions.count(distinct: false);
+    return _localStorageService.db.managers.remoteActions.count(
+      distinct: false,
+    );
   }
 
   Future<Map<String, dynamic>> executeAllPendingActions({
     required ProgressCallback onProgress,
   }) async {
     final Map<String, dynamic> res = {};
-    final api = _sessionRepo.createClient(userAgent: AppInfo.userAgent);
+    final api = _serverSessionRepository.createClient(
+      userAgent: AppInfo.userAgent,
+    );
 
     onProgress(null);
     int i = 1;
@@ -153,7 +157,7 @@ class SyncManager {
 
     do {
       final actions =
-          await (_storage.db.managers.remoteActions
+          await (_localStorageService.db.managers.remoteActions
                 ..orderBy((o) => o.createdAt.asc()))
               .get();
       actionsCount += actions.length;
@@ -164,11 +168,11 @@ class SyncManager {
         _log.info('running action: $remoteAction');
         res[remoteAction.key] = await remoteAction.execute(
           api,
-          _storage,
+          _localStorageService,
           onProgress,
         );
 
-        final deleted = await _storage.db.managers.remoteActions
+        final deleted = await _localStorageService.db.managers.remoteActions
             .filter((f) => f.id.equals(action.id))
             .delete();
         if (deleted == 0) {
@@ -214,8 +218,10 @@ class SyncManager {
       if (withFinalRefresh) {
         _setProgress(null);
         _log.info('running action: $_refreshAction');
-        final api = _sessionRepo.createClient(userAgent: AppInfo.userAgent);
-        await _refreshAction.execute(api, _storage, _setProgress);
+        final api = _serverSessionRepository.createClient(
+          userAgent: AppInfo.userAgent,
+        );
+        await _refreshAction.execute(api, _localStorageService, _setProgress);
       }
 
       await _updateAppBadge();
@@ -242,11 +248,12 @@ class SyncManager {
   }
 
   Future<void> _updateAppBadge() async {
-    final badgeEnabled = _configStore.get<bool>(Sk.appBadge.key) ?? false;
+    final badgeEnabled =
+        _configStoreService.get<bool>(Sk.appBadge.key) ?? false;
     if (!AppBadgeService.isSupportedSync || !badgeEnabled) return;
 
-    final unread = await _storage.countUnread();
-    await _appBadge.update(unread);
+    final unread = await _localStorageService.countUnread();
+    await _appBadgeService.update(unread);
     _log.fine('updated app badge: $unread unread');
   }
 }
