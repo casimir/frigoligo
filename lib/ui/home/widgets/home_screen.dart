@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../config/dependencies.dart';
-import '../../../services/remote_sync.dart';
+import '../../../domain/sync/sync_manager.dart';
 import '../../article/controllers/article_screen_controller.dart';
 import '../../article/widgets/article_screen.dart';
 import '../../core/widgets/adaptive.dart';
@@ -66,7 +66,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             key: ValueKey('article-navigation-$articleId'),
             controller: ArticleEntryController(
               queryRepository: ref.watch(queryRepositoryProvider),
-              syncer: ref.read(remoteSyncerProvider.notifier),
+              syncManager: SyncManager.instance,
               articleId: articleId,
             ),
           );
@@ -74,7 +74,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         navigationItemExtent: ArticleEntry.itemExtent,
         navigationContainerBuilder: (context, index, child) => ListingContainer(
           controller: ListingContainerController(
-            remoteSyncer: ref.read(remoteSyncerProvider.notifier),
+            syncManager: SyncManager.instance,
           ),
           child: child,
         ),
@@ -82,7 +82,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           return ArticleScreen(
             key: ValueKey('article-screen-$index'),
             controller: ArticleScreenController(
-              syncer: ref.read(remoteSyncerProvider.notifier),
+              syncManager: SyncManager.instance,
               sharingService: dependencies.get(),
               urlLauncherService: dependencies.get(),
               articleId: itemCounter!.getArticleId(index)!,

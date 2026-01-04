@@ -1,12 +1,12 @@
-import '../../../services/remote_sync.dart';
+import '../../../domain/sync/sync_manager.dart';
 
 class ListingContainerController {
-  const ListingContainerController({required RemoteSyncer remoteSyncer})
-    : _remoteSyncer = remoteSyncer;
+  const ListingContainerController({required SyncManager syncManager})
+    : _syncManager = syncManager;
 
-  final RemoteSyncer _remoteSyncer;
+  final SyncManager _syncManager;
 
   Future<void> refresh() {
-    return _remoteSyncer.synchronize(withFinalRefresh: true);
+    return _syncManager.synchronize(withFinalRefresh: true);
   }
 }
