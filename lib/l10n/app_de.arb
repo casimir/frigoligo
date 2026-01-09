@@ -329,7 +329,7 @@
     "@listing_articlesAll": {
         "description": "The title for the list of all the articles."
     },
-    "listing_articlesArchived": "Archivierte",
+    "listing_articlesArchived": "Archivierte Artikeln",
     "@listing_articlesArchived": {
         "description": "The title for the list of the articles with the state Archived."
     },
