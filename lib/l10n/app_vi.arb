@@ -1,0 +1,10 @@
+{
+    "g_article": "Bài viết",
+    "@g_article": {
+        "description": "A piece of content fetched from the web. This is one of the main concepts of the app."
+    },
+    "g_check": "Kiểm tra",
+    "@g_check": {
+        "description": "A verb as in to check something."
+    }
+}
