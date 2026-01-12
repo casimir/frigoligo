@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:logging/logging.dart';
 
 import '../../data/services/local/storage/storage_service.dart';
@@ -7,17 +8,21 @@ import '../../server/src/clients/api_methods.dart';
 typedef ActionParams = Map<String, dynamic>;
 typedef ProgressCallback = void Function(double? progress);
 
-abstract class RemoteAction {
-  const RemoteAction(this.type, this.key);
+abstract class RemoteAction with EquatableMixin {
+  const RemoteAction(this.type);
 
-  final String key;
   final RemoteActionType type;
 
   @override
-  bool operator ==(Object other) => other is RemoteAction && key == other.key;
+  List<Object> get props => [key];
 
-  @override
-  int get hashCode => key.hashCode;
+  String get key {
+    if (params.isEmpty) return type.name;
+
+    // Map defaults to LinkedHashMap, iterations follow insertion order
+    final values = params.values.map((v) => v?.toString() ?? 'null').join(':');
+    return '${type.name}:$values';
+  }
 
   ActionParams get params;
 
@@ -45,7 +50,8 @@ enum RemoteActionType {
   deleteArticle,
   editArticle,
   saveArticle,
-  refetchArticle;
+  refetchArticle,
+  noop;
 
   ActionBuilder get buildActionFromParams => switch (this) {
     RemoteActionType.refreshArticles => RefreshArticlesAction.fromParams,
@@ -53,12 +59,12 @@ enum RemoteActionType {
     RemoteActionType.editArticle => EditArticleAction.fromParams,
     RemoteActionType.saveArticle => SaveArticleAction.fromParams,
     RemoteActionType.refetchArticle => RefetchArticleAction.fromParams,
+    RemoteActionType.noop => NoopAction.fromParams,
   };
 }
 
 class RefreshArticlesAction extends RemoteAction {
-  const RefreshArticlesAction()
-    : super(RemoteActionType.refreshArticles, 'refreshArticles');
+  const RefreshArticlesAction() : super(RemoteActionType.refreshArticles);
 
   static final _log = Logger('sync.refresh');
 
@@ -70,7 +76,6 @@ class RefreshArticlesAction extends RemoteAction {
 
   @override
   Future<void> execute(api, storage, onProgress) async {
-    // Incremental refresh with throttling
     final int? since = await storage.getLastSyncTS();
     const int threshold = 60; // seconds
     if (since != null) {
@@ -84,7 +89,6 @@ class RefreshArticlesAction extends RemoteAction {
       }
     }
 
-    // Full refresh logic (inline from LocalStorage.fullRefresh)
     final stopwatch = Stopwatch()..start();
     var count = 0;
 
@@ -94,7 +98,6 @@ class RefreshArticlesAction extends RemoteAction {
     _log.info('starting refresh with since=${sinceDT?.toIso8601String()}');
 
     if (since == null) {
-      // Full sync: clear and reload all
       await storage.clear(keepPositions: true);
       _log.info('cleared the local cache (articles and pending actions)');
 
@@ -108,7 +111,6 @@ class RefreshArticlesAction extends RemoteAction {
         count += articles.length;
       }
     } else {
-      // Incremental sync: apply operations
       final operations = await api.listOperations(
         since: sinceDT,
         localIds: await storage.getAllArticleIds(),
@@ -126,7 +128,6 @@ class RefreshArticlesAction extends RemoteAction {
       }
     }
 
-    // Update sync metadata
     final now = (DateTime.now().millisecondsSinceEpoch / 1000).toInt();
     await storage.setLastSyncTS(now);
 
@@ -138,7 +139,7 @@ class RefreshArticlesAction extends RemoteAction {
 
 class DeleteArticleAction extends RemoteAction {
   const DeleteArticleAction(this.articleId)
-    : super(RemoteActionType.deleteArticle, 'deleteArticle:$articleId');
+    : super(RemoteActionType.deleteArticle);
 
   final int articleId;
 
@@ -161,10 +162,7 @@ class EditArticleAction extends RemoteAction {
     this.archived,
     this.starred,
     this.tags,
-  }) : super(
-         RemoteActionType.editArticle,
-         'patchArticle:$articleId:$archived:$starred:$tags',
-       );
+  }) : super(RemoteActionType.editArticle);
 
   final int articleId;
   final bool? archived;
@@ -201,7 +199,7 @@ class EditArticleAction extends RemoteAction {
 
 class SaveArticleAction extends RemoteAction {
   SaveArticleAction(this.url, {this.tags})
-    : super(RemoteActionType.saveArticle, 'saveArticle:$url:$tags');
+    : super(RemoteActionType.saveArticle);
 
   final Uri url;
   final List<String>? tags;
@@ -226,7 +224,7 @@ class SaveArticleAction extends RemoteAction {
 
 class RefetchArticleAction extends RemoteAction {
   const RefetchArticleAction(this.articleId)
-    : super(RemoteActionType.refetchArticle, 'refetchArticle:$articleId');
+    : super(RemoteActionType.refetchArticle);
 
   final int articleId;
 
@@ -247,4 +245,19 @@ class RefetchArticleAction extends RemoteAction {
       return false;
     }
   }
+}
+
+class NoopAction extends RemoteAction {
+  const NoopAction(this.value) : super(RemoteActionType.noop);
+
+  final String value;
+
+  @override
+  ActionParams get params => {'value': value};
+
+  factory NoopAction.fromParams(ActionParams params) =>
+      NoopAction(params['value'] as String);
+
+  @override
+  Future<void> execute(api, storage, onProgress) async {}
 }
