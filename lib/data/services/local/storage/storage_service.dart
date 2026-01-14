@@ -21,7 +21,7 @@ class LocalStorageService {
   @Deprecated('this getter will be deleted at some point')
   DB get db => _db;
 
-  // Non-deprecated methods for sync operations
+  // temporary zone for sync operation, will be moved during the refacto
 
   Future<int?> getLastSyncTS() => _db.metadataDao.getLastSyncTS();
 
@@ -37,6 +37,8 @@ class LocalStorageService {
 
   Future<void> updateAllArticles(List<Article> articles) =>
       _db.articlesDao.updateAll(articles);
+
+  Future<void> clearRemoteActions() => _db.managers.remoteActions.delete();
 }
 
 // A simple wrapper to avoid leaking drift outside of the service.

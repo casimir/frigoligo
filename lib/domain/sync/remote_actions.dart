@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:http/http.dart';
 import 'package:logging/logging.dart';
 
 import '../../data/services/local/storage/storage_service.dart';
@@ -258,6 +259,23 @@ class NoopAction extends RemoteAction {
   factory NoopAction.fromParams(ActionParams params) =>
       NoopAction(params['value'] as String);
 
+  factory NoopAction.error(Object error) =>
+      NoopAction('ERROR:${error.runtimeType}:$error');
+
   @override
-  Future<void> execute(api, storage, onProgress) async {}
+  Future<void> execute(api, storage, onProgress) async {
+    if (value.startsWith('ERROR:')) {
+      final parts = value.split(':');
+      final type = parts[1];
+      final message = parts.sublist(2).join(':');
+
+      if (type == 'ServerError') {
+        throw ServerError(message);
+      } else if (type.contains('ClientException')) {
+        throw ServerError(message, source: ClientException(message));
+      } else {
+        throw Exception(message);
+      }
+    }
+  }
 }

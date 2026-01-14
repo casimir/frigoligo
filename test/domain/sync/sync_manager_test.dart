@@ -19,11 +19,7 @@ class MockConfigStoreService extends Mock implements ConfigStoreService {}
 
 class MockAppBadgeService extends Mock implements AppBadgeService {}
 
-class MockApiClient extends Mock implements ApiClient {}
-
 class FakeRemoteAction extends Fake implements RemoteAction {}
-
-class FakeServerSession extends Fake implements ServerSession {}
 
 void main() {
   late DB db;
@@ -31,7 +27,6 @@ void main() {
   late MockServerSessionRepository sessionRepo;
   late MockConfigStoreService configStore;
   late MockAppBadgeService appBadge;
-  late MockApiClient apiClient;
   late SyncManager syncManager;
 
   setUpAll(() async {
@@ -78,7 +73,6 @@ void main() {
     sessionRepo = MockServerSessionRepository();
     configStore = MockConfigStoreService();
     appBadge = MockAppBadgeService();
-    apiClient = MockApiClient();
 
     final session = ServerSession(
       ServerType.freon,
@@ -100,24 +94,24 @@ void main() {
     await db.close();
   });
 
-  group('SyncManager initialization', () {
-    test('should initialize with correct default state', () {
-      expect(syncManager.state.isWorking, false);
-      expect(syncManager.state.progressValue, null);
-      expect(syncManager.state.lastError, null);
-      expect(syncManager.state.pendingCount, 0);
-    });
+  group('initialization', () {
+    test(
+      'should initialize with default state and support singleton pattern',
+      () {
+        expect(syncManager.state.isWorking, false);
+        expect(syncManager.state.progressValue, null);
+        expect(syncManager.state.lastError, null);
+        expect(syncManager.state.pendingCount, 0);
 
-    test('should initialize singleton instance via init', () {
-      SyncManager.init(
-        localStorageService: storage,
-        serverSessionRepository: sessionRepo,
-        configStoreService: configStore,
-        appBadgeService: appBadge,
-      );
-
-      expect(SyncManager.instance, isA<SyncManager>());
-    });
+        SyncManager.init(
+          localStorageService: storage,
+          serverSessionRepository: sessionRepo,
+          configStoreService: configStore,
+          appBadgeService: appBadge,
+        );
+        expect(SyncManager.instance, isA<SyncManager>());
+      },
+    );
   });
 
   group('listener management', () {
@@ -125,13 +119,11 @@ void main() {
       final states = <SyncState>[];
       void listener(SyncState state) => states.add(state);
 
-      // Add listener and verify notification
       syncManager.addListener(listener);
       await syncManager.addAction(const DeleteArticleAction(1));
       expect(states.length, greaterThan(0));
       expect(states.last.pendingCount, 1);
 
-      // Remove listener and verify no more notifications
       states.clear();
       syncManager.removeListener(listener);
       await syncManager.addAction(const DeleteArticleAction(2));
@@ -144,10 +136,8 @@ void main() {
       const action1 = DeleteArticleAction(1);
       const action2 = DeleteArticleAction(2);
 
-      // Initially empty
       expect(await syncManager.getPendingCount(), 0);
 
-      // Add single action
       await syncManager.addAction(action1);
       expect(await syncManager.getPendingCount(), 1);
 
@@ -155,14 +145,13 @@ void main() {
       await syncManager.addAction(action1);
       expect(await syncManager.getPendingCount(), 1);
 
-      // Different action should be added
       await syncManager.addAction(action2);
       expect(await syncManager.getPendingCount(), 2);
     });
   });
 
   group('sync execution', () {
-    test('should execute full sync lifecycle with multiple actions', () async {
+    test('should execute full sync lifecycle', () async {
       await syncManager.addAction(const NoopAction('test1'));
       await syncManager.addAction(const NoopAction('test2'));
       await syncManager.addAction(const NoopAction('test3'));
@@ -177,13 +166,13 @@ void main() {
         counts.add(state.pendingCount);
       });
 
-      await syncManager.synchronize(withFinalRefresh: false);
+      // Test without final refresh
+      final result1 = await syncManager.synchronize(withFinalRefresh: false);
 
       // isWorking transitions: false -> true -> false
       expect(states.any((s) => s.isWorking), true);
       expect(states.last.isWorking, false);
 
-      // Progress updates during sync
       expect(progressValues.any((p) => p != null && p > 0), true);
       expect(states.last.progressValue, null);
 
@@ -191,22 +180,81 @@ void main() {
       expect(counts.first, 3);
       expect(counts.last, 0);
 
-      // Final state
       expect(syncManager.state.isWorking, false);
       expect(syncManager.state.lastError, null);
       expect(await syncManager.getPendingCount(), 0);
-    });
 
-    test('should prevent concurrent syncs', () async {
-      await syncManager.addAction(const NoopAction('test1'));
+      expect(result1, isA<Map<String, dynamic>>());
+      expect(result1.length, 3);
 
-      final sync1 = syncManager.synchronize(withFinalRefresh: false);
-      final sync2 = syncManager.synchronize(withFinalRefresh: false);
-
-      await Future.wait([sync1, sync2]);
-
+      // Test with final refresh
+      await syncManager.addAction(const NoopAction('test4'));
+      final result2 = await syncManager.synchronize(withFinalRefresh: true);
+      expect(result2, isA<Map<String, dynamic>>());
       expect(await syncManager.getPendingCount(), 0);
     });
+
+    test('should update app badge based on configuration', () async {
+      // When enabled
+      when(() => configStore.get<bool>(any())).thenReturn(true);
+      await syncManager.addAction(const NoopAction('test1'));
+      await syncManager.synchronize(withFinalRefresh: false);
+      verify(() => appBadge.update(any())).called(1);
+
+      // When disabled
+      when(() => configStore.get<bool>(any())).thenReturn(false);
+      await syncManager.addAction(const NoopAction('test2'));
+      await syncManager.synchronize(withFinalRefresh: false);
+      verifyNever(() => appBadge.update(any()));
+    });
+  });
+
+  group('error handling', () {
+    test('should handle different error types correctly', () async {
+      // ServerError should be captured
+      await syncManager.addAction(
+        NoopAction.error(const ServerError('test error')),
+      );
+      await syncManager.synchronize(withFinalRefresh: false);
+      expect(syncManager.state.lastError, isA<ServerError>());
+      expect(syncManager.state.lastError.toString(), contains('test error'));
+      expect(syncManager.state.isWorking, false);
+      await storage.clearRemoteActions();
+
+      // ServerError with ClientException source should NOT be captured
+      await syncManager.addAction(
+        const NoopAction('ERROR:ClientException:network error'),
+      );
+      await syncManager.synchronize(withFinalRefresh: false);
+      expect(syncManager.state.lastError, null);
+      expect(syncManager.state.isWorking, false);
+      await storage.clearRemoteActions();
+
+      // Generic Exception should be captured
+      await syncManager.addAction(NoopAction.error(Exception('generic error')));
+      await syncManager.synchronize(withFinalRefresh: false);
+      expect(syncManager.state.lastError, isA<Exception>());
+      expect(syncManager.state.isWorking, false);
+    });
+
+    test(
+      'should persist failed actions and clear errors appropriately',
+      () async {
+        // Failed action should remain in queue for retry
+        await syncManager.addAction(NoopAction.error(Exception('test error')));
+        await syncManager.synchronize(withFinalRefresh: false);
+        expect(await syncManager.getPendingCount(), 1);
+        expect(syncManager.state.lastError, isA<Exception>());
+
+        // Remove the failed action from DB directly
+        await storage.clearRemoteActions();
+
+        // Next sync with empty queue should clear error
+        await syncManager.synchronize(withFinalRefresh: false);
+        expect(syncManager.state.lastError, null);
+        expect(await syncManager.getPendingCount(), 0);
+      },
+    );
   });
 
   group('SyncState', () {

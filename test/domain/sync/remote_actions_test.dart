@@ -260,7 +260,7 @@ void main() {
     });
 
     test('execute updates article', () async {
-      final action = EditArticleAction(123, archived: true, starred: false);
+      const action = EditArticleAction(123, archived: true, starred: false);
       final updatedArticle = _createTestArticle(id: 123, archived: true);
 
       when(

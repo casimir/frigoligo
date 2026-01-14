@@ -103,8 +103,9 @@ void main() {
       await controller.setTags(['tag1', 'tag2']);
 
       verify(
-        () =>
-            syncManager.addAction(EditArticleAction(1, tags: ['tag1', 'tag2'])),
+        () => syncManager.addAction(
+          const EditArticleAction(1, tags: ['tag1', 'tag2']),
+        ),
       ).called(1);
       verify(() => syncManager.synchronize(withFinalRefresh: false)).called(1);
     });
