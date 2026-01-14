@@ -252,7 +252,7 @@ class SyncManager {
         _configStoreService.get<bool>(Sk.appBadge.key) ?? false;
     if (!AppBadgeService.isSupportedSync || !badgeEnabled) return;
 
-    final unread = await _localStorageService.countUnread();
+    final unread = await _localStorageService.articles.countUnread();
     await _appBadgeService.update(unread);
     _log.fine('updated app badge: $unread unread');
   }

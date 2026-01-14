@@ -219,7 +219,7 @@ void main() {
       expect(syncManager.state.lastError, isA<ServerError>());
       expect(syncManager.state.lastError.toString(), contains('test error'));
       expect(syncManager.state.isWorking, false);
-      await storage.clearRemoteActions();
+      await storage.remoteActions.clear();
 
       // ServerError with ClientException source should NOT be captured
       await syncManager.addAction(
@@ -228,7 +228,7 @@ void main() {
       await syncManager.synchronize(withFinalRefresh: false);
       expect(syncManager.state.lastError, null);
       expect(syncManager.state.isWorking, false);
-      await storage.clearRemoteActions();
+      await storage.remoteActions.clear();
 
       // Generic Exception should be captured
       await syncManager.addAction(NoopAction.error(Exception('generic error')));
@@ -247,7 +247,7 @@ void main() {
         expect(syncManager.state.lastError, isA<Exception>());
 
         // Remove the failed action from DB directly
-        await storage.clearRemoteActions();
+        await storage.remoteActions.clear();
 
         // Next sync with empty queue should clear error
         await syncManager.synchronize(withFinalRefresh: false);

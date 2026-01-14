@@ -77,7 +77,7 @@ class RefreshArticlesAction extends RemoteAction {
 
   @override
   Future<void> execute(api, storage, onProgress) async {
-    final int? since = await storage.getLastSyncTS();
+    final int? since = await storage.metadata.getLastSyncTS();
     const int threshold = 60; // seconds
     if (since != null) {
       final now = (DateTime.now().millisecondsSinceEpoch / 1000).toInt();
@@ -99,7 +99,7 @@ class RefreshArticlesAction extends RemoteAction {
     _log.info('starting refresh with since=${sinceDT?.toIso8601String()}');
 
     if (since == null) {
-      await storage.clear(keepPositions: true);
+      await storage.database.clear(keepPositions: true);
       _log.info('cleared the local cache (articles and pending actions)');
 
       final articlesStream = api.listArticles(
@@ -107,14 +107,14 @@ class RefreshArticlesAction extends RemoteAction {
         onProgress: onProgress,
       );
       await for (final articles in articlesStream) {
-        await storage.updateAllArticles(articles);
+        await storage.articles.updateAll(articles);
         _log.info('saved ${articles.length} articles to the database');
         count += articles.length;
       }
     } else {
       final operations = await api.listOperations(
         since: sinceDT,
-        localIds: await storage.getAllArticleIds(),
+        localIds: await storage.articles.getAllIds(),
         onProgress: onProgress,
       );
       for (final op in operations) {
@@ -130,7 +130,7 @@ class RefreshArticlesAction extends RemoteAction {
     }
 
     final now = (DateTime.now().millisecondsSinceEpoch / 1000).toInt();
-    await storage.setLastSyncTS(now);
+    await storage.metadata.setLastSyncTS(now);
 
     _log.info(
       'completed refresh of $count entries in ${stopwatch.elapsed.inSeconds} s',

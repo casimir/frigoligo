@@ -7,38 +7,20 @@ class LocalStorageService {
   LocalStorageService({required DB db})
     : dbVersion = db.schemaVersion,
       articles = ArticlesManager(db),
-      tags = TagsManager(db),
-      _db = db;
+      database = DatabaseManager(db),
+      metadata = MetadataManager(db),
+      remoteActions = RemoteActionsManager(db),
+      tags = TagsManager(db);
 
   final int dbVersion;
   final ArticlesManager articles;
+  final DatabaseManager database;
+  final MetadataManager metadata;
+  final RemoteActionsManager remoteActions;
   final TagsManager tags;
 
-  // Temporary zone
-
-  final DB _db;
-
   @Deprecated('this getter will be deleted at some point')
-  DB get db => _db;
-
-  // temporary zone for sync operation, will be moved during the refacto
-
-  Future<int?> getLastSyncTS() => _db.metadataDao.getLastSyncTS();
-
-  Future<void> setLastSyncTS(int timestamp) =>
-      _db.metadataDao.setLastSyncTS(timestamp);
-
-  Future<void> clear({bool keepPositions = false}) =>
-      _db.clear(keepPositions: keepPositions);
-
-  Future<int> countUnread() => _db.articlesDao.countUnread();
-
-  Future<Set<int>> getAllArticleIds() => _db.articlesDao.getAllIds();
-
-  Future<void> updateAllArticles(List<Article> articles) =>
-      _db.articlesDao.updateAll(articles);
-
-  Future<void> clearRemoteActions() => _db.managers.remoteActions.delete();
+  DB get db => database._db;
 }
 
 // A simple wrapper to avoid leaking drift outside of the service.
@@ -313,6 +295,42 @@ class ArticlesManager {
       );
     });
   }
+
+  Future<int> countUnread() => _db.articlesDao.countUnread();
+
+  Future<Set<int>> getAllIds() => _db.articlesDao.getAllIds();
+
+  Future<void> updateAll(List<Article> articles) =>
+      _db.articlesDao.updateAll(articles);
+}
+
+class DatabaseManager {
+  const DatabaseManager(this._db);
+
+  final DB _db;
+
+  /// Clears all data, optionally preserving scroll positions.
+  Future<void> clear({bool keepPositions = false}) =>
+      _db.clear(keepPositions: keepPositions);
+}
+
+class MetadataManager {
+  const MetadataManager(this._db);
+
+  final DB _db;
+
+  Future<int?> getLastSyncTS() => _db.metadataDao.getLastSyncTS();
+
+  Future<void> setLastSyncTS(int timestamp) =>
+      _db.metadataDao.setLastSyncTS(timestamp);
+}
+
+class RemoteActionsManager {
+  const RemoteActionsManager(this._db);
+
+  final DB _db;
+
+  Future<void> clear() => _db.managers.remoteActions.delete();
 }
 
 class TagsManager {

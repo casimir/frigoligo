@@ -97,7 +97,7 @@ class SettingsPage extends ConsumerWidget {
                         final badgeEnabled =
                             configStore.get<bool>(Sk.appBadge.key) ?? false;
                         if (AppBadgeService.isSupportedSync && badgeEnabled) {
-                          final unread = await storage.countUnread();
+                          final unread = await storage.articles.countUnread();
                           await appBadge.update(unread);
                         }
                       }
@@ -251,13 +251,13 @@ class SettingsPage extends ConsumerWidget {
                           .get<ConfigStoreService>();
                       final appBadge = dependencies.get<AppBadgeService>();
 
-                      await storage.clear(keepPositions: true);
+                      await storage.database.clear(keepPositions: true);
 
                       // Update badge after clearing
                       final badgeEnabled =
                           configStore.get<bool>(Sk.appBadge.key) ?? false;
                       if (AppBadgeService.isSupportedSync && badgeEnabled) {
-                        final unread = await storage.countUnread();
+                        final unread = await storage.articles.countUnread();
                         await appBadge.update(unread);
                       }
 

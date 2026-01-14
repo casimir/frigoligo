@@ -92,7 +92,7 @@ void main() {
       test('throttles when last sync was recent', () async {
         const action = RefreshArticlesAction();
         final now = (DateTime.now().millisecondsSinceEpoch / 1000).toInt();
-        await storage.setLastSyncTS(now - 30);
+        await storage.metadata.setLastSyncTS(now - 30);
 
         await action.execute(apiClient, storage, (_) {});
 
@@ -130,14 +130,14 @@ void main() {
             onProgress: any(named: 'onProgress'),
           ),
         ).called(1);
-        expect(await storage.getLastSyncTS(), isNotNull);
+        expect(await storage.metadata.getLastSyncTS(), isNotNull);
       });
 
       test('performs incremental refresh when last sync exists', () async {
         const action = RefreshArticlesAction();
         final lastSync =
             (DateTime.now().millisecondsSinceEpoch / 1000).toInt() - 120;
-        await storage.setLastSyncTS(lastSync);
+        await storage.metadata.setLastSyncTS(lastSync);
 
         when(
           () => apiClient.listOperations(
@@ -168,7 +168,7 @@ void main() {
         const action = RefreshArticlesAction();
         final lastSync =
             (DateTime.now().millisecondsSinceEpoch / 1000).toInt() - 120;
-        await storage.setLastSyncTS(lastSync);
+        await storage.metadata.setLastSyncTS(lastSync);
 
         final operations = [
           ArticleOperation(

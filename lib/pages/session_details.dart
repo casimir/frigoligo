@@ -136,7 +136,7 @@ ListTile _buildLastSync(BuildContext context) {
     subtitle: AText(
       builder: (context) async {
         String sinceLastSync = context.L.session_neverSynced;
-        final lastSync = await storageService.getLastSyncTS();
+        final lastSync = await storageService.metadata.getLastSyncTS();
         if (lastSync != null) {
           sinceLastSync = DateTime.fromMillisecondsSinceEpoch(lastSync * 1000)
               // ignore: use_build_context_synchronously
@@ -163,7 +163,7 @@ void _logout(BuildContext context, WidgetRef ref) async {
   await ref.read(settingsProvider.notifier).clear();
 
   final storage = dependencies.get<LocalStorageService>();
-  await storage.clear(keepPositions: false);
+  await storage.database.clear(keepPositions: false);
   await dependencies.get<AppBadgeService>().clear();
 
   if (context.mounted) {
