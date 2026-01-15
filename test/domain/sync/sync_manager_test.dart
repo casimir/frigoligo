@@ -287,4 +287,45 @@ void main() {
       expect(complete.pendingCount, 5);
     });
   });
+
+  group('throttling', () {
+    test('should allow sync when no previous sync timestamp exists', () async {
+      await syncManager.addAction(const NoopAction('test'));
+
+      final result = await syncManager.throttledSynchronize(
+        withFinalRefresh: false,
+      );
+
+      expect(result.isNotEmpty, true);
+      expect(await syncManager.getPendingCount(), 0);
+    });
+
+    test('should throttle sync when last sync was recent', () async {
+      final recentTimestamp =
+          DateTime.now().millisecondsSinceEpoch ~/ 1000 - 60;
+      await storage.metadata.setLastSyncTS(recentTimestamp);
+      await syncManager.addAction(const NoopAction('test'));
+
+      final result = await syncManager.throttledSynchronize(
+        withFinalRefresh: false,
+      );
+
+      expect(result.isEmpty, true);
+      expect(await syncManager.getPendingCount(), 1);
+    });
+
+    test('should allow sync when last sync was long ago', () async {
+      final epochSeconds = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+      final oldTimestamp = epochSeconds - autoSyncThrottleSeconds - 1;
+      await storage.metadata.setLastSyncTS(oldTimestamp);
+      await syncManager.addAction(const NoopAction('test'));
+
+      final result = await syncManager.throttledSynchronize(
+        withFinalRefresh: false,
+      );
+
+      expect(result.isNotEmpty, true);
+      expect(await syncManager.getPendingCount(), 0);
+    });
+  });
 }

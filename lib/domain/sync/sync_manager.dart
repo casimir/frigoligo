@@ -18,6 +18,7 @@ export 'remote_actions.dart';
 final _log = Logger('sync.manager');
 
 const _refreshAction = RefreshArticlesAction();
+const autoSyncThrottleSeconds = 15 * 60;
 
 class SyncState {
   const SyncState({
@@ -245,6 +246,23 @@ class SyncManager {
     }
 
     return res;
+  }
+
+  Future<Map<String, dynamic>> throttledSynchronize({
+    required bool withFinalRefresh,
+  }) async {
+    final int? lastSync = await _localStorageService.metadata.getLastSyncTS();
+    if (lastSync != null) {
+      final now = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+      final elapsed = now - lastSync;
+      if (elapsed < autoSyncThrottleSeconds) {
+        _log.info(
+          'sync throttled (${elapsed}s < ${autoSyncThrottleSeconds}s since last sync)',
+        );
+        return {};
+      }
+    }
+    return synchronize(withFinalRefresh: withFinalRefresh);
   }
 
   Future<void> _updateAppBadge() async {

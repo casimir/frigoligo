@@ -19,8 +19,9 @@ void backgroundSync(Ref ref) {
       interval: periodicSyncInterval,
       name: 'background-sync',
       timeout: periodicSyncTimeout,
-      task: () async =>
-          await SyncManager.instance.synchronize(withFinalRefresh: true),
+      task: () async => await SyncManager.instance.throttledSynchronize(
+        withFinalRefresh: true,
+      ),
     ).start();
   } else if (UniversalPlatform.isMobile) {
     BackgroundFetch.configure(
@@ -38,7 +39,9 @@ void backgroundSync(Ref ref) {
           ),
           (String taskId) async {
             _log.info('starting background sync');
-            await SyncManager.instance.synchronize(withFinalRefresh: true);
+            await SyncManager.instance.throttledSynchronize(
+              withFinalRefresh: true,
+            );
           },
         )
         .then((int status) {
@@ -49,6 +52,6 @@ void backgroundSync(Ref ref) {
         });
   } else {
     _log.info('starting one-shot background sync');
-    SyncManager.instance.synchronize(withFinalRefresh: true);
+    SyncManager.instance.throttledSynchronize(withFinalRefresh: true);
   }
 }

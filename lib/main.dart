@@ -146,6 +146,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       dependencies.get<ConfigStoreService>().reload();
+      SyncManager.instance.throttledSynchronize(withFinalRefresh: true);
     }
   }
 }
