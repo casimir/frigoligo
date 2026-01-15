@@ -11,11 +11,13 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 import '../app_info.dart';
 import '../buildcontext_extension.dart';
+import '../config/dependencies.dart';
 import '../constants.dart';
+import '../data/services/local/storage/config_store_service.dart';
+import '../data/services/local/storage/storage_service.dart';
 import '../data/services/platform/appbadge_service.dart';
-import '../providers/settings.dart';
-import '../services/local_storage.dart';
-import '../services/remote_sync.dart';
+import '../domain/sync/sync_manager.dart';
+import '../providers/settings.dart' show Language, Sk, settingsProvider;
 import '../src/generated/i18n/app_localizations.dart';
 import '../widget_keys.dart';
 
@@ -84,14 +86,20 @@ class SettingsPage extends ConsumerWidget {
                       final previous = settings[Sk.appBadge];
                       if (previous && !value) {
                         // enabled -> disabled
-                        await ref
-                            .read(localStorageProvider.notifier)
-                            .removeAppBadge();
+                        dependencies.get<AppBadgeService>().clear();
                       } else if (!previous && value) {
                         // disabled -> enabled
-                        await ref
-                            .read(localStorageProvider.notifier)
-                            .updateAppBadge();
+                        final configStore = dependencies
+                            .get<ConfigStoreService>();
+                        final storage = dependencies.get<LocalStorageService>();
+                        final appBadge = dependencies.get<AppBadgeService>();
+
+                        final badgeEnabled =
+                            configStore.get<bool>(Sk.appBadge.key) ?? false;
+                        if (AppBadgeService.isSupportedSync && badgeEnabled) {
+                          final unread = await storage.articles.countUnread();
+                          await appBadge.update(unread);
+                        }
                       }
                     },
                   ),
@@ -238,11 +246,25 @@ class SettingsPage extends ConsumerWidget {
                     if (result == OkCancelResult.cancel) return;
                     _log.info('user action > cache rebuild');
                     if (context.mounted) {
-                      ref.read(localStorageProvider.notifier).clearArticles();
-                      ref
-                          .read(remoteSyncerProvider.notifier)
-                          .synchronize(withFinalRefresh: true);
-                      context.go('/');
+                      final storage = dependencies.get<LocalStorageService>();
+                      final configStore = dependencies
+                          .get<ConfigStoreService>();
+                      final appBadge = dependencies.get<AppBadgeService>();
+
+                      await storage.database.clear(keepPositions: true);
+
+                      // Update badge after clearing
+                      final badgeEnabled =
+                          configStore.get<bool>(Sk.appBadge.key) ?? false;
+                      if (AppBadgeService.isSupportedSync && badgeEnabled) {
+                        final unread = await storage.articles.countUnread();
+                        await appBadge.update(unread);
+                      }
+
+                      SyncManager.instance.synchronize(withFinalRefresh: true);
+                      if (context.mounted) {
+                        context.go('/');
+                      }
                     }
                   },
                 ),

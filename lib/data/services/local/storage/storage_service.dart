@@ -7,19 +7,20 @@ class LocalStorageService {
   LocalStorageService({required DB db})
     : dbVersion = db.schemaVersion,
       articles = ArticlesManager(db),
-      tags = TagsManager(db),
-      _db = db;
+      database = DatabaseManager(db),
+      metadata = MetadataManager(db),
+      remoteActions = RemoteActionsManager(db),
+      tags = TagsManager(db);
 
   final int dbVersion;
   final ArticlesManager articles;
+  final DatabaseManager database;
+  final MetadataManager metadata;
+  final RemoteActionsManager remoteActions;
   final TagsManager tags;
 
-  // Temporary zone
-
-  final DB _db;
-
   @Deprecated('this getter will be deleted at some point')
-  DB get db => _db;
+  DB get db => database._db;
 }
 
 // A simple wrapper to avoid leaking drift outside of the service.
@@ -293,6 +294,83 @@ class ArticlesManager {
         mode: InsertMode.insertOrReplace,
       );
     });
+  }
+
+  Future<int> countUnread() => _db.articlesDao.countUnread();
+
+  Future<Set<int>> getAllIds() => _db.articlesDao.getAllIds();
+
+  Future<void> updateAll(List<Article> articles) =>
+      _db.articlesDao.updateAll(articles);
+}
+
+class DatabaseManager {
+  const DatabaseManager(this._db);
+
+  final DB _db;
+
+  /// Clears all data, optionally preserving scroll positions.
+  Future<void> clear({bool keepPositions = false}) =>
+      _db.clear(keepPositions: keepPositions);
+}
+
+class MetadataManager {
+  const MetadataManager(this._db);
+
+  final DB _db;
+
+  static const _keyLastSyncTS = 'lastRefreshTS';
+
+  Future<int?> getLastSyncTS() async {
+    final row = await _db.managers.metadata
+        .filter((f) => f.key.equals(_keyLastSyncTS))
+        .getSingleOrNull();
+    return row != null ? int.parse(row.value) : null;
+  }
+
+  Future<void> setLastSyncTS(int timestamp) => _db.managers.metadata.create(
+    (o) => o(key: _keyLastSyncTS, value: timestamp.toString()),
+    mode: InsertMode.insertOrReplace,
+  );
+}
+
+class RemoteActionsManager {
+  const RemoteActionsManager(this._db);
+
+  final DB _db;
+
+  Future<bool> exists(int key) =>
+      _db.managers.remoteActions.filter((f) => f.key.equals(key)).exists();
+
+  Future<void> create({
+    required int key,
+    required DateTime createdAt,
+    required String className,
+    required String jsonParams,
+  }) => _db.managers.remoteActions.create(
+    (o) => o(
+      key: key,
+      createdAt: createdAt,
+      className: className,
+      jsonParams: jsonParams,
+    ),
+  );
+
+  Future<int> delete(int key) =>
+      _db.managers.remoteActions.filter((f) => f.key.equals(key)).delete();
+
+  Future<void> clear() => _db.managers.remoteActions.delete();
+
+  Future<int> count() => _db.managers.remoteActions.count(distinct: false);
+
+  Future<List<({String className, String jsonParams})>>
+  getAllOrderedByCreation() async {
+    final rows =
+        await (_db.managers.remoteActions..orderBy((o) => o.createdAt.asc()))
+            .get();
+    return rows
+        .map((row) => (className: row.className, jsonParams: row.jsonParams))
+        .toList();
   }
 }
 

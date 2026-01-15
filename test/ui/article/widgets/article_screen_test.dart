@@ -6,7 +6,7 @@ import 'package:frigoligo/config/dependencies.dart';
 import 'package:frigoligo/data/services/local/storage/database/connection/native.dart';
 import 'package:frigoligo/data/services/local/storage/database/database.dart';
 import 'package:frigoligo/domain/models/article_data.dart';
-import 'package:frigoligo/services/remote_sync.dart';
+import 'package:frigoligo/domain/sync/sync_manager.dart';
 import 'package:frigoligo/src/generated/i18n/app_localizations.dart';
 import 'package:frigoligo/ui/article/controllers/article_screen_controller.dart';
 import 'package:frigoligo/ui/article/states.dart';
@@ -21,8 +21,8 @@ import 'package:mocktail/mocktail.dart';
 class MockArticleScreenController extends Mock
     implements ArticleScreenController {}
 
-class _FakeRemoteSyncer extends RemoteSyncer {
-  _FakeRemoteSyncer(this._state);
+class _FakeSyncManagerState extends SyncManagerState {
+  _FakeSyncManagerState(this._state);
 
   final SyncState _state;
 
@@ -65,6 +65,13 @@ void main() {
     setUp(() {
       db = DB(inMemory());
       setupDependencies(withDB: db);
+      SyncManager.init(
+        localStorageService: dependencies.get(),
+        remoteActionRepository: dependencies.get(),
+        serverSessionRepository: dependencies.get(),
+        configStoreService: dependencies.get(),
+        appBadgeService: dependencies.get(),
+      );
 
       mockController = MockArticleScreenController();
       when(() => mockController.articleId).thenReturn(1);
@@ -80,8 +87,8 @@ void main() {
         return ProviderScope(
           overrides: [
             // ignore: scoped_providers_should_specify_dependencies
-            remoteSyncerProvider.overrideWith(
-              () => _FakeRemoteSyncer(
+            syncManagerStateProvider.overrideWith(
+              () => _FakeSyncManagerState(
                 const SyncState(
                   isWorking: true,
                   progressValue: 0.5,

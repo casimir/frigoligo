@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:frigoligo/config/dependencies.dart';
 import 'package:frigoligo/data/services/local/storage/database/connection/native.dart';
 import 'package:frigoligo/data/services/local/storage/database/database.dart';
+import 'package:frigoligo/domain/sync/sync_manager.dart';
 import 'package:frigoligo/src/generated/i18n/app_localizations.dart';
 import 'package:frigoligo/ui/core/widgets/remote_sync.dart';
 import 'package:frigoligo/ui/home/controllers/listing_container_controller.dart';
@@ -25,6 +26,13 @@ void main() {
     setUp(() {
       db = DB(inMemory());
       setupDependencies(withDB: db);
+      SyncManager.init(
+        localStorageService: dependencies.get(),
+        remoteActionRepository: dependencies.get(),
+        serverSessionRepository: dependencies.get(),
+        configStoreService: dependencies.get(),
+        appBadgeService: dependencies.get(),
+      );
 
       mockController = MockListingContainerController();
       when(() => mockController.refresh()).thenAnswer((_) async {});

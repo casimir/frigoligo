@@ -7,13 +7,12 @@ import 'package:frigoligo/data/services/local/storage/database/models/article.dr
 import 'package:frigoligo/data/services/local/storage/storage_service.dart';
 import 'package:frigoligo/data/services/platform/sharing_service.dart';
 import 'package:frigoligo/data/services/platform/urllauncher_service.dart';
-import 'package:frigoligo/services/remote_sync.dart';
-import 'package:frigoligo/services/remote_sync_actions.dart';
+import 'package:frigoligo/domain/sync/sync_manager.dart';
 import 'package:frigoligo/ui/article/controllers/article_screen_controller.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
-class MockRemoteSyncer extends Mock implements RemoteSyncer {}
+class MockSyncManager extends Mock implements SyncManager {}
 
 class MockSharingService extends Mock implements SharingService {}
 
@@ -45,9 +44,9 @@ void main() {
       'should be able to set the archived and starred of the article',
       () async {
         final LocalStorageService localStorageService = dependencies.get();
-        final mockRemoteSyncer = MockRemoteSyncer();
+        final mockSyncManager = MockSyncManager();
         final controller = ArticleScreenController(
-          syncer: mockRemoteSyncer,
+          syncManager: mockSyncManager,
           sharingService: dependencies.get(),
           urlLauncherService: dependencies.get(),
           articleId: 1,
@@ -65,31 +64,42 @@ void main() {
           ),
         );
 
-        when(() => mockRemoteSyncer.add(any())).thenAnswer((_) async => {});
-        when(() => mockRemoteSyncer.synchronize()).thenAnswer((_) async => {});
+        when(
+          () => mockSyncManager.addAction(any()),
+        ).thenAnswer((_) async => {});
+        when(
+          () => mockSyncManager.synchronize(withFinalRefresh: false),
+        ).thenAnswer((_) async => {});
 
         await controller.setArchived(true);
         verify(
-          () =>
-              mockRemoteSyncer.add(const EditArticleAction(1, archived: true)),
+          () => mockSyncManager.addAction(
+            const EditArticleAction(1, archived: true),
+          ),
         ).called(1);
 
         await controller.setStarred(true);
         verify(
-          () => mockRemoteSyncer.add(const EditArticleAction(1, starred: true)),
+          () => mockSyncManager.addAction(
+            const EditArticleAction(1, starred: true),
+          ),
         ).called(1);
 
-        verify(() => mockRemoteSyncer.synchronize()).called(2);
+        verify(
+          () => mockSyncManager.synchronize(withFinalRefresh: false),
+        ).called(2);
       },
     );
 
     test('should be able to delete the article', () async {
-      final mockRemoteSyncer = MockRemoteSyncer();
-      when(() => mockRemoteSyncer.add(any())).thenAnswer((_) async => {});
-      when(() => mockRemoteSyncer.synchronize()).thenAnswer((_) async => {});
+      final mockSyncManager = MockSyncManager();
+      when(() => mockSyncManager.addAction(any())).thenAnswer((_) async => {});
+      when(
+        () => mockSyncManager.synchronize(withFinalRefresh: false),
+      ).thenAnswer((_) async => {});
 
       final controller = ArticleScreenController(
-        syncer: mockRemoteSyncer,
+        syncManager: mockSyncManager,
         sharingService: MockSharingService(),
         urlLauncherService: MockUrlLauncherService(),
         articleId: 1,
@@ -97,9 +107,11 @@ void main() {
       await controller.deleteArticle();
 
       verify(
-        () => mockRemoteSyncer.add(const DeleteArticleAction(1)),
+        () => mockSyncManager.addAction(const DeleteArticleAction(1)),
       ).called(1);
-      verify(() => mockRemoteSyncer.synchronize()).called(1);
+      verify(
+        () => mockSyncManager.synchronize(withFinalRefresh: false),
+      ).called(1);
     });
 
     test('should be able to share the article', () async {
@@ -113,7 +125,7 @@ void main() {
       ).thenAnswer((_) async => {});
 
       final controller = ArticleScreenController(
-        syncer: MockRemoteSyncer(),
+        syncManager: MockSyncManager(),
         sharingService: sharingService,
         urlLauncherService: MockUrlLauncherService(),
         articleId: 1,
@@ -136,7 +148,7 @@ void main() {
       ).thenAnswer((_) async => true);
 
       final controller = ArticleScreenController(
-        syncer: MockRemoteSyncer(),
+        syncManager: MockSyncManager(),
         sharingService: MockSharingService(),
         urlLauncherService: urlLauncherService,
         articleId: 1,

@@ -49,4 +49,4 @@ final class BackgroundSyncProvider extends $FunctionalProvider<void, void, void>
   }
 }
 
-String _$backgroundSyncHash() => r'e177313ea90da9294c4a579444654c5453f5e6ed';
+String _$backgroundSyncHash() => r'3ef8b5093620b36929537d93d580deed3cc8f0f9';

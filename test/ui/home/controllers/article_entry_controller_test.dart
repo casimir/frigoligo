@@ -5,13 +5,12 @@ import 'package:frigoligo/data/services/local/storage/database/connection/native
 import 'package:frigoligo/data/services/local/storage/database/database.dart';
 import 'package:frigoligo/data/services/local/storage/database/models/article.drift.dart';
 import 'package:frigoligo/data/services/local/storage/storage_service.dart';
-import 'package:frigoligo/services/remote_sync.dart';
-import 'package:frigoligo/services/remote_sync_actions.dart';
+import 'package:frigoligo/domain/sync/sync_manager.dart';
 import 'package:frigoligo/ui/home/controllers/article_entry_controller.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
-class MockRemoteSyncer extends Mock implements RemoteSyncer {}
+class MockSyncManager extends Mock implements SyncManager {}
 
 class MockEditArticleAction extends Mock implements EditArticleAction {}
 
@@ -38,7 +37,7 @@ void main() {
       final QueryRepository queryRepository = dependencies.get();
       final controller = ArticleEntryController(
         queryRepository: queryRepository,
-        syncer: MockRemoteSyncer(),
+        syncManager: MockSyncManager(),
         articleId: 1,
       );
 
@@ -71,10 +70,10 @@ void main() {
       'should be able to set the archived and starred of the article',
       () async {
         final LocalStorageService localStorageService = dependencies.get();
-        final mockRemoteSyncer = MockRemoteSyncer();
+        final mockSyncManager = MockSyncManager();
         final controller = ArticleEntryController(
           queryRepository: dependencies.get(),
-          syncer: mockRemoteSyncer,
+          syncManager: mockSyncManager,
           articleId: 1,
         );
 
@@ -90,21 +89,30 @@ void main() {
           ),
         );
 
-        when(() => mockRemoteSyncer.add(any())).thenAnswer((_) async => {});
-        when(() => mockRemoteSyncer.synchronize()).thenAnswer((_) async => {});
+        when(
+          () => mockSyncManager.addAction(any()),
+        ).thenAnswer((_) async => {});
+        when(
+          () => mockSyncManager.synchronize(withFinalRefresh: false),
+        ).thenAnswer((_) async => {});
 
         await controller.setArchived(true);
         verify(
-          () =>
-              mockRemoteSyncer.add(const EditArticleAction(1, archived: true)),
+          () => mockSyncManager.addAction(
+            const EditArticleAction(1, archived: true),
+          ),
         ).called(1);
 
         await controller.setStarred(true);
         verify(
-          () => mockRemoteSyncer.add(const EditArticleAction(1, starred: true)),
+          () => mockSyncManager.addAction(
+            const EditArticleAction(1, starred: true),
+          ),
         ).called(1);
 
-        verify(() => mockRemoteSyncer.synchronize()).called(2);
+        verify(
+          () => mockSyncManager.synchronize(withFinalRefresh: false),
+        ).called(2);
       },
     );
   });

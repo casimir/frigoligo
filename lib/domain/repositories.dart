@@ -6,6 +6,7 @@ import 'models/article_data.dart';
 import 'models/log_entry.dart';
 import 'models/query.dart';
 import 'models/server_session.dart';
+import 'sync/remote_actions.dart';
 
 abstract class ArticleRepository {
   Stream<ArticleData?> watchData(int id);
@@ -61,4 +62,14 @@ abstract class ServerSessionRepository {
 
 abstract class TagRepository {
   Future<List<String>> getAll();
+}
+
+abstract class RemoteActionRepository {
+  Future<void> create(RemoteAction action);
+  Future<bool> delete(RemoteAction action);
+  Future<void> clear();
+
+  Future<bool> exists(RemoteAction action);
+  Future<int> count();
+  Future<List<RemoteAction>> getAllOrderedByCreation();
 }

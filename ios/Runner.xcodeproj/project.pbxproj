@@ -3,17 +3,18 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		021BA09A2A9BFCE500557A89 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021BA0992A9BFCE500557A89 /* ShareViewController.swift */; };
 		021BA09D2A9BFCE500557A89 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 021BA09B2A9BFCE500557A89 /* MainInterface.storyboard */; };
 		021BA0A12A9BFCE500557A89 /* share.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 021BA0972A9BFCE500557A89 /* share.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		027594662F199844000DCD29 /* AppBadgePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027594642F199844000DCD29 /* AppBadgePlugin.swift */; };
+		027594672F199844000DCD29 /* AppBadgePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027594642F199844000DCD29 /* AppBadgePlugin.swift */; };
 		02A11FCD2BD558E400723586 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 02A11FCC2BD558E400723586 /* PrivacyInfo.xcprivacy */; };
 		02A11FCE2BD558E400723586 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 02A11FCC2BD558E400723586 /* PrivacyInfo.xcprivacy */; };
 		02A8B8102AC1FA2E00E393D9 /* CompletionToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A8B80F2AC1FA2E00E393D9 /* CompletionToast.swift */; };
-		02E788162C6CE46A008E5F54 /* AppBadgePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E788152C6CE46A008E5F54 /* AppBadgePlugin.swift */; };
 		02F0CC942D40522800A73A77 /* SavePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F0CC932D40521C00A73A77 /* SavePlugin.swift */; };
 		02F0CC9D2D42434500A73A77 /* Flutter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02F0CC9C2D42434500A73A77 /* Flutter.xcframework */; };
 		05BC92B8285B3FFB45B2EFE5 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 695FF15C61FFCBBA5A997ED3 /* Pods_Runner.framework */; };
@@ -65,11 +66,11 @@
 		021BA0992A9BFCE500557A89 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		021BA09C2A9BFCE500557A89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		021BA09E2A9BFCE500557A89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		027594642F199844000DCD29 /* AppBadgePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBadgePlugin.swift; sourceTree = "<group>"; };
 		027CBE832A9D32D8008575FC /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
 		02A11FCC2BD558E400723586 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		02A334222AA87F35004887D3 /* share.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = share.entitlements; sourceTree = "<group>"; };
 		02A8B80F2AC1FA2E00E393D9 /* CompletionToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionToast.swift; sourceTree = "<group>"; };
-		02E788152C6CE46A008E5F54 /* AppBadgePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBadgePlugin.swift; sourceTree = "<group>"; };
 		02F0CC932D40521C00A73A77 /* SavePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePlugin.swift; sourceTree = "<group>"; };
 		02F0CC9C2D42434500A73A77 /* Flutter.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:S8QB4VV633:FLUTTER.IO LLC"; lastKnownFileType = wrapper.xcframework; name = Flutter.xcframework; path = share/Frameworks/Flutter.xcframework; sourceTree = "<group>"; };
 		12DB2FBE3024E9C9C4D9B2CD /* Pods-share.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-share.release.xcconfig"; path = "Target Support Files/Pods-share/Pods-share.release.xcconfig"; sourceTree = "<group>"; };
@@ -129,6 +130,14 @@
 			path = share;
 			sourceTree = "<group>";
 		};
+		027594652F199844000DCD29 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				027594642F199844000DCD29 /* AppBadgePlugin.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		3B4D0FAAD1D2F20CE09ECD50 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -158,6 +167,7 @@
 			children = (
 				02A11FCC2BD558E400723586 /* PrivacyInfo.xcprivacy */,
 				9740EEB11CF90186004384FC /* Flutter */,
+				027594652F199844000DCD29 /* Shared */,
 				97C146F01CF9000F007C117D /* Runner */,
 				021BA0982A9BFCE500557A89 /* share */,
 				97C146EF1CF9000F007C117D /* Products */,
@@ -186,7 +196,6 @@
 				1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */,
 				1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */,
 				74858FAE1ED2DC5600515810 /* AppDelegate.swift */,
-				02E788152C6CE46A008E5F54 /* AppBadgePlugin.swift */,
 				74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */,
 			);
 			path = Runner;
@@ -356,9 +365,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -411,6 +424,7 @@
 			files = (
 				02A8B8102AC1FA2E00E393D9 /* CompletionToast.swift in Sources */,
 				02F0CC942D40522800A73A77 /* SavePlugin.swift in Sources */,
+				027594672F199844000DCD29 /* AppBadgePlugin.swift in Sources */,
 				021BA09A2A9BFCE500557A89 /* ShareViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -420,7 +434,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
-				02E788162C6CE46A008E5F54 /* AppBadgePlugin.swift in Sources */,
+				027594662F199844000DCD29 /* AppBadgePlugin.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

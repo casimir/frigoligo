@@ -5,21 +5,22 @@ import 'package:go_router/go_router.dart';
 
 import '../../../buildcontext_extension.dart';
 import '../../../config/dependencies.dart';
-import '../../../services/remote_sync.dart';
+import '../../../domain/sync/sync_manager.dart';
+import '../states.dart';
 
 class RemoteSyncFAB extends ConsumerWidget {
   const RemoteSyncFAB({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final syncState = ref.watch(remoteSyncerProvider);
-    final syncer = ref.read(remoteSyncerProvider.notifier);
+    final syncState = ref.watch(syncManagerStateProvider);
 
     if (!syncState.isWorking && syncState.pendingCount > 0) {
       return FloatingActionButton.extended(
         icon: const Icon(Icons.sync),
         label: Text(context.L.syncer_pendingActions(syncState.pendingCount)),
-        onPressed: () => syncer.synchronize(),
+        onPressed: () =>
+            SyncManager.instance.synchronize(withFinalRefresh: false),
       );
     } else {
       return const SizedBox.shrink();
@@ -39,7 +40,7 @@ class RemoteSyncProgressIndicator extends ConsumerWidget
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final syncState = ref.watch(remoteSyncerProvider);
+    final syncState = ref.watch(syncManagerStateProvider);
 
     final error = syncState.lastError;
     if (error != null) {

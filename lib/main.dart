@@ -18,6 +18,7 @@ import 'constants.dart';
 import 'data/services/local/storage/config_store_service.dart';
 import 'data/services/local/storage/storage_service.dart';
 import 'data/services/platform/appbadge_service.dart';
+import 'domain/sync/sync_manager.dart';
 import 'native/save.service.dart';
 import 'providers/background_sync.dart';
 import 'providers/router.dart';
@@ -50,6 +51,14 @@ Future<void> main() async {
     await ArticleContentRenderer.preload();
   }
   await Settings.init();
+
+  SyncManager.init(
+    localStorageService: dependencies.get(),
+    remoteActionRepository: dependencies.get(),
+    serverSessionRepository: dependencies.get(),
+    configStoreService: dependencies.get(),
+    appBadgeService: dependencies.get(),
+  );
 
   log.info('app version: ${AppInfo.versionVerbose}');
   log.info('db version:  ${dependencies.get<LocalStorageService>().dbVersion}');
@@ -138,6 +147,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       dependencies.get<ConfigStoreService>().reload();
+      SyncManager.instance.throttledSynchronize(withFinalRefresh: true);
     }
   }
 }
@@ -158,6 +168,14 @@ Future<void> mainNativeShare() async {
 
   await AppInfo.init();
   await Settings.init();
+
+  SyncManager.init(
+    localStorageService: dependencies.get(),
+    remoteActionRepository: dependencies.get(),
+    serverSessionRepository: dependencies.get(),
+    configStoreService: dependencies.get(),
+    appBadgeService: dependencies.get(),
+  );
 
   SaveService.setup();
 }

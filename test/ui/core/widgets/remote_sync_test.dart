@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:frigoligo/services/remote_sync.dart';
+import 'package:frigoligo/config/dependencies.dart';
+import 'package:frigoligo/data/services/local/storage/database/connection/native.dart';
+import 'package:frigoligo/data/services/local/storage/database/database.dart';
 import 'package:frigoligo/src/generated/i18n/app_localizations.dart';
+import 'package:frigoligo/ui/core/states.dart';
 import 'package:frigoligo/ui/core/widgets/remote_sync.dart';
 
-class _FakeRemoteSyncer extends RemoteSyncer {
-  _FakeRemoteSyncer(this._state);
+class _FakeSyncManagerState extends SyncManagerState {
+  _FakeSyncManagerState(this._state);
 
   final SyncState _state;
 
@@ -15,11 +18,24 @@ class _FakeRemoteSyncer extends RemoteSyncer {
 }
 
 void main() {
+  late DB db;
+
+  setUp(() {
+    db = DB(inMemory());
+    setupDependencies(withDB: db);
+  });
+
+  tearDown(() async {
+    await dependencies.reset();
+    await db.close();
+  });
   Widget buildWidget(SyncState state) {
     return ProviderScope(
       overrides: [
         // ignore: scoped_providers_should_specify_dependencies
-        remoteSyncerProvider.overrideWith(() => _FakeRemoteSyncer(state)),
+        syncManagerStateProvider.overrideWith(
+          () => _FakeSyncManagerState(state),
+        ),
       ],
       child: const MaterialApp(
         home: Scaffold(
@@ -115,9 +131,22 @@ void main() {
     });
 
     testWidgets('should be usable as a preferred size widget', (tester) async {
+      const state = SyncState(
+        isWorking: false,
+        progressValue: null,
+        lastError: null,
+        pendingCount: 0,
+      );
+
       await tester.pumpWidget(
-        const ProviderScope(
-          child: MaterialApp(
+        ProviderScope(
+          overrides: [
+            // ignore: scoped_providers_should_specify_dependencies
+            syncManagerStateProvider.overrideWith(
+              () => _FakeSyncManagerState(state),
+            ),
+          ],
+          child: const MaterialApp(
             home: Scaffold(appBar: RemoteSyncProgressIndicator()),
           ),
         ),

@@ -4,6 +4,7 @@ import '../constants.dart';
 import '../data/repositories/article_repository.dart';
 import '../data/repositories/logger_repository.dart';
 import '../data/repositories/query_repository.dart';
+import '../data/repositories/remote_action_repository.dart';
 import '../data/repositories/server_session_repository.dart';
 import '../data/repositories/tag_repository.dart';
 import '../data/services/local/storage/config_store_backends/shared_preferences_backend.dart';
@@ -64,6 +65,9 @@ void setupDependencies({
   d.registerLazySingleton<QueryRepository>(
     () => QueryRepositoryImpl(localStorageService: d.get()),
     dispose: (obj) => obj.dispose(),
+  );
+  d.registerLazySingleton<RemoteActionRepository>(
+    () => RemoteActionRepositoryImpl(localStorageService: d.get()),
   );
   d.registerLazySingleton<ServerSessionRepository>(
     () => ServerSessionRepositoryImpl(configStoreService: d.get()),

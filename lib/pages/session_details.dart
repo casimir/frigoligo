@@ -9,12 +9,12 @@ import '../app_info.dart';
 import '../buildcontext_extension.dart';
 import '../config/dependencies.dart';
 import '../data/services/local/storage/storage_service.dart';
+import '../data/services/platform/appbadge_service.dart';
 import '../datetime_extension.dart';
 import '../domain/client_factory.dart';
 import '../domain/models/server_session.dart';
 import '../providers/settings.dart';
 import '../server/clients.dart';
-import '../services/local_storage.dart';
 import '../ui/core/widgets/copyable_text.dart';
 import '../widgets/async/text.dart';
 
@@ -136,7 +136,7 @@ ListTile _buildLastSync(BuildContext context) {
     subtitle: AText(
       builder: (context) async {
         String sinceLastSync = context.L.session_neverSynced;
-        final lastSync = await storageService.db.metadataDao.getLastSyncTS();
+        final lastSync = await storageService.metadata.getLastSyncTS();
         if (lastSync != null) {
           sinceLastSync = DateTime.fromMillisecondsSinceEpoch(lastSync * 1000)
               // ignore: use_build_context_synchronously
@@ -161,9 +161,11 @@ void _logout(BuildContext context, WidgetRef ref) async {
   final ServerSessionRepository repository = dependencies.get();
   await repository.clear();
   await ref.read(settingsProvider.notifier).clear();
-  await ref
-      .read(localStorageProvider.notifier)
-      .clearArticles(keepPositions: false);
+
+  final storage = dependencies.get<LocalStorageService>();
+  await storage.database.clear(keepPositions: false);
+  await dependencies.get<AppBadgeService>().clear();
+
   if (context.mounted) {
     context.go('/login');
   }

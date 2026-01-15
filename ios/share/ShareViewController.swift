@@ -44,8 +44,9 @@ struct ShareExtView: UIViewControllerRepresentable {
     SqflitePlugin.register(with: engine.registrar(forPlugin: "SqflitePlugin")!)
     Sqlite3FlutterLibsPlugin.register(with: engine.registrar(forPlugin: "Sqlite3FlutterLibsPlugin")!)
     
+    AppBadgePlugin.register(with: engine.registrar(forPlugin: "AppBadgePlugin")!)
     SavePlugin.register(with: engine.registrar(forPlugin: "SavePlugin")!)
-    
+
     return engine
   }
   

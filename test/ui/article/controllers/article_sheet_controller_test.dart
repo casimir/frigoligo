@@ -5,13 +5,12 @@ import 'package:frigoligo/data/services/local/storage/database/connection/native
 import 'package:frigoligo/data/services/local/storage/database/database.dart';
 import 'package:frigoligo/data/services/platform/sharing_service.dart';
 import 'package:frigoligo/data/services/platform/urllauncher_service.dart';
-import 'package:frigoligo/services/remote_sync.dart';
-import 'package:frigoligo/services/remote_sync_actions.dart';
+import 'package:frigoligo/domain/sync/sync_manager.dart';
 import 'package:frigoligo/ui/article/controllers/article_sheet_controller.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
-class MockRemoteSyncer extends Mock implements RemoteSyncer {}
+class MockSyncManager extends Mock implements SyncManager {}
 
 class MockSharingService extends Mock implements SharingService {}
 
@@ -50,7 +49,7 @@ void main() {
       when(() => tagRepository.getAll()).thenAnswer((_) async => []);
 
       final controller = ArticleSheetController(
-        syncer: MockRemoteSyncer(),
+        syncManager: MockSyncManager(),
         tagRepository: tagRepository,
         sharingService: MockSharingService(),
         urlLauncherService: MockUrlLauncherService(),
@@ -62,12 +61,16 @@ void main() {
     });
 
     test('refetchContent', () async {
-      final syncer = MockRemoteSyncer();
-      when(() => syncer.add(captureAny())).thenAnswer((_) async => true);
-      when(() => syncer.synchronize()).thenAnswer((_) async => {});
+      final syncManager = MockSyncManager();
+      when(
+        () => syncManager.addAction(captureAny()),
+      ).thenAnswer((_) async => {});
+      when(
+        () => syncManager.synchronize(withFinalRefresh: false),
+      ).thenAnswer((_) async => {});
 
       final controller = ArticleSheetController(
-        syncer: syncer,
+        syncManager: syncManager,
         tagRepository: MockTagRepository(),
         sharingService: MockSharingService(),
         urlLauncherService: MockUrlLauncherService(),
@@ -75,17 +78,23 @@ void main() {
       );
       await controller.refetchContent();
 
-      verify(() => syncer.add(const RefetchArticleAction(1))).called(1);
-      verify(() => syncer.synchronize()).called(1);
+      verify(
+        () => syncManager.addAction(const RefetchArticleAction(1)),
+      ).called(1);
+      verify(() => syncManager.synchronize(withFinalRefresh: false)).called(1);
     });
 
     test('setTags', () async {
-      final syncer = MockRemoteSyncer();
-      when(() => syncer.add(captureAny())).thenAnswer((_) async => true);
-      when(() => syncer.synchronize()).thenAnswer((_) async => {});
+      final syncManager = MockSyncManager();
+      when(
+        () => syncManager.addAction(captureAny()),
+      ).thenAnswer((_) async => {});
+      when(
+        () => syncManager.synchronize(withFinalRefresh: false),
+      ).thenAnswer((_) async => {});
 
       final controller = ArticleSheetController(
-        syncer: syncer,
+        syncManager: syncManager,
         tagRepository: MockTagRepository(),
         sharingService: MockSharingService(),
         urlLauncherService: MockUrlLauncherService(),
@@ -94,9 +103,11 @@ void main() {
       await controller.setTags(['tag1', 'tag2']);
 
       verify(
-        () => syncer.add(EditArticleAction(1, tags: ['tag1', 'tag2'])),
+        () => syncManager.addAction(
+          const EditArticleAction(1, tags: ['tag1', 'tag2']),
+        ),
       ).called(1);
-      verify(() => syncer.synchronize()).called(1);
+      verify(() => syncManager.synchronize(withFinalRefresh: false)).called(1);
     });
 
     test('share', () async {
@@ -110,7 +121,7 @@ void main() {
       ).thenAnswer((_) async => {});
 
       final controller = ArticleSheetController(
-        syncer: MockRemoteSyncer(),
+        syncManager: MockSyncManager(),
         tagRepository: MockTagRepository(),
         sharingService: sharingService,
         urlLauncherService: MockUrlLauncherService(),
@@ -134,7 +145,7 @@ void main() {
       ).thenAnswer((_) async => true);
 
       final controller = ArticleSheetController(
-        syncer: MockRemoteSyncer(),
+        syncManager: MockSyncManager(),
         tagRepository: MockTagRepository(),
         sharingService: MockSharingService(),
         urlLauncherService: urlLauncherService,
