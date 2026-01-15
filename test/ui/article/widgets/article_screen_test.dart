@@ -67,6 +67,7 @@ void main() {
       setupDependencies(withDB: db);
       SyncManager.init(
         localStorageService: dependencies.get(),
+        remoteActionRepository: dependencies.get(),
         serverSessionRepository: dependencies.get(),
         configStoreService: dependencies.get(),
         appBadgeService: dependencies.get(),

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:http/http.dart';
 import 'package:logging/logging.dart';
 
@@ -62,12 +60,14 @@ class SyncManager {
 
   static void init({
     required LocalStorageService localStorageService,
+    required RemoteActionRepository remoteActionRepository,
     required ServerSessionRepository serverSessionRepository,
     required ConfigStoreService configStoreService,
     required AppBadgeService appBadgeService,
   }) {
     _instance = SyncManager(
       localStorageService: localStorageService,
+      remoteActionRepository: remoteActionRepository,
       serverSessionRepository: serverSessionRepository,
       configStoreService: configStoreService,
       appBadgeService: appBadgeService,
@@ -76,10 +76,12 @@ class SyncManager {
 
   SyncManager({
     required LocalStorageService localStorageService,
+    required RemoteActionRepository remoteActionRepository,
     required ServerSessionRepository serverSessionRepository,
     required ConfigStoreService configStoreService,
     required AppBadgeService appBadgeService,
   }) : _localStorageService = localStorageService,
+       _remoteActionRepository = remoteActionRepository,
        _serverSessionRepository = serverSessionRepository,
        _configStoreService = configStoreService,
        _appBadgeService = appBadgeService,
@@ -91,6 +93,7 @@ class SyncManager {
        );
 
   final LocalStorageService _localStorageService;
+  final RemoteActionRepository _remoteActionRepository;
   final ServerSessionRepository _serverSessionRepository;
   final ConfigStoreService _configStoreService;
   final AppBadgeService _appBadgeService;
@@ -122,26 +125,15 @@ class SyncManager {
   }
 
   Future<void> addAction(RemoteAction action) async {
-    final exists = await _localStorageService.db.managers.remoteActions
-        .filter((f) => f.key.equals(action.hashCode))
-        .exists();
+    final exists = await _remoteActionRepository.exists(action);
     if (!exists) {
-      await _localStorageService.db.managers.remoteActions.create(
-        (o) => o(
-          key: action.hashCode,
-          createdAt: DateTime.now(),
-          className: action.type.name,
-          jsonParams: jsonEncode(action.params),
-        ),
-      );
+      await _remoteActionRepository.create(action);
       _updateState(_state.copyWith(pendingCount: await getPendingCount()));
     }
   }
 
   Future<int> getPendingCount() {
-    return _localStorageService.db.managers.remoteActions.count(
-      distinct: false,
-    );
+    return _remoteActionRepository.count();
   }
 
   Future<Map<String, dynamic>> executeAllPendingActions({
@@ -157,26 +149,19 @@ class SyncManager {
     int actionsCount = 0;
 
     do {
-      final actions =
-          await (_localStorageService.db.managers.remoteActions
-                ..orderBy((o) => o.createdAt.asc()))
-              .get();
+      final actions = await _remoteActionRepository.getAllOrderedByCreation();
       actionsCount += actions.length;
 
       for (final action in actions) {
-        final params = jsonDecode(action.jsonParams) as ActionParams;
-        final remoteAction = RemoteAction.fromParams(action.className, params);
-        _log.info('running action: $remoteAction');
-        res[remoteAction.key] = await remoteAction.execute(
+        _log.info('running action: $action');
+        res[action.key] = await action.execute(
           api,
           _localStorageService,
           onProgress,
         );
 
-        final deleted = await _localStorageService.db.managers.remoteActions
-            .filter((f) => f.id.equals(action.id))
-            .delete();
-        if (deleted == 0) {
+        final deleted = await _remoteActionRepository.delete(action);
+        if (!deleted) {
           _log.severe('action not deleted after execution: $action');
         }
 

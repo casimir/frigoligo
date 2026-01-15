@@ -54,6 +54,7 @@ Future<void> main() async {
 
   SyncManager.init(
     localStorageService: dependencies.get(),
+    remoteActionRepository: dependencies.get(),
     serverSessionRepository: dependencies.get(),
     configStoreService: dependencies.get(),
     appBadgeService: dependencies.get(),
@@ -170,6 +171,7 @@ Future<void> mainNativeShare() async {
 
   SyncManager.init(
     localStorageService: dependencies.get(),
+    remoteActionRepository: dependencies.get(),
     serverSessionRepository: dependencies.get(),
     configStoreService: dependencies.get(),
     appBadgeService: dependencies.get(),

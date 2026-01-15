@@ -330,7 +330,39 @@ class RemoteActionsManager {
 
   final DB _db;
 
+  Future<bool> exists(int key) =>
+      _db.managers.remoteActions.filter((f) => f.key.equals(key)).exists();
+
+  Future<void> create({
+    required int key,
+    required DateTime createdAt,
+    required String className,
+    required String jsonParams,
+  }) => _db.managers.remoteActions.create(
+    (o) => o(
+      key: key,
+      createdAt: createdAt,
+      className: className,
+      jsonParams: jsonParams,
+    ),
+  );
+
+  Future<int> delete(int key) =>
+      _db.managers.remoteActions.filter((f) => f.key.equals(key)).delete();
+
   Future<void> clear() => _db.managers.remoteActions.delete();
+
+  Future<int> count() => _db.managers.remoteActions.count(distinct: false);
+
+  Future<List<({String className, String jsonParams})>>
+  getAllOrderedByCreation() async {
+    final rows =
+        await (_db.managers.remoteActions..orderBy((o) => o.createdAt.asc()))
+            .get();
+    return rows
+        .map((row) => (className: row.className, jsonParams: row.jsonParams))
+        .toList();
+  }
 }
 
 class TagsManager {

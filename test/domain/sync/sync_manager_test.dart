@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:frigoligo/app_info.dart';
+import 'package:frigoligo/data/repositories/remote_action_repository.dart';
 import 'package:frigoligo/data/services/local/storage/config_store_service.dart';
 import 'package:frigoligo/data/services/local/storage/database/connection/native.dart';
 import 'package:frigoligo/data/services/local/storage/database/database.dart';
@@ -24,6 +25,7 @@ class FakeRemoteAction extends Fake implements RemoteAction {}
 void main() {
   late DB db;
   late LocalStorageService storage;
+  late RemoteActionRepository remoteActionRepository;
   late MockServerSessionRepository sessionRepo;
   late MockConfigStoreService configStore;
   late MockAppBadgeService appBadge;
@@ -56,6 +58,9 @@ void main() {
   setUp(() {
     db = DB(inMemory());
     storage = LocalStorageService(db: db);
+    remoteActionRepository = RemoteActionRepositoryImpl(
+      localStorageService: storage,
+    );
     sessionRepo = MockServerSessionRepository();
     configStore = MockConfigStoreService();
     appBadge = MockAppBadgeService();
@@ -74,6 +79,7 @@ void main() {
       serverSessionRepository: sessionRepo,
       configStoreService: configStore,
       appBadgeService: appBadge,
+      remoteActionRepository: remoteActionRepository,
     );
   });
 
@@ -92,6 +98,7 @@ void main() {
 
         SyncManager.init(
           localStorageService: storage,
+          remoteActionRepository: remoteActionRepository,
           serverSessionRepository: sessionRepo,
           configStoreService: configStore,
           appBadgeService: appBadge,
@@ -219,7 +226,7 @@ void main() {
       expect(syncManager.state.lastError, isA<ServerError>());
       expect(syncManager.state.lastError.toString(), contains('test error'));
       expect(syncManager.state.isWorking, false);
-      await storage.remoteActions.clear();
+      await remoteActionRepository.clear();
 
       // ServerError with ClientException source should NOT be captured
       await syncManager.addAction(
@@ -228,7 +235,7 @@ void main() {
       await syncManager.synchronize(withFinalRefresh: false);
       expect(syncManager.state.lastError, null);
       expect(syncManager.state.isWorking, false);
-      await storage.remoteActions.clear();
+      await remoteActionRepository.clear();
 
       // Generic Exception should be captured
       await syncManager.addAction(NoopAction.error(Exception('generic error')));
@@ -247,7 +254,7 @@ void main() {
         expect(syncManager.state.lastError, isA<Exception>());
 
         // Remove the failed action from DB directly
-        await storage.remoteActions.clear();
+        await remoteActionRepository.clear();
 
         // Next sync with empty queue should clear error
         await syncManager.synchronize(withFinalRefresh: false);
