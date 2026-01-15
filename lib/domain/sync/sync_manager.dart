@@ -248,9 +248,12 @@ class SyncManager {
   }
 
   Future<void> _updateAppBadge() async {
+    final badgeSupported = await _appBadgeService.isSupported();
+    if (!badgeSupported) return;
+
     final badgeEnabled =
         _configStoreService.get<bool>(Sk.appBadge.key) ?? false;
-    if (!AppBadgeService.isSupportedSync || !badgeEnabled) return;
+    if (!badgeEnabled) return;
 
     final unread = await _localStorageService.articles.countUnread();
     await _appBadgeService.update(unread);

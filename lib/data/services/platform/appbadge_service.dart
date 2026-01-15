@@ -17,9 +17,6 @@ class AppBadgeService {
 
   static bool? _isSupported;
 
-  @visibleForTesting
-  static set isSupportedOverride(bool? value) => _isSupported = value;
-
   /// Returns whether app badge is supported on the current platform.
   ///
   /// Caches the result after the first call.

@@ -59,7 +59,6 @@ void main() {
     sessionRepo = MockServerSessionRepository();
     configStore = MockConfigStoreService();
     appBadge = MockAppBadgeService();
-    AppBadgeService.isSupportedOverride = false;
 
     final session = ServerSession(
       ServerType.freon,
@@ -67,6 +66,7 @@ void main() {
     );
     when(() => sessionRepo.getSession()).thenReturn(session);
     when(() => configStore.get<bool>(any())).thenReturn(false);
+    when(() => appBadge.isSupported()).thenAnswer((_) async => false);
     when(() => appBadge.update(any())).thenAnswer((_) async {});
 
     syncManager = SyncManager(
@@ -78,7 +78,6 @@ void main() {
   });
 
   tearDown(() async {
-    AppBadgeService.isSupportedOverride = null;
     await db.close();
   });
 
@@ -185,7 +184,7 @@ void main() {
     test(
       'should update app badge based on configuration when supported',
       () async {
-        AppBadgeService.isSupportedOverride = true;
+        when(() => appBadge.isSupported()).thenAnswer((_) async => true);
 
         // When enabled
         when(() => configStore.get<bool>(any())).thenReturn(true);
@@ -202,7 +201,7 @@ void main() {
     );
 
     test('should not update app badge when unsupported', () async {
-      AppBadgeService.isSupportedOverride = false;
+      when(() => appBadge.isSupported()).thenAnswer((_) async => false);
       when(() => configStore.get<bool>(any())).thenReturn(true);
       await syncManager.addAction(const NoopAction('test1'));
       await syncManager.synchronize(withFinalRefresh: false);
