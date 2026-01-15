@@ -3,6 +3,7 @@
 
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:logging/logging.dart';
 import 'package:universal_platform/universal_platform.dart';
@@ -15,6 +16,9 @@ class AppBadgeService {
   static const _channel = MethodChannel('net.casimir-lab.frigoligo/appbadge');
 
   static bool? _isSupported;
+
+  @visibleForTesting
+  static set isSupportedOverride(bool? value) => _isSupported = value;
 
   /// Returns whether app badge is supported on the current platform.
   ///

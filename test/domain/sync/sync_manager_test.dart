@@ -49,21 +49,7 @@ void main() {
           },
         );
 
-    // Mock app badge service
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-        .setMockMethodCallHandler(
-          const MethodChannel('net.casimir-lab.frigoligo/appbadge'),
-          (MethodCall methodCall) async {
-            if (methodCall.method == 'isSupported') {
-              return false;
-            }
-            return null;
-          },
-        );
-
     await AppInfo.init();
-    // Initialize AppBadgeService static field
-    await const AppBadgeService().isSupported();
     registerFallbackValue(FakeRemoteAction());
   });
 
@@ -73,6 +59,7 @@ void main() {
     sessionRepo = MockServerSessionRepository();
     configStore = MockConfigStoreService();
     appBadge = MockAppBadgeService();
+    AppBadgeService.isSupportedOverride = false;
 
     final session = ServerSession(
       ServerType.freon,
@@ -91,6 +78,7 @@ void main() {
   });
 
   tearDown(() async {
+    AppBadgeService.isSupportedOverride = null;
     await db.close();
   });
 
@@ -194,16 +182,29 @@ void main() {
       expect(await syncManager.getPendingCount(), 0);
     });
 
-    test('should update app badge based on configuration', () async {
-      // When enabled
+    test(
+      'should update app badge based on configuration when supported',
+      () async {
+        AppBadgeService.isSupportedOverride = true;
+
+        // When enabled
+        when(() => configStore.get<bool>(any())).thenReturn(true);
+        await syncManager.addAction(const NoopAction('test1'));
+        await syncManager.synchronize(withFinalRefresh: false);
+        verify(() => appBadge.update(any())).called(1);
+
+        // When disabled
+        when(() => configStore.get<bool>(any())).thenReturn(false);
+        await syncManager.addAction(const NoopAction('test2'));
+        await syncManager.synchronize(withFinalRefresh: false);
+        verifyNever(() => appBadge.update(any()));
+      },
+    );
+
+    test('should not update app badge when unsupported', () async {
+      AppBadgeService.isSupportedOverride = false;
       when(() => configStore.get<bool>(any())).thenReturn(true);
       await syncManager.addAction(const NoopAction('test1'));
-      await syncManager.synchronize(withFinalRefresh: false);
-      verify(() => appBadge.update(any())).called(1);
-
-      // When disabled
-      when(() => configStore.get<bool>(any())).thenReturn(false);
-      await syncManager.addAction(const NoopAction('test2'));
       await syncManager.synchronize(withFinalRefresh: false);
       verifyNever(() => appBadge.update(any()));
     });
