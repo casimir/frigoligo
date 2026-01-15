@@ -319,10 +319,19 @@ class MetadataManager {
 
   final DB _db;
 
-  Future<int?> getLastSyncTS() => _db.metadataDao.getLastSyncTS();
+  static const _keyLastSyncTS = 'lastRefreshTS';
 
-  Future<void> setLastSyncTS(int timestamp) =>
-      _db.metadataDao.setLastSyncTS(timestamp);
+  Future<int?> getLastSyncTS() async {
+    final row = await _db.managers.metadata
+        .filter((f) => f.key.equals(_keyLastSyncTS))
+        .getSingleOrNull();
+    return row != null ? int.parse(row.value) : null;
+  }
+
+  Future<void> setLastSyncTS(int timestamp) => _db.managers.metadata.create(
+    (o) => o(key: _keyLastSyncTS, value: timestamp.toString()),
+    mode: InsertMode.insertOrReplace,
+  );
 }
 
 class RemoteActionsManager {
