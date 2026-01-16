@@ -219,6 +219,10 @@ class SyncManager {
     } on Exception catch (e) {
       _log.severe('sync failed', e);
       error = e;
+    } catch (e, st) {
+      // Backgroud sync needs to be bulletproof, try too catch ANYTHING else
+      _log.severe('sync failed (badly)', e, st);
+      error = Exception(e.toString());
     } finally {
       _updateState(
         SyncState(
