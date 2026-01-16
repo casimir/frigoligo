@@ -89,28 +89,6 @@ void main() {
     });
 
     group('execute', () {
-      test('throttles when last sync was recent', () async {
-        const action = RefreshArticlesAction();
-        final now = (DateTime.now().millisecondsSinceEpoch / 1000).toInt();
-        await storage.metadata.setLastSyncTS(now - 30);
-
-        await action.execute(apiClient, storage, (_) {});
-
-        verifyNever(
-          () => apiClient.listArticles(
-            since: any(named: 'since'),
-            onProgress: any(named: 'onProgress'),
-          ),
-        );
-        verifyNever(
-          () => apiClient.listOperations(
-            since: any(named: 'since'),
-            localIds: any(named: 'localIds'),
-            onProgress: any(named: 'onProgress'),
-          ),
-        );
-      });
-
       test('performs full refresh when no last sync', () async {
         const action = RefreshArticlesAction();
         final article = _createTestArticle(id: 1);

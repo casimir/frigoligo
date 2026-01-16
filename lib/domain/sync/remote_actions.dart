@@ -78,18 +78,6 @@ class RefreshArticlesAction extends RemoteAction {
   @override
   Future<void> execute(api, storage, onProgress) async {
     final int? since = await storage.metadata.getLastSyncTS();
-    const int threshold = 60; // seconds
-    if (since != null) {
-      final now = (DateTime.now().millisecondsSinceEpoch / 1000).toInt();
-      final elapsed = now - since;
-      if (elapsed < threshold) {
-        _log.info(
-          'incremental refresh throttled (last: ${elapsed.toStringAsFixed(0)} s)',
-        );
-        return;
-      }
-    }
-
     final stopwatch = Stopwatch()..start();
     var count = 0;
 
