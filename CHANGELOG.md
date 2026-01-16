@@ -79,6 +79,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(ui/home)* Cleaner home screen with test coverage ([#412](https://github.com/casimir/frigoligo/pull/412)) ([ad627eb](https://github.com/casimir/frigoligo/commit/ad627ebf3ed82efcf674205a9ccb9d8ea53449d6))
 - *(platform)* Extract ConfigStoreService + AppBadgeService ([#428](https://github.com/casimir/frigoligo/pull/428)) ([c075c5c](https://github.com/casimir/frigoligo/commit/c075c5cde9d693ec4bac7c6fcd7ea13b3cd2ed31))
 - Free API client and session management from riverpod ([#429](https://github.com/casimir/frigoligo/pull/429)) ([44bacbd](https://github.com/casimir/frigoligo/commit/44bacbd812f6f00cf28e39f79d617ace72c69292))
+- Manage backgound syncing with SyncManager ([#431](https://github.com/casimir/frigoligo/pull/431)) ([2f32275](https://github.com/casimir/frigoligo/commit/2f32275b83ac89744679cc6011cc84fbfcca381d))
 
 ### 📚 Documentation
 
