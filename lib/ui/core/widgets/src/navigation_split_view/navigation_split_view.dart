@@ -180,9 +180,7 @@ class NavigationSplitViewState extends State<NavigationSplitView>
       });
     }
 
-    widget.itemCount.addListener(() {
-      _onItemCountNotification();
-    });
+    widget.itemCount.addListener(_onItemCountNotification);
 
     if (widget.enableShortcuts) {
       HardwareKeyboard.instance.addHandler(_handleKeyEvent);
