@@ -19,6 +19,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Update app icons and logos ([4658d6b](https://github.com/casimir/frigoligo/commit/4658d6bc8b9bfa08c6821d7b6270fb79abbecccc))
 - *(data/services/platform)* Add an URL launcher service ([#417](https://github.com/casimir/frigoligo/pull/417)) ([3953ab1](https://github.com/casimir/frigoligo/commit/3953ab1ac5a2b59a3ce17addb76d81725cab3e0b))
 - *(ui)* Add shared ui/core infrastructure layer ([#421](https://github.com/casimir/frigoligo/pull/421)) ([558a1a0](https://github.com/casimir/frigoligo/commit/558a1a0bedf44ace321c5fe6e99f65e630a555a2))
+- *(iOS)* Modernize splash screen ([80fe0fc](https://github.com/casimir/frigoligo/commit/80fe0fc42c541c823978e39c87e27d878891d58a))
 
 ### 🐛 Bug Fixes
 
@@ -60,6 +61,9 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(deps)* Update dependency go_router to v17 ([#415](https://github.com/casimir/frigoligo/pull/415)) ([462c28e](https://github.com/casimir/frigoligo/commit/462c28e0a8f55bb4a768f7e3a7665988eb18c06b))
 - *(deps)* Regen podfiles ([7bdd65c](https://github.com/casimir/frigoligo/commit/7bdd65c50e0a14e59d0590de8918a75e80ca3306))
 - Sort article by descending creation date again ([a5ec147](https://github.com/casimir/frigoligo/commit/a5ec1474dbcb438dd12b1cb75270ffc6d0c1fd90))
+- *(sync)* Try to make remote actions error handling bulletproof ([bc0636f](https://github.com/casimir/frigoligo/commit/bc0636f236ac56782c72ba88d5d3e00df87c3caa))
+- *(NavigationSplitView)* Avoid leaking item count listeners ([0c1fbc4](https://github.com/casimir/frigoligo/commit/0c1fbc4968aa6f7626f1c6098a12a37aa20d14b1))
+- *(SyncManager)* Deduplicate throttling logic ([31d60b0](https://github.com/casimir/frigoligo/commit/31d60b06b5ad8a05d2710226e420169103a44a3c))
 
 ### 🚜 Refactor
 
