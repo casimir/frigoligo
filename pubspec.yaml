@@ -46,7 +46,7 @@ dependencies:
   cadanse: 1.6.1
   flutter_form_builder: 10.0.1
   flutter_widget_from_html: 0.17.0
-  google_fonts: 6.2.1
+  google_fonts: 7.1.0
   settings_ui: 2.0.2
   webview_flutter: 4.13.0
   webview_flutter_android: any
