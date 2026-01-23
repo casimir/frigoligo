@@ -22,10 +22,7 @@ class AppBadgeService {
   Future<bool> isSupported() async {
     _isSupported ??= switch (currentUniversalPlatform) {
       UniversalPlatformType.Android =>
-        _channel
-                .invokeMethod<bool>('isSupported')
-                .then((value) => value ?? false)
-            as bool,
+        await _channel.invokeMethod<bool>('isSupported') ?? false,
       UniversalPlatformType.IOS || UniversalPlatformType.MacOS => true,
       _ => false,
     };
