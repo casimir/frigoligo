@@ -187,6 +187,11 @@ class SyncManager {
       return res;
     }
 
+    if (_serverSessionRepository.getSession() == null) {
+      _log.info('no active session, skipping sync');
+      return res;
+    }
+
     _updateState(
       SyncState(
         isWorking: true,
