@@ -65,6 +65,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(NavigationSplitView)* Avoid leaking item count listeners ([0c1fbc4](https://github.com/casimir/frigoligo/commit/0c1fbc4968aa6f7626f1c6098a12a37aa20d14b1))
 - *(SyncManager)* Deduplicate throttling logic ([31d60b0](https://github.com/casimir/frigoligo/commit/31d60b06b5ad8a05d2710226e420169103a44a3c))
 - *(android)* Avoid a crash on startup because of native integration ([60b5e03](https://github.com/casimir/frigoligo/commit/60b5e03f118dda5e6db66896f28dca75ee41858c))
+- *(sync)* Avoid a silent error when trying to sync without a session ([04a422c](https://github.com/casimir/frigoligo/commit/04a422ce89a86675809442ca67feea2cee9feaf4))
 
 ### 🚜 Refactor
 
