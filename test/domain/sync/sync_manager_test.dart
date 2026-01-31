@@ -244,7 +244,9 @@ void main() {
     });
 
     test('should wrap non-Exception errors in Exception', () async {
-      await syncManager.addAction(const NoopAction('ERROR:Error:something bad'));
+      await syncManager.addAction(
+        const NoopAction('ERROR:Error:something bad'),
+      );
       await syncManager.synchronize(withFinalRefresh: false);
 
       expect(syncManager.state.lastError, isA<Exception>());
