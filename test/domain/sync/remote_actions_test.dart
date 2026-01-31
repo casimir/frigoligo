@@ -3,11 +3,14 @@ import 'package:frigoligo/data/services/local/storage/database/connection/native
 import 'package:frigoligo/data/services/local/storage/database/database.dart';
 import 'package:frigoligo/data/services/local/storage/database/models/article.drift.dart';
 import 'package:frigoligo/data/services/local/storage/storage_service.dart';
+import 'package:frigoligo/domain/repositories.dart';
 import 'package:frigoligo/domain/sync/remote_actions.dart';
 import 'package:frigoligo/server/clients.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockApiClient extends Mock implements ApiClient {}
+
+class MockArticleRepository extends Mock implements ArticleRepository {}
 
 class FakeArticle extends Fake implements Article {}
 
@@ -34,6 +37,7 @@ void main() {
   late DB db;
   late LocalStorageService storage;
   late MockApiClient apiClient;
+  late ActionContext context;
 
   setUpAll(() {
     registerFallbackValue(FakeArticle());
@@ -43,6 +47,11 @@ void main() {
     db = DB(inMemory());
     storage = LocalStorageService(db: db);
     apiClient = MockApiClient();
+    context = ActionContext(
+      localStorageService: storage,
+      articleRepository: MockArticleRepository(),
+      isLocalSession: false,
+    );
   });
 
   tearDown(() async {
@@ -197,6 +206,22 @@ void main() {
       expect(restored.articleId, action.articleId);
     });
 
+    test('onAdd deletes article from local storage', () async {
+      final article = _createTestArticle(id: 123);
+      await storage.articles.update(article);
+
+      const action = DeleteArticleAction(123);
+      await action.onAdd(context);
+
+      final result = await storage.articles.getData(123).getSingle();
+      expect(result, isNull);
+    });
+
+    test('onAdd handles non-existent article gracefully', () async {
+      const action = DeleteArticleAction(999);
+      await expectLater(action.onAdd(context), completes);
+    });
+
     test('execute deletes article', () async {
       const action = DeleteArticleAction(123);
       when(
@@ -237,6 +262,128 @@ void main() {
       expect(action.tags, isNull);
     });
 
+    group('onAdd', () {
+      test('archives article in local storage', () async {
+        final article = _createTestArticle(id: 123, archived: false);
+        await storage.articles.update(article);
+
+        const action = EditArticleAction(123, archived: true);
+        await action.onAdd(context);
+
+        final updated = await storage.articles.getData(123).getSingle();
+        expect(updated?.archivedAt, isNotNull);
+      });
+
+      test('unarchives article in local storage', () async {
+        final article = _createTestArticle(id: 123, archived: true);
+        await storage.articles.update(article);
+
+        const action = EditArticleAction(123, archived: false);
+        await action.onAdd(context);
+
+        final updated = await storage.articles.getData(123).getSingle();
+        expect(updated?.archivedAt, isNull);
+      });
+
+      test('stars article in local storage', () async {
+        final article = _createTestArticle(id: 123, starred: false);
+        await storage.articles.update(article);
+
+        const action = EditArticleAction(123, starred: true);
+        await action.onAdd(context);
+
+        final updated = await storage.articles.getData(123).getSingle();
+        expect(updated?.starredAt, isNotNull);
+      });
+
+      test('unstars article in local storage', () async {
+        final article = _createTestArticle(id: 123, starred: true);
+        await storage.articles.update(article);
+
+        const action = EditArticleAction(123, starred: false);
+        await action.onAdd(context);
+
+        final updated = await storage.articles.getData(123).getSingle();
+        expect(updated?.starredAt, isNull);
+      });
+
+      test('updates tags in local storage', () async {
+        final article = _createTestArticle(id: 123);
+        await storage.articles.update(article);
+
+        const action = EditArticleAction(123, tags: ['tag1', 'tag2']);
+        await action.onAdd(context);
+
+        final updated = await storage.articles.getData(123).getSingle();
+        expect(updated?.tags, ['tag1', 'tag2']);
+      });
+
+      test('updates multiple attributes simultaneously', () async {
+        final article = _createTestArticle(
+          id: 123,
+          archived: false,
+          starred: false,
+        );
+        await storage.articles.update(article);
+
+        const action = EditArticleAction(
+          123,
+          archived: true,
+          starred: true,
+          tags: ['tag1'],
+        );
+        await action.onAdd(context);
+
+        final updated = await storage.articles.getData(123).getSingle();
+        expect(updated?.archivedAt, isNotNull);
+        expect(updated?.starredAt, isNotNull);
+        expect(updated?.tags, ['tag1']);
+      });
+
+      test('handles non-existent article gracefully', () async {
+        const action = EditArticleAction(999, archived: true);
+        await expectLater(action.onAdd(context), completes);
+      });
+
+      test('preserves unchanged attributes', () async {
+        final article = _createTestArticle(
+          id: 123,
+          archived: true,
+          starred: true,
+        );
+        await storage.articles.update(article);
+
+        const action = EditArticleAction(123, archived: false);
+        await action.onAdd(context);
+
+        final updated = await storage.articles.getData(123).getSingle();
+        expect(updated?.archivedAt, isNull);
+        expect(updated?.starredAt, isNotNull); // Preserved
+      });
+
+      test('preserves article content', () async {
+        final article = Article(
+          id: 123,
+          title: 'Test Article',
+          url: 'https://example.com',
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
+          readingTime: 5,
+          tags: [],
+          content: 'This is the article content',
+        );
+        await storage.articles.update(article);
+
+        const action = EditArticleAction(123, archived: true);
+        await action.onAdd(context);
+
+        final updatedContent = await storage.articles
+            .getContent(123)
+            .getSingle();
+        expect(updatedContent, 'This is the article content');
+      });
+    });
+
     test('execute updates article', () async {
       const action = EditArticleAction(123, archived: true, starred: false);
       final updatedArticle = _createTestArticle(id: 123, archived: true);
@@ -273,6 +420,29 @@ void main() {
 
       expect(restored.url, action.url);
       expect(restored.tags, action.tags);
+    });
+
+    group('onAdd', () {
+      test('throws UnsupportedError when isLocalSession is true', () async {
+        final localContext = ActionContext(
+          localStorageService: storage,
+          articleRepository: MockArticleRepository(),
+          isLocalSession: true,
+        );
+
+        final action = SaveArticleAction(Uri.parse('https://example.com'));
+
+        expect(
+          () => action.onAdd(localContext),
+          throwsA(isA<UnsupportedError>()),
+        );
+      });
+
+      test('completes successfully when isLocalSession is false', () async {
+        final action = SaveArticleAction(Uri.parse('https://example.com'));
+
+        await expectLater(action.onAdd(context), completes);
+      });
     });
 
     test('execute creates article and returns ID', () async {

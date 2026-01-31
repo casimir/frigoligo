@@ -12,7 +12,8 @@ final _probesLog = Logger('server.probes');
 
 enum ServerType {
   freon,
-  wallabag;
+  wallabag,
+  local;
 
   @override
   String toString() => name;

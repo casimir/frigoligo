@@ -1,13 +1,29 @@
+import 'package:drift/drift.dart' show Value;
 import 'package:equatable/equatable.dart';
 import 'package:http/http.dart';
 import 'package:logging/logging.dart';
 
+import '../../data/services/local/storage/database/models/article.drift.dart';
+import '../repositories.dart';
 import '../../data/services/local/storage/storage_service.dart';
 import '../../server/src/clients/api.dart';
 import '../../server/src/clients/api_methods.dart';
 
 typedef ActionParams = Map<String, dynamic>;
 typedef ProgressCallback = void Function(double? progress);
+
+class ActionContext {
+  const ActionContext({
+    required this.localStorageService,
+    required this.articleRepository,
+    required this.isLocalSession,
+  });
+
+  @Deprecated('use repositories instead')
+  final LocalStorageService localStorageService;
+  final ArticleRepository articleRepository;
+  final bool isLocalSession;
+}
 
 abstract class RemoteAction with EquatableMixin {
   const RemoteAction(this.type);
@@ -25,6 +41,8 @@ abstract class RemoteAction with EquatableMixin {
     return '${type.name}:$values';
   }
 
+  /// Parameters used when serializing the action. These are stored in DB until
+  /// the action is executed.
   ActionParams get params;
 
   factory RemoteAction.fromParams(String actionTypeName, ActionParams params) {
@@ -32,6 +50,10 @@ abstract class RemoteAction with EquatableMixin {
     return actionType.buildActionFromParams(params);
   }
 
+  /// Apply optimistic local updates when action is queued.
+  Future<void> onAdd(ActionContext context);
+
+  /// Execute server-side action during sync. May be called long after onAdd().
   Future<dynamic> execute(
     ApiClient api,
     LocalStorageService storage,
@@ -74,6 +96,9 @@ class RefreshArticlesAction extends RemoteAction {
 
   factory RefreshArticlesAction.fromParams(ActionParams params) =>
       const RefreshArticlesAction();
+
+  @override
+  Future<void> onAdd(ActionContext context) async {}
 
   @override
   Future<void> execute(api, storage, onProgress) async {
@@ -139,6 +164,11 @@ class DeleteArticleAction extends RemoteAction {
       DeleteArticleAction(params['articleId'] as int);
 
   @override
+  Future<void> onAdd(ActionContext context) async {
+    await context.localStorageService.articles.delete(articleId);
+  }
+
+  @override
   Future<void> execute(api, storage, onProgress) async {
     await api.deleteArticle(articleId);
     await storage.articles.delete(articleId);
@@ -175,6 +205,22 @@ class EditArticleAction extends RemoteAction {
       );
 
   @override
+  Future<void> onAdd(ActionContext context) async {
+    final db = context.localStorageService.db;
+    await (db.update(db.articles)..where((t) => t.id.equals(articleId))).write(
+      ArticlesCompanion(
+        archivedAt: archived != null
+            ? Value(archived! ? DateTime.now() : null)
+            : const Value.absent(),
+        starredAt: starred != null
+            ? Value(starred! ? DateTime.now() : null)
+            : const Value.absent(),
+        tags: tags != null ? Value(tags!) : const Value.absent(),
+      ),
+    );
+  }
+
+  @override
   Future<void> execute(api, storage, onProgress) async {
     final article = await api.updateArticle(
       articleId,
@@ -203,6 +249,14 @@ class SaveArticleAction extends RemoteAction {
       );
 
   @override
+  Future<void> onAdd(ActionContext context) async {
+    if (context.isLocalSession) {
+      // TODO use a specific error type for UI reaction
+      throw UnsupportedError('Cannot create articles in demo mode');
+    }
+  }
+
+  @override
   Future<int> execute(api, storage, onProgress) async {
     final article = await api.createArticle(url.toString(), tags: tags);
     await storage.articles.update(article);
@@ -222,6 +276,9 @@ class RefetchArticleAction extends RemoteAction {
 
   factory RefetchArticleAction.fromParams(ActionParams params) =>
       RefetchArticleAction(params['articleId'] as int);
+
+  @override
+  Future<void> onAdd(ActionContext context) async {}
 
   @override
   Future<bool> execute(api, storage, onProgress) async {
@@ -249,6 +306,9 @@ class NoopAction extends RemoteAction {
 
   factory NoopAction.error(Object error) =>
       NoopAction('ERROR:${error.runtimeType}:$error');
+
+  @override
+  Future<void> onAdd(ActionContext context) async {}
 
   @override
   Future<void> execute(api, storage, onProgress) async {

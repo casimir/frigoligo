@@ -25,6 +25,8 @@ extension ClientFactory on ServerSessionRepository {
           userAgent: userAgent,
           selfSignedHost: session.selfSignedHost,
         );
+      case ServerType.local:
+        return NoOpApiClient(userAgent: userAgent);
     }
   }
 }

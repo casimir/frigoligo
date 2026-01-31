@@ -16,6 +16,8 @@ import 'package:mocktail/mocktail.dart';
 class MockServerSessionRepository extends Mock
     implements ServerSessionRepository {}
 
+class MockArticleRepository extends Mock implements ArticleRepository {}
+
 class MockConfigStoreService extends Mock implements ConfigStoreService {}
 
 class MockAppBadgeService extends Mock implements AppBadgeService {}
@@ -27,6 +29,7 @@ void main() {
   late LocalStorageService storage;
   late RemoteActionRepository remoteActionRepository;
   late MockServerSessionRepository sessionRepo;
+  late MockArticleRepository articleRepo;
   late MockConfigStoreService configStore;
   late MockAppBadgeService appBadge;
   late SyncManager syncManager;
@@ -62,6 +65,7 @@ void main() {
       localStorageService: storage,
     );
     sessionRepo = MockServerSessionRepository();
+    articleRepo = MockArticleRepository();
     configStore = MockConfigStoreService();
     appBadge = MockAppBadgeService();
 
@@ -75,11 +79,12 @@ void main() {
     when(() => appBadge.update(any())).thenAnswer((_) async {});
 
     syncManager = SyncManager(
-      localStorageService: storage,
-      serverSessionRepository: sessionRepo,
-      configStoreService: configStore,
       appBadgeService: appBadge,
+      configStoreService: configStore,
+      localStorageService: storage,
+      articleRepository: articleRepo,
       remoteActionRepository: remoteActionRepository,
+      serverSessionRepository: sessionRepo,
     );
   });
 
@@ -97,11 +102,12 @@ void main() {
         expect(syncManager.state.pendingCount, 0);
 
         SyncManager.init(
+          appBadgeService: appBadge,
+          configStoreService: configStore,
           localStorageService: storage,
+          articleRepository: articleRepo,
           remoteActionRepository: remoteActionRepository,
           serverSessionRepository: sessionRepo,
-          configStoreService: configStore,
-          appBadgeService: appBadge,
         );
         expect(SyncManager.instance, isA<SyncManager>());
       },

@@ -31,6 +31,8 @@ class LoginFlowCredentials extends ConsumerStatefulWidget {
         loginController = FreonLoginFlowController();
       case ServerType.wallabag:
         loginController = WallabagLoginFlowController();
+      case ServerType.local:
+        throw UnsupportedError('Local sessions do not require authentication');
     }
   }
 
