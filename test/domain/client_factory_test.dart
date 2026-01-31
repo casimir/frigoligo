@@ -83,6 +83,16 @@ void main() {
         throwsA(isA<ServerError>()),
       );
     });
+
+    test('throws StateError when session type is local', () {
+      final session = ServerSession(ServerType.local);
+      when(() => mockRepository.getSession()).thenReturn(session);
+
+      expect(
+        () => mockRepository.createClient(userAgent: testUserAgent),
+        throwsStateError,
+      );
+    });
   });
 
   group('NativeSessionWrapper', () {

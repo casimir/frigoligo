@@ -141,7 +141,6 @@ void main() {
       await syncManager.addAction(action1);
       expect(await syncManager.getPendingCount(), 1);
 
-      // Duplicate should not be added
       await syncManager.addAction(action1);
       expect(await syncManager.getPendingCount(), 1);
 
@@ -166,17 +165,14 @@ void main() {
         counts.add(state.pendingCount);
       });
 
-      // Test without final refresh
       final result1 = await syncManager.synchronize(withFinalRefresh: false);
 
-      // isWorking transitions: false -> true -> false
       expect(states.any((s) => s.isWorking), true);
       expect(states.last.isWorking, false);
 
       expect(progressValues.any((p) => p != null && p > 0), true);
       expect(states.last.progressValue, null);
 
-      // PendingCount decreases: 3 -> 0
       expect(counts.first, 3);
       expect(counts.last, 0);
 
@@ -187,7 +183,6 @@ void main() {
       expect(result1, isA<Map<String, dynamic>>());
       expect(result1.length, 3);
 
-      // Test with final refresh
       await syncManager.addAction(const NoopAction('test4'));
       final result2 = await syncManager.synchronize(withFinalRefresh: true);
       expect(result2, isA<Map<String, dynamic>>());
@@ -199,13 +194,11 @@ void main() {
       () async {
         when(() => appBadge.isSupported()).thenAnswer((_) async => true);
 
-        // When enabled
         when(() => configStore.get<bool>(any())).thenReturn(true);
         await syncManager.addAction(const NoopAction('test1'));
         await syncManager.synchronize(withFinalRefresh: false);
         verify(() => appBadge.update(any())).called(1);
 
-        // When disabled
         when(() => configStore.get<bool>(any())).thenReturn(false);
         await syncManager.addAction(const NoopAction('test2'));
         await syncManager.synchronize(withFinalRefresh: false);
@@ -250,24 +243,27 @@ void main() {
       expect(syncManager.state.isWorking, false);
     });
 
-    test(
-      'should persist failed actions and clear errors appropriately',
-      () async {
-        // Failed action should remain in queue for retry
-        await syncManager.addAction(NoopAction.error(Exception('test error')));
-        await syncManager.synchronize(withFinalRefresh: false);
-        expect(await syncManager.getPendingCount(), 1);
-        expect(syncManager.state.lastError, isA<Exception>());
+    test('should wrap non-Exception errors in Exception', () async {
+      await syncManager.addAction(const NoopAction('ERROR:Error:something bad'));
+      await syncManager.synchronize(withFinalRefresh: false);
 
-        // Remove the failed action from DB directly
-        await remoteActionRepository.clear();
+      expect(syncManager.state.lastError, isA<Exception>());
+      expect(syncManager.state.lastError.toString(), contains('something bad'));
+      expect(syncManager.state.isWorking, false);
+    });
 
-        // Next sync with empty queue should clear error
-        await syncManager.synchronize(withFinalRefresh: false);
-        expect(syncManager.state.lastError, null);
-        expect(await syncManager.getPendingCount(), 0);
-      },
-    );
+    test('should persist failed actions in queue', () async {
+      await syncManager.addAction(NoopAction.error(Exception('test error')));
+      await syncManager.synchronize(withFinalRefresh: false);
+      expect(await syncManager.getPendingCount(), 1);
+      expect(syncManager.state.lastError, isA<Exception>());
+
+      await remoteActionRepository.clear();
+
+      await syncManager.synchronize(withFinalRefresh: false);
+      expect(syncManager.state.lastError, null);
+      expect(await syncManager.getPendingCount(), 0);
+    });
   });
 
   group('SyncState', () {
@@ -279,14 +275,12 @@ void main() {
         pendingCount: 3,
       );
 
-      // Update single field, preserve others
       final partial = original.copyWith(isWorking: false);
       expect(partial.isWorking, false);
       expect(partial.progressValue, 0.5);
       expect(partial.lastError, null);
       expect(partial.pendingCount, 3);
 
-      // Update all fields
       final error = Exception('test');
       final complete = original.copyWith(
         isWorking: false,
@@ -298,6 +292,33 @@ void main() {
       expect(complete.progressValue, 0.7);
       expect(complete.lastError, error);
       expect(complete.pendingCount, 5);
+    });
+  });
+
+  group('sync guards', () {
+    test('should skip sync when session is null', () async {
+      when(() => sessionRepo.getSession()).thenReturn(null);
+      await syncManager.addAction(const NoopAction('test'));
+
+      final result = await syncManager.synchronize(withFinalRefresh: false);
+
+      expect(result.isEmpty, true);
+      expect(await syncManager.getPendingCount(), 1);
+      expect(syncManager.state.isWorking, false);
+    });
+
+    test('should skip sync when in local mode', () async {
+      await syncManager.addAction(const NoopAction('test'));
+      expect(await syncManager.getPendingCount(), 1);
+
+      final localSession = ServerSession(ServerType.local);
+      when(() => sessionRepo.getSession()).thenReturn(localSession);
+
+      final result = await syncManager.synchronize(withFinalRefresh: false);
+
+      expect(result.isEmpty, true);
+      expect(await syncManager.getPendingCount(), 1);
+      expect(syncManager.state.isWorking, false);
     });
   });
 

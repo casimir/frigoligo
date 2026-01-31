@@ -205,8 +205,12 @@ class SyncManager {
     }
 
     final session = _serverSessionRepository.getSession();
-    if (session == null || session.type == ServerType.local) {
-      _log.info('no active session or local mode, skipping sync');
+    if (session == null) {
+      _log.info('no active session, skipping sync');
+      return res;
+    }
+    if (session.type == ServerType.local) {
+      _log.info('local mode, skipping sync');
       return res;
     }
 

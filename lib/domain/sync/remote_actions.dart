@@ -321,6 +321,8 @@ class NoopAction extends RemoteAction {
         throw ServerError(message);
       } else if (type.contains('ClientException')) {
         throw ServerError(message, source: ClientException(message));
+      } else if (type == 'Error') {
+        throw StateError(message);
       } else {
         throw Exception(message);
       }
