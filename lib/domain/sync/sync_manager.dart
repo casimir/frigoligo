@@ -130,18 +130,23 @@ class SyncManager {
   }
 
   Future<void> addAction(RemoteAction action) async {
+    final session = _serverSessionRepository.getSession();
+    final isLocalSession = session?.type == ServerType.local;
+
+    final context = ActionContext(
+      localStorageService: _localStorageService,
+      articleRepository: _articleRepository,
+      isLocalSession: isLocalSession,
+    );
+    await action.onAdd(context);
+
+    if (isLocalSession) return;
+
     final exists = await _remoteActionRepository.exists(action);
-    if (!exists) {
-      final session = _serverSessionRepository.getSession();
-      final context = ActionContext(
-        localStorageService: _localStorageService,
-        articleRepository: _articleRepository,
-        isLocalSession: session?.type == ServerType.local,
-      );
-      await action.onAdd(context);
-      await _remoteActionRepository.create(action);
-      _updateState(_state.copyWith(pendingCount: await getPendingCount()));
-    }
+    if (exists) return;
+
+    await _remoteActionRepository.create(action);
+    _updateState(_state.copyWith(pendingCount: await getPendingCount()));
   }
 
   Future<int> getPendingCount() {
@@ -199,8 +204,9 @@ class SyncManager {
       return res;
     }
 
-    if (_serverSessionRepository.getSession() == null) {
-      _log.info('no active session, skipping sync');
+    final session = _serverSessionRepository.getSession();
+    if (session == null || session.type == ServerType.local) {
+      _log.info('no active session or local mode, skipping sync');
       return res;
     }
 

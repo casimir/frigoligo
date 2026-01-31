@@ -26,7 +26,7 @@ extension ClientFactory on ServerSessionRepository {
           selfSignedHost: session.selfSignedHost,
         );
       case ServerType.local:
-        return NoOpApiClient(userAgent: userAgent);
+        throw StateError('Cannot create client for local session');
     }
   }
 }

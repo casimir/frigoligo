@@ -4,7 +4,6 @@ export 'src/clients/api_methods.dart'
     show ApiActionResult, ApiProgressCallback, ArticleOperation, ArticleOpType;
 
 export 'src/clients/freon.dart' show FreonClient;
-export 'src/clients/noop.dart' show NoOpApiClient;
 export 'src/clients/wallabag.dart'
     show
         InMemoryCredentials,
