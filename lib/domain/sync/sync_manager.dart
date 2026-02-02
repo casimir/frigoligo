@@ -138,13 +138,16 @@ class SyncManager {
       articleRepository: _articleRepository,
       isLocalSession: isLocalSession,
     );
-    await action.onAdd(context);
 
-    if (isLocalSession) return;
+    if (isLocalSession) {
+      await action.onAdd(context);
+      return;
+    }
 
     final exists = await _remoteActionRepository.exists(action);
     if (exists) return;
 
+    await action.onAdd(context);
     await _remoteActionRepository.create(action);
     _updateState(_state.copyWith(pendingCount: await getPendingCount()));
   }
