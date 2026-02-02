@@ -379,6 +379,15 @@ class AppLocalizationsEo extends AppLocalizations {
   String get save_viewArticle => 'Rigardi artikolon';
 
   @override
+  String get save_localModeError =>
+      'A server connection is required to save new articles.';
+
+  @override
+  String save_malformedUrlError(String url) {
+    return 'Malformed URL: $url';
+  }
+
+  @override
   String selector_selectbuttonlabel(String numberOfItems) {
     return 'Select $numberOfItems';
   }

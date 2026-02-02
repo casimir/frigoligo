@@ -380,6 +380,15 @@ class AppLocalizationsEt extends AppLocalizations {
   String get save_viewArticle => 'Vaata artiklit';
 
   @override
+  String get save_localModeError =>
+      'A server connection is required to save new articles.';
+
+  @override
+  String save_malformedUrlError(String url) {
+    return 'Malformed URL: $url';
+  }
+
+  @override
   String selector_selectbuttonlabel(String numberOfItems) {
     return 'Vali $numberOfItems';
   }

@@ -12,6 +12,14 @@ import '../../server/src/clients/api_methods.dart';
 typedef ActionParams = Map<String, dynamic>;
 typedef ProgressCallback = void Function(double? progress);
 
+/// Thrown when an action requires a server connection but the app is in local/demo mode.
+class LocalModeError implements Exception {
+  const LocalModeError();
+
+  @override
+  String toString() => 'LocalModeError: This action requires a server connection';
+}
+
 class ActionContext {
   const ActionContext({
     required this.localStorageService,
@@ -251,8 +259,7 @@ class SaveArticleAction extends RemoteAction {
   @override
   Future<void> onAdd(ActionContext context) async {
     if (context.isLocalSession) {
-      // TODO use a specific error type for UI reaction
-      throw UnsupportedError('Cannot create articles in demo mode');
+      throw const LocalModeError();
     }
   }
 

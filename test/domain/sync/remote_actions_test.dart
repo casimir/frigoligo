@@ -423,7 +423,7 @@ void main() {
     });
 
     group('onAdd', () {
-      test('throws UnsupportedError when isLocalSession is true', () async {
+      test('throws LocalModeError when isLocalSession is true', () async {
         final localContext = ActionContext(
           localStorageService: storage,
           articleRepository: MockArticleRepository(),
@@ -434,7 +434,7 @@ void main() {
 
         expect(
           () => action.onAdd(localContext),
-          throwsA(isA<UnsupportedError>()),
+          throwsA(isA<LocalModeError>()),
         );
       });
 

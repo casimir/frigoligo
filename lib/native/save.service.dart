@@ -1,8 +1,14 @@
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
 
+import '../config/dependencies.dart';
+import '../data/services/local/storage/config_store_service.dart';
+import '../domain/sync/remote_actions.dart';
 import '../providers/save_article.dart';
+import '../providers/settings.dart';
+import '../src/generated/i18n/app_localizations.dart';
 
 class SaveService {
   static const _channel = MethodChannel('net.casimir-lab.frigoligo/save');
@@ -37,12 +43,29 @@ class SaveService {
         return articleId;
       case SASError(e: final e):
         _log.severe('failed to save URL: $url', e);
-        return null;
+        throw _localizedError(e);
       case SASErrorDubiousUrl(parsed: final uri):
         _log.severe('failed to save URL: $url: malformed URI: $uri');
-        return null;
+        final l = _localizations();
+        throw Exception(l.save_malformedUrlError(uri.toString()));
       default:
         throw Exception('unreachable branch');
     }
+  }
+
+  static Exception _localizedError(Object e) {
+    final l = _localizations();
+    if (e is LocalModeError) {
+      return Exception(l.save_localModeError);
+    }
+    return Exception(e.toString());
+  }
+
+  static AppLocalizations _localizations() {
+    // TODO not the cleanest way to get the current language with correct DI
+    final language = UniversalPreferences.get(Sk.language.key) as Language?;
+    final locale =
+        language?.locale ?? WidgetsBinding.instance.platformDispatcher.locale;
+    return lookupAppLocalizations(locale);
   }
 }

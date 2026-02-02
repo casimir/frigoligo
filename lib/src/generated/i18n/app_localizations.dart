@@ -628,6 +628,18 @@ abstract class AppLocalizations {
   /// **'View article'**
   String get save_viewArticle;
 
+  /// Error message shown when trying to save an article in local mode.
+  ///
+  /// In en, this message translates to:
+  /// **'A server connection is required to save new articles.'**
+  String get save_localModeError;
+
+  /// Error message shown when the URL to save is malformed.
+  ///
+  /// In en, this message translates to:
+  /// **'Malformed URL: {url}'**
+  String save_malformedUrlError(String url);
+
   /// The label of the select button in a selector screen.
   ///
   /// In en, this message translates to:
