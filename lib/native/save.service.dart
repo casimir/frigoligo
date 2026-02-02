@@ -3,8 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
 
-import '../config/dependencies.dart';
-import '../data/services/local/storage/config_store_service.dart';
 import '../domain/sync/remote_actions.dart';
 import '../providers/save_article.dart';
 import '../providers/settings.dart';

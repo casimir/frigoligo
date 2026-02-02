@@ -4,10 +4,10 @@ import 'package:http/http.dart';
 import 'package:logging/logging.dart';
 
 import '../../data/services/local/storage/database/models/article.drift.dart';
-import '../repositories.dart';
 import '../../data/services/local/storage/storage_service.dart';
 import '../../server/src/clients/api.dart';
 import '../../server/src/clients/api_methods.dart';
+import '../repositories.dart';
 
 typedef ActionParams = Map<String, dynamic>;
 typedef ProgressCallback = void Function(double? progress);
@@ -17,7 +17,8 @@ class LocalModeError implements Exception {
   const LocalModeError();
 
   @override
-  String toString() => 'LocalModeError: This action requires a server connection';
+  String toString() =>
+      'LocalModeError: This action requires a server connection';
 }
 
 class ActionContext {
