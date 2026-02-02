@@ -171,5 +171,24 @@ void main() {
         expect(await stream.elementAt(0), equals(0.5));
       },
     );
+
+    test('delete returns true when article exists', () async {
+      final article = Article(
+        id: 1,
+        createdAt: DateTime(2000),
+        updatedAt: DateTime(2000),
+        title: 'Title',
+        url: 'https://somewhere.org/articles/1',
+        readingTime: 1,
+        tags: [],
+      );
+
+      await localStorageService.articles.update(article);
+      expect(await articleRepository.delete(1), isTrue);
+    });
+
+    test('delete returns false when article does not exist', () async {
+      expect(await articleRepository.delete(999), isFalse);
+    });
   });
 }

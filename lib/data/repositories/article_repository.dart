@@ -45,4 +45,10 @@ class ArticleRepositoryImpl implements ArticleRepository {
   Future<void> setReadingProgress(int id, double progress) {
     return _localStorageService.articles.setReadingProgress(id, progress);
   }
+
+  @override
+  Future<bool> delete(int id) async {
+    final count = await _localStorageService.articles.delete(id);
+    return count > 0;
+  }
 }

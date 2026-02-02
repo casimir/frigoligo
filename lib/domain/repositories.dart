@@ -14,6 +14,8 @@ abstract class ArticleRepository {
 
   Stream<double?> watchReadingProgress(int id);
   Future<void> setReadingProgress(int id, double progress);
+
+  Future<bool> delete(int id);
 }
 
 abstract class LoggerRepository {
