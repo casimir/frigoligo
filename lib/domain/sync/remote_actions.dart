@@ -1,9 +1,7 @@
-import 'package:drift/drift.dart' show Value;
 import 'package:equatable/equatable.dart';
 import 'package:http/http.dart';
 import 'package:logging/logging.dart';
 
-import '../../data/services/local/storage/database/models/article.drift.dart';
 import '../../data/services/local/storage/storage_service.dart';
 import '../../server/src/clients/api.dart';
 import '../../server/src/clients/api_methods.dart';
@@ -174,7 +172,7 @@ class DeleteArticleAction extends RemoteAction {
 
   @override
   Future<void> onAdd(ActionContext context) async {
-    await context.localStorageService.articles.delete(articleId);
+    await context.articleRepository.delete(articleId);
   }
 
   @override
@@ -215,17 +213,11 @@ class EditArticleAction extends RemoteAction {
 
   @override
   Future<void> onAdd(ActionContext context) async {
-    final db = context.localStorageService.db;
-    await (db.update(db.articles)..where((t) => t.id.equals(articleId))).write(
-      ArticlesCompanion(
-        archivedAt: archived != null
-            ? Value(archived! ? DateTime.now() : null)
-            : const Value.absent(),
-        starredAt: starred != null
-            ? Value(starred! ? DateTime.now() : null)
-            : const Value.absent(),
-        tags: tags != null ? Value(tags!) : const Value.absent(),
-      ),
+    await context.articleRepository.partialUpdate(
+      articleId,
+      archived: archived != null ? Some(archived!) : null,
+      starred: starred != null ? Some(starred!) : null,
+      tags: tags != null ? Some(tags!) : null,
     );
   }
 

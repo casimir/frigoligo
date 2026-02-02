@@ -1,16 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:frigoligo/data/repositories/article_repository.dart';
 import 'package:frigoligo/data/services/local/storage/database/connection/native.dart';
 import 'package:frigoligo/data/services/local/storage/database/database.dart';
 import 'package:frigoligo/data/services/local/storage/database/models/article.drift.dart';
 import 'package:frigoligo/data/services/local/storage/storage_service.dart';
-import 'package:frigoligo/domain/repositories.dart';
 import 'package:frigoligo/domain/sync/remote_actions.dart';
 import 'package:frigoligo/server/clients.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockApiClient extends Mock implements ApiClient {}
-
-class MockArticleRepository extends Mock implements ArticleRepository {}
 
 class FakeArticle extends Fake implements Article {}
 
@@ -49,7 +47,7 @@ void main() {
     apiClient = MockApiClient();
     context = ActionContext(
       localStorageService: storage,
-      articleRepository: MockArticleRepository(),
+      articleRepository: ArticleRepositoryImpl(localStorageService: storage),
       isLocalSession: false,
     );
   });
@@ -426,7 +424,9 @@ void main() {
       test('throws LocalModeError when isLocalSession is true', () async {
         final localContext = ActionContext(
           localStorageService: storage,
-          articleRepository: MockArticleRepository(),
+          articleRepository: ArticleRepositoryImpl(
+            localStorageService: storage,
+          ),
           isLocalSession: true,
         );
 

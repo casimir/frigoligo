@@ -51,4 +51,19 @@ class ArticleRepositoryImpl implements ArticleRepository {
     final count = await _localStorageService.articles.delete(id);
     return count > 0;
   }
+
+  @override
+  Future<void> partialUpdate(
+    int id, {
+    Option<bool>? archived,
+    Option<bool>? starred,
+    Option<List<String>>? tags,
+  }) {
+    return _localStorageService.articles.partialUpdate(
+      id,
+      archived: archived,
+      starred: starred,
+      tags: tags,
+    );
+  }
 }

@@ -77,6 +77,15 @@ void main() {
     when(() => configStore.get<bool>(any())).thenReturn(false);
     when(() => appBadge.isSupported()).thenAnswer((_) async => false);
     when(() => appBadge.update(any())).thenAnswer((_) async {});
+    when(() => articleRepo.delete(any())).thenAnswer((_) async => true);
+    when(
+      () => articleRepo.partialUpdate(
+        any(),
+        archived: any(named: 'archived'),
+        starred: any(named: 'starred'),
+        tags: any(named: 'tags'),
+      ),
+    ).thenAnswer((_) async {});
 
     syncManager = SyncManager(
       appBadgeService: appBadge,
