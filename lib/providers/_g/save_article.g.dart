@@ -60,7 +60,7 @@ final class SaveArticleProvider
   }
 }
 
-String _$saveArticleHash() => r'5b3950279be22449ca47556c658407859e8ef505';
+String _$saveArticleHash() => r'7e8c35dbb601e103d790b5b321b3dfc33bb9477a';
 
 final class SaveArticleFamily extends $Family
     with
