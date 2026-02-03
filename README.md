@@ -16,7 +16,15 @@ Frigoligo aims to be:
 
 ## Installation
 
-[<img src="./assets/logos/badge_apple_app_store.svg" alt="Download on the App Store" height="60" />](https://apps.apple.com/us/app/frigoligo/id6451362294) [<img src="./assets/logos/badge_google_play_store.svg" alt="Get it on Google Play" height="60" />](https://play.google.com/store/apps/details?id=net.casimirlab.frigoligo) [<img src="./assets/logos/badge_fdroid.svg" alt="Download on F-Droid" height="60" />](https://f-droid.org/fr/packages/net.casimirlab.frigoligo/) [<img src="./assets/logos/badge_izzyondroid.svg" alt="Download on F-Droid (Izzy)" height="60" />](https://apt.izzysoft.de/fdroid/index/apk/net.casimirlab.frigoligo) [<img src="./assets/logos/badge_flathub.svg" height="60" />](https://flathub.org/apps/details/net.casimirlab.frigoligo)
+<p>
+  <a href="https://apps.apple.com/us/app/frigoligo/id6451362294"><img src="./assets/logos/badge_apple_app_store.svg" alt="Download on the App Store" width="180" height="60" /></a>
+  <a href="https://play.google.com/store/apps/details?id=net.casimirlab.frigoligo"><img src="./assets/logos/badge_google_play_store.svg" alt="Get it on Google Play" width="180" height="60" /></a>
+  <a href="https://f-droid.org/fr/packages/net.casimirlab.frigoligo/"><img src="./assets/logos/badge_fdroid.svg" alt="Download on F-Droid" width="180" height="60" /></a>
+  <a href="https://apt.izzysoft.de/fdroid/index/apk/net.casimirlab.frigoligo"><img src="./assets/logos/badge_izzyondroid.svg" alt="Download on F-Droid (Izzy)" width="180" height="60" /></a>
+</p>
+<p>
+  <a href="https://flathub.org/apps/details/net.casimirlab.frigoligo"><img src="./assets/logos/badge_flathub.svg" alt="Download on Flathub" width="180" height="60" /></a>
+</p>
 
 You can also download the installer from the [latest release](https://github.com/casimir/frigoligo/releases/latest) for the following platforms: Android (apk), Linux, AppImage and Windows.
 
