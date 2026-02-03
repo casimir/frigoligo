@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:frigoligo/domain/types.dart';
 import 'package:test/test.dart';
 
@@ -11,6 +13,13 @@ void main() {
     test('Some wraps null', () {
       final opt = Some<int?>(null);
       expect(opt.value, isNull);
+    });
+
+    test('hashCode is consistent with equality', () {
+      expect(
+        Some((a: 1, b: 'two')).hashCode,
+        equals(Some((a: 1, b: 'two')).hashCode),
+      );
     });
 
     test('equality compares by value', () {
