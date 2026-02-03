@@ -134,7 +134,6 @@ class SyncManager {
     final isLocalSession = session?.type == ServerType.local;
 
     final context = ActionContext(
-      localStorageService: _localStorageService,
       articleRepository: _articleRepository,
       isLocalSession: isLocalSession,
     );

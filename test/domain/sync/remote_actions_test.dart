@@ -46,7 +46,6 @@ void main() {
     storage = LocalStorageService(db: db);
     apiClient = MockApiClient();
     context = ActionContext(
-      localStorageService: storage,
       articleRepository: ArticleRepositoryImpl(localStorageService: storage),
       isLocalSession: false,
     );
@@ -423,7 +422,6 @@ void main() {
     group('onAdd', () {
       test('throws LocalModeError when isLocalSession is true', () async {
         final localContext = ActionContext(
-          localStorageService: storage,
           articleRepository: ArticleRepositoryImpl(
             localStorageService: storage,
           ),

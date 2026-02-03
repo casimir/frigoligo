@@ -21,13 +21,10 @@ class LocalModeError implements Exception {
 
 class ActionContext {
   const ActionContext({
-    required this.localStorageService,
     required this.articleRepository,
     required this.isLocalSession,
   });
 
-  @Deprecated('use repositories instead')
-  final LocalStorageService localStorageService;
   final ArticleRepository articleRepository;
   final bool isLocalSession;
 }
