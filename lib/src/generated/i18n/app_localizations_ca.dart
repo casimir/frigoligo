@@ -379,6 +379,15 @@ class AppLocalizationsCa extends AppLocalizations {
   String get save_viewArticle => 'Visualitza l’article';
 
   @override
+  String get save_localModeError =>
+      'A server connection is required to save new articles.';
+
+  @override
+  String save_malformedUrlError(String url) {
+    return 'Malformed URL: $url';
+  }
+
+  @override
   String selector_selectbuttonlabel(String numberOfItems) {
     return 'Selecciona $numberOfItems';
   }

@@ -7,6 +7,9 @@ import 'models/log_entry.dart';
 import 'models/query.dart';
 import 'models/server_session.dart';
 import 'sync/remote_actions.dart';
+import 'types.dart';
+
+export 'types.dart' show Option, Some;
 
 abstract class ArticleRepository {
   Stream<ArticleData?> watchData(int id);
@@ -14,6 +17,15 @@ abstract class ArticleRepository {
 
   Stream<double?> watchReadingProgress(int id);
   Future<void> setReadingProgress(int id, double progress);
+
+  Future<bool> delete(int id);
+
+  Future<void> partialUpdate(
+    int id, {
+    Option<bool>? archived,
+    Option<bool>? starred,
+    Option<List<String>>? tags,
+  });
 }
 
 abstract class LoggerRepository {

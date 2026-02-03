@@ -32,4 +32,5 @@ Map<String, dynamic> _$ServerSessionToJson(ServerSession instance) =>
 const _$ServerTypeEnumMap = {
   ServerType.freon: 'freon',
   ServerType.wallabag: 'wallabag',
+  ServerType.local: 'local',
 };

@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 
+import '../../../../domain/types.dart';
 import 'database/database.dart';
 import 'database/models/article.drift.dart';
 
@@ -302,6 +303,25 @@ class ArticlesManager {
 
   Future<void> updateAll(List<Article> articles) =>
       _db.articlesDao.updateAll(articles);
+
+  Future<void> partialUpdate(
+    int id, {
+    Option<bool>? archived,
+    Option<bool>? starred,
+    Option<List<String>>? tags,
+  }) async {
+    await (_db.update(_db.articles)..where((t) => t.id.equals(id))).write(
+      ArticlesCompanion(
+        archivedAt: archived != null
+            ? Value(archived.value ? DateTime.now() : null)
+            : const Value.absent(),
+        starredAt: starred != null
+            ? Value(starred.value ? DateTime.now() : null)
+            : const Value.absent(),
+        tags: tags != null ? Value(tags.value) : const Value.absent(),
+      ),
+    );
+  }
 }
 
 class DatabaseManager {

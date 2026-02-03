@@ -342,6 +342,15 @@ class AppLocalizationsZh extends AppLocalizations {
   String get save_viewArticle => '浏览文章';
 
   @override
+  String get save_localModeError =>
+      'A server connection is required to save new articles.';
+
+  @override
+  String save_malformedUrlError(String url) {
+    return 'Malformed URL: $url';
+  }
+
+  @override
   String selector_selectbuttonlabel(String numberOfItems) {
     return '选择 $numberOfItems';
   }

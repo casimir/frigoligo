@@ -59,32 +59,36 @@ class SyncManager {
   static SyncManager get instance => _instance;
 
   static void init({
+    required AppBadgeService appBadgeService,
+    required ConfigStoreService configStoreService,
     required LocalStorageService localStorageService,
+    required ArticleRepository articleRepository,
     required RemoteActionRepository remoteActionRepository,
     required ServerSessionRepository serverSessionRepository,
-    required ConfigStoreService configStoreService,
-    required AppBadgeService appBadgeService,
   }) {
     _instance = SyncManager(
+      appBadgeService: appBadgeService,
+      configStoreService: configStoreService,
       localStorageService: localStorageService,
+      articleRepository: articleRepository,
       remoteActionRepository: remoteActionRepository,
       serverSessionRepository: serverSessionRepository,
-      configStoreService: configStoreService,
-      appBadgeService: appBadgeService,
     );
   }
 
   SyncManager({
+    required AppBadgeService appBadgeService,
+    required ConfigStoreService configStoreService,
     required LocalStorageService localStorageService,
+    required ArticleRepository articleRepository,
     required RemoteActionRepository remoteActionRepository,
     required ServerSessionRepository serverSessionRepository,
-    required ConfigStoreService configStoreService,
-    required AppBadgeService appBadgeService,
-  }) : _localStorageService = localStorageService,
+  }) : _appBadgeService = appBadgeService,
+       _configStoreService = configStoreService,
+       _localStorageService = localStorageService,
+       _articleRepository = articleRepository,
        _remoteActionRepository = remoteActionRepository,
        _serverSessionRepository = serverSessionRepository,
-       _configStoreService = configStoreService,
-       _appBadgeService = appBadgeService,
        _state = const SyncState(
          isWorking: false,
          progressValue: null,
@@ -92,11 +96,12 @@ class SyncManager {
          pendingCount: 0,
        );
 
+  final AppBadgeService _appBadgeService;
+  final ConfigStoreService _configStoreService;
   final LocalStorageService _localStorageService;
+  final ArticleRepository _articleRepository;
   final RemoteActionRepository _remoteActionRepository;
   final ServerSessionRepository _serverSessionRepository;
-  final ConfigStoreService _configStoreService;
-  final AppBadgeService _appBadgeService;
 
   SyncState _state;
   SyncState get state => _state;
@@ -125,11 +130,25 @@ class SyncManager {
   }
 
   Future<void> addAction(RemoteAction action) async {
-    final exists = await _remoteActionRepository.exists(action);
-    if (!exists) {
-      await _remoteActionRepository.create(action);
-      _updateState(_state.copyWith(pendingCount: await getPendingCount()));
+    final session = _serverSessionRepository.getSession();
+    final isLocalSession = session?.type == ServerType.local;
+
+    final context = ActionContext(
+      articleRepository: _articleRepository,
+      isLocalSession: isLocalSession,
+    );
+
+    if (isLocalSession) {
+      await action.onAdd(context);
+      return;
     }
+
+    final exists = await _remoteActionRepository.exists(action);
+    if (exists) return;
+
+    await action.onAdd(context);
+    await _remoteActionRepository.create(action);
+    _updateState(_state.copyWith(pendingCount: await getPendingCount()));
   }
 
   Future<int> getPendingCount() {
@@ -187,8 +206,13 @@ class SyncManager {
       return res;
     }
 
-    if (_serverSessionRepository.getSession() == null) {
+    final session = _serverSessionRepository.getSession();
+    if (session == null) {
       _log.info('no active session, skipping sync');
+      return res;
+    }
+    if (session.type == ServerType.local) {
+      _log.info('local mode, skipping sync');
       return res;
     }
 

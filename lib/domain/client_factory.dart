@@ -25,6 +25,8 @@ extension ClientFactory on ServerSessionRepository {
           userAgent: userAgent,
           selfSignedHost: session.selfSignedHost,
         );
+      case ServerType.local:
+        throw StateError('Cannot create client for local session');
     }
   }
 }

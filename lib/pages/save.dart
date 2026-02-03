@@ -68,6 +68,14 @@ class _SavePageState extends ConsumerState<SavePage> {
         step = SaveStep.success;
         savedArticleId = res[action.key]!;
       });
+    } on LocalModeError {
+      if (mounted) {
+        await showOkAlertDialog(
+          context: context,
+          message: context.L.save_localModeError,
+        );
+        if (mounted) context.pop();
+      }
     } catch (e) {
       setState(() {
         step = SaveStep.error;

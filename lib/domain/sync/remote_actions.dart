@@ -5,9 +5,29 @@ import 'package:logging/logging.dart';
 import '../../data/services/local/storage/storage_service.dart';
 import '../../server/src/clients/api.dart';
 import '../../server/src/clients/api_methods.dart';
+import '../repositories.dart';
 
 typedef ActionParams = Map<String, dynamic>;
 typedef ProgressCallback = void Function(double? progress);
+
+/// Thrown when an action requires a server connection but the app is in local/demo mode.
+class LocalModeError implements Exception {
+  const LocalModeError();
+
+  @override
+  String toString() =>
+      'LocalModeError: This action requires a server connection';
+}
+
+class ActionContext {
+  const ActionContext({
+    required this.articleRepository,
+    required this.isLocalSession,
+  });
+
+  final ArticleRepository articleRepository;
+  final bool isLocalSession;
+}
 
 abstract class RemoteAction with EquatableMixin {
   const RemoteAction(this.type);
@@ -25,6 +45,8 @@ abstract class RemoteAction with EquatableMixin {
     return '${type.name}:$values';
   }
 
+  /// Parameters used when serializing the action. These are stored in DB until
+  /// the action is executed.
   ActionParams get params;
 
   factory RemoteAction.fromParams(String actionTypeName, ActionParams params) {
@@ -32,6 +54,10 @@ abstract class RemoteAction with EquatableMixin {
     return actionType.buildActionFromParams(params);
   }
 
+  /// Apply optimistic local updates when action is queued.
+  Future<void> onAdd(ActionContext context);
+
+  /// Execute server-side action during sync. May be called long after onAdd().
   Future<dynamic> execute(
     ApiClient api,
     LocalStorageService storage,
@@ -74,6 +100,9 @@ class RefreshArticlesAction extends RemoteAction {
 
   factory RefreshArticlesAction.fromParams(ActionParams params) =>
       const RefreshArticlesAction();
+
+  @override
+  Future<void> onAdd(ActionContext context) async {}
 
   @override
   Future<void> execute(api, storage, onProgress) async {
@@ -139,6 +168,11 @@ class DeleteArticleAction extends RemoteAction {
       DeleteArticleAction(params['articleId'] as int);
 
   @override
+  Future<void> onAdd(ActionContext context) async {
+    await context.articleRepository.delete(articleId);
+  }
+
+  @override
   Future<void> execute(api, storage, onProgress) async {
     await api.deleteArticle(articleId);
     await storage.articles.delete(articleId);
@@ -175,6 +209,16 @@ class EditArticleAction extends RemoteAction {
       );
 
   @override
+  Future<void> onAdd(ActionContext context) async {
+    await context.articleRepository.partialUpdate(
+      articleId,
+      archived: archived != null ? Some(archived!) : null,
+      starred: starred != null ? Some(starred!) : null,
+      tags: tags != null ? Some(tags!) : null,
+    );
+  }
+
+  @override
   Future<void> execute(api, storage, onProgress) async {
     final article = await api.updateArticle(
       articleId,
@@ -203,6 +247,13 @@ class SaveArticleAction extends RemoteAction {
       );
 
   @override
+  Future<void> onAdd(ActionContext context) async {
+    if (context.isLocalSession) {
+      throw const LocalModeError();
+    }
+  }
+
+  @override
   Future<int> execute(api, storage, onProgress) async {
     final article = await api.createArticle(url.toString(), tags: tags);
     await storage.articles.update(article);
@@ -222,6 +273,9 @@ class RefetchArticleAction extends RemoteAction {
 
   factory RefetchArticleAction.fromParams(ActionParams params) =>
       RefetchArticleAction(params['articleId'] as int);
+
+  @override
+  Future<void> onAdd(ActionContext context) async {}
 
   @override
   Future<bool> execute(api, storage, onProgress) async {
@@ -251,6 +305,9 @@ class NoopAction extends RemoteAction {
       NoopAction('ERROR:${error.runtimeType}:$error');
 
   @override
+  Future<void> onAdd(ActionContext context) async {}
+
+  @override
   Future<void> execute(api, storage, onProgress) async {
     if (value.startsWith('ERROR:')) {
       final parts = value.split(':');
@@ -261,6 +318,8 @@ class NoopAction extends RemoteAction {
         throw ServerError(message);
       } else if (type.contains('ClientException')) {
         throw ServerError(message, source: ClientException(message));
+      } else if (type == 'Error') {
+        throw StateError(message);
       } else {
         throw Exception(message);
       }
