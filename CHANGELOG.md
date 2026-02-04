@@ -20,6 +20,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(data/services/platform)* Add an URL launcher service ([#417](https://github.com/casimir/frigoligo/pull/417)) ([3953ab1](https://github.com/casimir/frigoligo/commit/3953ab1ac5a2b59a3ce17addb76d81725cab3e0b))
 - *(ui)* Add shared ui/core infrastructure layer ([#421](https://github.com/casimir/frigoligo/pull/421)) ([558a1a0](https://github.com/casimir/frigoligo/commit/558a1a0bedf44ace321c5fe6e99f65e630a555a2))
 - *(iOS)* Modernize splash screen ([80fe0fc](https://github.com/casimir/frigoligo/commit/80fe0fc42c541c823978e39c87e27d878891d58a))
+- *(sync)* Add optimistic updates when adding actions to the queue ([#436](https://github.com/casimir/frigoligo/pull/436)) ([17f01cc](https://github.com/casimir/frigoligo/commit/17f01cc7626b9127b65b26dcf4cfa61ad9267e04))
 
 ### 🐛 Bug Fixes
 
@@ -90,6 +91,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 ### 📚 Documentation
 
 - Assume the situation about automated testing ([3f0a206](https://github.com/casimir/frigoligo/commit/3f0a206edc5175d9f66271b68081e38f22e301af))
+- Sligthly improve badge consistency ([cb03505](https://github.com/casimir/frigoligo/commit/cb035058faece343c3230a1492e085c4ff0a5796))
 
 ### ⚡ Performance
 
