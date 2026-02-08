@@ -324,6 +324,10 @@
   "@login_actionLogin": {
     "description": "The action to log in."
   },
+  "login_demoMode": "Try in demo mode",
+  "@login_demoMode": {
+   "description": "The action to put the app in demo mode instead of connecting to a server."
+  },
   "login_existingSessionDialogConfirm": "Log out",
   "@login_existingSessionDialogConfirm": {
     "description": "The action to log out from the existing session."

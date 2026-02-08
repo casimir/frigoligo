@@ -283,6 +283,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get login_actionLogin => '登录';
 
   @override
+  String get login_demoMode => 'Try in demo mode';
+
+  @override
   String get login_existingSessionDialogConfirm => '登出';
 
   @override

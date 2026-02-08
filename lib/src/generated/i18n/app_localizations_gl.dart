@@ -319,6 +319,9 @@ class AppLocalizationsGl extends AppLocalizations {
   String get login_actionLogin => 'Acceder';
 
   @override
+  String get login_demoMode => 'Try in demo mode';
+
+  @override
   String get login_existingSessionDialogConfirm => 'Saír';
 
   @override

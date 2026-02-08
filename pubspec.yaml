@@ -103,6 +103,7 @@ flutter:
   assets:
     - assets/article.template.html
     - assets/google_fonts/
+    - assets/sample-articles.json
     - assets/www/scripts/
     - assets/www/styles/
 

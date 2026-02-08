@@ -320,6 +320,9 @@ class AppLocalizationsTa extends AppLocalizations {
   String get login_actionLogin => 'புகுபதிகை';
 
   @override
+  String get login_demoMode => 'Try in demo mode';
+
+  @override
   String get login_existingSessionDialogConfirm => 'விடுபதிகை';
 
   @override

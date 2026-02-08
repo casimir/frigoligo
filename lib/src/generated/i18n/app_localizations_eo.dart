@@ -319,6 +319,9 @@ class AppLocalizationsEo extends AppLocalizations {
   String get login_actionLogin => 'Ensaluti';
 
   @override
+  String get login_demoMode => 'Try in demo mode';
+
+  @override
   String get login_existingSessionDialogConfirm => 'Elsaluti';
 
   @override

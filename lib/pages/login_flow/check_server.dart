@@ -4,11 +4,14 @@ import 'package:cadanse/tokens/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 
 import '../../buildcontext_extension.dart';
+import '../../config/dependencies.dart';
 import '../../providers/server_login_flow.dart';
 import '../../server/check.dart';
+import 'demo_mode.dart';
 import 'utils.dart';
 
 final _log = Logger('login.check');
@@ -25,6 +28,7 @@ class LoginFlowServer extends ConsumerStatefulWidget {
 class _LoginFlowServerState extends ConsumerState<LoginFlowServer> {
   final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
   late String? _currentValue;
+  bool _isLoadingDemo = false;
 
   @override
   void initState() {
@@ -109,6 +113,21 @@ class _LoginFlowServerState extends ConsumerState<LoginFlowServer> {
                     ? context.L.g_checking
                     : context.L.g_check,
               ),
+            ),
+            C.spacers.verticalContent,
+            TextButton(
+              onPressed: () async {
+                setState(() {
+                  _isLoadingDemo = true;
+                });
+                await setupDemoMode(dependencies.get(), dependencies.get());
+                if (context.mounted) {
+                  context.go('/');
+                }
+              },
+              child: _isLoadingDemo
+                  ? const CircularProgressIndicator()
+                  : Text(context.L.login_demoMode),
             ),
           ],
         ),
