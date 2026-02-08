@@ -514,6 +514,12 @@ abstract class AppLocalizations {
   /// **'Log in'**
   String get login_actionLogin;
 
+  /// The action to put the app in demo mode instead of connecting to a server.
+  ///
+  /// In en, this message translates to:
+  /// **'Try in demo mode'**
+  String get login_demoMode;
+
   /// The action to log out from the existing session.
   ///
   /// In en, this message translates to:

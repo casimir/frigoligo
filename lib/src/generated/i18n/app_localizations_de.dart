@@ -320,6 +320,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get login_actionLogin => 'Einloggen';
 
   @override
+  String get login_demoMode => 'Try in demo mode';
+
+  @override
   String get login_existingSessionDialogConfirm => 'Ausloggen';
 
   @override

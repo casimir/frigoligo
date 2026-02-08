@@ -319,6 +319,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get login_actionLogin => 'Войти';
 
   @override
+  String get login_demoMode => 'Try in demo mode';
+
+  @override
   String get login_existingSessionDialogConfirm => 'Выйти';
 
   @override

@@ -319,6 +319,9 @@ class AppLocalizationsCa extends AppLocalizations {
   String get login_actionLogin => 'Inicia una sessió';
 
   @override
+  String get login_demoMode => 'Try in demo mode';
+
+  @override
   String get login_existingSessionDialogConfirm => 'Finalitza la sessió';
 
   @override
