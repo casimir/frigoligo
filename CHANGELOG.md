@@ -21,6 +21,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(ui)* Add shared ui/core infrastructure layer ([#421](https://github.com/casimir/frigoligo/pull/421)) ([558a1a0](https://github.com/casimir/frigoligo/commit/558a1a0bedf44ace321c5fe6e99f65e630a555a2))
 - *(iOS)* Modernize splash screen ([80fe0fc](https://github.com/casimir/frigoligo/commit/80fe0fc42c541c823978e39c87e27d878891d58a))
 - *(sync)* Add optimistic updates when adding actions to the queue ([#436](https://github.com/casimir/frigoligo/pull/436)) ([17f01cc](https://github.com/casimir/frigoligo/commit/17f01cc7626b9127b65b26dcf4cfa61ad9267e04))
+- Add a demo mode that works without server ([#437](https://github.com/casimir/frigoligo/pull/437)) ([e137a95](https://github.com/casimir/frigoligo/commit/e137a9577b058d46c93e4a4c8dbc0a07d21e164b))
 
 ### 🐛 Bug Fixes
 
