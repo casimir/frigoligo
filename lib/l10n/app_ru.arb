@@ -566,5 +566,9 @@
                 "format": "compact"
             }
         }
+    },
+    "logconsole_clear_logs": "Очистить логи",
+    "@logconsole_clear_logs": {
+        "description": "The action to clear the logs."
     }
 }
