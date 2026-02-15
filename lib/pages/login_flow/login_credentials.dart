@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cadanse/cadanse.dart';
 import 'package:cadanse/components/layouts/grouping.dart';
@@ -10,6 +12,7 @@ import 'package:logging/logging.dart';
 import '../../buildcontext_extension.dart';
 import '../../config/dependencies.dart';
 import '../../domain/models/server_session.dart';
+import '../../domain/sync/sync_manager.dart';
 import '../../providers/server_login_flow.dart';
 import '../../server/check.dart';
 import '../../server/clients.dart';
@@ -164,6 +167,7 @@ class _LoginFlowCredentialsState extends ConsumerState<LoginFlowCredentials> {
         final ServerSessionRepository serverSessionRepository = dependencies
             .get();
         await serverSessionRepository.save(session);
+        unawaited(SyncManager.instance.synchronize(withFinalRefresh: true));
         if (mounted) {
           context.go('/');
         }
