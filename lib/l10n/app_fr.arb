@@ -16,21 +16,17 @@
         "description": "The action to open the article in the web browser."
     },
     "humanize_days": "{n, plural, =0{0 jour} =1{1 jour} other{{n} jours}}",
-    "@humanize_days": {},
     "filters_articleTags": "Labels",
     "@filters_articleTags": {
         "description": "The tags attached to the article."
     },
     "humanize_hours": "{n, plural, =0{0 heure} =1{1 heure} other{{n} heures}}",
-    "@humanize_hours": {},
     "g_share": "Partager",
     "@g_share": {
         "description": "A verb, as in to share something."
     },
     "humanize_seconds": "{n, plural, =0{0 seconde} =1{1 seconde} other{{n} secondes}}",
-    "@humanize_seconds": {},
     "humanize_minutes": "{n, plural, =0{0 minute} =1{1 minute} other{{n} minutes}}",
-    "@humanize_minutes": {},
     "g_check": "Vérifier",
     "@g_check": {
         "description": "A verb as in to check something."
@@ -292,7 +288,6 @@
         "description": "The action to force a token refresh."
     },
     "g_system": "Système",
-    "@g_system": {},
     "settings_itemLanguage": "Langue",
     "@settings_itemLanguage": {
         "description": "The action to change the language of the application."
@@ -542,5 +537,22 @@
     "logconsole_clear_logs": "Effacer les journaux",
     "@logconsole_clear_logs": {
         "description": "The action to clear the logs."
+    },
+    "save_localModeError": "Une connexion au serveur est requise pour enregistrer de nouveaux articles.",
+    "@save_localModeError": {
+        "description": "Error message shown when trying to save an article in local mode."
+    },
+    "save_malformedUrlError": "URL malformée : {url}",
+    "@save_malformedUrlError": {
+        "description": "Error message shown when the URL to save is malformed.",
+        "placeholders": {
+            "url": {
+                "type": "String"
+            }
+        }
+    },
+    "login_demoMode": "Essayer en mode démo",
+    "@login_demoMode": {
+        "description": "The action to put the app in demo mode instead of connecting to a server."
     }
 }
