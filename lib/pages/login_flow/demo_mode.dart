@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:flutter/services.dart';
 
 import '../../config/dependencies.dart';
 import '../../data/demo.dart';
@@ -13,6 +13,6 @@ Future<void> setupDemoMode(
   final session = ServerSession(ServerType.local);
   await serverSessionRepository.save(session);
 
-  final content = File('assets/sample-articles.json').readAsStringSync();
+  final content = await rootBundle.loadString('assets/sample-articles.json');
   await loadSampleArticles(localStorageService.db, content);
 }
