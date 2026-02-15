@@ -1,0 +1,3 @@
+- Giao tiếp mạnh mẽ và nhanh chóng hơn với máy chủ.
+- Ngôn ngữ mới: tiếng Trung phồn thể (漢文) và tiếng Nga (Русский язык).
+- Cho phép tự ký chứng chỉ cho máy chủ.

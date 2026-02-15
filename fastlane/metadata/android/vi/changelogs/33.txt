@@ -1,0 +1,4 @@
+- Đã thêm nút lưu liên kết từ màn hình chính.
+- Hỗ trợ ngôn ngữ đã được mở rộng để bao gồm tiếng Galicia, tiếng Bồ Đào Nha Brazil và tiếng Trung Quốc.
+- Một số lỗi đã được sửa, bao gồm các vấn đề về thao tác lưu và đồng bộ hóa bài viết.
+- Logic định tuyến cho lượt xem bài viết đã được cấu trúc lại để mang lại trải nghiệm mượt mà hơn.

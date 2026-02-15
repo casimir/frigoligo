@@ -1,0 +1,593 @@
+{
+    "g_article": "Bài viết",
+    "@g_article": {
+        "description": "A piece of content fetched from the web. This is one of the main concepts of the app."
+    },
+    "g_check": "Kiểm tra",
+    "@g_check": {
+        "description": "A verb as in to check something."
+    },
+    "login_demoMode": "Thử chế độ demo",
+    "@login_demoMode": {
+        "description": "The action to put the app in demo mode instead of connecting to a server."
+    },
+    "login_existingSessionDialogConfirm": "Đăng xuất",
+    "@login_existingSessionDialogConfirm": {
+        "description": "The action to log out from the existing session."
+    },
+    "login_existingSessionDialogTitle": "Một phiên đang hiện tại đang kích hoạt",
+    "@login_existingSessionDialogTitle": {
+        "description": "The title of the dialog warning about an existing session."
+    },
+    "login_fieldClientId": "ID máy khách",
+    "@login_fieldClientId": {
+        "description": "The client ID field of the login form."
+    },
+    "login_fieldPassword": "Mật khẩu",
+    "@login_fieldPassword": {
+        "description": "The password field of the login form."
+    },
+    "login_fieldUsername": "Tên người dùng",
+    "@login_fieldUsername": {
+        "description": "The username field of the login form."
+    },
+    "login_openLogConsole": "Mở Nhật ký Console",
+    "@login_openLogConsole": {
+        "description": "The action to open the log console."
+    },
+    "readingsettings_fontFamily": "Phông gia đình",
+    "@readingsettings_fontFamily": {
+        "description": "The font family to display the content of the article."
+    },
+    "readingsettings_fontSize": "Kích thước phông",
+    "@readingsettings_fontSize": {
+        "description": "The font size to display the content of the article."
+    },
+    "readdingsettings_textFormatting": "Định dạng phông",
+    "@readdingsettings_textFormatting": {
+        "description": "The text formatting to display the content of the article."
+    },
+    "save_confirmationTitle": "Bài viết đã lưu!",
+    "@save_confirmationTitle": {
+        "description": "The title of the confirmation screen after the article is saved. "
+    },
+    "save_dubiousUrlConfirm": "Lưu nó",
+    "@save_dubiousUrlConfirm": {
+        "description": "The confirmation button of the dubious URL warning dialog."
+    },
+    "save_title": "Lưu bài viết",
+    "@save_title": {
+        "description": "The title of the save screen."
+    },
+    "save_viewArticle": "Xem bài viết",
+    "@save_viewArticle": {
+        "description": "The action to view the article after it is saved."
+    },
+    "save_localModeError": "Một kết nối máy chủ là cần thiết để lưu bài viết mới.",
+    "@save_localModeError": {
+        "description": "Error message shown when trying to save an article in local mode."
+    },
+    "selector_selectbuttonlabel": "Chọn {numberOfItems}",
+    "@selector_selectbuttonlabel": {
+        "description": "The label of the select button in a selector screen.",
+        "placeholders": {
+            "numberOfItems": {
+                "type": "String",
+                "example": "3 items"
+            }
+        }
+    },
+    "server_address": "Địa chỉ máy chủ",
+    "@server_address": {
+        "description": "The address of the wallabag instance."
+    },
+    "server_invalidUrl": "Địa chỉ sai",
+    "@server_invalidUrl": {
+        "description": "The address of the wallabag instance is invalid."
+    },
+    "server_unknownServerType": "Không rõ loại máy chủ",
+    "@server_unknownServerType": {
+        "description": "The application could not detect the server type."
+    },
+    "g_checking": "Đang kiểm tra…",
+    "@g_checking": {
+        "description": "Present participle of the verb to check."
+    },
+    "g_delete": "Xóa",
+    "@g_delete": {
+        "description": "A verb, as in to delete something."
+    },
+    "g_saveLink": "Lưu liên kết",
+    "@g_saveLink": {
+        "description": "A verb, as in to save a link."
+    },
+    "g_search": "Tìm kiếm",
+    "@g_search": {
+        "description": "A verb, as in to search something."
+    },
+    "g_server": "Máy chủ",
+    "@g_server": {
+        "description": "A server, as in a computer providing a service."
+    },
+    "g_settings": "Cài đặt",
+    "@g_settings": {
+        "description": "The settings of the application."
+    },
+    "g_share": "Chia sẻ",
+    "@g_share": {
+        "description": "A verb, as in to share something."
+    },
+    "g_sourceCode": "Mã nguồn",
+    "@g_sourceCode": {
+        "description": "The source code of a software."
+    },
+    "g_synchronize": "Đồng bộ hóa",
+    "@g_synchronize": {
+        "description": "A verb, as in to synchronize with the server."
+    },
+    "g_system": "Hệ thống",
+    "@g_system": {
+        "description": "A name, as in the default configuration (System configuration)."
+    },
+    "g_tag": "Thẻ",
+    "@g_tag": {
+        "description": "A tag can be attached to an article."
+    },
+    "g_version": "Phiên bản",
+    "@g_version": {
+        "description": "A version, as in the application version."
+    },
+    "humanize_days": "{n, plural, =1{1 day} other{{n} days}}",
+    "@humanize_days": {
+        "placeholders": {
+            "n": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "humanize_future": "trong {duration}",
+    "@humanize_future": {
+        "description": "Describe a duration until a moment in the future.",
+        "placeholders": {
+            "duration": {
+                "type": "String"
+            }
+        }
+    },
+    "humanize_hours": "{n, plural, =1{1 hour} other{{n} hours}}",
+    "@humanize_hours": {
+        "placeholders": {
+            "n": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "humanize_minutes": "{n, plural, =1{1 minute} other{{n} minutes}}",
+    "@humanize_minutes": {
+        "placeholders": {
+            "n": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "humanize_past": "{duration} trước",
+    "@humanize_past": {
+        "description": "Describe a duration since a moment in the past.",
+        "placeholders": {
+            "duration": {
+                "type": "String"
+            }
+        }
+    },
+    "humanize_seconds": "{n, plural, =1{1 second} other{{n} seconds}}",
+    "@humanize_seconds": {
+        "placeholders": {
+            "n": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "article_addTags": "Thêm thẻ",
+    "@article_addTags": {
+        "description": "The action to add tags to an article."
+    },
+    "article_archive": "Lưu trữ bài viết này",
+    "@article_archive": {
+        "description": "The action to archive the article."
+    },
+    "article_browseOriginal": "Duyệt bản gốc",
+    "@article_browseOriginal": {
+        "description": "The action to open the URL of the article in the web browser."
+    },
+    "article_delete": "Xóa bài viết này",
+    "@article_delete": {
+        "description": "The action to delete the article."
+    },
+    "article_details": "Thông tin thêm",
+    "@article_details": {
+        "description": "The action to show the article details."
+    },
+    "article_noContentFetched": "Không tìm nạp được nội dung",
+    "@article_noContentFetched": {
+        "description": "Placeholder for when the article content is not available."
+    },
+    "article_notFound": "Không tìm thấy bài viết",
+    "@article_notFound": {
+        "description": "Placeholder for when the article is not found."
+    },
+    "article_openInBrowser": "Mở trong trình duyệt",
+    "@article_openInBrowser": {
+        "description": "The action to open the article in the web browser."
+    },
+    "article_readingTime": "{minutes} phút",
+    "@article_readingTime": {
+        "description": "The estimated reading time of the article.",
+        "placeholders": {
+            "minutes": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "article_refetchContent": "Tìm nạp lại nội dung",
+    "@article_refetchContent": {
+        "description": "The action to ask the server to fetch the article content again."
+    },
+    "article_readingSettings": "Cài đặt văn bản",
+    "@article_readingSettings": {
+        "description": "The action to open the reading settings sheet."
+    },
+    "article_share": "Chia sẻ bài viết này",
+    "@article_share": {
+        "description": "The action to share the article."
+    },
+    "article_star": "Đánh dấu bài viết này",
+    "@article_star": {
+        "description": "The action to star the article."
+    },
+    "article_unarchive": "Hủy lưu trữ bài viết này",
+    "@article_unarchive": {
+        "description": "The action to unarchive the article."
+    },
+    "article_unstar": "Bỏ dấu sao bài viết này",
+    "@article_unstar": {
+        "description": "The action to unstar the article."
+    },
+    "articlefields_readingTime": "Thời gian đọc",
+    "@articlefields_readingTime": {
+        "description": "The estimated reading time of the article."
+    },
+    "articlefields_tags": "Thẻ",
+    "@articlefields_tags": {
+        "description": "The tags of the article."
+    },
+    "articlefields_title": "Tiêu đề",
+    "@articlefields_title": {
+        "description": "The title of the article."
+    },
+    "articlefields_website": "Website",
+    "@articlefields_website": {
+        "description": "The website (domain) from where the article has been fetched."
+    },
+    "filters_articleDomains": "Tên miền",
+    "@filters_articleDomains": {
+        "description": "Filter the domains from where the articles have been fetched."
+    },
+    "filters_articleDomainsCount": "{count, plural, =1{1 domain} other{{count} domains}}",
+    "@filters_articleDomainsCount": {
+        "description": "The number of articles domains used in filters.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "filters_articleFavoriteStarred": "Đã gắn dấu sao",
+    "@filters_articleFavoriteStarred": {
+        "description": "Filter starred articles."
+    },
+    "filters_articleState": "Trạng thái",
+    "@filters_articleState": {
+        "description": "The state of the article."
+    },
+    "filters_articleStateUnread": "Chưa đọc",
+    "@filters_articleStateUnread": {
+        "description": "Filter articles with the state 'unread'."
+    },
+    "filters_articleStateArchived": "Đã lưu trữ",
+    "@filters_articleStateArchived": {
+        "description": "Filter articles with the state 'archived'."
+    },
+    "filters_articleStateAll": "Tất cả các trạng thái",
+    "@filters_articleStateAll": {
+        "description": "Don't filter articles by state."
+    },
+    "filters_articleTags": "Thẻ",
+    "@filters_articleTags": {
+        "description": "Filter articles with the given tag values."
+    },
+    "filters_articleTagsCount": "{count, plural, =1{1 tag} other{{count} tags}}",
+    "@filters_articleTagsCount": {
+        "description": "The number of tags used in filters.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "filters_searchbarHint": "Tìm kiếm trong bài viết",
+    "@filters_searchbarHint": {
+        "description": "Search bar hint in the home screen."
+    },
+    "filters_searchMode": "Chế độ tìm kiếm",
+    "@filters_searchMode": {
+        "description": "The title of the search mode screen (which fields to search text into)."
+    },
+    "filters_searchModeAll": "Tất cả các trường",
+    "@filters_searchModeAll": {
+        "description": "Search text in all fields."
+    },
+    "filters_searchModeContent": "Nội dung",
+    "@filters_searchModeContent": {
+        "description": "Search text only in the content field."
+    },
+    "filters_searchModeTitle": "Tiêu đề",
+    "@filters_searchModeTitle": {
+        "description": "Search text only in the title field."
+    },
+    "logconsole_title": "Bảng điều khiển nhật ký",
+    "@logconsole_title": {
+        "description": "The title of the log console screen."
+    },
+    "logconsole_clear_logs": "Xóa nhật ký",
+    "@logconsole_clear_logs": {
+        "description": "The action to clear the logs."
+    },
+    "logconsole_export_title": "Xuất dưới dạng tệp",
+    "@logconsole_export_title": {
+        "description": "The title of the export as file dialog."
+    },
+    "logconsole_export_current_session": "Current session ({count, plural, =1{1 line} other{{count} lines}})",
+    "@logconsole_export_current_session": {
+        "description": "Label for exporting only the current session logs.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "logconsole_export_all_logs": "All logs ({count, plural, =1{1 line} other{{count} lines}})",
+    "@logconsole_export_all_logs": {
+        "description": "Label for exporting all available logs.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "listing_noArticles": "Không có bài viết",
+    "@listing_noArticles": {
+        "description": "Placeholder for when there are no articles to display."
+    },
+    "listing_articlesAll": "Tất cả bài viết",
+    "@listing_articlesAll": {
+        "description": "The title for the list of all the articles."
+    },
+    "listing_articlesArchived": "Các bài viết được lưu trữ",
+    "@listing_articlesArchived": {
+        "description": "The title for the list of the articles with the state Archived."
+    },
+    "listing_articlesUnread": "Bài viết chưa đọc",
+    "@listing_articlesUnread": {
+        "description": "The title for the list of the articles with the state Unread."
+    },
+    "login_acceptSelfSigned": "Chấp nhận chứng chỉ tự ký",
+    "@login_acceptSelfSigned": {
+        "description": "Wether or not to accept self-signed certificates when connecting to the wallabag instance."
+    },
+    "login_actionLogin": "Đăng nhập",
+    "@login_actionLogin": {
+        "description": "The action to log in."
+    },
+    "login_existingSessionDialogMessage": "Bạn có muốn đăng xuất khỏi phiên hiện tại và mở một phiên mới không?",
+    "@login_existingSessionDialogMessage": {
+        "description": "The message of the dialog warning about an existing session."
+    },
+    "login_fieldClientSecret": "Bí mật client",
+    "@login_fieldClientSecret": {
+        "description": "The client secret field of the login form."
+    },
+    "readingsettings_title": "Cài đặt văn bản",
+    "@readingsettings_title": {
+        "description": "The title of the reading settings screen."
+    },
+    "save_dubiousUrlMessage": "URL này trông không giống URL này. Vẫn lưu nó?\n{url}",
+    "@save_dubiousUrlMessage": {
+        "description": "The message of the dubious URL warning dialog.",
+        "placeholders": {
+            "url": {
+                "type": "String"
+            }
+        }
+    },
+    "save_dubiousUrlTitle": "URL đáng ngờ",
+    "@save_dubiousUrlTitle": {
+        "description": "The title of the dubious URL warning dialog."
+    },
+    "save_noUrl": "Không cung cấp URL",
+    "@save_noUrl": {
+        "description": "The URL was missing from the save request."
+    },
+    "save_malformedUrlError": "URL không đúng định dạng: {url}",
+    "@save_malformedUrlError": {
+        "description": "Error message shown when the URL to save is malformed.",
+        "placeholders": {
+            "url": {
+                "type": "String"
+            }
+        }
+    },
+    "server_emptyField": "Nhập {label} của bạn",
+    "@server_emptyField": {
+        "description": "A message for non-empty check fail on a form field.",
+        "placeholders": {
+            "label": {
+                "type": "String"
+            }
+        }
+    },
+    "server_unreachable": "Không thể truy cập được máy chủ",
+    "@server_unreachable": {
+        "description": "The server instance is unreachable."
+    },
+    "server_versionNotSupported": "Phiên bản máy chủ không được hỗ trợ",
+    "@server_versionNotSupported": {
+        "description": "The server instance is not supported."
+    },
+    "session_copiedToClipboard": "Đã sao chép vào bộ nhớ tạm",
+    "@session_copiedToClipboard": {
+        "description": "A message displayed when the value is copied to the clipboard."
+    },
+    "session_invalidToken": "không hợp lệ",
+    "@session_invalidToken": {
+        "description": "Placeholder for expiration date when the token is invalid."
+    },
+    "session_logoutDialogConfirm": "Đăng xuất",
+    "@session_logoutDialogConfirm": {
+        "description": "Confirm the log out from the confirmation dialog."
+    },
+    "session_logoutDialogMessage": "Bạn sẽ cần phải đăng nhập lại.",
+    "@session_logoutDialogMessage": {
+        "description": "The message of the confirmation dialog to log out."
+    },
+    "session_logoutDialogTitle": "Phiên đăng xuất",
+    "@session_logoutDialogTitle": {
+        "description": "The title of the confirmation dialog to log out."
+    },
+    "session_logoutSession": "Phiên đăng xuất",
+    "@session_logoutSession": {
+        "description": "The action to log out the session."
+    },
+    "session_fieldAccessToken": "Token truy cập",
+    "@session_fieldAccessToken": {
+        "description": "The label of the access token field in the session screen."
+    },
+    "session_fieldApiToken": "Token API",
+    "@session_fieldApiToken": {
+        "description": "The API token field name of in forms."
+    },
+    "session_fieldLastServerSync": "Đồng bộ hóa máy chủ lần cuối",
+    "@session_fieldLastServerSync": {
+        "description": "The label of the last server sync field in the session screen."
+    },
+    "session_fieldTokenExpiration": "Hết hạn token",
+    "@session_fieldTokenExpiration": {
+        "description": "The label of the token expiration field in the session screen."
+    },
+    "session_forceTokenResfresh": "Buộc làm mới token",
+    "@session_forceTokenResfresh": {
+        "description": "The action to force a token refresh."
+    },
+    "session_neverSynced": "không bao giờ",
+    "@session_neverSynced": {
+        "description": "Default value for the last sync time."
+    },
+    "session_renewDialogMessage": "Máy chủ từ chối token phiên hiện tại. Bạn sẽ cần phải đăng nhập lại để tiếp tục đồng bộ hóa.",
+    "@session_renewDialogMessage": {
+        "description": "The message of the confirmation dialog to renew the session."
+    },
+    "session_renewDialogTitle": "Phiên gia hạn",
+    "@session_renewDialogTitle": {
+        "description": "The title of the confirmation dialog to renew the session."
+    },
+    "session_title": "Chi tiết phiên",
+    "@session_title": {
+        "description": "The title of the session details screen."
+    },
+    "settings_bugReportLink": "Báo cáo lỗi",
+    "@settings_bugReportLink": {
+        "description": "The action to open the bug report form."
+    },
+    "settings_clearCacheMessage": "Bộ nhớ đệm cục bộ sẽ bị xóa và tải lại từ máy chủ.",
+    "@settings_clearCacheMessage": {
+        "description": "The message of the confirmation dialog to clear the cache."
+    },
+    "settings_itemAppearance": "Giao diện",
+    "@settings_itemAppearance": {
+        "description": "Settings for the appearance of the application."
+    },
+    "settings_itemAbout": "Giới thiệu",
+    "@settings_itemAbout": {
+        "description": "The action to display the about screen."
+    },
+    "settings_itemAppBadge": "Hiển thị huy hiệu chưa đọc",
+    "@settings_itemAppBadge": {
+        "description": "The action to toggle the unread badge on the application icon."
+    },
+    "settings_itemClearCache": "Xóa bộ nhớ đệm",
+    "@settings_itemClearCache": {
+        "description": "The action to clear the offline cache."
+    },
+    "settings_itemLogConsole": "Bảng điều khiển nhật ký",
+    "@settings_itemLogConsole": {
+        "description": "The action to display the log console screen."
+    },
+    "settings_itemOpenDeeplink": "Mở liên kết sâu",
+    "@settings_itemOpenDeeplink": {
+        "description": "The action to open a deep link."
+    },
+    "settings_itemLanguage": "Ngôn ngữ",
+    "@settings_itemLanguage": {
+        "description": "The action to change the language of the application."
+    },
+    "settings_helpToTranslate": "Trợ giúp dịch thuật",
+    "@settings_helpToTranslate": {
+        "description": "The action to open the Weblate project in a webview."
+    },
+    "settings_savedArticleTag": "Thêm thẻ vào bài viết đã lưu",
+    "@settings_savedArticleTag": {
+        "description": "The action to toggle the addition of a tag to saved articles."
+    },
+    "settings_savedArticleTagLabel": "Thẻ cho các bài viết đã lưu",
+    "@settings_savedArticleTagLabel": {
+        "description": "The label of the tag to add to saved articles."
+    },
+    "settings_itemSessionDetails": "Chi tiết phiên",
+    "@settings_itemSessionDetails": {
+        "description": "The action to display the session details screen."
+    },
+    "settings_title": "Cài đặt",
+    "@settings_title": {
+        "description": "The title of the settings screen."
+    },
+    "settings_nativeArticleRenderer": "Trình kết xuất bài viết gốc",
+    "@settings_nativeArticleRenderer": {
+        "description": "The action to toggle the use of the experimental article renderer."
+    },
+    "settings_valueThemeDark": "Tối",
+    "@settings_valueThemeDark": {
+        "description": "The label for the dark theme mode."
+    },
+    "settings_valueThemeLight": "Sáng",
+    "@settings_valueThemeLight": {
+        "description": "The label for the light theme mode."
+    },
+    "syncer_pendingActions": "{count, plural, =1{1 action} other{{count} actions}}",
+    "@syncer_pendingActions": {
+        "description": "Number of pending actions in the RemoteSyncer queue.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    }
+}

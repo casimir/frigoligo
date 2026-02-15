@@ -1,0 +1,4 @@
+- Làm lại hầu hết giao diện để thống nhất và dễ sử dụng hơn.
+- Xây dựng lại hoàn toàn hệ thống lưu trữ để có trải nghiệm nhất quán và đáng tin cậy hơn trên tất cả các nền tảng.
+- Xây dựng lại logic về số lượng huy hiệu ứng dụng để đáng tin cậy hơn.
+- Ngôn ngữ mới: Esperanto.

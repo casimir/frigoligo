@@ -1,0 +1,4 @@
+- Rất nhiều điều chỉnh và cải tiến cho giao diện người dùng.
+- Đã sửa lỗi nút chia sẻ không hoạt động trong một số trường hợp.
+- Ngôn ngữ mới: tiếng Tây Ban Nha, tiếng Estonia.
+- Cập nhật bản dịch cho một số ngôn ngữ.
