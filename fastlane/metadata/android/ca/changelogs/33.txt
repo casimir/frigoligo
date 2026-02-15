@@ -1,0 +1,4 @@
+- S'ha afegit un botó per guardar els enllaços des de la pantalla principal.
+- S'ha incrementat les llengües suportades per incloure Gallec, Portuguès de Brasil i Xinès.
+- S'han corregit mols errors, incloent errors amb el guardat d'articles i la sincronització d'accions.
+- La lògica de encaminament per a la visualització d'articles s'ha replantejat per a una experiència més fluida.
