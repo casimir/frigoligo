@@ -16,9 +16,7 @@ import 'package:frigoligo/ui/home/controllers/home_screen_controller.dart';
 import 'package:frigoligo/ui/home/widgets/home_screen.dart';
 
 void main() {
-  TestWidgetsFlutterBinding.ensureInitialized();
-
-  group('cross-screen actions', () {
+  group('post action navigation', () {
     late DB db;
 
     setUp(() async {
@@ -149,7 +147,6 @@ void main() {
 
         expect(find.byType(ArticleScreen), findsNothing);
       });
-
     });
   });
 }
