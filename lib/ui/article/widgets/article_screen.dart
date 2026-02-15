@@ -6,8 +6,6 @@ import 'package:cadanse/components/widgets/adaptive/modal_sheet.dart';
 import 'package:cadanse/components/widgets/adaptive/scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-
 import '../../../buildcontext_extension.dart';
 import '../../../config/dependencies.dart';
 import '../../../constants.dart';
@@ -241,7 +239,7 @@ List<Widget> buildActions(
         if (!confirmed) return;
         await controller.deleteArticle();
         if (!withExpander && context.mounted) {
-          context.go('/');
+          Navigator.of(context).pop();
         }
       },
       isDestructive: true,
