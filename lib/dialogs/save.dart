@@ -36,5 +36,5 @@ Future<void> showSaveUrlDialog(BuildContext context) async {
 
   final url = values[0].toString();
   if (!context.mounted) return;
-  context.push('/save?url=$url');
+  await context.push('/save?url=$url');
 }

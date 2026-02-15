@@ -61,7 +61,7 @@ void main() {
       controller.changeTagsSearchFilterTo('test');
 
       await completer.future;
-      subscription.cancel();
+      await subscription.cancel();
 
       expect(queryRepository.query.tags, equals(['test']));
     });

@@ -176,12 +176,14 @@ class _LoginFlowCredentialsState extends ConsumerState<LoginFlowCredentials> {
         if (e is ServerError) {
           _log.warning('authentication failed', e.message);
           if (mounted) {
-            showOkAlertDialog(context: context, message: e.message);
+            unawaited(showOkAlertDialog(context: context, message: e.message));
           }
         } else {
           _log.severe('unexpected error', e, st);
           if (mounted) {
-            showOkAlertDialog(context: context, message: e.toString());
+            unawaited(
+              showOkAlertDialog(context: context, message: e.toString()),
+            );
           }
         }
       }

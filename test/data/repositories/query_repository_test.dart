@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:drift/drift.dart' as drift;
 import 'package:frigoligo/data/repositories/query_repository.dart';
 import 'package:frigoligo/data/services/local/storage/database/connection/native.dart';
@@ -33,7 +35,7 @@ void main() {
 
       final subscription = queryRepository.queryStream.listen((_) {});
 
-      expectLater(queryRepository.queryStream, emits(newQuery1));
+      unawaited(expectLater(queryRepository.queryStream, emits(newQuery1)));
 
       queryRepository.query = newQuery1;
       // I could not find a way to test "don't broadcast on same value".
@@ -42,7 +44,7 @@ void main() {
 
       expect(queryRepository.query, equals(newQuery1));
 
-      subscription.cancel();
+      await subscription.cancel();
       queryRepository.query = newQuery2;
 
       expect(queryRepository.query, equals(newQuery2));

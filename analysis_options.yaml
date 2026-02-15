@@ -19,6 +19,7 @@ linter:
     prefer_const_literals_to_create_immutables: true
     prefer_relative_imports: true
     prefer_single_quotes: true
+    unawaited_futures: true
 
 analyzer:
   plugins:

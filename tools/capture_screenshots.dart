@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:emulators/emulators.dart';
 
@@ -44,7 +45,7 @@ Future<void> main() async {
             args: ['--no-pub'],
             config: {...c, 'deviceName': emulatorId, 'deviceType': entry.key},
           );
-          stderr.addStream(proc.stderr);
+          unawaited(stderr.addStream(proc.stderr));
           await stdout.addStream(proc.stdout);
         });
       }

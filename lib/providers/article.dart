@@ -27,7 +27,7 @@ class ScrollPosition extends _$ScrollPosition {
     );
 
     ref.onDispose(() => _watcher?.cancel());
-    _watcher?.cancel();
+    await _watcher?.cancel();
     _watcher = q.watchSingleOrNull().listen((value) {
       final current = state.maybeWhen(orElse: () => null, data: (asp) => asp);
       if (value != current?.articleScrollPosition) {

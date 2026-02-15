@@ -48,7 +48,7 @@ void main() {
         ..setTags(['test']);
 
       await completer.future;
-      subscription.cancel();
+      await subscription.cancel();
 
       expect(
         queryRepository.query,

@@ -349,13 +349,13 @@ class _WebViewArticleRendererState extends ConsumerState<_WebViewContent> {
             }
 
             if (url != null && await canLaunchUrl(url) && request.isMainFrame) {
-              launchUrl(url);
+              await launchUrl(url);
               return NavigationDecision.prevent;
             }
             return NavigationDecision.navigate;
           },
           onPageFinished: (url) async {
-            widget.onReadyToScroll?.call(
+            await widget.onReadyToScroll?.call(
               (progress) => _webViewController.runJavaScript(
                 'scrollToProgress($progress)',
               ),

@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'dart:async';
 import 'dart:io';
 
 import 'package:emulators/emulators.dart';
@@ -26,7 +27,7 @@ Future<void> main() async {
       '--device',
       device.$2,
     ]).process();
-    stderr.addStream(proc.stderr);
+    unawaited(stderr.addStream(proc.stderr));
     await stdout.addStream(proc.stdout);
   }
 }

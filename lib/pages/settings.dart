@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -68,7 +70,7 @@ class SettingsPage extends ConsumerWidget {
                       ],
                     );
                     if (choice != null) {
-                      ref
+                      await ref
                           .read(settingsProvider.notifier)
                           .set(Sk.themeMode, choice);
                     }
@@ -86,7 +88,7 @@ class SettingsPage extends ConsumerWidget {
                       final previous = settings[Sk.appBadge];
                       if (previous && !value) {
                         // enabled -> disabled
-                        dependencies.get<AppBadgeService>().clear();
+                        await dependencies.get<AppBadgeService>().clear();
                       } else if (!previous && value) {
                         // disabled -> enabled
                         final configStore = dependencies
@@ -128,7 +130,7 @@ class SettingsPage extends ConsumerWidget {
                       ],
                     );
                     if (result != null) {
-                      ref
+                      await ref
                           .read(settingsProvider.notifier)
                           .set(Sk.tagSaveLabel, result.first);
                     }
@@ -156,7 +158,7 @@ class SettingsPage extends ConsumerWidget {
                       actions: Language.values.map(build).toList(),
                     );
                     if (choice != null) {
-                      ref
+                      await ref
                           .read(settingsProvider.notifier)
                           .set(Sk.language, choice);
                     }
@@ -261,7 +263,11 @@ class SettingsPage extends ConsumerWidget {
                         await appBadge.update(unread);
                       }
 
-                      SyncManager.instance.synchronize(withFinalRefresh: true);
+                      unawaited(
+                        SyncManager.instance.synchronize(
+                          withFinalRefresh: true,
+                        ),
+                      );
                       if (context.mounted) {
                         context.go('/');
                       }

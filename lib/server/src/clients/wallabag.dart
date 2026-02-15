@@ -95,7 +95,7 @@ class WallabagClient extends ApiClient
       DateTime.now().millisecondsSinceEpoch ~/ 1000 + tokenData.expiresIn,
       tokenData.refreshToken,
     );
-    _credsAdapter.write(credentials);
+    await _credsAdapter.write(credentials);
 
     return response;
   }

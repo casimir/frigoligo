@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:drift/drift.dart';
@@ -27,7 +28,7 @@ Future<File> getDBPath(bool devmode, {bool container = true}) async {
 QueryExecutor openConnection() {
   return LazyDatabase(() async {
     // clean old db files in the background
-    _cleanOldDBs();
+    unawaited(_cleanOldDBs());
     // move db from private directory to container (when applicable)
     await _moveToContainer(kDebugMode);
 
