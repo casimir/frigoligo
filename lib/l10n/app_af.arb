@@ -1,0 +1,491 @@
+{
+    "g_article": "Artikel",
+    "@g_article": {
+        "description": "A piece of content fetched from the web. This is one of the main concepts of the app."
+    },
+    "g_check": "Kontroleer",
+    "@g_check": {
+        "description": "A verb as in to check something."
+    },
+    "g_checking": "Kontroleer tans…",
+    "@g_checking": {
+        "description": "Present participle of the verb to check."
+    },
+    "g_delete": "Skrap",
+    "@g_delete": {
+        "description": "A verb, as in to delete something."
+    },
+    "g_saveLink": "Stoor skakel",
+    "@g_saveLink": {
+        "description": "A verb, as in to save a link."
+    },
+    "g_search": "Soek",
+    "@g_search": {
+        "description": "A verb, as in to search something."
+    },
+    "g_server": "Bediener",
+    "@g_server": {
+        "description": "A server, as in a computer providing a service."
+    },
+    "g_settings": "Instellings",
+    "@g_settings": {
+        "description": "The settings of the application."
+    },
+    "g_share": "Deel",
+    "@g_share": {
+        "description": "A verb, as in to share something."
+    },
+    "g_sourceCode": "Bronkode",
+    "@g_sourceCode": {
+        "description": "The source code of a software."
+    },
+    "g_synchronize": "Sinkroniseer",
+    "@g_synchronize": {
+        "description": "A verb, as in to synchronize with the server."
+    },
+    "g_system": "Stelselstandaard",
+    "@g_system": {
+        "description": "A name, as in the default configuration (System configuration)."
+    },
+    "g_tag": "Etiket",
+    "@g_tag": {
+        "description": "A tag can be attached to an article."
+    },
+    "g_version": "Weergawe",
+    "@g_version": {
+        "description": "A version, as in the application version."
+    },
+    "humanize_days": "{n, plural, =1{1 dag} other{{n} dae}}",
+    "@humanize_days": {
+        "placeholders": {
+            "n": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "humanize_future": "binne {duration}",
+    "@humanize_future": {
+        "description": "Describe a duration until a moment in the future.",
+        "placeholders": {
+            "duration": {
+                "type": "String"
+            }
+        }
+    },
+    "humanize_hours": "{n, plural, =1{1 uur} other{{n} uur}}",
+    "@humanize_hours": {
+        "placeholders": {
+            "n": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "humanize_minutes": "{n, plural, =1{1 minuut} other{{n} minute}}",
+    "@humanize_minutes": {
+        "placeholders": {
+            "n": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "humanize_past": "{duration} gelede",
+    "@humanize_past": {
+        "description": "Describe a duration since a moment in the past.",
+        "placeholders": {
+            "duration": {
+                "type": "String"
+            }
+        }
+    },
+    "humanize_seconds": "{n, plural, =1{1 seconde} other{{n} secondes}}",
+    "@humanize_seconds": {
+        "placeholders": {
+            "n": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "article_addTags": "Voeg etikette by",
+    "@article_addTags": {
+        "description": "The action to add tags to an article."
+    },
+    "article_archive": "Argiveer dié artikel",
+    "@article_archive": {
+        "description": "The action to archive the article."
+    },
+    "article_browseOriginal": "Soek oorspronklike artikel aanlyn",
+    "@article_browseOriginal": {
+        "description": "The action to open the URL of the article in the web browser."
+    },
+    "article_delete": "Skrap dié artikel",
+    "@article_delete": {
+        "description": "The action to delete the article."
+    },
+    "article_details": "Meer inligtings",
+    "@article_details": {
+        "description": "The action to show the article details."
+    },
+    "article_notFound": "Kon nie artikel vind nie",
+    "@article_notFound": {
+        "description": "Placeholder for when the article is not found."
+    },
+    "article_openInBrowser": "Maak oop in webblaaier",
+    "@article_openInBrowser": {
+        "description": "The action to open the article in the web browser."
+    },
+    "article_readingTime": "{minutes} min",
+    "@article_readingTime": {
+        "description": "The estimated reading time of the article.",
+        "placeholders": {
+            "minutes": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "article_refetchContent": "Herlaai die artikelinhoud",
+    "@article_refetchContent": {
+        "description": "The action to ask the server to fetch the article content again."
+    },
+    "article_readingSettings": "Teksinstellings",
+    "@article_readingSettings": {
+        "description": "The action to open the reading settings sheet."
+    },
+    "article_share": "Deel die artikel",
+    "@article_share": {
+        "description": "The action to share the article."
+    },
+    "article_noContentFetched": "Kon nie artikel laai nie",
+    "@article_noContentFetched": {
+        "description": "Placeholder for when the article content is not available."
+    },
+    "article_star": "Voeg artikel by gunstelinge",
+    "@article_star": {
+        "description": "The action to star the article."
+    },
+    "article_unarchive": "Verwyder artikel uit argief",
+    "@article_unarchive": {
+        "description": "The action to unarchive the article."
+    },
+    "article_unstar": "Verwyder artikel uit gunstelinge",
+    "@article_unstar": {
+        "description": "The action to unstar the article."
+    },
+    "articlefields_readingTime": "Leestyd",
+    "@articlefields_readingTime": {
+        "description": "The estimated reading time of the article."
+    },
+    "articlefields_tags": "Etikette",
+    "@articlefields_tags": {
+        "description": "The tags of the article."
+    },
+    "articlefields_title": "Titel",
+    "@articlefields_title": {
+        "description": "The title of the article."
+    },
+    "articlefields_website": "Webwerf",
+    "@articlefields_website": {
+        "description": "The website (domain) from where the article has been fetched."
+    },
+    "filters_articleDomains": "Domeine",
+    "@filters_articleDomains": {
+        "description": "Filter the domains from where the articles have been fetched."
+    },
+    "filters_articleDomainsCount": "{count, plural, =1{1 domein} other{{count} domeine}}",
+    "@filters_articleDomainsCount": {
+        "description": "The number of articles domains used in filters.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "filters_articleFavoriteStarred": "Gunstelinge",
+    "@filters_articleFavoriteStarred": {
+        "description": "Filter starred articles."
+    },
+    "filters_articleState": "Status",
+    "@filters_articleState": {
+        "description": "The state of the article."
+    },
+    "filters_articleStateUnread": "Ongelees",
+    "@filters_articleStateUnread": {
+        "description": "Filter articles with the state 'unread'."
+    },
+    "filters_articleStateArchived": "Geargiveer",
+    "@filters_articleStateArchived": {
+        "description": "Filter articles with the state 'archived'."
+    },
+    "filters_articleStateAll": "Alle statusse",
+    "@filters_articleStateAll": {
+        "description": "Don't filter articles by state."
+    },
+    "filters_articleTags": "Etikette",
+    "@filters_articleTags": {
+        "description": "Filter articles with the given tag values."
+    },
+    "filters_articleTagsCount": "{count, plural, =1{1 etiket} other{{count} etikette}}",
+    "@filters_articleTagsCount": {
+        "description": "The number of tags used in filters.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "filters_searchMode": "Soekmodus",
+    "@filters_searchMode": {
+        "description": "The title of the search mode screen (which fields to search text into)."
+    },
+    "filters_searchModeTitle": "Slegs in titelveld",
+    "@filters_searchModeTitle": {
+        "description": "Search text only in the title field."
+    },
+    "listing_articlesAll": "Alle artikels",
+    "@listing_articlesAll": {
+        "description": "The title for the list of all the articles."
+    },
+    "listing_articlesArchived": "Geargiveerde artikels",
+    "@listing_articlesArchived": {
+        "description": "The title for the list of the articles with the state Archived."
+    },
+    "listing_articlesUnread": "Ongeleesde artikels",
+    "@listing_articlesUnread": {
+        "description": "The title for the list of the articles with the state Unread."
+    },
+    "login_actionLogin": "Meld aan",
+    "@login_actionLogin": {
+        "description": "The action to log in."
+    },
+    "login_existingSessionDialogConfirm": "Meld af",
+    "@login_existingSessionDialogConfirm": {
+        "description": "The action to log out from the existing session."
+    },
+    "login_fieldPassword": "Wagwoord",
+    "@login_fieldPassword": {
+        "description": "The password field of the login form."
+    },
+    "login_fieldUsername": "Gebruikersnaam",
+    "@login_fieldUsername": {
+        "description": "The username field of the login form."
+    },
+    "readingsettings_title": "Teksinstellings",
+    "@readingsettings_title": {
+        "description": "The title of the reading settings screen."
+    },
+    "save_confirmationTitle": "Artikel is gestoor!",
+    "@save_confirmationTitle": {
+        "description": "The title of the confirmation screen after the article is saved. "
+    },
+    "save_dubiousUrlConfirm": "Stoor",
+    "@save_dubiousUrlConfirm": {
+        "description": "The confirmation button of the dubious URL warning dialog."
+    },
+    "save_title": "Stoor die artikel",
+    "@save_title": {
+        "description": "The title of the save screen."
+    },
+    "save_viewArticle": "Bekyk die artikel",
+    "@save_viewArticle": {
+        "description": "The action to view the article after it is saved."
+    },
+    "selector_selectbuttonlabel": "Kies {numberOfItems}",
+    "@selector_selectbuttonlabel": {
+        "description": "The label of the select button in a selector screen.",
+        "placeholders": {
+            "numberOfItems": {
+                "type": "String",
+                "example": "3 items"
+            }
+        }
+    },
+    "session_invalidToken": "ongeldig",
+    "@session_invalidToken": {
+        "description": "Placeholder for expiration date when the token is invalid."
+    },
+    "session_logoutDialogConfirm": "Meld af",
+    "@session_logoutDialogConfirm": {
+        "description": "Confirm the log out from the confirmation dialog."
+    },
+    "session_neverSynced": "nooit",
+    "@session_neverSynced": {
+        "description": "Default value for the last sync time."
+    },
+    "settings_itemAbout": "Meer oor",
+    "@settings_itemAbout": {
+        "description": "The action to display the about screen."
+    },
+    "settings_itemLanguage": "Taal",
+    "@settings_itemLanguage": {
+        "description": "The action to change the language of the application."
+    },
+    "settings_helpToTranslate": "Help vertaal",
+    "@settings_helpToTranslate": {
+        "description": "The action to open the Weblate project in a webview."
+    },
+    "settings_savedArticleTag": "Voeg 'n etiket by gestoorde artikels",
+    "@settings_savedArticleTag": {
+        "description": "The action to toggle the addition of a tag to saved articles."
+    },
+    "settings_title": "Instellings",
+    "@settings_title": {
+        "description": "The title of the settings screen."
+    },
+    "settings_valueThemeDark": "Donker",
+    "@settings_valueThemeDark": {
+        "description": "The label for the dark theme mode."
+    },
+    "settings_valueThemeLight": "Ligte",
+    "@settings_valueThemeLight": {
+        "description": "The label for the light theme mode."
+    },
+    "syncer_pendingActions": "{count, plural, =1{1 aksie} other{{count} aksies}}",
+    "@syncer_pendingActions": {
+        "description": "Number of pending actions in the RemoteSyncer queue.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "filters_searchbarHint": "Soek in artikels",
+    "@filters_searchbarHint": {
+        "description": "Search bar hint in the home screen."
+    },
+    "filters_searchModeAll": "In alle velde",
+    "@filters_searchModeAll": {
+        "description": "Search text in all fields."
+    },
+    "filters_searchModeContent": "Slegs in inhoudveld",
+    "@filters_searchModeContent": {
+        "description": "Search text only in the content field."
+    },
+    "logconsole_title": "Logboekkonsole",
+    "@logconsole_title": {
+        "description": "The title of the log console screen."
+    },
+    "logconsole_clear_logs": "Maak logboek skoon",
+    "@logconsole_clear_logs": {
+        "description": "The action to clear the logs."
+    },
+    "logconsole_export_title": "Uitvoer as lêer",
+    "@logconsole_export_title": {
+        "description": "The title of the export as file dialog."
+    },
+    "logconsole_export_current_session": "Huidige sessie ({count, plural, =1{1 reël} other{{count} reëls}})",
+    "@logconsole_export_current_session": {
+        "description": "Label for exporting only the current session logs.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "logconsole_export_all_logs": "Alle logreëls ({count, plural, =1{1 reël} other{{count} reëls}})",
+    "@logconsole_export_all_logs": {
+        "description": "Label for exporting all available logs.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "listing_noArticles": "Geen artikels om te vertoon nie",
+    "@listing_noArticles": {
+        "description": "Placeholder for when there are no articles to display."
+    },
+    "login_acceptSelfSigned": "Aanvaar selfgetekende sertifikate",
+    "@login_acceptSelfSigned": {
+        "description": "Wether or not to accept self-signed certificates when connecting to the wallabag instance."
+    },
+    "login_existingSessionDialogMessage": "Wil u uit die huidige sessie afmeld en 'n nuwe sessie oopmaak?",
+    "@login_existingSessionDialogMessage": {
+        "description": "The message of the dialog warning about an existing session."
+    },
+    "login_existingSessionDialogTitle": "Daar is nog 'n sessie aktief",
+    "@login_existingSessionDialogTitle": {
+        "description": "The title of the dialog warning about an existing session."
+    },
+    "login_fieldClientId": "Kliënt-ID",
+    "@login_fieldClientId": {
+        "description": "The client ID field of the login form."
+    },
+    "login_fieldClientSecret": "Kliëntgeheim",
+    "@login_fieldClientSecret": {
+        "description": "The client secret field of the login form."
+    },
+    "readingsettings_fontSize": "Lettergrootte",
+    "@readingsettings_fontSize": {
+        "description": "The font size to display the content of the article."
+    },
+    "readdingsettings_textFormatting": "Teksformatering",
+    "@readdingsettings_textFormatting": {
+        "description": "The text formatting to display the content of the article."
+    },
+    "save_dubiousUrlTitle": "Twyfelagtige URL",
+    "@save_dubiousUrlTitle": {
+        "description": "The title of the dubious URL warning dialog."
+    },
+    "save_noUrl": "Geen URL opgegee",
+    "@save_noUrl": {
+        "description": "The URL was missing from the save request."
+    },
+    "server_address": "Bedienersadres",
+    "@server_address": {
+        "description": "The address of the wallabag instance."
+    },
+    "server_emptyField": "Voer uw {label} in",
+    "@server_emptyField": {
+        "description": "A message for non-empty check fail on a form field.",
+        "placeholders": {
+            "label": {
+                "type": "String"
+            }
+        }
+    },
+    "server_invalidUrl": "Ongeldige adres",
+    "@server_invalidUrl": {
+        "description": "The address of the wallabag instance is invalid."
+    },
+    "server_unknownServerType": "Onbekende bedienerstipe",
+    "@server_unknownServerType": {
+        "description": "The application could not detect the server type."
+    },
+    "server_unreachable": "Bediener onbereikbaar",
+    "@server_unreachable": {
+        "description": "The server instance is unreachable."
+    },
+    "server_versionNotSupported": "Bedienersweergawe word nie ondersteun nie",
+    "@server_versionNotSupported": {
+        "description": "The server instance is not supported."
+    },
+    "session_copiedToClipboard": "Na die knipbord gekopieer",
+    "@session_copiedToClipboard": {
+        "description": "A message displayed when the value is copied to the clipboard."
+    },
+    "session_logoutDialogMessage": "U sal dan weer moet aanmeld.",
+    "@session_logoutDialogMessage": {
+        "description": "The message of the confirmation dialog to log out."
+    },
+    "session_logoutDialogTitle": "Meld af van die sessie",
+    "@session_logoutDialogTitle": {
+        "description": "The title of the confirmation dialog to log out."
+    },
+    "session_logoutSession": "Meld af van die sessie",
+    "@session_logoutSession": {
+        "description": "The action to log out the session."
+    },
+    "session_fieldAccessToken": "Toegangsbewys",
+    "@session_fieldAccessToken": {
+        "description": "The label of the access token field in the session screen."
+    }
+}

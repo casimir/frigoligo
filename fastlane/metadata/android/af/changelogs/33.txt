@@ -1,0 +1,4 @@
+- 'n Knoppie bygevoeg om skakels vanaf die hoofskerm te stoor.
+- Taalondersteuning is uitgebrei om Galisies, Brasiliaanse Portugees en Chinees in te sluit.
+- Verskeie foute is reggestel, insluitend probleme met die stoor en sinchronisering van artikels.
+- Die roeteringslogika vir artikelkyke is herontwerp vir 'n gladder ervaring.
