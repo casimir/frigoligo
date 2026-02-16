@@ -68,6 +68,9 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(SyncManager)* Deduplicate throttling logic ([31d60b0](https://github.com/casimir/frigoligo/commit/31d60b06b5ad8a05d2710226e420169103a44a3c))
 - *(android)* Avoid a crash on startup because of native integration ([60b5e03](https://github.com/casimir/frigoligo/commit/60b5e03f118dda5e6db66896f28dca75ee41858c))
 - *(sync)* Avoid a silent error when trying to sync without a session ([04a422c](https://github.com/casimir/frigoligo/commit/04a422ce89a86675809442ca67feea2cee9feaf4))
+- Pop the navigation stack after an article deletion ([#438](https://github.com/casimir/frigoligo/pull/438)) ([c4c168b](https://github.com/casimir/frigoligo/commit/c4c168b3ad8f4cfdfe02a504104ac2a9d399f359))
+- *(FTUE)* Enforce a sync after a successful log in ([494d704](https://github.com/casimir/frigoligo/commit/494d704c4b236f91b145dd5a9e3a9bf57bda4d3e))
+- *(demo)* Don't assume direct fs access when loading sample ([57a676d](https://github.com/casimir/frigoligo/commit/57a676daefbf8a5bb5bcb9c27ab5d6ecf41d91dd))
 
 ### 🚜 Refactor
 
@@ -163,6 +166,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Batch of various small fixes ([#420](https://github.com/casimir/frigoligo/pull/420)) ([1a33e14](https://github.com/casimir/frigoligo/commit/1a33e1410fb379a6bff251365e38944d72748530))
 - *(coverage)* Sonarqube doesn't follow in file instructions ([318331f](https://github.com/casimir/frigoligo/commit/318331f2ad49fb210441af8b13f799dd26c5ed10))
 - Cleanup redundant riverpod imports ([4f17ed9](https://github.com/casimir/frigoligo/commit/4f17ed9b69f1573217c75317c4ca072da97cc53e))
+- Force explicit handling of futures ([9daa949](https://github.com/casimir/frigoligo/commit/9daa949f3379d37a155a35dcd9783d16acf82043))
 
 ### I18n
 
