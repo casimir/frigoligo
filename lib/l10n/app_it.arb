@@ -572,5 +572,22 @@
     "logconsole_clear_logs": "Elimina registri",
     "@logconsole_clear_logs": {
         "description": "The action to clear the logs."
+    },
+    "save_localModeError": "Per salvare nuovi articoli è necessaria una connessione al server.",
+    "@save_localModeError": {
+        "description": "Error message shown when trying to save an article in local mode."
+    },
+    "save_malformedUrlError": "URL non valido: {url}",
+    "@save_malformedUrlError": {
+        "description": "Error message shown when the URL to save is malformed.",
+        "placeholders": {
+            "url": {
+                "type": "String"
+            }
+        }
+    },
+    "login_demoMode": "Prova in modalità demo",
+    "@login_demoMode": {
+        "description": "The action to put the app in demo mode instead of connecting to a server."
     }
 }

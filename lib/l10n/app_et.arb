@@ -572,5 +572,22 @@
     "logconsole_clear_logs": "Kustuta logid",
     "@logconsole_clear_logs": {
         "description": "The action to clear the logs."
+    },
+    "save_localModeError": "Uute artiklite salvestamiseks on vajalik toimiv ühendus serveriga.",
+    "@save_localModeError": {
+        "description": "Error message shown when trying to save an article in local mode."
+    },
+    "save_malformedUrlError": "Vigane võrguaadress: {url}",
+    "@save_malformedUrlError": {
+        "description": "Error message shown when the URL to save is malformed.",
+        "placeholders": {
+            "url": {
+                "type": "String"
+            }
+        }
+    },
+    "login_demoMode": "Proovi demorežiimis",
+    "@login_demoMode": {
+        "description": "The action to put the app in demo mode instead of connecting to a server."
     }
 }

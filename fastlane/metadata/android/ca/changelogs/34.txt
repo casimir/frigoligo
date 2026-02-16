@@ -1,0 +1,1 @@
+- S'ha resolt un problema que impedia obrir enllaços en el contingut dels articles.

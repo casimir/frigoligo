@@ -84,7 +84,6 @@
         "description": "Placeholder for when there are no articles to display."
     },
     "humanize_days": "{n, plural, =1{1 Tag} other{{n} Tage}}",
-    "@humanize_days": {},
     "session_copiedToClipboard": "In die Zwischenablage kopiert",
     "@session_copiedToClipboard": {
         "description": "A message displayed when the value is copied to the clipboard."
@@ -98,7 +97,6 @@
         "description": "The address of the Wallabag instance."
     },
     "humanize_hours": "{n, plural, =1{1 Stunde} other{{n} Stunden}}",
-    "@humanize_hours": {},
     "session_fieldTokenExpiration": "Ablauf des Tokens",
     "@session_fieldTokenExpiration": {
         "description": "The label of the token expiration field in the session screen."
@@ -120,9 +118,7 @@
         "description": "The title of the dialog warning about an existing session."
     },
     "humanize_seconds": "{n, plural, =1{1 Sekunde} other{{n} Sekunden}}",
-    "@humanize_seconds": {},
     "humanize_minutes": "{n, plural, =1{1 Minute} other{{n} Minuten}}",
-    "@humanize_minutes": {},
     "session_fieldLastServerSync": "Letzte Synchronisierung mit dem Server",
     "@session_fieldLastServerSync": {
         "description": "The label of the last server sync field in the session screen."
@@ -147,7 +143,7 @@
     "@g_tag": {
         "description": "A tag can be attached to an article."
     },
-    "session_fieldAccessToken": "Access token",
+    "session_fieldAccessToken": "Zugangstoken",
     "@session_fieldAccessToken": {
         "description": "The label of the access token field in the session screen."
     },
@@ -201,7 +197,7 @@
     "@settings_savedArticleTagLabel": {
         "description": "The label of the tag to add to saved articles."
     },
-    "login_fieldUsername": "Username",
+    "login_fieldUsername": "Nutzername",
     "@login_fieldUsername": {
         "description": "The username field of the login form."
     },
@@ -292,7 +288,6 @@
         "description": "The title of the confirmation dialog to renew the session."
     },
     "g_system": "System",
-    "@g_system": {},
     "settings_itemLanguage": "Sprache",
     "@settings_itemLanguage": {
         "description": "The action to change the language of the application."
@@ -329,7 +324,7 @@
     "@listing_articlesAll": {
         "description": "The title for the list of all the articles."
     },
-    "listing_articlesArchived": "Archivierte",
+    "listing_articlesArchived": "Archivierte Artikeln",
     "@listing_articlesArchived": {
         "description": "The title for the list of the articles with the state Archived."
     },
@@ -542,5 +537,22 @@
     "logconsole_clear_logs": "Protokolle löschen",
     "@logconsole_clear_logs": {
         "description": "The action to clear the logs."
+    },
+    "save_localModeError": "Eine Serverbindung ist zum Speichern neuer Artikel erforderlich.",
+    "@save_localModeError": {
+        "description": "Error message shown when trying to save an article in local mode."
+    },
+    "save_malformedUrlError": "Fehlerhafte URL: {url}",
+    "@save_malformedUrlError": {
+        "description": "Error message shown when the URL to save is malformed.",
+        "placeholders": {
+            "url": {
+                "type": "String"
+            }
+        }
+    },
+    "login_demoMode": "Im Demo-Modus nutzen",
+    "@login_demoMode": {
+        "description": "The action to put the app in demo mode instead of connecting to a server."
     }
 }
