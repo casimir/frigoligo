@@ -298,7 +298,8 @@ class NavigationSplitViewState extends State<NavigationSplitView>
       Navigator.of(context).push(
         adaptivePageRouteBuilder(
           context,
-          (context) => _buildContentPane(index, widget.enableShortcuts),
+          (routeContext) =>
+              _buildContentPane(routeContext, index, widget.enableShortcuts),
         ),
       );
     }
@@ -347,7 +348,7 @@ class NavigationSplitViewState extends State<NavigationSplitView>
           navigationPane: _buildNavigationPane(layout),
         ),
         if (!isContentExpanded) const VerticalDivider(width: 1),
-        Expanded(child: _buildContentPane(_selectedIndex, false)),
+        Expanded(child: _buildContentPane(context, _selectedIndex, false)),
       ],
     );
 
@@ -424,7 +425,11 @@ class NavigationSplitViewState extends State<NavigationSplitView>
     );
   }
 
-  Widget _buildContentPane(int? index, bool withShortcuts) {
+  Widget _buildContentPane(
+    BuildContext context,
+    int? index,
+    bool withShortcuts,
+  ) {
     final content = index == null
         ? widget.contentPlaceholder ?? _buildDefaultContentPlaceholder()
         : widget.contentBuilder(context, index);
