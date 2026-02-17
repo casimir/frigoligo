@@ -71,6 +71,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Pop the navigation stack after an article deletion ([#438](https://github.com/casimir/frigoligo/pull/438)) ([c4c168b](https://github.com/casimir/frigoligo/commit/c4c168b3ad8f4cfdfe02a504104ac2a9d399f359))
 - *(FTUE)* Enforce a sync after a successful log in ([494d704](https://github.com/casimir/frigoligo/commit/494d704c4b236f91b145dd5a9e3a9bf57bda4d3e))
 - *(demo)* Don't assume direct fs access when loading sample ([57a676d](https://github.com/casimir/frigoligo/commit/57a676daefbf8a5bb5bcb9c27ab5d6ecf41d91dd))
+- *(NavSplitView)* Separate rendering context from PageRoute context ([8a646ed](https://github.com/casimir/frigoligo/commit/8a646ed6add8ea9d9c6a736009a8f7abd9cc8e4c))
 
 ### 🚜 Refactor
 
