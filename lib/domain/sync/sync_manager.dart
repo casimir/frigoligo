@@ -231,12 +231,49 @@ class SyncManager {
       res.addAll(await executeAllPendingActions(onProgress: _setProgress));
 
       if (withFinalRefresh) {
+        final lastSyncTS = await _localStorageService.metadata.getLastSyncTS();
+
         _setProgress(null);
         _log.info('running action: $_refreshAction');
         final api = _serverSessionRepository.createClient(
           userAgent: AppInfo.userAgent,
         );
         await _refreshAction.execute(api, _localStorageService, _setProgress);
+
+        if (api is WithReadProgress) {
+          _log.info('syncing read progress');
+          _setProgress(null);
+          final since = lastSyncTS != null
+              ? DateTime.fromMillisecondsSinceEpoch(lastSyncTS * 1000)
+              : DateTime.fromMillisecondsSinceEpoch(0);
+          final rp = api as WithReadProgress;
+          final remote = await rp.getReadProgress(since);
+          await _articleRepository.applyProgress(
+            remote
+                .map(
+                  (u) => (
+                    articleId: u.articleId,
+                    progress: u.progress,
+                    updatedAt: u.updatedAt,
+                  ),
+                )
+                .toList(),
+          );
+          final dirty = await _articleRepository.getDirtyProgress(since);
+          if (dirty.isNotEmpty) {
+            await rp.putReadProgress(
+              dirty
+                  .map(
+                    (r) => ReadProgressUpdate(
+                      articleId: r.articleId,
+                      progress: r.progress,
+                      updatedAt: r.updatedAt,
+                    ),
+                  )
+                  .toList(),
+            );
+          }
+        }
       }
 
       await _updateAppBadge();
@@ -249,7 +286,7 @@ class SyncManager {
       _log.severe('sync failed', e);
       error = e;
     } catch (e, st) {
-      // Backgroud sync needs to be bulletproof, try too catch ANYTHING else
+      // Background sync needs to be bulletproof, try to catch ANYTHING else
       _log.severe('sync failed (badly)', e, st);
       error = Exception(e.toString());
     } finally {

@@ -125,19 +125,15 @@ void main() {
         tags: [],
       );
 
-      // Insert article and set scroll position
       await localStorageService.articles.update(article);
       await articleRepository.setReadingProgress(1, 0.5);
 
-      // Verify scroll position exists
       final stream = articleRepository.watchReadingProgress(1);
       expect(await stream.elementAt(0), equals(0.5));
 
-      // Update article with different readingTime
       final updatedArticle = article.copyWith(readingTime: 10);
       await localStorageService.articles.update(updatedArticle);
 
-      // Verify scroll position was evicted
       expect(await stream.elementAt(0), equals(null));
     });
 
@@ -155,19 +151,16 @@ void main() {
           tags: [],
         );
 
-        // Insert article and set scroll position
         await localStorageService.articles.update(article);
         await articleRepository.setReadingProgress(1, 0.5);
 
-        // Verify scroll position exists
         final stream = articleRepository.watchReadingProgress(1);
         expect(await stream.elementAt(0), equals(0.5));
 
-        // Update article with same readingTime but different title
+        // Update with same readingTime but different title
         final updatedArticle = article.copyWith(title: 'Updated Title');
         await localStorageService.articles.update(updatedArticle);
 
-        // Verify scroll position still exists
         expect(await stream.elementAt(0), equals(0.5));
       },
     );
@@ -189,6 +182,73 @@ void main() {
 
     test('delete returns false when article does not exist', () async {
       expect(await articleRepository.delete(999), isFalse);
+    });
+
+    group('read progress sync', () {
+      final article = Article(
+        id: 1,
+        createdAt: DateTime(2000),
+        updatedAt: DateTime(2000),
+        title: 'Title',
+        url: 'https://somewhere.org/articles/1',
+        readingTime: 5,
+        tags: [],
+      );
+
+      test(
+        'getDirtyProgress returns only records updated after since',
+        () async {
+          await localStorageService.articles.update(article);
+          await articleRepository.setReadingProgress(1, 0.4);
+
+          final before = DateTime.now().subtract(const Duration(minutes: 1));
+          final after = DateTime.now().add(const Duration(minutes: 1));
+
+          final results = await articleRepository.getDirtyProgress(before);
+          expect(results, hasLength(1));
+          expect(results.first.articleId, equals(1));
+          expect(results.first.progress, equals(0.4));
+
+          final resultsAfter = await articleRepository.getDirtyProgress(after);
+          expect(resultsAfter, isEmpty);
+        },
+      );
+
+      test('applyProgress applies update when remote is newer', () async {
+        await localStorageService.articles.update(article);
+        await articleRepository.setReadingProgress(1, 0.3);
+
+        final newerThanNow = DateTime.now().add(const Duration(days: 1));
+        await articleRepository.applyProgress([
+          (articleId: 1, progress: 0.9, updatedAt: newerThanNow),
+        ]);
+
+        final progress = await articleRepository.watchReadingProgress(1).first;
+        expect(progress, equals(0.9));
+      });
+
+      test('applyProgress skips update when remote is older', () async {
+        await localStorageService.articles.update(article);
+        await articleRepository.setReadingProgress(1, 0.8);
+
+        final olderThanNow = DateTime.now().subtract(const Duration(days: 1));
+        await articleRepository.applyProgress([
+          (articleId: 1, progress: 0.1, updatedAt: olderThanNow),
+        ]);
+
+        final progress = await articleRepository.watchReadingProgress(1).first;
+        expect(progress, equals(0.8));
+      });
+
+      test('applyProgress skips unknown articles', () async {
+        await articleRepository.applyProgress([
+          (articleId: 999, progress: 0.5, updatedAt: DateTime.now()),
+        ]);
+        final progress = await articleRepository
+            .watchReadingProgress(999)
+            .first;
+        expect(progress, isNull);
+      });
     });
   });
 }

@@ -86,6 +86,8 @@ void main() {
         tags: any(named: 'tags'),
       ),
     ).thenAnswer((_) async {});
+    when(() => articleRepo.getDirtyProgress(any())).thenAnswer((_) async => []);
+    when(() => articleRepo.applyProgress(any())).thenAnswer((_) async {});
 
     syncManager = SyncManager(
       appBadgeService: appBadge,
@@ -372,5 +374,16 @@ void main() {
       expect(result.isNotEmpty, true);
       expect(await syncManager.getPendingCount(), 0);
     });
+  });
+
+  group('read progress sync', () {
+    test(
+      'should not attempt read progress sync when withFinalRefresh is false',
+      () async {
+        await syncManager.synchronize(withFinalRefresh: false);
+        verifyNever(() => articleRepo.applyProgress(any()));
+        verifyNever(() => articleRepo.getDirtyProgress(any()));
+      },
+    );
   });
 }

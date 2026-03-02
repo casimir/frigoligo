@@ -20,7 +20,7 @@ class DB extends $DB {
   DB([QueryExecutor? e]) : super(e ?? openConnection());
 
   @override
-  int get schemaVersion => 7;
+  int get schemaVersion => 8;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -29,6 +29,21 @@ class DB extends $DB {
     onUpgrade: (m, from, to) async {
       _log.info('migrating from version $from to $to');
       if (from == to) return;
+
+      if (from == 7) {
+        await m.alterTable(
+          TableMigration(
+            articleScrollPositions,
+            columnTransformer: {
+              articleScrollPositions.updatedAt: Constant(
+                DateTime.fromMillisecondsSinceEpoch(0),
+              ),
+            },
+            newColumns: [articleScrollPositions.updatedAt],
+          ),
+        );
+        return;
+      }
 
       final keepTables = [appLogs.actualTableName];
       for (final table in m.database.allTables.toList().reversed) {

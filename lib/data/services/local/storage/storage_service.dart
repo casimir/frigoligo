@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 
+import '../../../../domain/models/progress_record.dart';
 import '../../../../domain/types.dart';
 import 'database/database.dart';
 import 'database/models/article.drift.dart';
@@ -291,9 +292,66 @@ class ArticlesManager {
               .map((row) => row.read(_db.articles.readingTime)!)
               .getSingle();
       await _db.managers.articleScrollPositions.create(
-        (o) => o(id: Value(id), readingTime: readingTime, progress: progress),
+        (o) => o(
+          id: Value(id),
+          readingTime: readingTime,
+          progress: progress,
+          updatedAt: DateTime.now(),
+        ),
         mode: InsertMode.insertOrReplace,
       );
+    });
+  }
+
+  Future<List<ProgressRecord>> getDirtyProgress(DateTime since) async {
+    final t = _db.articleScrollPositions;
+    final rows =
+        await (t.select()..where((r) => r.updatedAt.isBiggerThanValue(since)))
+            .get();
+    return rows
+        .map(
+          (r) =>
+              (articleId: r.id, progress: r.progress, updatedAt: r.updatedAt),
+        )
+        .toList();
+  }
+
+  Future<void> applyProgress(List<ProgressRecord> updates) async {
+    if (updates.isEmpty) return;
+    final ids = updates.map((u) => u.articleId).toList();
+    await _db.transaction(() async {
+      final existing =
+          await (_db.articleScrollPositions.select()
+                ..where((r) => r.id.isIn(ids)))
+              .get();
+      final existingMap = {for (final e in existing) e.id: e};
+      final readingTimes =
+          await (_db.articles.selectOnly()
+                ..addColumns([_db.articles.id, _db.articles.readingTime])
+                ..where(_db.articles.id.isIn(ids)))
+              .get();
+      final readingTimeMap = {
+        for (final row in readingTimes)
+          row.read(_db.articles.id)!: row.read(_db.articles.readingTime)!,
+      };
+      for (final update in updates) {
+        final existingEntry = existingMap[update.articleId];
+        if (existingEntry != null &&
+            existingEntry.updatedAt.isAfter(update.updatedAt)) {
+          continue;
+        }
+        final readingTime = readingTimeMap[update.articleId];
+        if (readingTime == null) continue;
+        await _db.managers.articleScrollPositions.create(
+          (o) => o(
+            id: Value(update.articleId),
+            readingTime: readingTime,
+            progress: update.progress,
+            updatedAt: update.updatedAt,
+          ),
+          mode: InsertMode.insertOrReplace,
+        );
+      }
     });
   }
 
