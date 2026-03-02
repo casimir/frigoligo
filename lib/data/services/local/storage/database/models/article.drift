@@ -23,7 +23,8 @@ CREATE TABLE articles (
 CREATE TABLE article_scroll_positions (
     id INTEGER PRIMARY KEY,
     reading_time INTEGER NOT NULL,
-    progress REAL NOT NULL
+    progress REAL NOT NULL,
+    updated_at DATETIME NOT NULL
 );
 
 -- Full text search index

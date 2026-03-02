@@ -47,6 +47,16 @@ class ArticleRepositoryImpl implements ArticleRepository {
   }
 
   @override
+  Future<List<ProgressRecord>> getDirtyProgress(DateTime since) {
+    return _localStorageService.articles.getDirtyProgress(since);
+  }
+
+  @override
+  Future<void> applyProgress(List<ProgressRecord> updates) {
+    return _localStorageService.articles.applyProgress(updates);
+  }
+
+  @override
   Future<bool> delete(int id) async {
     final count = await _localStorageService.articles.delete(id);
     return count > 0;

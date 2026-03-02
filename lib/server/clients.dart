@@ -10,5 +10,7 @@ export 'src/clients/wallabag.dart'
         UpdatableWallabagCredentialsAdapter,
         WallabagClient,
         WallabagCredentials;
+export 'src/clients/with_read_progress.dart'
+    show ReadProgressUpdate, WithReadProgress;
 
 export 'src/server_types.dart' show ServerType;

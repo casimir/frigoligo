@@ -367,12 +367,14 @@ typedef $ArticleScrollPositionsCreateCompanionBuilder =
       i0.Value<int> id,
       required int readingTime,
       required double progress,
+      required DateTime updatedAt,
     });
 typedef $ArticleScrollPositionsUpdateCompanionBuilder =
     i1.ArticleScrollPositionsCompanion Function({
       i0.Value<int> id,
       i0.Value<int> readingTime,
       i0.Value<double> progress,
+      i0.Value<DateTime> updatedAt,
     });
 
 class $ArticleScrollPositionsFilterComposer
@@ -396,6 +398,11 @@ class $ArticleScrollPositionsFilterComposer
 
   i0.ColumnFilters<double> get progress => $composableBuilder(
     column: $table.progress,
+    builder: (column) => i0.ColumnFilters(column),
+  );
+
+  i0.ColumnFilters<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
     builder: (column) => i0.ColumnFilters(column),
   );
 }
@@ -423,6 +430,11 @@ class $ArticleScrollPositionsOrderingComposer
     column: $table.progress,
     builder: (column) => i0.ColumnOrderings(column),
   );
+
+  i0.ColumnOrderings<DateTime> get updatedAt => $composableBuilder(
+    column: $table.updatedAt,
+    builder: (column) => i0.ColumnOrderings(column),
+  );
 }
 
 class $ArticleScrollPositionsAnnotationComposer
@@ -444,6 +456,9 @@ class $ArticleScrollPositionsAnnotationComposer
 
   i0.GeneratedColumn<double> get progress =>
       $composableBuilder(column: $table.progress, builder: (column) => column);
+
+  i0.GeneratedColumn<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
 }
 
 class $ArticleScrollPositionsTableManager
@@ -489,20 +504,24 @@ class $ArticleScrollPositionsTableManager
                 i0.Value<int> id = const i0.Value.absent(),
                 i0.Value<int> readingTime = const i0.Value.absent(),
                 i0.Value<double> progress = const i0.Value.absent(),
+                i0.Value<DateTime> updatedAt = const i0.Value.absent(),
               }) => i1.ArticleScrollPositionsCompanion(
                 id: id,
                 readingTime: readingTime,
                 progress: progress,
+                updatedAt: updatedAt,
               ),
           createCompanionCallback:
               ({
                 i0.Value<int> id = const i0.Value.absent(),
                 required int readingTime,
                 required double progress,
+                required DateTime updatedAt,
               }) => i1.ArticleScrollPositionsCompanion.insert(
                 id: id,
                 readingTime: readingTime,
                 progress: progress,
+                updatedAt: updatedAt,
               ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), i0.BaseReferences(db, table, e)))
@@ -1480,8 +1499,25 @@ class ArticleScrollPositions extends i0.Table
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
+  static const i0.VerificationMeta _updatedAtMeta = const i0.VerificationMeta(
+    'updatedAt',
+  );
+  late final i0.GeneratedColumn<DateTime> updatedAt =
+      i0.GeneratedColumn<DateTime>(
+        'updated_at',
+        aliasedName,
+        false,
+        type: i0.DriftSqlType.dateTime,
+        requiredDuringInsert: true,
+        $customConstraints: 'NOT NULL',
+      );
   @override
-  List<i0.GeneratedColumn> get $columns => [id, readingTime, progress];
+  List<i0.GeneratedColumn> get $columns => [
+    id,
+    readingTime,
+    progress,
+    updatedAt,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -1516,6 +1552,14 @@ class ArticleScrollPositions extends i0.Table
     } else if (isInserting) {
       context.missing(_progressMeta);
     }
+    if (data.containsKey('updated_at')) {
+      context.handle(
+        _updatedAtMeta,
+        updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
     return context;
   }
 
@@ -1540,6 +1584,10 @@ class ArticleScrollPositions extends i0.Table
         i0.DriftSqlType.double,
         data['${effectivePrefix}progress'],
       )!,
+      updatedAt: attachedDatabase.typeMapping.read(
+        i0.DriftSqlType.dateTime,
+        data['${effectivePrefix}updated_at'],
+      )!,
     );
   }
 
@@ -1557,10 +1605,12 @@ class ArticleScrollPosition extends i0.DataClass
   final int id;
   final int readingTime;
   final double progress;
+  final DateTime updatedAt;
   const ArticleScrollPosition({
     required this.id,
     required this.readingTime,
     required this.progress,
+    required this.updatedAt,
   });
   @override
   Map<String, i0.Expression> toColumns(bool nullToAbsent) {
@@ -1568,6 +1618,7 @@ class ArticleScrollPosition extends i0.DataClass
     map['id'] = i0.Variable<int>(id);
     map['reading_time'] = i0.Variable<int>(readingTime);
     map['progress'] = i0.Variable<double>(progress);
+    map['updated_at'] = i0.Variable<DateTime>(updatedAt);
     return map;
   }
 
@@ -1576,6 +1627,7 @@ class ArticleScrollPosition extends i0.DataClass
       id: i0.Value(id),
       readingTime: i0.Value(readingTime),
       progress: i0.Value(progress),
+      updatedAt: i0.Value(updatedAt),
     );
   }
 
@@ -1588,6 +1640,7 @@ class ArticleScrollPosition extends i0.DataClass
       id: serializer.fromJson<int>(json['id']),
       readingTime: serializer.fromJson<int>(json['reading_time']),
       progress: serializer.fromJson<double>(json['progress']),
+      updatedAt: serializer.fromJson<DateTime>(json['updated_at']),
     );
   }
   @override
@@ -1597,6 +1650,7 @@ class ArticleScrollPosition extends i0.DataClass
       'id': serializer.toJson<int>(id),
       'reading_time': serializer.toJson<int>(readingTime),
       'progress': serializer.toJson<double>(progress),
+      'updated_at': serializer.toJson<DateTime>(updatedAt),
     };
   }
 
@@ -1604,10 +1658,12 @@ class ArticleScrollPosition extends i0.DataClass
     int? id,
     int? readingTime,
     double? progress,
+    DateTime? updatedAt,
   }) => i1.ArticleScrollPosition(
     id: id ?? this.id,
     readingTime: readingTime ?? this.readingTime,
     progress: progress ?? this.progress,
+    updatedAt: updatedAt ?? this.updatedAt,
   );
   ArticleScrollPosition copyWithCompanion(
     i1.ArticleScrollPositionsCompanion data,
@@ -1618,6 +1674,7 @@ class ArticleScrollPosition extends i0.DataClass
           ? data.readingTime.value
           : this.readingTime,
       progress: data.progress.present ? data.progress.value : this.progress,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
     );
   }
 
@@ -1626,20 +1683,22 @@ class ArticleScrollPosition extends i0.DataClass
     return (StringBuffer('ArticleScrollPosition(')
           ..write('id: $id, ')
           ..write('readingTime: $readingTime, ')
-          ..write('progress: $progress')
+          ..write('progress: $progress, ')
+          ..write('updatedAt: $updatedAt')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, readingTime, progress);
+  int get hashCode => Object.hash(id, readingTime, progress, updatedAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is i1.ArticleScrollPosition &&
           other.id == this.id &&
           other.readingTime == this.readingTime &&
-          other.progress == this.progress);
+          other.progress == this.progress &&
+          other.updatedAt == this.updatedAt);
 }
 
 class ArticleScrollPositionsCompanion
@@ -1647,26 +1706,32 @@ class ArticleScrollPositionsCompanion
   final i0.Value<int> id;
   final i0.Value<int> readingTime;
   final i0.Value<double> progress;
+  final i0.Value<DateTime> updatedAt;
   const ArticleScrollPositionsCompanion({
     this.id = const i0.Value.absent(),
     this.readingTime = const i0.Value.absent(),
     this.progress = const i0.Value.absent(),
+    this.updatedAt = const i0.Value.absent(),
   });
   ArticleScrollPositionsCompanion.insert({
     this.id = const i0.Value.absent(),
     required int readingTime,
     required double progress,
+    required DateTime updatedAt,
   }) : readingTime = i0.Value(readingTime),
-       progress = i0.Value(progress);
+       progress = i0.Value(progress),
+       updatedAt = i0.Value(updatedAt);
   static i0.Insertable<i1.ArticleScrollPosition> custom({
     i0.Expression<int>? id,
     i0.Expression<int>? readingTime,
     i0.Expression<double>? progress,
+    i0.Expression<DateTime>? updatedAt,
   }) {
     return i0.RawValuesInsertable({
       if (id != null) 'id': id,
       if (readingTime != null) 'reading_time': readingTime,
       if (progress != null) 'progress': progress,
+      if (updatedAt != null) 'updated_at': updatedAt,
     });
   }
 
@@ -1674,11 +1739,13 @@ class ArticleScrollPositionsCompanion
     i0.Value<int>? id,
     i0.Value<int>? readingTime,
     i0.Value<double>? progress,
+    i0.Value<DateTime>? updatedAt,
   }) {
     return i1.ArticleScrollPositionsCompanion(
       id: id ?? this.id,
       readingTime: readingTime ?? this.readingTime,
       progress: progress ?? this.progress,
+      updatedAt: updatedAt ?? this.updatedAt,
     );
   }
 
@@ -1694,6 +1761,9 @@ class ArticleScrollPositionsCompanion
     if (progress.present) {
       map['progress'] = i0.Variable<double>(progress.value);
     }
+    if (updatedAt.present) {
+      map['updated_at'] = i0.Variable<DateTime>(updatedAt.value);
+    }
     return map;
   }
 
@@ -1702,7 +1772,8 @@ class ArticleScrollPositionsCompanion
     return (StringBuffer('ArticleScrollPositionsCompanion(')
           ..write('id: $id, ')
           ..write('readingTime: $readingTime, ')
-          ..write('progress: $progress')
+          ..write('progress: $progress, ')
+          ..write('updatedAt: $updatedAt')
           ..write(')'))
         .toString();
   }

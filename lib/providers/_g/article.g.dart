@@ -53,7 +53,7 @@ final class ScrollPositionProvider
   }
 }
 
-String _$scrollPositionHash() => r'cc45561500058e54846702a758e048703e761c12';
+String _$scrollPositionHash() => r'412d07c1dbcb2b7619d486b8a2c3b8dd11fc4aea';
 
 final class ScrollPositionFamily extends $Family
     with

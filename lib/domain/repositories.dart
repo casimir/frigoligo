@@ -3,12 +3,14 @@ import 'dart:async';
 import 'package:logging/logging.dart';
 
 import 'models/article_data.dart';
+import 'models/progress_record.dart';
 import 'models/log_entry.dart';
 import 'models/query.dart';
 import 'models/server_session.dart';
 import 'sync/remote_actions.dart';
 import 'types.dart';
 
+export 'models/progress_record.dart' show ProgressRecord;
 export 'types.dart' show Option, Some;
 
 abstract class ArticleRepository {
@@ -17,6 +19,9 @@ abstract class ArticleRepository {
 
   Stream<double?> watchReadingProgress(int id);
   Future<void> setReadingProgress(int id, double progress);
+
+  Future<List<ProgressRecord>> getDirtyProgress(DateTime since);
+  Future<void> applyProgress(List<ProgressRecord> updates);
 
   Future<bool> delete(int id);
 
