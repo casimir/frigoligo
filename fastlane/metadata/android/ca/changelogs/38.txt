@@ -1,0 +1,5 @@
+- Afegir una manera de crear etiquetes en editar un article.
+- Millor experiència quan està fora de línia.
+- Diverses correccions d'errors relacionats amb el progrés de lectura.
+- Permet connectar-se amb un servidor sense SSL.
+- Noves llengües: Rus (Русский язык) i Tàmil (தமிழ்).
