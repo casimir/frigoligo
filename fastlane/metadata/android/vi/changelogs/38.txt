@@ -1,0 +1,5 @@
+- Thêm cách tạo thẻ khi soạn thảo bài viết.
+- Trải nghiệm tốt hơn khi ngoại tuyến.
+- Một số sửa lỗi liên quan đến tiến trình đọc.
+- Cho phép kết nối với máy chủ không có SSL.
+- Ngôn ngữ mới: Tiếng Nga (Русский язык) và Tamil (தமிழ்).

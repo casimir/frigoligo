@@ -1,0 +1,1 @@
+- Sửa lỗi mất dữ liệu khi khởi động lại ứng dụng.
