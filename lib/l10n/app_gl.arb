@@ -28,7 +28,6 @@
         "description": "The source code of a software."
     },
     "g_system": "Sistema",
-    "@g_system": {},
     "g_tag": "Etiqueta",
     "@g_tag": {
         "description": "A tag can be attached to an article."
@@ -47,9 +46,7 @@
         }
     },
     "humanize_hours": "{n, plural, =1{1 hora} other{{n} horas}}",
-    "@humanize_hours": {},
     "humanize_minutes": "{n, plural, =1{1 minuto} other{{n} minutos}}",
-    "@humanize_minutes": {},
     "humanize_past": "fai {duration}",
     "@humanize_past": {
         "description": "Describe a duration since a moment in the past.",
@@ -60,7 +57,6 @@
         }
     },
     "humanize_seconds": "{n, plural, =1{1 segundo} other{{n} segundos}}",
-    "@humanize_seconds": {},
     "article_addTags": "Engadir etiquetas",
     "@article_addTags": {
         "description": "The action to add tags to an article."
@@ -164,7 +160,6 @@
         "description": "The action to display the session details screen."
     },
     "humanize_days": "{n, plural, =1{1 día} other{{n} días}}",
-    "@humanize_days": {},
     "filters_articleFavoriteStarred": "Con estrela",
     "@filters_articleFavoriteStarred": {
         "description": "Filter starred articles."
@@ -542,5 +537,22 @@
     "logconsole_clear_logs": "Limpar rexistro",
     "@logconsole_clear_logs": {
         "description": "The action to clear the logs."
+    },
+    "save_localModeError": "Precísase conexión co servidor para gardar novos artigos.",
+    "@save_localModeError": {
+        "description": "Error message shown when trying to save an article in local mode."
+    },
+    "save_malformedUrlError": "Formato incorrecto URL: {url}",
+    "@save_malformedUrlError": {
+        "description": "Error message shown when the URL to save is malformed.",
+        "placeholders": {
+            "url": {
+                "type": "String"
+            }
+        }
+    },
+    "login_demoMode": "Probar en modo demostración",
+    "@login_demoMode": {
+        "description": "The action to put the app in demo mode instead of connecting to a server."
     }
 }

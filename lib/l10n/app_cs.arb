@@ -1,0 +1,174 @@
+{
+    "g_article": "Článek",
+    "@g_article": {
+        "description": "A piece of content fetched from the web. This is one of the main concepts of the app."
+    },
+    "g_check": "Kontrola",
+    "@g_check": {
+        "description": "A verb as in to check something."
+    },
+    "g_checking": "Kontroluji…",
+    "@g_checking": {
+        "description": "Present participle of the verb to check."
+    },
+    "g_delete": "Smazat",
+    "@g_delete": {
+        "description": "A verb, as in to delete something."
+    },
+    "g_saveLink": "Uložit odkaz",
+    "@g_saveLink": {
+        "description": "A verb, as in to save a link."
+    },
+    "g_search": "Hledat",
+    "@g_search": {
+        "description": "A verb, as in to search something."
+    },
+    "g_server": "Server",
+    "@g_server": {
+        "description": "A server, as in a computer providing a service."
+    },
+    "g_settings": "Nastavení",
+    "@g_settings": {
+        "description": "The settings of the application."
+    },
+    "g_share": "Sdílet",
+    "@g_share": {
+        "description": "A verb, as in to share something."
+    },
+    "g_sourceCode": "Zdrojový kód",
+    "@g_sourceCode": {
+        "description": "The source code of a software."
+    },
+    "g_synchronize": "Synchronizace",
+    "@g_synchronize": {
+        "description": "A verb, as in to synchronize with the server."
+    },
+    "g_system": "Systém",
+    "@g_system": {
+        "description": "A name, as in the default configuration (System configuration)."
+    },
+    "g_tag": "Tag",
+    "@g_tag": {
+        "description": "A tag can be attached to an article."
+    },
+    "g_version": "Verze",
+    "@g_version": {
+        "description": "A version, as in the application version."
+    },
+    "humanize_days": "{n, plural, =1{1 den} other {{n} dny}}",
+    "@humanize_days": {
+        "placeholders": {
+            "n": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "humanize_future": "za {duration}",
+    "@humanize_future": {
+        "description": "Describe a duration until a moment in the future.",
+        "placeholders": {
+            "duration": {
+                "type": "String"
+            }
+        }
+    },
+    "humanize_hours": "{n, plural,=1{1 hodina} other {{n} hodin}}",
+    "@humanize_hours": {
+        "placeholders": {
+            "n": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "humanize_minutes": "{n, plural,=1{1 minuta} other{{n} minut}}",
+    "@humanize_minutes": {
+        "placeholders": {
+            "n": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "humanize_past": "{duration} zpět",
+    "@humanize_past": {
+        "description": "Describe a duration since a moment in the past.",
+        "placeholders": {
+            "duration": {
+                "type": "String"
+            }
+        }
+    },
+    "humanize_seconds": "{n, plural,=1{1 vteřina} other{{n} vteřin}}",
+    "@humanize_seconds": {
+        "placeholders": {
+            "n": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "article_addTags": "Přidat štítky",
+    "@article_addTags": {
+        "description": "The action to add tags to an article."
+    },
+    "article_archive": "Archivovat tento článek",
+    "@article_archive": {
+        "description": "The action to archive the article."
+    },
+    "article_browseOriginal": "Prohlédnout originál",
+    "@article_browseOriginal": {
+        "description": "The action to open the URL of the article in the web browser."
+    },
+    "article_delete": "Odstranit tento článek",
+    "@article_delete": {
+        "description": "The action to delete the article."
+    },
+    "article_details": "Více informací",
+    "@article_details": {
+        "description": "The action to show the article details."
+    },
+    "article_noContentFetched": "Nebyl načte žádný obsah",
+    "@article_noContentFetched": {
+        "description": "Placeholder for when the article content is not available."
+    },
+    "article_notFound": "Článek nenalezen",
+    "@article_notFound": {
+        "description": "Placeholder for when the article is not found."
+    },
+    "article_openInBrowser": "Otevřít v prohlížeči",
+    "@article_openInBrowser": {
+        "description": "The action to open the article in the web browser."
+    },
+    "article_readingTime": "{minutes} minut",
+    "@article_readingTime": {
+        "description": "The estimated reading time of the article.",
+        "placeholders": {
+            "minutes": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "article_refetchContent": "Znovu načíst obsah",
+    "@article_refetchContent": {
+        "description": "The action to ask the server to fetch the article content again."
+    },
+    "article_readingSettings": "Textové nastavení",
+    "@article_readingSettings": {
+        "description": "The action to open the reading settings sheet."
+    },
+    "article_share": "Sdílet tento článek",
+    "@article_share": {
+        "description": "The action to share the article."
+    },
+    "article_star": "Označit tento článek",
+    "@article_star": {
+        "description": "The action to star the article."
+    },
+    "article_unarchive": "Zrušit archivaci tohoto článku",
+    "@article_unarchive": {
+        "description": "The action to unarchive the article."
+    }
+}
