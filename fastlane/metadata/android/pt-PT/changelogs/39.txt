@@ -1,0 +1,3 @@
+- Agora é possível guardar um artigo offline.
+- Adicionado um botão para pedir ao servidor para recuperar um artigo.
+- Novas línguas: português do Brasil.
