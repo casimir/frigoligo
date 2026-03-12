@@ -1,0 +1,1 @@
+S'ha millorat la estabilitat i s'ha corregit errors.

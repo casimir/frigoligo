@@ -1,0 +1,3 @@
+- Desar un article ja és possible fora de línia.
+- Afegir un botó per demanar al servidor que torni a recuperar un article.
+- Nous idiomes: Portuguès brasiler.

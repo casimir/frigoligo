@@ -1,0 +1,4 @@
+-Moltes petites millores de la IU.
+-Arreglat el botó de compartir que no funcionava en algunes ocasions.
+- Nous idiomes: Castellà i Estonià.
+-Actualitzacions de traduccions per a molt idiomes.
