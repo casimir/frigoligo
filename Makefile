@@ -4,8 +4,16 @@ FLUTTER ?= $(FVM) flutter
 
 all:
 
+PIGEON_INPUTS := $(wildcard pigeons/*.dart)
+
+.PHONY: pigeon $(PIGEON_INPUTS)
+pigeon: $(PIGEON_INPUTS)
+
+$(PIGEON_INPUTS):
+	$(DART) run pigeon --input $@
+
 .PHONY: codegen
-codegen:
+codegen: pigeon
 	$(DART) run build_runner build --delete-conflicting-outputs
 
 .PHONY: lint

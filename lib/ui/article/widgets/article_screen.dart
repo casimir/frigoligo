@@ -6,6 +6,7 @@ import 'package:cadanse/components/widgets/adaptive/modal_sheet.dart';
 import 'package:cadanse/components/widgets/adaptive/scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:universal_platform/universal_platform.dart';
 import '../../../buildcontext_extension.dart';
 import '../../../config/dependencies.dart';
 import '../../../constants.dart';
@@ -18,6 +19,7 @@ import '../../core/widgets/navigation_split_view.dart';
 import '../../core/widgets/reading_progress_indicator.dart';
 import '../../core/widgets/remote_sync.dart';
 import '../../repository_providers.dart';
+import '../article_sheet_bridge.dart';
 import '../controllers/article_content_controller.dart';
 import '../controllers/article_screen_controller.dart';
 import '../controllers/article_sheet_controller.dart';
@@ -248,22 +250,33 @@ List<Widget> buildActions(
       key: kArticleActionDetails,
       icon: C(context).icons.info,
       label: context.L.article_details,
-      onPressed: () => showModalSheet(
-        context: context,
-        title: context.L.g_article,
-        builder: (_) => Material(
-          child: ArticleSheet(
-            controller: ArticleSheetController(
-              syncManager: SyncManager.instance,
-              tagRepository: ref.watch(tagRepositoryProvider),
-              sharingService: dependencies.get(),
-              urlLauncherService: dependencies.get(),
-              articleId: data.id,
+      onPressed: () {
+        if (UniversalPlatform.isIOS) {
+          ArticleSheetBridge(
+            articleRepository: dependencies.get(),
+            tagRepository: dependencies.get(),
+            l10n: context.L,
+            syncManager: SyncManager.instance,
+          ).open(data.id);
+        } else {
+          showModalSheet(
+            context: context,
+            title: context.L.g_article,
+            builder: (_) => Material(
+              child: ArticleSheet(
+                controller: ArticleSheetController(
+                  syncManager: SyncManager.instance,
+                  tagRepository: ref.watch(tagRepositoryProvider),
+                  sharingService: dependencies.get(),
+                  urlLauncherService: dependencies.get(),
+                  articleId: data.id,
+                ),
+                data: data,
+              ),
             ),
-            data: data,
-          ),
-        ),
-      ),
+          );
+        }
+      },
     ),
     ArticleActionKey.openInBrowser: ArticleAction(
       key: kArticleActionOpenInBrowser,

@@ -95,6 +95,7 @@ dev_dependencies:
   emulators: 0.7.0
   mocktail: ^1.0.4
   test: ^1.25.8
+  pigeon: ^26.1.0
 
 flutter:
   generate: true
