@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:logging/logging.dart';
 
 import 'models/article_data.dart';
-import 'models/progress_record.dart';
 import 'models/log_entry.dart';
+import 'models/progress_record.dart';
 import 'models/query.dart';
 import 'models/server_session.dart';
 import 'sync/remote_actions.dart';

@@ -1,23 +1,37 @@
 import 'dart:ui';
 
+import '../../../bridge/article_sheet_bridge.dart';
 import '../../../data/services/platform/sharing_service.dart';
 import '../../../data/services/platform/urllauncher_service.dart';
 import '../../../domain/sync/sync_manager.dart';
+import '../../../src/generated/i18n/app_localizations.dart';
 
 class ArticleScreenController {
   ArticleScreenController({
     required SyncManager syncManager,
     required SharingService sharingService,
     required UrlLauncherService urlLauncherService,
+    ArticleSheetBridge? bridge,
     required this.articleId,
   }) : _syncManager = syncManager,
        _sharingService = sharingService,
-       _urlLauncherService = urlLauncherService;
+       _urlLauncherService = urlLauncherService,
+       _bridge = bridge;
 
   final SyncManager _syncManager;
   final SharingService _sharingService;
   final UrlLauncherService _urlLauncherService;
+  final ArticleSheetBridge? _bridge;
   final int articleId;
+
+  bool get hasNativeSheet => _bridge != null;
+
+  Future<void> openNativeSheet(
+    int articleId, {
+    required AppLocalizations l10n,
+  }) {
+    return _bridge!.open(articleId, l10n: l10n);
+  }
 
   Future<void> setArchived(bool archived) async {
     await _syncManager.addAction(

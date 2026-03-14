@@ -1,0 +1,14 @@
+repos:
+  - repo: local
+    hooks:
+      - id: dart-format
+        name: dart format
+        language: system
+        entry: fvm dart format
+        types: [file]
+        files: \.dart$
+
+  - repo: https://github.com/swiftlang/swift-format
+    rev: 602.0.0
+    hooks:
+      - id: swift-format

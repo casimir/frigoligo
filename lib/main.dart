@@ -29,6 +29,7 @@ import 'ui/article/widgets/article_content.dart';
 
 Future<void> main() async {
   setupDependencies();
+  setupNativeBridges();
 
   final log = Logger('main');
   setupLogger(log);

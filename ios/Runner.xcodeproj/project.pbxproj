@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,10 @@
 		02A11FCD2BD558E400723586 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 02A11FCC2BD558E400723586 /* PrivacyInfo.xcprivacy */; };
 		02A11FCE2BD558E400723586 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 02A11FCC2BD558E400723586 /* PrivacyInfo.xcprivacy */; };
 		02A8B8102AC1FA2E00E393D9 /* CompletionToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A8B80F2AC1FA2E00E393D9 /* CompletionToast.swift */; };
+		02E8879A2F62A90B009E2EA9 /* ArticleSheet.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E887952F62A90B009E2EA9 /* ArticleSheet.g.swift */; };
+		02E8879B2F62A90B009E2EA9 /* ArticleSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E887962F62A90B009E2EA9 /* ArticleSheetView.swift */; };
+		02E8879C2F62A90B009E2EA9 /* ArticleSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E887972F62A90B009E2EA9 /* ArticleSheetViewModel.swift */; };
+		02E8879D2F62A90B009E2EA9 /* TagsPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E8879E2F62A90B009E2EA9 /* TagsPickerView.swift */; };
 		02F0CC942D40522800A73A77 /* SavePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F0CC932D40521C00A73A77 /* SavePlugin.swift */; };
 		02F0CC9D2D42434500A73A77 /* Flutter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02F0CC9C2D42434500A73A77 /* Flutter.xcframework */; };
 		05BC92B8285B3FFB45B2EFE5 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 695FF15C61FFCBBA5A997ED3 /* Pods_Runner.framework */; };
@@ -71,6 +75,10 @@
 		02A11FCC2BD558E400723586 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		02A334222AA87F35004887D3 /* share.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = share.entitlements; sourceTree = "<group>"; };
 		02A8B80F2AC1FA2E00E393D9 /* CompletionToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionToast.swift; sourceTree = "<group>"; };
+		02E887952F62A90B009E2EA9 /* ArticleSheet.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSheet.g.swift; sourceTree = "<group>"; };
+		02E887962F62A90B009E2EA9 /* ArticleSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSheetView.swift; sourceTree = "<group>"; };
+		02E887972F62A90B009E2EA9 /* ArticleSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSheetViewModel.swift; sourceTree = "<group>"; };
+		02E8879E2F62A90B009E2EA9 /* TagsPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsPickerView.swift; sourceTree = "<group>"; };
 		02F0CC932D40521C00A73A77 /* SavePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePlugin.swift; sourceTree = "<group>"; };
 		02F0CC9C2D42434500A73A77 /* Flutter.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:S8QB4VV633:FLUTTER.IO LLC"; lastKnownFileType = wrapper.xcframework; name = Flutter.xcframework; path = share/Frameworks/Flutter.xcframework; sourceTree = "<group>"; };
 		12DB2FBE3024E9C9C4D9B2CD /* Pods-share.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-share.release.xcconfig"; path = "Target Support Files/Pods-share/Pods-share.release.xcconfig"; sourceTree = "<group>"; };
@@ -138,6 +146,25 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
+		02E887982F62A90B009E2EA9 /* Article */ = {
+			isa = PBXGroup;
+			children = (
+				02E887952F62A90B009E2EA9 /* ArticleSheet.g.swift */,
+				02E887962F62A90B009E2EA9 /* ArticleSheetView.swift */,
+				02E887972F62A90B009E2EA9 /* ArticleSheetViewModel.swift */,
+				02E8879E2F62A90B009E2EA9 /* TagsPickerView.swift */,
+			);
+			path = Article;
+			sourceTree = "<group>";
+		};
+		02E887992F62A90B009E2EA9 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				02E887982F62A90B009E2EA9 /* Article */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
 		3B4D0FAAD1D2F20CE09ECD50 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -165,6 +192,7 @@
 		97C146E51CF9000F007C117D = {
 			isa = PBXGroup;
 			children = (
+				02E887992F62A90B009E2EA9 /* Features */,
 				02A11FCC2BD558E400723586 /* PrivacyInfo.xcprivacy */,
 				9740EEB11CF90186004384FC /* Flutter */,
 				027594652F199844000DCD29 /* Shared */,
@@ -365,9 +393,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -430,6 +462,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
+				02E8879A2F62A90B009E2EA9 /* ArticleSheet.g.swift in Sources */,
+				02E8879B2F62A90B009E2EA9 /* ArticleSheetView.swift in Sources */,
+				02E8879C2F62A90B009E2EA9 /* ArticleSheetViewModel.swift in Sources */,
+				02E8879D2F62A90B009E2EA9 /* TagsPickerView.swift in Sources */,
 				027594662F199844000DCD29 /* AppBadgePlugin.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 			);
@@ -648,6 +684,7 @@
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Frigoligo;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -782,6 +819,7 @@
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Frigoligo;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -810,6 +848,7 @@
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Frigoligo;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
