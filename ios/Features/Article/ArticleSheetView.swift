@@ -47,7 +47,18 @@ struct ArticleSheetView<ViewModel: ArticleSheetViewModelProtocol>: View {
             }
 
             Section {
-              Button(labels.refetchContent) { viewModel.refetchContent() }
+              Button {
+                viewModel.refetchContent()
+              } label: {
+                HStack {
+                  Text(labels.refetchContent)
+                  if viewModel.isRefetching {
+                    Spacer()
+                    ProgressView()
+                  }
+                }
+              }
+              .disabled(viewModel.isRefetching)
               Button(labels.share) { viewModel.shareArticle() }
               Button(labels.openInBrowser) { viewModel.openInBrowser() }
             }
@@ -103,9 +114,10 @@ private class PreviewViewModel: ObservableObject, ArticleSheetViewModelProtocol 
 
   func notifyClose() {}
   func getAllTags() async throws -> [String] {
-    []
+    ["android", "flutter", "ios", "swift"]
   }
 
+  var isRefetching: Bool = false
   func refetchContent() {}
   func setTags(_: [String]) {}
   func shareArticle() {}

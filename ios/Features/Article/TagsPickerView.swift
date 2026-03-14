@@ -74,8 +74,12 @@ struct TagsPickerView: View {
       .navigationTitle(title)
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
-        ToolbarItem(placement: .topBarLeading) {
-          Button("Cancel") { dismiss() }
+        ToolbarItem(placement: .cancellationAction) {
+          Button {
+            dismiss()
+          } label: {
+            Image(systemName: "xmark")
+          }
         }
         ToolbarItem(placement: .topBarTrailing) {
           Button {
@@ -84,10 +88,12 @@ struct TagsPickerView: View {
             Image(systemName: "plus")
           }
         }
-        ToolbarItem(placement: .bottomBar) {
-          Button("Done") {
+        ToolbarItem(placement: .confirmationAction) {
+          Button {
             onConfirm(Array(selected))
             dismiss()
+          } label: {
+            Image(systemName: "checkmark")
           }
         }
       }

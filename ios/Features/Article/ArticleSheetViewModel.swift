@@ -9,6 +9,7 @@ import SwiftUI
 
 protocol ArticleSheetViewModelProtocol: ObservableObject {
   var data: ArticleSheetData? { get }
+  var isRefetching: Bool { get }
   func notifyClose()
   func getAllTags() async throws -> [String]
   func refetchContent()
@@ -24,6 +25,7 @@ class ArticleSheetViewModel: NSObject, ArticleSheetApi,
   private let flutterApi: ArticleSheetFlutterApi
   private weak var presenter: UIViewController?
   @Published var data: ArticleSheetData?
+  @Published var isRefetching: Bool = false
 
   init(binaryMessenger: FlutterBinaryMessenger, presenter: UIViewController) {
     flutterApi = ArticleSheetFlutterApi(binaryMessenger: binaryMessenger)
@@ -70,7 +72,10 @@ class ArticleSheetViewModel: NSObject, ArticleSheetApi,
   }
 
   func refetchContent() {
-    flutterApi.refetchContent { _ in }
+    isRefetching = true
+    flutterApi.refetchContent { [weak self] _ in
+      DispatchQueue.main.async { self?.isRefetching = false }
+    }
   }
 
   func setTags(_ tags: [String]) {
