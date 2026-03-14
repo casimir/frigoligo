@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:frigoligo/domain/models/article_data.dart';
 import 'package:frigoligo/domain/repositories.dart';
-import 'package:frigoligo/domain/sync/remote_actions.dart';
 import 'package:frigoligo/domain/sync/sync_manager.dart';
 import 'package:frigoligo/pigeon/article_sheet.g.dart';
 import 'package:frigoligo/src/generated/i18n/app_localizations.dart';
@@ -83,8 +82,9 @@ void main() {
 
     test('open: pushes article data on stream event', () async {
       final controller = StreamController<ArticleData?>();
-      when(() => articleRepository.watchData(1))
-          .thenAnswer((_) => controller.stream);
+      when(
+        () => articleRepository.watchData(1),
+      ).thenAnswer((_) => controller.stream);
 
       await bridge.open(1, l10n: l10n);
       controller.add(_testArticle);
@@ -101,8 +101,9 @@ void main() {
 
     test('setTags: enqueues EditArticleAction and synchronizes', () async {
       final controller = StreamController<ArticleData?>();
-      when(() => articleRepository.watchData(1))
-          .thenAnswer((_) => controller.stream);
+      when(
+        () => articleRepository.watchData(1),
+      ).thenAnswer((_) => controller.stream);
       when(() => syncManager.addAction(any())).thenAnswer((_) async {});
       when(
         () => syncManager.synchronize(withFinalRefresh: false),
@@ -116,32 +117,33 @@ void main() {
           const EditArticleAction(1, tags: ['tag1', 'tag2']),
         ),
       ).called(1);
-      verify(
-        () => syncManager.synchronize(withFinalRefresh: false),
-      ).called(1);
+      verify(() => syncManager.synchronize(withFinalRefresh: false)).called(1);
       await controller.close();
     });
 
-    test('refetchContent: enqueues RefetchArticleAction and synchronizes',
-        () async {
-      final controller = StreamController<ArticleData?>();
-      when(() => articleRepository.watchData(1))
-          .thenAnswer((_) => controller.stream);
-      when(() => syncManager.addAction(any())).thenAnswer((_) async {});
-      when(
-        () => syncManager.synchronize(withFinalRefresh: false),
-      ).thenAnswer((_) async => {});
+    test(
+      'refetchContent: enqueues RefetchArticleAction and synchronizes',
+      () async {
+        final controller = StreamController<ArticleData?>();
+        when(
+          () => articleRepository.watchData(1),
+        ).thenAnswer((_) => controller.stream);
+        when(() => syncManager.addAction(any())).thenAnswer((_) async {});
+        when(
+          () => syncManager.synchronize(withFinalRefresh: false),
+        ).thenAnswer((_) async => {});
 
-      await bridge.open(1, l10n: l10n);
-      await bridge.refetchContent();
+        await bridge.open(1, l10n: l10n);
+        await bridge.refetchContent();
 
-      verify(
-        () => syncManager.addAction(const RefetchArticleAction(1)),
-      ).called(1);
-      verify(
-        () => syncManager.synchronize(withFinalRefresh: false),
-      ).called(1);
-      await controller.close();
-    });
+        verify(
+          () => syncManager.addAction(const RefetchArticleAction(1)),
+        ).called(1);
+        verify(
+          () => syncManager.synchronize(withFinalRefresh: false),
+        ).called(1);
+        await controller.close();
+      },
+    );
   });
 }
