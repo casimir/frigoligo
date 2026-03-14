@@ -54,7 +54,7 @@ struct TagsPickerView: View {
           }
         } label: {
           HStack {
-            Text(tag).foregroundStyle(.primary)
+            Text(tag).foregroundStyle(.foreground)
             Spacer()
             if selected.contains(tag) { Image(systemName: "checkmark") }
           }
@@ -108,7 +108,6 @@ struct TagsPickerView: View {
         }
         Button("Cancel", role: .cancel) { newTagText = "" }
       }
-      .onChange(of: showingAddAlert) { if !$0 { newTagText = "" } }
       .task {
         do {
           allTags = try await fetchTags()
@@ -119,4 +118,13 @@ struct TagsPickerView: View {
       }
     }
   }
+}
+
+#Preview {
+  TagsPickerView(
+    initialSelection: ["swift", "ios"],
+    title: "Select tags",
+    fetchTags: { ["android", "flutter", "ios", "swift"] },
+    onConfirm: { _ in },
+  )
 }
