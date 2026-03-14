@@ -84,8 +84,8 @@ void setupNativeBridges() {
   d.registerLazySingleton(
     () => ArticleSheetBridge(
       articleRepository: d.get(),
-      syncManager: SyncManager.instance,
       tagRepository: d.get(),
+      syncManager: SyncManager.instance,
     ),
   );
 }
