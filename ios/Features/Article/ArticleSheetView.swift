@@ -21,18 +21,18 @@ struct ArticleSheetView<ViewModel: ArticleSheetViewModelProtocol>: View {
           List {
             Section {
               LabeledContent(labels.title) {
-                Text(data.title ?? "").textSelection(.enabled)
+                Text(data.title).textSelection(.enabled)
               }
               LabeledContent(labels.website) {
                 Text(data.domain ?? "").textSelection(.enabled)
               }
               LabeledContent(labels.readingTime) {
-                Text(data.readingTime ?? "").textSelection(.enabled)
+                Text(data.readingTime).textSelection(.enabled)
               }
             }
 
             Section(labels.tags) {
-              let tags = data.tags ?? []
+              let tags = data.tags
               ForEach(tags, id: \.self) { tag in
                 Text(tag)
                   .swipeActions {

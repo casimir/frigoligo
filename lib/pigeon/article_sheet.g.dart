@@ -132,23 +132,23 @@ class ArticleSheetLabels {
 /// Article metadata displayed in the native sheet.
 class ArticleSheetData {
   ArticleSheetData({
-    this.title,
-    this.link,
+    required this.title,
+    required this.link,
     this.domain,
-    this.readingTime,
-    this.tags,
+    required this.readingTime,
+    required this.tags,
     required this.labels,
   });
 
-  String? title;
+  String title;
 
-  String? link;
+  String link;
 
   String? domain;
 
-  String? readingTime;
+  String readingTime;
 
-  List<String>? tags;
+  List<String> tags;
 
   ArticleSheetLabels labels;
 
@@ -163,11 +163,11 @@ class ArticleSheetData {
   static ArticleSheetData decode(Object result) {
     result as List<Object?>;
     return ArticleSheetData(
-      title: result[0] as String?,
-      link: result[1] as String?,
+      title: result[0]! as String,
+      link: result[1]! as String,
       domain: result[2] as String?,
-      readingTime: result[3] as String?,
-      tags: (result[4] as List<Object?>?)?.cast<String>(),
+      readingTime: result[3]! as String,
+      tags: (result[4] as List<Object?>?)!.cast<String>(),
       labels: result[5]! as ArticleSheetLabels,
     );
   }

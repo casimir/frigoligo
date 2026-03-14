@@ -8,6 +8,7 @@ PIGEON_INPUTS := $(wildcard pigeons/*.dart)
 
 .PHONY: pigeon $(PIGEON_INPUTS)
 pigeon: $(PIGEON_INPUTS)
+	$(DART) format pigeons lib/pigeon
 
 $(PIGEON_INPUTS):
 	$(DART) run pigeon --input $@
@@ -18,7 +19,7 @@ codegen: pigeon
 
 .PHONY: lint
 lint:
-	$(FLUTTER) analyze --no-fatal-infos lib test examples tools flathub
+	$(FLUTTER) analyze --no-fatal-infos examples flathub lib pigeons test tools
 	$(DART) format --output=none --set-exit-if-changed .
 
 .PHONY: test

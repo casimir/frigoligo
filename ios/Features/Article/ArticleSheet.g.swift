@@ -56,7 +56,9 @@ private func wrapError(_ error: Any) -> [Any?] {
 }
 
 private func createConnectionError(withChannelName channelName: String) -> PigeonError {
-  return PigeonError(code: "channel-error", message: "Unable to establish connection on channel: '\(channelName)'.", details: "")
+  return PigeonError(
+    code: "channel-error", message: "Unable to establish connection on channel: '\(channelName)'.",
+    details: "")
 }
 
 private func isNullish(_ value: Any?) -> Bool {
@@ -111,12 +113,12 @@ func deepEqualsArticleSheet(_ lhs: Any?, _ rhs: Any?) -> Bool {
 
 func deepHashArticleSheet(value: Any?, hasher: inout Hasher) {
   if let valueList = value as? [AnyHashable] {
-     for item in valueList { deepHashArticleSheet(value: item, hasher: &hasher) }
-     return
+    for item in valueList { deepHashArticleSheet(value: item, hasher: &hasher) }
+    return
   }
 
   if let valueDict = value as? [AnyHashable: AnyHashable] {
-    for key in valueDict.keys { 
+    for key in valueDict.keys {
       hasher.combine(key)
       deepHashArticleSheet(value: valueDict[key]!, hasher: &hasher)
     }
@@ -129,8 +131,6 @@ func deepHashArticleSheet(value: Any?, hasher: inout Hasher) {
 
   return hasher.combine(String(describing: value))
 }
-
-    
 
 /// Localised labels for the article sheet UI.
 ///
@@ -145,7 +145,6 @@ struct ArticleSheetLabels: Hashable {
   var tags: String
   var title: String
   var website: String
-
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> ArticleSheetLabels? {
@@ -185,7 +184,8 @@ struct ArticleSheetLabels: Hashable {
     ]
   }
   static func == (lhs: ArticleSheetLabels, rhs: ArticleSheetLabels) -> Bool {
-    return deepEqualsArticleSheet(lhs.toList(), rhs.toList())  }
+    return deepEqualsArticleSheet(lhs.toList(), rhs.toList())
+  }
   func hash(into hasher: inout Hasher) {
     deepHashArticleSheet(value: toList(), hasher: &hasher)
   }
@@ -195,21 +195,20 @@ struct ArticleSheetLabels: Hashable {
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 struct ArticleSheetData: Hashable {
-  var title: String? = nil
-  var link: String? = nil
+  var title: String
+  var link: String
   var domain: String? = nil
-  var readingTime: String? = nil
-  var tags: [String]? = nil
+  var readingTime: String
+  var tags: [String]
   var labels: ArticleSheetLabels
-
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> ArticleSheetData? {
-    let title: String? = nilOrValue(pigeonVar_list[0])
-    let link: String? = nilOrValue(pigeonVar_list[1])
+    let title = pigeonVar_list[0] as! String
+    let link = pigeonVar_list[1] as! String
     let domain: String? = nilOrValue(pigeonVar_list[2])
-    let readingTime: String? = nilOrValue(pigeonVar_list[3])
-    let tags: [String]? = nilOrValue(pigeonVar_list[4])
+    let readingTime = pigeonVar_list[3] as! String
+    let tags = pigeonVar_list[4] as! [String]
     let labels = pigeonVar_list[5] as! ArticleSheetLabels
 
     return ArticleSheetData(
@@ -232,7 +231,8 @@ struct ArticleSheetData: Hashable {
     ]
   }
   static func == (lhs: ArticleSheetData, rhs: ArticleSheetData) -> Bool {
-    return deepEqualsArticleSheet(lhs.toList(), rhs.toList())  }
+    return deepEqualsArticleSheet(lhs.toList(), rhs.toList())
+  }
   func hash(into hasher: inout Hasher) {
     deepHashArticleSheet(value: toList(), hasher: &hasher)
   }
@@ -296,10 +296,15 @@ protocol ArticleSheetApi {
 class ArticleSheetApiSetup {
   static var codec: FlutterStandardMessageCodec { ArticleSheetPigeonCodec.shared }
   /// Sets up an instance of `ArticleSheetApi` to handle messages through the `binaryMessenger`.
-  static func setUp(binaryMessenger: FlutterBinaryMessenger, api: ArticleSheetApi?, messageChannelSuffix: String = "") {
+  static func setUp(
+    binaryMessenger: FlutterBinaryMessenger, api: ArticleSheetApi?,
+    messageChannelSuffix: String = ""
+  ) {
     let channelSuffix = messageChannelSuffix.count > 0 ? ".\(messageChannelSuffix)" : ""
     /// Present the sheet.
-    let openChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.frigoligo.ArticleSheetApi.open\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    let openChannel = FlutterBasicMessageChannel(
+      name: "dev.flutter.pigeon.frigoligo.ArticleSheetApi.open\(channelSuffix)",
+      binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       openChannel.setMessageHandler { _, reply in
         do {
@@ -313,7 +318,9 @@ class ArticleSheetApiSetup {
       openChannel.setMessageHandler(nil)
     }
     /// Push updated article data into the sheet.
-    let updateChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.frigoligo.ArticleSheetApi.update\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    let updateChannel = FlutterBasicMessageChannel(
+      name: "dev.flutter.pigeon.frigoligo.ArticleSheetApi.update\(channelSuffix)",
+      binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       updateChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -330,7 +337,9 @@ class ArticleSheetApiSetup {
     }
     /// Programmatically dismiss the sheet (Dart-initiated close).
     /// Does not call back into Dart — the caller is responsible for cleanup.
-    let closeChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.frigoligo.ArticleSheetApi.close\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    let closeChannel = FlutterBasicMessageChannel(
+      name: "dev.flutter.pigeon.frigoligo.ArticleSheetApi.close\(channelSuffix)",
+      binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       closeChannel.setMessageHandler { _, reply in
         do {
@@ -369,8 +378,10 @@ class ArticleSheetFlutterApi: ArticleSheetFlutterApiProtocol {
   /// Called after the sheet is dismissed (user swipe or native close button).
   /// The bridge uses this to cancel subscriptions and reset state.
   func onClose(completion: @escaping (Result<Void, PigeonError>) -> Void) {
-    let channelName: String = "dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.onClose\(messageChannelSuffix)"
-    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    let channelName: String =
+      "dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.onClose\(messageChannelSuffix)"
+    let channel = FlutterBasicMessageChannel(
+      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage(nil) { response in
       guard let listResponse = response as? [Any?] else {
         completion(.failure(createConnectionError(withChannelName: channelName)))
@@ -387,8 +398,10 @@ class ArticleSheetFlutterApi: ArticleSheetFlutterApiProtocol {
     }
   }
   func getAllTags(completion: @escaping (Result<[String], PigeonError>) -> Void) {
-    let channelName: String = "dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.getAllTags\(messageChannelSuffix)"
-    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    let channelName: String =
+      "dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.getAllTags\(messageChannelSuffix)"
+    let channel = FlutterBasicMessageChannel(
+      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage(nil) { response in
       guard let listResponse = response as? [Any?] else {
         completion(.failure(createConnectionError(withChannelName: channelName)))
@@ -400,7 +413,11 @@ class ArticleSheetFlutterApi: ArticleSheetFlutterApiProtocol {
         let details: String? = nilOrValue(listResponse[2])
         completion(.failure(PigeonError(code: code, message: message, details: details)))
       } else if listResponse[0] == nil {
-        completion(.failure(PigeonError(code: "null-error", message: "Flutter api returned null value for non-null return value.", details: "")))
+        completion(
+          .failure(
+            PigeonError(
+              code: "null-error",
+              message: "Flutter api returned null value for non-null return value.", details: "")))
       } else {
         let result = listResponse[0] as! [String]
         completion(.success(result))
@@ -408,8 +425,10 @@ class ArticleSheetFlutterApi: ArticleSheetFlutterApiProtocol {
     }
   }
   func refetchContent(completion: @escaping (Result<Void, PigeonError>) -> Void) {
-    let channelName: String = "dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.refetchContent\(messageChannelSuffix)"
-    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    let channelName: String =
+      "dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.refetchContent\(messageChannelSuffix)"
+    let channel = FlutterBasicMessageChannel(
+      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage(nil) { response in
       guard let listResponse = response as? [Any?] else {
         completion(.failure(createConnectionError(withChannelName: channelName)))
@@ -426,8 +445,10 @@ class ArticleSheetFlutterApi: ArticleSheetFlutterApiProtocol {
     }
   }
   func setTags(tags tagsArg: [String], completion: @escaping (Result<Void, PigeonError>) -> Void) {
-    let channelName: String = "dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.setTags\(messageChannelSuffix)"
-    let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    let channelName: String =
+      "dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.setTags\(messageChannelSuffix)"
+    let channel = FlutterBasicMessageChannel(
+      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage([tagsArg] as [Any?]) { response in
       guard let listResponse = response as? [Any?] else {
         completion(.failure(createConnectionError(withChannelName: channelName)))

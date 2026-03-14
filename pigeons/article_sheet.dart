@@ -9,25 +9,25 @@ import 'package:pigeon/pigeon.dart';
 )
 /// Localised labels for the article sheet UI.
 class ArticleSheetLabels {
-  String addTags;
-  String openInBrowser;
-  String readingTime;
-  String refetchContent;
-  String share;
-  String sheetTitle;
-  String tags;
-  String title;
-  String website;
+  late String addTags;
+  late String openInBrowser;
+  late String readingTime;
+  late String refetchContent;
+  late String share;
+  late String sheetTitle;
+  late String tags;
+  late String title;
+  late String website;
 }
 
 /// Article metadata displayed in the native sheet.
 class ArticleSheetData {
-  String? title;
-  String? link;
+  late String title;
+  late String link;
   String? domain;
-  String? readingTime;
-  List<String>? tags;
-  ArticleSheetLabels labels;
+  late String readingTime;
+  late List<String> tags;
+  late ArticleSheetLabels labels;
 }
 
 /// Dart → Swift. Controls the native article sheet lifecycle.
