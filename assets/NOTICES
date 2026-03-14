@@ -1866,6 +1866,7 @@ cross_file
 go_router
 path_provider_android
 path_provider_foundation
+pigeon
 shared_preferences_android
 shared_preferences_foundation
 url_launcher_android
