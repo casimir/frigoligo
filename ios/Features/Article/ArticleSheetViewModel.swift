@@ -4,7 +4,9 @@
 //
 //  Created by Martin Chaine on 11/03/2026.
 //
+
 import Flutter
+import SafariServices
 import SwiftUI
 
 protocol ArticleSheetViewModelProtocol: ObservableObject {
@@ -100,6 +102,8 @@ class ArticleSheetViewModel: NSObject, ArticleSheetApi,
     guard let urlString = data?.link, let url = URL(string: urlString) else {
       return
     }
-    UIApplication.shared.open(url)
+    let safari = SFSafariViewController(url: url)
+    let topPresenter = presenter?.presentedViewController ?? presenter
+    topPresenter?.present(safari, animated: true)
   }
 }
