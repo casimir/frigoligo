@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import '../../domain/models/article_data.dart';
-import '../../domain/repositories.dart';
-import '../../domain/sync/sync_manager.dart';
-import '../../pigeon/article_sheet.g.dart';
-import '../../src/generated/i18n/app_localizations.dart';
-import 'controllers/article_sheet_controller.dart';
+import '../domain/models/article_data.dart';
+import '../domain/repositories.dart';
+import '../domain/sync/sync_manager.dart';
+import '../pigeon/article_sheet.g.dart';
+import '../src/generated/i18n/app_localizations.dart';
+import '../ui/article/controllers/article_sheet_controller.dart';
 
 class ArticleSheetBridge implements ArticleSheetFlutterApi {
   ArticleSheetBridge({

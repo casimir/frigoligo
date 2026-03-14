@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 
+import '../bridge/article_sheet_bridge.dart';
 import '../constants.dart';
 import '../data/repositories/article_repository.dart';
 import '../data/repositories/logger_repository.dart';
@@ -17,7 +18,6 @@ import '../data/services/platform/sharing_service.dart';
 import '../data/services/platform/urllauncher_service.dart';
 import '../domain/repositories.dart';
 import '../domain/sync/sync_manager.dart';
-import '../ui/article/article_sheet_bridge.dart';
 import 'logging.dart';
 
 export '../domain/repositories.dart';

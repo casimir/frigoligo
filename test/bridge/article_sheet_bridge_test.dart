@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:frigoligo/bridge/article_sheet_bridge.dart';
 import 'package:frigoligo/domain/models/article_data.dart';
 import 'package:frigoligo/domain/repositories.dart';
 import 'package:frigoligo/domain/sync/sync_manager.dart';
 import 'package:frigoligo/pigeon/article_sheet.g.dart';
 import 'package:frigoligo/src/generated/i18n/app_localizations.dart';
-import 'package:frigoligo/ui/article/article_sheet_bridge.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockArticleRepository extends Mock implements ArticleRepository {}
