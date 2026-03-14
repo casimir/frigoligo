@@ -6,8 +6,6 @@ import 'package:cadanse/components/widgets/adaptive/modal_sheet.dart';
 import 'package:cadanse/components/widgets/adaptive/scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:universal_platform/universal_platform.dart';
-import '../../../bridge/article_sheet_bridge.dart';
 import '../../../buildcontext_extension.dart';
 import '../../../config/dependencies.dart';
 import '../../../constants.dart';
@@ -251,8 +249,8 @@ List<Widget> buildActions(
       icon: C(context).icons.info,
       label: context.L.article_details,
       onPressed: () {
-        if (UniversalPlatform.isIOS) {
-          dependencies.get<ArticleSheetBridge>().open(data.id, l10n: context.L);
+        if (controller.hasNativeSheet) {
+          controller.openNativeSheet(data.id, l10n: context.L);
         } else {
           showModalSheet(
             context: context,

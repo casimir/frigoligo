@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:universal_platform/universal_platform.dart';
 
+import '../../../bridge/article_sheet_bridge.dart';
 import '../../../config/dependencies.dart';
 import '../../../domain/sync/sync_manager.dart';
 import '../../article/controllers/article_screen_controller.dart';
@@ -85,6 +87,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               syncManager: SyncManager.instance,
               sharingService: dependencies.get(),
               urlLauncherService: dependencies.get(),
+              bridge: UniversalPlatform.isIOS
+                  ? dependencies.get<ArticleSheetBridge>()
+                  : null,
               articleId: itemCounter!.getArticleId(index)!,
             ),
             contentBuilder: widget.contentBuilder,
