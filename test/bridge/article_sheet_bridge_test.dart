@@ -145,5 +145,20 @@ void main() {
         await controller.close();
       },
     );
+
+    test('getAllTags and dismiss: delegates and closes native sheet', () async {
+      final controller = StreamController<ArticleData?>();
+      when(
+        () => articleRepository.watchData(1),
+      ).thenAnswer((_) => controller.stream);
+      when(() => tagRepository.getAll()).thenAnswer((_) async => ['a', 'b']);
+
+      await bridge.open(1, l10n: l10n);
+      expect(await bridge.getAllTags(), ['a', 'b']);
+      await bridge.dismiss();
+
+      verify(() => api.close()).called(1);
+      await controller.close();
+    });
   });
 }
