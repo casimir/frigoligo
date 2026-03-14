@@ -16,6 +16,8 @@ import '../data/services/platform/appbadge_service.dart';
 import '../data/services/platform/sharing_service.dart';
 import '../data/services/platform/urllauncher_service.dart';
 import '../domain/repositories.dart';
+import '../domain/sync/sync_manager.dart';
+import '../ui/article/article_sheet_bridge.dart';
 import 'logging.dart';
 
 export '../domain/repositories.dart';
@@ -74,5 +76,16 @@ void setupDependencies({
   );
   d.registerLazySingleton<TagRepository>(
     () => TagRepositoryImpl(localStorageService: d.get()),
+  );
+}
+
+void setupNativeBridges() {
+  final d = dependencies;
+  d.registerLazySingleton(
+    () => ArticleSheetBridge(
+      articleRepository: d.get(),
+      syncManager: SyncManager.instance,
+      tagRepository: d.get(),
+    ),
   );
 }

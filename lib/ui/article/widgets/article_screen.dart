@@ -252,12 +252,7 @@ List<Widget> buildActions(
       label: context.L.article_details,
       onPressed: () {
         if (UniversalPlatform.isIOS) {
-          ArticleSheetBridge(
-            articleRepository: dependencies.get(),
-            tagRepository: dependencies.get(),
-            l10n: context.L,
-            syncManager: SyncManager.instance,
-          ).open(data.id);
+          dependencies.get<ArticleSheetBridge>().open(data.id, l10n: context.L);
         } else {
           showModalSheet(
             context: context,
