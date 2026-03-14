@@ -15,37 +15,45 @@ struct ArticleSheetView<ViewModel: ArticleSheetViewModelProtocol>: View {
 
   var body: some View {
     NavigationStack {
-      List {
+      Group {
         if let data = viewModel.data {
           let labels = data.labels
-          Section {
-            LabeledContent(labels.title) { Text(data.title ?? "").textSelection(.enabled) }
-            LabeledContent(labels.website) { Text(data.domain ?? "").textSelection(.enabled) }
-            LabeledContent(labels.readingTime) {
-              Text(data.readingTime ?? "").textSelection(.enabled)
+          List {
+            Section {
+              LabeledContent(labels.title) {
+                Text(data.title ?? "").textSelection(.enabled)
+              }
+              LabeledContent(labels.website) {
+                Text(data.domain ?? "").textSelection(.enabled)
+              }
+              LabeledContent(labels.readingTime) {
+                Text(data.readingTime ?? "").textSelection(.enabled)
+              }
             }
-          }
 
-          Section(labels.tags) {
-            let tags = data.tags ?? []
-            ForEach(tags, id: \.self) { tag in
-              Text(tag)
-                .swipeActions {
-                  Button(role: .destructive) {
-                    viewModel.setTags(tags.filter { $0 != tag })
-                  } label: {
-                    Image(systemName: "trash")
+            Section(labels.tags) {
+              let tags = data.tags ?? []
+              ForEach(tags, id: \.self) { tag in
+                Text(tag)
+                  .swipeActions {
+                    Button(role: .destructive) {
+                      viewModel.setTags(tags.filter { $0 != tag })
+                    } label: {
+                      Image(systemName: "trash")
+                    }
                   }
-                }
+              }
+              Button(labels.addTags) { showingTagsPicker = true }
             }
-            Button(labels.addTags) { showingTagsPicker = true }
-          }
 
-          Section {
-            Button(labels.refetchContent) { viewModel.refetchContent() }
-            Button(labels.share) { viewModel.shareArticle() }
-            Button(labels.openInBrowser) { viewModel.openInBrowser() }
+            Section {
+              Button(labels.refetchContent) { viewModel.refetchContent() }
+              Button(labels.share) { viewModel.shareArticle() }
+              Button(labels.openInBrowser) { viewModel.openInBrowser() }
+            }
           }
+        } else {
+          ProgressView()
         }
       }
       .sheet(isPresented: $showingTagsPicker) {
@@ -60,7 +68,10 @@ struct ArticleSheetView<ViewModel: ArticleSheetViewModelProtocol>: View {
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {
-          Button(action: { viewModel.notifyClose(); dismiss() }) {
+          Button(action: {
+            viewModel.notifyClose()
+            dismiss()
+          }) {
             Image(systemName: "xmark")
           }
         }

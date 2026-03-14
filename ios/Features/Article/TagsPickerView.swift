@@ -35,17 +35,22 @@ struct TagsPickerView: View {
   }
 
   var filteredTags: [String] {
-    searchText.isEmpty ? allTags : allTags.filter {
-      $0.localizedCaseInsensitiveContains(searchText)
-    }
+    searchText.isEmpty
+      ? allTags
+      : allTags.filter {
+        $0.localizedCaseInsensitiveContains(searchText)
+      }
   }
 
   var body: some View {
     NavigationStack {
       List(filteredTags, id: \.self) { tag in
         Button {
-          if selected.contains(tag) { selected.remove(tag) }
-          else { selected.insert(tag) }
+          if selected.contains(tag) {
+            selected.remove(tag)
+          } else {
+            selected.insert(tag)
+          }
         } label: {
           HStack {
             Text(tag).foregroundStyle(.primary)
@@ -63,12 +68,17 @@ struct TagsPickerView: View {
           Button("Cancel") { dismiss() }
         }
         ToolbarItem(placement: .topBarTrailing) {
-          Button { showingAddAlert = true } label: {
+          Button {
+            showingAddAlert = true
+          } label: {
             Image(systemName: "plus")
           }
         }
         ToolbarItem(placement: .bottomBar) {
-          Button("Done") { onConfirm(Array(selected)); dismiss() }
+          Button("Done") {
+            onConfirm(Array(selected))
+            dismiss()
+          }
         }
       }
       .alert("New tag", isPresented: $showingAddAlert) {
@@ -82,6 +92,7 @@ struct TagsPickerView: View {
         }
         Button("Cancel", role: .cancel) { newTagText = "" }
       }
+      .onChange(of: showingAddAlert) { if !$0 { newTagText = "" } }
       .task {
         allTags = await fetchTags()
         isLoading = false

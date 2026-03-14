@@ -33,6 +33,8 @@ class ArticleSheetViewModel: NSObject, ArticleSheetApi,
   }
 
   func open() throws {
+    guard presenter?.presentedViewController == nil else { return }
+    
     let hosting = UIHostingController(
       rootView: ArticleSheetView(viewModel: self)
     )
@@ -77,16 +79,22 @@ class ArticleSheetViewModel: NSObject, ArticleSheetApi,
 
   func shareArticle() {
     guard let urlString = data?.link, let url = URL(string: urlString),
-          let presenter else { return }
+      let presenter
+    else { return }
     var items: [Any] = [url]
     if let title = data?.title { items.insert(title, at: 0) }
-    let activity = UIActivityViewController(activityItems: items, applicationActivities: nil)
+    let activity = UIActivityViewController(
+      activityItems: items,
+      applicationActivities: nil
+    )
     let topPresenter = presenter.presentedViewController ?? presenter
     topPresenter.present(activity, animated: true)
   }
 
   func openInBrowser() {
-    guard let urlString = data?.link, let url = URL(string: urlString) else { return }
+    guard let urlString = data?.link, let url = URL(string: urlString) else {
+      return
+    }
     UIApplication.shared.open(url)
   }
 }
