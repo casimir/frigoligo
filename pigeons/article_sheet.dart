@@ -7,7 +7,7 @@ import 'package:pigeon/pigeon.dart';
     dartPackageName: 'frigoligo',
   ),
 )
-//
+/// Localised labels for the article sheet UI.
 class ArticleSheetLabels {
   String addTags;
   String openInBrowser;
@@ -20,6 +20,7 @@ class ArticleSheetLabels {
   String website;
 }
 
+/// Article metadata displayed in the native sheet.
 class ArticleSheetData {
   String? title;
   String? link;
@@ -29,20 +30,34 @@ class ArticleSheetData {
   ArticleSheetLabels labels;
 }
 
+/// Dart → Swift. Controls the native article sheet lifecycle.
 @HostApi()
 abstract class ArticleSheetApi {
+  /// Present the sheet.
   void open();
+
+  /// Push updated article data into the sheet.
   void update(ArticleSheetData data);
+
+  /// Programmatically dismiss the sheet (Dart-initiated close).
+  /// Does not call back into Dart — the caller is responsible for cleanup.
+  void close();
 }
 
+/// Swift → Dart. Callbacks from the native sheet to the Dart bridge.
 @FlutterApi()
 abstract class ArticleSheetFlutterApi {
+  /// Called after the sheet is dismissed (user swipe or native close button).
+  /// The bridge uses this to cancel subscriptions and reset state.
   @async
-  void close();
+  void onClose();
+
   @async
   List<String> getAllTags();
+
   @async
   void refetchContent();
+
   @async
   void setTags(List<String> tags);
 }

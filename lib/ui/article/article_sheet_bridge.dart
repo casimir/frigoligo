@@ -57,8 +57,13 @@ class ArticleSheetBridge implements ArticleSheetFlutterApi {
     await _api.open();
   }
 
+  Future<void> dismiss() async {
+    await _api.close();
+    await onClose();
+  }
+
   @override
-  Future<void> close() async {
+  Future<void> onClose() async {
     await _sub?.cancel();
     _sub = null;
     _articleId = null;

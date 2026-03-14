@@ -132,6 +132,8 @@ func deepHashArticleSheet(value: Any?, hasher: inout Hasher) {
 
     
 
+/// Localised labels for the article sheet UI.
+///
 /// Generated class from Pigeon that represents data sent in messages.
 struct ArticleSheetLabels: Hashable {
   var addTags: String
@@ -189,6 +191,8 @@ struct ArticleSheetLabels: Hashable {
   }
 }
 
+/// Article metadata displayed in the native sheet.
+///
 /// Generated class from Pigeon that represents data sent in messages.
 struct ArticleSheetData: Hashable {
   var title: String? = nil
@@ -275,10 +279,17 @@ class ArticleSheetPigeonCodec: FlutterStandardMessageCodec, @unchecked Sendable 
   static let shared = ArticleSheetPigeonCodec(readerWriter: ArticleSheetPigeonCodecReaderWriter())
 }
 
+/// Dart → Swift. Controls the native article sheet lifecycle.
+///
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol ArticleSheetApi {
+  /// Present the sheet.
   func open() throws
+  /// Push updated article data into the sheet.
   func update(data: ArticleSheetData) throws
+  /// Programmatically dismiss the sheet (Dart-initiated close).
+  /// Does not call back into Dart — the caller is responsible for cleanup.
+  func close() throws
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -287,6 +298,7 @@ class ArticleSheetApiSetup {
   /// Sets up an instance of `ArticleSheetApi` to handle messages through the `binaryMessenger`.
   static func setUp(binaryMessenger: FlutterBinaryMessenger, api: ArticleSheetApi?, messageChannelSuffix: String = "") {
     let channelSuffix = messageChannelSuffix.count > 0 ? ".\(messageChannelSuffix)" : ""
+    /// Present the sheet.
     let openChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.frigoligo.ArticleSheetApi.open\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       openChannel.setMessageHandler { _, reply in
@@ -300,6 +312,7 @@ class ArticleSheetApiSetup {
     } else {
       openChannel.setMessageHandler(nil)
     }
+    /// Push updated article data into the sheet.
     let updateChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.frigoligo.ArticleSheetApi.update\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
     if let api = api {
       updateChannel.setMessageHandler { message, reply in
@@ -315,11 +328,30 @@ class ArticleSheetApiSetup {
     } else {
       updateChannel.setMessageHandler(nil)
     }
+    /// Programmatically dismiss the sheet (Dart-initiated close).
+    /// Does not call back into Dart — the caller is responsible for cleanup.
+    let closeChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.frigoligo.ArticleSheetApi.close\(channelSuffix)", binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      closeChannel.setMessageHandler { _, reply in
+        do {
+          try api.close()
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      closeChannel.setMessageHandler(nil)
+    }
   }
 }
+/// Swift → Dart. Callbacks from the native sheet to the Dart bridge.
+///
 /// Generated protocol from Pigeon that represents Flutter messages that can be called from Swift.
 protocol ArticleSheetFlutterApiProtocol {
-  func close(completion: @escaping (Result<Void, PigeonError>) -> Void)
+  /// Called after the sheet is dismissed (user swipe or native close button).
+  /// The bridge uses this to cancel subscriptions and reset state.
+  func onClose(completion: @escaping (Result<Void, PigeonError>) -> Void)
   func getAllTags(completion: @escaping (Result<[String], PigeonError>) -> Void)
   func refetchContent(completion: @escaping (Result<Void, PigeonError>) -> Void)
   func setTags(tags tagsArg: [String], completion: @escaping (Result<Void, PigeonError>) -> Void)
@@ -334,8 +366,10 @@ class ArticleSheetFlutterApi: ArticleSheetFlutterApiProtocol {
   var codec: ArticleSheetPigeonCodec {
     return ArticleSheetPigeonCodec.shared
   }
-  func close(completion: @escaping (Result<Void, PigeonError>) -> Void) {
-    let channelName: String = "dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.close\(messageChannelSuffix)"
+  /// Called after the sheet is dismissed (user swipe or native close button).
+  /// The bridge uses this to cancel subscriptions and reset state.
+  func onClose(completion: @escaping (Result<Void, PigeonError>) -> Void) {
+    let channelName: String = "dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.onClose\(messageChannelSuffix)"
     let channel = FlutterBasicMessageChannel(name: channelName, binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage(nil) { response in
       guard let listResponse = response as? [Any?] else {

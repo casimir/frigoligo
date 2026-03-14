@@ -9,7 +9,7 @@ import SwiftUI
 
 protocol ArticleSheetViewModelProtocol: ObservableObject {
   var data: ArticleSheetData? { get }
-  func close()
+  func notifyClose()
   func getAllTags() async -> [String]
   func refetchContent()
   func setTags(_ tags: [String])
@@ -44,15 +44,19 @@ class ArticleSheetViewModel: NSObject, ArticleSheetApi,
   func presentationControllerDidDismiss(
     _ presentationController: UIPresentationController
   ) {
-    flutterApi.close { _ in }
+    notifyClose()
   }
 
   func update(data: ArticleSheetData) throws {
     self.data = data
   }
 
-  func close() {
-    flutterApi.close { _ in }
+  func close() throws {
+    presenter?.presentedViewController?.dismiss(animated: true)
+  }
+
+  func notifyClose() {
+    flutterApi.onClose { _ in }
   }
 
   func getAllTags() async -> [String] {

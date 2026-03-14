@@ -60,7 +60,7 @@ struct ArticleSheetView<ViewModel: ArticleSheetViewModelProtocol>: View {
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {
-          Button(action: { viewModel.close(); dismiss() }) {
+          Button(action: { viewModel.notifyClose(); dismiss() }) {
             Image(systemName: "xmark")
           }
         }
@@ -91,7 +91,7 @@ private class PreviewViewModel: ObservableObject, ArticleSheetViewModelProtocol
     )
   )
 
-  func close() {}
+  func notifyClose() {}
   func getAllTags() async -> [String] { [] }
   func refetchContent() {}
   func setTags(_ tags: [String]) {}
