@@ -9,8 +9,8 @@ class ArticleSheetController {
   const ArticleSheetController({
     required SyncManager syncManager,
     required TagRepository tagRepository,
-    required SharingService sharingService,
-    required UrlLauncherService urlLauncherService,
+    SharingService? sharingService,
+    UrlLauncherService? urlLauncherService,
     required this.articleId,
   }) : _syncManager = syncManager,
        _tagRepository = tagRepository,
@@ -19,8 +19,8 @@ class ArticleSheetController {
 
   final SyncManager _syncManager;
   final TagRepository _tagRepository;
-  final SharingService _sharingService;
-  final UrlLauncherService _urlLauncherService;
+  final SharingService? _sharingService;
+  final UrlLauncherService? _urlLauncherService;
   final int articleId;
 
   Future<List<String>> allTags() => _tagRepository.getAll();
@@ -36,7 +36,7 @@ class ArticleSheetController {
   }
 
   Future<void> share(String title, String url, Rect sharePositionOrigin) {
-    return _sharingService.shareAsText(
+    return _sharingService!.shareAsText(
       title,
       url,
       sharePositionOrigin: sharePositionOrigin,
@@ -44,6 +44,6 @@ class ArticleSheetController {
   }
 
   Future<void> openInBrowser(Uri url) {
-    return _urlLauncherService.launch(url);
+    return _urlLauncherService!.launch(url);
   }
 }

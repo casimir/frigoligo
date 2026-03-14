@@ -5,6 +5,7 @@ import '../../domain/repositories.dart';
 import '../../domain/sync/sync_manager.dart';
 import '../../pigeon/article_sheet.g.dart';
 import '../../src/generated/i18n/app_localizations.dart';
+import 'controllers/article_sheet_controller.dart';
 
 class ArticleSheetBridge implements ArticleSheetFlutterApi {
   ArticleSheetBridge({
@@ -25,12 +26,16 @@ class ArticleSheetBridge implements ArticleSheetFlutterApi {
   final ArticleSheetApi _api;
 
   StreamSubscription<ArticleData?>? _sub;
-  int? _articleId;
+  ArticleSheetController? _controller;
 
   Future<void> open(int articleId, {required AppLocalizations l10n}) async {
     await _sub?.cancel();
     _sub = null;
-    _articleId = articleId;
+    _controller = ArticleSheetController(
+      syncManager: _syncManager,
+      tagRepository: _tagRepository,
+      articleId: articleId,
+    );
     final labels = ArticleSheetLabels(
       addTags: l10n.article_addTags,
       openInBrowser: l10n.article_openInBrowser,
@@ -67,25 +72,15 @@ class ArticleSheetBridge implements ArticleSheetFlutterApi {
   Future<void> onClose() async {
     await _sub?.cancel();
     _sub = null;
-    _articleId = null;
+    _controller = null;
   }
 
   @override
-  Future<List<String>> getAllTags() => _tagRepository.getAll();
+  Future<List<String>> getAllTags() => _controller!.allTags();
 
   @override
-  Future<void> refetchContent() async {
-    if (_articleId == null) return;
-
-    await _syncManager.addAction(RefetchArticleAction(_articleId!));
-    await _syncManager.synchronize(withFinalRefresh: false);
-  }
+  Future<void> refetchContent() => _controller!.refetchContent();
 
   @override
-  Future<void> setTags(List<String> tags) async {
-    if (_articleId == null) return;
-
-    await _syncManager.addAction(EditArticleAction(_articleId!, tags: tags));
-    await _syncManager.synchronize(withFinalRefresh: false);
-  }
+  Future<void> setTags(List<String> tags) => _controller!.setTags(tags);
 }
