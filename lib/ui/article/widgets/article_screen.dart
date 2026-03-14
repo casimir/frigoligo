@@ -255,18 +255,18 @@ List<Widget> buildActions(
           showModalSheet(
             context: context,
             title: context.L.g_article,
-            builder: (_) => Material(
-              child: ArticleSheet(
-                controller: ArticleSheetController(
-                  syncManager: SyncManager.instance,
-                  tagRepository: ref.watch(tagRepositoryProvider),
-                  sharingService: dependencies.get(),
-                  urlLauncherService: dependencies.get(),
-                  articleId: data.id,
-                ),
-                data: data,
-              ),
-            ),
+            builder: (_) {
+              final sheetController = ArticleSheetController(
+                syncManager: SyncManager.instance,
+                tagRepository: ref.watch(tagRepositoryProvider),
+                sharingService: dependencies.get(),
+                urlLauncherService: dependencies.get(),
+                articleId: data.id,
+              );
+              return Material(
+                child: ArticleSheet(controller: sheetController, data: data),
+              );
+            },
           );
         }
       },
