@@ -7,6 +7,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:l10n_esperanto/l10n_esperanto.dart';
 import 'package:language_info_plus/language_info_plus.dart';
 import 'package:logging/logging.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path_provider_foundation/path_provider_foundation.dart';
 import 'package:universal_platform/universal_platform.dart';
 
 import 'app_info.dart';
@@ -68,6 +70,8 @@ Future<void> main() async {
   if (!UniversalPlatform.isWeb) {
     log.info('os version:  ${Platform.operatingSystemVersion}');
   }
+
+  if (!UniversalPlatform.isWeb) unawaited(_logStorageSizes());
 
   runApp(
     const ProviderScope(
@@ -151,6 +155,35 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
       dependencies.get<ConfigStoreService>().reload();
       SyncManager.instance.throttledSynchronize(withFinalRefresh: true);
     }
+  }
+}
+
+Future<int> _dirSize(Directory dir) async {
+  if (!dir.existsSync()) return 0;
+  int total = 0;
+  await for (final entity in dir.list(recursive: true)) {
+    if (entity is File) total += await entity.length();
+  }
+  return total;
+}
+
+final _storageLog = Logger('storage');
+
+Future<void> _logStorageSizes() async {
+  String fmt(int bytes) => '${(bytes / 1e6).toStringAsFixed(1)} MB';
+  final dirs = {
+    'documents': await getApplicationDocumentsDirectory(),
+    'appSupport': await getApplicationSupportDirectory(),
+    'tmp': await getTemporaryDirectory(),
+  };
+  if (UniversalPlatform.isIOS) {
+    final containerPath = await PathProviderFoundation().getContainerPath(
+      appGroupIdentifier: appGroupId,
+    );
+    dirs['appGroupContainer'] = Directory(containerPath!);
+  }
+  for (final entry in dirs.entries) {
+    _storageLog.info('${entry.key} = ${fmt(await _dirSize(entry.value))}');
   }
 }
 
