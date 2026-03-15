@@ -33,3 +33,7 @@ test-coverage:
 .PHONY: coverage
 coverage: test-coverage
 	genhtml coverage/lcov.info -o coverage/html
+
+.PHONY: xcstrings
+xcstrings:
+	$(DART) tools/arb_to_xcstrings.dart

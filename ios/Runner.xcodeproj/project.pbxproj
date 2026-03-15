@@ -19,6 +19,8 @@
 		02E8879B2F62A90B009E2EA9 /* ArticleSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E887962F62A90B009E2EA9 /* ArticleSheetView.swift */; };
 		02E8879C2F62A90B009E2EA9 /* ArticleSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E887972F62A90B009E2EA9 /* ArticleSheetViewModel.swift */; };
 		02E8879D2F62A90B009E2EA9 /* TagsPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E8879E2F62A90B009E2EA9 /* TagsPickerView.swift */; };
+		02E8879E2F671316009E2EA9 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 02E8879D2F671316009E2EA9 /* Localizable.xcstrings */; };
+		02E8879F2F671316009E2EA9 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 02E8879D2F671316009E2EA9 /* Localizable.xcstrings */; };
 		02F0CC942D40522800A73A77 /* SavePlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F0CC932D40521C00A73A77 /* SavePlugin.swift */; };
 		02F0CC9D2D42434500A73A77 /* Flutter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02F0CC9C2D42434500A73A77 /* Flutter.xcframework */; };
 		05BC92B8285B3FFB45B2EFE5 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 695FF15C61FFCBBA5A997ED3 /* Pods_Runner.framework */; };
@@ -78,6 +80,7 @@
 		02E887952F62A90B009E2EA9 /* ArticleSheet.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSheet.g.swift; sourceTree = "<group>"; };
 		02E887962F62A90B009E2EA9 /* ArticleSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSheetView.swift; sourceTree = "<group>"; };
 		02E887972F62A90B009E2EA9 /* ArticleSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSheetViewModel.swift; sourceTree = "<group>"; };
+		02E8879D2F671316009E2EA9 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		02E8879E2F62A90B009E2EA9 /* TagsPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsPickerView.swift; sourceTree = "<group>"; };
 		02F0CC932D40521C00A73A77 /* SavePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavePlugin.swift; sourceTree = "<group>"; };
 		02F0CC9C2D42434500A73A77 /* Flutter.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:S8QB4VV633:FLUTTER.IO LLC"; lastKnownFileType = wrapper.xcframework; name = Flutter.xcframework; path = share/Frameworks/Flutter.xcframework; sourceTree = "<group>"; };
@@ -192,6 +195,7 @@
 		97C146E51CF9000F007C117D = {
 			isa = PBXGroup;
 			children = (
+				02E8879D2F671316009E2EA9 /* Localizable.xcstrings */,
 				02E887992F62A90B009E2EA9 /* Features */,
 				02A11FCC2BD558E400723586 /* PrivacyInfo.xcprivacy */,
 				9740EEB11CF90186004384FC /* Flutter */,
@@ -329,6 +333,7 @@
 			files = (
 				02A11FCE2BD558E400723586 /* PrivacyInfo.xcprivacy in Resources */,
 				021BA09D2A9BFCE500557A89 /* MainInterface.storyboard in Resources */,
+				02E8879F2F671316009E2EA9 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,6 +343,7 @@
 			files = (
 				97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */,
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
+				02E8879E2F671316009E2EA9 /* Localizable.xcstrings in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
 				02A11FCD2BD558E400723586 /* PrivacyInfo.xcprivacy in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,

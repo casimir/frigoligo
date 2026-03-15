@@ -143,27 +143,31 @@ class SettingsPage extends ConsumerWidget {
             SettingsSection(
               title: _settingsSectionSplitter,
               tiles: [
-                SettingsTile.navigation(
-                  leading: const Icon(Icons.language),
-                  title: Text(context.L.settings_itemLanguage),
-                  value: Text(getLanguageLabel(context, settings[Sk.language])),
-                  onPressed: (context) async {
-                    AlertDialogAction build(Language lang) => AlertDialogAction(
-                      label: getLanguageLabel(context, lang),
-                      key: lang,
-                    );
-                    final choice = await showConfirmationDialog(
-                      context: context,
-                      title: context.L.settings_itemLanguage,
-                      actions: Language.values.map(build).toList(),
-                    );
-                    if (choice != null) {
-                      await ref
-                          .read(settingsProvider.notifier)
-                          .set(Sk.language, choice);
-                    }
-                  },
-                ),
+                if (!UniversalPlatform.isIOS)
+                  SettingsTile.navigation(
+                    leading: const Icon(Icons.language),
+                    title: Text(context.L.settings_itemLanguage),
+                    value: Text(
+                      getLanguageLabel(context, settings[Sk.language]),
+                    ),
+                    onPressed: (context) async {
+                      AlertDialogAction build(Language lang) =>
+                          AlertDialogAction(
+                            label: getLanguageLabel(context, lang),
+                            key: lang,
+                          );
+                      final choice = await showConfirmationDialog(
+                        context: context,
+                        title: context.L.settings_itemLanguage,
+                        actions: Language.values.map(build).toList(),
+                      );
+                      if (choice != null) {
+                        await ref
+                            .read(settingsProvider.notifier)
+                            .set(Sk.language, choice);
+                      }
+                    },
+                  ),
                 SettingsTile(
                   leading: const Icon(Icons.handyman),
                   trailing: const Icon(Icons.open_in_new),
