@@ -183,7 +183,26 @@ Future<void> _logStorageSizes() async {
     dirs['appGroupContainer'] = Directory(containerPath!);
   }
   for (final entry in dirs.entries) {
-    _storageLog.info('${entry.key} = ${fmt(await _dirSize(entry.value))}');
+    final size = await _dirSize(entry.value);
+    _storageLog.info('${entry.key} = ${fmt(size)}');
+    await _logSubdirSizes(entry.value, fmt);
+  }
+}
+
+Future<void> _logSubdirSizes(Directory dir, String Function(int) fmt) async {
+  if (!dir.existsSync()) return;
+  await for (final entity in dir.list()) {
+    if (entity is Directory) {
+      final size = await _dirSize(entity);
+      if (size > 0) {
+        _storageLog.info('  ${entity.path.split('/').last}/ = ${fmt(size)}');
+      }
+    } else if (entity is File) {
+      final size = await entity.length();
+      if (size > 0) {
+        _storageLog.info('  ${entity.path.split('/').last} = ${fmt(size)}');
+      }
+    }
   }
 }
 
