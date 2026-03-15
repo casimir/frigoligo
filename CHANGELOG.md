@@ -23,6 +23,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(sync)* Add optimistic updates when adding actions to the queue ([#436](https://github.com/casimir/frigoligo/pull/436)) ([17f01cc](https://github.com/casimir/frigoligo/commit/17f01cc7626b9127b65b26dcf4cfa61ad9267e04))
 - Add a demo mode that works without server ([#437](https://github.com/casimir/frigoligo/pull/437)) ([e137a95](https://github.com/casimir/frigoligo/commit/e137a9577b058d46c93e4a4c8dbc0a07d21e164b))
 - *(freon)* Implement read progress syncing ([#439](https://github.com/casimir/frigoligo/pull/439)) ([95582e5](https://github.com/casimir/frigoligo/commit/95582e5b1964ee28cccb9d34e6d0444d06ec4a97))
+- *(iOS)* Reimplement article details sheet with SwiftUI ([#441](https://github.com/casimir/frigoligo/pull/441)) ([a9026db](https://github.com/casimir/frigoligo/commit/a9026db84a5953fe037adcd48c351ebe45180286))
 
 ### 🐛 Bug Fixes
 
