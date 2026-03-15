@@ -24,6 +24,10 @@ class DB extends $DB {
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
+    beforeOpen: (details) async {
+      await customStatement('PRAGMA incremental_vacuum');
+      await customStatement('PRAGMA optimize');
+    },
     // The migration strategy is pretty simple: the DB is just a local cache.
     // If the schema version changes, let's just restart from a clean slate.
     onUpgrade: (m, from, to) async {

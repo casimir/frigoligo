@@ -25,6 +25,16 @@ Future<File> getDBPath(bool devmode, {bool container = true}) async {
   return File('$dir/data.sqlite');
 }
 
+void _setupAutoVacuum(Database db) {
+  final result = db.select('PRAGMA auto_vacuum');
+  final mode = result.first.columnAt(0) as int;
+  if (mode != 2) {
+    // 0=none, 1=full, 2=incremental
+    db.execute('PRAGMA auto_vacuum = INCREMENTAL');
+    db.execute('VACUUM');
+  }
+}
+
 QueryExecutor openConnection() {
   return LazyDatabase(() async {
     // clean old db files in the background
@@ -43,6 +53,7 @@ QueryExecutor openConnection() {
     }
     return NativeDatabase.createInBackground(
       dbFile,
+      setup: _setupAutoVacuum,
       logStatements: enableSqlLogs,
     );
   });
