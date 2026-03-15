@@ -17,21 +17,21 @@ struct ArticleSheetView<ViewModel: ArticleSheetViewModelProtocol>: View {
     NavigationStack {
       Group {
         if let data = viewModel.data {
-          let labels = data.labels
           List {
             Section {
-              LabeledContent(labels.title) {
+              LabeledContent(String(localized: "articlefields_title")) {
                 Text(data.title).textSelection(.enabled)
               }
-              LabeledContent(labels.website) {
+              LabeledContent(String(localized: "articlefields_website")) {
                 Text(data.domain ?? "").textSelection(.enabled)
               }
-              LabeledContent(labels.readingTime) {
-                Text(data.readingTime).textSelection(.enabled)
+              LabeledContent(String(localized: "articlefields_readingTime")) {
+                Text(String(format: String(localized: "article_readingTime"), data.readingTime))
+                  .textSelection(.enabled)
               }
             }
 
-            Section(labels.tags) {
+            Section(String(localized: "articlefields_tags")) {
               let tags = data.tags
               ForEach(tags, id: \.self) { tag in
                 Text(tag)
@@ -43,7 +43,7 @@ struct ArticleSheetView<ViewModel: ArticleSheetViewModelProtocol>: View {
                     }
                   }
               }
-              Button(labels.addTags) { showingTagsPicker = true }
+              Button(String(localized: "article_addTags")) { showingTagsPicker = true }
             }
 
             Section {
@@ -51,7 +51,7 @@ struct ArticleSheetView<ViewModel: ArticleSheetViewModelProtocol>: View {
                 viewModel.refetchContent()
               } label: {
                 HStack {
-                  Text(labels.refetchContent)
+                  Text(String(localized: "article_refetchContent"))
                   if viewModel.isRefetching {
                     Spacer()
                     ProgressView()
@@ -61,10 +61,10 @@ struct ArticleSheetView<ViewModel: ArticleSheetViewModelProtocol>: View {
               .disabled(viewModel.isRefetching)
               if let url = URL(string: data.link) {
                 ShareLink(item: url, subject: Text(data.title)) {
-                  Text(labels.share)
+                  Text(String(localized: "g_share"))
                 }
               }
-              Button(labels.openInBrowser) { viewModel.openInBrowser() }
+              Button(String(localized: "article_openInBrowser")) { viewModel.openInBrowser() }
             }
           }
         } else {
@@ -74,12 +74,12 @@ struct ArticleSheetView<ViewModel: ArticleSheetViewModelProtocol>: View {
       .sheet(isPresented: $showingTagsPicker) {
         TagsPickerView(
           initialSelection: viewModel.data?.tags ?? [],
-          title: viewModel.data?.labels.tags ?? "",
+          title: String(localized: "articlefields_tags"),
           fetchTags: { try await viewModel.getAllTags() },
           onConfirm: { viewModel.setTags($0) }
         )
       }
-      .navigationTitle(viewModel.data?.labels.sheetTitle ?? "")
+      .navigationTitle(String(localized: "g_article"))
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {
@@ -101,19 +101,8 @@ private class PreviewViewModel: ObservableObject, ArticleSheetViewModelProtocol 
       "A very long article title that definitely spans more than one line on a mobile screen",
     link: "https://example.com",
     domain: "example.com",
-    readingTime: "5 mins",
-    tags: ["swift", "ios"],
-    labels: ArticleSheetLabels(
-      addTags: "Add tags",
-      openInBrowser: "Open in browser",
-      readingTime: "Reading time",
-      refetchContent: "Re-fetch content",
-      share: "Share",
-      sheetTitle: "Article",
-      tags: "Tags",
-      title: "Title",
-      website: "Website"
-    )
+    readingTime: 5,
+    tags: ["swift", "ios"]
   )
 
   func notifyClose() {}

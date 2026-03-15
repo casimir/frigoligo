@@ -4,7 +4,6 @@ import '../domain/models/article_data.dart';
 import '../domain/repositories.dart';
 import '../domain/sync/sync_manager.dart';
 import '../pigeon/article_sheet.g.dart';
-import '../src/generated/i18n/app_localizations.dart';
 import '../ui/article/controllers/article_sheet_controller.dart';
 
 class ArticleSheetBridge implements ArticleSheetFlutterApi {
@@ -28,24 +27,13 @@ class ArticleSheetBridge implements ArticleSheetFlutterApi {
   StreamSubscription<ArticleData?>? _sub;
   ArticleSheetController? _controller;
 
-  Future<void> open(int articleId, {required AppLocalizations l10n}) async {
+  Future<void> open(int articleId) async {
     await _sub?.cancel();
     _sub = null;
     _controller = ArticleSheetController(
       syncManager: _syncManager,
       tagRepository: _tagRepository,
       articleId: articleId,
-    );
-    final labels = ArticleSheetLabels(
-      addTags: l10n.article_addTags,
-      openInBrowser: l10n.article_openInBrowser,
-      readingTime: l10n.articlefields_readingTime,
-      refetchContent: l10n.article_refetchContent,
-      share: l10n.g_share,
-      sheetTitle: l10n.g_article,
-      tags: l10n.articlefields_tags,
-      title: l10n.articlefields_title,
-      website: l10n.articlefields_website,
     );
     _sub = _articleRepository.watchData(articleId).listen((article) {
       if (article == null) return;
@@ -54,9 +42,8 @@ class ArticleSheetBridge implements ArticleSheetFlutterApi {
           title: article.title,
           link: article.url,
           domain: Uri.tryParse(article.url)?.host,
-          readingTime: l10n.article_readingTime(article.readingTime),
+          readingTime: article.readingTime,
           tags: article.tags,
-          labels: labels,
         ),
       );
     });

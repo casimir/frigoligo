@@ -250,7 +250,7 @@ List<Widget> buildActions(
       label: context.L.article_details,
       onPressed: () {
         if (controller.hasNativeSheet) {
-          controller.openNativeSheet(data.id, l10n: context.L);
+          controller.openNativeSheet(data.id);
         } else {
           showModalSheet(
             context: context,

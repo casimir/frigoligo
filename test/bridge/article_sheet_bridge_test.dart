@@ -6,7 +6,6 @@ import 'package:frigoligo/domain/models/article_data.dart';
 import 'package:frigoligo/domain/repositories.dart';
 import 'package:frigoligo/domain/sync/sync_manager.dart';
 import 'package:frigoligo/pigeon/article_sheet.g.dart';
-import 'package:frigoligo/src/generated/i18n/app_localizations.dart';
 import 'package:mocktail/mocktail.dart';
 
 class MockArticleRepository extends Mock implements ArticleRepository {}
@@ -16,8 +15,6 @@ class MockTagRepository extends Mock implements TagRepository {}
 class MockSyncManager extends Mock implements SyncManager {}
 
 class MockArticleSheetApi extends Mock implements ArticleSheetApi {}
-
-class MockAppLocalizations extends Mock implements AppLocalizations {}
 
 class FakeArticleSheetData extends Fake implements ArticleSheetData {}
 
@@ -42,7 +39,6 @@ void main() {
     late MockTagRepository tagRepository;
     late MockSyncManager syncManager;
     late MockArticleSheetApi api;
-    late MockAppLocalizations l10n;
     late ArticleSheetBridge bridge;
 
     setUpAll(() {
@@ -55,18 +51,6 @@ void main() {
       tagRepository = MockTagRepository();
       syncManager = MockSyncManager();
       api = MockArticleSheetApi();
-      l10n = MockAppLocalizations();
-
-      when(() => l10n.article_addTags).thenReturn('Add tags');
-      when(() => l10n.article_openInBrowser).thenReturn('Open in browser');
-      when(() => l10n.articlefields_readingTime).thenReturn('Reading time');
-      when(() => l10n.article_refetchContent).thenReturn('Refetch');
-      when(() => l10n.g_share).thenReturn('Share');
-      when(() => l10n.g_article).thenReturn('Article');
-      when(() => l10n.articlefields_tags).thenReturn('Tags');
-      when(() => l10n.articlefields_title).thenReturn('Title');
-      when(() => l10n.articlefields_website).thenReturn('Website');
-      when(() => l10n.article_readingTime(any())).thenReturn('5 min');
 
       when(() => api.open()).thenAnswer((_) async {});
       when(() => api.update(any())).thenAnswer((_) async {});
@@ -86,7 +70,7 @@ void main() {
         () => articleRepository.watchData(1),
       ).thenAnswer((_) => controller.stream);
 
-      await bridge.open(1, l10n: l10n);
+      await bridge.open(1);
       controller.add(_testArticle);
       await Future.microtask(() {});
 
@@ -109,7 +93,7 @@ void main() {
         () => syncManager.synchronize(withFinalRefresh: false),
       ).thenAnswer((_) async => {});
 
-      await bridge.open(1, l10n: l10n);
+      await bridge.open(1);
       await bridge.setTags(['tag1', 'tag2']);
 
       verify(
@@ -133,7 +117,7 @@ void main() {
           () => syncManager.synchronize(withFinalRefresh: false),
         ).thenAnswer((_) async => {});
 
-        await bridge.open(1, l10n: l10n);
+        await bridge.open(1);
         await bridge.refetchContent();
 
         verify(
@@ -153,7 +137,7 @@ void main() {
       ).thenAnswer((_) => controller.stream);
       when(() => tagRepository.getAll()).thenAnswer((_) async => ['a', 'b']);
 
-      await bridge.open(1, l10n: l10n);
+      await bridge.open(1);
       expect(await bridge.getAllTags(), ['a', 'b']);
       await bridge.dismiss();
 

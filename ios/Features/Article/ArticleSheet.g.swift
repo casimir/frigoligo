@@ -132,65 +132,6 @@ func deepHashArticleSheet(value: Any?, hasher: inout Hasher) {
   return hasher.combine(String(describing: value))
 }
 
-/// Localised labels for the article sheet UI.
-///
-/// Generated class from Pigeon that represents data sent in messages.
-struct ArticleSheetLabels: Hashable {
-  var addTags: String
-  var openInBrowser: String
-  var readingTime: String
-  var refetchContent: String
-  var share: String
-  var sheetTitle: String
-  var tags: String
-  var title: String
-  var website: String
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> ArticleSheetLabels? {
-    let addTags = pigeonVar_list[0] as! String
-    let openInBrowser = pigeonVar_list[1] as! String
-    let readingTime = pigeonVar_list[2] as! String
-    let refetchContent = pigeonVar_list[3] as! String
-    let share = pigeonVar_list[4] as! String
-    let sheetTitle = pigeonVar_list[5] as! String
-    let tags = pigeonVar_list[6] as! String
-    let title = pigeonVar_list[7] as! String
-    let website = pigeonVar_list[8] as! String
-
-    return ArticleSheetLabels(
-      addTags: addTags,
-      openInBrowser: openInBrowser,
-      readingTime: readingTime,
-      refetchContent: refetchContent,
-      share: share,
-      sheetTitle: sheetTitle,
-      tags: tags,
-      title: title,
-      website: website
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      addTags,
-      openInBrowser,
-      readingTime,
-      refetchContent,
-      share,
-      sheetTitle,
-      tags,
-      title,
-      website,
-    ]
-  }
-  static func == (lhs: ArticleSheetLabels, rhs: ArticleSheetLabels) -> Bool {
-    return deepEqualsArticleSheet(lhs.toList(), rhs.toList())
-  }
-  func hash(into hasher: inout Hasher) {
-    deepHashArticleSheet(value: toList(), hasher: &hasher)
-  }
-}
-
 /// Article metadata displayed in the native sheet.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
@@ -198,26 +139,23 @@ struct ArticleSheetData: Hashable {
   var title: String
   var link: String
   var domain: String? = nil
-  var readingTime: String
+  var readingTime: Int64
   var tags: [String]
-  var labels: ArticleSheetLabels
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> ArticleSheetData? {
     let title = pigeonVar_list[0] as! String
     let link = pigeonVar_list[1] as! String
     let domain: String? = nilOrValue(pigeonVar_list[2])
-    let readingTime = pigeonVar_list[3] as! String
+    let readingTime = pigeonVar_list[3] as! Int64
     let tags = pigeonVar_list[4] as! [String]
-    let labels = pigeonVar_list[5] as! ArticleSheetLabels
 
     return ArticleSheetData(
       title: title,
       link: link,
       domain: domain,
       readingTime: readingTime,
-      tags: tags,
-      labels: labels
+      tags: tags
     )
   }
   func toList() -> [Any?] {
@@ -227,7 +165,6 @@ struct ArticleSheetData: Hashable {
       domain,
       readingTime,
       tags,
-      labels,
     ]
   }
   static func == (lhs: ArticleSheetData, rhs: ArticleSheetData) -> Bool {
@@ -242,8 +179,6 @@ private class ArticleSheetPigeonCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
     case 129:
-      return ArticleSheetLabels.fromList(self.readValue() as! [Any?])
-    case 130:
       return ArticleSheetData.fromList(self.readValue() as! [Any?])
     default:
       return super.readValue(ofType: type)
@@ -253,11 +188,8 @@ private class ArticleSheetPigeonCodecReader: FlutterStandardReader {
 
 private class ArticleSheetPigeonCodecWriter: FlutterStandardWriter {
   override func writeValue(_ value: Any) {
-    if let value = value as? ArticleSheetLabels {
+    if let value = value as? ArticleSheetData {
       super.writeByte(129)
-      super.writeValue(value.toList())
-    } else if let value = value as? ArticleSheetData {
-      super.writeByte(130)
       super.writeValue(value.toList())
     } else {
       super.writeValue(value)
