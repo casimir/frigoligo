@@ -59,7 +59,11 @@ struct ArticleSheetView<ViewModel: ArticleSheetViewModelProtocol>: View {
                 }
               }
               .disabled(viewModel.isRefetching)
-              Button(labels.share) { viewModel.shareArticle() }
+              if let url = URL(string: data.link) {
+                ShareLink(item: url, subject: Text(data.title)) {
+                  Text(labels.share)
+                }
+              }
               Button(labels.openInBrowser) { viewModel.openInBrowser() }
             }
           }
@@ -120,7 +124,6 @@ private class PreviewViewModel: ObservableObject, ArticleSheetViewModelProtocol 
   var isRefetching: Bool = false
   func refetchContent() {}
   func setTags(_: [String]) {}
-  func shareArticle() {}
   func openInBrowser() {}
 }
 

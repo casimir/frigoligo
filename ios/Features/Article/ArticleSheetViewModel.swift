@@ -16,7 +16,6 @@ protocol ArticleSheetViewModelProtocol: ObservableObject {
   func getAllTags() async throws -> [String]
   func refetchContent()
   func setTags(_ tags: [String])
-  func shareArticle()
   func openInBrowser()
 }
 
@@ -82,20 +81,6 @@ class ArticleSheetViewModel: NSObject, ArticleSheetApi,
 
   func setTags(_ tags: [String]) {
     flutterApi.setTags(tags: tags) { _ in }
-  }
-
-  func shareArticle() {
-    guard let urlString = data?.link, let url = URL(string: urlString),
-      let presenter
-    else { return }
-    var items: [Any] = [url]
-    if let title = data?.title { items.insert(title, at: 0) }
-    let activity = UIActivityViewController(
-      activityItems: items,
-      applicationActivities: nil
-    )
-    let topPresenter = presenter.presentedViewController ?? presenter
-    topPresenter.present(activity, animated: true)
   }
 
   func openInBrowser() {
