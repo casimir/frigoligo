@@ -51,7 +51,7 @@ _ArbMeta _parseEnArb(Map<String, dynamic> enData) {
 
 void main() {
   final l10nDir = Directory('lib/l10n');
-  final outputFile = File('ios/Runner/Localizable.xcstrings');
+  final outputFile = File('ios/Localizable.xcstrings');
 
   final enData =
       jsonDecode(File('${l10nDir.path}/app_en.arb').readAsStringSync())

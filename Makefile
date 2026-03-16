@@ -22,7 +22,7 @@ ios/Runner/Localizable.xcstrings: $(ARB_INPUTS)
 	$(DART) tools/arb_to_xcstrings.dart
 
 .PHONY: xcstrings
-xcstrings: ios/Runner/Localizable.xcstrings
+xcstrings: ios/Localizable.xcstrings
 
 .PHONY: lint
 lint:
