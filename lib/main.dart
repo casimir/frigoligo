@@ -12,6 +12,7 @@ import 'package:universal_platform/universal_platform.dart';
 import 'app_info.dart';
 import 'app_setups.dart';
 import 'applinks/handler.dart';
+import 'bridge/auth_gate_bridge.dart';
 import 'config/dependencies.dart';
 import 'config/logging.dart';
 import 'constants.dart';
@@ -28,10 +29,33 @@ import 'src/generated/i18n/app_localizations.dart';
 import 'ui/article/widgets/article_content.dart';
 
 Future<void> main() async {
+  await _commonSetup('main');
+  runApp(
+    const ProviderScope(
+      observers: [if (enableDebugLogs) RiverpodObserver()],
+      child: MyApp(),
+    ),
+  );
+}
+
+@pragma('vm:entry-point')
+Future<void> mainHeadless() async {
+  await _commonSetup('mainHeadless');
+  // Eagerly init the bridge so it fires requireLogin() if no session exists.
+  dependencies.get<AuthGateBridge>();
+  runApp(
+    const ProviderScope(
+      observers: [if (enableDebugLogs) RiverpodObserver()],
+      child: MyApp(),
+    ),
+  );
+}
+
+Future<void> _commonSetup(String loggerName) async {
   setupDependencies();
   setupNativeBridges();
 
-  final log = Logger('main');
+  final log = Logger(loggerName);
   setupLogger(log);
   setupGoogleFonts();
 
@@ -68,13 +92,6 @@ Future<void> main() async {
   if (!UniversalPlatform.isWeb) {
     log.info('os version:  ${Platform.operatingSystemVersion}');
   }
-
-  runApp(
-    const ProviderScope(
-      observers: [if (enableDebugLogs) RiverpodObserver()],
-      child: MyApp(),
-    ),
-  );
 }
 
 class MyApp extends ConsumerStatefulWidget {

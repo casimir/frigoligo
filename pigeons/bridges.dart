@@ -2,11 +2,14 @@ import 'package:pigeon/pigeon.dart';
 
 @ConfigurePigeon(
   PigeonOptions(
-    dartOut: 'lib/pigeon/article_sheet.g.dart',
-    swiftOut: 'ios/Features/Article/ArticleSheet.g.swift',
+    dartOut: 'lib/pigeon/bridges.g.dart',
+    swiftOut: 'ios/Runner/Bridges.g.swift',
     dartPackageName: 'frigoligo',
   ),
 )
+// -------------
+// Article sheet
+// -------------
 /// Article metadata displayed in the native sheet.
 class ArticleSheetData {
   late String title;
@@ -46,4 +49,18 @@ abstract class ArticleSheetFlutterApi {
 
   @async
   void setTags(List<String> tags);
+}
+
+// ---------
+// Auth gate
+// ---------
+
+/// Dart → Swift. Controls the native auth gate lifecycle.
+@HostApi()
+abstract class AuthGateApi {
+  /// Called when no session exists; Swift must present the login FlutterVC.
+  void requireLogin();
+
+  /// Called after successful login; Swift must dismiss the login FlutterVC.
+  void loginDidComplete();
 }

@@ -8,7 +8,9 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
+import 'package:universal_platform/universal_platform.dart';
 
+import '../../bridge/auth_gate_bridge.dart';
 import '../../buildcontext_extension.dart';
 import '../../config/dependencies.dart';
 import '../../domain/models/server_session.dart';
@@ -168,7 +170,9 @@ class _LoginFlowCredentialsState extends ConsumerState<LoginFlowCredentials> {
             .get();
         await serverSessionRepository.save(session);
         unawaited(SyncManager.instance.synchronize(withFinalRefresh: true));
-        if (mounted) {
+        if (UniversalPlatform.isIOS) {
+          AuthGateBridge.notifyLoginComplete();
+        } else if (mounted) {
           context.go('/');
         }
       } catch (e, st) {

@@ -70,7 +70,7 @@ private func nilOrValue<T>(_ value: Any?) -> T? {
   return value as! T?
 }
 
-func deepEqualsArticleSheet(_ lhs: Any?, _ rhs: Any?) -> Bool {
+func deepEqualsBridges(_ lhs: Any?, _ rhs: Any?) -> Bool {
   let cleanLhs = nilOrValue(lhs) as Any?
   let cleanRhs = nilOrValue(rhs) as Any?
   switch (cleanLhs, cleanRhs) {
@@ -89,7 +89,7 @@ func deepEqualsArticleSheet(_ lhs: Any?, _ rhs: Any?) -> Bool {
   case let (cleanLhsArray, cleanRhsArray) as ([Any?], [Any?]):
     guard cleanLhsArray.count == cleanRhsArray.count else { return false }
     for (index, element) in cleanLhsArray.enumerated() {
-      if !deepEqualsArticleSheet(element, cleanRhsArray[index]) {
+      if !deepEqualsBridges(element, cleanRhsArray[index]) {
         return false
       }
     }
@@ -99,7 +99,7 @@ func deepEqualsArticleSheet(_ lhs: Any?, _ rhs: Any?) -> Bool {
     guard cleanLhsDictionary.count == cleanRhsDictionary.count else { return false }
     for (key, cleanLhsValue) in cleanLhsDictionary {
       guard cleanRhsDictionary.index(forKey: key) != nil else { return false }
-      if !deepEqualsArticleSheet(cleanLhsValue, cleanRhsDictionary[key]!) {
+      if !deepEqualsBridges(cleanLhsValue, cleanRhsDictionary[key]!) {
         return false
       }
     }
@@ -111,16 +111,16 @@ func deepEqualsArticleSheet(_ lhs: Any?, _ rhs: Any?) -> Bool {
   }
 }
 
-func deepHashArticleSheet(value: Any?, hasher: inout Hasher) {
+func deepHashBridges(value: Any?, hasher: inout Hasher) {
   if let valueList = value as? [AnyHashable] {
-    for item in valueList { deepHashArticleSheet(value: item, hasher: &hasher) }
+    for item in valueList { deepHashBridges(value: item, hasher: &hasher) }
     return
   }
 
   if let valueDict = value as? [AnyHashable: AnyHashable] {
     for key in valueDict.keys {
       hasher.combine(key)
-      deepHashArticleSheet(value: valueDict[key]!, hasher: &hasher)
+      deepHashBridges(value: valueDict[key]!, hasher: &hasher)
     }
     return
   }
@@ -168,14 +168,14 @@ struct ArticleSheetData: Hashable {
     ]
   }
   static func == (lhs: ArticleSheetData, rhs: ArticleSheetData) -> Bool {
-    return deepEqualsArticleSheet(lhs.toList(), rhs.toList())
+    return deepEqualsBridges(lhs.toList(), rhs.toList())
   }
   func hash(into hasher: inout Hasher) {
-    deepHashArticleSheet(value: toList(), hasher: &hasher)
+    deepHashBridges(value: toList(), hasher: &hasher)
   }
 }
 
-private class ArticleSheetPigeonCodecReader: FlutterStandardReader {
+private class BridgesPigeonCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
     case 129:
@@ -186,7 +186,7 @@ private class ArticleSheetPigeonCodecReader: FlutterStandardReader {
   }
 }
 
-private class ArticleSheetPigeonCodecWriter: FlutterStandardWriter {
+private class BridgesPigeonCodecWriter: FlutterStandardWriter {
   override func writeValue(_ value: Any) {
     if let value = value as? ArticleSheetData {
       super.writeByte(129)
@@ -197,18 +197,18 @@ private class ArticleSheetPigeonCodecWriter: FlutterStandardWriter {
   }
 }
 
-private class ArticleSheetPigeonCodecReaderWriter: FlutterStandardReaderWriter {
+private class BridgesPigeonCodecReaderWriter: FlutterStandardReaderWriter {
   override func reader(with data: Data) -> FlutterStandardReader {
-    return ArticleSheetPigeonCodecReader(data: data)
+    return BridgesPigeonCodecReader(data: data)
   }
 
   override func writer(with data: NSMutableData) -> FlutterStandardWriter {
-    return ArticleSheetPigeonCodecWriter(data: data)
+    return BridgesPigeonCodecWriter(data: data)
   }
 }
 
-class ArticleSheetPigeonCodec: FlutterStandardMessageCodec, @unchecked Sendable {
-  static let shared = ArticleSheetPigeonCodec(readerWriter: ArticleSheetPigeonCodecReaderWriter())
+class BridgesPigeonCodec: FlutterStandardMessageCodec, @unchecked Sendable {
+  static let shared = BridgesPigeonCodec(readerWriter: BridgesPigeonCodecReaderWriter())
 }
 
 /// Dart → Swift. Controls the native article sheet lifecycle.
@@ -226,7 +226,7 @@ protocol ArticleSheetApi {
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
 class ArticleSheetApiSetup {
-  static var codec: FlutterStandardMessageCodec { ArticleSheetPigeonCodec.shared }
+  static var codec: FlutterStandardMessageCodec { BridgesPigeonCodec.shared }
   /// Sets up an instance of `ArticleSheetApi` to handle messages through the `binaryMessenger`.
   static func setUp(
     binaryMessenger: FlutterBinaryMessenger, api: ArticleSheetApi?,
@@ -304,8 +304,8 @@ class ArticleSheetFlutterApi: ArticleSheetFlutterApiProtocol {
     self.binaryMessenger = binaryMessenger
     self.messageChannelSuffix = messageChannelSuffix.count > 0 ? ".\(messageChannelSuffix)" : ""
   }
-  var codec: ArticleSheetPigeonCodec {
-    return ArticleSheetPigeonCodec.shared
+  var codec: BridgesPigeonCodec {
+    return BridgesPigeonCodec.shared
   }
   /// Called after the sheet is dismissed (user swipe or native close button).
   /// The bridge uses this to cancel subscriptions and reset state.
@@ -394,6 +394,58 @@ class ArticleSheetFlutterApi: ArticleSheetFlutterApiProtocol {
       } else {
         completion(.success(()))
       }
+    }
+  }
+}
+/// Dart → Swift. Controls the native auth gate lifecycle.
+///
+/// Generated protocol from Pigeon that represents a handler of messages from Flutter.
+protocol AuthGateApi {
+  /// Called when no session exists; Swift must present the login FlutterVC.
+  func requireLogin() throws
+  /// Called after successful login; Swift must dismiss the login FlutterVC.
+  func loginDidComplete() throws
+}
+
+/// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
+class AuthGateApiSetup {
+  static var codec: FlutterStandardMessageCodec { BridgesPigeonCodec.shared }
+  /// Sets up an instance of `AuthGateApi` to handle messages through the `binaryMessenger`.
+  static func setUp(
+    binaryMessenger: FlutterBinaryMessenger, api: AuthGateApi?, messageChannelSuffix: String = ""
+  ) {
+    let channelSuffix = messageChannelSuffix.count > 0 ? ".\(messageChannelSuffix)" : ""
+    /// Called when no session exists; Swift must present the login FlutterVC.
+    let requireLoginChannel = FlutterBasicMessageChannel(
+      name: "dev.flutter.pigeon.frigoligo.AuthGateApi.requireLogin\(channelSuffix)",
+      binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      requireLoginChannel.setMessageHandler { _, reply in
+        do {
+          try api.requireLogin()
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      requireLoginChannel.setMessageHandler(nil)
+    }
+    /// Called after successful login; Swift must dismiss the login FlutterVC.
+    let loginDidCompleteChannel = FlutterBasicMessageChannel(
+      name: "dev.flutter.pigeon.frigoligo.AuthGateApi.loginDidComplete\(channelSuffix)",
+      binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      loginDidCompleteChannel.setMessageHandler { _, reply in
+        do {
+          try api.loginDidComplete()
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      loginDidCompleteChannel.setMessageHandler(nil)
     }
   }
 }

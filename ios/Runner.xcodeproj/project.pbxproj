@@ -15,7 +15,9 @@
 		02A11FCD2BD558E400723586 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 02A11FCC2BD558E400723586 /* PrivacyInfo.xcprivacy */; };
 		02A11FCE2BD558E400723586 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 02A11FCC2BD558E400723586 /* PrivacyInfo.xcprivacy */; };
 		02A8B8102AC1FA2E00E393D9 /* CompletionToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A8B80F2AC1FA2E00E393D9 /* CompletionToast.swift */; };
-		02E8879A2F62A90B009E2EA9 /* ArticleSheet.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E887952F62A90B009E2EA9 /* ArticleSheet.g.swift */; };
+		02170A012F700000000A0001 /* Bridges.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02170A002F700000000A0001 /* Bridges.g.swift */; };
+		02170A032F700000000A0002 /* AuthGateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02170A022F700000000A0002 /* AuthGateViewModel.swift */; };
+		02170A052F700000000A0003 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02170A042F700000000A0003 /* AppView.swift */; };
 		02E8879B2F62A90B009E2EA9 /* ArticleSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E887962F62A90B009E2EA9 /* ArticleSheetView.swift */; };
 		02E8879C2F62A90B009E2EA9 /* ArticleSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E887972F62A90B009E2EA9 /* ArticleSheetViewModel.swift */; };
 		02E8879D2F62A90B009E2EA9 /* TagsPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E8879E2F62A90B009E2EA9 /* TagsPickerView.swift */; };
@@ -28,6 +30,7 @@
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
 		6BD74C9DF47194D89067B01F /* Pods_share.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFC60A827028B2B313863E84 /* Pods_share.framework */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
+		02170A072F700000000A0005 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02170A082F700000000A0005 /* SceneDelegate.swift */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
@@ -73,11 +76,13 @@
 		021BA09C2A9BFCE500557A89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		021BA09E2A9BFCE500557A89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		027594642F199844000DCD29 /* AppBadgePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBadgePlugin.swift; sourceTree = "<group>"; };
+		02170A002F700000000A0001 /* Bridges.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bridges.g.swift; sourceTree = "<group>"; };
+		02170A022F700000000A0002 /* AuthGateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthGateViewModel.swift; sourceTree = "<group>"; };
+		02170A042F700000000A0003 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		027CBE832A9D32D8008575FC /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
 		02A11FCC2BD558E400723586 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		02A334222AA87F35004887D3 /* share.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = share.entitlements; sourceTree = "<group>"; };
 		02A8B80F2AC1FA2E00E393D9 /* CompletionToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionToast.swift; sourceTree = "<group>"; };
-		02E887952F62A90B009E2EA9 /* ArticleSheet.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSheet.g.swift; sourceTree = "<group>"; };
 		02E887962F62A90B009E2EA9 /* ArticleSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSheetView.swift; sourceTree = "<group>"; };
 		02E887972F62A90B009E2EA9 /* ArticleSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSheetViewModel.swift; sourceTree = "<group>"; };
 		02E8879E2F62A90B009E2EA9 /* TagsPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsPickerView.swift; sourceTree = "<group>"; };
@@ -92,6 +97,7 @@
 		695FF15C61FFCBBA5A997ED3 /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		02170A082F700000000A0005 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
 		9740EEB31CF90195004384FC /* Generated.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Generated.xcconfig; path = Flutter/Generated.xcconfig; sourceTree = "<group>"; };
@@ -141,6 +147,14 @@
 			path = share;
 			sourceTree = "<group>";
 		};
+		02170A062F700000000A0004 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				02170A022F700000000A0002 /* AuthGateViewModel.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
 		027594652F199844000DCD29 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -152,7 +166,6 @@
 		02E887982F62A90B009E2EA9 /* Article */ = {
 			isa = PBXGroup;
 			children = (
-				02E887952F62A90B009E2EA9 /* ArticleSheet.g.swift */,
 				02E887962F62A90B009E2EA9 /* ArticleSheetView.swift */,
 				02E887972F62A90B009E2EA9 /* ArticleSheetViewModel.swift */,
 				02E8879E2F62A90B009E2EA9 /* TagsPickerView.swift */,
@@ -163,6 +176,7 @@
 		02E887992F62A90B009E2EA9 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				02170A062F700000000A0004 /* Auth */,
 				02E887982F62A90B009E2EA9 /* Article */,
 			);
 			path = Features;
@@ -220,6 +234,9 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
+				02170A002F700000000A0001 /* Bridges.g.swift */,
+				02170A042F700000000A0003 /* AppView.swift */,
+				02170A082F700000000A0005 /* SceneDelegate.swift */,
 				027CBE832A9D32D8008575FC /* Runner.entitlements */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
 				97C146FD1CF9000F007C117D /* Assets.xcassets */,
@@ -468,7 +485,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
-				02E8879A2F62A90B009E2EA9 /* ArticleSheet.g.swift in Sources */,
+				02170A072F700000000A0005 /* SceneDelegate.swift in Sources */,
+				02170A012F700000000A0001 /* Bridges.g.swift in Sources */,
+				02170A032F700000000A0002 /* AuthGateViewModel.swift in Sources */,
+				02170A052F700000000A0003 /* AppView.swift in Sources */,
 				02E8879B2F62A90B009E2EA9 /* ArticleSheetView.swift in Sources */,
 				02E8879C2F62A90B009E2EA9 /* ArticleSheetViewModel.swift in Sources */,
 				02E8879D2F62A90B009E2EA9 /* TagsPickerView.swift in Sources */,
