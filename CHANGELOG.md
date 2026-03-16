@@ -24,6 +24,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Add a demo mode that works without server ([#437](https://github.com/casimir/frigoligo/pull/437)) ([e137a95](https://github.com/casimir/frigoligo/commit/e137a9577b058d46c93e4a4c8dbc0a07d21e164b))
 - *(freon)* Implement read progress syncing ([#439](https://github.com/casimir/frigoligo/pull/439)) ([95582e5](https://github.com/casimir/frigoligo/commit/95582e5b1964ee28cccb9d34e6d0444d06ec4a97))
 - *(iOS)* Reimplement article details sheet with SwiftUI ([#441](https://github.com/casimir/frigoligo/pull/441)) ([a9026db](https://github.com/casimir/frigoligo/commit/a9026db84a5953fe037adcd48c351ebe45180286))
+- *(db)* Optimize database on launch ([#442](https://github.com/casimir/frigoligo/pull/442)) ([ffbdfd2](https://github.com/casimir/frigoligo/commit/ffbdfd2f54d64d500ad5616db8b66c07b31d6bab))
 
 ### 🐛 Bug Fixes
 
@@ -74,6 +75,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(FTUE)* Enforce a sync after a successful log in ([494d704](https://github.com/casimir/frigoligo/commit/494d704c4b236f91b145dd5a9e3a9bf57bda4d3e))
 - *(demo)* Don't assume direct fs access when loading sample ([57a676d](https://github.com/casimir/frigoligo/commit/57a676daefbf8a5bb5bcb9c27ab5d6ecf41d91dd))
 - *(NavSplitView)* Separate rendering context from PageRoute context ([8a646ed](https://github.com/casimir/frigoligo/commit/8a646ed6add8ea9d9c6a736009a8f7abd9cc8e4c))
+- *(iOS)* Prevent crash when sharing an article on iPad ([c6e6a67](https://github.com/casimir/frigoligo/commit/c6e6a677498d26b891aa4958ce0c267bf06d04cf))
 
 ### 🚜 Refactor
 
