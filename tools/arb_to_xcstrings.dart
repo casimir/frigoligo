@@ -1,6 +1,4 @@
-#!/usr/bin/env dart
-// Converts lib/l10n/*.arb files to ios/Runner/Localizable.xcstrings.
-// Usage: dart tools/arb_to_xcstrings.dart
+// ignore_for_file: avoid_print
 
 import 'dart:convert';
 import 'dart:io';
@@ -8,44 +6,58 @@ import 'dart:io';
 final _topPluralRe = RegExp(r'^\{(\w+),\s*plural,(.+)\}$', dotAll: true);
 final _embeddedPluralRe = RegExp(r'\{(\w+),\s*plural,');
 final _placeholderRe = RegExp(r'\{(\w+)\}');
+final _localeFromPathRe = RegExp(r'app_(.+)\.arb');
+
+class _StringEntry {
+  _StringEntry({this.comment});
+  final String? comment;
+  final Map<String, Map<String, dynamic>> localizations = {};
+
+  Map<String, dynamic> toJson() => {
+    if (comment != null && comment!.isNotEmpty) 'comment': comment,
+    'localizations': localizations,
+  };
+}
+
+typedef _ArbMeta = ({
+  Map<String, _StringEntry> strings,
+  Map<String, Map<String, String>> phTypes,
+});
+
+/// Parses decoded English ARB data into string entries and placeholder types.
+_ArbMeta _parseEnArb(Map<String, dynamic> enData) {
+  final strings = <String, _StringEntry>{};
+  final phTypes = <String, Map<String, String>>{};
+
+  for (final entry in enData.entries) {
+    if (!entry.key.startsWith('@')) {
+      strings[entry.key] ??= _StringEntry();
+      continue;
+    }
+    if (entry.value is! Map) continue;
+    final key = entry.key.substring(1);
+    final meta = entry.value as Map<String, dynamic>;
+    strings[key] = _StringEntry(comment: meta['description'] as String?);
+    final placeholders = meta['placeholders'] as Map<String, dynamic>?;
+    if (placeholders == null) continue;
+    phTypes[key] = {
+      for (final ph in placeholders.entries)
+        ph.key:
+            (ph.value as Map<String, dynamic>?)?['type'] as String? ?? 'String',
+    };
+  }
+  return (strings: strings, phTypes: phTypes);
+}
 
 void main() {
   final l10nDir = Directory('lib/l10n');
   final outputFile = File('ios/Runner/Localizable.xcstrings');
 
-  // Load English template for key order and placeholder metadata.
   final enData =
       jsonDecode(File('${l10nDir.path}/app_en.arb').readAsStringSync())
           as Map<String, dynamic>;
 
-  final phTypes = <String, Map<String, String>>{};
-  for (final entry in enData.entries) {
-    if (!entry.key.startsWith('@')) continue;
-    if (entry.value is! Map) continue;
-    final realKey = entry.key.substring(1);
-    final placeholders =
-        (entry.value as Map<String, dynamic>)['placeholders']
-            as Map<String, dynamic>?;
-    if (placeholders == null) continue;
-    phTypes[realKey] = {
-      for (final ph in placeholders.entries)
-        ph.key:
-            ((ph.value as Map<String, dynamic>?))?['type'] as String? ??
-            'String',
-    };
-  }
-
-  // Build strings map in template key order.
-  final strings = <String, dynamic>{};
-  for (final key in enData.keys) {
-    if (key.startsWith('@')) continue;
-    final desc =
-        (enData['@$key'] as Map<String, dynamic>?)?['description'] as String?;
-    strings[key] = {
-      if (desc != null && desc.isNotEmpty) 'comment': desc,
-      'localizations': <String, dynamic>{},
-    };
-  }
+  final (:strings, :phTypes) = _parseEnArb(enData);
 
   final arbFiles =
       l10nDir
@@ -61,51 +73,43 @@ void main() {
 
     for (final entry in data.entries) {
       if (entry.key.startsWith('@')) continue;
-      if (!strings.containsKey(entry.key)) continue;
-
-      final locs =
-          (strings[entry.key] as Map<String, dynamic>)['localizations']
-              as Map<String, dynamic>;
-      locs[locale] = _buildLocalization(
+      final stringEntry = strings[entry.key];
+      if (stringEntry == null) continue;
+      stringEntry.localizations[locale] = _buildLocalization(
         entry.value as String,
         phTypes[entry.key] ?? {},
       );
     }
   }
 
-  strings.removeWhere(
-    (_, v) => ((v as Map<String, dynamic>)['localizations'] as Map).isEmpty,
-  );
+  strings.removeWhere((_, v) => v.localizations.isEmpty);
 
   if (outputFile.existsSync()) {
-    final oldKeys =
-        ((jsonDecode(outputFile.readAsStringSync())
-                    as Map<String, dynamic>)['strings']
-                as Map<String, dynamic>)
-            .keys
-            .toSet();
+    final oldData =
+        jsonDecode(outputFile.readAsStringSync()) as Map<String, dynamic>;
+    final oldKeys = (oldData['strings'] as Map<String, dynamic>).keys.toSet();
     final removed = oldKeys.difference(strings.keys.toSet());
     if (removed.isNotEmpty) {
       stderr.writeln('KEY CHANGES DETECTED:');
-      removed.forEach(stderr.writeln);
+      for (final key in removed) {
+        stderr.writeln(key);
+      }
     }
   }
 
   final xcstrings = {
     'sourceLanguage': 'en',
-    'strings': strings,
+    'strings': {for (final e in strings.entries) e.key: e.value.toJson()},
     'version': '1.0',
   };
 
-  outputFile.writeAsStringSync(
-    const JsonEncoder.withIndent('  ').convert(xcstrings) + '\n',
-  );
+  const encoder = JsonEncoder.withIndent('  ');
+  outputFile.writeAsStringSync('${encoder.convert(xcstrings)}\n');
   print('Written ${outputFile.path} (${strings.length} strings)');
 }
 
 String _localeFromPath(String path) {
-  final name = path.split('/').last;
-  final m = RegExp(r'app_(.+)\.arb').firstMatch(name);
+  final m = _localeFromPathRe.firstMatch(path.split('/').last);
   return (m?.group(1) ?? 'en').replaceAll('_', '-');
 }
 
@@ -127,11 +131,7 @@ Map<String, dynamic> _buildLocalization(
     final type = phTypes[varName] ?? 'String';
     return {
       'variations': {
-        'plural': _buildPluralCases(
-          _parsePluralBody(topMatch.group(2)!),
-          varName,
-          type,
-        ),
+        'plural': _buildPluralCases(topMatch.group(2)!, varName, type),
       },
     };
   }
@@ -143,15 +143,13 @@ Map<String, dynamic> _buildLocalization(
     final type = phTypes[varName] ?? 'String';
     return {
       'stringUnit': _stringUnit(
-        _convertPlaceholders('$prefix%#@${varName}@$suffix', phTypes),
+        _convertPlaceholders('$prefix%#@$varName@$suffix', phTypes),
       ),
       'substitutions': {
         varName: {
           'argNum': 1,
           'formatSpecifier': type == 'int' ? 'd' : '@',
-          'variations': {
-            'plural': _buildPluralCases(_parsePluralBody(body), varName, type),
-          },
+          'variations': {'plural': _buildPluralCases(body, varName, type)},
         },
       },
     };
@@ -161,26 +159,24 @@ Map<String, dynamic> _buildLocalization(
   return {'stringUnit': _stringUnit(_convertPlaceholders(value, phTypes))};
 }
 
-String _convertPlaceholders(String value, Map<String, String> phTypes) {
-  return value.replaceAllMapped(_placeholderRe, (m) {
-    return _formatSpec(phTypes[m.group(1)!] ?? 'String');
-  });
-}
+String _convertPlaceholders(String value, Map<String, String> phTypes) =>
+    value.replaceAllMapped(
+      _placeholderRe,
+      (m) => _formatSpec(phTypes[m.group(1)!] ?? 'String'),
+    );
 
 Map<String, dynamic> _buildPluralCases(
-  Map<String, String> cases,
+  String body,
   String varName,
   String type,
-) {
-  return {
-    for (final e in cases.entries)
-      _normalizePluralKey(e.key): {
-        'stringUnit': _stringUnit(
-          e.value.replaceAll('{$varName}', _formatSpec(type)),
-        ),
-      },
-  };
-}
+) => {
+  for (final e in _parsePluralBody(body).entries)
+    _normalizePluralKey(e.key): {
+      'stringUnit': _stringUnit(
+        e.value.replaceAll('{$varName}', _formatSpec(type)),
+      ),
+    },
+};
 
 String _normalizePluralKey(String key) => switch (key) {
   '=0' => 'zero',
@@ -194,11 +190,15 @@ Map<String, String> _parsePluralBody(String body) {
   final cases = <String, String>{};
   int i = 0;
   while (i < body.length) {
-    while (i < body.length && _isWhitespace(body.codeUnitAt(i))) i++;
+    while (i < body.length && _isWhitespace(body.codeUnitAt(i))) {
+      i++;
+    }
     if (i >= body.length) break;
 
     final keyStart = i;
-    while (i < body.length && body[i] != '{') i++;
+    while (i < body.length && body[i] != '{') {
+      i++;
+    }
     final key = body.substring(keyStart, i).trim();
     if (key.isEmpty || i >= body.length) break;
 

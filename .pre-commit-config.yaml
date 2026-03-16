@@ -8,6 +8,13 @@ repos:
         types: [file]
         files: \.dart$
 
+      - id: xcstrings
+        name: xcstrings
+        language: system
+        entry: make xcstrings
+        files: lib/l10n/.*\.arb$
+        pass_filenames: false
+
   - repo: https://github.com/swiftlang/swift-format
     rev: 602.0.0
     hooks:
