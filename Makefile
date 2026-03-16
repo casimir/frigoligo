@@ -2,9 +2,10 @@ FVM ?= $(shell command -v fvm > /dev/null 2>&1 && echo "fvm")
 DART ?= $(FVM) dart
 FLUTTER ?= $(FVM) flutter
 
-all:
-
+ARB_INPUTS := $(wildcard lib/l10n/*.arb)
 PIGEON_INPUTS := $(wildcard pigeons/*.dart)
+
+all:
 
 .PHONY: pigeon $(PIGEON_INPUTS)
 pigeon: $(PIGEON_INPUTS)
@@ -16,6 +17,12 @@ $(PIGEON_INPUTS):
 .PHONY: codegen
 codegen: pigeon
 	$(DART) run build_runner build --delete-conflicting-outputs
+
+ios/Runner/Localizable.xcstrings: $(ARB_INPUTS)
+	$(DART) tools/arb_to_xcstrings.dart
+
+.PHONY: xcstrings
+xcstrings: ios/Localizable.xcstrings
 
 .PHONY: lint
 lint:
@@ -33,3 +40,4 @@ test-coverage:
 .PHONY: coverage
 coverage: test-coverage
 	genhtml coverage/lcov.info -o coverage/html
+

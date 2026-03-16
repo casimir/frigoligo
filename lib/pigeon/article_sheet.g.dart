@@ -47,88 +47,6 @@ bool _deepEquals(Object? a, Object? b) {
   return a == b;
 }
 
-/// Localised labels for the article sheet UI.
-class ArticleSheetLabels {
-  ArticleSheetLabels({
-    required this.addTags,
-    required this.openInBrowser,
-    required this.readingTime,
-    required this.refetchContent,
-    required this.share,
-    required this.sheetTitle,
-    required this.tags,
-    required this.title,
-    required this.website,
-  });
-
-  String addTags;
-
-  String openInBrowser;
-
-  String readingTime;
-
-  String refetchContent;
-
-  String share;
-
-  String sheetTitle;
-
-  String tags;
-
-  String title;
-
-  String website;
-
-  List<Object?> _toList() {
-    return <Object?>[
-      addTags,
-      openInBrowser,
-      readingTime,
-      refetchContent,
-      share,
-      sheetTitle,
-      tags,
-      title,
-      website,
-    ];
-  }
-
-  Object encode() {
-    return _toList();
-  }
-
-  static ArticleSheetLabels decode(Object result) {
-    result as List<Object?>;
-    return ArticleSheetLabels(
-      addTags: result[0]! as String,
-      openInBrowser: result[1]! as String,
-      readingTime: result[2]! as String,
-      refetchContent: result[3]! as String,
-      share: result[4]! as String,
-      sheetTitle: result[5]! as String,
-      tags: result[6]! as String,
-      title: result[7]! as String,
-      website: result[8]! as String,
-    );
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) {
-    if (other is! ArticleSheetLabels || other.runtimeType != runtimeType) {
-      return false;
-    }
-    if (identical(this, other)) {
-      return true;
-    }
-    return _deepEquals(encode(), other.encode());
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
-}
-
 /// Article metadata displayed in the native sheet.
 class ArticleSheetData {
   ArticleSheetData({
@@ -137,7 +55,6 @@ class ArticleSheetData {
     this.domain,
     required this.readingTime,
     required this.tags,
-    required this.labels,
   });
 
   String title;
@@ -146,14 +63,12 @@ class ArticleSheetData {
 
   String? domain;
 
-  String readingTime;
+  int readingTime;
 
   List<String> tags;
 
-  ArticleSheetLabels labels;
-
   List<Object?> _toList() {
-    return <Object?>[title, link, domain, readingTime, tags, labels];
+    return <Object?>[title, link, domain, readingTime, tags];
   }
 
   Object encode() {
@@ -166,9 +81,8 @@ class ArticleSheetData {
       title: result[0]! as String,
       link: result[1]! as String,
       domain: result[2] as String?,
-      readingTime: result[3]! as String,
+      readingTime: result[3]! as int,
       tags: (result[4] as List<Object?>?)!.cast<String>(),
-      labels: result[5]! as ArticleSheetLabels,
     );
   }
 
@@ -196,11 +110,8 @@ class _PigeonCodec extends StandardMessageCodec {
     if (value is int) {
       buffer.putUint8(4);
       buffer.putInt64(value);
-    } else if (value is ArticleSheetLabels) {
-      buffer.putUint8(129);
-      writeValue(buffer, value.encode());
     } else if (value is ArticleSheetData) {
-      buffer.putUint8(130);
+      buffer.putUint8(129);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -211,8 +122,6 @@ class _PigeonCodec extends StandardMessageCodec {
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
       case 129:
-        return ArticleSheetLabels.decode(readValue(buffer)!);
-      case 130:
         return ArticleSheetData.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);

@@ -132,7 +132,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
         ),
       ),
       themeMode: theme,
-      locale: lang.locale,
+      locale: UniversalPlatform.isIOS ? null : lang.locale,
       localizationsDelegates:
           AppLocalizations.localizationsDelegates +
           const [

@@ -7,27 +7,13 @@ import 'package:pigeon/pigeon.dart';
     dartPackageName: 'frigoligo',
   ),
 )
-/// Localised labels for the article sheet UI.
-class ArticleSheetLabels {
-  late String addTags;
-  late String openInBrowser;
-  late String readingTime;
-  late String refetchContent;
-  late String share;
-  late String sheetTitle;
-  late String tags;
-  late String title;
-  late String website;
-}
-
 /// Article metadata displayed in the native sheet.
 class ArticleSheetData {
   late String title;
   late String link;
   String? domain;
-  late String readingTime;
+  late int readingTime;
   late List<String> tags;
-  late ArticleSheetLabels labels;
 }
 
 /// Dart → Swift. Controls the native article sheet lifecycle.
