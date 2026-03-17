@@ -25,6 +25,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(freon)* Implement read progress syncing ([#439](https://github.com/casimir/frigoligo/pull/439)) ([95582e5](https://github.com/casimir/frigoligo/commit/95582e5b1964ee28cccb9d34e6d0444d06ec4a97))
 - *(iOS)* Reimplement article details sheet with SwiftUI ([#441](https://github.com/casimir/frigoligo/pull/441)) ([a9026db](https://github.com/casimir/frigoligo/commit/a9026db84a5953fe037adcd48c351ebe45180286))
 - *(db)* Optimize database on launch ([#442](https://github.com/casimir/frigoligo/pull/442)) ([ffbdfd2](https://github.com/casimir/frigoligo/commit/ffbdfd2f54d64d500ad5616db8b66c07b31d6bab))
+- *(ios)* Switch to native handling of translations ([#443](https://github.com/casimir/frigoligo/pull/443)) ([a259339](https://github.com/casimir/frigoligo/commit/a25933923fe2d60bdc41c6edb12e4e0656153526))
 
 ### 🐛 Bug Fixes
 
@@ -172,6 +173,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(coverage)* Sonarqube doesn't follow in file instructions ([318331f](https://github.com/casimir/frigoligo/commit/318331f2ad49fb210441af8b13f799dd26c5ed10))
 - Cleanup redundant riverpod imports ([4f17ed9](https://github.com/casimir/frigoligo/commit/4f17ed9b69f1573217c75317c4ca072da97cc53e))
 - Force explicit handling of futures ([9daa949](https://github.com/casimir/frigoligo/commit/9daa949f3379d37a155a35dcd9783d16acf82043))
+- *(l10n)* Tweak translation script to match xcode output ([31afda3](https://github.com/casimir/frigoligo/commit/31afda3f48d81807147c369797972c2cfb37900e))
 
 ### I18n
 
