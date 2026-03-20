@@ -1,0 +1,54 @@
+{
+    "g_article": "Webartikel",
+    "@g_article": {
+        "description": "A piece of content fetched from the web. This is one of the main concepts of the app."
+    },
+    "g_check": "Kontrolearje",
+    "@g_check": {
+        "description": "A verb as in to check something."
+    },
+    "g_checking": "Kontrolearje…",
+    "@g_checking": {
+        "description": "Present participle of the verb to check."
+    },
+    "g_delete": "Wiskje",
+    "@g_delete": {
+        "description": "A verb, as in to delete something."
+    },
+    "g_search": "Sykje",
+    "@g_search": {
+        "description": "A verb, as in to search something."
+    },
+    "g_settings": "Ynstellings",
+    "@g_settings": {
+        "description": "The settings of the application."
+    },
+    "article_archive": "Argyfearje dit artikel",
+    "@article_archive": {
+        "description": "The action to archive the article."
+    },
+    "articlefields_title": "Titel",
+    "@articlefields_title": {
+        "description": "The title of the article."
+    },
+    "filters_searchbarHint": "Sykje yn artikels",
+    "@filters_searchbarHint": {
+        "description": "Search bar hint in the home screen."
+    },
+    "listing_noArticles": "Gjen artikels",
+    "@listing_noArticles": {
+        "description": "Placeholder for when there are no articles to display."
+    },
+    "listing_articlesAll": "Alle artikels",
+    "@listing_articlesAll": {
+        "description": "The title for the list of all the articles."
+    },
+    "listing_articlesArchived": "Argyfearre artikels",
+    "@listing_articlesArchived": {
+        "description": "The title for the list of the articles with the state Archived."
+    },
+    "listing_articlesUnread": "Net lêzen artikels",
+    "@listing_articlesUnread": {
+        "description": "The title for the list of the articles with the state Unread."
+    }
+}
