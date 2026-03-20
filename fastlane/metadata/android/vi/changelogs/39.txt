@@ -1,0 +1,3 @@
+- Hiện tại có thể lưu bài viết ngoại tuyến.
+- Thêm nút yêu cầu server tải lại bài viết.
+- Ngôn ngữ mới: tiếng Bồ Đào Nha Brazil.
