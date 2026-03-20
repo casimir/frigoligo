@@ -1,0 +1,1 @@
+- Corrigido um erro que causava a perda de dados ao reiniciar a aplicação.
