@@ -1,0 +1,4 @@
+-Modificació de gran part de la interfície per tal que siga més consistent i fàcil d'utilitzar.
+-Reconstrucció completa del sistema d'emmagatzemament per donar una experiència més consistent i de confiança a totes les plataformes.
+-Reconstrucció de la lògica d'identificació del comptes de la app per ser més fiable.
+-Nou idioma: Esperanto.
