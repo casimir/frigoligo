@@ -1,0 +1,3 @@
+-Comunicacions més robustes i àgils amb el servidor.
+-Noves llengües: Xinés tradicional (漢文) i Rús (Русский язык).
+-Permet certificats auto-signats per al servidor.
