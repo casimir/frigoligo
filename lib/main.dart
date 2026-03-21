@@ -12,7 +12,9 @@ import 'package:universal_platform/universal_platform.dart';
 import 'app_info.dart';
 import 'app_setups.dart';
 import 'applinks/handler.dart';
+import 'bridge/article_sheet_bridge.dart';
 import 'bridge/auth_gate_bridge.dart';
+import 'bridge/navigation_split_bridge.dart';
 import 'config/dependencies.dart';
 import 'config/logging.dart';
 import 'constants.dart';
@@ -41,8 +43,9 @@ Future<void> main() async {
 @pragma('vm:entry-point')
 Future<void> mainHeadless() async {
   await _commonSetup('mainHeadless');
-  // Eagerly init the bridge so it fires requireLogin() if no session exists.
   dependencies.get<AuthGateBridge>();
+  dependencies.get<ArticleSheetBridge>();
+  dependencies.get<NavigationSplitBridge>();
   runApp(
     const ProviderScope(
       observers: [if (enableDebugLogs) RiverpodObserver()],

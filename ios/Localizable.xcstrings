@@ -1,6 +1,12 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "·" : {
+
+    },
+    "%@ min" : {
+
+    },
     "article_addTags" : {
       "comment" : "The action to add tags to an article.",
       "extractionState" : "stale",
@@ -2053,9 +2059,6 @@
         }
       }
     },
-    "Articles" : {
-
-    },
     "Failed to load tags" : {
 
     },
@@ -2175,7 +2178,6 @@
     },
     "filters_articleDomainsCount" : {
       "comment" : "The number of articles domains used in filters.",
-      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "variations" : {
@@ -3165,7 +3167,6 @@
     },
     "filters_articleTagsCount" : {
       "comment" : "The number of tags used in filters.",
-      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "variations" : {

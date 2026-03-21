@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 
 import '../bridge/article_sheet_bridge.dart';
 import '../bridge/auth_gate_bridge.dart';
+import '../bridge/navigation_split_bridge.dart';
 import '../constants.dart';
 import '../data/repositories/article_repository.dart';
 import '../data/repositories/logger_repository.dart';
@@ -91,5 +92,11 @@ void setupNativeBridges() {
   );
   d.registerLazySingleton(
     () => AuthGateBridge(serverSessionRepository: d.get()),
+  );
+  d.registerLazySingleton(
+    () => NavigationSplitBridge(
+      articleRepository: d.get(),
+      queryRepository: d.get(),
+    ),
   );
 }

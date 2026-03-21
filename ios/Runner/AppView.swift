@@ -1,11 +1,17 @@
 import SwiftUI
 
 struct AppView: View {
+  @EnvironmentObject var navigationViewModel: NavigationSplitViewModel
+
   var body: some View {
     NavigationSplitView {
-      Text("Articles")  // placeholder for Phase 1
+      SidebarView()
     } detail: {
-      Text("Select an article")
+      if navigationViewModel.selectedArticleId != nil {
+        ArticleDetailView()
+      } else {
+        ArticleDetailPlaceholder()
+      }
     }
   }
 }

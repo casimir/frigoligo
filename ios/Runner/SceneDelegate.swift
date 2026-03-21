@@ -7,6 +7,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
   private var articleSheetViewModel: ArticleSheetViewModel?
   private var authGateViewModel: AuthGateViewModel?
+  private var navViewModel: NavigationSplitViewModel?
 
   func scene(
     _ scene: UIScene,
@@ -17,7 +18,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       let engine = (UIApplication.shared.delegate as? AppDelegate)?.engine
     else { return }
 
-    let rootVC = UIHostingController(rootView: AppView())
+    let navigationVM = NavigationSplitViewModel(binaryMessenger: engine.binaryMessenger)
+    self.navViewModel = navigationVM
+
+    let rootVC = UIHostingController(rootView: AppView().environmentObject(navigationVM))
     articleSheetViewModel = ArticleSheetViewModel(
       binaryMessenger: engine.binaryMessenger,
       presenter: rootVC
