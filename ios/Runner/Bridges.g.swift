@@ -316,6 +316,41 @@ struct NavigationFilterState: Hashable {
   }
 }
 
+/// Reading settings for the native article WebView.
+///
+/// Generated class from Pigeon that represents data sent in messages.
+struct ArticleReadingSettings: Hashable {
+  var fontSize: Double
+  var fontFamily: String
+  var justifyText: Bool
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> ArticleReadingSettings? {
+    let fontSize = pigeonVar_list[0] as! Double
+    let fontFamily = pigeonVar_list[1] as! String
+    let justifyText = pigeonVar_list[2] as! Bool
+
+    return ArticleReadingSettings(
+      fontSize: fontSize,
+      fontFamily: fontFamily,
+      justifyText: justifyText
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      fontSize,
+      fontFamily,
+      justifyText,
+    ]
+  }
+  static func == (lhs: ArticleReadingSettings, rhs: ArticleReadingSettings) -> Bool {
+    return deepEqualsBridges(lhs.toList(), rhs.toList())
+  }
+  func hash(into hasher: inout Hasher) {
+    deepHashBridges(value: toList(), hasher: &hasher)
+  }
+}
+
 /// Article content pushed into the native detail view.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
@@ -363,6 +398,8 @@ private class BridgesPigeonCodecReader: FlutterStandardReader {
     case 132:
       return NavigationFilterState.fromList(self.readValue() as! [Any?])
     case 133:
+      return ArticleReadingSettings.fromList(self.readValue() as! [Any?])
+    case 134:
       return ArticleContent.fromList(self.readValue() as! [Any?])
     default:
       return super.readValue(ofType: type)
@@ -384,8 +421,11 @@ private class BridgesPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? NavigationFilterState {
       super.writeByte(132)
       super.writeValue(value.toList())
-    } else if let value = value as? ArticleContent {
+    } else if let value = value as? ArticleReadingSettings {
       super.writeByte(133)
+      super.writeValue(value.toList())
+    } else if let value = value as? ArticleContent {
+      super.writeByte(134)
       super.writeValue(value.toList())
     } else {
       super.writeValue(value)
@@ -654,6 +694,7 @@ protocol NavigationSplitApi {
   func updateFilterState(state: NavigationFilterState) throws
   func updateArticleContent(content: ArticleContent) throws
   func updateArticleData(data: ArticleRowData) throws
+  func updateReadingSettings(settings: ArticleReadingSettings) throws
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -750,6 +791,23 @@ class NavigationSplitApiSetup {
     } else {
       updateArticleDataChannel.setMessageHandler(nil)
     }
+    let updateReadingSettingsChannel = FlutterBasicMessageChannel(
+      name: "dev.flutter.pigeon.frigoligo.NavigationSplitApi.updateReadingSettings\(channelSuffix)",
+      binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      updateReadingSettingsChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let settingsArg = args[0] as! ArticleReadingSettings
+        do {
+          try api.updateReadingSettings(settings: settingsArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      updateReadingSettingsChannel.setMessageHandler(nil)
+    }
   }
 }
 /// Swift → Dart. Callbacks from the native sidebar to the Dart bridge.
@@ -784,6 +842,9 @@ protocol NavigationSplitFlutterApiProtocol {
     completion: @escaping (Result<Void, PigeonError>) -> Void)
   func deleteArticle(id idArg: Int64, completion: @escaping (Result<Void, PigeonError>) -> Void)
   func openArticleSheet(id idArg: Int64, completion: @escaping (Result<Void, PigeonError>) -> Void)
+  func setReadingSettings(
+    settings settingsArg: ArticleReadingSettings,
+    completion: @escaping (Result<Void, PigeonError>) -> Void)
 }
 class NavigationSplitFlutterApi: NavigationSplitFlutterApiProtocol {
   private let binaryMessenger: FlutterBinaryMessenger
@@ -1163,6 +1224,29 @@ class NavigationSplitFlutterApi: NavigationSplitFlutterApiProtocol {
     let channel = FlutterBasicMessageChannel(
       name: channelName, binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage([idArg] as [Any?]) { response in
+      guard let listResponse = response as? [Any?] else {
+        completion(.failure(createConnectionError(withChannelName: channelName)))
+        return
+      }
+      if listResponse.count > 1 {
+        let code: String = listResponse[0] as! String
+        let message: String? = nilOrValue(listResponse[1])
+        let details: String? = nilOrValue(listResponse[2])
+        completion(.failure(PigeonError(code: code, message: message, details: details)))
+      } else {
+        completion(.success(()))
+      }
+    }
+  }
+  func setReadingSettings(
+    settings settingsArg: ArticleReadingSettings,
+    completion: @escaping (Result<Void, PigeonError>) -> Void
+  ) {
+    let channelName: String =
+      "dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.setReadingSettings\(messageChannelSuffix)"
+    let channel = FlutterBasicMessageChannel(
+      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage([settingsArg] as [Any?]) { response in
       guard let listResponse = response as? [Any?] else {
         completion(.failure(createConnectionError(withChannelName: channelName)))
         return

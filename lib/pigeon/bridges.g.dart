@@ -293,6 +293,54 @@ class NavigationFilterState {
   int get hashCode => Object.hashAll(_toList());
 }
 
+/// Reading settings for the native article WebView.
+class ArticleReadingSettings {
+  ArticleReadingSettings({
+    required this.fontSize,
+    required this.fontFamily,
+    required this.justifyText,
+  });
+
+  double fontSize;
+
+  String fontFamily;
+
+  bool justifyText;
+
+  List<Object?> _toList() {
+    return <Object?>[fontSize, fontFamily, justifyText];
+  }
+
+  Object encode() {
+    return _toList();
+  }
+
+  static ArticleReadingSettings decode(Object result) {
+    result as List<Object?>;
+    return ArticleReadingSettings(
+      fontSize: result[0]! as double,
+      fontFamily: result[1]! as String,
+      justifyText: result[2]! as bool,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! ArticleReadingSettings || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(encode(), other.encode());
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => Object.hashAll(_toList());
+}
+
 /// Article content pushed into the native detail view.
 class ArticleContent {
   ArticleContent({required this.id, this.html, required this.readingProgress});
@@ -356,8 +404,11 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is NavigationFilterState) {
       buffer.putUint8(132);
       writeValue(buffer, value.encode());
-    } else if (value is ArticleContent) {
+    } else if (value is ArticleReadingSettings) {
       buffer.putUint8(133);
+      writeValue(buffer, value.encode());
+    } else if (value is ArticleContent) {
+      buffer.putUint8(134);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -376,6 +427,8 @@ class _PigeonCodec extends StandardMessageCodec {
       case 132:
         return NavigationFilterState.decode(readValue(buffer)!);
       case 133:
+        return ArticleReadingSettings.decode(readValue(buffer)!);
+      case 134:
         return ArticleContent.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -838,6 +891,33 @@ class NavigationSplitApi {
       return;
     }
   }
+
+  Future<void> updateReadingSettings(ArticleReadingSettings settings) async {
+    final String pigeonVar_channelName =
+        'dev.flutter.pigeon.frigoligo.NavigationSplitApi.updateReadingSettings$pigeonVar_messageChannelSuffix';
+    final BasicMessageChannel<Object?> pigeonVar_channel =
+        BasicMessageChannel<Object?>(
+          pigeonVar_channelName,
+          pigeonChannelCodec,
+          binaryMessenger: pigeonVar_binaryMessenger,
+        );
+    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
+      <Object?>[settings],
+    );
+    final List<Object?>? pigeonVar_replyList =
+        await pigeonVar_sendFuture as List<Object?>?;
+    if (pigeonVar_replyList == null) {
+      throw _createConnectionError(pigeonVar_channelName);
+    } else if (pigeonVar_replyList.length > 1) {
+      throw PlatformException(
+        code: pigeonVar_replyList[0]! as String,
+        message: pigeonVar_replyList[1] as String?,
+        details: pigeonVar_replyList[2],
+      );
+    } else {
+      return;
+    }
+  }
 }
 
 /// Swift → Dart. Callbacks from the native sidebar to the Dart bridge.
@@ -877,6 +957,8 @@ abstract class NavigationSplitFlutterApi {
   void deleteArticle(int id);
 
   void openArticleSheet(int id);
+
+  void setReadingSettings(ArticleReadingSettings settings);
 
   static void setUp(
     NavigationSplitFlutterApi? api, {
@@ -1440,6 +1522,41 @@ abstract class NavigationSplitFlutterApi {
           );
           try {
             api.openArticleSheet(arg_id!);
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
+          }
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.setReadingSettings$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
+      if (api == null) {
+        pigeonVar_channel.setMessageHandler(null);
+      } else {
+        pigeonVar_channel.setMessageHandler((Object? message) async {
+          assert(
+            message != null,
+            'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.setReadingSettings was null.',
+          );
+          final List<Object?> args = (message as List<Object?>?)!;
+          final ArticleReadingSettings? arg_settings =
+              (args[0] as ArticleReadingSettings?);
+          assert(
+            arg_settings != null,
+            'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.setReadingSettings was null, expected non-null ArticleReadingSettings.',
+          );
+          try {
+            api.setReadingSettings(arg_settings!);
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);

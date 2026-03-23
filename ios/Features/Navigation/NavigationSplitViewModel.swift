@@ -17,6 +17,8 @@ class NavigationSplitViewModel: NSObject, ObservableObject, NavigationSplitApi {
   }
   @Published var articleContent: ArticleContent? = nil
   @Published var articleData: ArticleRowData? = nil
+  @Published var readingSettings: ArticleReadingSettings = ArticleReadingSettings(
+    fontSize: 16, fontFamily: "Lato", justifyText: false)
 
   let flutterApi: NavigationSplitFlutterApi
 
@@ -52,6 +54,12 @@ class NavigationSplitViewModel: NSObject, ObservableObject, NavigationSplitApi {
 
   func updateArticleData(data: ArticleRowData) throws {
     DispatchQueue.main.async { self.articleData = data }
+  }
+
+  func updateReadingSettings(settings: ArticleReadingSettings) throws {
+    DispatchQueue.main.async {
+      if self.readingSettings != settings { self.readingSettings = settings }
+    }
   }
 
   // MARK: - Filter actions

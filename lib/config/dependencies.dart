@@ -95,8 +95,10 @@ void setupNativeBridges() {
   );
   d.registerLazySingleton(
     () => NavigationSplitBridge(
+      configStoreService: d.get(),
       articleRepository: d.get(),
       queryRepository: d.get(),
     ),
+    dispose: (obj) => obj.dispose(),
   );
 }

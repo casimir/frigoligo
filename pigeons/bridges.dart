@@ -99,6 +99,13 @@ class NavigationFilterState {
   late List<String> domains;
 }
 
+/// Reading settings for the native article WebView.
+class ArticleReadingSettings {
+  late double fontSize; // 12 | 14 | 16 | 18 | 20
+  late String fontFamily;
+  late bool justifyText;
+}
+
 /// Article content pushed into the native detail view.
 class ArticleContent {
   ArticleContent({required this.id, this.html, required this.readingProgress});
@@ -115,6 +122,7 @@ abstract class NavigationSplitApi {
   void updateFilterState(NavigationFilterState state);
   void updateArticleContent(ArticleContent content);
   void updateArticleData(ArticleRowData data);
+  void updateReadingSettings(ArticleReadingSettings settings);
 }
 
 /// Swift → Dart. Callbacks from the native sidebar to the Dart bridge.
@@ -140,4 +148,5 @@ abstract class NavigationSplitFlutterApi {
   void onReadingProgressChanged(int articleId, double progress);
   void deleteArticle(int id);
   void openArticleSheet(int id);
+  void setReadingSettings(ArticleReadingSettings settings);
 }

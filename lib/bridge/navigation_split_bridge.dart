@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
 
 import '../config/dependencies.dart';
+import '../data/services/local/storage/config_store_service.dart';
 import '../domain/models/query.dart';
 import '../domain/sync/sync_manager.dart';
 import '../pigeon/bridges.g.dart';
@@ -8,9 +10,11 @@ import 'article_sheet_bridge.dart';
 
 class NavigationSplitBridge implements NavigationSplitFlutterApi {
   NavigationSplitBridge({
+    required ConfigStoreService configStoreService,
     required ArticleRepository articleRepository,
     required QueryRepository queryRepository,
-  }) : _articleRepository = articleRepository,
+  }) : _configStoreService = configStoreService,
+       _articleRepository = articleRepository,
        _queryRepository = queryRepository {
     NavigationSplitFlutterApi.setUp(this);
     _idsSubscription = queryRepository.watchArticleIds().listen((ids) {
@@ -19,9 +23,15 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
     _querySubscription = queryRepository.queryStream.listen((q) {
       unawaited(_api.updateFilterState(_filterStateFrom(q)));
     });
+    _settingsSubscription = configStoreService
+        .watch<dynamic>('readingSettings')
+        .listen((json) {
+          unawaited(_api.updateReadingSettings(_settingsFromJson(json)));
+        });
     SyncManager.instance.addListener(_onSyncState);
   }
 
+  final ConfigStoreService _configStoreService;
   final ArticleRepository _articleRepository;
   final QueryRepository _queryRepository;
   final NavigationSplitApi _api = NavigationSplitApi();
@@ -30,6 +40,20 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
   StreamSubscription<Query>? _querySubscription;
   StreamSubscription<String?>? _contentSubscription;
   StreamSubscription<ArticleRowData?>? _dataSubscription;
+  StreamSubscription<dynamic>? _settingsSubscription;
+
+  static ArticleReadingSettings _settingsFromJson(dynamic json) {
+    final map = switch (json) {
+      String s => jsonDecode(s) as Map<dynamic, dynamic>?,
+      Map m => m,
+      _ => null,
+    };
+    return ArticleReadingSettings(
+      fontSize: (map?['fontSize'] as num?)?.toDouble() ?? 16.0,
+      fontFamily: (map?['fontFamily'] as String?) ?? 'Lato',
+      justifyText: (map?['justifyText'] as bool?) ?? false,
+    );
+  }
 
   void _onSyncState(SyncState state) {
     unawaited(
@@ -186,11 +210,24 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
     unawaited(dependencies.get<ArticleSheetBridge>().open(id));
   }
 
+  @override
+  void setReadingSettings(ArticleReadingSettings settings) {
+    final existing = _configStoreService.get<String>('readingSettings');
+    final map = existing != null
+        ? Map<String, dynamic>.from(jsonDecode(existing) as Map)
+        : <String, dynamic>{};
+    map['fontSize'] = settings.fontSize;
+    map['fontFamily'] = settings.fontFamily;
+    map['justifyText'] = settings.justifyText;
+    unawaited(_configStoreService.set('readingSettings', jsonEncode(map)));
+  }
+
   void dispose() {
     _idsSubscription?.cancel();
     _querySubscription?.cancel();
     _contentSubscription?.cancel();
     _dataSubscription?.cancel();
+    _settingsSubscription?.cancel();
     SyncManager.instance.removeListener(_onSyncState);
   }
 

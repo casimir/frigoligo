@@ -4,12 +4,15 @@ struct ArticleDetailView: View {
   @EnvironmentObject var viewModel: NavigationSplitViewModel
   @Environment(\.openURL) private var openURL
   @State private var showDeleteAlert = false
+  @State private var showReadingSettings = false
 
   var body: some View {
     if let content = viewModel.articleContent, let html = content.html {
       ArticleWebView(
         html: html,
+        title: viewModel.articleData?.title,
         readingProgress: content.readingProgress,
+        readingSettings: viewModel.readingSettings,
         onProgressChange: { progress in
           viewModel.flutterApi.onReadingProgressChanged(
             articleId: Int64(content.id),
@@ -17,6 +20,7 @@ struct ArticleDetailView: View {
           ) { _ in }
         }
       )
+      .navigationBarTitleDisplayMode(.inline)
       .ignoresSafeArea(edges: .bottom)
       .toolbar {
         ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -60,6 +64,15 @@ struct ArticleDetailView: View {
           }
 
           Menu {
+            Button {
+              showReadingSettings = true
+            } label: {
+              Label(
+                String(localized: "article_readingSettings"),
+                systemImage: "textformat.size"
+              )
+            }
+
             if let urlString = viewModel.articleData?.url,
               let url = URL(string: urlString)
             {
@@ -90,6 +103,9 @@ struct ArticleDetailView: View {
             Label("More", systemImage: "ellipsis.circle")
           }
         }
+      }
+      .sheet(isPresented: $showReadingSettings) {
+        ReadingSettingsView().environmentObject(viewModel)
       }
       .alert(String(localized: "article_delete"), isPresented: $showDeleteAlert) {
         Button(String(localized: "g_delete"), role: .destructive) {
