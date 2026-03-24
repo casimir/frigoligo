@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:go_router/go_router.dart';
+
 import '../config/dependencies.dart';
 import '../data/services/local/storage/config_store_service.dart';
 import '../domain/models/query.dart';
@@ -208,6 +210,24 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
   @override
   void openArticleSheet(int id) {
     unawaited(dependencies.get<ArticleSheetBridge>().open(id));
+  }
+
+  @override
+  Future<void> openSettings() async =>
+      dependencies.get<GoRouter>().go('/settings');
+
+  @override
+  Future<void> secondaryScreenDidClose() async =>
+      dependencies.get<GoRouter>().go('/');
+
+  @override
+  Future<void> saveLink(String url) async {
+    final uri = Uri.tryParse(url);
+    if (uri == null || uri.host.isEmpty)
+      throw ArgumentError('Invalid URL: $url');
+    final action = SaveArticleAction(uri);
+    await SyncManager.instance.addAction(action);
+    unawaited(SyncManager.instance.synchronize(withFinalRefresh: true));
   }
 
   @override

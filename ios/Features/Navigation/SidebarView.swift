@@ -26,6 +26,9 @@ struct SidebarView: View {
         searchText = newValue
       }
     }
+    .sheet(isPresented: $viewModel.showSaveLinkSheet) {
+      SaveLinkView().environmentObject(viewModel)
+    }
     .navigationTitle("Articles")
     .toolbar {
       ToolbarItem(placement: .navigationBarTrailing) {

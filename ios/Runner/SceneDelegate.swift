@@ -19,9 +19,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     else { return }
 
     let navigationVM = NavigationSplitViewModel(binaryMessenger: engine.binaryMessenger)
+    navigationVM.engine = engine
     self.navViewModel = navigationVM
 
     let rootVC = UIHostingController(rootView: AppView().environmentObject(navigationVM))
+    navigationVM.presenter = rootVC
     articleSheetViewModel = ArticleSheetViewModel(
       binaryMessenger: engine.binaryMessenger,
       presenter: rootVC

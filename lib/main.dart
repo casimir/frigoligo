@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:l10n_esperanto/l10n_esperanto.dart';
 import 'package:language_info_plus/language_info_plus.dart';
 import 'package:logging/logging.dart';
@@ -113,6 +114,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
 
     final router = ref.read(routerProvider);
+    dependencies.registerSingleton<GoRouter>(router);
 
     _deeplinksSubscription = LinksHandler.listen(router.configuration, (
       linkType,

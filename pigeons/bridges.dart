@@ -149,4 +149,10 @@ abstract class NavigationSplitFlutterApi {
   void deleteArticle(int id);
   void openArticleSheet(int id);
   void setReadingSettings(ArticleReadingSettings settings);
+  @async
+  void openSettings();
+  @async
+  void secondaryScreenDidClose();
+  @async
+  void saveLink(String url);
 }
