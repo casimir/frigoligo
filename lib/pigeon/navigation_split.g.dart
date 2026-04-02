@@ -47,6 +47,10 @@ bool _deepEquals(Object? a, Object? b) {
   return a == b;
 }
 
+enum NavigationSearchTextMode { all, title, content }
+
+enum NavigationStateFilter { all, unread, archived }
+
 /// Article data for a single row in the native article list.
 class ArticleRowData {
   ArticleRowData({
@@ -177,7 +181,7 @@ class NavigationSyncState {
   int get hashCode => Object.hashAll(_toList());
 }
 
-/// Mirrors the Query domain model; enum fields use int ordinals.
+/// Mirrors the Query domain model.
 class NavigationFilterState {
   NavigationFilterState({
     required this.text,
@@ -190,9 +194,9 @@ class NavigationFilterState {
 
   String text;
 
-  int textMode;
+  NavigationSearchTextMode textMode;
 
-  int stateFilter;
+  NavigationStateFilter stateFilter;
 
   bool onlyStarred;
 
@@ -212,8 +216,8 @@ class NavigationFilterState {
     result as List<Object?>;
     return NavigationFilterState(
       text: result[0]! as String,
-      textMode: result[1]! as int,
-      stateFilter: result[2]! as int,
+      textMode: result[1]! as NavigationSearchTextMode,
+      stateFilter: result[2]! as NavigationStateFilter,
       onlyStarred: result[3]! as bool,
       tags: (result[4] as List<Object?>?)!.cast<String>(),
       domains: (result[5] as List<Object?>?)!.cast<String>(),
@@ -336,20 +340,26 @@ class _PigeonCodec extends StandardMessageCodec {
     if (value is int) {
       buffer.putUint8(4);
       buffer.putInt64(value);
-    } else if (value is ArticleRowData) {
+    } else if (value is NavigationSearchTextMode) {
       buffer.putUint8(129);
-      writeValue(buffer, value.encode());
-    } else if (value is NavigationSyncState) {
+      writeValue(buffer, value.index);
+    } else if (value is NavigationStateFilter) {
       buffer.putUint8(130);
-      writeValue(buffer, value.encode());
-    } else if (value is NavigationFilterState) {
+      writeValue(buffer, value.index);
+    } else if (value is ArticleRowData) {
       buffer.putUint8(131);
       writeValue(buffer, value.encode());
-    } else if (value is ArticleReadingSettings) {
+    } else if (value is NavigationSyncState) {
       buffer.putUint8(132);
       writeValue(buffer, value.encode());
-    } else if (value is ArticleContent) {
+    } else if (value is NavigationFilterState) {
       buffer.putUint8(133);
+      writeValue(buffer, value.encode());
+    } else if (value is ArticleReadingSettings) {
+      buffer.putUint8(134);
+      writeValue(buffer, value.encode());
+    } else if (value is ArticleContent) {
+      buffer.putUint8(135);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -360,14 +370,20 @@ class _PigeonCodec extends StandardMessageCodec {
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
       case 129:
-        return ArticleRowData.decode(readValue(buffer)!);
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : NavigationSearchTextMode.values[value];
       case 130:
-        return NavigationSyncState.decode(readValue(buffer)!);
+        final int? value = readValue(buffer) as int?;
+        return value == null ? null : NavigationStateFilter.values[value];
       case 131:
-        return NavigationFilterState.decode(readValue(buffer)!);
+        return ArticleRowData.decode(readValue(buffer)!);
       case 132:
-        return ArticleReadingSettings.decode(readValue(buffer)!);
+        return NavigationSyncState.decode(readValue(buffer)!);
       case 133:
+        return NavigationFilterState.decode(readValue(buffer)!);
+      case 134:
+        return ArticleReadingSettings.decode(readValue(buffer)!);
+      case 135:
         return ArticleContent.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -568,9 +584,9 @@ abstract class NavigationSplitFlutterApi {
 
   void setSearchText(String text);
 
-  void setTextMode(int mode);
+  void setTextMode(NavigationSearchTextMode mode);
 
-  void setStateFilter(int state);
+  void setStateFilter(NavigationStateFilter state);
 
   void setOnlyStarred(bool onlyStarred);
 
@@ -742,10 +758,11 @@ abstract class NavigationSplitFlutterApi {
             'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.setTextMode was null.',
           );
           final List<Object?> args = (message as List<Object?>?)!;
-          final int? arg_mode = (args[0] as int?);
+          final NavigationSearchTextMode? arg_mode =
+              (args[0] as NavigationSearchTextMode?);
           assert(
             arg_mode != null,
-            'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.setTextMode was null, expected non-null int.',
+            'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.setTextMode was null, expected non-null NavigationSearchTextMode.',
           );
           try {
             api.setTextMode(arg_mode!);
@@ -776,10 +793,11 @@ abstract class NavigationSplitFlutterApi {
             'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.setStateFilter was null.',
           );
           final List<Object?> args = (message as List<Object?>?)!;
-          final int? arg_state = (args[0] as int?);
+          final NavigationStateFilter? arg_state =
+              (args[0] as NavigationStateFilter?);
           assert(
             arg_state != null,
-            'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.setStateFilter was null, expected non-null int.',
+            'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.setStateFilter was null, expected non-null NavigationStateFilter.',
           );
           try {
             api.setStateFilter(arg_state!);

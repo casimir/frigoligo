@@ -3,17 +3,17 @@ import Flutter
 class NavigationSplitViewModel: NSObject, ObservableObject, NavigationSplitApi,
   UIAdaptivePresentationControllerDelegate
 {
-  @Published var articleIds: [Int] = []
+  @Published var articleIds: [Int64] = []
   @Published var syncState: NavigationSyncState = NavigationSyncState(
     isWorking: false, progressValue: nil, pendingCount: 0)
   @Published var filterState: NavigationFilterState = NavigationFilterState(
-    text: "", textMode: 0, stateFilter: 0, onlyStarred: false, tags: [], domains: [])
-  @Published var selectedArticleId: Int? = nil {
+    text: "", textMode: .all, stateFilter: .all, onlyStarred: false, tags: [], domains: [])
+  @Published var selectedArticleId: Int64? = nil {
     didSet {
       articleContent = nil
       articleData = nil
       if let id = selectedArticleId {
-        flutterApi.onArticleSelected(id: Int64(id)) { _ in }
+        flutterApi.onArticleSelected(id: id) { _ in }
       }
     }
   }
@@ -23,7 +23,7 @@ class NavigationSplitViewModel: NSObject, ObservableObject, NavigationSplitApi,
     fontSize: 16, fontFamily: "Lato", justifyText: false)
   @Published var showSaveLinkSheet = false
 
-  let flutterApi: NavigationSplitFlutterApi
+  private let flutterApi: NavigationSplitFlutterApi
   weak var engine: FlutterEngine?
   weak var presenter: UIViewController?
 
@@ -36,35 +36,30 @@ class NavigationSplitViewModel: NSObject, ObservableObject, NavigationSplitApi,
   // MARK: - NavigationSplitApi
 
   func updateArticleIds(ids: [Int64]) throws {
-    let converted = ids.map { Int($0) }
-    DispatchQueue.main.async {
-      self.articleIds = converted
-      if let selected = self.selectedArticleId, !converted.contains(selected) {
-        self.selectedArticleId = nil
-      }
+    articleIds = ids
+    if let selected = selectedArticleId, !ids.contains(selected) {
+      selectedArticleId = nil
     }
   }
 
   func updateSyncState(state: NavigationSyncState) throws {
-    DispatchQueue.main.async { self.syncState = state }
+    syncState = state
   }
 
   func updateFilterState(state: NavigationFilterState) throws {
-    DispatchQueue.main.async { self.filterState = state }
+    filterState = state
   }
 
   func updateArticleContent(content: ArticleContent) throws {
-    DispatchQueue.main.async { self.articleContent = content }
+    articleContent = content
   }
 
   func updateArticleData(data: ArticleRowData) throws {
-    DispatchQueue.main.async { self.articleData = data }
+    articleData = data
   }
 
   func updateReadingSettings(settings: ArticleReadingSettings) throws {
-    DispatchQueue.main.async {
-      if self.readingSettings != settings { self.readingSettings = settings }
-    }
+    if readingSettings != settings { readingSettings = settings }
   }
 
   // MARK: - Filter actions
@@ -73,11 +68,11 @@ class NavigationSplitViewModel: NSObject, ObservableObject, NavigationSplitApi,
     flutterApi.setSearchText(text: text) { _ in }
   }
 
-  func setTextMode(_ mode: Int64) {
+  func setTextMode(_ mode: NavigationSearchTextMode) {
     flutterApi.setTextMode(mode: mode) { _ in }
   }
 
-  func setStateFilter(_ state: Int64) {
+  func setStateFilter(_ state: NavigationStateFilter) {
     flutterApi.setStateFilter(state: state) { _ in }
   }
 
@@ -105,12 +100,50 @@ class NavigationSplitViewModel: NSObject, ObservableObject, NavigationSplitApi,
     }
   }
 
-  func setArticleArchived(_ id: Int, archived: Bool) {
-    flutterApi.setArticleArchived(id: Int64(id), archived: archived) { _ in }
+  func setArticleArchived(_ id: Int64, archived: Bool) {
+    flutterApi.setArticleArchived(id: id, archived: archived) { _ in }
   }
 
-  func setArticleStarred(_ id: Int, starred: Bool) {
-    flutterApi.setArticleStarred(id: Int64(id), starred: starred) { _ in }
+  func setArticleStarred(_ id: Int64, starred: Bool) {
+    flutterApi.setArticleStarred(id: id, starred: starred) { _ in }
+  }
+
+  // MARK: - Article actions
+
+  func getArticleRowData(id: Int64) async -> ArticleRowData? {
+    await withCheckedContinuation { continuation in
+      flutterApi.getArticleRowData(id: id) { result in
+        continuation.resume(returning: try? result.get())
+      }
+    }
+  }
+
+  func getAvailableTags() async throws -> [String] {
+    try await withCheckedThrowingContinuation { continuation in
+      flutterApi.getAvailableTags { result in continuation.resume(with: result) }
+    }
+  }
+
+  func getAvailableDomains() async throws -> [String] {
+    try await withCheckedThrowingContinuation { continuation in
+      flutterApi.getAvailableDomains { result in continuation.resume(with: result) }
+    }
+  }
+
+  func openArticleSheet(id: Int64) {
+    flutterApi.openArticleSheet(id: id) { _ in }
+  }
+
+  func deleteArticle(id: Int64) {
+    flutterApi.deleteArticle(id: id) { _ in }
+  }
+
+  func onReadingProgressChanged(articleId: Int64, progress: Double) {
+    flutterApi.onReadingProgressChanged(articleId: articleId, progress: progress) { _ in }
+  }
+
+  func setReadingSettings(_ settings: ArticleReadingSettings) {
+    flutterApi.setReadingSettings(settings: settings) { _ in }
   }
 
   // MARK: - Secondary screens

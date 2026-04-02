@@ -63,11 +63,7 @@ struct ReadingSettingsView: View {
   ) -> Binding<T> {
     Binding(
       get: { viewModel.readingSettings[keyPath: keyPath] },
-      set: {
-        viewModel.flutterApi.setReadingSettings(settings: update(viewModel.readingSettings, $0)) {
-          _ in
-        }
-      }
+      set: { viewModel.setReadingSettings(update(viewModel.readingSettings, $0)) }
     )
   }
 }

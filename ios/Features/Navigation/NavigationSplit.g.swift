@@ -114,6 +114,18 @@ func deepHashNavigationSplit(value: Any?, hasher: inout Hasher) {
   return hasher.combine(String(describing: value))
 }
 
+enum NavigationSearchTextMode: Int {
+  case all = 0
+  case title = 1
+  case content = 2
+}
+
+enum NavigationStateFilter: Int {
+  case all = 0
+  case unread = 1
+  case archived = 2
+}
+
 /// Article data for a single row in the native article list.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
@@ -208,13 +220,13 @@ struct NavigationSyncState: Hashable {
   }
 }
 
-/// Mirrors the Query domain model; enum fields use int ordinals.
+/// Mirrors the Query domain model.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 struct NavigationFilterState: Hashable {
   var text: String
-  var textMode: Int64
-  var stateFilter: Int64
+  var textMode: NavigationSearchTextMode
+  var stateFilter: NavigationStateFilter
   var onlyStarred: Bool
   var tags: [String]
   var domains: [String]
@@ -222,8 +234,8 @@ struct NavigationFilterState: Hashable {
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> NavigationFilterState? {
     let text = pigeonVar_list[0] as! String
-    let textMode = pigeonVar_list[1] as! Int64
-    let stateFilter = pigeonVar_list[2] as! Int64
+    let textMode = pigeonVar_list[1] as! NavigationSearchTextMode
+    let stateFilter = pigeonVar_list[2] as! NavigationStateFilter
     let onlyStarred = pigeonVar_list[3] as! Bool
     let tags = pigeonVar_list[4] as! [String]
     let domains = pigeonVar_list[5] as! [String]
@@ -329,14 +341,26 @@ private class NavigationSplitPigeonCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
     case 129:
-      return ArticleRowData.fromList(self.readValue() as! [Any?])
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return NavigationSearchTextMode(rawValue: enumResultAsInt)
+      }
+      return nil
     case 130:
-      return NavigationSyncState.fromList(self.readValue() as! [Any?])
+      let enumResultAsInt: Int? = nilOrValue(self.readValue() as! Int?)
+      if let enumResultAsInt = enumResultAsInt {
+        return NavigationStateFilter(rawValue: enumResultAsInt)
+      }
+      return nil
     case 131:
-      return NavigationFilterState.fromList(self.readValue() as! [Any?])
+      return ArticleRowData.fromList(self.readValue() as! [Any?])
     case 132:
-      return ArticleReadingSettings.fromList(self.readValue() as! [Any?])
+      return NavigationSyncState.fromList(self.readValue() as! [Any?])
     case 133:
+      return NavigationFilterState.fromList(self.readValue() as! [Any?])
+    case 134:
+      return ArticleReadingSettings.fromList(self.readValue() as! [Any?])
+    case 135:
       return ArticleContent.fromList(self.readValue() as! [Any?])
     default:
       return super.readValue(ofType: type)
@@ -346,20 +370,26 @@ private class NavigationSplitPigeonCodecReader: FlutterStandardReader {
 
 private class NavigationSplitPigeonCodecWriter: FlutterStandardWriter {
   override func writeValue(_ value: Any) {
-    if let value = value as? ArticleRowData {
+    if let value = value as? NavigationSearchTextMode {
       super.writeByte(129)
-      super.writeValue(value.toList())
-    } else if let value = value as? NavigationSyncState {
+      super.writeValue(value.rawValue)
+    } else if let value = value as? NavigationStateFilter {
       super.writeByte(130)
-      super.writeValue(value.toList())
-    } else if let value = value as? NavigationFilterState {
+      super.writeValue(value.rawValue)
+    } else if let value = value as? ArticleRowData {
       super.writeByte(131)
       super.writeValue(value.toList())
-    } else if let value = value as? ArticleReadingSettings {
+    } else if let value = value as? NavigationSyncState {
       super.writeByte(132)
       super.writeValue(value.toList())
-    } else if let value = value as? ArticleContent {
+    } else if let value = value as? NavigationFilterState {
       super.writeByte(133)
+      super.writeValue(value.toList())
+    } else if let value = value as? ArticleReadingSettings {
+      super.writeByte(134)
+      super.writeValue(value.toList())
+    } else if let value = value as? ArticleContent {
+      super.writeByte(135)
       super.writeValue(value.toList())
     } else {
       super.writeValue(value)
@@ -517,9 +547,12 @@ protocol NavigationSplitFlutterApiProtocol {
   func getAvailableDomains(completion: @escaping (Result<[String], PigeonError>) -> Void)
   func setSearchText(
     text textArg: String, completion: @escaping (Result<Void, PigeonError>) -> Void)
-  func setTextMode(mode modeArg: Int64, completion: @escaping (Result<Void, PigeonError>) -> Void)
+  func setTextMode(
+    mode modeArg: NavigationSearchTextMode,
+    completion: @escaping (Result<Void, PigeonError>) -> Void)
   func setStateFilter(
-    state stateArg: Int64, completion: @escaping (Result<Void, PigeonError>) -> Void)
+    state stateArg: NavigationStateFilter, completion: @escaping (Result<Void, PigeonError>) -> Void
+  )
   func setOnlyStarred(
     onlyStarred onlyStarredArg: Bool, completion: @escaping (Result<Void, PigeonError>) -> Void)
   func setTags(tags tagsArg: [String], completion: @escaping (Result<Void, PigeonError>) -> Void)
@@ -661,7 +694,10 @@ class NavigationSplitFlutterApi: NavigationSplitFlutterApiProtocol {
       }
     }
   }
-  func setTextMode(mode modeArg: Int64, completion: @escaping (Result<Void, PigeonError>) -> Void) {
+  func setTextMode(
+    mode modeArg: NavigationSearchTextMode,
+    completion: @escaping (Result<Void, PigeonError>) -> Void
+  ) {
     let channelName: String =
       "dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.setTextMode\(messageChannelSuffix)"
     let channel = FlutterBasicMessageChannel(
@@ -682,7 +718,7 @@ class NavigationSplitFlutterApi: NavigationSplitFlutterApiProtocol {
     }
   }
   func setStateFilter(
-    state stateArg: Int64, completion: @escaping (Result<Void, PigeonError>) -> Void
+    state stateArg: NavigationStateFilter, completion: @escaping (Result<Void, PigeonError>) -> Void
   ) {
     let channelName: String =
       "dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.setStateFilter\(messageChannelSuffix)"

@@ -14,10 +14,7 @@ struct ArticleDetailView: View {
         readingProgress: content.readingProgress,
         readingSettings: viewModel.readingSettings,
         onProgressChange: { progress in
-          viewModel.flutterApi.onReadingProgressChanged(
-            articleId: Int64(content.id),
-            progress: progress
-          ) { _ in }
+          viewModel.onReadingProgressChanged(articleId: content.id, progress: progress)
         }
       )
       .navigationBarTitleDisplayMode(.inline)
@@ -26,10 +23,7 @@ struct ArticleDetailView: View {
         ToolbarItemGroup(placement: .navigationBarTrailing) {
           let isArchived = viewModel.articleData?.isArchived ?? false
           Button {
-            viewModel.flutterApi.setArticleArchived(
-              id: content.id,
-              archived: !isArchived
-            ) { _ in }
+            viewModel.setArticleArchived(content.id, archived: !isArchived)
           } label: {
             Label(
               isArchived
@@ -41,10 +35,7 @@ struct ArticleDetailView: View {
 
           let isStarred = viewModel.articleData?.isStarred ?? false
           Button {
-            viewModel.flutterApi.setArticleStarred(
-              id: content.id,
-              starred: !isStarred
-            ) { _ in }
+            viewModel.setArticleStarred(content.id, starred: !isStarred)
           } label: {
             Label(
               isStarred
@@ -54,8 +45,7 @@ struct ArticleDetailView: View {
             )
           }
           Button {
-            viewModel.flutterApi.openArticleSheet(id: Int64(content.id)) { _ in
-            }
+            viewModel.openArticleSheet(id: content.id)
           } label: {
             Label(
               String(localized: "article_details"),
@@ -109,7 +99,7 @@ struct ArticleDetailView: View {
       }
       .alert(String(localized: "article_delete"), isPresented: $showDeleteAlert) {
         Button(String(localized: "g_delete"), role: .destructive) {
-          viewModel.flutterApi.deleteArticle(id: Int64(content.id)) { _ in }
+          viewModel.deleteArticle(id: content.id)
         }
         if #available(iOS 26, *) {
           Button(role: .cancel) {}

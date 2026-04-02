@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ArticleRowView: View {
   @EnvironmentObject var viewModel: NavigationSplitViewModel
-  let id: Int
+  let id: Int64
 
   @State private var data: ArticleRowData?
 
@@ -97,14 +97,7 @@ struct ArticleRowView: View {
       ProgressView()
         .frame(maxWidth: .infinity, minHeight: 60)
         .task {
-          await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
-            viewModel.flutterApi.getArticleRowData(id: Int64(id)) { result in
-              if case .success(let rowData) = result {
-                DispatchQueue.main.async { data = rowData }
-              }
-              continuation.resume()
-            }
-          }
+          data = await viewModel.getArticleRowData(id: id)
         }
     }
   }

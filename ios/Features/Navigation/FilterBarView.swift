@@ -7,7 +7,6 @@ struct FilterBarView: View {
   @State private var availableTags: [String] = []
   @State private var availableDomains: [String] = []
 
-  private var stateFilterIndex: Int { Int(viewModel.filterState.stateFilter) }
   private var isStarred: Bool { viewModel.filterState.onlyStarred }
   private var activeTags: [String] { viewModel.filterState.tags }
   private var activeDomains: [String] { viewModel.filterState.domains }
@@ -17,16 +16,16 @@ struct FilterBarView: View {
       HStack(spacing: 8) {
         FilterChip(
           label: String(localized: "filters_articleStateAll"),
-          isActive: stateFilterIndex == 0
-        ) { viewModel.setStateFilter(0) }
+          isActive: viewModel.filterState.stateFilter == .all
+        ) { viewModel.setStateFilter(.all) }
         FilterChip(
           label: String(localized: "filters_articleStateUnread"),
-          isActive: stateFilterIndex == 1
-        ) { viewModel.setStateFilter(1) }
+          isActive: viewModel.filterState.stateFilter == .unread
+        ) { viewModel.setStateFilter(.unread) }
         FilterChip(
           label: String(localized: "filters_articleStateArchived"),
-          isActive: stateFilterIndex == 2
-        ) { viewModel.setStateFilter(2) }
+          isActive: viewModel.filterState.stateFilter == .archived
+        ) { viewModel.setStateFilter(.archived) }
         FilterChip(
           label: String(localized: "filters_articleFavoriteStarred"),
           systemImage: "star.fill",
@@ -85,19 +84,11 @@ struct FilterBarView: View {
   }
 
   private func loadTags() async throws -> [String] {
-    try await withCheckedThrowingContinuation { continuation in
-      viewModel.flutterApi.getAvailableTags { result in
-        continuation.resume(with: result)
-      }
-    }
+    try await viewModel.getAvailableTags()
   }
 
   private func loadDomains() async throws -> [String] {
-    try await withCheckedThrowingContinuation { continuation in
-      viewModel.flutterApi.getAvailableDomains { result in
-        continuation.resume(with: result)
-      }
-    }
+    try await viewModel.getAvailableDomains()
   }
 }
 

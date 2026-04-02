@@ -72,8 +72,16 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
   static NavigationFilterState _filterStateFrom(Query q) {
     return NavigationFilterState(
       text: q.text,
-      textMode: q.textMode.index,
-      stateFilter: q.state.index,
+      textMode: switch (q.textMode) {
+        SearchTextMode.all => NavigationSearchTextMode.all,
+        SearchTextMode.title => NavigationSearchTextMode.title,
+        SearchTextMode.content => NavigationSearchTextMode.content,
+      },
+      stateFilter: switch (q.state) {
+        StateFilter.all => NavigationStateFilter.all,
+        StateFilter.unread => NavigationStateFilter.unread,
+        StateFilter.archived => NavigationStateFilter.archived,
+      },
       onlyStarred: q.onlyStarred,
       tags: q.tags,
       domains: q.domains,
@@ -117,16 +125,24 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
   }
 
   @override
-  void setTextMode(int mode) {
+  void setTextMode(NavigationSearchTextMode mode) {
     _queryRepository.query = _queryRepository.query.copyWith(
-      textMode: SearchTextMode.values[mode],
+      textMode: switch (mode) {
+        NavigationSearchTextMode.all => SearchTextMode.all,
+        NavigationSearchTextMode.title => SearchTextMode.title,
+        NavigationSearchTextMode.content => SearchTextMode.content,
+      },
     );
   }
 
   @override
-  void setStateFilter(int state) {
+  void setStateFilter(NavigationStateFilter state) {
     _queryRepository.query = _queryRepository.query.copyWith(
-      state: StateFilter.values[state],
+      state: switch (state) {
+        NavigationStateFilter.all => StateFilter.all,
+        NavigationStateFilter.unread => StateFilter.unread,
+        NavigationStateFilter.archived => StateFilter.archived,
+      },
     );
   }
 

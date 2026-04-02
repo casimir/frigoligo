@@ -28,11 +28,15 @@ class NavigationSyncState {
   late int pendingCount;
 }
 
-/// Mirrors the Query domain model; enum fields use int ordinals.
+enum NavigationSearchTextMode { all, title, content }
+
+enum NavigationStateFilter { all, unread, archived }
+
+/// Mirrors the Query domain model.
 class NavigationFilterState {
   late String text;
-  late int textMode; // SearchTextMode ordinal: 0=all 1=title 2=content
-  late int stateFilter; // StateFilter ordinal: 0=all 1=unread 2=archived
+  late NavigationSearchTextMode textMode;
+  late NavigationStateFilter stateFilter;
   late bool onlyStarred;
   late List<String> tags;
   late List<String> domains;
@@ -74,8 +78,8 @@ abstract class NavigationSplitFlutterApi {
   @async
   List<String> getAvailableDomains();
   void setSearchText(String text);
-  void setTextMode(int mode);
-  void setStateFilter(int state);
+  void setTextMode(NavigationSearchTextMode mode);
+  void setStateFilter(NavigationStateFilter state);
   void setOnlyStarred(bool onlyStarred);
   void setTags(List<String> tags);
   void setDomains(List<String> domains);
