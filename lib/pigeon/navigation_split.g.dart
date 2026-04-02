@@ -594,7 +594,7 @@ abstract class NavigationSplitFlutterApi {
 
   void setDomains(List<String> domains);
 
-  void refresh();
+  Future<void> refresh();
 
   void setArticleArchived(int id, bool archived);
 
@@ -928,7 +928,7 @@ abstract class NavigationSplitFlutterApi {
       } else {
         pigeonVar_channel.setMessageHandler((Object? message) async {
           try {
-            api.refresh();
+            await api.refresh();
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);

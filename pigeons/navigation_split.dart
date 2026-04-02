@@ -83,6 +83,7 @@ abstract class NavigationSplitFlutterApi {
   void setOnlyStarred(bool onlyStarred);
   void setTags(List<String> tags);
   void setDomains(List<String> domains);
+  @async
   void refresh();
   void setArticleArchived(int id, bool archived);
   void setArticleStarred(int id, bool starred);

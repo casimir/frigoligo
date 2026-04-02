@@ -164,8 +164,8 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
   }
 
   @override
-  void refresh() {
-    unawaited(SyncManager.instance.synchronize(withFinalRefresh: true));
+  Future<void> refresh() {
+    return SyncManager.instance.synchronize(withFinalRefresh: true);
   }
 
   @override
