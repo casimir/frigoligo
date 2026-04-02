@@ -47,62 +47,6 @@ bool _deepEquals(Object? a, Object? b) {
   return a == b;
 }
 
-/// Article metadata displayed in the native sheet.
-class ArticleSheetData {
-  ArticleSheetData({
-    required this.title,
-    required this.link,
-    this.domain,
-    required this.readingTime,
-    required this.tags,
-  });
-
-  String title;
-
-  String link;
-
-  String? domain;
-
-  int readingTime;
-
-  List<String> tags;
-
-  List<Object?> _toList() {
-    return <Object?>[title, link, domain, readingTime, tags];
-  }
-
-  Object encode() {
-    return _toList();
-  }
-
-  static ArticleSheetData decode(Object result) {
-    result as List<Object?>;
-    return ArticleSheetData(
-      title: result[0]! as String,
-      link: result[1]! as String,
-      domain: result[2] as String?,
-      readingTime: result[3]! as int,
-      tags: (result[4] as List<Object?>?)!.cast<String>(),
-    );
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) {
-    if (other is! ArticleSheetData || other.runtimeType != runtimeType) {
-      return false;
-    }
-    if (identical(this, other)) {
-      return true;
-    }
-    return _deepEquals(encode(), other.encode());
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
-}
-
 /// Article data for a single row in the native article list.
 class ArticleRowData {
   ArticleRowData({
@@ -392,23 +336,20 @@ class _PigeonCodec extends StandardMessageCodec {
     if (value is int) {
       buffer.putUint8(4);
       buffer.putInt64(value);
-    } else if (value is ArticleSheetData) {
+    } else if (value is ArticleRowData) {
       buffer.putUint8(129);
       writeValue(buffer, value.encode());
-    } else if (value is ArticleRowData) {
+    } else if (value is NavigationSyncState) {
       buffer.putUint8(130);
       writeValue(buffer, value.encode());
-    } else if (value is NavigationSyncState) {
+    } else if (value is NavigationFilterState) {
       buffer.putUint8(131);
       writeValue(buffer, value.encode());
-    } else if (value is NavigationFilterState) {
+    } else if (value is ArticleReadingSettings) {
       buffer.putUint8(132);
       writeValue(buffer, value.encode());
-    } else if (value is ArticleReadingSettings) {
-      buffer.putUint8(133);
-      writeValue(buffer, value.encode());
     } else if (value is ArticleContent) {
-      buffer.putUint8(134);
+      buffer.putUint8(133);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -419,322 +360,17 @@ class _PigeonCodec extends StandardMessageCodec {
   Object? readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
       case 129:
-        return ArticleSheetData.decode(readValue(buffer)!);
-      case 130:
         return ArticleRowData.decode(readValue(buffer)!);
-      case 131:
+      case 130:
         return NavigationSyncState.decode(readValue(buffer)!);
-      case 132:
+      case 131:
         return NavigationFilterState.decode(readValue(buffer)!);
-      case 133:
+      case 132:
         return ArticleReadingSettings.decode(readValue(buffer)!);
-      case 134:
+      case 133:
         return ArticleContent.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
-    }
-  }
-}
-
-/// Dart → Swift. Controls the native article sheet lifecycle.
-class ArticleSheetApi {
-  /// Constructor for [ArticleSheetApi].  The [binaryMessenger] named argument is
-  /// available for dependency injection.  If it is left null, the default
-  /// BinaryMessenger will be used which routes to the host platform.
-  ArticleSheetApi({
-    BinaryMessenger? binaryMessenger,
-    String messageChannelSuffix = '',
-  }) : pigeonVar_binaryMessenger = binaryMessenger,
-       pigeonVar_messageChannelSuffix = messageChannelSuffix.isNotEmpty
-           ? '.$messageChannelSuffix'
-           : '';
-  final BinaryMessenger? pigeonVar_binaryMessenger;
-
-  static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
-
-  final String pigeonVar_messageChannelSuffix;
-
-  /// Present the sheet.
-  Future<void> open() async {
-    final String pigeonVar_channelName =
-        'dev.flutter.pigeon.frigoligo.ArticleSheetApi.open$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel =
-        BasicMessageChannel<Object?>(
-          pigeonVar_channelName,
-          pigeonChannelCodec,
-          binaryMessenger: pigeonVar_binaryMessenger,
-        );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(null);
-    final List<Object?>? pigeonVar_replyList =
-        await pigeonVar_sendFuture as List<Object?>?;
-    if (pigeonVar_replyList == null) {
-      throw _createConnectionError(pigeonVar_channelName);
-    } else if (pigeonVar_replyList.length > 1) {
-      throw PlatformException(
-        code: pigeonVar_replyList[0]! as String,
-        message: pigeonVar_replyList[1] as String?,
-        details: pigeonVar_replyList[2],
-      );
-    } else {
-      return;
-    }
-  }
-
-  /// Push updated article data into the sheet.
-  Future<void> update(ArticleSheetData data) async {
-    final String pigeonVar_channelName =
-        'dev.flutter.pigeon.frigoligo.ArticleSheetApi.update$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel =
-        BasicMessageChannel<Object?>(
-          pigeonVar_channelName,
-          pigeonChannelCodec,
-          binaryMessenger: pigeonVar_binaryMessenger,
-        );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[data],
-    );
-    final List<Object?>? pigeonVar_replyList =
-        await pigeonVar_sendFuture as List<Object?>?;
-    if (pigeonVar_replyList == null) {
-      throw _createConnectionError(pigeonVar_channelName);
-    } else if (pigeonVar_replyList.length > 1) {
-      throw PlatformException(
-        code: pigeonVar_replyList[0]! as String,
-        message: pigeonVar_replyList[1] as String?,
-        details: pigeonVar_replyList[2],
-      );
-    } else {
-      return;
-    }
-  }
-
-  /// Programmatically dismiss the sheet (Dart-initiated close).
-  /// Does not call back into Dart — the caller is responsible for cleanup.
-  Future<void> close() async {
-    final String pigeonVar_channelName =
-        'dev.flutter.pigeon.frigoligo.ArticleSheetApi.close$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel =
-        BasicMessageChannel<Object?>(
-          pigeonVar_channelName,
-          pigeonChannelCodec,
-          binaryMessenger: pigeonVar_binaryMessenger,
-        );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(null);
-    final List<Object?>? pigeonVar_replyList =
-        await pigeonVar_sendFuture as List<Object?>?;
-    if (pigeonVar_replyList == null) {
-      throw _createConnectionError(pigeonVar_channelName);
-    } else if (pigeonVar_replyList.length > 1) {
-      throw PlatformException(
-        code: pigeonVar_replyList[0]! as String,
-        message: pigeonVar_replyList[1] as String?,
-        details: pigeonVar_replyList[2],
-      );
-    } else {
-      return;
-    }
-  }
-}
-
-/// Swift → Dart. Callbacks from the native sheet to the Dart bridge.
-abstract class ArticleSheetFlutterApi {
-  static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
-
-  /// Called after the sheet is dismissed (user swipe or native close button).
-  /// The bridge uses this to cancel subscriptions and reset state.
-  Future<void> onClose();
-
-  Future<List<String>> getAllTags();
-
-  Future<void> refetchContent();
-
-  Future<void> setTags(List<String> tags);
-
-  static void setUp(
-    ArticleSheetFlutterApi? api, {
-    BinaryMessenger? binaryMessenger,
-    String messageChannelSuffix = '',
-  }) {
-    messageChannelSuffix = messageChannelSuffix.isNotEmpty
-        ? '.$messageChannelSuffix'
-        : '';
-    {
-      final BasicMessageChannel<Object?>
-      pigeonVar_channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.onClose$messageChannelSuffix',
-        pigeonChannelCodec,
-        binaryMessenger: binaryMessenger,
-      );
-      if (api == null) {
-        pigeonVar_channel.setMessageHandler(null);
-      } else {
-        pigeonVar_channel.setMessageHandler((Object? message) async {
-          try {
-            await api.onClose();
-            return wrapResponse(empty: true);
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          } catch (e) {
-            return wrapResponse(
-              error: PlatformException(code: 'error', message: e.toString()),
-            );
-          }
-        });
-      }
-    }
-    {
-      final BasicMessageChannel<Object?>
-      pigeonVar_channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.getAllTags$messageChannelSuffix',
-        pigeonChannelCodec,
-        binaryMessenger: binaryMessenger,
-      );
-      if (api == null) {
-        pigeonVar_channel.setMessageHandler(null);
-      } else {
-        pigeonVar_channel.setMessageHandler((Object? message) async {
-          try {
-            final List<String> output = await api.getAllTags();
-            return wrapResponse(result: output);
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          } catch (e) {
-            return wrapResponse(
-              error: PlatformException(code: 'error', message: e.toString()),
-            );
-          }
-        });
-      }
-    }
-    {
-      final BasicMessageChannel<Object?>
-      pigeonVar_channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.refetchContent$messageChannelSuffix',
-        pigeonChannelCodec,
-        binaryMessenger: binaryMessenger,
-      );
-      if (api == null) {
-        pigeonVar_channel.setMessageHandler(null);
-      } else {
-        pigeonVar_channel.setMessageHandler((Object? message) async {
-          try {
-            await api.refetchContent();
-            return wrapResponse(empty: true);
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          } catch (e) {
-            return wrapResponse(
-              error: PlatformException(code: 'error', message: e.toString()),
-            );
-          }
-        });
-      }
-    }
-    {
-      final BasicMessageChannel<Object?>
-      pigeonVar_channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.setTags$messageChannelSuffix',
-        pigeonChannelCodec,
-        binaryMessenger: binaryMessenger,
-      );
-      if (api == null) {
-        pigeonVar_channel.setMessageHandler(null);
-      } else {
-        pigeonVar_channel.setMessageHandler((Object? message) async {
-          assert(
-            message != null,
-            'Argument for dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.setTags was null.',
-          );
-          final List<Object?> args = (message as List<Object?>?)!;
-          final List<String>? arg_tags = (args[0] as List<Object?>?)
-              ?.cast<String>();
-          assert(
-            arg_tags != null,
-            'Argument for dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.setTags was null, expected non-null List<String>.',
-          );
-          try {
-            await api.setTags(arg_tags!);
-            return wrapResponse(empty: true);
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          } catch (e) {
-            return wrapResponse(
-              error: PlatformException(code: 'error', message: e.toString()),
-            );
-          }
-        });
-      }
-    }
-  }
-}
-
-/// Dart → Swift. Controls the native auth gate lifecycle.
-class AuthGateApi {
-  /// Constructor for [AuthGateApi].  The [binaryMessenger] named argument is
-  /// available for dependency injection.  If it is left null, the default
-  /// BinaryMessenger will be used which routes to the host platform.
-  AuthGateApi({
-    BinaryMessenger? binaryMessenger,
-    String messageChannelSuffix = '',
-  }) : pigeonVar_binaryMessenger = binaryMessenger,
-       pigeonVar_messageChannelSuffix = messageChannelSuffix.isNotEmpty
-           ? '.$messageChannelSuffix'
-           : '';
-  final BinaryMessenger? pigeonVar_binaryMessenger;
-
-  static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
-
-  final String pigeonVar_messageChannelSuffix;
-
-  /// Called when no session exists; Swift must present the login FlutterVC.
-  Future<void> requireLogin() async {
-    final String pigeonVar_channelName =
-        'dev.flutter.pigeon.frigoligo.AuthGateApi.requireLogin$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel =
-        BasicMessageChannel<Object?>(
-          pigeonVar_channelName,
-          pigeonChannelCodec,
-          binaryMessenger: pigeonVar_binaryMessenger,
-        );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(null);
-    final List<Object?>? pigeonVar_replyList =
-        await pigeonVar_sendFuture as List<Object?>?;
-    if (pigeonVar_replyList == null) {
-      throw _createConnectionError(pigeonVar_channelName);
-    } else if (pigeonVar_replyList.length > 1) {
-      throw PlatformException(
-        code: pigeonVar_replyList[0]! as String,
-        message: pigeonVar_replyList[1] as String?,
-        details: pigeonVar_replyList[2],
-      );
-    } else {
-      return;
-    }
-  }
-
-  /// Called after successful login; Swift must dismiss the login FlutterVC.
-  Future<void> loginDidComplete() async {
-    final String pigeonVar_channelName =
-        'dev.flutter.pigeon.frigoligo.AuthGateApi.loginDidComplete$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel =
-        BasicMessageChannel<Object?>(
-          pigeonVar_channelName,
-          pigeonChannelCodec,
-          binaryMessenger: pigeonVar_binaryMessenger,
-        );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(null);
-    final List<Object?>? pigeonVar_replyList =
-        await pigeonVar_sendFuture as List<Object?>?;
-    if (pigeonVar_replyList == null) {
-      throw _createConnectionError(pigeonVar_channelName);
-    } else if (pigeonVar_replyList.length > 1) {
-      throw PlatformException(
-        code: pigeonVar_replyList[0]! as String,
-        message: pigeonVar_replyList[1] as String?,
-        details: pigeonVar_replyList[2],
-      );
-    } else {
-      return;
     }
   }
 }

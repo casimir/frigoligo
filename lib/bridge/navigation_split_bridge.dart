@@ -7,7 +7,7 @@ import '../config/dependencies.dart';
 import '../data/services/local/storage/config_store_service.dart';
 import '../domain/models/query.dart';
 import '../domain/sync/sync_manager.dart';
-import '../pigeon/bridges.g.dart';
+import '../pigeon/navigation_split.g.dart';
 import 'article_sheet_bridge.dart';
 
 class NavigationSplitBridge implements NavigationSplitFlutterApi {

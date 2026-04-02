@@ -2,73 +2,12 @@ import 'package:pigeon/pigeon.dart';
 
 @ConfigurePigeon(
   PigeonOptions(
-    dartOut: 'lib/pigeon/bridges.g.dart',
-    swiftOut: 'ios/Runner/Bridges.g.swift',
+    dartOut: 'lib/pigeon/navigation_split.g.dart',
+    swiftOut: 'ios/Features/Navigation/NavigationSplit.g.swift',
     dartPackageName: 'frigoligo',
+    swiftOptions: SwiftOptions(includeErrorClass: false),
   ),
 )
-// -------------
-// Article sheet
-// -------------
-/// Article metadata displayed in the native sheet.
-class ArticleSheetData {
-  late String title;
-  late String link;
-  String? domain;
-  late int readingTime;
-  late List<String> tags;
-}
-
-/// Dart → Swift. Controls the native article sheet lifecycle.
-@HostApi()
-abstract class ArticleSheetApi {
-  /// Present the sheet.
-  void open();
-
-  /// Push updated article data into the sheet.
-  void update(ArticleSheetData data);
-
-  /// Programmatically dismiss the sheet (Dart-initiated close).
-  /// Does not call back into Dart — the caller is responsible for cleanup.
-  void close();
-}
-
-/// Swift → Dart. Callbacks from the native sheet to the Dart bridge.
-@FlutterApi()
-abstract class ArticleSheetFlutterApi {
-  /// Called after the sheet is dismissed (user swipe or native close button).
-  /// The bridge uses this to cancel subscriptions and reset state.
-  @async
-  void onClose();
-
-  @async
-  List<String> getAllTags();
-
-  @async
-  void refetchContent();
-
-  @async
-  void setTags(List<String> tags);
-}
-
-// ---------
-// Auth gate
-// ---------
-
-/// Dart → Swift. Controls the native auth gate lifecycle.
-@HostApi()
-abstract class AuthGateApi {
-  /// Called when no session exists; Swift must present the login FlutterVC.
-  void requireLogin();
-
-  /// Called after successful login; Swift must dismiss the login FlutterVC.
-  void loginDidComplete();
-}
-
-// ----------------
-// Navigation split
-// ----------------
-
 /// Article data for a single row in the native article list.
 class ArticleRowData {
   late int id;

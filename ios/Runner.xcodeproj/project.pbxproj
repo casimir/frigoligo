@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		02170A012F700000000A0001 /* Bridges.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02170A002F700000000A0001 /* Bridges.g.swift */; };
+		0217AA012F800000000A0001 /* ArticleSheet.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA002F800000000A0001 /* ArticleSheet.g.swift */; };
+		0217AA032F800000000A0002 /* AuthGate.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA022F800000000A0002 /* AuthGate.g.swift */; };
+		0217AA052F800000000A0003 /* NavigationSplit.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA042F800000000A0003 /* NavigationSplit.g.swift */; };
 		02170A032F700000000A0002 /* AuthGateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02170A022F700000000A0002 /* AuthGateViewModel.swift */; };
 		02170A052F700000000A0003 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02170A042F700000000A0003 /* AppView.swift */; };
 		02170A072F700000000A0005 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02170A082F700000000A0005 /* SceneDelegate.swift */; };
@@ -80,7 +82,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		02170A002F700000000A0001 /* Bridges.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bridges.g.swift; sourceTree = "<group>"; };
+		0217AA002F800000000A0001 /* ArticleSheet.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSheet.g.swift; sourceTree = "<group>"; };
+		0217AA022F800000000A0002 /* AuthGate.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthGate.g.swift; sourceTree = "<group>"; };
+		0217AA042F800000000A0003 /* NavigationSplit.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationSplit.g.swift; sourceTree = "<group>"; };
 		02170A022F700000000A0002 /* AuthGateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthGateViewModel.swift; sourceTree = "<group>"; };
 		02170A042F700000000A0003 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		02170A082F700000000A0005 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -156,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				02170A022F700000000A0002 /* AuthGateViewModel.swift */,
+				0217AA022F800000000A0002 /* AuthGate.g.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -187,6 +192,7 @@
 				02E887962F62A90B009E2EA9 /* ArticleSheetView.swift */,
 				02E887972F62A90B009E2EA9 /* ArticleSheetViewModel.swift */,
 				02E8879E2F62A90B009E2EA9 /* TagsPickerView.swift */,
+				0217AA002F800000000A0001 /* ArticleSheet.g.swift */,
 			);
 			path = Article;
 			sourceTree = "<group>";
@@ -226,6 +232,7 @@
 				D4E5F6A7B8C9D0E1F2A3B4C5 /* ArticleDetailView.swift */,
 				A2B3C4D5E6F7A8B9C0D1E2F3 /* SaveLinkView.swift */,
 				F4A5B6C7D8E9F0A1B2C3D4E5 /* ReadingSettingsView.swift */,
+				0217AA042F800000000A0003 /* NavigationSplit.g.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -269,7 +276,6 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
-				02170A002F700000000A0001 /* Bridges.g.swift */,
 				02170A042F700000000A0003 /* AppView.swift */,
 				02170A082F700000000A0005 /* SceneDelegate.swift */,
 				027CBE832A9D32D8008575FC /* Runner.entitlements */,
@@ -521,7 +527,9 @@
 			files = (
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				02170A072F700000000A0005 /* SceneDelegate.swift in Sources */,
-				02170A012F700000000A0001 /* Bridges.g.swift in Sources */,
+				0217AA012F800000000A0001 /* ArticleSheet.g.swift in Sources */,
+				0217AA032F800000000A0002 /* AuthGate.g.swift in Sources */,
+				0217AA052F800000000A0003 /* NavigationSplit.g.swift in Sources */,
 				02170A032F700000000A0002 /* AuthGateViewModel.swift in Sources */,
 				02170A052F700000000A0003 /* AppView.swift in Sources */,
 				02E8879B2F62A90B009E2EA9 /* ArticleSheetView.swift in Sources */,

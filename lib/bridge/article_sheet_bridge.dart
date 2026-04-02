@@ -3,7 +3,7 @@ import 'dart:async';
 import '../domain/models/article_data.dart';
 import '../domain/repositories.dart';
 import '../domain/sync/sync_manager.dart';
-import '../pigeon/bridges.g.dart';
+import '../pigeon/article_sheet.g.dart';
 import '../ui/article/controllers/article_sheet_controller.dart';
 
 class ArticleSheetBridge implements ArticleSheetFlutterApi {

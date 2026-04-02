@@ -11,24 +11,6 @@ import Foundation
   #error("Unsupported platform.")
 #endif
 
-/// Error class for passing custom error details to Dart side.
-final class PigeonError: Error {
-  let code: String
-  let message: String?
-  let details: Sendable?
-
-  init(code: String, message: String?, details: Sendable?) {
-    self.code = code
-    self.message = message
-    self.details = details
-  }
-
-  var localizedDescription: String {
-    return
-      "PigeonError(code: \(code), message: \(message ?? "<nil>"), details: \(details ?? "<nil>")"
-  }
-}
-
 private func wrapResult(_ result: Any?) -> [Any?] {
   return [result]
 }
@@ -70,7 +52,7 @@ private func nilOrValue<T>(_ value: Any?) -> T? {
   return value as! T?
 }
 
-func deepEqualsBridges(_ lhs: Any?, _ rhs: Any?) -> Bool {
+func deepEqualsNavigationSplit(_ lhs: Any?, _ rhs: Any?) -> Bool {
   let cleanLhs = nilOrValue(lhs) as Any?
   let cleanRhs = nilOrValue(rhs) as Any?
   switch (cleanLhs, cleanRhs) {
@@ -89,7 +71,7 @@ func deepEqualsBridges(_ lhs: Any?, _ rhs: Any?) -> Bool {
   case let (cleanLhsArray, cleanRhsArray) as ([Any?], [Any?]):
     guard cleanLhsArray.count == cleanRhsArray.count else { return false }
     for (index, element) in cleanLhsArray.enumerated() {
-      if !deepEqualsBridges(element, cleanRhsArray[index]) {
+      if !deepEqualsNavigationSplit(element, cleanRhsArray[index]) {
         return false
       }
     }
@@ -99,7 +81,7 @@ func deepEqualsBridges(_ lhs: Any?, _ rhs: Any?) -> Bool {
     guard cleanLhsDictionary.count == cleanRhsDictionary.count else { return false }
     for (key, cleanLhsValue) in cleanLhsDictionary {
       guard cleanRhsDictionary.index(forKey: key) != nil else { return false }
-      if !deepEqualsBridges(cleanLhsValue, cleanRhsDictionary[key]!) {
+      if !deepEqualsNavigationSplit(cleanLhsValue, cleanRhsDictionary[key]!) {
         return false
       }
     }
@@ -111,16 +93,16 @@ func deepEqualsBridges(_ lhs: Any?, _ rhs: Any?) -> Bool {
   }
 }
 
-func deepHashBridges(value: Any?, hasher: inout Hasher) {
+func deepHashNavigationSplit(value: Any?, hasher: inout Hasher) {
   if let valueList = value as? [AnyHashable] {
-    for item in valueList { deepHashBridges(value: item, hasher: &hasher) }
+    for item in valueList { deepHashNavigationSplit(value: item, hasher: &hasher) }
     return
   }
 
   if let valueDict = value as? [AnyHashable: AnyHashable] {
     for key in valueDict.keys {
       hasher.combine(key)
-      deepHashBridges(value: valueDict[key]!, hasher: &hasher)
+      deepHashNavigationSplit(value: valueDict[key]!, hasher: &hasher)
     }
     return
   }
@@ -130,49 +112,6 @@ func deepHashBridges(value: Any?, hasher: inout Hasher) {
   }
 
   return hasher.combine(String(describing: value))
-}
-
-/// Article metadata displayed in the native sheet.
-///
-/// Generated class from Pigeon that represents data sent in messages.
-struct ArticleSheetData: Hashable {
-  var title: String
-  var link: String
-  var domain: String? = nil
-  var readingTime: Int64
-  var tags: [String]
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> ArticleSheetData? {
-    let title = pigeonVar_list[0] as! String
-    let link = pigeonVar_list[1] as! String
-    let domain: String? = nilOrValue(pigeonVar_list[2])
-    let readingTime = pigeonVar_list[3] as! Int64
-    let tags = pigeonVar_list[4] as! [String]
-
-    return ArticleSheetData(
-      title: title,
-      link: link,
-      domain: domain,
-      readingTime: readingTime,
-      tags: tags
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      title,
-      link,
-      domain,
-      readingTime,
-      tags,
-    ]
-  }
-  static func == (lhs: ArticleSheetData, rhs: ArticleSheetData) -> Bool {
-    return deepEqualsBridges(lhs.toList(), rhs.toList())
-  }
-  func hash(into hasher: inout Hasher) {
-    deepHashBridges(value: toList(), hasher: &hasher)
-  }
 }
 
 /// Article data for a single row in the native article list.
@@ -227,10 +166,10 @@ struct ArticleRowData: Hashable {
     ]
   }
   static func == (lhs: ArticleRowData, rhs: ArticleRowData) -> Bool {
-    return deepEqualsBridges(lhs.toList(), rhs.toList())
+    return deepEqualsNavigationSplit(lhs.toList(), rhs.toList())
   }
   func hash(into hasher: inout Hasher) {
-    deepHashBridges(value: toList(), hasher: &hasher)
+    deepHashNavigationSplit(value: toList(), hasher: &hasher)
   }
 }
 
@@ -262,10 +201,10 @@ struct NavigationSyncState: Hashable {
     ]
   }
   static func == (lhs: NavigationSyncState, rhs: NavigationSyncState) -> Bool {
-    return deepEqualsBridges(lhs.toList(), rhs.toList())
+    return deepEqualsNavigationSplit(lhs.toList(), rhs.toList())
   }
   func hash(into hasher: inout Hasher) {
-    deepHashBridges(value: toList(), hasher: &hasher)
+    deepHashNavigationSplit(value: toList(), hasher: &hasher)
   }
 }
 
@@ -309,10 +248,10 @@ struct NavigationFilterState: Hashable {
     ]
   }
   static func == (lhs: NavigationFilterState, rhs: NavigationFilterState) -> Bool {
-    return deepEqualsBridges(lhs.toList(), rhs.toList())
+    return deepEqualsNavigationSplit(lhs.toList(), rhs.toList())
   }
   func hash(into hasher: inout Hasher) {
-    deepHashBridges(value: toList(), hasher: &hasher)
+    deepHashNavigationSplit(value: toList(), hasher: &hasher)
   }
 }
 
@@ -344,10 +283,10 @@ struct ArticleReadingSettings: Hashable {
     ]
   }
   static func == (lhs: ArticleReadingSettings, rhs: ArticleReadingSettings) -> Bool {
-    return deepEqualsBridges(lhs.toList(), rhs.toList())
+    return deepEqualsNavigationSplit(lhs.toList(), rhs.toList())
   }
   func hash(into hasher: inout Hasher) {
-    deepHashBridges(value: toList(), hasher: &hasher)
+    deepHashNavigationSplit(value: toList(), hasher: &hasher)
   }
 }
 
@@ -379,27 +318,25 @@ struct ArticleContent: Hashable {
     ]
   }
   static func == (lhs: ArticleContent, rhs: ArticleContent) -> Bool {
-    return deepEqualsBridges(lhs.toList(), rhs.toList())
+    return deepEqualsNavigationSplit(lhs.toList(), rhs.toList())
   }
   func hash(into hasher: inout Hasher) {
-    deepHashBridges(value: toList(), hasher: &hasher)
+    deepHashNavigationSplit(value: toList(), hasher: &hasher)
   }
 }
 
-private class BridgesPigeonCodecReader: FlutterStandardReader {
+private class NavigationSplitPigeonCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
     case 129:
-      return ArticleSheetData.fromList(self.readValue() as! [Any?])
-    case 130:
       return ArticleRowData.fromList(self.readValue() as! [Any?])
-    case 131:
+    case 130:
       return NavigationSyncState.fromList(self.readValue() as! [Any?])
-    case 132:
+    case 131:
       return NavigationFilterState.fromList(self.readValue() as! [Any?])
-    case 133:
+    case 132:
       return ArticleReadingSettings.fromList(self.readValue() as! [Any?])
-    case 134:
+    case 133:
       return ArticleContent.fromList(self.readValue() as! [Any?])
     default:
       return super.readValue(ofType: type)
@@ -407,25 +344,22 @@ private class BridgesPigeonCodecReader: FlutterStandardReader {
   }
 }
 
-private class BridgesPigeonCodecWriter: FlutterStandardWriter {
+private class NavigationSplitPigeonCodecWriter: FlutterStandardWriter {
   override func writeValue(_ value: Any) {
-    if let value = value as? ArticleSheetData {
+    if let value = value as? ArticleRowData {
       super.writeByte(129)
       super.writeValue(value.toList())
-    } else if let value = value as? ArticleRowData {
+    } else if let value = value as? NavigationSyncState {
       super.writeByte(130)
       super.writeValue(value.toList())
-    } else if let value = value as? NavigationSyncState {
+    } else if let value = value as? NavigationFilterState {
       super.writeByte(131)
       super.writeValue(value.toList())
-    } else if let value = value as? NavigationFilterState {
+    } else if let value = value as? ArticleReadingSettings {
       super.writeByte(132)
       super.writeValue(value.toList())
-    } else if let value = value as? ArticleReadingSettings {
-      super.writeByte(133)
-      super.writeValue(value.toList())
     } else if let value = value as? ArticleContent {
-      super.writeByte(134)
+      super.writeByte(133)
       super.writeValue(value.toList())
     } else {
       super.writeValue(value)
@@ -433,258 +367,21 @@ private class BridgesPigeonCodecWriter: FlutterStandardWriter {
   }
 }
 
-private class BridgesPigeonCodecReaderWriter: FlutterStandardReaderWriter {
+private class NavigationSplitPigeonCodecReaderWriter: FlutterStandardReaderWriter {
   override func reader(with data: Data) -> FlutterStandardReader {
-    return BridgesPigeonCodecReader(data: data)
+    return NavigationSplitPigeonCodecReader(data: data)
   }
 
   override func writer(with data: NSMutableData) -> FlutterStandardWriter {
-    return BridgesPigeonCodecWriter(data: data)
+    return NavigationSplitPigeonCodecWriter(data: data)
   }
 }
 
-class BridgesPigeonCodec: FlutterStandardMessageCodec, @unchecked Sendable {
-  static let shared = BridgesPigeonCodec(readerWriter: BridgesPigeonCodecReaderWriter())
+class NavigationSplitPigeonCodec: FlutterStandardMessageCodec, @unchecked Sendable {
+  static let shared = NavigationSplitPigeonCodec(
+    readerWriter: NavigationSplitPigeonCodecReaderWriter())
 }
 
-/// Dart → Swift. Controls the native article sheet lifecycle.
-///
-/// Generated protocol from Pigeon that represents a handler of messages from Flutter.
-protocol ArticleSheetApi {
-  /// Present the sheet.
-  func open() throws
-  /// Push updated article data into the sheet.
-  func update(data: ArticleSheetData) throws
-  /// Programmatically dismiss the sheet (Dart-initiated close).
-  /// Does not call back into Dart — the caller is responsible for cleanup.
-  func close() throws
-}
-
-/// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
-class ArticleSheetApiSetup {
-  static var codec: FlutterStandardMessageCodec { BridgesPigeonCodec.shared }
-  /// Sets up an instance of `ArticleSheetApi` to handle messages through the `binaryMessenger`.
-  static func setUp(
-    binaryMessenger: FlutterBinaryMessenger, api: ArticleSheetApi?,
-    messageChannelSuffix: String = ""
-  ) {
-    let channelSuffix = messageChannelSuffix.count > 0 ? ".\(messageChannelSuffix)" : ""
-    /// Present the sheet.
-    let openChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.frigoligo.ArticleSheetApi.open\(channelSuffix)",
-      binaryMessenger: binaryMessenger, codec: codec)
-    if let api = api {
-      openChannel.setMessageHandler { _, reply in
-        do {
-          try api.open()
-          reply(wrapResult(nil))
-        } catch {
-          reply(wrapError(error))
-        }
-      }
-    } else {
-      openChannel.setMessageHandler(nil)
-    }
-    /// Push updated article data into the sheet.
-    let updateChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.frigoligo.ArticleSheetApi.update\(channelSuffix)",
-      binaryMessenger: binaryMessenger, codec: codec)
-    if let api = api {
-      updateChannel.setMessageHandler { message, reply in
-        let args = message as! [Any?]
-        let dataArg = args[0] as! ArticleSheetData
-        do {
-          try api.update(data: dataArg)
-          reply(wrapResult(nil))
-        } catch {
-          reply(wrapError(error))
-        }
-      }
-    } else {
-      updateChannel.setMessageHandler(nil)
-    }
-    /// Programmatically dismiss the sheet (Dart-initiated close).
-    /// Does not call back into Dart — the caller is responsible for cleanup.
-    let closeChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.frigoligo.ArticleSheetApi.close\(channelSuffix)",
-      binaryMessenger: binaryMessenger, codec: codec)
-    if let api = api {
-      closeChannel.setMessageHandler { _, reply in
-        do {
-          try api.close()
-          reply(wrapResult(nil))
-        } catch {
-          reply(wrapError(error))
-        }
-      }
-    } else {
-      closeChannel.setMessageHandler(nil)
-    }
-  }
-}
-/// Swift → Dart. Callbacks from the native sheet to the Dart bridge.
-///
-/// Generated protocol from Pigeon that represents Flutter messages that can be called from Swift.
-protocol ArticleSheetFlutterApiProtocol {
-  /// Called after the sheet is dismissed (user swipe or native close button).
-  /// The bridge uses this to cancel subscriptions and reset state.
-  func onClose(completion: @escaping (Result<Void, PigeonError>) -> Void)
-  func getAllTags(completion: @escaping (Result<[String], PigeonError>) -> Void)
-  func refetchContent(completion: @escaping (Result<Void, PigeonError>) -> Void)
-  func setTags(tags tagsArg: [String], completion: @escaping (Result<Void, PigeonError>) -> Void)
-}
-class ArticleSheetFlutterApi: ArticleSheetFlutterApiProtocol {
-  private let binaryMessenger: FlutterBinaryMessenger
-  private let messageChannelSuffix: String
-  init(binaryMessenger: FlutterBinaryMessenger, messageChannelSuffix: String = "") {
-    self.binaryMessenger = binaryMessenger
-    self.messageChannelSuffix = messageChannelSuffix.count > 0 ? ".\(messageChannelSuffix)" : ""
-  }
-  var codec: BridgesPigeonCodec {
-    return BridgesPigeonCodec.shared
-  }
-  /// Called after the sheet is dismissed (user swipe or native close button).
-  /// The bridge uses this to cancel subscriptions and reset state.
-  func onClose(completion: @escaping (Result<Void, PigeonError>) -> Void) {
-    let channelName: String =
-      "dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.onClose\(messageChannelSuffix)"
-    let channel = FlutterBasicMessageChannel(
-      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
-    channel.sendMessage(nil) { response in
-      guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName: channelName)))
-        return
-      }
-      if listResponse.count > 1 {
-        let code: String = listResponse[0] as! String
-        let message: String? = nilOrValue(listResponse[1])
-        let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(PigeonError(code: code, message: message, details: details)))
-      } else {
-        completion(.success(()))
-      }
-    }
-  }
-  func getAllTags(completion: @escaping (Result<[String], PigeonError>) -> Void) {
-    let channelName: String =
-      "dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.getAllTags\(messageChannelSuffix)"
-    let channel = FlutterBasicMessageChannel(
-      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
-    channel.sendMessage(nil) { response in
-      guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName: channelName)))
-        return
-      }
-      if listResponse.count > 1 {
-        let code: String = listResponse[0] as! String
-        let message: String? = nilOrValue(listResponse[1])
-        let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(PigeonError(code: code, message: message, details: details)))
-      } else if listResponse[0] == nil {
-        completion(
-          .failure(
-            PigeonError(
-              code: "null-error",
-              message: "Flutter api returned null value for non-null return value.", details: "")))
-      } else {
-        let result = listResponse[0] as! [String]
-        completion(.success(result))
-      }
-    }
-  }
-  func refetchContent(completion: @escaping (Result<Void, PigeonError>) -> Void) {
-    let channelName: String =
-      "dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.refetchContent\(messageChannelSuffix)"
-    let channel = FlutterBasicMessageChannel(
-      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
-    channel.sendMessage(nil) { response in
-      guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName: channelName)))
-        return
-      }
-      if listResponse.count > 1 {
-        let code: String = listResponse[0] as! String
-        let message: String? = nilOrValue(listResponse[1])
-        let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(PigeonError(code: code, message: message, details: details)))
-      } else {
-        completion(.success(()))
-      }
-    }
-  }
-  func setTags(tags tagsArg: [String], completion: @escaping (Result<Void, PigeonError>) -> Void) {
-    let channelName: String =
-      "dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.setTags\(messageChannelSuffix)"
-    let channel = FlutterBasicMessageChannel(
-      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
-    channel.sendMessage([tagsArg] as [Any?]) { response in
-      guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName: channelName)))
-        return
-      }
-      if listResponse.count > 1 {
-        let code: String = listResponse[0] as! String
-        let message: String? = nilOrValue(listResponse[1])
-        let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(PigeonError(code: code, message: message, details: details)))
-      } else {
-        completion(.success(()))
-      }
-    }
-  }
-}
-/// Dart → Swift. Controls the native auth gate lifecycle.
-///
-/// Generated protocol from Pigeon that represents a handler of messages from Flutter.
-protocol AuthGateApi {
-  /// Called when no session exists; Swift must present the login FlutterVC.
-  func requireLogin() throws
-  /// Called after successful login; Swift must dismiss the login FlutterVC.
-  func loginDidComplete() throws
-}
-
-/// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
-class AuthGateApiSetup {
-  static var codec: FlutterStandardMessageCodec { BridgesPigeonCodec.shared }
-  /// Sets up an instance of `AuthGateApi` to handle messages through the `binaryMessenger`.
-  static func setUp(
-    binaryMessenger: FlutterBinaryMessenger, api: AuthGateApi?, messageChannelSuffix: String = ""
-  ) {
-    let channelSuffix = messageChannelSuffix.count > 0 ? ".\(messageChannelSuffix)" : ""
-    /// Called when no session exists; Swift must present the login FlutterVC.
-    let requireLoginChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.frigoligo.AuthGateApi.requireLogin\(channelSuffix)",
-      binaryMessenger: binaryMessenger, codec: codec)
-    if let api = api {
-      requireLoginChannel.setMessageHandler { _, reply in
-        do {
-          try api.requireLogin()
-          reply(wrapResult(nil))
-        } catch {
-          reply(wrapError(error))
-        }
-      }
-    } else {
-      requireLoginChannel.setMessageHandler(nil)
-    }
-    /// Called after successful login; Swift must dismiss the login FlutterVC.
-    let loginDidCompleteChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.frigoligo.AuthGateApi.loginDidComplete\(channelSuffix)",
-      binaryMessenger: binaryMessenger, codec: codec)
-    if let api = api {
-      loginDidCompleteChannel.setMessageHandler { _, reply in
-        do {
-          try api.loginDidComplete()
-          reply(wrapResult(nil))
-        } catch {
-          reply(wrapError(error))
-        }
-      }
-    } else {
-      loginDidCompleteChannel.setMessageHandler(nil)
-    }
-  }
-}
 /// Dart → Swift. Pushes updated list/sync/filter state into the native sidebar.
 ///
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
@@ -699,7 +396,7 @@ protocol NavigationSplitApi {
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
 class NavigationSplitApiSetup {
-  static var codec: FlutterStandardMessageCodec { BridgesPigeonCodec.shared }
+  static var codec: FlutterStandardMessageCodec { NavigationSplitPigeonCodec.shared }
   /// Sets up an instance of `NavigationSplitApi` to handle messages through the `binaryMessenger`.
   static func setUp(
     binaryMessenger: FlutterBinaryMessenger, api: NavigationSplitApi?,
@@ -856,8 +553,8 @@ class NavigationSplitFlutterApi: NavigationSplitFlutterApiProtocol {
     self.binaryMessenger = binaryMessenger
     self.messageChannelSuffix = messageChannelSuffix.count > 0 ? ".\(messageChannelSuffix)" : ""
   }
-  var codec: BridgesPigeonCodec {
-    return BridgesPigeonCodec.shared
+  var codec: NavigationSplitPigeonCodec {
+    return NavigationSplitPigeonCodec.shared
   }
   func getArticleRowData(
     id idArg: Int64, completion: @escaping (Result<ArticleRowData, PigeonError>) -> Void
