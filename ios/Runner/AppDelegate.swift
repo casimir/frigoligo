@@ -9,6 +9,7 @@ import UIKit
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
+    UITableView.appearance().sectionHeaderTopPadding = 0
     super.application(application, didFinishLaunchingWithOptions: launchOptions)
 
     let engine = FlutterEngine(name: "main")

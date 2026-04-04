@@ -74,7 +74,7 @@ struct FilterBarView: View {
           ) { selected in viewModel.setDomains(selected) }
         }
       }
-      .padding(.horizontal)
+      .padding(.leading, 16)
       .padding(.vertical, 6)
     }
   }

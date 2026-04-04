@@ -48,7 +48,7 @@ class NavigationSplitViewModel: NSObject, ObservableObject, NavigationSplitApi,
   }
 
   func updateFilterState(state: NavigationFilterState) throws {
-    filterState = state
+    if filterState != state { filterState = state }
   }
 
   func updateArticleContent(content: ArticleContent) throws {

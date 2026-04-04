@@ -5,16 +5,21 @@ struct SidebarView: View {
   @State private var searchText = ""
 
   var body: some View {
-    VStack(spacing: 0) {
-      FilterBarView()
-      List(viewModel.articleIds, id: \.self, selection: $viewModel.selectedArticleId) { id in
-        ArticleRowView(id: id)
-          .tag(id)
+    List(selection: $viewModel.selectedArticleId) {
+      Section {
+        ForEach(viewModel.articleIds, id: \.self) { id in
+          ArticleRowView(id: id)
+            .tag(id)
+        }
+      } header: {
+        FilterBarView()
+          .textCase(nil)
+          .background(.bar)
       }
-      .listStyle(.plain)
-      .animation(.default, value: viewModel.articleIds)
-      .refreshable { await viewModel.refresh() }
     }
+    .listStyle(.plain)
+    .animation(.default, value: viewModel.articleIds)
+    .refreshable { await viewModel.refresh() }
     .searchable(text: $searchText)
     .onChange(of: searchText) { newValue in
       viewModel.setSearchText(newValue)
