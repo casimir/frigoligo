@@ -220,7 +220,7 @@ struct NavigationSyncState: Hashable {
   }
 }
 
-/// Mirrors the Query domain model.
+/// Mirrors the Query domain model, including precomputed available options.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
 struct NavigationFilterState: Hashable {
@@ -230,6 +230,8 @@ struct NavigationFilterState: Hashable {
   var onlyStarred: Bool
   var tags: [String]
   var domains: [String]
+  var availableTags: [String]
+  var availableDomains: [String]
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> NavigationFilterState? {
@@ -239,6 +241,8 @@ struct NavigationFilterState: Hashable {
     let onlyStarred = pigeonVar_list[3] as! Bool
     let tags = pigeonVar_list[4] as! [String]
     let domains = pigeonVar_list[5] as! [String]
+    let availableTags = pigeonVar_list[6] as! [String]
+    let availableDomains = pigeonVar_list[7] as! [String]
 
     return NavigationFilterState(
       text: text,
@@ -246,7 +250,9 @@ struct NavigationFilterState: Hashable {
       stateFilter: stateFilter,
       onlyStarred: onlyStarred,
       tags: tags,
-      domains: domains
+      domains: domains,
+      availableTags: availableTags,
+      availableDomains: availableDomains
     )
   }
   func toList() -> [Any?] {
@@ -257,6 +263,8 @@ struct NavigationFilterState: Hashable {
       onlyStarred,
       tags,
       domains,
+      availableTags,
+      availableDomains,
     ]
   }
   static func == (lhs: NavigationFilterState, rhs: NavigationFilterState) -> Bool {
@@ -543,8 +551,6 @@ class NavigationSplitApiSetup {
 protocol NavigationSplitFlutterApiProtocol {
   func getArticleRowData(
     id idArg: Int64, completion: @escaping (Result<ArticleRowData, PigeonError>) -> Void)
-  func getAvailableTags(completion: @escaping (Result<[String], PigeonError>) -> Void)
-  func getAvailableDomains(completion: @escaping (Result<[String], PigeonError>) -> Void)
   func setSearchText(
     text textArg: String, completion: @escaping (Result<Void, PigeonError>) -> Void)
   func setTextMode(
@@ -614,60 +620,6 @@ class NavigationSplitFlutterApi: NavigationSplitFlutterApiProtocol {
               message: "Flutter api returned null value for non-null return value.", details: "")))
       } else {
         let result = listResponse[0] as! ArticleRowData
-        completion(.success(result))
-      }
-    }
-  }
-  func getAvailableTags(completion: @escaping (Result<[String], PigeonError>) -> Void) {
-    let channelName: String =
-      "dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.getAvailableTags\(messageChannelSuffix)"
-    let channel = FlutterBasicMessageChannel(
-      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
-    channel.sendMessage(nil) { response in
-      guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName: channelName)))
-        return
-      }
-      if listResponse.count > 1 {
-        let code: String = listResponse[0] as! String
-        let message: String? = nilOrValue(listResponse[1])
-        let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(PigeonError(code: code, message: message, details: details)))
-      } else if listResponse[0] == nil {
-        completion(
-          .failure(
-            PigeonError(
-              code: "null-error",
-              message: "Flutter api returned null value for non-null return value.", details: "")))
-      } else {
-        let result = listResponse[0] as! [String]
-        completion(.success(result))
-      }
-    }
-  }
-  func getAvailableDomains(completion: @escaping (Result<[String], PigeonError>) -> Void) {
-    let channelName: String =
-      "dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.getAvailableDomains\(messageChannelSuffix)"
-    let channel = FlutterBasicMessageChannel(
-      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
-    channel.sendMessage(nil) { response in
-      guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName: channelName)))
-        return
-      }
-      if listResponse.count > 1 {
-        let code: String = listResponse[0] as! String
-        let message: String? = nilOrValue(listResponse[1])
-        let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(PigeonError(code: code, message: message, details: details)))
-      } else if listResponse[0] == nil {
-        completion(
-          .failure(
-            PigeonError(
-              code: "null-error",
-              message: "Flutter api returned null value for non-null return value.", details: "")))
-      } else {
-        let result = listResponse[0] as! [String]
         completion(.success(result))
       }
     }

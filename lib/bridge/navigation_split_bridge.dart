@@ -22,8 +22,9 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
     _idsSubscription = queryRepository.watchArticleIds().listen((ids) {
       unawaited(_api.updateArticleIds(ids));
     });
-    _querySubscription = queryRepository.queryStream.listen((q) {
-      unawaited(_api.updateFilterState(_filterStateFrom(q)));
+    unawaited(_pushFilterState());
+    _querySubscription = queryRepository.queryStream.listen((_) {
+      unawaited(_pushFilterState());
     });
     _settingsSubscription = configStoreService
         .watch<dynamic>('readingSettings')
@@ -69,22 +70,29 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
     );
   }
 
-  static NavigationFilterState _filterStateFrom(Query q) {
-    return NavigationFilterState(
-      text: q.text,
-      textMode: switch (q.textMode) {
-        SearchTextMode.all => NavigationSearchTextMode.all,
-        SearchTextMode.title => NavigationSearchTextMode.title,
-        SearchTextMode.content => NavigationSearchTextMode.content,
-      },
-      stateFilter: switch (q.state) {
-        StateFilter.all => NavigationStateFilter.all,
-        StateFilter.unread => NavigationStateFilter.unread,
-        StateFilter.archived => NavigationStateFilter.archived,
-      },
-      onlyStarred: q.onlyStarred,
-      tags: q.tags,
-      domains: q.domains,
+  Future<void> _pushFilterState() async {
+    final q = _queryRepository.query;
+    final availableTags = await _queryRepository.listAvailableTags();
+    final availableDomains = await _queryRepository.listAvailableDomains();
+    await _api.updateFilterState(
+      NavigationFilterState(
+        text: q.text,
+        textMode: switch (q.textMode) {
+          SearchTextMode.all => NavigationSearchTextMode.all,
+          SearchTextMode.title => NavigationSearchTextMode.title,
+          SearchTextMode.content => NavigationSearchTextMode.content,
+        },
+        stateFilter: switch (q.state) {
+          StateFilter.all => NavigationStateFilter.all,
+          StateFilter.unread => NavigationStateFilter.unread,
+          StateFilter.archived => NavigationStateFilter.archived,
+        },
+        onlyStarred: q.onlyStarred,
+        tags: q.tags,
+        domains: q.domains,
+        availableTags: availableTags,
+        availableDomains: availableDomains,
+      ),
     );
   }
 
@@ -110,14 +118,6 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
         .first;
     return _rowDataFrom(article!);
   }
-
-  @override
-  Future<List<String>> getAvailableTags() =>
-      _queryRepository.listAvailableTags();
-
-  @override
-  Future<List<String>> getAvailableDomains() =>
-      _queryRepository.listAvailableDomains();
 
   @override
   void setSearchText(String text) {

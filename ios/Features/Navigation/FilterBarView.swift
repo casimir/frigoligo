@@ -4,8 +4,6 @@ struct FilterBarView: View {
   @EnvironmentObject var viewModel: NavigationSplitViewModel
   @State private var showTagsPicker = false
   @State private var showDomainsPicker = false
-  @State private var availableTags: [String] = []
-  @State private var availableDomains: [String] = []
 
   private var isStarred: Bool { viewModel.filterState.onlyStarred }
   private var activeTags: [String] { viewModel.filterState.tags }
@@ -14,21 +12,31 @@ struct FilterBarView: View {
   var body: some View {
     ScrollView(.horizontal, showsIndicators: false) {
       HStack(spacing: 8) {
-        FilterChip(
-          label: String(localized: "filters_articleStateAll"),
-          isActive: viewModel.filterState.stateFilter == .all
-        ) { viewModel.setStateFilter(.all) }
-        FilterChip(
-          label: String(localized: "filters_articleStateUnread"),
-          isActive: viewModel.filterState.stateFilter == .unread
-        ) { viewModel.setStateFilter(.unread) }
-        FilterChip(
-          label: String(localized: "filters_articleStateArchived"),
-          isActive: viewModel.filterState.stateFilter == .archived
-        ) { viewModel.setStateFilter(.archived) }
+        Menu {
+          Button {
+            viewModel.setStateFilter(.all)
+          } label: {
+            Label(String(localized: "filters_articleStateAll"), systemImage: "tray.2")
+          }
+          Button {
+            viewModel.setStateFilter(.unread)
+          } label: {
+            Label(String(localized: "filters_articleStateUnread"), systemImage: "book")
+          }
+          Button {
+            viewModel.setStateFilter(.archived)
+          } label: {
+            Label(String(localized: "filters_articleStateArchived"), systemImage: "archivebox")
+          }
+        } label: {
+          FilterChipLabel(
+            label: labelForStateFilter(viewModel.filterState.stateFilter),
+            showsChevron: true,
+            isActive: viewModel.filterState.stateFilter != .all
+          )
+        }
         FilterChip(
           label: String(localized: "filters_articleFavoriteStarred"),
-          systemImage: "star.fill",
           isActive: isStarred
         ) { viewModel.setOnlyStarred(!isStarred) }
         FilterChip(
@@ -38,19 +46,13 @@ struct FilterBarView: View {
               NSLocalizedString("filters_articleTagsCount", comment: ""),
               Int64(activeTags.count)
             ),
+          showsChevron: true,
           isActive: !activeTags.isEmpty
-        ) {
-          Task {
-            if availableTags.isEmpty {
-              availableTags = (try? await loadTags()) ?? []
-            }
-            showTagsPicker = true
-          }
-        }
+        ) { showTagsPicker = true }
         .sheet(isPresented: $showTagsPicker) {
           MultiSelectPickerView(
             title: String(localized: "filters_articleTags"),
-            items: availableTags,
+            items: viewModel.filterState.availableTags,
             selection: activeTags
           ) { selected in viewModel.setTags(selected) }
         }
@@ -61,19 +63,13 @@ struct FilterBarView: View {
               NSLocalizedString("filters_articleDomainsCount", comment: ""),
               Int64(activeDomains.count)
             ),
+          showsChevron: true,
           isActive: !activeDomains.isEmpty
-        ) {
-          Task {
-            if availableDomains.isEmpty {
-              availableDomains = (try? await loadDomains()) ?? []
-            }
-            showDomainsPicker = true
-          }
-        }
+        ) { showDomainsPicker = true }
         .sheet(isPresented: $showDomainsPicker) {
           MultiSelectPickerView(
             title: String(localized: "filters_articleDomains"),
-            items: availableDomains,
+            items: viewModel.filterState.availableDomains,
             selection: activeDomains
           ) { selected in viewModel.setDomains(selected) }
         }
@@ -83,33 +79,43 @@ struct FilterBarView: View {
     }
   }
 
-  private func loadTags() async throws -> [String] {
-    try await viewModel.getAvailableTags()
+  private func labelForStateFilter(_ state: NavigationStateFilter) -> String {
+    switch state {
+    case .all: return String(localized: "filters_articleStateAll")
+    case .unread: return String(localized: "filters_articleStateUnread")
+    case .archived: return String(localized: "filters_articleStateArchived")
+    }
   }
+}
 
-  private func loadDomains() async throws -> [String] {
-    try await viewModel.getAvailableDomains()
+private struct FilterChipLabel: View {
+  let label: String
+  var showsChevron: Bool = false
+  let isActive: Bool
+
+  var body: some View {
+    HStack(spacing: 4) {
+      Text(label)
+      if showsChevron { Image(systemName: "chevron.down").imageScale(.small) }
+    }
+    .font(.subheadline)
+    .padding(.horizontal, 12)
+    .padding(.vertical, 6)
+    .background(isActive ? Color.accentColor : Color(.systemGray6))
+    .foregroundStyle(isActive ? .white : .primary)
+    .clipShape(Capsule())
   }
 }
 
 private struct FilterChip: View {
   let label: String
-  var systemImage: String? = nil
+  var showsChevron: Bool = false
   let isActive: Bool
   let action: () -> Void
 
   var body: some View {
     Button(action: action) {
-      HStack(spacing: 4) {
-        if let systemImage { Image(systemName: systemImage) }
-        Text(label)
-      }
-      .font(.subheadline)
-      .padding(.horizontal, 12)
-      .padding(.vertical, 6)
-      .background(isActive ? Color.accentColor : Color(.systemGray6))
-      .foregroundStyle(isActive ? .white : .primary)
-      .clipShape(Capsule())
+      FilterChipLabel(label: label, showsChevron: showsChevron, isActive: isActive)
     }
     .buttonStyle(.plain)
   }
@@ -155,6 +161,15 @@ private struct MultiSelectPickerView: View {
           }
         }
         .foregroundStyle(.primary)
+      }
+      .overlay {
+        if items.isEmpty {
+          if #available(iOS 17.0, *) {
+            ContentUnavailableView(title, systemImage: "tray")
+          } else {
+            // Fallback on earlier versions
+          }
+        }
       }
       .navigationTitle(title)
       .navigationBarTitleDisplayMode(.inline)

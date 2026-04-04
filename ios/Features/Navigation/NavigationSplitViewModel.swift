@@ -7,7 +7,8 @@ class NavigationSplitViewModel: NSObject, ObservableObject, NavigationSplitApi,
   @Published var syncState: NavigationSyncState = NavigationSyncState(
     isWorking: false, progressValue: nil, pendingCount: 0)
   @Published var filterState: NavigationFilterState = NavigationFilterState(
-    text: "", textMode: .all, stateFilter: .all, onlyStarred: false, tags: [], domains: [])
+    text: "", textMode: .all, stateFilter: .unread, onlyStarred: false,
+    tags: [], domains: [], availableTags: [], availableDomains: [])
   @Published var selectedArticleId: Int64? = nil {
     didSet {
       articleContent = nil
@@ -115,18 +116,6 @@ class NavigationSplitViewModel: NSObject, ObservableObject, NavigationSplitApi,
       flutterApi.getArticleRowData(id: id) { result in
         continuation.resume(returning: try? result.get())
       }
-    }
-  }
-
-  func getAvailableTags() async throws -> [String] {
-    try await withCheckedThrowingContinuation { continuation in
-      flutterApi.getAvailableTags { result in continuation.resume(with: result) }
-    }
-  }
-
-  func getAvailableDomains() async throws -> [String] {
-    try await withCheckedThrowingContinuation { continuation in
-      flutterApi.getAvailableDomains { result in continuation.resume(with: result) }
     }
   }
 
