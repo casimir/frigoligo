@@ -73,7 +73,9 @@ struct ArticleRowView: View {
       .contentShape(Rectangle())
       .swipeActions(edge: .leading) {
         Button {
-          viewModel.setArticleArchived(id, archived: !data.isArchived)
+          let newArchived = !data.isArchived
+          self.data?.isArchived = newArchived
+          viewModel.setArticleArchived(id, archived: newArchived)
         } label: {
           Label(
             data.isArchived ? "Unarchive" : "Archive",
@@ -84,7 +86,9 @@ struct ArticleRowView: View {
       }
       .swipeActions(edge: .trailing) {
         Button {
-          viewModel.setArticleStarred(id, starred: !data.isStarred)
+          let newStarred = !data.isStarred
+          self.data?.isStarred = newStarred
+          viewModel.setArticleStarred(id, starred: newStarred)
         } label: {
           Label(
             data.isStarred ? "Unstar" : "Star",

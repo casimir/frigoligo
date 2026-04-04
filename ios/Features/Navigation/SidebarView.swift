@@ -12,6 +12,7 @@ struct SidebarView: View {
           .tag(id)
       }
       .listStyle(.plain)
+      .animation(.default, value: viewModel.articleIds)
       .refreshable { await viewModel.refresh() }
     }
     .searchable(text: $searchText)
