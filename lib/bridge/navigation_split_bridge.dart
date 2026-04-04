@@ -8,6 +8,8 @@ import '../data/services/local/storage/config_store_service.dart';
 import '../domain/models/query.dart';
 import '../domain/sync/sync_manager.dart';
 import '../pigeon/navigation_split.g.dart';
+import '../ui/home/controllers/listing_container_controller.dart';
+import '../ui/home/controllers/search_panel_controller.dart';
 import 'article_sheet_bridge.dart';
 
 class NavigationSplitBridge implements NavigationSplitFlutterApi {
@@ -17,7 +19,13 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
     required QueryRepository queryRepository,
   }) : _configStoreService = configStoreService,
        _articleRepository = articleRepository,
-       _queryRepository = queryRepository {
+       _queryRepository = queryRepository,
+       _searchPanelController = SearchPanelController(
+         queryRepository: queryRepository,
+       ),
+       _listingController = ListingContainerController(
+         syncManager: SyncManager.instance,
+       ) {
     NavigationSplitFlutterApi.setUp(this);
     _idsSubscription = queryRepository.watchArticleIds().listen((ids) {
       unawaited(_api.updateArticleIds(ids));
@@ -37,6 +45,8 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
   final ConfigStoreService _configStoreService;
   final ArticleRepository _articleRepository;
   final QueryRepository _queryRepository;
+  final SearchPanelController _searchPanelController;
+  final ListingContainerController _listingController;
   final NavigationSplitApi _api = NavigationSplitApi();
 
   StreamSubscription<List<int>>? _idsSubscription;
@@ -124,53 +134,37 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
   }
 
   @override
-  void setSearchText(String text) {
-    _queryRepository.query = _queryRepository.query.copyWith(text: text);
-  }
+  void setSearchText(String text) => _searchPanelController.setText(text);
 
   @override
-  void setTextMode(NavigationSearchTextMode mode) {
-    _queryRepository.query = _queryRepository.query.copyWith(
-      textMode: switch (mode) {
+  void setTextMode(NavigationSearchTextMode mode) =>
+      _searchPanelController.setTextMode(switch (mode) {
         NavigationSearchTextMode.all => SearchTextMode.all,
         NavigationSearchTextMode.title => SearchTextMode.title,
         NavigationSearchTextMode.content => SearchTextMode.content,
-      },
-    );
-  }
+      });
 
   @override
-  void setStateFilter(NavigationStateFilter state) {
-    _queryRepository.query = _queryRepository.query.copyWith(
-      state: switch (state) {
+  void setStateFilter(NavigationStateFilter state) =>
+      _searchPanelController.setState(switch (state) {
         NavigationStateFilter.all => StateFilter.all,
         NavigationStateFilter.unread => StateFilter.unread,
         NavigationStateFilter.archived => StateFilter.archived,
-      },
-    );
-  }
+      });
 
   @override
-  void setOnlyStarred(bool onlyStarred) {
-    _queryRepository.query = _queryRepository.query.copyWith(
-      onlyStarred: onlyStarred,
-    );
-  }
+  void setOnlyStarred(bool onlyStarred) =>
+      _searchPanelController.setOnlyStarred(onlyStarred);
 
   @override
-  void setTags(List<String> tags) {
-    _queryRepository.query = _queryRepository.query.copyWith(tags: tags);
-  }
+  void setTags(List<String> tags) => _searchPanelController.setTags(tags);
 
   @override
-  void setDomains(List<String> domains) {
-    _queryRepository.query = _queryRepository.query.copyWith(domains: domains);
-  }
+  void setDomains(List<String> domains) =>
+      _searchPanelController.setDomains(domains);
 
   @override
-  Future<void> refresh() {
-    return SyncManager.instance.synchronize(withFinalRefresh: true);
-  }
+  Future<void> refresh() => _listingController.refresh();
 
   @override
   Future<void> setArticleArchived(int id, bool archived) =>
@@ -181,9 +175,7 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
       _editArticle(id, starred: starred);
 
   @override
-  void filterByTag(String tag) {
-    _queryRepository.query = _queryRepository.query.copyWith(tags: [tag]);
-  }
+  void filterByTag(String tag) => _searchPanelController.setTags([tag]);
 
   @override
   Future<void> onArticleSelected(int id) async {
@@ -235,8 +227,9 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
   @override
   Future<void> saveLink(String url) async {
     final uri = Uri.tryParse(url);
-    if (uri == null || uri.host.isEmpty)
+    if (uri == null || uri.host.isEmpty) {
       throw ArgumentError('Invalid URL: $url');
+    }
     final action = SaveArticleAction(uri);
     await SyncManager.instance.addAction(action);
     unawaited(SyncManager.instance.synchronize(withFinalRefresh: true));
