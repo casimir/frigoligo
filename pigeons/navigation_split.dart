@@ -32,7 +32,7 @@ enum NavigationSearchTextMode { all, title, content }
 
 enum NavigationStateFilter { all, unread, archived }
 
-/// Mirrors the Query domain model, including precomputed available options.
+/// Mirrors the Query domain model for active filter state.
 class NavigationFilterState {
   late String text;
   late NavigationSearchTextMode textMode;
@@ -40,8 +40,6 @@ class NavigationFilterState {
   late bool onlyStarred;
   late List<String> tags;
   late List<String> domains;
-  late List<String> availableTags;
-  late List<String> availableDomains;
 }
 
 /// Reading settings for the native article WebView.
@@ -81,6 +79,10 @@ abstract class NavigationSplitFlutterApi {
   void setOnlyStarred(bool onlyStarred);
   void setTags(List<String> tags);
   void setDomains(List<String> domains);
+  @async
+  List<String> getAvailableTags();
+  @async
+  List<String> getAvailableDomains();
   @async
   void refresh();
   @async

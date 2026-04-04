@@ -181,7 +181,7 @@ class NavigationSyncState {
   int get hashCode => Object.hashAll(_toList());
 }
 
-/// Mirrors the Query domain model, including precomputed available options.
+/// Mirrors the Query domain model for active filter state.
 class NavigationFilterState {
   NavigationFilterState({
     required this.text,
@@ -190,8 +190,6 @@ class NavigationFilterState {
     required this.onlyStarred,
     required this.tags,
     required this.domains,
-    required this.availableTags,
-    required this.availableDomains,
   });
 
   String text;
@@ -206,21 +204,8 @@ class NavigationFilterState {
 
   List<String> domains;
 
-  List<String> availableTags;
-
-  List<String> availableDomains;
-
   List<Object?> _toList() {
-    return <Object?>[
-      text,
-      textMode,
-      stateFilter,
-      onlyStarred,
-      tags,
-      domains,
-      availableTags,
-      availableDomains,
-    ];
+    return <Object?>[text, textMode, stateFilter, onlyStarred, tags, domains];
   }
 
   Object encode() {
@@ -236,8 +221,6 @@ class NavigationFilterState {
       onlyStarred: result[3]! as bool,
       tags: (result[4] as List<Object?>?)!.cast<String>(),
       domains: (result[5] as List<Object?>?)!.cast<String>(),
-      availableTags: (result[6] as List<Object?>?)!.cast<String>(),
-      availableDomains: (result[7] as List<Object?>?)!.cast<String>(),
     );
   }
 
@@ -607,6 +590,10 @@ abstract class NavigationSplitFlutterApi {
 
   void setDomains(List<String> domains);
 
+  Future<List<String>> getAvailableTags();
+
+  Future<List<String>> getAvailableDomains();
+
   Future<void> refresh();
 
   Future<void> setArticleArchived(int id, bool archived);
@@ -871,6 +858,54 @@ abstract class NavigationSplitFlutterApi {
           try {
             api.setDomains(arg_domains!);
             return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
+          }
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.getAvailableTags$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
+      if (api == null) {
+        pigeonVar_channel.setMessageHandler(null);
+      } else {
+        pigeonVar_channel.setMessageHandler((Object? message) async {
+          try {
+            final List<String> output = await api.getAvailableTags();
+            return wrapResponse(result: output);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
+          }
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.getAvailableDomains$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
+      if (api == null) {
+        pigeonVar_channel.setMessageHandler(null);
+      } else {
+        pigeonVar_channel.setMessageHandler((Object? message) async {
+          try {
+            final List<String> output = await api.getAvailableDomains();
+            return wrapResponse(result: output);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
           } catch (e) {

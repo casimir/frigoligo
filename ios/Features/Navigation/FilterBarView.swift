@@ -4,6 +4,8 @@ struct FilterBarView: View {
   @EnvironmentObject var viewModel: NavigationSplitViewModel
   @State private var showTagsPicker = false
   @State private var showDomainsPicker = false
+  @State private var availableTags: [String] = []
+  @State private var availableDomains: [String] = []
 
   private var isStarred: Bool { viewModel.filterState.onlyStarred }
   private var activeTags: [String] { viewModel.filterState.tags }
@@ -52,9 +54,12 @@ struct FilterBarView: View {
         .sheet(isPresented: $showTagsPicker) {
           MultiSelectPickerView(
             title: String(localized: "filters_articleTags"),
-            items: viewModel.filterState.availableTags,
+            items: availableTags,
             selection: activeTags
           ) { selected in viewModel.setTags(selected) }
+        }
+        .task(id: showTagsPicker) {
+          if showTagsPicker { availableTags = await viewModel.fetchAvailableTags() }
         }
         FilterChip(
           label: activeDomains.isEmpty
@@ -69,9 +74,12 @@ struct FilterBarView: View {
         .sheet(isPresented: $showDomainsPicker) {
           MultiSelectPickerView(
             title: String(localized: "filters_articleDomains"),
-            items: viewModel.filterState.availableDomains,
+            items: availableDomains,
             selection: activeDomains
           ) { selected in viewModel.setDomains(selected) }
+        }
+        .task(id: showDomainsPicker) {
+          if showDomainsPicker { availableDomains = await viewModel.fetchAvailableDomains() }
         }
       }
       .padding(.leading, 16)

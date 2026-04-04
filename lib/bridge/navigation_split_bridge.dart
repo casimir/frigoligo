@@ -72,8 +72,6 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
 
   Future<void> _pushFilterState() async {
     final q = _queryRepository.query;
-    final availableTags = await _queryRepository.listAvailableTags();
-    final availableDomains = await _queryRepository.listAvailableDomains();
     await _api.updateFilterState(
       NavigationFilterState(
         text: q.text,
@@ -90,11 +88,17 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
         onlyStarred: q.onlyStarred,
         tags: q.tags,
         domains: q.domains,
-        availableTags: availableTags,
-        availableDomains: availableDomains,
       ),
     );
   }
+
+  @override
+  Future<List<String>> getAvailableTags() =>
+      _queryRepository.listAvailableTags();
+
+  @override
+  Future<List<String>> getAvailableDomains() =>
+      _queryRepository.listAvailableDomains();
 
   static ArticleRowData _rowDataFrom(dynamic a) {
     return ArticleRowData(
