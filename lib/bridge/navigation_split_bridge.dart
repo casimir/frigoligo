@@ -169,14 +169,12 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
   }
 
   @override
-  void setArticleArchived(int id, bool archived) {
-    unawaited(_editArticle(id, archived: archived));
-  }
+  Future<void> setArticleArchived(int id, bool archived) =>
+      _editArticle(id, archived: archived);
 
   @override
-  void setArticleStarred(int id, bool starred) {
-    unawaited(_editArticle(id, starred: starred));
-  }
+  Future<void> setArticleStarred(int id, bool starred) =>
+      _editArticle(id, starred: starred);
 
   @override
   void filterByTag(String tag) {
@@ -184,13 +182,11 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
   }
 
   @override
-  void onArticleSelected(int id) {
-    _contentSubscription?.cancel();
-    _dataSubscription?.cancel();
-    unawaited(
-      _api.updateArticleContent(
-        ArticleContent(id: id, html: null, readingProgress: 0.0),
-      ),
+  Future<void> onArticleSelected(int id) async {
+    await _contentSubscription?.cancel();
+    await _dataSubscription?.cancel();
+    await _api.updateArticleContent(
+      ArticleContent(id: id, html: null, readingProgress: 0.0),
     );
     unawaited(_startContentStream(id));
     _dataSubscription = _articleRepository
@@ -214,19 +210,15 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
   }
 
   @override
-  void onReadingProgressChanged(int articleId, double progress) {
-    unawaited(_articleRepository.setReadingProgress(articleId, progress));
-  }
+  Future<void> onReadingProgressChanged(int articleId, double progress) =>
+      _articleRepository.setReadingProgress(articleId, progress);
 
   @override
-  void deleteArticle(int id) {
-    unawaited(_doDeleteArticle(id));
-  }
+  Future<void> deleteArticle(int id) => _doDeleteArticle(id);
 
   @override
-  void openArticleSheet(int id) {
-    unawaited(dependencies.get<ArticleSheetBridge>().open(id));
-  }
+  Future<void> openArticleSheet(int id) =>
+      dependencies.get<ArticleSheetBridge>().open(id);
 
   @override
   Future<void> openSettings() async =>
@@ -247,7 +239,7 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
   }
 
   @override
-  void setReadingSettings(ArticleReadingSettings settings) {
+  Future<void> setReadingSettings(ArticleReadingSettings settings) async {
     final existing = _configStoreService.get<String>('readingSettings');
     final map = existing != null
         ? Map<String, dynamic>.from(jsonDecode(existing) as Map)
@@ -255,7 +247,7 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
     map['fontSize'] = settings.fontSize;
     map['fontFamily'] = settings.fontFamily;
     map['justifyText'] = settings.justifyText;
-    unawaited(_configStoreService.set('readingSettings', jsonEncode(map)));
+    await _configStoreService.set('readingSettings', jsonEncode(map));
   }
 
   void dispose() {

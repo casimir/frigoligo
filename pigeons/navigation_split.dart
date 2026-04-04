@@ -83,13 +83,20 @@ abstract class NavigationSplitFlutterApi {
   void setDomains(List<String> domains);
   @async
   void refresh();
+  @async
   void setArticleArchived(int id, bool archived);
+  @async
   void setArticleStarred(int id, bool starred);
   void filterByTag(String tag);
+  @async
   void onArticleSelected(int id);
+  @async
   void onReadingProgressChanged(int articleId, double progress);
+  @async
   void deleteArticle(int id);
+  @async
   void openArticleSheet(int id);
+  @async
   void setReadingSettings(ArticleReadingSettings settings);
   @async
   void openSettings();

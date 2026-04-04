@@ -609,21 +609,21 @@ abstract class NavigationSplitFlutterApi {
 
   Future<void> refresh();
 
-  void setArticleArchived(int id, bool archived);
+  Future<void> setArticleArchived(int id, bool archived);
 
-  void setArticleStarred(int id, bool starred);
+  Future<void> setArticleStarred(int id, bool starred);
 
   void filterByTag(String tag);
 
-  void onArticleSelected(int id);
+  Future<void> onArticleSelected(int id);
 
-  void onReadingProgressChanged(int articleId, double progress);
+  Future<void> onReadingProgressChanged(int articleId, double progress);
 
-  void deleteArticle(int id);
+  Future<void> deleteArticle(int id);
 
-  void openArticleSheet(int id);
+  Future<void> openArticleSheet(int id);
 
-  void setReadingSettings(ArticleReadingSettings settings);
+  Future<void> setReadingSettings(ArticleReadingSettings settings);
 
   Future<void> openSettings();
 
@@ -932,7 +932,7 @@ abstract class NavigationSplitFlutterApi {
             'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.setArticleArchived was null, expected non-null bool.',
           );
           try {
-            api.setArticleArchived(arg_id!, arg_archived!);
+            await api.setArticleArchived(arg_id!, arg_archived!);
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
@@ -971,7 +971,7 @@ abstract class NavigationSplitFlutterApi {
             'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.setArticleStarred was null, expected non-null bool.',
           );
           try {
-            api.setArticleStarred(arg_id!, arg_starred!);
+            await api.setArticleStarred(arg_id!, arg_starred!);
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
@@ -1039,7 +1039,7 @@ abstract class NavigationSplitFlutterApi {
             'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.onArticleSelected was null, expected non-null int.',
           );
           try {
-            api.onArticleSelected(arg_id!);
+            await api.onArticleSelected(arg_id!);
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
@@ -1078,7 +1078,7 @@ abstract class NavigationSplitFlutterApi {
             'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.onReadingProgressChanged was null, expected non-null double.',
           );
           try {
-            api.onReadingProgressChanged(arg_articleId!, arg_progress!);
+            await api.onReadingProgressChanged(arg_articleId!, arg_progress!);
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
@@ -1112,7 +1112,7 @@ abstract class NavigationSplitFlutterApi {
             'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.deleteArticle was null, expected non-null int.',
           );
           try {
-            api.deleteArticle(arg_id!);
+            await api.deleteArticle(arg_id!);
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
@@ -1146,7 +1146,7 @@ abstract class NavigationSplitFlutterApi {
             'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.openArticleSheet was null, expected non-null int.',
           );
           try {
-            api.openArticleSheet(arg_id!);
+            await api.openArticleSheet(arg_id!);
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
@@ -1181,7 +1181,7 @@ abstract class NavigationSplitFlutterApi {
             'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.setReadingSettings was null, expected non-null ArticleReadingSettings.',
           );
           try {
-            api.setReadingSettings(arg_settings!);
+            await api.setReadingSettings(arg_settings!);
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
