@@ -50,9 +50,7 @@ struct ArticleWebView: UIViewRepresentable {
     let webView = WKWebView(frame: .zero, configuration: config)
     webView.navigationDelegate = context.coordinator
     webView.backgroundColor = .systemBackground
-    #if DEBUG
-      if #available(iOS 16.4, *) { webView.isInspectable = true }
-    #endif
+    if #available(iOS 16.4, *) { webView.isInspectable = true }
     context.coordinator.webView = webView
     loadArticle(into: webView)
     return webView
@@ -96,6 +94,7 @@ struct ArticleWebView: UIViewRepresentable {
     return """
       <html>
       <head>
+      <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="styles/fonts.css" />
       <style>
