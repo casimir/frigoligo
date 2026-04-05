@@ -11,24 +11,6 @@ import Foundation
   #error("Unsupported platform.")
 #endif
 
-/// Error class for passing custom error details to Dart side.
-final class PigeonError: Error {
-  let code: String
-  let message: String?
-  let details: Sendable?
-
-  init(code: String, message: String?, details: Sendable?) {
-    self.code = code
-    self.message = message
-    self.details = details
-  }
-
-  var localizedDescription: String {
-    return
-      "PigeonError(code: \(code), message: \(message ?? "<nil>"), details: \(details ?? "<nil>")"
-  }
-}
-
 private func wrapResult(_ result: Any?) -> [Any?] {
   return [result]
 }
@@ -290,12 +272,12 @@ class ArticleSheetApiSetup {
 ///
 /// Generated protocol from Pigeon that represents Flutter messages that can be called from Swift.
 protocol ArticleSheetFlutterApiProtocol {
+  func getAllTags(completion: @escaping (Result<[String], PigeonError>) -> Void)
+  func setTags(tags tagsArg: [String], completion: @escaping (Result<Void, PigeonError>) -> Void)
+  func refetchContent(completion: @escaping (Result<Void, PigeonError>) -> Void)
   /// Called after the sheet is dismissed (user swipe or native close button).
   /// The bridge uses this to cancel subscriptions and reset state.
   func onClose(completion: @escaping (Result<Void, PigeonError>) -> Void)
-  func getAllTags(completion: @escaping (Result<[String], PigeonError>) -> Void)
-  func refetchContent(completion: @escaping (Result<Void, PigeonError>) -> Void)
-  func setTags(tags tagsArg: [String], completion: @escaping (Result<Void, PigeonError>) -> Void)
 }
 class ArticleSheetFlutterApi: ArticleSheetFlutterApiProtocol {
   private let binaryMessenger: FlutterBinaryMessenger
@@ -306,28 +288,6 @@ class ArticleSheetFlutterApi: ArticleSheetFlutterApiProtocol {
   }
   var codec: ArticleSheetPigeonCodec {
     return ArticleSheetPigeonCodec.shared
-  }
-  /// Called after the sheet is dismissed (user swipe or native close button).
-  /// The bridge uses this to cancel subscriptions and reset state.
-  func onClose(completion: @escaping (Result<Void, PigeonError>) -> Void) {
-    let channelName: String =
-      "dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.onClose\(messageChannelSuffix)"
-    let channel = FlutterBasicMessageChannel(
-      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
-    channel.sendMessage(nil) { response in
-      guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName: channelName)))
-        return
-      }
-      if listResponse.count > 1 {
-        let code: String = listResponse[0] as! String
-        let message: String? = nilOrValue(listResponse[1])
-        let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(PigeonError(code: code, message: message, details: details)))
-      } else {
-        completion(.success(()))
-      }
-    }
   }
   func getAllTags(completion: @escaping (Result<[String], PigeonError>) -> Void) {
     let channelName: String =
@@ -356,6 +316,26 @@ class ArticleSheetFlutterApi: ArticleSheetFlutterApiProtocol {
       }
     }
   }
+  func setTags(tags tagsArg: [String], completion: @escaping (Result<Void, PigeonError>) -> Void) {
+    let channelName: String =
+      "dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.setTags\(messageChannelSuffix)"
+    let channel = FlutterBasicMessageChannel(
+      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage([tagsArg] as [Any?]) { response in
+      guard let listResponse = response as? [Any?] else {
+        completion(.failure(createConnectionError(withChannelName: channelName)))
+        return
+      }
+      if listResponse.count > 1 {
+        let code: String = listResponse[0] as! String
+        let message: String? = nilOrValue(listResponse[1])
+        let details: String? = nilOrValue(listResponse[2])
+        completion(.failure(PigeonError(code: code, message: message, details: details)))
+      } else {
+        completion(.success(()))
+      }
+    }
+  }
   func refetchContent(completion: @escaping (Result<Void, PigeonError>) -> Void) {
     let channelName: String =
       "dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.refetchContent\(messageChannelSuffix)"
@@ -376,12 +356,14 @@ class ArticleSheetFlutterApi: ArticleSheetFlutterApiProtocol {
       }
     }
   }
-  func setTags(tags tagsArg: [String], completion: @escaping (Result<Void, PigeonError>) -> Void) {
+  /// Called after the sheet is dismissed (user swipe or native close button).
+  /// The bridge uses this to cancel subscriptions and reset state.
+  func onClose(completion: @escaping (Result<Void, PigeonError>) -> Void) {
     let channelName: String =
-      "dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.setTags\(messageChannelSuffix)"
+      "dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.onClose\(messageChannelSuffix)"
     let channel = FlutterBasicMessageChannel(
       name: channelName, binaryMessenger: binaryMessenger, codec: codec)
-    channel.sendMessage([tagsArg] as [Any?]) { response in
+    channel.sendMessage(nil) { response in
       guard let listResponse = response as? [Any?] else {
         completion(.failure(createConnectionError(withChannelName: channelName)))
         return

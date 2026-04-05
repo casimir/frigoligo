@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:l10n_esperanto/l10n_esperanto.dart';
 import 'package:language_info_plus/language_info_plus.dart';
 import 'package:logging/logging.dart';
@@ -12,6 +13,9 @@ import 'package:universal_platform/universal_platform.dart';
 import 'app_info.dart';
 import 'app_setups.dart';
 import 'applinks/handler.dart';
+import 'bridge/article_sheet_bridge.dart';
+import 'bridge/auth_gate_bridge.dart';
+import 'bridge/navigation_split_bridge.dart';
 import 'config/dependencies.dart';
 import 'config/logging.dart';
 import 'constants.dart';
@@ -28,10 +32,34 @@ import 'src/generated/i18n/app_localizations.dart';
 import 'ui/article/widgets/article_content.dart';
 
 Future<void> main() async {
+  await _commonSetup('main');
+  runApp(
+    const ProviderScope(
+      observers: [if (enableDebugLogs) RiverpodObserver()],
+      child: MyApp(),
+    ),
+  );
+}
+
+@pragma('vm:entry-point')
+Future<void> mainHeadless() async {
+  await _commonSetup('mainHeadless');
+  dependencies.get<AuthGateBridge>();
+  dependencies.get<ArticleSheetBridge>();
+  dependencies.get<NavigationSplitBridge>();
+  runApp(
+    const ProviderScope(
+      observers: [if (enableDebugLogs) RiverpodObserver()],
+      child: MyApp(),
+    ),
+  );
+}
+
+Future<void> _commonSetup(String loggerName) async {
   setupDependencies();
   setupNativeBridges();
 
-  final log = Logger('main');
+  final log = Logger(loggerName);
   setupLogger(log);
   setupGoogleFonts();
 
@@ -68,13 +96,6 @@ Future<void> main() async {
   if (!UniversalPlatform.isWeb) {
     log.info('os version:  ${Platform.operatingSystemVersion}');
   }
-
-  runApp(
-    const ProviderScope(
-      observers: [if (enableDebugLogs) RiverpodObserver()],
-      child: MyApp(),
-    ),
-  );
 }
 
 class MyApp extends ConsumerStatefulWidget {
@@ -93,6 +114,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
 
     final router = ref.read(routerProvider);
+    dependencies.registerSingleton<GoRouter>(router);
 
     _deeplinksSubscription = LinksHandler.listen(router.configuration, (
       linkType,

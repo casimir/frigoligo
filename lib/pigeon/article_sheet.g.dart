@@ -233,15 +233,15 @@ class ArticleSheetApi {
 abstract class ArticleSheetFlutterApi {
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
 
-  /// Called after the sheet is dismissed (user swipe or native close button).
-  /// The bridge uses this to cancel subscriptions and reset state.
-  Future<void> onClose();
-
   Future<List<String>> getAllTags();
+
+  Future<void> setTags(List<String> tags);
 
   Future<void> refetchContent();
 
-  Future<void> setTags(List<String> tags);
+  /// Called after the sheet is dismissed (user swipe or native close button).
+  /// The bridge uses this to cancel subscriptions and reset state.
+  Future<void> onClose();
 
   static void setUp(
     ArticleSheetFlutterApi? api, {
@@ -251,30 +251,6 @@ abstract class ArticleSheetFlutterApi {
     messageChannelSuffix = messageChannelSuffix.isNotEmpty
         ? '.$messageChannelSuffix'
         : '';
-    {
-      final BasicMessageChannel<Object?>
-      pigeonVar_channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.onClose$messageChannelSuffix',
-        pigeonChannelCodec,
-        binaryMessenger: binaryMessenger,
-      );
-      if (api == null) {
-        pigeonVar_channel.setMessageHandler(null);
-      } else {
-        pigeonVar_channel.setMessageHandler((Object? message) async {
-          try {
-            await api.onClose();
-            return wrapResponse(empty: true);
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          } catch (e) {
-            return wrapResponse(
-              error: PlatformException(code: 'error', message: e.toString()),
-            );
-          }
-        });
-      }
-    }
     {
       final BasicMessageChannel<Object?>
       pigeonVar_channel = BasicMessageChannel<Object?>(
@@ -289,6 +265,41 @@ abstract class ArticleSheetFlutterApi {
           try {
             final List<String> output = await api.getAllTags();
             return wrapResponse(result: output);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
+          }
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.setTags$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
+      if (api == null) {
+        pigeonVar_channel.setMessageHandler(null);
+      } else {
+        pigeonVar_channel.setMessageHandler((Object? message) async {
+          assert(
+            message != null,
+            'Argument for dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.setTags was null.',
+          );
+          final List<Object?> args = (message as List<Object?>?)!;
+          final List<String>? arg_tags = (args[0] as List<Object?>?)
+              ?.cast<String>();
+          assert(
+            arg_tags != null,
+            'Argument for dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.setTags was null, expected non-null List<String>.',
+          );
+          try {
+            await api.setTags(arg_tags!);
+            return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
           } catch (e) {
@@ -326,7 +337,7 @@ abstract class ArticleSheetFlutterApi {
     {
       final BasicMessageChannel<Object?>
       pigeonVar_channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.setTags$messageChannelSuffix',
+        'dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.onClose$messageChannelSuffix',
         pigeonChannelCodec,
         binaryMessenger: binaryMessenger,
       );
@@ -334,19 +345,8 @@ abstract class ArticleSheetFlutterApi {
         pigeonVar_channel.setMessageHandler(null);
       } else {
         pigeonVar_channel.setMessageHandler((Object? message) async {
-          assert(
-            message != null,
-            'Argument for dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.setTags was null.',
-          );
-          final List<Object?> args = (message as List<Object?>?)!;
-          final List<String>? arg_tags = (args[0] as List<Object?>?)
-              ?.cast<String>();
-          assert(
-            arg_tags != null,
-            'Argument for dev.flutter.pigeon.frigoligo.ArticleSheetFlutterApi.setTags was null, expected non-null List<String>.',
-          );
           try {
-            await api.setTags(arg_tags!);
+            await api.onClose();
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);

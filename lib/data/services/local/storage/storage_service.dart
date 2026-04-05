@@ -131,7 +131,7 @@ class ArticlesManager {
     });
   }
 
-  String _buildTextQuery(String text, [TextMode textMode = TextMode.all]) {
+  String _buildTextQuery(String text, TextMode textMode) {
     final columnFilter = switch (textMode) {
       TextMode.all => '',
       TextMode.title => 'title : ',
@@ -192,7 +192,7 @@ class ArticlesManager {
     return text.isNotEmpty
         ? StorageQuery(
             _db.articleDrift.articleCountForText(
-              _buildTextQuery(text),
+              _buildTextQuery(text, textMode),
               predicate: predicate,
             ),
           )
@@ -216,7 +216,7 @@ class ArticlesManager {
     );
     final statement = text.isNotEmpty
         ? _db.articleDrift.articleIdsForText(
-            _buildTextQuery(text),
+            _buildTextQuery(text, textMode),
             predicate: (_, _) => whereStatement,
           )
         : (t.selectOnly()

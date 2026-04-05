@@ -4,12 +4,15 @@ FLUTTER ?= $(FVM) flutter
 
 ARB_INPUTS := $(wildcard lib/l10n/*.arb)
 PIGEON_INPUTS := $(wildcard pigeons/*.dart)
+PIGEON_SWIFT_OUTPUTS := $(shell awk -F"'" '/swiftOut:/{print $$2}' $(PIGEON_INPUTS))
+SWIFT_FORMAT ?= $(shell command -v swift-format > /dev/null 2>&1 && echo "swift-format format -i")
 
 all:
 
 .PHONY: pigeon $(PIGEON_INPUTS)
 pigeon: $(PIGEON_INPUTS)
 	$(DART) format pigeons lib/pigeon
+	$(SWIFT_FORMAT) $(PIGEON_SWIFT_OUTPUTS)
 
 $(PIGEON_INPUTS):
 	$(DART) run pigeon --input $@

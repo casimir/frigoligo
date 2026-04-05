@@ -35,6 +35,10 @@ class ArticleSheetViewModel: NSObject, ArticleSheetApi,
     ArticleSheetApiSetup.setUp(binaryMessenger: binaryMessenger, api: self)
   }
 
+  func update(data: ArticleSheetData) throws {
+    self.data = data
+  }
+
   func open() throws {
     guard presenter?.presentedViewController == nil else { return }
 
@@ -46,22 +50,8 @@ class ArticleSheetViewModel: NSObject, ArticleSheetApi,
     presenter?.present(hosting, animated: true)
   }
 
-  func presentationControllerDidDismiss(
-    _: UIPresentationController
-  ) {
-    notifyClose()
-  }
-
-  func update(data: ArticleSheetData) throws {
-    self.data = data
-  }
-
   func close() throws {
     presenter?.presentedViewController?.dismiss(animated: true)
-  }
-
-  func notifyClose() {
-    flutterApi.onClose { _ in }
   }
 
   func getAllTags() async throws -> [String] {
@@ -72,15 +62,15 @@ class ArticleSheetViewModel: NSObject, ArticleSheetApi,
     }
   }
 
+  func setTags(_ tags: [String]) {
+    flutterApi.setTags(tags: tags) { _ in }
+  }
+
   func refetchContent() {
     isRefetching = true
     flutterApi.refetchContent { [weak self] _ in
       DispatchQueue.main.async { self?.isRefetching = false }
     }
-  }
-
-  func setTags(_ tags: [String]) {
-    flutterApi.setTags(tags: tags) { _ in }
   }
 
   func openInBrowser() {
@@ -90,5 +80,15 @@ class ArticleSheetViewModel: NSObject, ArticleSheetApi,
     let safari = SFSafariViewController(url: url)
     let topPresenter = presenter?.presentedViewController ?? presenter
     topPresenter?.present(safari, animated: true)
+  }
+
+  func notifyClose() {
+    flutterApi.onClose { _ in }
+  }
+
+  func presentationControllerDidDismiss(
+    _: UIPresentationController
+  ) {
+    notifyClose()
   }
 }

@@ -1,19 +1,23 @@
-import UIKit
 import Flutter
+import UIKit
 
 @main
 @objc class AppDelegate: FlutterAppDelegate {
-  private var articleSheetViewModel: ArticleSheetViewModel?
+  var engine: FlutterEngine?
 
   override func application(
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
-      GeneratedPluginRegistrant.register(with: self)
-      AppBadgePlugin.register(with: registrar(forPlugin: "AppBadgePlugin")!)
-      let result = super.application(application, didFinishLaunchingWithOptions: launchOptions)
-      let flutterVC = window!.rootViewController as! FlutterViewController
-      articleSheetViewModel = ArticleSheetViewModel(binaryMessenger: flutterVC.binaryMessenger, presenter: flutterVC)
-      return result
+    UITableView.appearance().sectionHeaderTopPadding = 0
+    super.application(application, didFinishLaunchingWithOptions: launchOptions)
+
+    let engine = FlutterEngine(name: "main")
+    engine.run(withEntrypoint: "mainHeadless")
+    GeneratedPluginRegistrant.register(with: engine)
+    AppBadgePlugin.register(with: engine.registrar(forPlugin: "AppBadgePlugin")!)
+    self.engine = engine
+
+    return true
   }
 }
