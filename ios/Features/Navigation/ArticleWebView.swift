@@ -78,7 +78,7 @@ struct ArticleWebView: UIViewRepresentable {
     guard let baseURL else { return }
     let fileURL = baseURL.appendingPathComponent("article.html")
     try? wrapFragment(html).write(to: fileURL, atomically: true, encoding: .utf8)
-    webView.loadFileURL(fileURL, allowingReadAccessToURL: baseURL)
+    webView.loadFileURL(fileURL, allowingReadAccessTo: baseURL)
   }
 
   private func fontSizeCss(_ size: Double) -> String {
