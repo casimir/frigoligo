@@ -54,7 +54,7 @@ struct ArticleWebView: UIViewRepresentable {
       if #available(iOS 16.4, *) { webView.isInspectable = true }
     #endif
     context.coordinator.webView = webView
-    webView.loadHTMLString(wrapFragment(html), baseURL: baseURL)
+    loadArticle(into: webView)
     return webView
   }
 
@@ -70,8 +70,15 @@ struct ArticleWebView: UIViewRepresentable {
       context.coordinator.lastHtml = html
       context.coordinator.lastSettings = readingSettings
       context.coordinator.didRestoreScroll = false
-      webView.loadHTMLString(wrapFragment(html), baseURL: baseURL)
+      loadArticle(into: webView)
     }
+  }
+
+  private func loadArticle(into webView: WKWebView) {
+    guard let baseURL else { return }
+    let fileURL = baseURL.appendingPathComponent("article.html")
+    try? wrapFragment(html).write(to: fileURL, atomically: true, encoding: .utf8)
+    webView.loadFileURL(fileURL, allowingReadAccessToURL: baseURL)
   }
 
   private func fontSizeCss(_ size: Double) -> String {
