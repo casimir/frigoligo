@@ -36,7 +36,7 @@ class _PigeonCodec extends StandardMessageCodec {
   }
 }
 
-/// Dart → Swift. Controls the native auth gate lifecycle.
+/// Controls the native auth gate lifecycle.
 class AuthGateApi {
   /// Constructor for [AuthGateApi].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
@@ -54,7 +54,7 @@ class AuthGateApi {
 
   final String pigeonVar_messageChannelSuffix;
 
-  /// Called when no session exists; Swift must present the login FlutterVC.
+  /// Called when no session exists.
   Future<void> requireLogin() async {
     final String pigeonVar_channelName =
         'dev.flutter.pigeon.frigoligo.AuthGateApi.requireLogin$pigeonVar_messageChannelSuffix';
@@ -80,7 +80,7 @@ class AuthGateApi {
     }
   }
 
-  /// Called after successful login; Swift must dismiss the login FlutterVC.
+  /// Called after successful login.
   Future<void> loginDidComplete() async {
     final String pigeonVar_channelName =
         'dev.flutter.pigeon.frigoligo.AuthGateApi.loginDidComplete$pigeonVar_messageChannelSuffix';

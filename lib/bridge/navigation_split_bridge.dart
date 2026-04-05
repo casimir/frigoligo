@@ -102,14 +102,6 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
     );
   }
 
-  @override
-  Future<List<String>> getAvailableTags() =>
-      _queryRepository.listAvailableTags();
-
-  @override
-  Future<List<String>> getAvailableDomains() =>
-      _queryRepository.listAvailableDomains();
-
   static ArticleRowData _rowDataFrom(dynamic a) {
     return ArticleRowData(
       id: a.id,
@@ -132,6 +124,14 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
         .first;
     return _rowDataFrom(article!);
   }
+
+  @override
+  Future<List<String>> getAvailableTags() =>
+      _queryRepository.listAvailableTags();
+
+  @override
+  Future<List<String>> getAvailableDomains() =>
+      _queryRepository.listAvailableDomains();
 
   @override
   void setSearchText(String text) => _searchPanelController.setText(text);
@@ -164,9 +164,6 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
       _searchPanelController.setDomains(domains);
 
   @override
-  Future<void> refresh() => _listingController.refresh();
-
-  @override
   Future<void> setArticleArchived(int id, bool archived) =>
       _editArticle(id, archived: archived);
 
@@ -175,7 +172,47 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
       _editArticle(id, starred: starred);
 
   @override
+  Future<void> setReadingSettings(ArticleReadingSettings settings) async {
+    final existing = _configStoreService.get<String>('readingSettings');
+    final map = existing != null
+        ? Map<String, dynamic>.from(jsonDecode(existing) as Map)
+        : <String, dynamic>{};
+    map['fontSize'] = settings.fontSize;
+    map['fontFamily'] = settings.fontFamily;
+    map['justifyText'] = settings.justifyText;
+    await _configStoreService.set('readingSettings', jsonEncode(map));
+  }
+
+  @override
+  Future<void> refresh() => _listingController.refresh();
+
+  @override
   void filterByTag(String tag) => _searchPanelController.setTags([tag]);
+
+  @override
+  Future<void> deleteArticle(int id) async {
+    await SyncManager.instance.addAction(DeleteArticleAction(id));
+    unawaited(SyncManager.instance.synchronize(withFinalRefresh: true));
+  }
+
+  @override
+  Future<void> openArticleSheet(int id) =>
+      dependencies.get<ArticleSheetBridge>().open(id);
+
+  @override
+  Future<void> openSettings() async =>
+      dependencies.get<GoRouter>().go('/settings');
+
+  @override
+  Future<void> saveLink(String url) async {
+    final uri = Uri.tryParse(url);
+    if (uri == null || uri.host.isEmpty) {
+      throw ArgumentError('Invalid URL: $url');
+    }
+    final action = SaveArticleAction(uri);
+    await SyncManager.instance.addAction(action);
+    unawaited(SyncManager.instance.synchronize(withFinalRefresh: true));
+  }
 
   @override
   Future<void> onArticleSelected(int id) async {
@@ -194,6 +231,23 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
         });
   }
 
+  @override
+  Future<void> onReadingProgressChanged(int articleId, double progress) =>
+      _articleRepository.setReadingProgress(articleId, progress);
+
+  @override
+  Future<void> secondaryScreenDidClose() async =>
+      dependencies.get<GoRouter>().go('/');
+
+  void dispose() {
+    _idsSubscription?.cancel();
+    _querySubscription?.cancel();
+    _contentSubscription?.cancel();
+    _dataSubscription?.cancel();
+    _settingsSubscription?.cancel();
+    SyncManager.instance.removeListener(_onSyncState);
+  }
+
   Future<void> _startContentStream(int id) async {
     final progress = await _articleRepository.watchReadingProgress(id).first;
     _contentSubscription = _articleRepository.watchContent(id).listen((html) {
@@ -205,66 +259,10 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
     });
   }
 
-  @override
-  Future<void> onReadingProgressChanged(int articleId, double progress) =>
-      _articleRepository.setReadingProgress(articleId, progress);
-
-  @override
-  Future<void> deleteArticle(int id) => _doDeleteArticle(id);
-
-  @override
-  Future<void> openArticleSheet(int id) =>
-      dependencies.get<ArticleSheetBridge>().open(id);
-
-  @override
-  Future<void> openSettings() async =>
-      dependencies.get<GoRouter>().go('/settings');
-
-  @override
-  Future<void> secondaryScreenDidClose() async =>
-      dependencies.get<GoRouter>().go('/');
-
-  @override
-  Future<void> saveLink(String url) async {
-    final uri = Uri.tryParse(url);
-    if (uri == null || uri.host.isEmpty) {
-      throw ArgumentError('Invalid URL: $url');
-    }
-    final action = SaveArticleAction(uri);
-    await SyncManager.instance.addAction(action);
-    unawaited(SyncManager.instance.synchronize(withFinalRefresh: true));
-  }
-
-  @override
-  Future<void> setReadingSettings(ArticleReadingSettings settings) async {
-    final existing = _configStoreService.get<String>('readingSettings');
-    final map = existing != null
-        ? Map<String, dynamic>.from(jsonDecode(existing) as Map)
-        : <String, dynamic>{};
-    map['fontSize'] = settings.fontSize;
-    map['fontFamily'] = settings.fontFamily;
-    map['justifyText'] = settings.justifyText;
-    await _configStoreService.set('readingSettings', jsonEncode(map));
-  }
-
-  void dispose() {
-    _idsSubscription?.cancel();
-    _querySubscription?.cancel();
-    _contentSubscription?.cancel();
-    _dataSubscription?.cancel();
-    _settingsSubscription?.cancel();
-    SyncManager.instance.removeListener(_onSyncState);
-  }
-
   Future<void> _editArticle(int id, {bool? archived, bool? starred}) async {
     await SyncManager.instance.addAction(
       EditArticleAction(id, archived: archived, starred: starred),
     );
-    unawaited(SyncManager.instance.synchronize(withFinalRefresh: true));
-  }
-
-  Future<void> _doDeleteArticle(int id) async {
-    await SyncManager.instance.addAction(DeleteArticleAction(id));
     unawaited(SyncManager.instance.synchronize(withFinalRefresh: true));
   }
 }

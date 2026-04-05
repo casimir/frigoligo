@@ -174,8 +174,6 @@ private struct MultiSelectPickerView: View {
         if items.isEmpty {
           if #available(iOS 17.0, *) {
             ContentUnavailableView(title, systemImage: "tray")
-          } else {
-            // Fallback on earlier versions
           }
         }
       }

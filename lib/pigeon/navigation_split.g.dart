@@ -391,7 +391,7 @@ class _PigeonCodec extends StandardMessageCodec {
   }
 }
 
-/// Dart → Swift. Pushes updated list/sync/filter state into the native sidebar.
+/// Pushes updated list/sync/filter state into the native sidebar.
 class NavigationSplitApi {
   /// Constructor for [NavigationSplitApi].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
@@ -572,11 +572,15 @@ class NavigationSplitApi {
   }
 }
 
-/// Swift → Dart. Callbacks from the native sidebar to the Dart bridge.
+/// Callbacks from the native sidebar to the Dart bridge.
 abstract class NavigationSplitFlutterApi {
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
 
   Future<ArticleRowData> getArticleRowData(int id);
+
+  Future<List<String>> getAvailableTags();
+
+  Future<List<String>> getAvailableDomains();
 
   void setSearchText(String text);
 
@@ -590,33 +594,29 @@ abstract class NavigationSplitFlutterApi {
 
   void setDomains(List<String> domains);
 
-  Future<List<String>> getAvailableTags();
-
-  Future<List<String>> getAvailableDomains();
-
-  Future<void> refresh();
-
   Future<void> setArticleArchived(int id, bool archived);
 
   Future<void> setArticleStarred(int id, bool starred);
 
+  Future<void> setReadingSettings(ArticleReadingSettings settings);
+
+  Future<void> refresh();
+
   void filterByTag(String tag);
-
-  Future<void> onArticleSelected(int id);
-
-  Future<void> onReadingProgressChanged(int articleId, double progress);
 
   Future<void> deleteArticle(int id);
 
   Future<void> openArticleSheet(int id);
 
-  Future<void> setReadingSettings(ArticleReadingSettings settings);
-
   Future<void> openSettings();
 
-  Future<void> secondaryScreenDidClose();
-
   Future<void> saveLink(String url);
+
+  Future<void> onArticleSelected(int id);
+
+  Future<void> onReadingProgressChanged(int articleId, double progress);
+
+  Future<void> secondaryScreenDidClose();
 
   static void setUp(
     NavigationSplitFlutterApi? api, {
@@ -649,6 +649,54 @@ abstract class NavigationSplitFlutterApi {
           );
           try {
             final ArticleRowData output = await api.getArticleRowData(arg_id!);
+            return wrapResponse(result: output);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
+          }
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.getAvailableTags$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
+      if (api == null) {
+        pigeonVar_channel.setMessageHandler(null);
+      } else {
+        pigeonVar_channel.setMessageHandler((Object? message) async {
+          try {
+            final List<String> output = await api.getAvailableTags();
+            return wrapResponse(result: output);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
+          }
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.getAvailableDomains$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
+      if (api == null) {
+        pigeonVar_channel.setMessageHandler(null);
+      } else {
+        pigeonVar_channel.setMessageHandler((Object? message) async {
+          try {
+            final List<String> output = await api.getAvailableDomains();
             return wrapResponse(result: output);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
@@ -871,78 +919,6 @@ abstract class NavigationSplitFlutterApi {
     {
       final BasicMessageChannel<Object?>
       pigeonVar_channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.getAvailableTags$messageChannelSuffix',
-        pigeonChannelCodec,
-        binaryMessenger: binaryMessenger,
-      );
-      if (api == null) {
-        pigeonVar_channel.setMessageHandler(null);
-      } else {
-        pigeonVar_channel.setMessageHandler((Object? message) async {
-          try {
-            final List<String> output = await api.getAvailableTags();
-            return wrapResponse(result: output);
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          } catch (e) {
-            return wrapResponse(
-              error: PlatformException(code: 'error', message: e.toString()),
-            );
-          }
-        });
-      }
-    }
-    {
-      final BasicMessageChannel<Object?>
-      pigeonVar_channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.getAvailableDomains$messageChannelSuffix',
-        pigeonChannelCodec,
-        binaryMessenger: binaryMessenger,
-      );
-      if (api == null) {
-        pigeonVar_channel.setMessageHandler(null);
-      } else {
-        pigeonVar_channel.setMessageHandler((Object? message) async {
-          try {
-            final List<String> output = await api.getAvailableDomains();
-            return wrapResponse(result: output);
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          } catch (e) {
-            return wrapResponse(
-              error: PlatformException(code: 'error', message: e.toString()),
-            );
-          }
-        });
-      }
-    }
-    {
-      final BasicMessageChannel<Object?>
-      pigeonVar_channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.refresh$messageChannelSuffix',
-        pigeonChannelCodec,
-        binaryMessenger: binaryMessenger,
-      );
-      if (api == null) {
-        pigeonVar_channel.setMessageHandler(null);
-      } else {
-        pigeonVar_channel.setMessageHandler((Object? message) async {
-          try {
-            await api.refresh();
-            return wrapResponse(empty: true);
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          } catch (e) {
-            return wrapResponse(
-              error: PlatformException(code: 'error', message: e.toString()),
-            );
-          }
-        });
-      }
-    }
-    {
-      final BasicMessageChannel<Object?>
-      pigeonVar_channel = BasicMessageChannel<Object?>(
         'dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.setArticleArchived$messageChannelSuffix',
         pigeonChannelCodec,
         binaryMessenger: binaryMessenger,
@@ -1021,6 +997,65 @@ abstract class NavigationSplitFlutterApi {
     {
       final BasicMessageChannel<Object?>
       pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.setReadingSettings$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
+      if (api == null) {
+        pigeonVar_channel.setMessageHandler(null);
+      } else {
+        pigeonVar_channel.setMessageHandler((Object? message) async {
+          assert(
+            message != null,
+            'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.setReadingSettings was null.',
+          );
+          final List<Object?> args = (message as List<Object?>?)!;
+          final ArticleReadingSettings? arg_settings =
+              (args[0] as ArticleReadingSettings?);
+          assert(
+            arg_settings != null,
+            'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.setReadingSettings was null, expected non-null ArticleReadingSettings.',
+          );
+          try {
+            await api.setReadingSettings(arg_settings!);
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
+          }
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.refresh$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
+      if (api == null) {
+        pigeonVar_channel.setMessageHandler(null);
+      } else {
+        pigeonVar_channel.setMessageHandler((Object? message) async {
+          try {
+            await api.refresh();
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
+          }
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
         'dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.filterByTag$messageChannelSuffix',
         pigeonChannelCodec,
         binaryMessenger: binaryMessenger,
@@ -1041,6 +1076,132 @@ abstract class NavigationSplitFlutterApi {
           );
           try {
             api.filterByTag(arg_tag!);
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
+          }
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.deleteArticle$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
+      if (api == null) {
+        pigeonVar_channel.setMessageHandler(null);
+      } else {
+        pigeonVar_channel.setMessageHandler((Object? message) async {
+          assert(
+            message != null,
+            'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.deleteArticle was null.',
+          );
+          final List<Object?> args = (message as List<Object?>?)!;
+          final int? arg_id = (args[0] as int?);
+          assert(
+            arg_id != null,
+            'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.deleteArticle was null, expected non-null int.',
+          );
+          try {
+            await api.deleteArticle(arg_id!);
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
+          }
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.openArticleSheet$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
+      if (api == null) {
+        pigeonVar_channel.setMessageHandler(null);
+      } else {
+        pigeonVar_channel.setMessageHandler((Object? message) async {
+          assert(
+            message != null,
+            'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.openArticleSheet was null.',
+          );
+          final List<Object?> args = (message as List<Object?>?)!;
+          final int? arg_id = (args[0] as int?);
+          assert(
+            arg_id != null,
+            'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.openArticleSheet was null, expected non-null int.',
+          );
+          try {
+            await api.openArticleSheet(arg_id!);
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
+          }
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.openSettings$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
+      if (api == null) {
+        pigeonVar_channel.setMessageHandler(null);
+      } else {
+        pigeonVar_channel.setMessageHandler((Object? message) async {
+          try {
+            await api.openSettings();
+            return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
+          }
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.saveLink$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
+      if (api == null) {
+        pigeonVar_channel.setMessageHandler(null);
+      } else {
+        pigeonVar_channel.setMessageHandler((Object? message) async {
+          assert(
+            message != null,
+            'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.saveLink was null.',
+          );
+          final List<Object?> args = (message as List<Object?>?)!;
+          final String? arg_url = (args[0] as String?);
+          assert(
+            arg_url != null,
+            'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.saveLink was null, expected non-null String.',
+          );
+          try {
+            await api.saveLink(arg_url!);
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
@@ -1128,133 +1289,6 @@ abstract class NavigationSplitFlutterApi {
     {
       final BasicMessageChannel<Object?>
       pigeonVar_channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.deleteArticle$messageChannelSuffix',
-        pigeonChannelCodec,
-        binaryMessenger: binaryMessenger,
-      );
-      if (api == null) {
-        pigeonVar_channel.setMessageHandler(null);
-      } else {
-        pigeonVar_channel.setMessageHandler((Object? message) async {
-          assert(
-            message != null,
-            'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.deleteArticle was null.',
-          );
-          final List<Object?> args = (message as List<Object?>?)!;
-          final int? arg_id = (args[0] as int?);
-          assert(
-            arg_id != null,
-            'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.deleteArticle was null, expected non-null int.',
-          );
-          try {
-            await api.deleteArticle(arg_id!);
-            return wrapResponse(empty: true);
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          } catch (e) {
-            return wrapResponse(
-              error: PlatformException(code: 'error', message: e.toString()),
-            );
-          }
-        });
-      }
-    }
-    {
-      final BasicMessageChannel<Object?>
-      pigeonVar_channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.openArticleSheet$messageChannelSuffix',
-        pigeonChannelCodec,
-        binaryMessenger: binaryMessenger,
-      );
-      if (api == null) {
-        pigeonVar_channel.setMessageHandler(null);
-      } else {
-        pigeonVar_channel.setMessageHandler((Object? message) async {
-          assert(
-            message != null,
-            'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.openArticleSheet was null.',
-          );
-          final List<Object?> args = (message as List<Object?>?)!;
-          final int? arg_id = (args[0] as int?);
-          assert(
-            arg_id != null,
-            'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.openArticleSheet was null, expected non-null int.',
-          );
-          try {
-            await api.openArticleSheet(arg_id!);
-            return wrapResponse(empty: true);
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          } catch (e) {
-            return wrapResponse(
-              error: PlatformException(code: 'error', message: e.toString()),
-            );
-          }
-        });
-      }
-    }
-    {
-      final BasicMessageChannel<Object?>
-      pigeonVar_channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.setReadingSettings$messageChannelSuffix',
-        pigeonChannelCodec,
-        binaryMessenger: binaryMessenger,
-      );
-      if (api == null) {
-        pigeonVar_channel.setMessageHandler(null);
-      } else {
-        pigeonVar_channel.setMessageHandler((Object? message) async {
-          assert(
-            message != null,
-            'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.setReadingSettings was null.',
-          );
-          final List<Object?> args = (message as List<Object?>?)!;
-          final ArticleReadingSettings? arg_settings =
-              (args[0] as ArticleReadingSettings?);
-          assert(
-            arg_settings != null,
-            'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.setReadingSettings was null, expected non-null ArticleReadingSettings.',
-          );
-          try {
-            await api.setReadingSettings(arg_settings!);
-            return wrapResponse(empty: true);
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          } catch (e) {
-            return wrapResponse(
-              error: PlatformException(code: 'error', message: e.toString()),
-            );
-          }
-        });
-      }
-    }
-    {
-      final BasicMessageChannel<Object?>
-      pigeonVar_channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.openSettings$messageChannelSuffix',
-        pigeonChannelCodec,
-        binaryMessenger: binaryMessenger,
-      );
-      if (api == null) {
-        pigeonVar_channel.setMessageHandler(null);
-      } else {
-        pigeonVar_channel.setMessageHandler((Object? message) async {
-          try {
-            await api.openSettings();
-            return wrapResponse(empty: true);
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          } catch (e) {
-            return wrapResponse(
-              error: PlatformException(code: 'error', message: e.toString()),
-            );
-          }
-        });
-      }
-    }
-    {
-      final BasicMessageChannel<Object?>
-      pigeonVar_channel = BasicMessageChannel<Object?>(
         'dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.secondaryScreenDidClose$messageChannelSuffix',
         pigeonChannelCodec,
         binaryMessenger: binaryMessenger,
@@ -1265,40 +1299,6 @@ abstract class NavigationSplitFlutterApi {
         pigeonVar_channel.setMessageHandler((Object? message) async {
           try {
             await api.secondaryScreenDidClose();
-            return wrapResponse(empty: true);
-          } on PlatformException catch (e) {
-            return wrapResponse(error: e);
-          } catch (e) {
-            return wrapResponse(
-              error: PlatformException(code: 'error', message: e.toString()),
-            );
-          }
-        });
-      }
-    }
-    {
-      final BasicMessageChannel<Object?>
-      pigeonVar_channel = BasicMessageChannel<Object?>(
-        'dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.saveLink$messageChannelSuffix',
-        pigeonChannelCodec,
-        binaryMessenger: binaryMessenger,
-      );
-      if (api == null) {
-        pigeonVar_channel.setMessageHandler(null);
-      } else {
-        pigeonVar_channel.setMessageHandler((Object? message) async {
-          assert(
-            message != null,
-            'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.saveLink was null.',
-          );
-          final List<Object?> args = (message as List<Object?>?)!;
-          final String? arg_url = (args[0] as String?);
-          assert(
-            arg_url != null,
-            'Argument for dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.saveLink was null, expected non-null String.',
-          );
-          try {
-            await api.saveLink(arg_url!);
             return wrapResponse(empty: true);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);

@@ -34,17 +34,17 @@ abstract class ArticleSheetApi {
 /// Swift → Dart. Callbacks from the native sheet to the Dart bridge.
 @FlutterApi()
 abstract class ArticleSheetFlutterApi {
-  /// Called after the sheet is dismissed (user swipe or native close button).
-  /// The bridge uses this to cancel subscriptions and reset state.
-  @async
-  void onClose();
-
   @async
   List<String> getAllTags();
 
   @async
-  void refetchContent();
+  void setTags(List<String> tags);
 
   @async
-  void setTags(List<String> tags);
+  void refetchContent();
+
+  /// Called after the sheet is dismissed (user swipe or native close button).
+  /// The bridge uses this to cancel subscriptions and reset state.
+  @async
+  void onClose();
 }

@@ -56,18 +56,18 @@ class ArticleSheetBridge implements ArticleSheetFlutterApi {
   }
 
   @override
-  Future<void> onClose() async {
-    await _sub?.cancel();
-    _sub = null;
-    _controller = null;
-  }
+  Future<List<String>> getAllTags() => _controller!.allTags();
 
   @override
-  Future<List<String>> getAllTags() => _controller!.allTags();
+  Future<void> setTags(List<String> tags) => _controller!.setTags(tags);
 
   @override
   Future<void> refetchContent() => _controller!.refetchContent();
 
   @override
-  Future<void> setTags(List<String> tags) => _controller!.setTags(tags);
+  Future<void> onClose() async {
+    await _sub?.cancel();
+    _sub = null;
+    _controller = null;
+  }
 }

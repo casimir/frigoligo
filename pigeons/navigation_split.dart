@@ -57,7 +57,7 @@ class ArticleContent {
   double readingProgress;
 }
 
-/// Dart → Swift. Pushes updated list/sync/filter state into the native sidebar.
+/// Pushes updated list/sync/filter state into the native sidebar.
 @HostApi()
 abstract class NavigationSplitApi {
   void updateArticleIds(List<int> ids);
@@ -68,11 +68,16 @@ abstract class NavigationSplitApi {
   void updateReadingSettings(ArticleReadingSettings settings);
 }
 
-/// Swift → Dart. Callbacks from the native sidebar to the Dart bridge.
+/// Callbacks from the native sidebar to the Dart bridge.
 @FlutterApi()
 abstract class NavigationSplitFlutterApi {
   @async
   ArticleRowData getArticleRowData(int id);
+  @async
+  List<String> getAvailableTags();
+  @async
+  List<String> getAvailableDomains();
+
   void setSearchText(String text);
   void setTextMode(NavigationSearchTextMode mode);
   void setStateFilter(NavigationStateFilter state);
@@ -80,30 +85,28 @@ abstract class NavigationSplitFlutterApi {
   void setTags(List<String> tags);
   void setDomains(List<String> domains);
   @async
-  List<String> getAvailableTags();
-  @async
-  List<String> getAvailableDomains();
-  @async
-  void refresh();
-  @async
   void setArticleArchived(int id, bool archived);
   @async
   void setArticleStarred(int id, bool starred);
+  @async
+  void setReadingSettings(ArticleReadingSettings settings);
+
+  @async
+  void refresh();
   void filterByTag(String tag);
-  @async
-  void onArticleSelected(int id);
-  @async
-  void onReadingProgressChanged(int articleId, double progress);
   @async
   void deleteArticle(int id);
   @async
   void openArticleSheet(int id);
   @async
-  void setReadingSettings(ArticleReadingSettings settings);
-  @async
   void openSettings();
   @async
-  void secondaryScreenDidClose();
-  @async
   void saveLink(String url);
+
+  @async
+  void onArticleSelected(int id);
+  @async
+  void onReadingProgressChanged(int articleId, double progress);
+  @async
+  void secondaryScreenDidClose();
 }

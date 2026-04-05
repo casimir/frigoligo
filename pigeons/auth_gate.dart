@@ -7,12 +7,12 @@ import 'package:pigeon/pigeon.dart';
     dartPackageName: 'frigoligo',
   ),
 )
-/// Dart → Swift. Controls the native auth gate lifecycle.
+/// Controls the native auth gate lifecycle.
 @HostApi()
 abstract class AuthGateApi {
-  /// Called when no session exists; Swift must present the login FlutterVC.
+  /// Called when no session exists.
   void requireLogin();
 
-  /// Called after successful login; Swift must dismiss the login FlutterVC.
+  /// Called after successful login.
   void loginDidComplete();
 }

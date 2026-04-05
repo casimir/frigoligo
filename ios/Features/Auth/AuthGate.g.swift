@@ -84,13 +84,13 @@ class AuthGatePigeonCodec: FlutterStandardMessageCodec, @unchecked Sendable {
   static let shared = AuthGatePigeonCodec(readerWriter: AuthGatePigeonCodecReaderWriter())
 }
 
-/// Dart → Swift. Controls the native auth gate lifecycle.
+/// Controls the native auth gate lifecycle.
 ///
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol AuthGateApi {
-  /// Called when no session exists; Swift must present the login FlutterVC.
+  /// Called when no session exists.
   func requireLogin() throws
-  /// Called after successful login; Swift must dismiss the login FlutterVC.
+  /// Called after successful login.
   func loginDidComplete() throws
 }
 
@@ -102,7 +102,7 @@ class AuthGateApiSetup {
     binaryMessenger: FlutterBinaryMessenger, api: AuthGateApi?, messageChannelSuffix: String = ""
   ) {
     let channelSuffix = messageChannelSuffix.count > 0 ? ".\(messageChannelSuffix)" : ""
-    /// Called when no session exists; Swift must present the login FlutterVC.
+    /// Called when no session exists.
     let requireLoginChannel = FlutterBasicMessageChannel(
       name: "dev.flutter.pigeon.frigoligo.AuthGateApi.requireLogin\(channelSuffix)",
       binaryMessenger: binaryMessenger, codec: codec)
@@ -118,7 +118,7 @@ class AuthGateApiSetup {
     } else {
       requireLoginChannel.setMessageHandler(nil)
     }
-    /// Called after successful login; Swift must dismiss the login FlutterVC.
+    /// Called after successful login.
     let loginDidCompleteChannel = FlutterBasicMessageChannel(
       name: "dev.flutter.pigeon.frigoligo.AuthGateApi.loginDidComplete\(channelSuffix)",
       binaryMessenger: binaryMessenger, codec: codec)

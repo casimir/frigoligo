@@ -412,7 +412,7 @@ class NavigationSplitPigeonCodec: FlutterStandardMessageCodec, @unchecked Sendab
     readerWriter: NavigationSplitPigeonCodecReaderWriter())
 }
 
-/// Dart → Swift. Pushes updated list/sync/filter state into the native sidebar.
+/// Pushes updated list/sync/filter state into the native sidebar.
 ///
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol NavigationSplitApi {
@@ -537,12 +537,14 @@ class NavigationSplitApiSetup {
     }
   }
 }
-/// Swift → Dart. Callbacks from the native sidebar to the Dart bridge.
+/// Callbacks from the native sidebar to the Dart bridge.
 ///
 /// Generated protocol from Pigeon that represents Flutter messages that can be called from Swift.
 protocol NavigationSplitFlutterApiProtocol {
   func getArticleRowData(
     id idArg: Int64, completion: @escaping (Result<ArticleRowData, PigeonError>) -> Void)
+  func getAvailableTags(completion: @escaping (Result<[String], PigeonError>) -> Void)
+  func getAvailableDomains(completion: @escaping (Result<[String], PigeonError>) -> Void)
   func setSearchText(
     text textArg: String, completion: @escaping (Result<Void, PigeonError>) -> Void)
   func setTextMode(
@@ -556,28 +558,26 @@ protocol NavigationSplitFlutterApiProtocol {
   func setTags(tags tagsArg: [String], completion: @escaping (Result<Void, PigeonError>) -> Void)
   func setDomains(
     domains domainsArg: [String], completion: @escaping (Result<Void, PigeonError>) -> Void)
-  func getAvailableTags(completion: @escaping (Result<[String], PigeonError>) -> Void)
-  func getAvailableDomains(completion: @escaping (Result<[String], PigeonError>) -> Void)
-  func refresh(completion: @escaping (Result<Void, PigeonError>) -> Void)
   func setArticleArchived(
     id idArg: Int64, archived archivedArg: Bool,
     completion: @escaping (Result<Void, PigeonError>) -> Void)
   func setArticleStarred(
     id idArg: Int64, starred starredArg: Bool,
     completion: @escaping (Result<Void, PigeonError>) -> Void)
+  func setReadingSettings(
+    settings settingsArg: ArticleReadingSettings,
+    completion: @escaping (Result<Void, PigeonError>) -> Void)
+  func refresh(completion: @escaping (Result<Void, PigeonError>) -> Void)
   func filterByTag(tag tagArg: String, completion: @escaping (Result<Void, PigeonError>) -> Void)
+  func deleteArticle(id idArg: Int64, completion: @escaping (Result<Void, PigeonError>) -> Void)
+  func openArticleSheet(id idArg: Int64, completion: @escaping (Result<Void, PigeonError>) -> Void)
+  func openSettings(completion: @escaping (Result<Void, PigeonError>) -> Void)
+  func saveLink(url urlArg: String, completion: @escaping (Result<Void, PigeonError>) -> Void)
   func onArticleSelected(id idArg: Int64, completion: @escaping (Result<Void, PigeonError>) -> Void)
   func onReadingProgressChanged(
     articleId articleIdArg: Int64, progress progressArg: Double,
     completion: @escaping (Result<Void, PigeonError>) -> Void)
-  func deleteArticle(id idArg: Int64, completion: @escaping (Result<Void, PigeonError>) -> Void)
-  func openArticleSheet(id idArg: Int64, completion: @escaping (Result<Void, PigeonError>) -> Void)
-  func setReadingSettings(
-    settings settingsArg: ArticleReadingSettings,
-    completion: @escaping (Result<Void, PigeonError>) -> Void)
-  func openSettings(completion: @escaping (Result<Void, PigeonError>) -> Void)
   func secondaryScreenDidClose(completion: @escaping (Result<Void, PigeonError>) -> Void)
-  func saveLink(url urlArg: String, completion: @escaping (Result<Void, PigeonError>) -> Void)
 }
 class NavigationSplitFlutterApi: NavigationSplitFlutterApiProtocol {
   private let binaryMessenger: FlutterBinaryMessenger
@@ -614,6 +614,60 @@ class NavigationSplitFlutterApi: NavigationSplitFlutterApiProtocol {
               message: "Flutter api returned null value for non-null return value.", details: "")))
       } else {
         let result = listResponse[0] as! ArticleRowData
+        completion(.success(result))
+      }
+    }
+  }
+  func getAvailableTags(completion: @escaping (Result<[String], PigeonError>) -> Void) {
+    let channelName: String =
+      "dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.getAvailableTags\(messageChannelSuffix)"
+    let channel = FlutterBasicMessageChannel(
+      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage(nil) { response in
+      guard let listResponse = response as? [Any?] else {
+        completion(.failure(createConnectionError(withChannelName: channelName)))
+        return
+      }
+      if listResponse.count > 1 {
+        let code: String = listResponse[0] as! String
+        let message: String? = nilOrValue(listResponse[1])
+        let details: String? = nilOrValue(listResponse[2])
+        completion(.failure(PigeonError(code: code, message: message, details: details)))
+      } else if listResponse[0] == nil {
+        completion(
+          .failure(
+            PigeonError(
+              code: "null-error",
+              message: "Flutter api returned null value for non-null return value.", details: "")))
+      } else {
+        let result = listResponse[0] as! [String]
+        completion(.success(result))
+      }
+    }
+  }
+  func getAvailableDomains(completion: @escaping (Result<[String], PigeonError>) -> Void) {
+    let channelName: String =
+      "dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.getAvailableDomains\(messageChannelSuffix)"
+    let channel = FlutterBasicMessageChannel(
+      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage(nil) { response in
+      guard let listResponse = response as? [Any?] else {
+        completion(.failure(createConnectionError(withChannelName: channelName)))
+        return
+      }
+      if listResponse.count > 1 {
+        let code: String = listResponse[0] as! String
+        let message: String? = nilOrValue(listResponse[1])
+        let details: String? = nilOrValue(listResponse[2])
+        completion(.failure(PigeonError(code: code, message: message, details: details)))
+      } else if listResponse[0] == nil {
+        completion(
+          .failure(
+            PigeonError(
+              code: "null-error",
+              message: "Flutter api returned null value for non-null return value.", details: "")))
+      } else {
+        let result = listResponse[0] as! [String]
         completion(.success(result))
       }
     }
@@ -749,80 +803,6 @@ class NavigationSplitFlutterApi: NavigationSplitFlutterApiProtocol {
       }
     }
   }
-  func getAvailableTags(completion: @escaping (Result<[String], PigeonError>) -> Void) {
-    let channelName: String =
-      "dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.getAvailableTags\(messageChannelSuffix)"
-    let channel = FlutterBasicMessageChannel(
-      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
-    channel.sendMessage(nil) { response in
-      guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName: channelName)))
-        return
-      }
-      if listResponse.count > 1 {
-        let code: String = listResponse[0] as! String
-        let message: String? = nilOrValue(listResponse[1])
-        let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(PigeonError(code: code, message: message, details: details)))
-      } else if listResponse[0] == nil {
-        completion(
-          .failure(
-            PigeonError(
-              code: "null-error",
-              message: "Flutter api returned null value for non-null return value.", details: "")))
-      } else {
-        let result = listResponse[0] as! [String]
-        completion(.success(result))
-      }
-    }
-  }
-  func getAvailableDomains(completion: @escaping (Result<[String], PigeonError>) -> Void) {
-    let channelName: String =
-      "dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.getAvailableDomains\(messageChannelSuffix)"
-    let channel = FlutterBasicMessageChannel(
-      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
-    channel.sendMessage(nil) { response in
-      guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName: channelName)))
-        return
-      }
-      if listResponse.count > 1 {
-        let code: String = listResponse[0] as! String
-        let message: String? = nilOrValue(listResponse[1])
-        let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(PigeonError(code: code, message: message, details: details)))
-      } else if listResponse[0] == nil {
-        completion(
-          .failure(
-            PigeonError(
-              code: "null-error",
-              message: "Flutter api returned null value for non-null return value.", details: "")))
-      } else {
-        let result = listResponse[0] as! [String]
-        completion(.success(result))
-      }
-    }
-  }
-  func refresh(completion: @escaping (Result<Void, PigeonError>) -> Void) {
-    let channelName: String =
-      "dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.refresh\(messageChannelSuffix)"
-    let channel = FlutterBasicMessageChannel(
-      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
-    channel.sendMessage(nil) { response in
-      guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName: channelName)))
-        return
-      }
-      if listResponse.count > 1 {
-        let code: String = listResponse[0] as! String
-        let message: String? = nilOrValue(listResponse[1])
-        let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(PigeonError(code: code, message: message, details: details)))
-      } else {
-        completion(.success(()))
-      }
-    }
-  }
   func setArticleArchived(
     id idArg: Int64, archived archivedArg: Bool,
     completion: @escaping (Result<Void, PigeonError>) -> Void
@@ -869,12 +849,136 @@ class NavigationSplitFlutterApi: NavigationSplitFlutterApiProtocol {
       }
     }
   }
+  func setReadingSettings(
+    settings settingsArg: ArticleReadingSettings,
+    completion: @escaping (Result<Void, PigeonError>) -> Void
+  ) {
+    let channelName: String =
+      "dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.setReadingSettings\(messageChannelSuffix)"
+    let channel = FlutterBasicMessageChannel(
+      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage([settingsArg] as [Any?]) { response in
+      guard let listResponse = response as? [Any?] else {
+        completion(.failure(createConnectionError(withChannelName: channelName)))
+        return
+      }
+      if listResponse.count > 1 {
+        let code: String = listResponse[0] as! String
+        let message: String? = nilOrValue(listResponse[1])
+        let details: String? = nilOrValue(listResponse[2])
+        completion(.failure(PigeonError(code: code, message: message, details: details)))
+      } else {
+        completion(.success(()))
+      }
+    }
+  }
+  func refresh(completion: @escaping (Result<Void, PigeonError>) -> Void) {
+    let channelName: String =
+      "dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.refresh\(messageChannelSuffix)"
+    let channel = FlutterBasicMessageChannel(
+      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage(nil) { response in
+      guard let listResponse = response as? [Any?] else {
+        completion(.failure(createConnectionError(withChannelName: channelName)))
+        return
+      }
+      if listResponse.count > 1 {
+        let code: String = listResponse[0] as! String
+        let message: String? = nilOrValue(listResponse[1])
+        let details: String? = nilOrValue(listResponse[2])
+        completion(.failure(PigeonError(code: code, message: message, details: details)))
+      } else {
+        completion(.success(()))
+      }
+    }
+  }
   func filterByTag(tag tagArg: String, completion: @escaping (Result<Void, PigeonError>) -> Void) {
     let channelName: String =
       "dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.filterByTag\(messageChannelSuffix)"
     let channel = FlutterBasicMessageChannel(
       name: channelName, binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage([tagArg] as [Any?]) { response in
+      guard let listResponse = response as? [Any?] else {
+        completion(.failure(createConnectionError(withChannelName: channelName)))
+        return
+      }
+      if listResponse.count > 1 {
+        let code: String = listResponse[0] as! String
+        let message: String? = nilOrValue(listResponse[1])
+        let details: String? = nilOrValue(listResponse[2])
+        completion(.failure(PigeonError(code: code, message: message, details: details)))
+      } else {
+        completion(.success(()))
+      }
+    }
+  }
+  func deleteArticle(id idArg: Int64, completion: @escaping (Result<Void, PigeonError>) -> Void) {
+    let channelName: String =
+      "dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.deleteArticle\(messageChannelSuffix)"
+    let channel = FlutterBasicMessageChannel(
+      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage([idArg] as [Any?]) { response in
+      guard let listResponse = response as? [Any?] else {
+        completion(.failure(createConnectionError(withChannelName: channelName)))
+        return
+      }
+      if listResponse.count > 1 {
+        let code: String = listResponse[0] as! String
+        let message: String? = nilOrValue(listResponse[1])
+        let details: String? = nilOrValue(listResponse[2])
+        completion(.failure(PigeonError(code: code, message: message, details: details)))
+      } else {
+        completion(.success(()))
+      }
+    }
+  }
+  func openArticleSheet(id idArg: Int64, completion: @escaping (Result<Void, PigeonError>) -> Void)
+  {
+    let channelName: String =
+      "dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.openArticleSheet\(messageChannelSuffix)"
+    let channel = FlutterBasicMessageChannel(
+      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage([idArg] as [Any?]) { response in
+      guard let listResponse = response as? [Any?] else {
+        completion(.failure(createConnectionError(withChannelName: channelName)))
+        return
+      }
+      if listResponse.count > 1 {
+        let code: String = listResponse[0] as! String
+        let message: String? = nilOrValue(listResponse[1])
+        let details: String? = nilOrValue(listResponse[2])
+        completion(.failure(PigeonError(code: code, message: message, details: details)))
+      } else {
+        completion(.success(()))
+      }
+    }
+  }
+  func openSettings(completion: @escaping (Result<Void, PigeonError>) -> Void) {
+    let channelName: String =
+      "dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.openSettings\(messageChannelSuffix)"
+    let channel = FlutterBasicMessageChannel(
+      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage(nil) { response in
+      guard let listResponse = response as? [Any?] else {
+        completion(.failure(createConnectionError(withChannelName: channelName)))
+        return
+      }
+      if listResponse.count > 1 {
+        let code: String = listResponse[0] as! String
+        let message: String? = nilOrValue(listResponse[1])
+        let details: String? = nilOrValue(listResponse[2])
+        completion(.failure(PigeonError(code: code, message: message, details: details)))
+      } else {
+        completion(.success(()))
+      }
+    }
+  }
+  func saveLink(url urlArg: String, completion: @escaping (Result<Void, PigeonError>) -> Void) {
+    let channelName: String =
+      "dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.saveLink\(messageChannelSuffix)"
+    let channel = FlutterBasicMessageChannel(
+      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage([urlArg] as [Any?]) { response in
       guard let listResponse = response as? [Any?] else {
         completion(.failure(createConnectionError(withChannelName: channelName)))
         return
@@ -933,116 +1037,12 @@ class NavigationSplitFlutterApi: NavigationSplitFlutterApiProtocol {
       }
     }
   }
-  func deleteArticle(id idArg: Int64, completion: @escaping (Result<Void, PigeonError>) -> Void) {
-    let channelName: String =
-      "dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.deleteArticle\(messageChannelSuffix)"
-    let channel = FlutterBasicMessageChannel(
-      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
-    channel.sendMessage([idArg] as [Any?]) { response in
-      guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName: channelName)))
-        return
-      }
-      if listResponse.count > 1 {
-        let code: String = listResponse[0] as! String
-        let message: String? = nilOrValue(listResponse[1])
-        let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(PigeonError(code: code, message: message, details: details)))
-      } else {
-        completion(.success(()))
-      }
-    }
-  }
-  func openArticleSheet(id idArg: Int64, completion: @escaping (Result<Void, PigeonError>) -> Void)
-  {
-    let channelName: String =
-      "dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.openArticleSheet\(messageChannelSuffix)"
-    let channel = FlutterBasicMessageChannel(
-      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
-    channel.sendMessage([idArg] as [Any?]) { response in
-      guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName: channelName)))
-        return
-      }
-      if listResponse.count > 1 {
-        let code: String = listResponse[0] as! String
-        let message: String? = nilOrValue(listResponse[1])
-        let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(PigeonError(code: code, message: message, details: details)))
-      } else {
-        completion(.success(()))
-      }
-    }
-  }
-  func setReadingSettings(
-    settings settingsArg: ArticleReadingSettings,
-    completion: @escaping (Result<Void, PigeonError>) -> Void
-  ) {
-    let channelName: String =
-      "dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.setReadingSettings\(messageChannelSuffix)"
-    let channel = FlutterBasicMessageChannel(
-      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
-    channel.sendMessage([settingsArg] as [Any?]) { response in
-      guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName: channelName)))
-        return
-      }
-      if listResponse.count > 1 {
-        let code: String = listResponse[0] as! String
-        let message: String? = nilOrValue(listResponse[1])
-        let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(PigeonError(code: code, message: message, details: details)))
-      } else {
-        completion(.success(()))
-      }
-    }
-  }
-  func openSettings(completion: @escaping (Result<Void, PigeonError>) -> Void) {
-    let channelName: String =
-      "dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.openSettings\(messageChannelSuffix)"
-    let channel = FlutterBasicMessageChannel(
-      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
-    channel.sendMessage(nil) { response in
-      guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName: channelName)))
-        return
-      }
-      if listResponse.count > 1 {
-        let code: String = listResponse[0] as! String
-        let message: String? = nilOrValue(listResponse[1])
-        let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(PigeonError(code: code, message: message, details: details)))
-      } else {
-        completion(.success(()))
-      }
-    }
-  }
   func secondaryScreenDidClose(completion: @escaping (Result<Void, PigeonError>) -> Void) {
     let channelName: String =
       "dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.secondaryScreenDidClose\(messageChannelSuffix)"
     let channel = FlutterBasicMessageChannel(
       name: channelName, binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage(nil) { response in
-      guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName: channelName)))
-        return
-      }
-      if listResponse.count > 1 {
-        let code: String = listResponse[0] as! String
-        let message: String? = nilOrValue(listResponse[1])
-        let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(PigeonError(code: code, message: message, details: details)))
-      } else {
-        completion(.success(()))
-      }
-    }
-  }
-  func saveLink(url urlArg: String, completion: @escaping (Result<Void, PigeonError>) -> Void) {
-    let channelName: String =
-      "dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.saveLink\(messageChannelSuffix)"
-    let channel = FlutterBasicMessageChannel(
-      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
-    channel.sendMessage([urlArg] as [Any?]) { response in
       guard let listResponse = response as? [Any?] else {
         completion(.failure(createConnectionError(withChannelName: channelName)))
         return
