@@ -7,7 +7,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
   private var articleSheetViewModel: ArticleSheetViewModel?
   private var authGateViewModel: AuthGateViewModel?
-  private var navViewModel: NavigationSplitViewModel?
+  private var navigationViewModel: NavigationSplitViewModel?
 
   func scene(
     _ scene: UIScene,
@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     let navigationVM = NavigationSplitViewModel(binaryMessenger: engine.binaryMessenger)
     navigationVM.engine = engine
-    self.navViewModel = navigationVM
+    self.navigationViewModel = navigationVM
 
     let rootVC = UIHostingController(rootView: AppView().environmentObject(navigationVM))
     navigationVM.presenter = rootVC
