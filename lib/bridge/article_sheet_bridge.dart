@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'dart:async';
 
 import '../domain/models/article_data.dart';

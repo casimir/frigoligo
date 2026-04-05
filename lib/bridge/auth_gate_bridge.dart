@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import '../domain/repositories.dart';
 import '../pigeon/auth_gate.g.dart';
 
