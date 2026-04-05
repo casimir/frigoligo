@@ -255,7 +255,7 @@ const RESOURCES = {"manifest.json": "ead8714d71cf26bd14b0a8e6a69aba29",
 "assets/shaders/ink_sparkle.frag": "ecc85a2e95f5e9f53123dcaf8cb9b6ce",
 "assets/fonts/MaterialIcons-Regular.otf": "5c5f5bdf48fb128e758db1d153599de8",
 "assets/AssetManifest.bin.json": "4daae442f723622e8228714cf264d5c8",
-"flutter_bootstrap.js": "29f9a5c215e0a823f59352f52c79b9ee",
+"flutter_bootstrap.js": "c819f8bf57712d796a9e4dbc1e7d3b7f",
 "favicon.png": "cb39c897b54b010dcf1528ac0291f397",
 "sqlite3.wasm": "9839e2a1f55c56501c36b8e8483ee663",
 "main.dart.js": "91f947bcba3a208c4fe286fb3dd38e25"};
