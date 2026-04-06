@@ -7,7 +7,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
   private var articleSheetViewModel: ArticleSheetViewModel?
   private var authGateViewModel: AuthGateViewModel?
+  private var logConsoleViewModel: LogConsoleViewModel?
   private var navigationViewModel: NavigationSplitViewModel?
+  private var sessionDetailsViewModel: SessionDetailsViewModel?
+  private var settingsViewModel: SettingsViewModel?
 
   func scene(
     _ scene: UIScene,
@@ -18,14 +21,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       let engine = (UIApplication.shared.delegate as? AppDelegate)?.engine
     else { return }
 
-    let navigationVM = NavigationSplitViewModel(binaryMessenger: engine.binaryMessenger)
-    navigationVM.engine = engine
-    self.navigationViewModel = navigationVM
+    let messenger = engine.binaryMessenger
+    let logConsoleVM = LogConsoleViewModel(binaryMessenger: messenger)
+    let navigationVM = NavigationSplitViewModel(binaryMessenger: messenger)
+    let sessionDetailsVM = SessionDetailsViewModel(binaryMessenger: messenger)
+    let settingsVM = SettingsViewModel(binaryMessenger: messenger)
 
-    let rootVC = UIHostingController(rootView: AppView().environmentObject(navigationVM))
-    navigationVM.presenter = rootVC
+    self.logConsoleViewModel = logConsoleVM
+    self.navigationViewModel = navigationVM
+    self.sessionDetailsViewModel = sessionDetailsVM
+    self.settingsViewModel = settingsVM
+
+    let rootVC = UIHostingController(
+      rootView: AppView()
+        .environmentObject(navigationVM)
+        .environmentObject(settingsVM)
+        .environmentObject(sessionDetailsVM)
+        .environmentObject(logConsoleVM)
+    )
     articleSheetViewModel = ArticleSheetViewModel(
-      binaryMessenger: engine.binaryMessenger,
+      binaryMessenger: messenger,
       presenter: rootVC
     )
 
@@ -37,7 +52,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     authGateViewModel = AuthGateViewModel(
       window: window,
       engine: engine,
-      binaryMessenger: engine.binaryMessenger
+      binaryMessenger: messenger
     )
   }
 }

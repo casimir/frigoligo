@@ -2,7 +2,10 @@ import 'package:get_it/get_it.dart';
 
 import '../bridge/article_sheet_bridge.dart';
 import '../bridge/auth_gate_bridge.dart';
+import '../bridge/log_console_bridge.dart';
 import '../bridge/navigation_split_bridge.dart';
+import '../bridge/session_details_bridge.dart';
+import '../bridge/settings_bridge.dart';
 import '../constants.dart';
 import '../data/repositories/article_repository.dart';
 import '../data/repositories/logger_repository.dart';
@@ -93,12 +96,20 @@ void setupNativeBridges() {
   d.registerLazySingleton(
     () => AuthGateBridge(serverSessionRepository: d.get()),
   );
+  d.registerLazySingleton(() => LogConsoleBridge());
   d.registerLazySingleton(
     () => NavigationSplitBridge(
       configStoreService: d.get(),
       articleRepository: d.get(),
       queryRepository: d.get(),
     ),
+    dispose: (obj) => obj.dispose(),
+  );
+  d.registerLazySingleton(
+    () => SessionDetailsBridge(configStoreService: d.get()),
+  );
+  d.registerLazySingleton(
+    () => SettingsBridge(configStoreService: d.get()),
     dispose: (obj) => obj.dispose(),
   );
 }

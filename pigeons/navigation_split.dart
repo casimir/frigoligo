@@ -99,14 +99,10 @@ abstract class NavigationSplitFlutterApi {
   @async
   void openArticleSheet(int id);
   @async
-  void openSettings();
-  @async
   void saveLink(String url);
 
   @async
   void onArticleSelected(int id);
   @async
   void onReadingProgressChanged(int articleId, double progress);
-  @async
-  void secondaryScreenDidClose();
 }

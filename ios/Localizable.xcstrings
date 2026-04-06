@@ -4001,6 +4001,9 @@
         }
       }
     },
+    "Frigoligo %@" : {
+
+    },
     "g_article" : {
       "comment" : "A piece of content fetched from the web. This is one of the main concepts of the app.",
       "extractionState" : "stale",
@@ -7629,7 +7632,6 @@
     },
     "logconsole_export_all_logs" : {
       "comment" : "Label for exporting all available logs.",
-      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -7915,7 +7917,6 @@
     },
     "logconsole_export_current_session" : {
       "comment" : "Label for exporting only the current session logs.",
-      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {

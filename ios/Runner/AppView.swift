@@ -13,5 +13,8 @@ struct AppView: View {
         ArticleDetailPlaceholder()
       }
     }
+    .sheet(isPresented: $navigationViewModel.showSettingsSheet) {
+      SettingsView()
+    }
   }
 }
