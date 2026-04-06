@@ -1,5 +1,6 @@
 import Flutter
 
+@MainActor
 class SessionDetailsViewModel: ObservableObject {
   private let flutterApi: SessionDetailsFlutterApi
 

@@ -21,6 +21,7 @@ enum SettingsCategory: String, CaseIterable, Identifiable {
 }
 
 struct SettingsView: View {
+  @Environment(\.dismiss) private var dismiss
   @EnvironmentObject var viewModel: SettingsViewModel
   @State private var showClearCacheConfirm = false
 
@@ -81,12 +82,22 @@ struct SettingsView: View {
       }
       .navigationTitle(String(localized: "g_settings"))
       .navigationBarTitleDisplayMode(.inline)
+      .toolbar {
+        ToolbarItem(placement: .topBarLeading) {
+          Button {
+            dismiss()
+          } label: {
+            Image(systemName: "xmark")
+          }
+        }
+      }
       .navigationDestination(for: SettingsCategory.self) { cat in
         switch cat {
         case .session: SessionDetailsView()
         case .logs: LogConsoleView()
         }
       }
+
       .alert(
         String(localized: "settings_itemClearCache"),
         isPresented: $showClearCacheConfirm

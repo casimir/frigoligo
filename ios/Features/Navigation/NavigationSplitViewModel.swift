@@ -1,5 +1,6 @@
 import Flutter
 
+@MainActor
 class NavigationSplitViewModel: NSObject, ObservableObject, NavigationSplitApi {
   @Published var articleIds: [Int64] = []
   @Published var syncState: NavigationSyncState = NavigationSyncState(

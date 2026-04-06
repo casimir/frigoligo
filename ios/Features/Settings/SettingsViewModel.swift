@@ -1,5 +1,6 @@
 import Flutter
 
+@MainActor
 class SettingsViewModel: NSObject, ObservableObject, SettingsApi {
   @Published var appSettings: AppSettings = AppSettings(
     appBadge: false, tagSaveEnabled: false, tagSaveLabel: "inbox")

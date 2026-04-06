@@ -3,6 +3,8 @@ import SwiftUI
 struct AppView: View {
   @EnvironmentObject var navigationViewModel: NavigationSplitViewModel
 
+  private var isIPad: Bool { UIDevice.current.userInterfaceIdiom == .pad }
+
   var body: some View {
     NavigationSplitView {
       SidebarView()
@@ -13,7 +15,20 @@ struct AppView: View {
         ArticleDetailPlaceholder()
       }
     }
-    .sheet(isPresented: $navigationViewModel.showSettingsSheet) {
+    .sheet(
+      isPresented: Binding(
+        get: { navigationViewModel.showSettingsSheet && isIPad },
+        set: { navigationViewModel.showSettingsSheet = $0 }
+      )
+    ) {
+      SettingsView()
+    }
+    .fullScreenCover(
+      isPresented: Binding(
+        get: { navigationViewModel.showSettingsSheet && !isIPad },
+        set: { navigationViewModel.showSettingsSheet = $0 }
+      )
+    ) {
       SettingsView()
     }
   }

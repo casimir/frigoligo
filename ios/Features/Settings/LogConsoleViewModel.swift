@@ -1,5 +1,6 @@
 import Flutter
 
+@MainActor
 class LogConsoleViewModel: ObservableObject {
   private let flutterApi: LogConsoleFlutterApi
 
