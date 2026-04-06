@@ -49,12 +49,19 @@ class SettingsBridge implements SettingsFlutterApi {
 
   @override
   Future<void> setAppSettings(AppSettings settings) async {
-    await _configStoreService.set(Sk.appBadge.key, settings.appBadge);
-    await _configStoreService.set(
-      Sk.tagSaveEnabled.key,
-      settings.tagSaveEnabled,
-    );
-    await _configStoreService.set(Sk.tagSaveLabel.key, settings.tagSaveLabel);
+    final current = _buildCurrentAppSettings();
+    if (settings.appBadge != current.appBadge) {
+      await _configStoreService.set(Sk.appBadge.key, settings.appBadge);
+    }
+    if (settings.tagSaveEnabled != current.tagSaveEnabled) {
+      await _configStoreService.set(
+        Sk.tagSaveEnabled.key,
+        settings.tagSaveEnabled,
+      );
+    }
+    if (settings.tagSaveLabel != current.tagSaveLabel) {
+      await _configStoreService.set(Sk.tagSaveLabel.key, settings.tagSaveLabel);
+    }
   }
 
   @override

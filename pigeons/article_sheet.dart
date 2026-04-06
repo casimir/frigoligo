@@ -17,7 +17,7 @@ class ArticleSheetData {
   late List<String> tags;
 }
 
-/// Dart → Swift. Controls the native article sheet lifecycle.
+/// Controls the native article sheet lifecycle.
 @HostApi()
 abstract class ArticleSheetApi {
   /// Present the sheet.
@@ -27,11 +27,11 @@ abstract class ArticleSheetApi {
   void update(ArticleSheetData data);
 
   /// Programmatically dismiss the sheet (Dart-initiated close).
-  /// Does not call back into Dart — the caller is responsible for cleanup.
+  /// The caller is responsible for cleanup.
   void close();
 }
 
-/// Swift → Dart. Callbacks from the native sheet to the Dart bridge.
+/// Callbacks from the native sheet to the Dart bridge.
 @FlutterApi()
 abstract class ArticleSheetFlutterApi {
   @async

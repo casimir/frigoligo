@@ -1,5 +1,7 @@
 import SwiftUI
 
+private let isoFormatter = ISO8601DateFormatter()
+
 struct SessionDetailsView: View {
   @EnvironmentObject var viewModel: SessionDetailsViewModel
   @State private var sessionData: SessionData?
@@ -62,7 +64,7 @@ struct SessionDetailsView: View {
           )
         }
         if let expiration = data.tokenExpiration,
-          let date = ISO8601DateFormatter().date(from: expiration)
+          let date = isoFormatter.date(from: expiration)
         {
           LabeledContent(String(localized: "session_fieldTokenExpiration")) {
             Text(date, format: .relative(presentation: .named))
@@ -100,9 +102,7 @@ struct SessionDetailsView: View {
 
   private func obfuscated(_ value: String) -> String {
     guard value.count > 16 else { return value }
-    let prefix = String(value.prefix(8))
-    let suffix = String(value.suffix(8))
-    return "\(prefix)...\(suffix)"
+    return "\(value.prefix(8))...\(value.suffix(8))"
   }
 }
 

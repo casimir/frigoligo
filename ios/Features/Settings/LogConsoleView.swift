@@ -1,4 +1,7 @@
+import OSLog
 import SwiftUI
+
+private let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "LogConsole")
 
 private struct LogExport: Identifiable {
   let id = UUID()
@@ -10,7 +13,11 @@ private struct ActivitySheet: UIViewControllerRepresentable {
 
   func makeUIViewController(context: Context) -> UIActivityViewController {
     let url = FileManager.default.temporaryDirectory.appendingPathComponent("frigoligo.log")
-    try? content.write(to: url, atomically: true, encoding: .utf8)
+    do {
+      try content.write(to: url, atomically: true, encoding: .utf8)
+    } catch {
+      logger.error("Failed to write log export: \(error)")
+    }
     return UIActivityViewController(activityItems: [url], applicationActivities: nil)
   }
 

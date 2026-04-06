@@ -32,31 +32,17 @@ struct SettingsView: View {
         Section {
           Toggle(
             String(localized: "settings_itemAppBadge"),
-            isOn: Binding(
-              get: { settings.appBadge },
-              set: { viewModel.setAppSettings(settings.with(appBadge: $0)) }
-            )
-          )
+            isOn: binding(\.appBadge, with: { $0.with(appBadge: $1) }))
         }
 
         Section {
           Toggle(
             String(localized: "settings_savedArticleTag"),
-            isOn: Binding(
-              get: { settings.tagSaveEnabled },
-              set: { viewModel.setAppSettings(settings.with(tagSaveEnabled: $0)) }
-            )
-          )
+            isOn: binding(\.tagSaveEnabled, with: { $0.with(tagSaveEnabled: $1) }))
           if settings.tagSaveEnabled {
             LabeledContent(String(localized: "settings_savedArticleTagLabel")) {
-              TextField(
-                "inbox",
-                text: Binding(
-                  get: { settings.tagSaveLabel },
-                  set: { viewModel.setAppSettings(settings.with(tagSaveLabel: $0)) }
-                )
-              )
-              .multilineTextAlignment(.trailing)
+              TextField("inbox", text: binding(\.tagSaveLabel, with: { $0.with(tagSaveLabel: $1) }))
+                .multilineTextAlignment(.trailing)
             }
           }
         }
@@ -115,9 +101,19 @@ struct SettingsView: View {
     }
   }
 
+  private func binding<T>(
+    _ keyPath: KeyPath<AppSettings, T>,
+    with update: @escaping (AppSettings, T) -> AppSettings
+  ) -> Binding<T> {
+    Binding(
+      get: { settings[keyPath: keyPath] },
+      set: { viewModel.setAppSettings(update(settings, $0)) }
+    )
+  }
+
   private var appVersion: String {
-    let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "—"
-    let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "—"
+    let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "-"
+    let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "-"
     return "\(version) (\(build))"
   }
 }

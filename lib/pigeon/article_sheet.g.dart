@@ -129,7 +129,7 @@ class _PigeonCodec extends StandardMessageCodec {
   }
 }
 
-/// Dart → Swift. Controls the native article sheet lifecycle.
+/// Controls the native article sheet lifecycle.
 class ArticleSheetApi {
   /// Constructor for [ArticleSheetApi].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
@@ -202,7 +202,7 @@ class ArticleSheetApi {
   }
 
   /// Programmatically dismiss the sheet (Dart-initiated close).
-  /// Does not call back into Dart — the caller is responsible for cleanup.
+  /// The caller is responsible for cleanup.
   Future<void> close() async {
     final String pigeonVar_channelName =
         'dev.flutter.pigeon.frigoligo.ArticleSheetApi.close$pigeonVar_messageChannelSuffix';
@@ -229,7 +229,7 @@ class ArticleSheetApi {
   }
 }
 
-/// Swift → Dart. Callbacks from the native sheet to the Dart bridge.
+/// Callbacks from the native sheet to the Dart bridge.
 abstract class ArticleSheetFlutterApi {
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
 

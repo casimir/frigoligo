@@ -9,10 +9,8 @@ class SessionDetailsViewModel: ObservableObject {
 
   func getSessionData() async -> SessionData? {
     await withCheckedContinuation { continuation in
-      DispatchQueue.main.async {
-        self.flutterApi.getSessionData { result in
-          continuation.resume(returning: try? result.get())
-        }
+      flutterApi.getSessionData { result in
+        continuation.resume(returning: try? result.get())
       }
     }
   }

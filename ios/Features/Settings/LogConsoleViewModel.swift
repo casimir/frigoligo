@@ -9,10 +9,8 @@ class LogConsoleViewModel: ObservableObject {
 
   func getLogs(onlyCurrentRun: Bool) async -> [NativeLogEntry] {
     await withCheckedContinuation { continuation in
-      DispatchQueue.main.async {
-        self.flutterApi.getLogs(onlyCurrentRun: onlyCurrentRun) { result in
-          continuation.resume(returning: (try? result.get()) ?? [])
-        }
+      flutterApi.getLogs(onlyCurrentRun: onlyCurrentRun) { result in
+        continuation.resume(returning: (try? result.get()) ?? [])
       }
     }
   }
