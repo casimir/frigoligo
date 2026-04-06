@@ -571,13 +571,11 @@ protocol NavigationSplitFlutterApiProtocol {
   func filterByTag(tag tagArg: String, completion: @escaping (Result<Void, PigeonError>) -> Void)
   func deleteArticle(id idArg: Int64, completion: @escaping (Result<Void, PigeonError>) -> Void)
   func openArticleSheet(id idArg: Int64, completion: @escaping (Result<Void, PigeonError>) -> Void)
-  func openSettings(completion: @escaping (Result<Void, PigeonError>) -> Void)
   func saveLink(url urlArg: String, completion: @escaping (Result<Void, PigeonError>) -> Void)
   func onArticleSelected(id idArg: Int64, completion: @escaping (Result<Void, PigeonError>) -> Void)
   func onReadingProgressChanged(
     articleId articleIdArg: Int64, progress progressArg: Double,
     completion: @escaping (Result<Void, PigeonError>) -> Void)
-  func secondaryScreenDidClose(completion: @escaping (Result<Void, PigeonError>) -> Void)
 }
 class NavigationSplitFlutterApi: NavigationSplitFlutterApiProtocol {
   private let binaryMessenger: FlutterBinaryMessenger
@@ -953,26 +951,6 @@ class NavigationSplitFlutterApi: NavigationSplitFlutterApiProtocol {
       }
     }
   }
-  func openSettings(completion: @escaping (Result<Void, PigeonError>) -> Void) {
-    let channelName: String =
-      "dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.openSettings\(messageChannelSuffix)"
-    let channel = FlutterBasicMessageChannel(
-      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
-    channel.sendMessage(nil) { response in
-      guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName: channelName)))
-        return
-      }
-      if listResponse.count > 1 {
-        let code: String = listResponse[0] as! String
-        let message: String? = nilOrValue(listResponse[1])
-        let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(PigeonError(code: code, message: message, details: details)))
-      } else {
-        completion(.success(()))
-      }
-    }
-  }
   func saveLink(url urlArg: String, completion: @escaping (Result<Void, PigeonError>) -> Void) {
     let channelName: String =
       "dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.saveLink\(messageChannelSuffix)"
@@ -1023,26 +1001,6 @@ class NavigationSplitFlutterApi: NavigationSplitFlutterApiProtocol {
     let channel = FlutterBasicMessageChannel(
       name: channelName, binaryMessenger: binaryMessenger, codec: codec)
     channel.sendMessage([articleIdArg, progressArg] as [Any?]) { response in
-      guard let listResponse = response as? [Any?] else {
-        completion(.failure(createConnectionError(withChannelName: channelName)))
-        return
-      }
-      if listResponse.count > 1 {
-        let code: String = listResponse[0] as! String
-        let message: String? = nilOrValue(listResponse[1])
-        let details: String? = nilOrValue(listResponse[2])
-        completion(.failure(PigeonError(code: code, message: message, details: details)))
-      } else {
-        completion(.success(()))
-      }
-    }
-  }
-  func secondaryScreenDidClose(completion: @escaping (Result<Void, PigeonError>) -> Void) {
-    let channelName: String =
-      "dev.flutter.pigeon.frigoligo.NavigationSplitFlutterApi.secondaryScreenDidClose\(messageChannelSuffix)"
-    let channel = FlutterBasicMessageChannel(
-      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
-    channel.sendMessage(nil) { response in
       guard let listResponse = response as? [Any?] else {
         completion(.failure(createConnectionError(withChannelName: channelName)))
         return

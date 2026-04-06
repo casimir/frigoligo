@@ -2,8 +2,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:go_router/go_router.dart';
-
 import '../config/dependencies.dart';
 import '../data/services/local/storage/config_store_service.dart';
 import '../domain/models/query.dart';
@@ -201,10 +199,6 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
       dependencies.get<ArticleSheetBridge>().open(id);
 
   @override
-  Future<void> openSettings() async =>
-      dependencies.get<GoRouter>().go('/settings');
-
-  @override
   Future<void> saveLink(String url) async {
     final uri = Uri.tryParse(url);
     if (uri == null || uri.host.isEmpty) {
@@ -235,10 +229,6 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
   @override
   Future<void> onReadingProgressChanged(int articleId, double progress) =>
       _articleRepository.setReadingProgress(articleId, progress);
-
-  @override
-  Future<void> secondaryScreenDidClose() async =>
-      dependencies.get<GoRouter>().go('/');
 
   void dispose() {
     _idsSubscription?.cancel();

@@ -1,8 +1,6 @@
 import Flutter
 
-class NavigationSplitViewModel: NSObject, ObservableObject, NavigationSplitApi,
-  UIAdaptivePresentationControllerDelegate
-{
+class NavigationSplitViewModel: NSObject, ObservableObject, NavigationSplitApi {
   @Published var articleIds: [Int64] = []
   @Published var syncState: NavigationSyncState = NavigationSyncState(
     isWorking: false, progressValue: nil, pendingCount: 0)
@@ -23,10 +21,9 @@ class NavigationSplitViewModel: NSObject, ObservableObject, NavigationSplitApi,
   @Published var readingSettings: ArticleReadingSettings = ArticleReadingSettings(
     fontSize: 16, fontFamily: "Lato", justifyText: false)
   @Published var showSaveLinkSheet = false
+  @Published var showSettingsSheet = false
 
   private let flutterApi: NavigationSplitFlutterApi
-  weak var engine: FlutterEngine?
-  weak var presenter: UIViewController?
 
   init(binaryMessenger: FlutterBinaryMessenger) {
     self.flutterApi = NavigationSplitFlutterApi(binaryMessenger: binaryMessenger)
@@ -140,7 +137,7 @@ class NavigationSplitViewModel: NSObject, ObservableObject, NavigationSplitApi,
   }
 
   func openSettings() {
-    flutterApi.openSettings { [weak self] _ in self?.presentSecondary() }
+    showSettingsSheet = true
   }
 
   func openSaveLink() {
@@ -160,22 +157,5 @@ class NavigationSplitViewModel: NSObject, ObservableObject, NavigationSplitApi,
 
   func onReadingProgressChanged(articleId: Int64, progress: Double) {
     flutterApi.onReadingProgressChanged(articleId: articleId, progress: progress) { _ in }
-  }
-
-  func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
-    flutterApi.secondaryScreenDidClose { _ in }
-  }
-
-  private func presentSecondary() {
-    guard let engine, let presenter, presenter.presentedViewController == nil else { return }
-    let flutterVC = FlutterViewController(engine: engine, nibName: nil, bundle: nil)
-    flutterVC.modalPresentationStyle = .pageSheet
-    if let sheet = flutterVC.sheetPresentationController {
-      sheet.detents = [.large()]
-      sheet.prefersGrabberVisible = true
-      sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-    }
-    flutterVC.presentationController?.delegate = self
-    presenter.present(flutterVC, animated: true)
   }
 }

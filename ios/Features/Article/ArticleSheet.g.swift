@@ -193,7 +193,7 @@ class ArticleSheetPigeonCodec: FlutterStandardMessageCodec, @unchecked Sendable 
   static let shared = ArticleSheetPigeonCodec(readerWriter: ArticleSheetPigeonCodecReaderWriter())
 }
 
-/// Dart → Swift. Controls the native article sheet lifecycle.
+/// Controls the native article sheet lifecycle.
 ///
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol ArticleSheetApi {
@@ -202,7 +202,7 @@ protocol ArticleSheetApi {
   /// Push updated article data into the sheet.
   func update(data: ArticleSheetData) throws
   /// Programmatically dismiss the sheet (Dart-initiated close).
-  /// Does not call back into Dart — the caller is responsible for cleanup.
+  /// The caller is responsible for cleanup.
   func close() throws
 }
 
@@ -250,7 +250,7 @@ class ArticleSheetApiSetup {
       updateChannel.setMessageHandler(nil)
     }
     /// Programmatically dismiss the sheet (Dart-initiated close).
-    /// Does not call back into Dart — the caller is responsible for cleanup.
+    /// The caller is responsible for cleanup.
     let closeChannel = FlutterBasicMessageChannel(
       name: "dev.flutter.pigeon.frigoligo.ArticleSheetApi.close\(channelSuffix)",
       binaryMessenger: binaryMessenger, codec: codec)
@@ -268,7 +268,7 @@ class ArticleSheetApiSetup {
     }
   }
 }
-/// Swift → Dart. Callbacks from the native sheet to the Dart bridge.
+/// Callbacks from the native sheet to the Dart bridge.
 ///
 /// Generated protocol from Pigeon that represents Flutter messages that can be called from Swift.
 protocol ArticleSheetFlutterApiProtocol {
