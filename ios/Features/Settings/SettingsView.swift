@@ -37,6 +37,9 @@ struct SettingsView: View {
               set: { viewModel.setAppSettings(settings.with(appBadge: $0)) }
             )
           )
+        }
+
+        Section {
           Toggle(
             String(localized: "settings_savedArticleTag"),
             isOn: Binding(
@@ -44,14 +47,18 @@ struct SettingsView: View {
               set: { viewModel.setAppSettings(settings.with(tagSaveEnabled: $0)) }
             )
           )
-          TextField(
-            String(localized: "settings_savedArticleTagLabel"),
-            text: Binding(
-              get: { settings.tagSaveLabel },
-              set: { viewModel.setAppSettings(settings.with(tagSaveLabel: $0)) }
-            )
-          )
-          .disabled(!settings.tagSaveEnabled)
+          if settings.tagSaveEnabled {
+            LabeledContent(String(localized: "settings_savedArticleTagLabel")) {
+              TextField(
+                "inbox",
+                text: Binding(
+                  get: { settings.tagSaveLabel },
+                  set: { viewModel.setAppSettings(settings.with(tagSaveLabel: $0)) }
+                )
+              )
+              .multilineTextAlignment(.trailing)
+            }
+          }
         }
 
         Section {
@@ -87,6 +94,7 @@ struct SettingsView: View {
         }
       }
       .navigationTitle(String(localized: "g_settings"))
+      .navigationBarTitleDisplayMode(.inline)
       .navigationDestination(for: SettingsCategory.self) { cat in
         switch cat {
         case .session: SessionDetailsView()
