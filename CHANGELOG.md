@@ -77,6 +77,9 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(demo)* Don't assume direct fs access when loading sample ([57a676d](https://github.com/casimir/frigoligo/commit/57a676daefbf8a5bb5bcb9c27ab5d6ecf41d91dd))
 - *(NavSplitView)* Separate rendering context from PageRoute context ([8a646ed](https://github.com/casimir/frigoligo/commit/8a646ed6add8ea9d9c6a736009a8f7abd9cc8e4c))
 - *(iOS)* Prevent crash when sharing an article on iPad ([c6e6a67](https://github.com/casimir/frigoligo/commit/c6e6a677498d26b891aa4958ce0c267bf06d04cf))
+- *(iOS)* Read HTML from disk to allow JS loading ([db997ee](https://github.com/casimir/frigoligo/commit/db997ee9c1b7f15983dd44c96a053662f3801f5d))
+- *(iOS)* Update old swift API usage ([d1622d7](https://github.com/casimir/frigoligo/commit/d1622d72d028506436a6ae94c1852e75f66dcc29))
+- *(iOS)* Explicit article content encoding ([1ef0bfc](https://github.com/casimir/frigoligo/commit/1ef0bfc515fbdfdce922133430a2325de166b2da))
 
 ### 🚜 Refactor
 
