@@ -8,6 +8,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   private var articleSheetViewModel: ArticleSheetViewModel?
   private var authGateViewModel: AuthGateViewModel?
   private var logConsoleViewModel: LogConsoleViewModel?
+  private var loginViewModel: LoginViewModel?
   private var navigationViewModel: NavigationSplitViewModel?
   private var sessionDetailsViewModel: SessionDetailsViewModel?
   private var settingsViewModel: SettingsViewModel?
@@ -22,22 +23,28 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     else { return }
 
     let messenger = engine.binaryMessenger
+    let authGateVM = AuthGateViewModel(binaryMessenger: messenger)
     let logConsoleVM = LogConsoleViewModel(binaryMessenger: messenger)
+    let loginVM = LoginViewModel(binaryMessenger: messenger)
     let navigationVM = NavigationSplitViewModel(binaryMessenger: messenger)
     let sessionDetailsVM = SessionDetailsViewModel(binaryMessenger: messenger)
     let settingsVM = SettingsViewModel(binaryMessenger: messenger)
 
+    self.authGateViewModel = authGateVM
     self.logConsoleViewModel = logConsoleVM
+    self.loginViewModel = loginVM
     self.navigationViewModel = navigationVM
     self.sessionDetailsViewModel = sessionDetailsVM
     self.settingsViewModel = settingsVM
 
     let rootVC = UIHostingController(
       rootView: AppView()
-        .environmentObject(navigationVM)
-        .environmentObject(settingsVM)
-        .environmentObject(sessionDetailsVM)
+        .environmentObject(authGateVM)
         .environmentObject(logConsoleVM)
+        .environmentObject(loginVM)
+        .environmentObject(navigationVM)
+        .environmentObject(sessionDetailsVM)
+        .environmentObject(settingsVM)
     )
     articleSheetViewModel = ArticleSheetViewModel(
       binaryMessenger: messenger,
@@ -48,11 +55,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     window.rootViewController = rootVC
     window.makeKeyAndVisible()
     self.window = window
-
-    authGateViewModel = AuthGateViewModel(
-      window: window,
-      engine: engine,
-      binaryMessenger: messenger
-    )
   }
 }
