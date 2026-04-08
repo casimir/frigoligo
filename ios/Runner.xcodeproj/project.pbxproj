@@ -12,6 +12,11 @@
 		0217AA052F800000000A0003 /* NavigationSplit.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA042F800000000A0003 /* NavigationSplit.g.swift */; };
 		0217AA062F800000000A0004 /* Settings.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA072F800000000A0005 /* Settings.g.swift */; };
 		02170A032F700000000A0002 /* AuthGateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02170A022F700000000A0002 /* AuthGateViewModel.swift */; };
+		02170A092F700000000A0006 /* Login.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02170A0A2F700000000A0006 /* Login.g.swift */; };
+		02170A0B2F700000000A0007 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02170A0C2F700000000A0007 /* LoginViewModel.swift */; };
+		02170A0D2F700000000A0008 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02170A0E2F700000000A0008 /* LoginView.swift */; };
+		02170A0F2F700000000A0009 /* ServerCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02170A102F700000000A0009 /* ServerCheckView.swift */; };
+		02170A112F700000000A000A /* CredentialsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02170A122F700000000A000A /* CredentialsView.swift */; };
 		02170A052F700000000A0003 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02170A042F700000000A0003 /* AppView.swift */; };
 		02170A072F700000000A0005 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02170A082F700000000A0005 /* SceneDelegate.swift */; };
 		021BA09A2A9BFCE500557A89 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021BA0992A9BFCE500557A89 /* ShareViewController.swift */; };
@@ -94,6 +99,11 @@
 		0217AA042F800000000A0003 /* NavigationSplit.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationSplit.g.swift; sourceTree = "<group>"; };
 		0217AA072F800000000A0005 /* Settings.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.g.swift; sourceTree = "<group>"; };
 		02170A022F700000000A0002 /* AuthGateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthGateViewModel.swift; sourceTree = "<group>"; };
+		02170A0A2F700000000A0006 /* Login.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.g.swift; sourceTree = "<group>"; };
+		02170A0C2F700000000A0007 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		02170A0E2F700000000A0008 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		02170A102F700000000A0009 /* ServerCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerCheckView.swift; sourceTree = "<group>"; };
+		02170A122F700000000A000A /* CredentialsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsView.swift; sourceTree = "<group>"; };
 		02170A042F700000000A0003 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		02170A082F700000000A0005 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		021BA0972A9BFCE500557A89 /* share.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = share.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -175,6 +185,11 @@
 			children = (
 				02170A022F700000000A0002 /* AuthGateViewModel.swift */,
 				0217AA022F800000000A0002 /* AuthGate.g.swift */,
+				02170A0A2F700000000A0006 /* Login.g.swift */,
+				02170A0C2F700000000A0007 /* LoginViewModel.swift */,
+				02170A0E2F700000000A0008 /* LoginView.swift */,
+				02170A102F700000000A0009 /* ServerCheckView.swift */,
+				02170A122F700000000A000A /* CredentialsView.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -560,6 +575,11 @@
 				0217AA032F800000000A0002 /* AuthGate.g.swift in Sources */,
 				0217AA052F800000000A0003 /* NavigationSplit.g.swift in Sources */,
 				02170A032F700000000A0002 /* AuthGateViewModel.swift in Sources */,
+				02170A092F700000000A0006 /* Login.g.swift in Sources */,
+				02170A0B2F700000000A0007 /* LoginViewModel.swift in Sources */,
+				02170A0D2F700000000A0008 /* LoginView.swift in Sources */,
+				02170A0F2F700000000A0009 /* ServerCheckView.swift in Sources */,
+				02170A112F700000000A000A /* CredentialsView.swift in Sources */,
 				02170A052F700000000A0003 /* AppView.swift in Sources */,
 				02E8879B2F62A90B009E2EA9 /* ArticleSheetView.swift in Sources */,
 				02E8879C2F62A90B009E2EA9 /* ArticleSheetViewModel.swift in Sources */,

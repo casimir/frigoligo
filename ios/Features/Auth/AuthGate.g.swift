@@ -92,6 +92,8 @@ protocol AuthGateApi {
   func requireLogin() throws
   /// Called after successful login.
   func loginDidComplete() throws
+  /// Called when a session exists but the token has expired.
+  func reauthRequired() throws
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -133,6 +135,22 @@ class AuthGateApiSetup {
       }
     } else {
       loginDidCompleteChannel.setMessageHandler(nil)
+    }
+    /// Called when a session exists but the token has expired.
+    let reauthRequiredChannel = FlutterBasicMessageChannel(
+      name: "dev.flutter.pigeon.frigoligo.AuthGateApi.reauthRequired\(channelSuffix)",
+      binaryMessenger: binaryMessenger, codec: codec)
+    if let api = api {
+      reauthRequiredChannel.setMessageHandler { _, reply in
+        do {
+          try api.reauthRequired()
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      reauthRequiredChannel.setMessageHandler(nil)
     }
   }
 }

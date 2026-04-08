@@ -13,6 +13,7 @@ Future<void> loadSampleArticles(DB db, String jsonContent) async {
         'INSERT INTO articles (id, created_at, updated_at, title, domain_name, url, '
         'content, language, reading_time, preview_picture, archived_at, starred_at, tags) '
         'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        updates: {db.articles},
         variables: [
           Variable<int>(a['id'] as int),
           Variable<int>(a['created_at'] as int),

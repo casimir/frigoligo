@@ -1,25 +1,24 @@
 import Flutter
 
-class AuthGateViewModel: AuthGateApi {
-  private weak var window: UIWindow?
-  private weak var engine: FlutterEngine?
+@MainActor
+class AuthGateViewModel: ObservableObject, AuthGateApi {
+  @Published var requiresLogin = false
+  @Published var showReauthAlert = false
 
-  init(window: UIWindow?, engine: FlutterEngine, binaryMessenger: FlutterBinaryMessenger) {
-    self.window = window
-    self.engine = engine
+  init(binaryMessenger: FlutterBinaryMessenger) {
     AuthGateApiSetup.setUp(binaryMessenger: binaryMessenger, api: self)
   }
 
   func requireLogin() throws {
-    guard let engine, let rootVC = window?.rootViewController,
-      rootVC.presentedViewController == nil
-    else { return }
-    let loginVC = FlutterViewController(engine: engine, nibName: nil, bundle: nil)
-    loginVC.modalPresentationStyle = .fullScreen
-    rootVC.present(loginVC, animated: false)
+    requiresLogin = true
   }
 
   func loginDidComplete() throws {
-    window?.rootViewController?.presentedViewController?.dismiss(animated: true)
+    requiresLogin = false
+    showReauthAlert = false
+  }
+
+  func reauthRequired() throws {
+    showReauthAlert = true
   }
 }

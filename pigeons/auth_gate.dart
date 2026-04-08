@@ -15,4 +15,7 @@ abstract class AuthGateApi {
 
   /// Called after successful login.
   void loginDidComplete();
+
+  /// Called when a session exists but the token has expired.
+  void reauthRequired();
 }
