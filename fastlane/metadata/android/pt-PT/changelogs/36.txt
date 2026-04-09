@@ -1,0 +1,4 @@
+- Maior parte da interface reformulada para ser mais consistente e mais fácil de usar.
+- Sistema de armazenamento completamente reconstruido para uma experiência mais consistente e confiável em todas as plataformas.
+- Reconstrução da lógica sobre contagem de emblemas da aplicação para ser mais confiável.
+- Nova lingua: esperanto.

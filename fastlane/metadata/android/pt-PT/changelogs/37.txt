@@ -1,0 +1,4 @@
+- Muitos ajustes e melhoramentos ao UI.
+- Botão de partilha corrigido ao não funcionar em alguns casos
+- Novas línguas: espanhol, estoniano.
+- Atualização de traduções para várias línguas.

@@ -1,0 +1,5 @@
+- Adicionada uma maneira de criar etiquetas enquanto a edição de um artigo.
+- Melhor experiência quando offline.
+- Várias correções de bugs relacionados ao progresso de leitura.
+- Permitida a conexão com um servidor sem SSL.
+- Novas línguas: russo (Русский язык) e tâmil (தமிழ்).
