@@ -57,6 +57,8 @@
 		0217AA192F800000000A001F /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA1A2F800000000A0020 /* SettingsViewModel.swift */; };
 		0217AA122F800000000A0018 /* SessionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA0D2F800000000A0013 /* SessionDetailsView.swift */; };
 		0217AA132F800000000A0019 /* LogConsoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA0E2F800000000A0014 /* LogConsoleView.swift */; };
+		0217AA1B2F800000000A0021 /* LicensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA1C2F800000000A0022 /* LicensesView.swift */; };
+		0217AA1D2F800000000A0023 /* LicensesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA1E2F800000000A0024 /* LicensesViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -157,6 +159,8 @@
 		0217AA1A2F800000000A0020 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		0217AA0D2F800000000A0013 /* SessionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailsView.swift; sourceTree = "<group>"; };
 		0217AA0E2F800000000A0014 /* LogConsoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogConsoleView.swift; sourceTree = "<group>"; };
+		0217AA1C2F800000000A0022 /* LicensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensesView.swift; sourceTree = "<group>"; };
+		0217AA1E2F800000000A0024 /* LicensesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensesViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -242,11 +246,13 @@
 			children = (
 				0217AA072F800000000A0005 /* Settings.g.swift */,
 			0217AA162F800000000A001C /* LogConsoleViewModel.swift */,
+			0217AA1E2F800000000A0024 /* LicensesViewModel.swift */,
 			0217AA182F800000000A001E /* SessionDetailsViewModel.swift */,
 			0217AA1A2F800000000A0020 /* SettingsViewModel.swift */,
 			0217AA0B2F800000000A0011 /* SettingsView.swift */,
 					0217AA0D2F800000000A0013 /* SessionDetailsView.swift */,
 				0217AA0E2F800000000A0014 /* LogConsoleView.swift */,
+				0217AA1C2F800000000A0022 /* LicensesView.swift */,
 				);
 			path = Settings;
 			sourceTree = "<group>";
@@ -597,11 +603,13 @@
 				F1E2D3C4B5A6F7E8D9C0B1A2 /* SaveLinkView.swift in Sources */,
 				0217AA062F800000000A0004 /* Settings.g.swift in Sources */,
 				0217AA152F800000000A001B /* LogConsoleViewModel.swift in Sources */,
+				0217AA1D2F800000000A0023 /* LicensesViewModel.swift in Sources */,
 				0217AA172F800000000A001D /* SessionDetailsViewModel.swift in Sources */,
 				0217AA192F800000000A001F /* SettingsViewModel.swift in Sources */,
 				0217AA102F800000000A0016 /* SettingsView.swift in Sources */,
 				0217AA122F800000000A0018 /* SessionDetailsView.swift in Sources */,
 				0217AA132F800000000A0019 /* LogConsoleView.swift in Sources */,
+				0217AA1B2F800000000A0021 /* LicensesView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

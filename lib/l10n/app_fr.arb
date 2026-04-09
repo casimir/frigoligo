@@ -167,6 +167,10 @@
     "@settings_itemClearCache": {
         "description": "The action to clear the offline cache."
     },
+    "settings_itemLicenses": "Afficher les licences",
+    "@settings_itemLicenses": {
+      "description": "The action to display the open-source licenses screen."
+    },
     "session_neverSynced": "jamais",
     "@session_neverSynced": {
         "description": "Default value for the last sync time."

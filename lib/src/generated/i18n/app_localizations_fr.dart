@@ -488,6 +488,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get settings_itemClearCache => 'Nettoyer le cache';
 
   @override
+  String get settings_itemLicenses => 'Afficher les licences';
+
+  @override
   String get settings_itemLogConsole => 'Console de journalisation';
 
   @override

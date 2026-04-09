@@ -483,6 +483,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get settings_itemClearCache => 'Очистить кэш';
 
   @override
+  String get settings_itemLicenses => 'Посмотреть лицензии';
+
+  @override
   String get settings_itemLogConsole => 'Журнал';
 
   @override

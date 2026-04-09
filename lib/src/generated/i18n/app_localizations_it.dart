@@ -483,6 +483,9 @@ class AppLocalizationsIt extends AppLocalizations {
   String get settings_itemClearCache => 'Pulisci cache';
 
   @override
+  String get settings_itemLicenses => 'Visualizza licenze';
+
+  @override
   String get settings_itemLogConsole => 'Registro della console';
 
   @override

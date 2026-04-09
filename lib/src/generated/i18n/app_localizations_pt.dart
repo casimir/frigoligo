@@ -484,6 +484,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String get settings_itemClearCache => 'Limpar cache';
 
   @override
+  String get settings_itemLicenses => 'Acessar licenças';
+
+  @override
   String get settings_itemLogConsole => 'Console de Logs';
 
   @override
@@ -999,6 +1002,9 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get settings_itemClearCache => 'Limpar cache';
 
   @override
+  String get settings_itemLicenses => 'Acessar licenças';
+
+  @override
   String get settings_itemLogConsole => 'Console de Logs';
 
   @override
@@ -1459,6 +1465,9 @@ class AppLocalizationsPtPt extends AppLocalizationsPt {
 
   @override
   String get settings_itemClearCache => 'Limpar cache';
+
+  @override
+  String get settings_itemLicenses => 'Ver licenças';
 
   @override
   String get settings_itemLogConsole => 'Console de Logs';

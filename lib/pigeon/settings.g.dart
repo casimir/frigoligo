@@ -225,6 +225,46 @@ class NativeLogEntry {
   int get hashCode => Object.hashAll(_toList());
 }
 
+class NativeLicensePackage {
+  NativeLicensePackage({required this.name, required this.body});
+
+  String name;
+
+  String body;
+
+  List<Object?> _toList() {
+    return <Object?>[name, body];
+  }
+
+  Object encode() {
+    return _toList();
+  }
+
+  static NativeLicensePackage decode(Object result) {
+    result as List<Object?>;
+    return NativeLicensePackage(
+      name: result[0]! as String,
+      body: result[1]! as String,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! NativeLicensePackage || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(encode(), other.encode());
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => Object.hashAll(_toList());
+}
+
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
   @override
@@ -241,6 +281,9 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is NativeLogEntry) {
       buffer.putUint8(131);
       writeValue(buffer, value.encode());
+    } else if (value is NativeLicensePackage) {
+      buffer.putUint8(132);
+      writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
     }
@@ -255,6 +298,8 @@ class _PigeonCodec extends StandardMessageCodec {
         return SessionData.decode(readValue(buffer)!);
       case 131:
         return NativeLogEntry.decode(readValue(buffer)!);
+      case 132:
+        return NativeLicensePackage.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
     }
@@ -543,6 +588,47 @@ abstract class LogConsoleFlutterApi {
           try {
             await api.clearLogs();
             return wrapResponse(empty: true);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
+          }
+        });
+      }
+    }
+  }
+}
+
+/// Callbacks from the native licenses screen to the Dart bridge.
+abstract class LicensesFlutterApi {
+  static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
+
+  Future<List<NativeLicensePackage>> getLicenses();
+
+  static void setUp(
+    LicensesFlutterApi? api, {
+    BinaryMessenger? binaryMessenger,
+    String messageChannelSuffix = '',
+  }) {
+    messageChannelSuffix = messageChannelSuffix.isNotEmpty
+        ? '.$messageChannelSuffix'
+        : '';
+    {
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.frigoligo.LicensesFlutterApi.getLicenses$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
+      if (api == null) {
+        pigeonVar_channel.setMessageHandler(null);
+      } else {
+        pigeonVar_channel.setMessageHandler((Object? message) async {
+          try {
+            final List<NativeLicensePackage> output = await api.getLicenses();
+            return wrapResponse(result: output);
           } on PlatformException catch (e) {
             return wrapResponse(error: e);
           } catch (e) {

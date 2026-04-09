@@ -481,6 +481,9 @@ class AppLocalizationsGl extends AppLocalizations {
   String get settings_itemClearCache => 'Limpar caché';
 
   @override
+  String get settings_itemLicenses => 'Ver licenzas';
+
+  @override
   String get settings_itemLogConsole => 'Consola de rexistro';
 
   @override

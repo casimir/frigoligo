@@ -7,6 +7,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
   private var articleSheetViewModel: ArticleSheetViewModel?
   private var authGateViewModel: AuthGateViewModel?
+  private var licensesViewModel: LicensesViewModel?
   private var logConsoleViewModel: LogConsoleViewModel?
   private var loginViewModel: LoginViewModel?
   private var navigationViewModel: NavigationSplitViewModel?
@@ -24,6 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     let messenger = engine.binaryMessenger
     let authGateVM = AuthGateViewModel(binaryMessenger: messenger)
+    let licensesVM = LicensesViewModel(binaryMessenger: messenger)
     let logConsoleVM = LogConsoleViewModel(binaryMessenger: messenger)
     let loginVM = LoginViewModel(binaryMessenger: messenger)
     let navigationVM = NavigationSplitViewModel(binaryMessenger: messenger)
@@ -31,6 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     let settingsVM = SettingsViewModel(binaryMessenger: messenger)
 
     self.authGateViewModel = authGateVM
+    self.licensesViewModel = licensesVM
     self.logConsoleViewModel = logConsoleVM
     self.loginViewModel = loginVM
     self.navigationViewModel = navigationVM
@@ -40,6 +43,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     let rootVC = UIHostingController(
       rootView: AppView()
         .environmentObject(authGateVM)
+        .environmentObject(licensesVM)
         .environmentObject(logConsoleVM)
         .environmentObject(loginVM)
         .environmentObject(navigationVM)

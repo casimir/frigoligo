@@ -483,6 +483,9 @@ class AppLocalizationsEt extends AppLocalizations {
   String get settings_itemClearCache => 'Kustuta puhverdatud andmed';
 
   @override
+  String get settings_itemLicenses => 'Kuva litsentsid';
+
+  @override
   String get settings_itemLogConsole => 'Logimiskonsool';
 
   @override

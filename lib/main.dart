@@ -15,6 +15,7 @@ import 'app_setups.dart';
 import 'applinks/handler.dart';
 import 'bridge/article_sheet_bridge.dart';
 import 'bridge/auth_gate_bridge.dart';
+import 'bridge/licenses_bridge.dart';
 import 'bridge/log_console_bridge.dart';
 import 'bridge/login_bridge.dart';
 import 'bridge/navigation_split_bridge.dart';
@@ -50,6 +51,7 @@ Future<void> mainHeadless() async {
   await _commonSetup('mainHeadless');
   dependencies.get<ArticleSheetBridge>();
   dependencies.get<AuthGateBridge>();
+  dependencies.get<LicensesBridge>();
   dependencies.get<LogConsoleBridge>();
   dependencies.get<LoginBridge>();
   dependencies.get<NavigationSplitBridge>();

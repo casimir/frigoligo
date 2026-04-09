@@ -442,6 +442,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get settings_itemClearCache => '清除缓存';
 
   @override
+  String get settings_itemLicenses => '查看许可';
+
+  @override
   String get settings_itemLogConsole => '日志控制台';
 
   @override
@@ -834,6 +837,9 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get settings_itemClearCache => '清除快取';
+
+  @override
+  String get settings_itemLicenses => '查看授權';
 
   @override
   String get settings_itemLogConsole => '日誌控制台';

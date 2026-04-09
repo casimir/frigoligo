@@ -483,6 +483,9 @@ class AppLocalizationsCa extends AppLocalizations {
   String get settings_itemClearCache => 'Neteja la memòria cau';
 
   @override
+  String get settings_itemLicenses => 'Mostra les llicències';
+
+  @override
   String get settings_itemLogConsole => 'Consola de registres';
 
   @override

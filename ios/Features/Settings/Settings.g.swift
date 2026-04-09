@@ -241,6 +241,35 @@ struct NativeLogEntry: Hashable {
   }
 }
 
+/// Generated class from Pigeon that represents data sent in messages.
+struct NativeLicensePackage: Hashable {
+  var name: String
+  var body: String
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> NativeLicensePackage? {
+    let name = pigeonVar_list[0] as! String
+    let body = pigeonVar_list[1] as! String
+
+    return NativeLicensePackage(
+      name: name,
+      body: body
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      name,
+      body,
+    ]
+  }
+  static func == (lhs: NativeLicensePackage, rhs: NativeLicensePackage) -> Bool {
+    return deepEqualsSettings(lhs.toList(), rhs.toList())
+  }
+  func hash(into hasher: inout Hasher) {
+    deepHashSettings(value: toList(), hasher: &hasher)
+  }
+}
+
 private class SettingsPigeonCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
@@ -250,6 +279,8 @@ private class SettingsPigeonCodecReader: FlutterStandardReader {
       return SessionData.fromList(self.readValue() as! [Any?])
     case 131:
       return NativeLogEntry.fromList(self.readValue() as! [Any?])
+    case 132:
+      return NativeLicensePackage.fromList(self.readValue() as! [Any?])
     default:
       return super.readValue(ofType: type)
     }
@@ -266,6 +297,9 @@ private class SettingsPigeonCodecWriter: FlutterStandardWriter {
       super.writeValue(value.toList())
     } else if let value = value as? NativeLogEntry {
       super.writeByte(131)
+      super.writeValue(value.toList())
+    } else if let value = value as? NativeLicensePackage {
+      super.writeByte(132)
       super.writeValue(value.toList())
     } else {
       super.writeValue(value)
@@ -534,6 +568,50 @@ class LogConsoleFlutterApi: LogConsoleFlutterApiProtocol {
         completion(.failure(PigeonError(code: code, message: message, details: details)))
       } else {
         completion(.success(()))
+      }
+    }
+  }
+}
+/// Callbacks from the native licenses screen to the Dart bridge.
+///
+/// Generated protocol from Pigeon that represents Flutter messages that can be called from Swift.
+protocol LicensesFlutterApiProtocol {
+  func getLicenses(completion: @escaping (Result<[NativeLicensePackage], PigeonError>) -> Void)
+}
+class LicensesFlutterApi: LicensesFlutterApiProtocol {
+  private let binaryMessenger: FlutterBinaryMessenger
+  private let messageChannelSuffix: String
+  init(binaryMessenger: FlutterBinaryMessenger, messageChannelSuffix: String = "") {
+    self.binaryMessenger = binaryMessenger
+    self.messageChannelSuffix = messageChannelSuffix.count > 0 ? ".\(messageChannelSuffix)" : ""
+  }
+  var codec: SettingsPigeonCodec {
+    return SettingsPigeonCodec.shared
+  }
+  func getLicenses(completion: @escaping (Result<[NativeLicensePackage], PigeonError>) -> Void) {
+    let channelName: String =
+      "dev.flutter.pigeon.frigoligo.LicensesFlutterApi.getLicenses\(messageChannelSuffix)"
+    let channel = FlutterBasicMessageChannel(
+      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage(nil) { response in
+      guard let listResponse = response as? [Any?] else {
+        completion(.failure(createConnectionError(withChannelName: channelName)))
+        return
+      }
+      if listResponse.count > 1 {
+        let code: String = listResponse[0] as! String
+        let message: String? = nilOrValue(listResponse[1])
+        let details: String? = nilOrValue(listResponse[2])
+        completion(.failure(PigeonError(code: code, message: message, details: details)))
+      } else if listResponse[0] == nil {
+        completion(
+          .failure(
+            PigeonError(
+              code: "null-error",
+              message: "Flutter api returned null value for non-null return value.", details: "")))
+      } else {
+        let result = listResponse[0] as! [NativeLicensePackage]
+        completion(.success(result))
       }
     }
   }

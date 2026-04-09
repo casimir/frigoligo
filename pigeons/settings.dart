@@ -67,3 +67,15 @@ abstract class LogConsoleFlutterApi {
   @async
   void clearLogs();
 }
+
+class NativeLicensePackage {
+  late String name;
+  late String body;
+}
+
+/// Callbacks from the native licenses screen to the Dart bridge.
+@FlutterApi()
+abstract class LicensesFlutterApi {
+  @async
+  List<NativeLicensePackage> getLicenses();
+}

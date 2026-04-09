@@ -484,6 +484,9 @@ class AppLocalizationsTa extends AppLocalizations {
   String get settings_itemClearCache => 'தெளிவான தற்காலிக சேமிப்பு';
 
   @override
+  String get settings_itemLicenses => 'உரிமங்களைக் காட்டு';
+
+  @override
   String get settings_itemLogConsole => 'பதிவு கன்சோல்';
 
   @override

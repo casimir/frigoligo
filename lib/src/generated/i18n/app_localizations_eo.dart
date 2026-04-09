@@ -481,6 +481,9 @@ class AppLocalizationsEo extends AppLocalizations {
   String get settings_itemClearCache => 'Vakigi la kaŝmemoron';
 
   @override
+  String get settings_itemLicenses => 'Licencoj';
+
+  @override
   String get settings_itemLogConsole => 'Protokolkonzolo';
 
   @override

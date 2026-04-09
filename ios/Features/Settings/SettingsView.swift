@@ -1,25 +1,5 @@
 import SwiftUI
 
-enum SettingsCategory: String, CaseIterable, Identifiable {
-  case session, logs
-
-  var id: String { rawValue }
-
-  var title: String {
-    switch self {
-    case .session: String(localized: "settings_itemSessionDetails")
-    case .logs: String(localized: "settings_itemLogConsole")
-    }
-  }
-
-  var icon: String {
-    switch self {
-    case .session: "person.crop.circle"
-    case .logs: "doc.text.magnifyingglass"
-    }
-  }
-}
-
 struct SettingsView: View {
   @Environment(\.dismiss) private var dismiss
   @EnvironmentObject var viewModel: SettingsViewModel
@@ -49,10 +29,17 @@ struct SettingsView: View {
         }
 
         Section {
-          ForEach(SettingsCategory.allCases) { category in
-            NavigationLink(value: category) {
-              Label(category.title, systemImage: category.icon)
-            }
+          NavigationLink {
+            SessionDetailsView()
+          } label: {
+            Label(
+              String(localized: "settings_itemSessionDetails"), systemImage: "person.crop.circle")
+          }
+          NavigationLink {
+            LogConsoleView()
+          } label: {
+            Label(
+              String(localized: "settings_itemLogConsole"), systemImage: "doc.text.magnifyingglass")
           }
           Button(String(localized: "settings_itemClearCache")) {
             showClearCacheConfirm = true
@@ -60,6 +47,11 @@ struct SettingsView: View {
         }
 
         Section {
+          NavigationLink {
+            LicensesView()
+          } label: {
+            Label(String(localized: "settings_itemLicenses"), systemImage: "doc.plaintext")
+          }
           Link(destination: URL(string: "https://github.com/casimir/frigoligo")!) {
             Label(
               String(localized: "g_sourceCode"),
@@ -91,13 +83,6 @@ struct SettingsView: View {
           }
         }
       }
-      .navigationDestination(for: SettingsCategory.self) { cat in
-        switch cat {
-        case .session: SessionDetailsView()
-        case .logs: LogConsoleView()
-        }
-      }
-
       .alert(
         String(localized: "settings_itemClearCache"),
         isPresented: $showClearCacheConfirm

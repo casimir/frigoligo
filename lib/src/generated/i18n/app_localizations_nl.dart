@@ -481,6 +481,9 @@ class AppLocalizationsNl extends AppLocalizations {
   String get settings_itemClearCache => 'Cache wissen';
 
   @override
+  String get settings_itemLicenses => 'Licenties bekijken';
+
+  @override
   String get settings_itemLogConsole => 'Logconsole';
 
   @override

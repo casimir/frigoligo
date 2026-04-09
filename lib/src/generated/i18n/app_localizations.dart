@@ -814,6 +814,12 @@ abstract class AppLocalizations {
   /// **'Clear cache'**
   String get settings_itemClearCache;
 
+  /// The action to display the open-source licenses screen.
+  ///
+  /// In en, this message translates to:
+  /// **'View licenses'**
+  String get settings_itemLicenses;
+
   /// The action to display the log console screen.
   ///
   /// In en, this message translates to:

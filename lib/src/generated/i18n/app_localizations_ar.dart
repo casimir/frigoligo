@@ -481,6 +481,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settings_itemClearCache => 'مسح الذاكرة المؤقتة';
 
   @override
+  String get settings_itemLicenses => 'الاطّلاع على التراخيص';
+
+  @override
   String get settings_itemLogConsole => 'وحدة تسجيل الأخطاء';
 
   @override
