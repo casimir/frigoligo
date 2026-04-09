@@ -28,6 +28,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(ios)* Switch to native handling of translations ([#443](https://github.com/casimir/frigoligo/pull/443)) ([a259339](https://github.com/casimir/frigoligo/commit/a25933923fe2d60bdc41c6edb12e4e0656153526))
 - *(iOS)* Native screen for settings, logs and session info ([#445](https://github.com/casimir/frigoligo/pull/445)) ([0b86395](https://github.com/casimir/frigoligo/commit/0b863950d7e6c8c8f2eb6ddd675b58d0e57fa676))
 - *(iOS)* Make settings screen really adaptive (+ small async fixes) ([7e27cb3](https://github.com/casimir/frigoligo/commit/7e27cb35ebb0a2e24e09a7ebee4e3a8e48c3b14a))
+- *(iOS)* Native login screen and session management ([#446](https://github.com/casimir/frigoligo/pull/446)) ([c28e461](https://github.com/casimir/frigoligo/commit/c28e461b1d1b6e18f1944730dae16661c5a53f39))
 
 ### 🐛 Bug Fixes
 
