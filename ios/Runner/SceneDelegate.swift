@@ -23,6 +23,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       let engine = (UIApplication.shared.delegate as? AppDelegate)?.engine
     else { return }
 
+    _ = WebViewPreloader.shared  // kicks off JS compilation before UI is built
+
     let messenger = engine.binaryMessenger
     let authGateVM = AuthGateViewModel(binaryMessenger: messenger)
     let licensesVM = LicensesViewModel(binaryMessenger: messenger)

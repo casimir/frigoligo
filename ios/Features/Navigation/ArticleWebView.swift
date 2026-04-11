@@ -18,35 +18,11 @@ struct ArticleWebView: UIViewRepresentable {
   }
 
   func makeUIView(context: Context) -> WKWebView {
-    let config = WKWebViewConfiguration()
+    // Fresh config sharing the prewarmed process pool — user scripts baked in.
+    let config = WebViewPreloader.shared.makeConfiguration()
     config.userContentController.add(context.coordinator, name: "ScrollProgress")
     config.userContentController.add(context.coordinator, name: "ScrollEnd")
     config.userContentController.add(context.coordinator, name: "ConsoleLog")
-    config.userContentController.addUserScript(
-      WKUserScript(
-        source: """
-            window.ScrollProgress = webkit.messageHandlers.ScrollProgress;
-            window.ScrollEnd = webkit.messageHandlers.ScrollEnd;
-          """,
-        injectionTime: .atDocumentStart,
-        forMainFrameOnly: true
-      ))
-    config.userContentController.addUserScript(
-      WKUserScript(
-        source: """
-            (function() {
-              ['log','warn','error','info'].forEach(function(m) {
-                var orig = console[m];
-                console[m] = function() {
-                  window.webkit.messageHandlers.ConsoleLog.postMessage('[' + m + '] ' + Array.from(arguments).join(' '));
-                  orig.apply(console, arguments);
-                };
-              });
-            })();
-          """,
-        injectionTime: .atDocumentStart,
-        forMainFrameOnly: true
-      ))
     let webView = WKWebView(frame: .zero, configuration: config)
     webView.navigationDelegate = context.coordinator
     webView.backgroundColor = .systemBackground
@@ -116,7 +92,6 @@ struct ArticleWebView: UIViewRepresentable {
       </style>
       </head>
       <body>\(title.map { "<h1>\($0)</h1>" } ?? "")\(fragment)
-      <script src="scripts/scrolling.js"></script>
       </body>
       </html>
       """

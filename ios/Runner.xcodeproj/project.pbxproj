@@ -45,6 +45,7 @@
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 		A4B5C6D7E8F9A0B1C2D3E4F5 /* ArticleWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C5D6E7F8A9B0C1D2E3F4A5 /* ArticleWebView.swift */; };
+		B5C6D7E8F9A0B1C2D3E4F5A6 /* WebViewPreloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D6E7F8A9B0C1D2E3F4A5B6 /* WebViewPreloader.swift */; };
 		C0972B5C27FA48909AC9E532 /* ArticleRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BBBD3E82D245D090CE619E /* ArticleRowView.swift */; };
 		C44E531BB86C4023894D63AD /* ArticleDetailPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321F3D1DDCFD469296E8CE95 /* ArticleDetailPlaceholder.swift */; };
 		C4D5E6F7A8B9C0D1E2F3A4B5 /* ArticleDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E5F6A7B8C9D0E1F2A3B4C5 /* ArticleDetailView.swift */; };
@@ -144,6 +145,7 @@
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B09F3FEBFA829F344CEC10D5 /* Pods-share.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-share.profile.xcconfig"; path = "Target Support Files/Pods-share/Pods-share.profile.xcconfig"; sourceTree = "<group>"; };
 		B4C5D6E7F8A9B0C1D2E3F4A5 /* ArticleWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleWebView.swift; sourceTree = "<group>"; };
+		C5D6E7F8A9B0C1D2E3F4A5B6 /* WebViewPreloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewPreloader.swift; sourceTree = "<group>"; };
 		C7E10C466BCE0E7E655232A1 /* Pods-share.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-share.debug.xcconfig"; path = "Target Support Files/Pods-share/Pods-share.debug.xcconfig"; sourceTree = "<group>"; };
 		D2DD607057904444CC19CB3E /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		D4E5F6A7B8C9D0E1F2A3B4C5 /* ArticleDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailView.swift; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 				67BBBD3E82D245D090CE619E /* ArticleRowView.swift */,
 				321F3D1DDCFD469296E8CE95 /* ArticleDetailPlaceholder.swift */,
 				B4C5D6E7F8A9B0C1D2E3F4A5 /* ArticleWebView.swift */,
+				C5D6E7F8A9B0C1D2E3F4A5B6 /* WebViewPreloader.swift */,
 				D4E5F6A7B8C9D0E1F2A3B4C5 /* ArticleDetailView.swift */,
 				A2B3C4D5E6F7A8B9C0D1E2F3 /* SaveLinkView.swift */,
 				F4A5B6C7D8E9F0A1B2C3D4E5 /* ReadingSettingsView.swift */,
@@ -598,6 +601,7 @@
 				C0972B5C27FA48909AC9E532 /* ArticleRowView.swift in Sources */,
 				C44E531BB86C4023894D63AD /* ArticleDetailPlaceholder.swift in Sources */,
 				A4B5C6D7E8F9A0B1C2D3E4F5 /* ArticleWebView.swift in Sources */,
+				B5C6D7E8F9A0B1C2D3E4F5A6 /* WebViewPreloader.swift in Sources */,
 				C4D5E6F7A8B9C0D1E2F3A4B5 /* ArticleDetailView.swift in Sources */,
 				E4F5A6B7C8D9E0F1A2B3C4D5 /* ReadingSettingsView.swift in Sources */,
 				F1E2D3C4B5A6F7E8D9C0B1A2 /* SaveLinkView.swift in Sources */,

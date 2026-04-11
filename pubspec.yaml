@@ -106,6 +106,10 @@ flutter:
     - assets/google_fonts/
     - assets/sample-articles.json
     - assets/www/scripts/
+    - assets/www/scripts/mathjax/
+    - assets/www/scripts/mermaid/
+    - assets/www/scripts/mathjax/fonts/mathjax-newcm-font/chtml/dynamic/
+    - assets/www/scripts/mathjax/fonts/mathjax-newcm-font/chtml/woff2/
     - assets/www/styles/
 
   # An image asset can refer to one or more resolution-specific "variants", see

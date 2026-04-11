@@ -29,3 +29,12 @@ void setupGoogleFonts() {
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });
 }
+
+void setupMathJax() {
+  LicenseRegistry.addLicense(() async* {
+    final license = await rootBundle.loadString(
+      'assets/www/scripts/mathjax/LICENSE.txt',
+    );
+    yield LicenseEntryWithLineBreaks(['mathjax'], license);
+  });
+}
