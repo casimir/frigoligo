@@ -44,3 +44,7 @@ test-coverage:
 coverage: test-coverage
 	genhtml coverage/lcov.info -o coverage/html
 
+.PHONY: vendor-scripts
+vendor-scripts:
+	$(DART) tools/vendor_scripts.dart
+

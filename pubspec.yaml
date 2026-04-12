@@ -105,12 +105,14 @@ flutter:
     - assets/article.template.html
     - assets/google_fonts/
     - assets/sample-articles.json
+    # BEGIN webview-scripts
     - assets/www/scripts/
     - assets/www/scripts/mathjax/
-    - assets/www/scripts/mermaid/
     - assets/www/scripts/mathjax/fonts/mathjax-newcm-font/chtml/dynamic/
     - assets/www/scripts/mathjax/fonts/mathjax-newcm-font/chtml/woff2/
+    - assets/www/scripts/mermaid/
     - assets/www/styles/
+    # END webview-scripts
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

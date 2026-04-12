@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!-- Dev test page for webview scripts. Open directly in a browser.
+     Script tags between the markers are managed by tools/vendor_scripts.dart. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Webview scripts test</title>
+  <style>
+    body { font-family: sans-serif; max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
+    h2 { margin-top: 2rem; }
+    pre.mermaid { background: none; }
+    .spacer { height: 200vh; display: flex; align-items: center; color: #aaa; }
+  </style>
+    <!-- BEGIN scripts atDocumentStart -->
+    <script src="../assets/www/scripts/webkit_init.js"></script>
+    <!-- END scripts atDocumentStart -->
+</head>
+<body>
+  <h1>Webview scripts test</h1>
+
+  <h2>LaTeX (MathJax)</h2>
+  <p>Inline: $E = mc^2$ and $\int_0^\infty e^{-x^2}\,dx = \frac{\sqrt{\pi}}{2}$</p>
+  <p>Block:</p>
+  $$\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}$$
+
+  <h2>Mermaid</h2>
+  <pre class="mermaid">
+graph TD
+    A[Start] --> B{Condition}
+    B -- Yes --> C[Do something]
+    B -- No --> D[Do something else]
+    C --> E[End]
+    D --> E
+  </pre>
+
+  <h2>Scroll test</h2>
+  <p>Scroll progress: <span id="progress">—</span></p>
+  <div class="spacer">↕ scroll here</div>
+
+  <!-- BEGIN scripts atDocumentEnd -->
+  <script src="../assets/www/scripts/mathjax/config.js"></script>
+  <script>window.MathJax.output.fontPath = '../assets/www/scripts/mathjax/fonts/%%FONT%%-font';</script>
+  <script src="../assets/www/scripts/mathjax/tex-chtml.js"></script>
+
+  <script src="../assets/www/scripts/mermaid/mermaid.min.js"></script>
+  <script src="../assets/www/scripts/mermaid/init.js"></script>
+
+  <script>
+    window.ScrollProgress = { postMessage: (p) => { document.getElementById('progress').textContent = p.toFixed(3); } };
+    window.ScrollEnd = { postMessage: () => {} };
+  </script>
+  <script src="../assets/www/scripts/scrolling.js"></script>
+  <!-- END scripts atDocumentEnd -->
+</body>
+</html>

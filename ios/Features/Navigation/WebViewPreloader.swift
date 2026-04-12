@@ -9,16 +9,30 @@ import WebKit
 final class WebViewPreloader: NSObject, WKNavigationDelegate {
   static let shared = WebViewPreloader()
 
-  private let scrollingSource: String?
-  private let mathJaxSource: String?
-  private let mermaidSource: String?
+  private enum InjectionTime: String, Codable {
+    case atDocumentStart, atDocumentEnd
+  }
+
+  private struct ManifestEntry: Codable {
+    let name: String
+    let path: String
+    let preScript: String?
+    let postScript: String?
+    let injectionTime: InjectionTime
+    let version: String?
+  }
+
+  private struct LoadedScript {
+    let source: String
+    let injectionTime: WKUserScriptInjectionTime
+  }
+
+  private let scripts: [LoadedScript]
   private var warmupView: WKWebView?
   private var warmupStart: Date?
 
   private override init() {
-    // Flutter assets live in App.framework, not Runner.app directly.
-    let appFramework = Bundle.main.bundleURL.appendingPathComponent("Frameworks/App.framework")
-    let base = appFramework
+    let base = Bundle.main.bundleURL.appendingPathComponent("Frameworks/App.framework")
 
     func load(_ relativePath: String) -> String? {
       let url = base.appendingPathComponent(relativePath)
@@ -30,51 +44,56 @@ final class WebViewPreloader: NSObject, WKNavigationDelegate {
       }
     }
 
-    scrollingSource = load("flutter_assets/assets/www/scripts/scrolling.js")
+    var loaded: [LoadedScript] = []
 
-    // Fonts must live in applicationSupportDirectory — the WebView's allowingReadAccessTo root.
-    // Copy once per app version so updates are picked up without manual cache busting.
-    let mathJaxFontPath: String?
-    if let appSupportDir = FileManager.default.urls(
-      for: .applicationSupportDirectory, in: .userDomainMask
-    ).first {
-      let fontDest = appSupportDir.appendingPathComponent("mathjax-fonts")
-      let fontSrc = base.appendingPathComponent("flutter_assets/assets/www/scripts/mathjax/fonts")
-      WebViewPreloader.syncFonts(from: fontSrc, to: fontDest)
-      mathJaxFontPath = fontDest.absoluteString + "/%%FONT%%-font"
-    } else {
-      mathJaxFontPath = nil
-    }
-
-    if let body = load("flutter_assets/assets/www/scripts/mathjax/tex-chtml.js"),
-      let fontPath = mathJaxFontPath
+    if let manifestJson = load("flutter_assets/assets/www/scripts/manifest.json"),
+      let data = manifestJson.data(using: .utf8),
+      let entries = try? JSONDecoder().decode([ManifestEntry].self, from: data)
     {
-      // Config block must precede source so MathJax reads it on init.
-      // fontPath uses %%FONT%% placeholder; MathJax v4 substitutes the font name (e.g. mathjax-newcm).
-      mathJaxSource = """
-        window.MathJax = {
-          tex: { inlineMath: [['$', '$'], ['\\\\(', '\\\\)']] },
-          output: { fontPath: '\(fontPath)' },
-          startup: {
-            ready() {
-              const t0 = performance.now();
-              MathJax.startup.defaultReady();
-              console.log('[MathJax] ready in ' + Math.round(performance.now() - t0) + 'ms');
-            }
+      for entry in entries {
+        guard var source = load("flutter_assets/\(entry.path)") else {
+          print("[WebViewPreloader] \(entry.name) NOT loaded, user script skipped")
+          continue
+        }
+
+        if var preScript = entry.preScript {
+          if preScript.contains("%%FONT_PATH%%"),
+            let version = entry.version,
+            let appSupportDir = FileManager.default.urls(
+              for: .applicationSupportDirectory, in: .userDomainMask
+            ).first
+          {
+            let fontDest = appSupportDir.appendingPathComponent("mathjax-fonts")
+            let fontSrc = base.appendingPathComponent(
+              "flutter_assets/assets/www/scripts/\(entry.name)/fonts"
+            )
+            WebViewPreloader.syncFonts(from: fontSrc, to: fontDest, version: version)
+            let fontPath = fontDest.absoluteString + "/%%FONT%%-font"
+            preScript = preScript.replacingOccurrences(of: "%%FONT_PATH%%", with: fontPath)
           }
-        };
-        """ + body
+          source = preScript + "\n" + source
+        }
+
+        if let postScript = entry.postScript {
+          source = source + "\n" + postScript
+        }
+
+        let injTime: WKUserScriptInjectionTime =
+          entry.injectionTime == .atDocumentStart ? .atDocumentStart : .atDocumentEnd
+
+        loaded.append(
+          LoadedScript(
+            source: "console.log('[WebViewPreloader] \(entry.name) loaded');\n" + source,
+            injectionTime: injTime
+          ))
+      }
     } else {
-      mathJaxSource = nil
+      print("[WebViewPreloader] manifest.json failed to load or parse")
     }
 
-    mermaidSource = load("flutter_assets/assets/www/scripts/mermaid/mermaid.min.js")
+    scripts = loaded
 
     super.init()
-
-    print("[WebViewPreloader] scrollingSource loaded: \(scrollingSource != nil)")
-    print("[WebViewPreloader] mathJaxSource loaded: \(mathJaxSource != nil)")
-    print("[WebViewPreloader] mermaidSource loaded: \(mermaidSource != nil)")
 
     let wv = WKWebView(frame: .zero, configuration: makeConfiguration())
     wv.navigationDelegate = self
@@ -92,76 +111,22 @@ final class WebViewPreloader: NSObject, WKNavigationDelegate {
   func makeConfiguration() -> WKWebViewConfiguration {
     let config = WKWebViewConfiguration()
 
-    config.userContentController.addUserScript(
-      WKUserScript(
-        source: """
-          window.ScrollProgress = webkit.messageHandlers.ScrollProgress;
-          window.ScrollEnd = webkit.messageHandlers.ScrollEnd;
-          """,
-        injectionTime: .atDocumentStart, forMainFrameOnly: true
-      ))
-    config.userContentController.addUserScript(
-      WKUserScript(
-        source: """
-          (function() {
-            ['log','warn','error','info'].forEach(function(m) {
-              var orig = console[m];
-              console[m] = function() {
-                window.webkit.messageHandlers.ConsoleLog
-                  .postMessage('[' + m + '] ' + Array.from(arguments).join(' '));
-                orig.apply(console, arguments);
-              };
-            });
-          })();
-          """,
-        injectionTime: .atDocumentStart, forMainFrameOnly: true
-      ))
-
-    if let source = scrollingSource {
-      // atDocumentEnd: needs DOM; matches the former <script> at end of body.
+    for script in scripts {
       config.userContentController.addUserScript(
         WKUserScript(
-          source: "console.log('[WebViewPreloader] scrolling.js loaded');\n" + source,
-          injectionTime: .atDocumentEnd, forMainFrameOnly: true))
-    } else {
-      print("[WebViewPreloader] scrolling.js NOT loaded — user script skipped")
-    }
-
-    if let source = mathJaxSource {
-      // atDocumentEnd: MathJax appends to document.head at init time, so the DOM must exist.
-      // The window.MathJax config is in the same script block, so it's still read first.
-      config.userContentController.addUserScript(
-        WKUserScript(
-          source: "console.log('[WebViewPreloader] MathJax loaded');\n" + source,
-          injectionTime: .atDocumentEnd, forMainFrameOnly: true))
-    } else {
-      print("[WebViewPreloader] MathJax NOT loaded — user script skipped")
-    }
-
-    if let source = mermaidSource {
-      // atDocumentEnd: needs DOM to find <pre class="mermaid"> elements.
-      // startOnLoad: false because DOMContentLoaded has already fired at this injection point.
-      config.userContentController.addUserScript(
-        WKUserScript(
-          source: source + """
-            \nmermaid.initialize({ startOnLoad: false, theme: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default' });
-            mermaid.run();
-            """,
-          injectionTime: .atDocumentEnd, forMainFrameOnly: true))
-    } else {
-      print("[WebViewPreloader] Mermaid NOT loaded — user script skipped")
+          source: script.source,
+          injectionTime: script.injectionTime,
+          forMainFrameOnly: true
+        ))
     }
 
     return config
   }
 
-  // Update when running build-mathjax.sh with a new version.
-  private static let mathJaxVersion = "4.1.1"
-
-  private static func syncFonts(from source: URL, to dest: URL) {
+  private static func syncFonts(from source: URL, to dest: URL, version: String) {
     let versionFile = dest.appendingPathComponent(".version")
     if let installed = try? String(contentsOf: versionFile, encoding: .utf8),
-      installed == mathJaxVersion
+      installed == version
     {
       return
     }
@@ -169,8 +134,8 @@ final class WebViewPreloader: NSObject, WKNavigationDelegate {
     try? fm.removeItem(at: dest)
     do {
       try fm.copyItem(at: source, to: dest)
-      try mathJaxVersion.write(to: versionFile, atomically: true, encoding: .utf8)
-      print("[WebViewPreloader] fonts synced for MathJax \(mathJaxVersion)")
+      try version.write(to: versionFile, atomically: true, encoding: .utf8)
+      print("[WebViewPreloader] fonts synced for MathJax \(version)")
     } catch {
       print("[WebViewPreloader] fonts sync FAILED: \(error)")
     }

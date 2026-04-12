@@ -5,6 +5,7 @@ import 'package:logging/logging.dart';
 
 import 'config/dependencies.dart';
 import 'config/logging.dart';
+import 'webview_scripts.dart';
 
 void setupLogger(Logger errorLogger) {
   dependencies.get<LoggerRepository>().registerLogHandler(enableDebugLogs);
@@ -30,11 +31,13 @@ void setupGoogleFonts() {
   });
 }
 
-void setupMathJax() {
-  LicenseRegistry.addLicense(() async* {
-    final license = await rootBundle.loadString(
-      'assets/www/scripts/mathjax/LICENSE.txt',
-    );
-    yield LicenseEntryWithLineBreaks(['mathjax'], license);
-  });
+void setupWebViewScriptLicenses() {
+  for (final script in webViewNpmScripts) {
+    final path = script.licensePath;
+    if (path == null) continue;
+    LicenseRegistry.addLicense(() async* {
+      final license = await rootBundle.loadString(path);
+      yield LicenseEntryWithLineBreaks([script.name], license);
+    });
+  }
 }

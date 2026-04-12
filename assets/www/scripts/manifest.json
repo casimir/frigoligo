@@ -1,0 +1,26 @@
+[
+  {
+    "name": "webkit_init",
+    "path": "assets/www/scripts/webkit_init.js",
+    "injectionTime": "atDocumentStart"
+  },
+  {
+    "name": "scrolling",
+    "path": "assets/www/scripts/scrolling.js",
+    "injectionTime": "atDocumentEnd"
+  },
+  {
+    "name": "mathjax",
+    "path": "assets/www/scripts/mathjax/tex-chtml.js",
+    "injectionTime": "atDocumentEnd",
+    "version": "4.1.1",
+    "preScript": "// %%FONT_PATH%% is substituted at runtime with the platform-specific font dir.\n// MathJax then replaces %%FONT%% internally with the font name (e.g. mathjax-newcm).\nwindow.MathJax = {\n  tex: { inlineMath: [['$', '$'], ['\\\\(', '\\\\)']] },\n  output: { fontPath: '%%FONT_PATH%%' },\n  startup: {\n    ready() {\n      const t0 = performance.now();\n      MathJax.startup.defaultReady();\n      console.log('[MathJax] ready in ' + Math.round(performance.now() - t0) + 'ms');\n    },\n  },\n};\n"
+  },
+  {
+    "name": "mermaid",
+    "path": "assets/www/scripts/mermaid/mermaid.min.js",
+    "injectionTime": "atDocumentEnd",
+    "version": "11.4.1",
+    "postScript": "mermaid.initialize({\n  startOnLoad: false,\n  theme: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default',\n});\nmermaid.run();\n"
+  }
+]
