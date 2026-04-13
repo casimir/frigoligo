@@ -219,7 +219,6 @@ void _updateTestHtml(Map<String, String> configContents) {
         tags.writeln(
           "$indent  window.ScrollProgress = { postMessage: (p) => { document.getElementById('progress').textContent = p.toFixed(3); } };",
         );
-        tags.writeln('$indent  window.ScrollEnd = { postMessage: () => { } };');
         tags.writeln('$indent</script>');
       }
       final href = '../$_wwwDir/${script.file}';

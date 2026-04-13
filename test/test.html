@@ -9,25 +9,14 @@
   <title>Webview scripts test</title>
   <style>
     body {
-      font-family: sans-serif;
       max-width: 800px;
       margin: 2rem auto;
-      padding: 0 1rem;
     }
 
-    h2 {
-      margin-top: 2rem;
-    }
-
-    pre.mermaid {
-      background: none;
-    }
-
-    .spacer {
-      height: 200vh;
-      display: flex;
-      align-items: center;
-      color: #aaa;
+    .scroll-header {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
     }
   </style>
   <!-- BEGIN scripts atDocumentStart -->
@@ -37,6 +26,7 @@
 </head>
 
 <body>
+  <div class="scroll-header">Scroll: <span id="progress"></span></div>
   <h1>Webview scripts test</h1>
 
   <h2>LaTeX (MathJax)</h2>
@@ -54,9 +44,27 @@ graph TD
     D --> E
   </pre>
 
-  <h2>Scroll test</h2>
-  <p>Scroll progress: <span id="progress">—</span></p>
-  <div class="spacer">↕ scroll here</div>
+  <h2>Code (syntax highlighting)</h2>
+  <p>First some stealthy Haskell</p>
+  <pre><code>fibs :: [Integer]
+fibs = 0 : 1 : zipWith (+) fibs (tail fibs)
+
+fibonacci :: Int -> Integer
+fibonacci n = fibs !! n</code></pre>
+
+  <p>Then some flamboyant PHP</p>
+  <pre><code class="language-php">
+function fibonacci(int $n): Generator {
+    [$a, $b] = [0, 1];
+    for ($i = 0; $i < $n; $i++) {
+        yield $a;
+        [$a, $b] = [$b, $a + $b];
+    }
+}
+
+foreach (fibonacci(10) as $value) {
+    echo $value . "\n";
+}</code></pre>
 
   <!-- BEGIN scripts atDocumentEnd -->
   <script src="../assets/www/scripts/mathjax/config.js"></script>
@@ -68,7 +76,6 @@ graph TD
 
   <script>
     window.ScrollProgress = { postMessage: (p) => { document.getElementById('progress').textContent = p.toFixed(3); } };
-    window.ScrollEnd = { postMessage: () => { } };
   </script>
   <script src="../assets/www/scripts/scrolling.js"></script>
   <!-- END scripts atDocumentEnd -->
