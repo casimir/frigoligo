@@ -76,6 +76,7 @@ struct ArticleWebView: UIViewRepresentable {
       <meta name="viewport" content="width=device-width, initial-scale=1">
       \(stylesheetLinks)
       <style>
+        :root { color-scheme: light dark; }
         body {
           font-family: \(readingSettings.fontFamily), sans-serif;
           font-size: \(fontSizeCss(readingSettings.fontSize));
