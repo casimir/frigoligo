@@ -180,13 +180,10 @@ class _HtmlWidgetContent extends ConsumerWidget {
 
 class ArticleContentRenderer {
   static const assetsPrefix = 'assets/www';
-  static const fontAssetsPrefix = 'assets/google_fonts';
   static final hackstacheVariableRe = RegExp(r'{{\s*(\w+)\s*}}');
 
   static late String? htmlTemplate;
   static late Directory rootDir;
-
-  static Directory get fontDir => Directory('${rootDir.path}/fonts');
 
   static Future<void> preload() async {
     htmlTemplate = await rootBundle.loadString('assets/article.template.html');
@@ -194,7 +191,7 @@ class ArticleContentRenderer {
     if (!UniversalPlatform.isIOS) {
       rootDir = await getApplicationSupportDirectory();
       final assets = await AssetManifest.loadFromAssetBundle(rootBundle);
-      await Future.wait([_unpackAssets(assets), _unpackFonts(assets)]);
+      await _unpackAssets(assets);
     }
   }
 
@@ -210,19 +207,6 @@ class ArticleContentRenderer {
         target.parent.createSync(recursive: true);
       }
       target.writeAsBytesSync(bin.buffer.asUint8List());
-    }
-  }
-
-  static Future<void> _unpackFonts(AssetManifest assets) async {
-    final fontFiles = assets
-        .listAssets()
-        .where((key) => key.startsWith(fontAssetsPrefix))
-        .toList();
-    if (!fontDir.existsSync()) fontDir.createSync(recursive: true);
-    for (final key in fontFiles) {
-      final bin = await rootBundle.load(key);
-      final target = key.replaceFirst(fontAssetsPrefix, fontDir.path);
-      File(target).writeAsBytesSync(bin.buffer.asUint8List());
     }
   }
 

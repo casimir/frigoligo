@@ -71,10 +71,6 @@ const webViewNpmScripts = [
 ];
 
 const webViewCustomScripts = [
-  // assets/www/fonts is a symlink to assets/google_fonts (which is owned by the
-  // google_fonts package). This causes the TTFs to be bundled twice in the IPA.
-  // Fix: drop the google_fonts package, declare fonts in pubspec `fonts:`, and
-  // move the TTFs to assets/www/fonts properly.
   WebViewCustomScript(
     name: 'fonts',
     file: 'styles/fonts.css',

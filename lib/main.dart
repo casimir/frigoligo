@@ -71,7 +71,7 @@ Future<void> _commonSetup(String loggerName) async {
 
   final log = Logger(loggerName);
   setupLogger(log);
-  setupGoogleFonts();
+  setupFontLicenses();
   setupWebViewScriptLicenses();
 
   // after this line using `await` is OK

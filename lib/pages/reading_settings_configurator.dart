@@ -44,10 +44,7 @@ class ReadingSettingsConfigurator extends ConsumerWidget {
                   runSpacing: !UniversalPlatform.isMobile ? 10.0 : 0.0,
                   children: readingFonts.map((family) {
                     return ChoiceChip(
-                      label: Text(
-                        family,
-                        style: textStyleFromFontFamily(family),
-                      ),
+                      label: Text(family, style: TextStyle(fontFamily: family)),
                       selected: values.fontFamily == family,
                       onSelected: (selected) {
                         if (selected) {

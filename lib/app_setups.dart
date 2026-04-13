@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:google_fonts/google_fonts.dart';
 import 'package:logging/logging.dart';
 
 import 'config/dependencies.dart';
@@ -22,11 +21,9 @@ void setupLogger(Logger errorLogger) {
   };
 }
 
-void setupGoogleFonts() {
-  // prevent fetching fonts from the internet, only loads the ones in the assets
-  GoogleFonts.config.allowRuntimeFetching = false;
+void setupFontLicenses() {
   LicenseRegistry.addLicense(() async* {
-    final license = await rootBundle.loadString('assets/google_fonts/OFL.txt');
+    final license = await rootBundle.loadString('assets/www/fonts/OFL.txt');
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });
 }
