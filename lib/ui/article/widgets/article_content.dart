@@ -190,10 +190,12 @@ class ArticleContentRenderer {
 
   static Future<void> preload() async {
     htmlTemplate = await rootBundle.loadString('assets/article.template.html');
-    rootDir = await getApplicationSupportDirectory();
 
-    final assets = await AssetManifest.loadFromAssetBundle(rootBundle);
-    await Future.wait([_unpackAssets(assets), _unpackFonts(assets)]);
+    if (!UniversalPlatform.isIOS) {
+      rootDir = await getApplicationSupportDirectory();
+      final assets = await AssetManifest.loadFromAssetBundle(rootBundle);
+      await Future.wait([_unpackAssets(assets), _unpackFonts(assets)]);
+    }
   }
 
   static Future<void> _unpackAssets(AssetManifest assets) async {

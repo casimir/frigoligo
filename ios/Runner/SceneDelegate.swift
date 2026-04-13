@@ -19,11 +19,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     willConnectTo session: UISceneSession,
     options connectionOptions: UIScene.ConnectionOptions
   ) {
+    _ = WebViewPreloader.shared  // kicks off JS compilation before UI is built
+
     guard let windowScene = scene as? UIWindowScene,
       let engine = (UIApplication.shared.delegate as? AppDelegate)?.engine
     else { return }
-
-    _ = WebViewPreloader.shared  // kicks off JS compilation before UI is built
 
     let messenger = engine.binaryMessenger
     let authGateVM = AuthGateViewModel(binaryMessenger: messenger)

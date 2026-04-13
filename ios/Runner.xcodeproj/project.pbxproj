@@ -3,22 +3,30 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0217AA012F800000000A0001 /* ArticleSheet.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA002F800000000A0001 /* ArticleSheet.g.swift */; };
-		0217AA032F800000000A0002 /* AuthGate.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA022F800000000A0002 /* AuthGate.g.swift */; };
-		0217AA052F800000000A0003 /* NavigationSplit.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA042F800000000A0003 /* NavigationSplit.g.swift */; };
-		0217AA062F800000000A0004 /* Settings.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA072F800000000A0005 /* Settings.g.swift */; };
 		02170A032F700000000A0002 /* AuthGateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02170A022F700000000A0002 /* AuthGateViewModel.swift */; };
+		02170A052F700000000A0003 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02170A042F700000000A0003 /* AppView.swift */; };
+		02170A072F700000000A0005 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02170A082F700000000A0005 /* SceneDelegate.swift */; };
 		02170A092F700000000A0006 /* Login.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02170A0A2F700000000A0006 /* Login.g.swift */; };
 		02170A0B2F700000000A0007 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02170A0C2F700000000A0007 /* LoginViewModel.swift */; };
 		02170A0D2F700000000A0008 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02170A0E2F700000000A0008 /* LoginView.swift */; };
 		02170A0F2F700000000A0009 /* ServerCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02170A102F700000000A0009 /* ServerCheckView.swift */; };
 		02170A112F700000000A000A /* CredentialsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02170A122F700000000A000A /* CredentialsView.swift */; };
-		02170A052F700000000A0003 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02170A042F700000000A0003 /* AppView.swift */; };
-		02170A072F700000000A0005 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02170A082F700000000A0005 /* SceneDelegate.swift */; };
+		0217AA012F800000000A0001 /* ArticleSheet.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA002F800000000A0001 /* ArticleSheet.g.swift */; };
+		0217AA032F800000000A0002 /* AuthGate.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA022F800000000A0002 /* AuthGate.g.swift */; };
+		0217AA052F800000000A0003 /* NavigationSplit.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA042F800000000A0003 /* NavigationSplit.g.swift */; };
+		0217AA062F800000000A0004 /* Settings.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA072F800000000A0005 /* Settings.g.swift */; };
+		0217AA102F800000000A0016 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA0B2F800000000A0011 /* SettingsView.swift */; };
+		0217AA122F800000000A0018 /* SessionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA0D2F800000000A0013 /* SessionDetailsView.swift */; };
+		0217AA132F800000000A0019 /* LogConsoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA0E2F800000000A0014 /* LogConsoleView.swift */; };
+		0217AA152F800000000A001B /* LogConsoleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA162F800000000A001C /* LogConsoleViewModel.swift */; };
+		0217AA172F800000000A001D /* SessionDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA182F800000000A001E /* SessionDetailsViewModel.swift */; };
+		0217AA192F800000000A001F /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA1A2F800000000A0020 /* SettingsViewModel.swift */; };
+		0217AA1B2F800000000A0021 /* LicensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA1C2F800000000A0022 /* LicensesView.swift */; };
+		0217AA1D2F800000000A0023 /* LicensesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA1E2F800000000A0024 /* LicensesViewModel.swift */; };
 		021BA09A2A9BFCE500557A89 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 021BA0992A9BFCE500557A89 /* ShareViewController.swift */; };
 		021BA09D2A9BFCE500557A89 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 021BA09B2A9BFCE500557A89 /* MainInterface.storyboard */; };
 		021BA0A12A9BFCE500557A89 /* share.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 021BA0972A9BFCE500557A89 /* share.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -52,14 +60,6 @@
 		E4F5A6B7C8D9E0F1A2B3C4D5 /* ReadingSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A5B6C7D8E9F0A1B2C3D4E5 /* ReadingSettingsView.swift */; };
 		F1E2D3C4B5A6F7E8D9C0B1A2 /* SaveLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B3C4D5E6F7A8B9C0D1E2F3 /* SaveLinkView.swift */; };
 		FB79C22F514D444C99A08E63 /* NavigationSplitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB14938C12F143829E910AC0 /* NavigationSplitViewModel.swift */; };
-		0217AA102F800000000A0016 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA0B2F800000000A0011 /* SettingsView.swift */; };
-		0217AA152F800000000A001B /* LogConsoleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA162F800000000A001C /* LogConsoleViewModel.swift */; };
-		0217AA172F800000000A001D /* SessionDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA182F800000000A001E /* SessionDetailsViewModel.swift */; };
-		0217AA192F800000000A001F /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA1A2F800000000A0020 /* SettingsViewModel.swift */; };
-		0217AA122F800000000A0018 /* SessionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA0D2F800000000A0013 /* SessionDetailsView.swift */; };
-		0217AA132F800000000A0019 /* LogConsoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA0E2F800000000A0014 /* LogConsoleView.swift */; };
-		0217AA1B2F800000000A0021 /* LicensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA1C2F800000000A0022 /* LicensesView.swift */; };
-		0217AA1D2F800000000A0023 /* LicensesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA1E2F800000000A0024 /* LicensesViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,18 +97,26 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0217AA002F800000000A0001 /* ArticleSheet.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSheet.g.swift; sourceTree = "<group>"; };
-		0217AA022F800000000A0002 /* AuthGate.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthGate.g.swift; sourceTree = "<group>"; };
-		0217AA042F800000000A0003 /* NavigationSplit.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationSplit.g.swift; sourceTree = "<group>"; };
-		0217AA072F800000000A0005 /* Settings.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.g.swift; sourceTree = "<group>"; };
 		02170A022F700000000A0002 /* AuthGateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthGateViewModel.swift; sourceTree = "<group>"; };
+		02170A042F700000000A0003 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		02170A082F700000000A0005 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		02170A0A2F700000000A0006 /* Login.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.g.swift; sourceTree = "<group>"; };
 		02170A0C2F700000000A0007 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		02170A0E2F700000000A0008 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		02170A102F700000000A0009 /* ServerCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerCheckView.swift; sourceTree = "<group>"; };
 		02170A122F700000000A000A /* CredentialsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsView.swift; sourceTree = "<group>"; };
-		02170A042F700000000A0003 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
-		02170A082F700000000A0005 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		0217AA002F800000000A0001 /* ArticleSheet.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleSheet.g.swift; sourceTree = "<group>"; };
+		0217AA022F800000000A0002 /* AuthGate.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthGate.g.swift; sourceTree = "<group>"; };
+		0217AA042F800000000A0003 /* NavigationSplit.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationSplit.g.swift; sourceTree = "<group>"; };
+		0217AA072F800000000A0005 /* Settings.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.g.swift; sourceTree = "<group>"; };
+		0217AA0B2F800000000A0011 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		0217AA0D2F800000000A0013 /* SessionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailsView.swift; sourceTree = "<group>"; };
+		0217AA0E2F800000000A0014 /* LogConsoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogConsoleView.swift; sourceTree = "<group>"; };
+		0217AA162F800000000A001C /* LogConsoleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogConsoleViewModel.swift; sourceTree = "<group>"; };
+		0217AA182F800000000A001E /* SessionDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailsViewModel.swift; sourceTree = "<group>"; };
+		0217AA1A2F800000000A0020 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		0217AA1C2F800000000A0022 /* LicensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensesView.swift; sourceTree = "<group>"; };
+		0217AA1E2F800000000A0024 /* LicensesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensesViewModel.swift; sourceTree = "<group>"; };
 		021BA0972A9BFCE500557A89 /* share.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = share.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		021BA0992A9BFCE500557A89 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		021BA09C2A9BFCE500557A89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -143,26 +151,18 @@
 		97C146FD1CF9000F007C117D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A2B3C4D5E6F7A8B9C0D1E2F3 /* SaveLinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveLinkView.swift; sourceTree = "<group>"; };
 		B09F3FEBFA829F344CEC10D5 /* Pods-share.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-share.profile.xcconfig"; path = "Target Support Files/Pods-share/Pods-share.profile.xcconfig"; sourceTree = "<group>"; };
 		B4C5D6E7F8A9B0C1D2E3F4A5 /* ArticleWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleWebView.swift; sourceTree = "<group>"; };
 		C5D6E7F8A9B0C1D2E3F4A5B6 /* WebViewPreloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewPreloader.swift; sourceTree = "<group>"; };
 		C7E10C466BCE0E7E655232A1 /* Pods-share.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-share.debug.xcconfig"; path = "Target Support Files/Pods-share/Pods-share.debug.xcconfig"; sourceTree = "<group>"; };
 		D2DD607057904444CC19CB3E /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		D4E5F6A7B8C9D0E1F2A3B4C5 /* ArticleDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailView.swift; sourceTree = "<group>"; };
-		A2B3C4D5E6F7A8B9C0D1E2F3 /* SaveLinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveLinkView.swift; sourceTree = "<group>"; };
-		F4A5B6C7D8E9F0A1B2C3D4E5 /* ReadingSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingSettingsView.swift; sourceTree = "<group>"; };
 		ED81C667DFF00548818CB234 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		EFC60A827028B2B313863E84 /* Pods_share.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_share.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4A5B6C7D8E9F0A1B2C3D4E5 /* ReadingSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingSettingsView.swift; sourceTree = "<group>"; };
 		F96CB72AE9B3436B99FE780C /* FilterBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBarView.swift; sourceTree = "<group>"; };
 		FB14938C12F143829E910AC0 /* NavigationSplitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationSplitViewModel.swift; sourceTree = "<group>"; };
-		0217AA0B2F800000000A0011 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		0217AA162F800000000A001C /* LogConsoleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogConsoleViewModel.swift; sourceTree = "<group>"; };
-		0217AA182F800000000A001E /* SessionDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailsViewModel.swift; sourceTree = "<group>"; };
-		0217AA1A2F800000000A0020 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
-		0217AA0D2F800000000A0013 /* SessionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDetailsView.swift; sourceTree = "<group>"; };
-		0217AA0E2F800000000A0014 /* LogConsoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogConsoleView.swift; sourceTree = "<group>"; };
-		0217AA1C2F800000000A0022 /* LicensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensesView.swift; sourceTree = "<group>"; };
-		0217AA1E2F800000000A0024 /* LicensesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicensesViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,6 +198,22 @@
 				02170A122F700000000A000A /* CredentialsView.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		0217AA0A2F800000000A0010 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				0217AA072F800000000A0005 /* Settings.g.swift */,
+				0217AA162F800000000A001C /* LogConsoleViewModel.swift */,
+				0217AA1E2F800000000A0024 /* LicensesViewModel.swift */,
+				0217AA182F800000000A001E /* SessionDetailsViewModel.swift */,
+				0217AA1A2F800000000A0020 /* SettingsViewModel.swift */,
+				0217AA0B2F800000000A0011 /* SettingsView.swift */,
+				0217AA0D2F800000000A0013 /* SessionDetailsView.swift */,
+				0217AA0E2F800000000A0014 /* LogConsoleView.swift */,
+				0217AA1C2F800000000A0022 /* LicensesView.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		021BA0982A9BFCE500557A89 /* share */ = {
@@ -241,22 +257,6 @@
 				0217AA0A2F800000000A0010 /* Settings */,
 			);
 			path = Features;
-			sourceTree = "<group>";
-		};
-		0217AA0A2F800000000A0010 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				0217AA072F800000000A0005 /* Settings.g.swift */,
-			0217AA162F800000000A001C /* LogConsoleViewModel.swift */,
-			0217AA1E2F800000000A0024 /* LicensesViewModel.swift */,
-			0217AA182F800000000A001E /* SessionDetailsViewModel.swift */,
-			0217AA1A2F800000000A0020 /* SettingsViewModel.swift */,
-			0217AA0B2F800000000A0011 /* SettingsView.swift */,
-					0217AA0D2F800000000A0013 /* SessionDetailsView.swift */,
-				0217AA0E2F800000000A0014 /* LogConsoleView.swift */,
-				0217AA1C2F800000000A0022 /* LicensesView.swift */,
-				);
-			path = Settings;
 			sourceTree = "<group>";
 		};
 		3B4D0FAAD1D2F20CE09ECD50 /* Pods */ = {
@@ -510,13 +510,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

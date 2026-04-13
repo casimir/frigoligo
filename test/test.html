@@ -2,20 +2,40 @@
 <!-- Dev test page for webview scripts. Open directly in a browser.
      Script tags between the markers are managed by tools/vendor_scripts.dart. -->
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Webview scripts test</title>
   <style>
-    body { font-family: sans-serif; max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
-    h2 { margin-top: 2rem; }
-    pre.mermaid { background: none; }
-    .spacer { height: 200vh; display: flex; align-items: center; color: #aaa; }
+    body {
+      font-family: sans-serif;
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    h2 {
+      margin-top: 2rem;
+    }
+
+    pre.mermaid {
+      background: none;
+    }
+
+    .spacer {
+      height: 200vh;
+      display: flex;
+      align-items: center;
+      color: #aaa;
+    }
   </style>
-    <!-- BEGIN scripts atDocumentStart -->
-    <script src="../assets/www/scripts/webkit_init.js"></script>
-    <!-- END scripts atDocumentStart -->
+  <!-- BEGIN scripts atDocumentStart -->
+  <link rel="stylesheet" href="../assets/www/styles/fonts.css">
+  <script src="../assets/www/scripts/webkit_init.js"></script>
+  <!-- END scripts atDocumentStart -->
 </head>
+
 <body>
   <h1>Webview scripts test</h1>
 
@@ -48,9 +68,10 @@ graph TD
 
   <script>
     window.ScrollProgress = { postMessage: (p) => { document.getElementById('progress').textContent = p.toFixed(3); } };
-    window.ScrollEnd = { postMessage: () => {} };
+    window.ScrollEnd = { postMessage: () => { } };
   </script>
   <script src="../assets/www/scripts/scrolling.js"></script>
   <!-- END scripts atDocumentEnd -->
 </body>
+
 </html>

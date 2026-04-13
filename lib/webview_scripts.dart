@@ -11,6 +11,7 @@ class WebViewNpmScript {
     this.preScriptFile,
     this.postScriptFile,
     required this.injectionTime,
+    this.copyToFS,
   });
 
   final String name;
@@ -22,6 +23,7 @@ class WebViewNpmScript {
   final String? preScriptFile;
   final String? postScriptFile;
   final ScriptInjectionTime injectionTime;
+  final List<String>? copyToFS;
 }
 
 class WebViewCustomScript {
@@ -29,11 +31,13 @@ class WebViewCustomScript {
     required this.name,
     required this.file,
     required this.injectionTime,
+    this.copyToFS,
   });
 
   final String name;
   final String file;
   final ScriptInjectionTime injectionTime;
+  final List<String>? copyToFS;
 }
 
 const webViewNpmScripts = [
@@ -50,6 +54,7 @@ const webViewNpmScripts = [
     licensePath: 'assets/www/scripts/mathjax/LICENSE.txt',
     preScriptFile: 'config.js',
     injectionTime: ScriptInjectionTime.atDocumentEnd,
+    copyToFS: ['scripts/mathjax/fonts/mathjax-newcm-font/chtml'],
   ),
   WebViewNpmScript(
     name: 'mermaid',
@@ -66,14 +71,24 @@ const webViewNpmScripts = [
 ];
 
 const webViewCustomScripts = [
+  // assets/www/fonts is a symlink to assets/google_fonts (which is owned by the
+  // google_fonts package). This causes the TTFs to be bundled twice in the IPA.
+  // Fix: drop the google_fonts package, declare fonts in pubspec `fonts:`, and
+  // move the TTFs to assets/www/fonts properly.
+  WebViewCustomScript(
+    name: 'fonts',
+    file: 'styles/fonts.css',
+    copyToFS: ['styles/fonts.css', 'fonts'],
+    injectionTime: ScriptInjectionTime.atDocumentStart,
+  ),
   WebViewCustomScript(
     name: 'webkit_init',
-    file: 'webkit_init.js',
+    file: 'scripts/webkit_init.js',
     injectionTime: ScriptInjectionTime.atDocumentStart,
   ),
   WebViewCustomScript(
     name: 'scrolling',
-    file: 'scrolling.js',
+    file: 'scripts/scrolling.js',
     injectionTime: ScriptInjectionTime.atDocumentEnd,
   ),
 ];

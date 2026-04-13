@@ -19,7 +19,7 @@ final class WebViewPreloader: NSObject, WKNavigationDelegate {
     let preScript: String?
     let postScript: String?
     let injectionTime: InjectionTime
-    let version: String?
+    let copyToFS: [String]?
   }
 
   private struct LoadedScript {
@@ -27,15 +27,22 @@ final class WebViewPreloader: NSObject, WKNavigationDelegate {
     let injectionTime: WKUserScriptInjectionTime
   }
 
-  private let scripts: [LoadedScript]
+  private var scripts: [LoadedScript]
   private var warmupView: WKWebView?
   private var warmupStart: Date?
+  private(set) var webRoot: URL!
+  static var webRoot: URL { shared.webRoot }
 
   private override init() {
     let base = Bundle.main.bundleURL.appendingPathComponent("Frameworks/App.framework")
+    let fm = FileManager.default
+
+    func assetURL(_ relativePath: String) -> URL {
+      base.appendingPathComponent(relativePath)
+    }
 
     func load(_ relativePath: String) -> String? {
-      let url = base.appendingPathComponent(relativePath)
+      let url = assetURL(relativePath)
       do {
         return try String(contentsOf: url, encoding: .utf8)
       } catch {
@@ -44,56 +51,79 @@ final class WebViewPreloader: NSObject, WKNavigationDelegate {
       }
     }
 
-    var loaded: [LoadedScript] = []
+    func copyAsset(_ sourcePath: String, _ relativePath: String) {
+      let sourceURL = assetURL(sourcePath)
+      let destURL = webRoot.appendingPathComponent(relativePath)
+      do {
+        try fm.createDirectory(
+          at: destURL.deletingLastPathComponent(), withIntermediateDirectories: true)
+        try fm.copyItem(at: sourceURL, to: destURL)
+      } catch {
+        print("[WebViewPreloader] copyAsset FAILED \(sourcePath): \(error)")
+      }
+    }
+
+    webRoot = fm.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+      .appendingPathComponent("www")
+
+    try? fm.removeItem(at: webRoot)
+    try? fm.createDirectory(at: webRoot, withIntermediateDirectories: true)
+
+    var entries: [ManifestEntry] = []
 
     if let manifestJson = load("flutter_assets/assets/www/scripts/manifest.json"),
       let data = manifestJson.data(using: .utf8),
-      let entries = try? JSONDecoder().decode([ManifestEntry].self, from: data)
+      let decoded = try? JSONDecoder().decode([ManifestEntry].self, from: data)
     {
-      for entry in entries {
-        guard var source = load("flutter_assets/\(entry.path)") else {
-          print("[WebViewPreloader] \(entry.name) NOT loaded, user script skipped")
-          continue
-        }
-
-        if var preScript = entry.preScript {
-          if preScript.contains("%%FONT_PATH%%"),
-            let version = entry.version,
-            let appSupportDir = FileManager.default.urls(
-              for: .applicationSupportDirectory, in: .userDomainMask
-            ).first
-          {
-            let fontDest = appSupportDir.appendingPathComponent("mathjax-fonts")
-            let fontSrc = base.appendingPathComponent(
-              "flutter_assets/assets/www/scripts/\(entry.name)/fonts"
-            )
-            WebViewPreloader.syncFonts(from: fontSrc, to: fontDest, version: version)
-            let fontPath = fontDest.absoluteString + "/%%FONT%%-font"
-            preScript = preScript.replacingOccurrences(of: "%%FONT_PATH%%", with: fontPath)
-          }
-          source = preScript + "\n" + source
-        }
-
-        if let postScript = entry.postScript {
-          source = source + "\n" + postScript
-        }
-
-        let injTime: WKUserScriptInjectionTime =
-          entry.injectionTime == .atDocumentStart ? .atDocumentStart : .atDocumentEnd
-
-        loaded.append(
-          LoadedScript(
-            source: "console.log('[WebViewPreloader] \(entry.name) loaded');\n" + source,
-            injectionTime: injTime
-          ))
-      }
+      entries = decoded
     } else {
       print("[WebViewPreloader] manifest.json failed to load or parse")
+    }
+
+    var loaded: [LoadedScript] = []
+
+    for entry in entries {
+      guard var source = load("flutter_assets/\(entry.path)") else {
+        print("[WebViewPreloader] \(entry.name) NOT loaded, user script skipped")
+        continue
+      }
+
+      if let preScript = entry.preScript {
+        source = preScript + "\n" + source
+      }
+
+      if let postScript = entry.postScript {
+        source = source + "\n" + postScript
+      }
+
+      let injTime: WKUserScriptInjectionTime =
+        entry.injectionTime == .atDocumentStart ? .atDocumentStart : .atDocumentEnd
+
+      loaded.append(
+        LoadedScript(
+          source: "console.log('[WebViewPreloader] \(entry.name) loaded');\n" + source,
+          injectionTime: injTime
+        ))
     }
 
     scripts = loaded
 
     super.init()
+
+    let copyStart = Date()
+    for entry in entries {
+      if let copyPaths = entry.copyToFS {
+        for copyPath in copyPaths {
+          copyAsset(
+            "flutter_assets/assets/www/\(copyPath)",
+            copyPath
+          )
+        }
+      }
+    }
+    print(
+      "[WebViewPreloader] copied web assets in \(Int(Date().timeIntervalSince(copyStart) * 1000))ms"
+    )
 
     let wv = WKWebView(frame: .zero, configuration: makeConfiguration())
     wv.navigationDelegate = self
@@ -121,23 +151,5 @@ final class WebViewPreloader: NSObject, WKNavigationDelegate {
     }
 
     return config
-  }
-
-  private static func syncFonts(from source: URL, to dest: URL, version: String) {
-    let versionFile = dest.appendingPathComponent(".version")
-    if let installed = try? String(contentsOf: versionFile, encoding: .utf8),
-      installed == version
-    {
-      return
-    }
-    let fm = FileManager.default
-    try? fm.removeItem(at: dest)
-    do {
-      try fm.copyItem(at: source, to: dest)
-      try version.write(to: versionFile, atomically: true, encoding: .utf8)
-      print("[WebViewPreloader] fonts synced for MathJax \(version)")
-    } catch {
-      print("[WebViewPreloader] fonts sync FAILED: \(error)")
-    }
   }
 }

@@ -10,7 +10,7 @@ struct ArticleWebView: UIViewRepresentable {
   let onProgressChange: (Double) -> Void
 
   private var baseURL: URL? {
-    FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
+    WebViewPreloader.webRoot
   }
 
   func makeCoordinator() -> Coordinator {
@@ -18,7 +18,6 @@ struct ArticleWebView: UIViewRepresentable {
   }
 
   func makeUIView(context: Context) -> WKWebView {
-    // Fresh config sharing the prewarmed process pool — user scripts baked in.
     let config = WebViewPreloader.shared.makeConfiguration()
     config.userContentController.add(context.coordinator, name: "ScrollProgress")
     config.userContentController.add(context.coordinator, name: "ScrollEnd")
