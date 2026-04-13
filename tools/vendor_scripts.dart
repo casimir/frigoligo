@@ -9,10 +9,9 @@ import 'dart:io';
 import 'package:frigoligo/webview_scripts.dart';
 
 const _wwwDir = 'assets/www';
-const _wwwScriptsDir = '$_wwwDir/scripts';
 
 final _projectRoot = File.fromUri(Platform.script).parent.parent.path;
-final _scriptsDir = '$_projectRoot/$_wwwScriptsDir';
+final _scriptsDir = '$_projectRoot/$_wwwDir/scripts';
 
 void main() {
   final manifestVersions = _loadManifestVersions();
@@ -33,7 +32,7 @@ void main() {
 }
 
 Map<String, String> _loadManifestVersions() {
-  final manifestFile = File('$_scriptsDir/manifest.json');
+  final manifestFile = File('$_projectRoot/$_wwwDir/manifest.json');
   if (!manifestFile.existsSync()) return {};
 
   final manifest = jsonDecode(manifestFile.readAsStringSync()) as List;
@@ -177,7 +176,7 @@ void _generateManifest(Map<String, String> configContents) {
   }
 
   final json = const JsonEncoder.withIndent('  ').convert(entries);
-  File('$_scriptsDir/manifest.json').writeAsStringSync('$json\n');
+  File('$_projectRoot/$_wwwDir/manifest.json').writeAsStringSync('$json\n');
   print('Generated manifest.json (${entries.length} entries)');
 }
 

@@ -42,6 +42,20 @@ class WebViewCustomScript {
 
 const webViewNpmScripts = [
   WebViewNpmScript(
+    name: 'highlightjs',
+    npmPackage: '@highlightjs/cdn-assets',
+    version: '11.11.1', // renovate: datasource=npm depName=highlightjs
+    files: {
+      '@highlightjs/cdn-assets/highlight.min.js': 'highlight.min.js',
+      '@highlightjs/cdn-assets/styles/default.min.css':
+          'styles/default.min.css',
+      '@highlightjs/cdn-assets/LICENSE': 'LICENSE.txt',
+    },
+    licensePath: 'assets/www/scripts/highlightjs/LICENSE.txt',
+    postScriptFile: 'init.js',
+    injectionTime: ScriptInjectionTime.atDocumentEnd,
+  ),
+  WebViewNpmScript(
     name: 'mathjax',
     npmPackage: 'mathjax',
     version: '4.1.1', // renovate: datasource=npm depName=mathjax
@@ -72,9 +86,21 @@ const webViewNpmScripts = [
 
 const webViewCustomScripts = [
   WebViewCustomScript(
+    name: 'base',
+    file: 'styles/base.css',
+    copyToFS: ['styles/base.css'],
+    injectionTime: ScriptInjectionTime.atDocumentStart,
+  ),
+  WebViewCustomScript(
     name: 'fonts',
     file: 'styles/fonts.css',
     copyToFS: ['styles/fonts.css', 'fonts'],
+    injectionTime: ScriptInjectionTime.atDocumentStart,
+  ),
+  WebViewCustomScript(
+    name: 'highlightjs_theme',
+    file: 'scripts/highlightjs/styles/default.min.css',
+    copyToFS: ['scripts/highlightjs/styles/default.min.css'],
     injectionTime: ScriptInjectionTime.atDocumentStart,
   ),
   WebViewCustomScript(

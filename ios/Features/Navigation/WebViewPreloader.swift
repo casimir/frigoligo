@@ -31,6 +31,7 @@ final class WebViewPreloader: NSObject, WKNavigationDelegate {
   private var warmupView: WKWebView?
   private var warmupStart: Date?
   private(set) var webRoot: URL!
+  private(set) var linkedStylesheets: [String] = []
   static var webRoot: URL { shared.webRoot }
 
   private override init() {
@@ -71,7 +72,7 @@ final class WebViewPreloader: NSObject, WKNavigationDelegate {
 
     var entries: [ManifestEntry] = []
 
-    if let manifestJson = load("flutter_assets/assets/www/scripts/manifest.json"),
+    if let manifestJson = load("flutter_assets/assets/www/manifest.json"),
       let data = manifestJson.data(using: .utf8),
       let decoded = try? JSONDecoder().decode([ManifestEntry].self, from: data)
     {
@@ -80,9 +81,15 @@ final class WebViewPreloader: NSObject, WKNavigationDelegate {
       print("[WebViewPreloader] manifest.json failed to load or parse")
     }
 
+    linkedStylesheets =
+      entries
+      .filter { $0.path.hasSuffix(".css") }
+      .compactMap { $0.copyToFS?.first { $0.hasSuffix(".css") } }
+
     var loaded: [LoadedScript] = []
 
     for entry in entries {
+      guard !entry.path.hasSuffix(".css") else { continue }
       guard var source = load("flutter_assets/\(entry.path)") else {
         print("[WebViewPreloader] \(entry.name) NOT loaded, user script skipped")
         continue

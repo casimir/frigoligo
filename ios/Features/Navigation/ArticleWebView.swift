@@ -66,12 +66,15 @@ struct ArticleWebView: UIViewRepresentable {
 
   private func wrapFragment(_ fragment: String) -> String {
     let textAlign = readingSettings.justifyText ? "justify" : "start"
+    let stylesheetLinks = WebViewPreloader.shared.linkedStylesheets
+      .map { "<link rel=\"stylesheet\" href=\"\($0)\" />" }
+      .joined(separator: "\n      ")
     return """
       <html>
       <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="styles/fonts.css" />
+      \(stylesheetLinks)
       <style>
         body {
           max-width: 680px;
@@ -83,8 +86,6 @@ struct ArticleWebView: UIViewRepresentable {
           text-align: \(textAlign);
           color: #1c1c1e;
         }
-        img { max-width: 100%; height: auto; }
-        pre { overflow-x: auto; }
         @media (prefers-color-scheme: dark) {
           body { background: #000; color: #f2f2f7; }
         }

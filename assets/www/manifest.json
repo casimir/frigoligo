@@ -1,11 +1,27 @@
 [
   {
+    "name": "base",
+    "path": "assets/www/styles/base.css",
+    "injectionTime": "atDocumentStart",
+    "copyToFS": [
+      "styles/base.css"
+    ]
+  },
+  {
     "name": "fonts",
     "path": "assets/www/styles/fonts.css",
     "injectionTime": "atDocumentStart",
     "copyToFS": [
       "styles/fonts.css",
       "fonts"
+    ]
+  },
+  {
+    "name": "highlightjs_theme",
+    "path": "assets/www/scripts/highlightjs/styles/default.min.css",
+    "injectionTime": "atDocumentStart",
+    "copyToFS": [
+      "scripts/highlightjs/styles/default.min.css"
     ]
   },
   {
@@ -17,6 +33,13 @@
     "name": "scrolling",
     "path": "assets/www/scripts/scrolling.js",
     "injectionTime": "atDocumentEnd"
+  },
+  {
+    "name": "highlightjs",
+    "path": "assets/www/scripts/highlightjs/highlight.min.js",
+    "injectionTime": "atDocumentEnd",
+    "version": "11.11.1",
+    "postScript": "hljs.configure({cssSelector: 'pre code, pre[class*=\"language-\"]'});\nhljs.highlightAll();"
   },
   {
     "name": "mathjax",

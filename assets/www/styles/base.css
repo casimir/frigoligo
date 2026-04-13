@@ -1,0 +1,12 @@
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+pre {
+  overflow-x: auto;
+}
+
+pre.hljs {
+  padding: 1em;
+}

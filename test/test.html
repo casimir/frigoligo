@@ -20,7 +20,9 @@
     }
   </style>
   <!-- BEGIN scripts atDocumentStart -->
+  <link rel="stylesheet" href="../assets/www/styles/base.css">
   <link rel="stylesheet" href="../assets/www/styles/fonts.css">
+  <link rel="stylesheet" href="../assets/www/scripts/highlightjs/styles/default.min.css">
   <script src="../assets/www/scripts/webkit_init.js"></script>
   <!-- END scripts atDocumentStart -->
 </head>
@@ -45,16 +47,30 @@ graph TD
   </pre>
 
   <h2>Code (syntax highlighting)</h2>
-  <p>First some stealthy Haskell</p>
-  <pre><code>fibs :: [Integer]
-fibs = 0 : 1 : zipWith (+) fibs (tail fibs)
+  <p>First some sturdy Rust</p>
+  <pre><code class="language-rust">struct Fibonacci { a: u64, b: u64 }
 
-fibonacci :: Int -> Integer
-fibonacci n = fibs !! n</code></pre>
+impl Fibonacci {
+    fn new() -> Self { Fibonacci { a: 0, b: 1 } }
+}
 
-  <p>Then some flamboyant PHP</p>
-  <pre><code class="language-php">
-function fibonacci(int $n): Generator {
+impl Iterator for Fibonacci {
+    type Item = u64;
+    fn next(&mut self) -> Option<u64> {
+        let next = self.a + self.b;
+        self.a = self.b;
+        self.b = next;
+        Some(self.a)
+    }
+}
+
+fn main() {
+    let fibs: Vec<u64> = Fibonacci::new().take(10).collect();
+    println!("{:?}", fibs);
+}</code></pre>
+
+  <p>Then some stealthy PHP</p>
+  <pre><code>function fibonacci(int $n): Generator {
     [$a, $b] = [0, 1];
     for ($i = 0; $i < $n; $i++) {
         yield $a;
@@ -66,7 +82,20 @@ foreach (fibonacci(10) as $value) {
     echo $value . "\n";
 }</code></pre>
 
+  <p>Python (pre with class, no nested code element)</p>
+  <div class="highlight">
+    <pre class="language-python" data-lang="python">def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+print(fibonacci(10))</pre>
+  </div>
+
   <!-- BEGIN scripts atDocumentEnd -->
+  <script src="../assets/www/scripts/highlightjs/highlight.min.js"></script>
+  <script src="../assets/www/scripts/highlightjs/init.js"></script>
+
   <script src="../assets/www/scripts/mathjax/config.js"></script>
   <script>window.MathJax.output.fontPath = '../assets/www/scripts/mathjax/fonts/%%FONT%%-font';</script>
   <script src="../assets/www/scripts/mathjax/tex-chtml.js"></script>

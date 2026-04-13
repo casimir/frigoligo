@@ -104,8 +104,11 @@ flutter:
     - assets/article.template.html
     - assets/sample-articles.json
     # BEGIN webview-scripts
+    - assets/www/
     - assets/www/fonts/
     - assets/www/scripts/
+    - assets/www/scripts/highlightjs/
+    - assets/www/scripts/highlightjs/styles/
     - assets/www/scripts/mathjax/
     - assets/www/scripts/mathjax/fonts/mathjax-newcm-font/chtml/dynamic/
     - assets/www/scripts/mathjax/fonts/mathjax-newcm-font/chtml/woff2/
