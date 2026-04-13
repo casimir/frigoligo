@@ -77,9 +77,6 @@ struct ArticleWebView: UIViewRepresentable {
       \(stylesheetLinks)
       <style>
         body {
-          max-width: 680px;
-          margin: 0 auto;
-          padding: 16px;
           font-family: \(readingSettings.fontFamily), sans-serif;
           font-size: \(fontSizeCss(readingSettings.fontSize));
           line-height: 1.6;

@@ -1,3 +1,9 @@
+body {
+  max-width: 67ch;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
 img {
   max-width: 100%;
   height: auto;
