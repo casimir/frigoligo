@@ -263,7 +263,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get logconsole_title => 'Журнал';
 
   @override
-  String get logconsole_clear_logs => 'Clear logs';
+  String get logconsole_clear_logs => 'Очистить логи';
 
   @override
   String get logconsole_export_title => 'Экспорт в файл';
@@ -319,7 +319,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get login_actionLogin => 'Войти';
 
   @override
-  String get login_demoMode => 'Try in demo mode';
+  String get login_demoMode => 'Попробовать в тестовом режиме';
 
   @override
   String get login_existingSessionDialogConfirm => 'Выйти';
@@ -384,11 +384,11 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get save_localModeError =>
-      'A server connection is required to save new articles.';
+      'Для сохранения заметки требуется подключение к серверу.';
 
   @override
   String save_malformedUrlError(String url) {
-    return 'Malformed URL: $url';
+    return 'Неправильный URL-адрес: $url';
   }
 
   @override

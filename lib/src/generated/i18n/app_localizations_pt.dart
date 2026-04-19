@@ -263,10 +263,10 @@ class AppLocalizationsPt extends AppLocalizations {
   String get logconsole_title => 'Console de Logs';
 
   @override
-  String get logconsole_clear_logs => 'Clear logs';
+  String get logconsole_clear_logs => 'Limpar registos';
 
   @override
-  String get logconsole_export_title => 'Export as file';
+  String get logconsole_export_title => 'Exportar como um ficheiro';
 
   @override
   String logconsole_export_current_session(int count) {
@@ -281,7 +281,7 @@ class AppLocalizationsPt extends AppLocalizations {
       other: '$countString lines',
       one: '1 line',
     );
-    return 'Current session ($_temp0)';
+    return 'Sessão atual ($_temp0)';
   }
 
   @override
@@ -297,7 +297,7 @@ class AppLocalizationsPt extends AppLocalizations {
       other: '$countString lines',
       one: '1 line',
     );
-    return 'All logs ($_temp0)';
+    return 'Todos os registros ($_temp0)';
   }
 
   @override
@@ -849,6 +849,9 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get login_actionLogin => 'Conecte-se';
 
   @override
+  String get login_demoMode => 'Testar no modo demonstração';
+
+  @override
   String get login_existingSessionDialogConfirm => 'Sair';
 
   @override
@@ -908,6 +911,15 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get save_viewArticle => 'Ver artigo';
+
+  @override
+  String get save_localModeError =>
+      'Uma conexão com o servidor é necessária para salvar novos artigos.';
+
+  @override
+  String save_malformedUrlError(String url) {
+    return 'URL truncada: $url';
+  }
 
   @override
   String selector_selectbuttonlabel(String numberOfItems) {
@@ -1219,7 +1231,13 @@ class AppLocalizationsPtPt extends AppLocalizationsPt {
   String get article_share => 'Partilhar este artigo';
 
   @override
+  String get article_star => 'Marcar este artigo como favorito';
+
+  @override
   String get article_unarchive => 'Desarquivar este artigo';
+
+  @override
+  String get article_unstar => 'Desmarcar este artigo como favorito';
 
   @override
   String get articlefields_readingTime => 'Tempo de leitura';
@@ -1246,8 +1264,8 @@ class AppLocalizationsPtPt extends AppLocalizationsPt {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString domains',
-      one: '1 domain',
+      other: '$countString domínios',
+      one: '1 domínio',
     );
     return '$_temp0';
   }
@@ -1280,8 +1298,8 @@ class AppLocalizationsPtPt extends AppLocalizationsPt {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString tags',
-      one: '1 tag',
+      other: '$countString etiquetas',
+      one: '1 etiqueta',
     );
     return '$_temp0';
   }
@@ -1305,6 +1323,44 @@ class AppLocalizationsPtPt extends AppLocalizationsPt {
   String get logconsole_title => 'Console de Logs';
 
   @override
+  String get logconsole_clear_logs => 'Limpar registos';
+
+  @override
+  String get logconsole_export_title => 'Exportar como ficheiro';
+
+  @override
+  String logconsole_export_current_session(int count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString linhas',
+      one: '1 linha',
+    );
+    return 'Sessão atual ($_temp0)';
+  }
+
+  @override
+  String logconsole_export_all_logs(int count) {
+    final intl.NumberFormat countNumberFormat = intl.NumberFormat.compact(
+      locale: localeName,
+    );
+    final String countString = countNumberFormat.format(count);
+
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$countString linhas',
+      one: '1 linha',
+    );
+    return 'Todos os registos ($_temp0)';
+  }
+
+  @override
   String get listing_noArticles => 'Nenhum artigo';
 
   @override
@@ -1321,6 +1377,9 @@ class AppLocalizationsPtPt extends AppLocalizationsPt {
 
   @override
   String get login_actionLogin => 'Conecte-se';
+
+  @override
+  String get login_demoMode => 'Tentar em modo de demonstração';
 
   @override
   String get login_existingSessionDialogConfirm => 'Sair';
@@ -1358,6 +1417,9 @@ class AppLocalizationsPtPt extends AppLocalizationsPt {
   String get readdingsettings_textFormatting => 'Formatação de texto';
 
   @override
+  String get readingsettings_title => 'Configurações de texto';
+
+  @override
   String get save_confirmationTitle => 'Artigo gravado!';
 
   @override
@@ -1381,6 +1443,15 @@ class AppLocalizationsPtPt extends AppLocalizationsPt {
   String get save_viewArticle => 'Ver artigo';
 
   @override
+  String get save_localModeError =>
+      'Uma conexão com o servidor é necessária para guardar novos artigos.';
+
+  @override
+  String save_malformedUrlError(String url) {
+    return 'URL mal formado: $url';
+  }
+
+  @override
   String selector_selectbuttonlabel(String numberOfItems) {
     return 'Selecione $numberOfItems';
   }
@@ -1397,7 +1468,13 @@ class AppLocalizationsPtPt extends AppLocalizationsPt {
   String get server_invalidUrl => 'Endereço inválido';
 
   @override
+  String get server_unknownServerType => 'Tipo de servidor desconhecido';
+
+  @override
   String get server_unreachable => 'Servidor inacessível';
+
+  @override
+  String get server_versionNotSupported => 'Versão do servidor não apoiado';
 
   @override
   String get session_copiedToClipboard =>
@@ -1495,6 +1572,9 @@ class AppLocalizationsPtPt extends AppLocalizationsPt {
   String get settings_title => 'Configurações';
 
   @override
+  String get settings_nativeArticleRenderer => 'Renderizador nativo de artigos';
+
+  @override
   String get settings_valueThemeDark => 'Escuro';
 
   @override
@@ -1510,8 +1590,8 @@ class AppLocalizationsPtPt extends AppLocalizationsPt {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString actions',
-      one: '1 action',
+      other: '$countString ações',
+      one: '1 acão',
     );
     return '$_temp0';
   }

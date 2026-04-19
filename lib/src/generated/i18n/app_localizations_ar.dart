@@ -15,10 +15,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get g_article => 'مقال';
 
   @override
-  String get g_check => 'تحقق';
+  String get g_check => 'تحقَّق';
 
   @override
-  String get g_checking => 'جارٍ التحقق…';
+  String get g_checking => 'التحقق جارٍ…';
 
   @override
   String get g_delete => 'حذف';
@@ -171,13 +171,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get article_share => 'مشاركة هذا المقال';
 
   @override
-  String get article_star => 'إضافة نجمة لهذا المقال';
+  String get article_star => 'وضع علامة نجمة على هذه المقالة';
 
   @override
   String get article_unarchive => 'إلغاء أرشفة هذا المقال';
 
   @override
-  String get article_unstar => 'إزالة النجمة من هذا المقال';
+  String get article_unstar => 'إزالة علامة النجمة من هذا المقال';
 
   @override
   String get articlefields_readingTime => 'وقت القراءة';
@@ -263,10 +263,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get logconsole_title => 'وحدة تسجيل الأخطاء';
 
   @override
-  String get logconsole_clear_logs => 'Clear logs';
+  String get logconsole_clear_logs => 'مسح السجلات';
 
   @override
-  String get logconsole_export_title => 'Export as file';
+  String get logconsole_export_title => 'تصدير كملف';
 
   @override
   String logconsole_export_current_session(int count) {
@@ -278,10 +278,10 @@ class AppLocalizationsAr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString lines',
-      one: '1 line',
+      other: '$countString سطور',
+      one: 'سطر واحد',
     );
-    return 'Current session ($_temp0)';
+    return 'الجلسة الحالية ($_temp0)';
   }
 
   @override
@@ -294,10 +294,10 @@ class AppLocalizationsAr extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString lines',
-      one: '1 line',
+      other: '$countString سطور',
+      one: 'سطر واحد',
     );
-    return 'All logs ($_temp0)';
+    return 'جميع السجلات ($_temp0)';
   }
 
   @override
@@ -319,7 +319,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get login_actionLogin => 'تسجيل الدخول';
 
   @override
-  String get login_demoMode => 'Try in demo mode';
+  String get login_demoMode => 'جرب في الوضع التجريبي';
 
   @override
   String get login_existingSessionDialogConfirm => 'تسجيل الخروج';
@@ -383,11 +383,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get save_localModeError =>
-      'A server connection is required to save new articles.';
+      'يلزم الاتصال بالخادم لحفظ المقالات الجديدة.';
 
   @override
   String save_malformedUrlError(String url) {
-    return 'Malformed URL: $url';
+    return 'عنوان URL غير صحيح: $url';
   }
 
   @override
@@ -400,7 +400,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String server_emptyField(String label) {
-    return 'أدخل $label';
+    return 'أدخل $label الخاص بك';
   }
 
   @override
@@ -475,7 +475,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get settings_itemAbout => 'حول';
 
   @override
-  String get settings_itemAppBadge => 'إظهار شارة غير المقروء';
+  String get settings_itemAppBadge => 'إظهار شارة ”غير مقروء“';
 
   @override
   String get settings_itemClearCache => 'مسح الذاكرة المؤقتة';

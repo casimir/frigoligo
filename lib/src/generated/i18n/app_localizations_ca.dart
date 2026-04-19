@@ -263,10 +263,10 @@ class AppLocalizationsCa extends AppLocalizations {
   String get logconsole_title => 'Consola de registres';
 
   @override
-  String get logconsole_clear_logs => 'Clear logs';
+  String get logconsole_clear_logs => 'Esborrar els registres';
 
   @override
-  String get logconsole_export_title => 'Export as file';
+  String get logconsole_export_title => 'Exportar com a fitxer';
 
   @override
   String logconsole_export_current_session(int count) {
@@ -278,10 +278,10 @@ class AppLocalizationsCa extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString lines',
-      one: '1 line',
+      other: '$countString línies',
+      one: '1 línia',
     );
-    return 'Current session ($_temp0)';
+    return 'Sessió actual ($_temp0)';
   }
 
   @override
@@ -294,10 +294,10 @@ class AppLocalizationsCa extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString lines',
-      one: '1 line',
+      other: '$countString línies',
+      one: '1 línia',
     );
-    return 'All logs ($_temp0)';
+    return 'Tots els registres ($_temp0)';
   }
 
   @override
@@ -319,7 +319,7 @@ class AppLocalizationsCa extends AppLocalizations {
   String get login_actionLogin => 'Inicia una sessió';
 
   @override
-  String get login_demoMode => 'Try in demo mode';
+  String get login_demoMode => 'Prova la versió de demostració';
 
   @override
   String get login_existingSessionDialogConfirm => 'Finalitza la sessió';
@@ -383,11 +383,11 @@ class AppLocalizationsCa extends AppLocalizations {
 
   @override
   String get save_localModeError =>
-      'A server connection is required to save new articles.';
+      'Cal una connexió a un servidor per poder guardar articles nous.';
 
   @override
   String save_malformedUrlError(String url) {
-    return 'Malformed URL: $url';
+    return 'URL mal formada: $url';
   }
 
   @override

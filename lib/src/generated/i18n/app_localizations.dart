@@ -8,20 +8,24 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'app_localizations_af.dart';
 import 'app_localizations_ar.dart';
 import 'app_localizations_ca.dart';
+import 'app_localizations_cs.dart';
 import 'app_localizations_de.dart';
 import 'app_localizations_en.dart';
 import 'app_localizations_eo.dart';
 import 'app_localizations_es.dart';
 import 'app_localizations_et.dart';
 import 'app_localizations_fr.dart';
+import 'app_localizations_fy.dart';
 import 'app_localizations_gl.dart';
 import 'app_localizations_it.dart';
 import 'app_localizations_nl.dart';
 import 'app_localizations_pt.dart';
 import 'app_localizations_ru.dart';
 import 'app_localizations_ta.dart';
+import 'app_localizations_vi.dart';
 import 'app_localizations_zh.dart';
 
 // ignore_for_file: type=lint
@@ -111,13 +115,16 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
+    Locale('af'),
     Locale('ar'),
     Locale('ca'),
+    Locale('cs'),
     Locale('de'),
     Locale('eo'),
     Locale('es'),
     Locale('et'),
     Locale('fr'),
+    Locale('fy'),
     Locale('gl'),
     Locale('it'),
     Locale('nl'),
@@ -126,6 +133,7 @@ abstract class AppLocalizations {
     Locale('pt', 'PT'),
     Locale('ru'),
     Locale('ta'),
+    Locale('vi'),
     Locale('zh'),
     Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant'),
   ];
@@ -904,20 +912,24 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) => <String>[
+    'af',
     'ar',
     'ca',
+    'cs',
     'de',
     'en',
     'eo',
     'es',
     'et',
     'fr',
+    'fy',
     'gl',
     'it',
     'nl',
     'pt',
     'ru',
     'ta',
+    'vi',
     'zh',
   ].contains(locale.languageCode);
 
@@ -954,10 +966,14 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
 
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'af':
+      return AppLocalizationsAf();
     case 'ar':
       return AppLocalizationsAr();
     case 'ca':
       return AppLocalizationsCa();
+    case 'cs':
+      return AppLocalizationsCs();
     case 'de':
       return AppLocalizationsDe();
     case 'en':
@@ -970,6 +986,8 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
       return AppLocalizationsEt();
     case 'fr':
       return AppLocalizationsFr();
+    case 'fy':
+      return AppLocalizationsFy();
     case 'gl':
       return AppLocalizationsGl();
     case 'it':
@@ -982,6 +1000,8 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
       return AppLocalizationsRu();
     case 'ta':
       return AppLocalizationsTa();
+    case 'vi':
+      return AppLocalizationsVi();
     case 'zh':
       return AppLocalizationsZh();
   }

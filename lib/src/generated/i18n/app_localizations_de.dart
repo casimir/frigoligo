@@ -308,7 +308,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get listing_articlesAll => 'Alle Artikel';
 
   @override
-  String get listing_articlesArchived => 'Archivierte';
+  String get listing_articlesArchived => 'Archivierte Artikeln';
 
   @override
   String get listing_articlesUnread => 'Ungelesene';
@@ -320,7 +320,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get login_actionLogin => 'Einloggen';
 
   @override
-  String get login_demoMode => 'Try in demo mode';
+  String get login_demoMode => 'Im Demo-Modus nutzen';
 
   @override
   String get login_existingSessionDialogConfirm => 'Ausloggen';
@@ -343,7 +343,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get login_fieldPassword => 'Passwort';
 
   @override
-  String get login_fieldUsername => 'Username';
+  String get login_fieldUsername => 'Nutzername';
 
   @override
   String get login_openLogConsole => 'Log Konsole öffnen';
@@ -385,11 +385,11 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get save_localModeError =>
-      'A server connection is required to save new articles.';
+      'Eine Serverbindung ist zum Speichern neuer Artikel erforderlich.';
 
   @override
   String save_malformedUrlError(String url) {
-    return 'Malformed URL: $url';
+    return 'Fehlerhafte URL: $url';
   }
 
   @override
@@ -438,7 +438,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get session_logoutSession => 'Session ausloggen';
 
   @override
-  String get session_fieldAccessToken => 'Access token';
+  String get session_fieldAccessToken => 'Zugangstoken';
 
   @override
   String get session_fieldApiToken => 'API Token';

@@ -320,7 +320,7 @@ class AppLocalizationsEt extends AppLocalizations {
   String get login_actionLogin => 'Logi sisse';
 
   @override
-  String get login_demoMode => 'Try in demo mode';
+  String get login_demoMode => 'Proovi demorežiimis';
 
   @override
   String get login_existingSessionDialogConfirm => 'Logi välja';
@@ -384,11 +384,11 @@ class AppLocalizationsEt extends AppLocalizations {
 
   @override
   String get save_localModeError =>
-      'A server connection is required to save new articles.';
+      'Uute artiklite salvestamiseks on vajalik toimiv ühendus serveriga.';
 
   @override
   String save_malformedUrlError(String url) {
-    return 'Malformed URL: $url';
+    return 'Vigane võrguaadress: $url';
   }
 
   @override

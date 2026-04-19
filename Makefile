@@ -2,7 +2,6 @@ FVM ?= $(shell command -v fvm > /dev/null 2>&1 && echo "fvm")
 DART ?= $(FVM) dart
 FLUTTER ?= $(FVM) flutter
 
-ARB_INPUTS := $(wildcard lib/l10n/*.arb)
 PIGEON_INPUTS := $(wildcard pigeons/*.dart)
 PIGEON_SWIFT_OUTPUTS := $(shell awk -F"'" '/swiftOut:/{print $$2}' $(PIGEON_INPUTS))
 SWIFT_FORMAT ?= $(shell command -v swift-format > /dev/null 2>&1 && echo "swift-format format -i")
@@ -21,11 +20,11 @@ $(PIGEON_INPUTS):
 codegen: pigeon
 	$(DART) run build_runner build --delete-conflicting-outputs
 
-ios/Runner/Localizable.xcstrings: $(ARB_INPUTS)
+.PHONY: translations
+translations:
+	$(FLUTTER) gen-l10n
 	$(DART) tools/arb_to_xcstrings.dart
-
-.PHONY: xcstrings
-xcstrings: ios/Localizable.xcstrings
+	$(DART) flathub/render_metadata.dart
 
 .PHONY: lint
 lint:

@@ -227,7 +227,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get logconsole_title => '日志控制台';
 
   @override
-  String get logconsole_clear_logs => 'Clear logs';
+  String get logconsole_clear_logs => '清除日志';
 
   @override
   String get logconsole_export_title => '导出为文件';
@@ -612,13 +612,22 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get article_addTags => '增加標籤';
 
   @override
+  String get article_archive => '封存此文章';
+
+  @override
   String get article_browseOriginal => '瀏覽原文';
 
   @override
   String get article_delete => '刪除此文章';
 
   @override
+  String get article_details => '更多資訊';
+
+  @override
   String get article_noContentFetched => '沒有獲取內容';
+
+  @override
+  String get article_notFound => '找不到文章';
 
   @override
   String get article_openInBrowser => '在瀏覽器中開啟';
@@ -635,6 +644,15 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get article_refetchContent => '再次擷取內容';
+
+  @override
+  String get article_readingSettings => '文字設定';
+
+  @override
+  String get article_share => '分享此文章';
+
+  @override
+  String get article_unarchive => '取消封存此文章';
 
   @override
   String get articlefields_readingTime => '閱讀時間';
@@ -665,6 +683,9 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get filters_articleFavoriteStarred => '已收藏';
 
   @override
+  String get filters_articleState => '文章狀態';
+
+  @override
   String get filters_articleStateUnread => '未讀';
 
   @override
@@ -683,10 +704,19 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get filters_searchMode => '搜尋模式';
 
   @override
+  String get filters_searchModeAll => '所有欄位';
+
+  @override
   String get filters_searchModeTitle => '標題';
 
   @override
   String get logconsole_title => '日誌控制台';
+
+  @override
+  String get logconsole_clear_logs => '清除紀錄';
+
+  @override
+  String get logconsole_export_title => '輸出為檔案';
 
   @override
   String get listing_noArticles => '沒有文章';
@@ -776,7 +806,13 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get server_invalidUrl => '無效的位址';
 
   @override
+  String get server_unknownServerType => '未知伺服器類別';
+
+  @override
   String get server_unreachable => '伺服器無法存取';
+
+  @override
+  String get server_versionNotSupported => '不支援的伺服器版本';
 
   @override
   String get session_copiedToClipboard => '已複製至剪貼簿';

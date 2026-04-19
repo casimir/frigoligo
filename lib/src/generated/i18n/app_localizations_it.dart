@@ -319,7 +319,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get login_actionLogin => 'Accedi';
 
   @override
-  String get login_demoMode => 'Try in demo mode';
+  String get login_demoMode => 'Prova in modalità demo';
 
   @override
   String get login_existingSessionDialogConfirm => 'Esci';
@@ -384,11 +384,11 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get save_localModeError =>
-      'A server connection is required to save new articles.';
+      'Per salvare nuovi articoli è necessaria una connessione al server.';
 
   @override
   String save_malformedUrlError(String url) {
-    return 'Malformed URL: $url';
+    return 'URL non valido: $url';
   }
 
   @override

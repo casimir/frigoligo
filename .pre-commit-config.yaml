@@ -8,11 +8,11 @@ repos:
         types: [file]
         files: \.dart$
 
-      - id: xcstrings
-        name: xcstrings
+      - id: translations
+        name: translations
         language: system
-        entry: make xcstrings
-        files: lib/l10n/.*\.arb$
+        entry: make translations
+        files: (lib/l10n/.*\.arb|fastlane/metadata/.*)$
         pass_filenames: false
 
   - repo: https://github.com/swiftlang/swift-format

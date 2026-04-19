@@ -263,10 +263,10 @@ class AppLocalizationsTa extends AppLocalizations {
   String get logconsole_title => 'பதிவு கன்சோல்';
 
   @override
-  String get logconsole_clear_logs => 'Clear logs';
+  String get logconsole_clear_logs => 'பதிவுகளை அழிக்கவும்';
 
   @override
-  String get logconsole_export_title => 'Export as file';
+  String get logconsole_export_title => 'கோப்பாக ஏற்றுமதி செய்யவும்';
 
   @override
   String logconsole_export_current_session(int count) {
@@ -278,10 +278,10 @@ class AppLocalizationsTa extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString lines',
-      one: '1 line',
+      other: '$countString வரிகள்',
+      one: '1 வரி',
     );
-    return 'Current session ($_temp0)';
+    return 'தற்போதைய அமர்வு ($_temp0)';
   }
 
   @override
@@ -294,10 +294,10 @@ class AppLocalizationsTa extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString lines',
-      one: '1 line',
+      other: '$countString வரிகள்',
+      one: '1 வரி',
     );
-    return 'All logs ($_temp0)';
+    return 'அனைத்து பதிவுகளும் ($_temp0)';
   }
 
   @override
@@ -320,7 +320,7 @@ class AppLocalizationsTa extends AppLocalizations {
   String get login_actionLogin => 'புகுபதிகை';
 
   @override
-  String get login_demoMode => 'Try in demo mode';
+  String get login_demoMode => 'டெமோ பயன்முறையில் முயற்சிக்கவும்';
 
   @override
   String get login_existingSessionDialogConfirm => 'விடுபதிகை';
@@ -385,11 +385,11 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get save_localModeError =>
-      'A server connection is required to save new articles.';
+      'புதிய கட்டுரைகளைச் சேமிக்க சர்வர் இணைப்பு தேவை.';
 
   @override
   String save_malformedUrlError(String url) {
-    return 'Malformed URL: $url';
+    return 'தவறான URL: $url';
   }
 
   @override

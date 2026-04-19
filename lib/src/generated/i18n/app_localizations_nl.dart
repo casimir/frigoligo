@@ -27,7 +27,7 @@ class AppLocalizationsNl extends AppLocalizations {
   String get g_saveLink => 'Link opslaan';
 
   @override
-  String get g_search => 'Zoek';
+  String get g_search => 'Zoeken';
 
   @override
   String get g_server => 'Server';
@@ -36,7 +36,7 @@ class AppLocalizationsNl extends AppLocalizations {
   String get g_settings => 'Instellingen';
 
   @override
-  String get g_share => 'Deel';
+  String get g_share => 'Delen';
 
   @override
   String get g_sourceCode => 'Broncode';
@@ -45,7 +45,7 @@ class AppLocalizationsNl extends AppLocalizations {
   String get g_synchronize => 'Synchroniseren';
 
   @override
-  String get g_system => 'Systeem';
+  String get g_system => 'Systeemstandaard';
 
   @override
   String get g_tag => 'Label';
@@ -84,7 +84,7 @@ class AppLocalizationsNl extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       n,
       locale: localeName,
-      other: '$nString uren',
+      other: '$nString uur',
       one: '1 uur',
     );
     return '$_temp0';
@@ -134,7 +134,7 @@ class AppLocalizationsNl extends AppLocalizations {
   String get article_archive => 'Artikel archiveren';
 
   @override
-  String get article_browseOriginal => 'Origineel openen';
+  String get article_browseOriginal => 'Het originele artikel opzoeken';
 
   @override
   String get article_delete => 'Artikel verwijderen';
@@ -143,13 +143,14 @@ class AppLocalizationsNl extends AppLocalizations {
   String get article_details => 'Meer informatie';
 
   @override
-  String get article_noContentFetched => 'Geen inhoud opgehaald';
+  String get article_noContentFetched =>
+      'Kon de inhoud van het artikel niet laden';
 
   @override
   String get article_notFound => 'Artikel niet gevonden';
 
   @override
-  String get article_openInBrowser => 'In browser openen';
+  String get article_openInBrowser => 'In webbrowser openen';
 
   @override
   String article_readingTime(int minutes) {
@@ -162,22 +163,22 @@ class AppLocalizationsNl extends AppLocalizations {
   }
 
   @override
-  String get article_refetchContent => 'Inhoud herladen';
+  String get article_refetchContent => 'Artikel opnieuw laden';
 
   @override
-  String get article_readingSettings => 'Text instellingen';
+  String get article_readingSettings => 'Tekstinstellingen';
 
   @override
   String get article_share => 'Artikel delen';
 
   @override
-  String get article_star => 'Geef dit artikel een ster';
+  String get article_star => 'Artikel aan favorieten toevoegen';
 
   @override
-  String get article_unarchive => 'Dit artikel uit het archief halen';
+  String get article_unarchive => 'Artikel uit het archief halen';
 
   @override
-  String get article_unstar => 'Verwijder de ster van dit artikel';
+  String get article_unstar => 'Artikel uit favorieten verwijderen';
 
   @override
   String get articlefields_readingTime => 'Leestijd';
@@ -211,7 +212,7 @@ class AppLocalizationsNl extends AppLocalizations {
   }
 
   @override
-  String get filters_articleFavoriteStarred => 'Favoriet';
+  String get filters_articleFavoriteStarred => 'Favorieten';
 
   @override
   String get filters_articleState => 'Status';
@@ -245,10 +246,10 @@ class AppLocalizationsNl extends AppLocalizations {
   }
 
   @override
-  String get filters_searchbarHint => 'Zoek in artikels';
+  String get filters_searchbarHint => 'In artikelen zoeken';
 
   @override
-  String get filters_searchMode => 'Zoekwijze';
+  String get filters_searchMode => 'Zoekmodus';
 
   @override
   String get filters_searchModeAll => 'Alle velden';
@@ -260,13 +261,13 @@ class AppLocalizationsNl extends AppLocalizations {
   String get filters_searchModeTitle => 'Titel';
 
   @override
-  String get logconsole_title => 'Logconsole';
+  String get logconsole_title => 'Logboekconsole';
 
   @override
-  String get logconsole_clear_logs => 'Clear logs';
+  String get logconsole_clear_logs => 'Logboek wissen';
 
   @override
-  String get logconsole_export_title => 'Export as file';
+  String get logconsole_export_title => 'Als bestand exporteren';
 
   @override
   String logconsole_export_current_session(int count) {
@@ -278,10 +279,10 @@ class AppLocalizationsNl extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString lines',
-      one: '1 line',
+      other: '$countString regels',
+      one: '1 regel',
     );
-    return 'Current session ($_temp0)';
+    return 'Huidige sessie ($_temp0)';
   }
 
   @override
@@ -294,48 +295,49 @@ class AppLocalizationsNl extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString lines',
-      one: '1 line',
+      other: '$countString regels',
+      one: '1 regel',
     );
-    return 'All logs ($_temp0)';
+    return 'Alle logregels ($_temp0)';
   }
 
   @override
-  String get listing_noArticles => 'Geen artikels';
+  String get listing_noArticles => 'Geen artikelen om weer te geven';
 
   @override
-  String get listing_articlesAll => 'Alle artikels';
+  String get listing_articlesAll => 'Alle artikelen';
 
   @override
   String get listing_articlesArchived => 'Gearchiveerde artikelen';
 
   @override
-  String get listing_articlesUnread => 'Ongelezen artikels';
+  String get listing_articlesUnread => 'Ongelezen artikelen';
 
   @override
-  String get login_acceptSelfSigned => 'Aanvaard zelfondertekende certificaten';
+  String get login_acceptSelfSigned =>
+      'Zelfondertekende certificaten accepteren';
 
   @override
   String get login_actionLogin => 'Inloggen';
 
   @override
-  String get login_demoMode => 'Try in demo mode';
+  String get login_demoMode => 'Probeer in demomodus';
 
   @override
   String get login_existingSessionDialogConfirm => 'Afmelden';
 
   @override
   String get login_existingSessionDialogMessage =>
-      'Wilt u uitloggen uit de huidige sessie en een nieuwe sessie openen?';
+      'Wilt u zich afmelden bij de huidige sessie en een nieuwe sessie openen?';
 
   @override
-  String get login_existingSessionDialogTitle => 'Er is een sessie actief';
+  String get login_existingSessionDialogTitle => 'Er is nog een sessie actief';
 
   @override
-  String get login_fieldClientId => 'Client ID';
+  String get login_fieldClientId => 'Client-ID';
 
   @override
-  String get login_fieldClientSecret => 'Geheim client';
+  String get login_fieldClientSecret => 'Clientgeheim';
 
   @override
   String get login_fieldPassword => 'Wachtwoord';
@@ -344,10 +346,10 @@ class AppLocalizationsNl extends AppLocalizations {
   String get login_fieldUsername => 'Gebruikersnaam';
 
   @override
-  String get login_openLogConsole => 'Open de logconsole';
+  String get login_openLogConsole => 'Logboekconsole openen';
 
   @override
-  String get readingsettings_fontFamily => 'Lettertype';
+  String get readingsettings_fontFamily => 'Lettertypefamilie';
 
   @override
   String get readingsettings_fontSize => 'Lettergrootte';
@@ -356,14 +358,14 @@ class AppLocalizationsNl extends AppLocalizations {
   String get readdingsettings_textFormatting => 'Tekstopmaak';
 
   @override
-  String get readingsettings_title => 'Tekst-instellingen';
+  String get readingsettings_title => 'Tekstinstellingen';
 
   @override
   String get save_confirmationTitle => 'Artikel opgeslagen!';
 
   @override
   String save_dubiousUrlMessage(String url) {
-    return 'Deze URL lijkt niet juist. Toch opslaan?\n$url';
+    return 'Dit lijkt niet op een URL. Toch opslaan?\n$url';
   }
 
   @override
@@ -379,28 +381,28 @@ class AppLocalizationsNl extends AppLocalizations {
   String get save_title => 'Artikel opslaan';
 
   @override
-  String get save_viewArticle => 'Bekijk artikel';
+  String get save_viewArticle => 'Artikel bekijken';
 
   @override
   String get save_localModeError =>
-      'A server connection is required to save new articles.';
+      'Een serververbinding is vereist om nieuwe artikelen op te slaan.';
 
   @override
   String save_malformedUrlError(String url) {
-    return 'Malformed URL: $url';
+    return 'Onjuiste URL: $url';
   }
 
   @override
   String selector_selectbuttonlabel(String numberOfItems) {
-    return 'Selecteer $numberOfItems';
+    return '$numberOfItems selecteren';
   }
 
   @override
-  String get server_address => 'Adres server';
+  String get server_address => 'Serveradres';
 
   @override
   String server_emptyField(String label) {
-    return 'Voer je $label in';
+    return 'Voeg uw $label in';
   }
 
   @override
@@ -413,7 +415,8 @@ class AppLocalizationsNl extends AppLocalizations {
   String get server_unreachable => 'Server onbereikbaar';
 
   @override
-  String get server_versionNotSupported => 'Serverversie niet ondersteund';
+  String get server_versionNotSupported =>
+      'Serverversie wordt niet ondersteund';
 
   @override
   String get session_copiedToClipboard => 'Gekopieerd naar klembord';
@@ -440,13 +443,14 @@ class AppLocalizationsNl extends AppLocalizations {
   String get session_fieldApiToken => 'API token';
 
   @override
-  String get session_fieldLastServerSync => 'Laatste server synchronisatie';
+  String get session_fieldLastServerSync =>
+      'Laaste synchronisatie met de server';
 
   @override
-  String get session_fieldTokenExpiration => 'Verval token';
+  String get session_fieldTokenExpiration => 'Tokenvervaldatum';
 
   @override
-  String get session_forceTokenResfresh => 'Vernieuwen token forceren';
+  String get session_forceTokenResfresh => 'Tokenvernieuwing forceren';
 
   @override
   String get session_neverSynced => 'nooit';
@@ -456,17 +460,17 @@ class AppLocalizationsNl extends AppLocalizations {
       'De server weigert het huidige sessietoken. U moet zich opnieuw aanmelden om de synchronisatie te hervatten.';
 
   @override
-  String get session_renewDialogTitle => 'Vernieuw sessie';
+  String get session_renewDialogTitle => 'Sessie vernieuwen';
 
   @override
-  String get session_title => 'Details sessie';
+  String get session_title => 'Sessiedetails';
 
   @override
   String get settings_bugReportLink => 'Een bug melden';
 
   @override
   String get settings_clearCacheMessage =>
-      'De lokale cache wordt verwijderd en opnieuw opgehaald van de server.';
+      'De lokale cache wordt verwijderd en wordt opnieuw bij de server opgehaald.';
 
   @override
   String get settings_itemAppearance => 'Uiterlijk';
@@ -475,7 +479,7 @@ class AppLocalizationsNl extends AppLocalizations {
   String get settings_itemAbout => 'Over';
 
   @override
-  String get settings_itemAppBadge => 'Badge \"ongelezen\" weergeven';
+  String get settings_itemAppBadge => 'Ongelezen als zodanig mankeren';
 
   @override
   String get settings_itemClearCache => 'Cache wissen';
@@ -484,31 +488,32 @@ class AppLocalizationsNl extends AppLocalizations {
   String get settings_itemLicenses => 'Licenties bekijken';
 
   @override
-  String get settings_itemLogConsole => 'Logconsole';
+  String get settings_itemLogConsole => 'Logboekconsole';
 
   @override
-  String get settings_itemOpenDeeplink => 'Een diepe link openen';
+  String get settings_itemOpenDeeplink => 'Een deeplink openen';
 
   @override
   String get settings_itemLanguage => 'Taal';
 
   @override
-  String get settings_helpToTranslate => 'Help vertalen';
+  String get settings_helpToTranslate => 'Help mee met vertalen';
 
   @override
-  String get settings_savedArticleTag => 'Een tag toevoegen bij het opslaan';
+  String get settings_savedArticleTag =>
+      'Opgeslagen artikelen als zodanig mankeren';
 
   @override
   String get settings_savedArticleTagLabel => 'Label voor opgeslagen artikelen';
 
   @override
-  String get settings_itemSessionDetails => 'Details sessie';
+  String get settings_itemSessionDetails => 'Sessiedetails';
 
   @override
   String get settings_title => 'Instellingen';
 
   @override
-  String get settings_nativeArticleRenderer => 'Native artikelrenderer';
+  String get settings_nativeArticleRenderer => 'Native artikelweergave';
 
   @override
   String get settings_valueThemeDark => 'Donker';

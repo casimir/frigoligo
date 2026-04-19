@@ -1,9 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "·" : {
-
-    },
     "%@" : {
 
     },
@@ -14,6 +11,12 @@
       "comment" : "The action to add tags to an article.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voeg etikette by"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -24,6 +27,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Afegeix etiquetes"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Přidat štítky"
           }
         },
         "de" : {
@@ -110,6 +119,12 @@
             "value" : "குறிச்சொற்களைச் சேர்க்கவும்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thêm thẻ"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -128,6 +143,12 @@
       "comment" : "The action to archive the article.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Argiveer dié artikel"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -138,6 +159,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Arxiva aquest article"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Archivovat tento článek"
           }
         },
         "de" : {
@@ -168,6 +195,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Archiver l'article"
+          }
+        },
+        "fy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Argyfearje dit artikel"
           }
         },
         "gl" : {
@@ -218,10 +251,22 @@
             "value" : "இந்த கட்டுரையை காப்பகப்படுத்தவும்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lưu trữ bài viết này"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "存档此文章"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "封存此文章"
           }
         }
       }
@@ -230,6 +275,12 @@
       "comment" : "The action to open the URL of the article in the web browser.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soek oorspronklike artikel aanlyn"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -240,6 +291,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Explora l’original"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prohlédnout originál"
           }
         },
         "de" : {
@@ -293,7 +350,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Origineel openen"
+            "value" : "Het originele artikel opzoeken"
           }
         },
         "pt" : {
@@ -326,6 +383,12 @@
             "value" : "அசலை உலாவுக"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Duyệt bản gốc"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -344,6 +407,12 @@
       "comment" : "The action to delete the article.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skrap dié artikel"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -354,6 +423,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Suprimeix aquest article"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odstranit tento článek"
           }
         },
         "de" : {
@@ -440,6 +515,12 @@
             "value" : "இந்த கட்டுரையை நீக்கு"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xóa bài viết này"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -458,6 +539,12 @@
       "comment" : "The action to show the article details.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meer inligtings"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -468,6 +555,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Més informació"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Více informací"
           }
         },
         "de" : {
@@ -548,10 +641,22 @@
             "value" : "மேலும் செய்தி"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thông tin thêm"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "更多信息"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更多資訊"
           }
         }
       }
@@ -560,6 +665,12 @@
       "comment" : "Placeholder for when the article content is not available.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kon nie artikel laai nie"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -570,6 +681,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No s’ha recuperat cap contingut"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nebyl načte žádný obsah"
           }
         },
         "de" : {
@@ -623,7 +740,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Geen inhoud opgehaald"
+            "value" : "Kon de inhoud van het artikel niet laden"
           }
         },
         "pt" : {
@@ -656,6 +773,12 @@
             "value" : "எந்த உள்ளடக்கமும் பெறப்படவில்லை"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không tìm nạp được nội dung"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -674,6 +797,12 @@
       "comment" : "Placeholder for when the article is not found.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kon nie artikel vind nie"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -684,6 +813,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No s’ha trobat l’article"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Článek nenalezen"
           }
         },
         "de" : {
@@ -764,10 +899,22 @@
             "value" : "கட்டுரை காணப்படவில்லை"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không tìm thấy bài viết"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "未找到文章"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "找不到文章"
           }
         }
       }
@@ -776,6 +923,12 @@
       "comment" : "The action to open the article in the web browser.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maak oop in webblaaier"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -786,6 +939,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Obre al navegador"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Otevřít v prohlížeči"
           }
         },
         "de" : {
@@ -839,7 +998,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "In browser openen"
+            "value" : "In webbrowser openen"
           }
         },
         "pt" : {
@@ -872,6 +1031,12 @@
             "value" : "உலாவியில் திற"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mở trong trình duyệt"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -890,6 +1055,12 @@
       "comment" : "The action to open the reading settings sheet.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Teksinstellings"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -900,6 +1071,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Paràmetres del text"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Textové nastavení"
           }
         },
         "de" : {
@@ -947,7 +1124,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Text instellingen"
+            "value" : "Tekstinstellingen"
           }
         },
         "pt" : {
@@ -980,10 +1157,22 @@
             "value" : "உரை அமைப்புகள்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cài đặt văn bản"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "文本设置"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "文字設定"
           }
         }
       }
@@ -992,6 +1181,12 @@
       "comment" : "The estimated reading time of the article.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld min"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1002,6 +1197,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld min"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld minut"
           }
         },
         "de" : {
@@ -1088,6 +1289,12 @@
             "value" : "%lld மணித்துளி"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld phút"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1106,6 +1313,12 @@
       "comment" : "The action to ask the server to fetch the article content again.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Herlaai die artikelinhoud"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1116,6 +1329,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Torna a recuperar el contingut"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Znovu načíst obsah"
           }
         },
         "de" : {
@@ -1163,7 +1382,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Inhoud herladen"
+            "value" : "Artikel opnieuw laden"
           }
         },
         "pt" : {
@@ -1196,6 +1415,12 @@
             "value" : "உள்ளடக்கத்தை மீண்டும் பெறவும்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tìm nạp lại nội dung"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1214,6 +1439,12 @@
       "comment" : "The action to share the article.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deel die artikel"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1224,6 +1455,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Comparteix aquest article"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sdílet tento článek"
           }
         },
         "de" : {
@@ -1304,7 +1541,19 @@
             "value" : "இந்த கட்டுரையைப் பகிரவும்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chia sẻ bài viết này"
+          }
+        },
         "zh" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分享此文章"
+          }
+        },
+        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "分享此文章"
@@ -1316,16 +1565,28 @@
       "comment" : "The action to star the article.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voeg artikel by gunstelinge"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "إضافة نجمة لهذا المقال"
+            "value" : "وضع علامة نجمة على هذه المقالة"
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Destaca aquest article"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Označit tento článek"
           }
         },
         "de" : {
@@ -1373,7 +1634,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Geef dit artikel een ster"
+            "value" : "Artikel aan favorieten toevoegen"
           }
         },
         "pt" : {
@@ -1388,6 +1649,12 @@
             "value" : "Favoritar este artigo"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marcar este artigo como favorito"
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1398,6 +1665,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "இந்த கட்டுரையை விண்மீன் செய்யுங்கள்"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đánh dấu bài viết này"
           }
         },
         "zh" : {
@@ -1412,6 +1685,12 @@
       "comment" : "The action to unarchive the article.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verwyder artikel uit argief"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1422,6 +1701,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Desarxiva aquest article"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zrušit archivaci tohoto článku"
           }
         },
         "de" : {
@@ -1469,7 +1754,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dit artikel uit het archief halen"
+            "value" : "Artikel uit het archief halen"
           }
         },
         "pt" : {
@@ -1502,10 +1787,22 @@
             "value" : "இந்த கட்டுரையை அறியாதது"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hủy lưu trữ bài viết này"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "取消存档此文章"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消封存此文章"
           }
         }
       }
@@ -1514,10 +1811,16 @@
       "comment" : "The action to unstar the article.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verwyder artikel uit gunstelinge"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "إزالة النجمة من هذا المقال"
+            "value" : "إزالة علامة النجمة من هذا المقال"
           }
         },
         "ca" : {
@@ -1571,7 +1874,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Verwijder de ster van dit artikel"
+            "value" : "Artikel uit favorieten verwijderen"
           }
         },
         "pt" : {
@@ -1586,6 +1889,12 @@
             "value" : "Desfavoritar este artigo"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desmarcar este artigo como favorito"
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1596,6 +1905,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "இந்த கட்டுரையை உறுதிப்படுத்தவும்"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bỏ dấu sao bài viết này"
           }
         },
         "zh" : {
@@ -1610,6 +1925,12 @@
       "comment" : "The estimated reading time of the article.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leestyd"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1706,6 +2027,12 @@
             "value" : "வாசிப்பு நேரம்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thời gian đọc"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1724,6 +2051,12 @@
       "comment" : "The tags of the article.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Etikette"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1820,6 +2153,12 @@
             "value" : "குறிச்சொற்கள்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thẻ"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1838,6 +2177,12 @@
       "comment" : "The title of the article.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Titel"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1884,6 +2229,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Titre"
+          }
+        },
+        "fy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Titel"
           }
         },
         "gl" : {
@@ -1934,6 +2285,12 @@
             "value" : "தலைப்பு"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiêu đề"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1952,6 +2309,12 @@
       "comment" : "The website (domain) from where the article has been fetched.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Webwerf"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2048,6 +2411,12 @@
             "value" : "வலைத்தளம்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Website"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2069,6 +2438,12 @@
       "comment" : "Filter the domains from where the articles have been fetched.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domeine"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2165,6 +2540,12 @@
             "value" : "களங்கள்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tên miền"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2181,7 +2562,26 @@
     },
     "filters_articleDomainsCount" : {
       "comment" : "The number of articles domains used in filters.",
+      "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 domein"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld domeine"
+                }
+              }
+            }
+          }
+        },
         "ar" : {
           "variations" : {
             "plural" : {
@@ -2428,13 +2828,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "1 domain"
+                  "value" : "1 domínio"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld domains"
+                  "value" : "%lld domínios"
                 }
               }
             }
@@ -2476,6 +2876,24 @@
             }
           }
         },
+        "vi" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 domain"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld domains"
+                }
+              }
+            }
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2494,6 +2912,12 @@
       "comment" : "Filter starred articles.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gunstelinge"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2557,7 +2981,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Favoriet"
+            "value" : "Favorieten"
           }
         },
         "pt" : {
@@ -2590,6 +3014,12 @@
             "value" : "நடித்தார்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đã gắn dấu sao"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2608,6 +3038,12 @@
       "comment" : "The state of the article.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Status"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2704,10 +3140,22 @@
             "value" : "மாநிலம்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trạng thái"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "状态"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "文章狀態"
           }
         }
       }
@@ -2716,6 +3164,12 @@
       "comment" : "Don't filter articles by state.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle statusse"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2812,6 +3266,12 @@
             "value" : "அனைத்து மாநிலங்களும்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tất cả các trạng thái"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2830,6 +3290,12 @@
       "comment" : "Filter articles with the state 'archived'.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geargiveer"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2926,6 +3392,12 @@
             "value" : "காப்பகப்படுத்தப்பட்டது"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đã lưu trữ"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2944,6 +3416,12 @@
       "comment" : "Filter articles with the state 'unread'.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ongelees"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3040,6 +3518,12 @@
             "value" : "படிக்காதது"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chưa đọc"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3058,6 +3542,12 @@
       "comment" : "Filter articles with the given tag values.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Etikette"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3154,6 +3644,12 @@
             "value" : "குறிச்சொற்கள்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thẻ"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3170,7 +3666,26 @@
     },
     "filters_articleTagsCount" : {
       "comment" : "The number of tags used in filters.",
+      "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 etiket"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld etikette"
+                }
+              }
+            }
+          }
+        },
         "ar" : {
           "variations" : {
             "plural" : {
@@ -3417,13 +3932,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "1 tag"
+                  "value" : "1 etiqueta"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld tags"
+                  "value" : "%lld etiquetas"
                 }
               }
             }
@@ -3465,6 +3980,24 @@
             }
           }
         },
+        "vi" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 tag"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld tags"
+                }
+              }
+            }
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3477,6 +4010,12 @@
       "comment" : "Search bar hint in the home screen.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soek in artikels"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3519,6 +4058,12 @@
             "value" : "Rechercher dans les articles"
           }
         },
+        "fy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sykje yn artikels"
+          }
+        },
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3534,7 +4079,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zoek in artikels"
+            "value" : "In artikelen zoeken"
           }
         },
         "pt" : {
@@ -3567,6 +4112,12 @@
             "value" : "கட்டுரைகளில் தேடுங்கள்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tìm kiếm trong bài viết"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3585,6 +4136,12 @@
       "comment" : "The title of the search mode screen (which fields to search text into).",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soekmodus"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3642,7 +4199,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zoekwijze"
+            "value" : "Zoekmodus"
           }
         },
         "pt" : {
@@ -3675,6 +4232,12 @@
             "value" : "தேடல் பயன்முறை"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chế độ tìm kiếm"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3693,6 +4256,12 @@
       "comment" : "Search text in all fields.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In alle velde"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3783,10 +4352,22 @@
             "value" : "அனைத்து புலங்களும்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tất cả các trường"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "所有字段"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "所有欄位"
           }
         }
       }
@@ -3795,6 +4376,12 @@
       "comment" : "Search text only in the content field.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Slegs in inhoudveld"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3885,6 +4472,12 @@
             "value" : "உள்ளடக்கம்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nội dung"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3897,6 +4490,12 @@
       "comment" : "Search text only in the title field.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Slegs in titelveld"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3987,6 +4586,12 @@
             "value" : "தலைப்பு"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiêu đề"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4008,6 +4613,12 @@
       "comment" : "A piece of content fetched from the web. This is one of the main concepts of the app.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Artikel"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4018,6 +4629,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Article"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Článek"
           }
         },
         "de" : {
@@ -4054,6 +4671,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Article"
+          }
+        },
+        "fy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Webartikel"
           }
         },
         "gl" : {
@@ -4104,6 +4727,12 @@
             "value" : "கட்டுரை"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bài viết"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4122,16 +4751,28 @@
       "comment" : "A verb as in to check something.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontroleer"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "تحقق"
+            "value" : "تحقَّق"
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Comprova"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontrola"
           }
         },
         "de" : {
@@ -4168,6 +4809,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vérifier"
+          }
+        },
+        "fy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontrolearje"
           }
         },
         "gl" : {
@@ -4218,6 +4865,12 @@
             "value" : "சரிபார்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kiểm tra"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4236,16 +4889,28 @@
       "comment" : "Present participle of the verb to check.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontroleer tans…"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "جارٍ التحقق…"
+            "value" : "التحقق جارٍ…"
           }
         },
         "ca" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "S’està comprovant…"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontroluji…"
           }
         },
         "de" : {
@@ -4282,6 +4947,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vérification…"
+          }
+        },
+        "fy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontrolearje…"
           }
         },
         "gl" : {
@@ -4332,6 +5003,12 @@
             "value" : "சோதனை…"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đang kiểm tra…"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4350,6 +5027,12 @@
       "comment" : "A verb, as in to delete something.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skrap"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4360,6 +5043,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Suprimeix"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Smazat"
           }
         },
         "de" : {
@@ -4396,6 +5085,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Supprimer"
+          }
+        },
+        "fy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wiskje"
           }
         },
         "gl" : {
@@ -4446,6 +5141,12 @@
             "value" : "நீக்கு"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xóa"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4464,6 +5165,12 @@
       "comment" : "A verb, as in to save a link.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stoor skakel"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4474,6 +5181,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Desa l’enllaç"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uložit odkaz"
           }
         },
         "de" : {
@@ -4560,6 +5273,12 @@
             "value" : "இணைப்பைச் சேமிக்கவும்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lưu liên kết"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4578,6 +5297,12 @@
       "comment" : "A verb, as in to search something.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soek"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4588,6 +5313,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cerca"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hledat"
           }
         },
         "de" : {
@@ -4626,6 +5357,12 @@
             "value" : "Rechercher"
           }
         },
+        "fy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sykje"
+          }
+        },
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4641,7 +5378,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zoek"
+            "value" : "Zoeken"
           }
         },
         "pt" : {
@@ -4674,6 +5411,12 @@
             "value" : "தேடல்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tìm kiếm"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4692,6 +5435,12 @@
       "comment" : "A server, as in a computer providing a service.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bediener"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4702,6 +5451,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Servidor"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server"
           }
         },
         "de" : {
@@ -4788,6 +5543,12 @@
             "value" : "சேவையகம்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Máy chủ"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4806,6 +5567,12 @@
       "comment" : "The settings of the application.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Instellings"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4816,6 +5583,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Paràmetres"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nastavení"
           }
         },
         "de" : {
@@ -4852,6 +5625,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Paramètres"
+          }
+        },
+        "fy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ynstellings"
           }
         },
         "gl" : {
@@ -4902,6 +5681,12 @@
             "value" : "அமைப்புகள்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cài đặt"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4920,6 +5705,12 @@
       "comment" : "A verb, as in to share something.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deel"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4930,6 +5721,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Comparteix"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sdílet"
           }
         },
         "de" : {
@@ -4983,7 +5780,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Deel"
+            "value" : "Delen"
           }
         },
         "pt" : {
@@ -5016,6 +5813,12 @@
             "value" : "பங்கு"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chia sẻ"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5034,6 +5837,12 @@
       "comment" : "The source code of a software.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bronkode"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5044,6 +5853,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Codi font"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zdrojový kód"
           }
         },
         "de" : {
@@ -5130,6 +5945,12 @@
             "value" : "மூலக் குறியீடு"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mã nguồn"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5148,6 +5969,12 @@
       "comment" : "A verb, as in to synchronize with the server.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sinkroniseer"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5158,6 +5985,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sincronitza"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Synchronizace"
           }
         },
         "de" : {
@@ -5244,6 +6077,12 @@
             "value" : "ஒத்திசைக்கவும்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đồng bộ hóa"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5262,6 +6101,12 @@
       "comment" : "A name, as in the default configuration (System configuration).",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stelselstandaard"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5272,6 +6117,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sistema"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Systém"
           }
         },
         "de" : {
@@ -5325,7 +6176,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Systeem"
+            "value" : "Systeemstandaard"
           }
         },
         "pt" : {
@@ -5358,6 +6209,12 @@
             "value" : "மண்டலம்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hệ thống"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5376,6 +6233,12 @@
       "comment" : "A tag can be attached to an article.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Etiket"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5386,6 +6249,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Etiqueta"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tag"
           }
         },
         "de" : {
@@ -5472,6 +6341,12 @@
             "value" : "குறிச்சொல்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thẻ"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5490,6 +6365,12 @@
       "comment" : "A version, as in the application version.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weergawe"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5500,6 +6381,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Versió"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verze"
           }
         },
         "de" : {
@@ -5586,6 +6473,12 @@
             "value" : "பதிப்பு"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Phiên bản"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5603,6 +6496,24 @@
     "humanize_days" : {
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 dag"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld dae"
+                }
+              }
+            }
+          }
+        },
         "ar" : {
           "variations" : {
             "plural" : {
@@ -5634,6 +6545,24 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld dies"
+                }
+              }
+            }
+          }
+        },
+        "cs" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 den"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld dny"
                 }
               }
             }
@@ -5897,6 +6826,24 @@
             }
           }
         },
+        "vi" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 day"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld days"
+                }
+              }
+            }
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5927,6 +6874,12 @@
       "comment" : "Describe a duration until a moment in the future.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "binne %@"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5937,6 +6890,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "d’aquí a %@"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "za %@"
           }
         },
         "de" : {
@@ -6023,6 +6982,12 @@
             "value" : "%@ இல்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "trong %@"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6040,6 +7005,24 @@
     "humanize_hours" : {
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 uur"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld uur"
+                }
+              }
+            }
+          }
+        },
         "ar" : {
           "variations" : {
             "plural" : {
@@ -6071,6 +7054,24 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld hores"
+                }
+              }
+            }
+          }
+        },
+        "cs" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 hodina"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld hodin"
                 }
               }
             }
@@ -6238,7 +7239,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld uren"
+                  "value" : "%lld uur"
                 }
               }
             }
@@ -6334,6 +7335,24 @@
             }
           }
         },
+        "vi" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 hour"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld hours"
+                }
+              }
+            }
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6363,6 +7382,24 @@
     "humanize_minutes" : {
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 minuut"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld minute"
+                }
+              }
+            }
+          }
+        },
         "ar" : {
           "variations" : {
             "plural" : {
@@ -6394,6 +7431,24 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld minuts"
+                }
+              }
+            }
+          }
+        },
+        "cs" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 minuta"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld minut"
                 }
               }
             }
@@ -6657,6 +7712,24 @@
             }
           }
         },
+        "vi" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 minute"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld minutes"
+                }
+              }
+            }
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6687,6 +7760,12 @@
       "comment" : "Describe a duration since a moment in the past.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ gelede"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6697,6 +7776,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fa %@"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ zpět"
           }
         },
         "de" : {
@@ -6783,6 +7868,12 @@
             "value" : "%@ முன்பு"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ trước"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6800,6 +7891,24 @@
     "humanize_seconds" : {
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 seconde"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld secondes"
+                }
+              }
+            }
+          }
+        },
         "ar" : {
           "variations" : {
             "plural" : {
@@ -6831,6 +7940,24 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld segons"
+                }
+              }
+            }
+          }
+        },
+        "cs" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 vteřina"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld vteřin"
                 }
               }
             }
@@ -7094,6 +8221,24 @@
             }
           }
         },
+        "vi" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 second"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld seconds"
+                }
+              }
+            }
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7124,6 +8269,12 @@
       "comment" : "The title for the list of all the articles.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle artikels"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7172,6 +8323,12 @@
             "value" : "Tous les articles"
           }
         },
+        "fy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle artikels"
+          }
+        },
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7187,7 +8344,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Alle artikels"
+            "value" : "Alle artikelen"
           }
         },
         "pt" : {
@@ -7220,6 +8377,12 @@
             "value" : "அனைத்து கட்டுரைகளும்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tất cả bài viết"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7238,6 +8401,12 @@
       "comment" : "The title for the list of the articles with the state Archived.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geargiveerde artikels"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7253,7 +8422,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Archivierte"
+            "value" : "Archivierte Artikeln"
           }
         },
         "en" : {
@@ -7284,6 +8453,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Articles archivés"
+          }
+        },
+        "fy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Argyfearre artikels"
           }
         },
         "gl" : {
@@ -7334,6 +8509,12 @@
             "value" : "காப்பகப்படுத்தப்பட்ட கட்டுரைகள்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Các bài viết được lưu trữ"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7352,6 +8533,12 @@
       "comment" : "The title for the list of the articles with the state Unread.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ongeleesde artikels"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7400,6 +8587,12 @@
             "value" : "Articles non-lus"
           }
         },
+        "fy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Net lêzen artikels"
+          }
+        },
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7415,7 +8608,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ongelezen artikels"
+            "value" : "Ongelezen artikelen"
           }
         },
         "pt" : {
@@ -7448,6 +8641,12 @@
             "value" : "படிக்காத கட்டுரைகள்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bài viết chưa đọc"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7466,6 +8665,12 @@
       "comment" : "Placeholder for when there are no articles to display.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geen artikels om te vertoon nie"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7514,6 +8719,12 @@
             "value" : "Aucun article"
           }
         },
+        "fy" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gjen artikels"
+          }
+        },
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7529,7 +8740,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Geen artikels"
+            "value" : "Geen artikelen om weer te geven"
           }
         },
         "pt" : {
@@ -7562,6 +8773,12 @@
             "value" : "கட்டுரைகள் இல்லை"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không có bài viết"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7580,6 +8797,24 @@
       "comment" : "The action to clear the logs.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maak logboek skoon"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مسح السجلات"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esborrar els registres"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7622,17 +8857,150 @@
             "value" : "Elimina registri"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Logboek wissen"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limpar registos"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Limpar logs"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limpar registos"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Очистить логи"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "பதிவுகளை அழிக்கவும்"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xóa nhật ký"
+          }
+        },
+        "zh" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "清除日志"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "清除紀錄"
           }
         }
       }
     },
     "logconsole_export_all_logs" : {
       "comment" : "Label for exporting all available logs.",
+      "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle logreëls (%#@count@)"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "d",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "1 reël"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%lld reëls"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "جميع السجلات (%#@count@)"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "d",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "سطر واحد"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%lld سطور"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tots els registres (%#@count@)"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "d",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "1 línia"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%lld línies"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7829,6 +9197,62 @@
             }
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alle logregels (%#@count@)"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "d",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "1 regel"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%lld regels"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todos os registros (%#@count@)"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "d",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "1 line"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%lld lines"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7857,6 +9281,34 @@
             }
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Todos os registos (%#@count@)"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "d",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "1 linha"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%lld linhas"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7878,6 +9330,62 @@
                     "stringUnit" : {
                       "state" : "translated",
                       "value" : "1%lld lines"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "அனைத்து பதிவுகளும் (%#@count@)"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "d",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "1 வரி"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%lld வரிகள்"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All logs (%#@count@)"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "d",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "1 line"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%lld lines"
                     }
                   }
                 }
@@ -7917,7 +9425,92 @@
     },
     "logconsole_export_current_session" : {
       "comment" : "Label for exporting only the current session logs.",
+      "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huidige sessie (%#@count@)"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "d",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "1 reël"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%lld reëls"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الجلسة الحالية (%#@count@)"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "d",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "سطر واحد"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%lld سطور"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sessió actual (%#@count@)"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "d",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "1 línia"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%lld línies"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8114,6 +9707,62 @@
             }
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huidige sessie (%#@count@)"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "d",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "1 regel"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%lld regels"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sessão atual (%#@count@)"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "d",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "1 line"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%lld lines"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8142,6 +9791,34 @@
             }
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sessão atual (%#@count@)"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "d",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "1 linha"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%lld linhas"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8163,6 +9840,62 @@
                     "stringUnit" : {
                       "state" : "translated",
                       "value" : "1%lld lines"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "தற்போதைய அமர்வு (%#@count@)"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "d",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "1 வரி"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%lld வரிகள்"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Current session (%#@count@)"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "d",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "1 line"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%lld lines"
                     }
                   }
                 }
@@ -8204,6 +9937,24 @@
       "comment" : "The title of the export as file dialog.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uitvoer as lêer"
+          }
+        },
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تصدير كملف"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exportar com a fitxer"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8246,10 +9997,28 @@
             "value" : "Esporta come file"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Als bestand exporteren"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exportar como um ficheiro"
+          }
+        },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Exportar como um arquivo"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exportar como ficheiro"
           }
         },
         "ru" : {
@@ -8258,10 +10027,28 @@
             "value" : "Экспорт в файл"
           }
         },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "கோப்பாக ஏற்றுமதி செய்யவும்"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xuất dưới dạng tệp"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "导出为文件"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "輸出為檔案"
           }
         }
       }
@@ -8270,6 +10057,12 @@
       "comment" : "The title of the log console screen.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Logboekkonsole"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8333,7 +10126,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Logconsole"
+            "value" : "Logboekconsole"
           }
         },
         "pt" : {
@@ -8366,6 +10159,12 @@
             "value" : "பதிவு கன்சோல்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bảng điều khiển nhật ký"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8384,6 +10183,12 @@
       "comment" : "Wether or not to accept self-signed certificates when connecting to the wallabag instance.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aanvaar selfgetekende sertifikate"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8447,7 +10252,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aanvaard zelfondertekende certificaten"
+            "value" : "Zelfondertekende certificaten accepteren"
           }
         },
         "pt" : {
@@ -8480,6 +10285,12 @@
             "value" : "தன்வய கையொப்பமிடப்பட்ட சான்றிதழ்களை ஏற்றுக்கொள்ளுங்கள்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chấp nhận chứng chỉ tự ký"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8492,6 +10303,12 @@
       "comment" : "The action to log in.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meld aan"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8588,6 +10405,12 @@
             "value" : "புகுபதிகை"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đăng nhập"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8606,10 +10429,94 @@
       "comment" : "The action to put the app in demo mode instead of connecting to a server.",
       "extractionState" : "stale",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "جرب في الوضع التجريبي"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prova la versió de demostració"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Im Demo-Modus nutzen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Try in demo mode"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Intente en el modo demo"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Proovi demorežiimis"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Essayer en mode démo"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Probar en modo demostración"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prova in modalità demo"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Probeer in demomodus"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Testar no modo demonstração"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tentar em modo de demonstração"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Попробовать в тестовом режиме"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "டெமோ பயன்முறையில் முயற்சிக்கவும்"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thử chế độ demo"
           }
         }
       }
@@ -8618,6 +10525,12 @@
       "comment" : "The action to log out from the existing session.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meld af"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8714,6 +10627,12 @@
             "value" : "விடுபதிகை"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đăng xuất"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8732,6 +10651,12 @@
       "comment" : "The message of the dialog warning about an existing session.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wil u uit die huidige sessie afmeld en 'n nuwe sessie oopmaak?"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8795,7 +10720,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wilt u uitloggen uit de huidige sessie en een nieuwe sessie openen?"
+            "value" : "Wilt u zich afmelden bij de huidige sessie en een nieuwe sessie openen?"
           }
         },
         "pt" : {
@@ -8828,6 +10753,12 @@
             "value" : "தற்போதைய அமர்வில் இருந்து வெளியேறி புதிய ஒன்றைத் திறக்க விரும்புகிறீர்களா?"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bạn có muốn đăng xuất khỏi phiên hiện tại và mở một phiên mới không?"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8846,6 +10777,12 @@
       "comment" : "The title of the dialog warning about an existing session.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daar is nog 'n sessie aktief"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8909,7 +10846,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Er is een sessie actief"
+            "value" : "Er is nog een sessie actief"
           }
         },
         "pt" : {
@@ -8942,6 +10879,12 @@
             "value" : "ஒரு அமர்வு தற்போது செயலில் உள்ளது"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Một phiên đang hiện tại đang kích hoạt"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8960,6 +10903,12 @@
       "comment" : "The client ID field of the login form.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kliënt-ID"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9023,7 +10972,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Client ID"
+            "value" : "Client-ID"
           }
         },
         "pt" : {
@@ -9056,6 +11005,12 @@
             "value" : "வாங்கி ஐடி"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ID máy khách"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9074,6 +11029,12 @@
       "comment" : "The client secret field of the login form.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kliëntgeheim"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9137,7 +11098,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Geheim client"
+            "value" : "Clientgeheim"
           }
         },
         "pt" : {
@@ -9170,6 +11131,12 @@
             "value" : "வாங்கி மறைபொருள்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bí mật client"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9188,6 +11155,12 @@
       "comment" : "The password field of the login form.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wagwoord"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9284,6 +11257,12 @@
             "value" : "கடவுச்சொல்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mật khẩu"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9302,6 +11281,12 @@
       "comment" : "The username field of the login form.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gebruikersnaam"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9317,7 +11302,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Username"
+            "value" : "Nutzername"
           }
         },
         "en" : {
@@ -9396,6 +11381,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "பயனர்பெயர்"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tên người dùng"
           }
         },
         "zh" : {
@@ -9479,7 +11470,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Open de logconsole"
+            "value" : "Logboekconsole openen"
           }
         },
         "pt" : {
@@ -9512,6 +11503,12 @@
             "value" : "பதிவு கன்சோலைத் திறக்கவும்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mở Nhật ký Console"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9530,6 +11527,12 @@
       "comment" : "The text formatting to display the content of the article.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Teksformatering"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9620,6 +11623,12 @@
             "value" : "உரை வடிவமைப்பு"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Định dạng phông"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9695,7 +11704,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lettertype"
+            "value" : "Lettertypefamilie"
           }
         },
         "pt" : {
@@ -9728,6 +11737,12 @@
             "value" : "எழுத்துரு குடும்பம்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Phông gia đình"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9746,6 +11761,12 @@
       "comment" : "The font size to display the content of the article.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lettergrootte"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9842,6 +11863,12 @@
             "value" : "எழுத்துரு அளவு"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kích thước phông"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9860,6 +11887,12 @@
       "comment" : "The title of the reading settings screen.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Teksinstellings"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9923,7 +11956,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tekst-instellingen"
+            "value" : "Tekstinstellingen"
           }
         },
         "pt" : {
@@ -9933,6 +11966,12 @@
           }
         },
         "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurações de texto"
+          }
+        },
+        "pt-PT" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Configurações de texto"
@@ -9948,6 +11987,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "உரை அமைப்புகள்"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cài đặt văn bản"
           }
         },
         "zh" : {
@@ -9968,6 +12013,12 @@
       "comment" : "The title of the confirmation screen after the article is saved. ",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Artikel is gestoor!"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10064,6 +12115,12 @@
             "value" : "கட்டுரை சேமிக்கப்பட்டது!"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bài viết đã lưu!"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10082,6 +12139,12 @@
       "comment" : "The confirmation button of the dubious URL warning dialog.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stoor"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10178,6 +12241,12 @@
             "value" : "அதை சேமிக்கவும்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lưu nó"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10259,7 +12328,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Deze URL lijkt niet juist. Toch opslaan?\n%@"
+            "value" : "Dit lijkt niet op een URL. Toch opslaan?\n%@"
           }
         },
         "pt" : {
@@ -10292,6 +12361,12 @@
             "value" : "இந்த முகவரி ஒன்றைப் போல் இல்லை. எப்படியும் அதை சேமிக்கவா?\n %@"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL này trông không giống URL này. Vẫn lưu nó?\n%@"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10310,6 +12385,12 @@
       "comment" : "The title of the dubious URL warning dialog.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Twyfelagtige URL"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10406,6 +12487,12 @@
             "value" : "சந்தேகத்திற்குரிய முகவரி"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL đáng ngờ"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10424,10 +12511,94 @@
       "comment" : "Error message shown when trying to save an article in local mode.",
       "extractionState" : "stale",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يلزم الاتصال بالخادم لحفظ المقالات الجديدة."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cal una connexió a un servidor per poder guardar articles nous."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eine Serverbindung ist zum Speichern neuer Artikel erforderlich."
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "A server connection is required to save new articles."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se requiere una conexión del servidor para guardar artículos nuevos."
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uute artiklite salvestamiseks on vajalik toimiv ühendus serveriga."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une connexion au serveur est requise pour enregistrer de nouveaux articles."
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Precísase conexión co servidor para gardar novos artigos."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Per salvare nuovi articoli è necessaria una connessione al server."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Een serververbinding is vereist om nieuwe artikelen op te slaan."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uma conexão com o servidor é necessária para salvar novos artigos."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uma conexão com o servidor é necessária para guardar novos artigos."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Для сохранения заметки требуется подключение к серверу."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "புதிய கட்டுரைகளைச் சேமிக்க சர்வர் இணைப்பு தேவை."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Một kết nối máy chủ là cần thiết để lưu bài viết mới."
           }
         }
       }
@@ -10436,10 +12607,94 @@
       "comment" : "Error message shown when the URL to save is malformed.",
       "extractionState" : "stale",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عنوان URL غير صحيح: %@"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL mal formada: %@"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fehlerhafte URL: %@"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Malformed URL: %@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL malformada: %@"
+          }
+        },
+        "et" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vigane võrguaadress: %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL malformée : %@"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Formato incorrecto URL: %@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL non valido: %@"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Onjuiste URL: %@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL truncada: %@"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL mal formado: %@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Неправильный URL-адрес: %@"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "தவறான URL: %@"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL không đúng định dạng: %@"
           }
         }
       }
@@ -10448,6 +12703,12 @@
       "comment" : "The URL was missing from the save request.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geen URL opgegee"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10544,6 +12805,12 @@
             "value" : "முகவரி எதுவும் வழங்கப்படவில்லை"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không cung cấp URL"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10562,6 +12829,12 @@
       "comment" : "The title of the save screen.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stoor die artikel"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10658,6 +12931,12 @@
             "value" : "கட்டுரையை சேமிக்கவும்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lưu bài viết"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10676,6 +12955,12 @@
       "comment" : "The action to view the article after it is saved.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bekyk die artikel"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10739,7 +13024,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bekijk artikel"
+            "value" : "Artikel bekijken"
           }
         },
         "pt" : {
@@ -10772,6 +13057,12 @@
             "value" : "கட்டுரையைக் காண்க"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xem bài viết"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10793,6 +13084,12 @@
       "comment" : "The label of the select button in a selector screen.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kies %@"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10850,7 +13147,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Selecteer %@"
+            "value" : "%@ selecteren"
           }
         },
         "pt" : {
@@ -10883,6 +13180,12 @@
             "value" : "%@ என்பதைத் தேர்ந்தெடுக்கவும்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chọn %@"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10901,6 +13204,12 @@
       "comment" : "The address of the wallabag instance.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bedienersadres"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10964,7 +13273,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Adres server"
+            "value" : "Serveradres"
           }
         },
         "pt" : {
@@ -10997,6 +13306,12 @@
             "value" : "சேவையக முகவரி"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Địa chỉ máy chủ"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -11015,10 +13330,16 @@
       "comment" : "A message for non-empty check fail on a form field.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voer uw %@ in"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "أدخل %@"
+            "value" : "أدخل %@ الخاص بك"
           }
         },
         "ca" : {
@@ -11078,7 +13399,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Voer je %@ in"
+            "value" : "Voeg uw %@ in"
           }
         },
         "pt" : {
@@ -11111,6 +13432,12 @@
             "value" : "உங்கள் %@ ஐ உள்ளிடவும்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nhập %@ của bạn"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -11129,6 +13456,12 @@
       "comment" : "The address of the wallabag instance is invalid.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ongeldige adres"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -11225,6 +13558,12 @@
             "value" : "தவறான முகவரி"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Địa chỉ sai"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -11243,6 +13582,12 @@
       "comment" : "The application could not detect the server type.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Onbekende bedienerstipe"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -11315,6 +13660,12 @@
             "value" : "Tipo de servidor desconhecido"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tipo de servidor desconhecido"
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
@@ -11327,10 +13678,22 @@
             "value" : "தெரியாத சேவையக வகை"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không rõ loại máy chủ"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "未知服务类型"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未知伺服器類別"
           }
         }
       }
@@ -11339,6 +13702,12 @@
       "comment" : "The server instance is unreachable.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bediener onbereikbaar"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -11435,6 +13804,12 @@
             "value" : "சேவையகம் அணுக முடியாதது"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không thể truy cập được máy chủ"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -11453,6 +13828,12 @@
       "comment" : "The server instance is not supported.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bedienersweergawe word nie ondersteun nie"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -11510,7 +13891,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Serverversie niet ondersteund"
+            "value" : "Serverversie wordt niet ondersteund"
           }
         },
         "pt" : {
@@ -11525,6 +13906,12 @@
             "value" : "Versão do servidor não suportado"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Versão do servidor não apoiado"
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
@@ -11537,10 +13924,22 @@
             "value" : "சேவையக பதிப்பு ஆதரிக்கப்படவில்லை"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Phiên bản máy chủ không được hỗ trợ"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "服务版本不支持"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不支援的伺服器版本"
           }
         }
       }
@@ -11549,6 +13948,12 @@
       "comment" : "A message displayed when the value is copied to the clipboard.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Na die knipbord gekopieer"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -11645,6 +14050,12 @@
             "value" : "இடைநிலைப்பலகைக்கு நகலெடுக்கப்பட்டது"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đã sao chép vào bộ nhớ tạm"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -11663,6 +14074,12 @@
       "comment" : "The label of the access token field in the session screen.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toegangsbewys"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -11678,7 +14095,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Access token"
+            "value" : "Zugangstoken"
           }
         },
         "en" : {
@@ -11757,6 +14174,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "அணுகல் கிள்ளாக்கு"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Token truy cập"
           }
         },
         "zh" : {
@@ -11873,6 +14296,12 @@
             "value" : "பநிஇ கிள்ளாக்கு"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Token API"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -11948,7 +14377,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Laatste server synchronisatie"
+            "value" : "Laaste synchronisatie met de server"
           }
         },
         "pt" : {
@@ -11979,6 +14408,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "கடைசி சேவையக ஒத்திசைவு"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đồng bộ hóa máy chủ lần cuối"
           }
         },
         "zh" : {
@@ -12062,7 +14497,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Verval token"
+            "value" : "Tokenvervaldatum"
           }
         },
         "pt" : {
@@ -12093,6 +14528,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "கிள்ளாக்கு காலாவதி"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hết hạn token"
           }
         },
         "zh" : {
@@ -12176,7 +14617,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vernieuwen token forceren"
+            "value" : "Tokenvernieuwing forceren"
           }
         },
         "pt" : {
@@ -12209,6 +14650,12 @@
             "value" : "ஃபோர்ச் கிள்ளாக்கு புதுப்பிப்பு"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buộc làm mới token"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -12227,6 +14674,12 @@
       "comment" : "Placeholder for expiration date when the token is invalid.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ongeldig"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -12323,6 +14776,12 @@
             "value" : "செல்லுபடியாகாத"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "không hợp lệ"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -12341,6 +14800,12 @@
       "comment" : "Confirm the log out from the confirmation dialog.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meld af"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -12437,6 +14902,12 @@
             "value" : "விடுபதிகை"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đăng xuất"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -12455,6 +14926,12 @@
       "comment" : "The message of the confirmation dialog to log out.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "U sal dan weer moet aanmeld."
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -12551,6 +15028,12 @@
             "value" : "நீங்கள் மீண்டும் உள்நுழைய வேண்டும்."
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bạn sẽ cần phải đăng nhập lại."
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -12569,6 +15052,12 @@
       "comment" : "The title of the confirmation dialog to log out.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meld af van die sessie"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -12665,6 +15154,12 @@
             "value" : "அமர்வு வெளியேறவும்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Phiên đăng xuất"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -12683,6 +15178,12 @@
       "comment" : "The action to log out the session.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meld af van die sessie"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -12779,6 +15280,12 @@
             "value" : "அமர்வு வெளியேறவும்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Phiên đăng xuất"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -12797,6 +15304,12 @@
       "comment" : "Default value for the last sync time.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nooit"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -12891,6 +15404,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ஒருபோதும்"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "không bao giờ"
           }
         },
         "zh" : {
@@ -13007,6 +15526,12 @@
             "value" : "சேவையகம் தற்போதைய அமர்வு கிள்ளாக்கை மறுக்கிறது. ஒத்திசைவை மீண்டும் தொடங்க நீங்கள் மீண்டும் உள்நுழைய வேண்டும்."
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Máy chủ từ chối token phiên hiện tại. Bạn sẽ cần phải đăng nhập lại để tiếp tục đồng bộ hóa."
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -13088,7 +15613,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Vernieuw sessie"
+            "value" : "Sessie vernieuwen"
           }
         },
         "pt" : {
@@ -13119,6 +15644,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "புதுப்பித்தல் அமர்வு"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Phiên gia hạn"
           }
         },
         "zh" : {
@@ -13202,7 +15733,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Details sessie"
+            "value" : "Sessiedetails"
           }
         },
         "pt" : {
@@ -13233,6 +15764,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "அமர்வு விவரங்கள்"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chi tiết phiên"
           }
         },
         "zh" : {
@@ -13349,6 +15886,12 @@
             "value" : "ஒரு பிழையைப் புகாரளிக்கவும்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Báo cáo lỗi"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -13430,7 +15973,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "De lokale cache wordt verwijderd en opnieuw opgehaald van de server."
+            "value" : "De lokale cache wordt verwijderd en wordt opnieuw bij de server opgehaald."
           }
         },
         "pt" : {
@@ -13463,6 +16006,12 @@
             "value" : "உள்ளக கேச் நீக்கப்பட்டு மீண்டும் சேவையகத்திலிருந்து பெறப்படும்."
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bộ nhớ đệm cục bộ sẽ bị xóa và tải lại từ máy chủ."
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -13481,6 +16030,12 @@
       "comment" : "The action to open the Weblate project in a webview.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Help vertaal"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -13544,7 +16099,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Help vertalen"
+            "value" : "Help mee met vertalen"
           }
         },
         "pt" : {
@@ -13577,6 +16132,12 @@
             "value" : "மொழிபெயர்க்க உதவுங்கள்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trợ giúp dịch thuật"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -13595,6 +16156,12 @@
       "comment" : "The action to display the about screen.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meer oor"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -13691,6 +16258,12 @@
             "value" : "பற்றி"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giới thiệu"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -13712,7 +16285,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "إظهار شارة غير المقروء"
+            "value" : "إظهار شارة ”غير مقروء“"
           }
         },
         "ca" : {
@@ -13772,7 +16345,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Badge \"ongelezen\" weergeven"
+            "value" : "Ongelezen als zodanig mankeren"
           }
         },
         "pt" : {
@@ -13803,6 +16376,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "படிக்காத பேட்சைக் காட்டு"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hiển thị huy hiệu chưa đọc"
           }
         },
         "zh" : {
@@ -13919,6 +16498,12 @@
             "value" : "தோற்றம்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Giao diện"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -14033,6 +16618,12 @@
             "value" : "தெளிவான தற்காலிக சேமிப்பு"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xóa bộ nhớ đệm"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -14051,6 +16642,12 @@
       "comment" : "The action to change the language of the application.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taal"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -14145,6 +16742,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "மொழி"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ngôn ngữ"
           }
         },
         "zh" : {
@@ -14342,7 +16945,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Logconsole"
+            "value" : "Logboekconsole"
           }
         },
         "pt" : {
@@ -14373,6 +16976,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "பதிவு கன்சோல்"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bảng điều khiển nhật ký"
           }
         },
         "zh" : {
@@ -14456,7 +17065,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Een diepe link openen"
+            "value" : "Een deeplink openen"
           }
         },
         "pt" : {
@@ -14487,6 +17096,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ஆழமான இணைப்பைத் திறக்கவும்"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mở liên kết sâu"
           }
         },
         "zh" : {
@@ -14570,7 +17185,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Details sessie"
+            "value" : "Sessiedetails"
           }
         },
         "pt" : {
@@ -14601,6 +17216,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "அமர்வு விவரங்கள்"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chi tiết phiên"
           }
         },
         "zh" : {
@@ -14678,7 +17299,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Native artikelrenderer"
+            "value" : "Native artikelweergave"
           }
         },
         "pt" : {
@@ -14693,6 +17314,12 @@
             "value" : "Renderizador de artigo nativo"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Renderizador nativo de artigos"
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
@@ -14703,6 +17330,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "சொந்த கட்டுரை ரெண்டரர்"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trình kết xuất bài viết gốc"
           }
         },
         "zh" : {
@@ -14717,6 +17350,12 @@
       "comment" : "The action to toggle the addition of a tag to saved articles.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voeg 'n etiket by gestoorde artikels"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -14780,7 +17419,7 @@
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Een tag toevoegen bij het opslaan"
+            "value" : "Opgeslagen artikelen als zodanig mankeren"
           }
         },
         "pt" : {
@@ -14811,6 +17450,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "சேமித்த கட்டுரைகளுக்கு ஒரு குறிச்சொல்லைச் சேர்க்கவும்"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thêm thẻ vào bài viết đã lưu"
           }
         },
         "zh" : {
@@ -14927,6 +17572,12 @@
             "value" : "சேமித்த கட்டுரைகளுக்கான சிட்டை"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thẻ cho các bài viết đã lưu"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -14945,6 +17596,12 @@
       "comment" : "The title of the settings screen.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Instellings"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -15041,6 +17698,12 @@
             "value" : "அமைப்புகள்"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cài đặt"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -15059,6 +17722,12 @@
       "comment" : "The label for the dark theme mode.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Donker"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -15155,6 +17824,12 @@
             "value" : "இருண்ட"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tối"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -15173,6 +17848,12 @@
       "comment" : "The label for the light theme mode.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ligte"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
@@ -15269,6 +17950,12 @@
             "value" : "ஒளி"
           }
         },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sáng"
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -15287,6 +17974,24 @@
       "comment" : "Number of pending actions in the RemoteSyncer queue.",
       "extractionState" : "stale",
       "localizations" : {
+        "af" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 aksie"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld aksies"
+                }
+              }
+            }
+          }
+        },
         "ar" : {
           "variations" : {
             "plural" : {
@@ -15527,13 +18232,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "1 action"
+                  "value" : "1 acão"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld actions"
+                  "value" : "%lld ações"
                 }
               }
             }
@@ -15575,6 +18280,24 @@
             }
           }
         },
+        "vi" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 action"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld actions"
+                }
+              }
+            }
+          }
+        },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
@@ -15600,6 +18323,9 @@
           }
         }
       }
+    },
+    "·" : {
+
     }
   },
   "version" : "1.0"
