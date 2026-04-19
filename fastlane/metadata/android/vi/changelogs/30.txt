@@ -1,0 +1,1 @@
+Các phông chữ đọc hiện được gói trực tiếp trong ứng dụng và sau đó sẽ không được tải xuống nữa.
