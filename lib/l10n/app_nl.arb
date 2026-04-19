@@ -449,10 +449,6 @@
   "@settings_itemClearCache": {
     "description": "The action to clear the offline cache."
   },
-  "settings_itemLicenses": "Licenties bekijken",
-  "@settings_itemLicenses": {
-    "description": "The action to display the open-source licenses screen."
-  },
   "settings_savedArticleTag": "Een tag toevoegen bij het opslaan",
   "@settings_savedArticleTag": {
     "description": "The action to toggle the addition of a tag to saved articles."
