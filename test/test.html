@@ -11,14 +11,34 @@
     body {
       max-width: 800px;
       margin: 2rem auto;
+      transition: background-color 0.2s, color 0.2s;
     }
 
     .scroll-header {
       position: fixed;
       top: 1rem;
       right: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    [data-theme="light"] {
+      background: #fff;
+      color: #000;
+    }
+
+    [data-theme="dark"] {
+      background: #1a1a1a;
+      color: #e0e0e0;
     }
   </style>
+  <script>
+    (function () {
+      var isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+    })();
+  </script>
   <!-- BEGIN scripts atDocumentStart -->
   <link rel="stylesheet" href="../assets/www/styles/base.css">
   <link rel="stylesheet" href="../assets/www/styles/fonts.css">
@@ -28,7 +48,12 @@
 </head>
 
 <body>
-  <div class="scroll-header">Scroll: <span id="progress"></span></div>
+  <div class="scroll-header">
+    <span>Scroll: <span id="progress">0.000</span></span>
+    <label><input type="radio" name="theme" value="light"> Light</label>
+    <label><input type="radio" name="theme" value="dark"> Dark</label>
+    <label><input type="radio" name="theme" value="system" checked> System</label>
+  </div>
   <h1>Webview scripts test</h1>
 
   <h2>LaTeX (MathJax)</h2>
@@ -92,6 +117,42 @@ foreach (fibonacci(10) as $value) {
 print(fibonacci(10))</pre>
   </div>
 
+  <script>
+    window.addEventListener('DOMContentLoaded', function () {
+      var html = document.documentElement;
+      var radios = document.getElementsByName('theme');
+
+      function setTheme(mode) {
+        if (mode === 'system') {
+          var isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          html.setAttribute('data-theme', isDark ? 'dark' : 'light');
+        } else {
+          html.setAttribute('data-theme', mode);
+        }
+      }
+
+      function getSelectedTheme() {
+        for (var r of radios) {
+          if (r.checked) return r.value;
+        }
+        return 'system';
+      }
+
+      setTheme(getSelectedTheme());
+
+      for (var r of radios) {
+        r.addEventListener('change', function () {
+          setTheme(this.value);
+        });
+      }
+
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
+        if (getSelectedTheme() === 'system') {
+          setTheme('system');
+        }
+      });
+    });
+  </script>
   <!-- BEGIN scripts atDocumentEnd -->
   <script src="../assets/www/scripts/highlightjs/highlight.min.js"></script>
   <script src="../assets/www/scripts/highlightjs/init.js"></script>

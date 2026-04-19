@@ -8,6 +8,7 @@ struct ArticleWebView: UIViewRepresentable {
   let readingProgress: Double
   let readingSettings: ArticleReadingSettings
   let onProgressChange: (Double) -> Void
+  @Environment(\.colorScheme) private var colorScheme
 
   private var baseURL: URL? {
     WebViewPreloader.webRoot
@@ -44,6 +45,11 @@ struct ArticleWebView: UIViewRepresentable {
       context.coordinator.lastSettings = readingSettings
       context.coordinator.didRestoreScroll = false
       loadArticle(into: webView)
+    } else if context.coordinator.lastTheme != colorScheme {
+      context.coordinator.lastTheme = colorScheme
+      let theme = colorScheme == .dark ? "dark" : "light"
+      webView.evaluateJavaScript("document.documentElement.setAttribute('data-theme', '\(theme)')")
+      { _, _ in }
     }
   }
 
@@ -70,7 +76,7 @@ struct ArticleWebView: UIViewRepresentable {
       .map { "<link rel=\"stylesheet\" href=\"\($0)\" />" }
       .joined(separator: "\n      ")
     return """
-      <html>
+      <html data-theme="\(colorScheme == .dark ? "dark" : "light")">
       <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -104,6 +110,7 @@ extension ArticleWebView {
     var didRestoreScroll = false
     var lastHtml: String?
     var lastSettings: ArticleReadingSettings?
+    var lastTheme: ColorScheme?
 
     init(readingProgress: Double, onProgressChange: @escaping (Double) -> Void) {
       self.readingProgress = readingProgress

@@ -56,6 +56,6 @@
     "path": "assets/www/scripts/mermaid/mermaid.min.js",
     "injectionTime": "atDocumentEnd",
     "version": "11.4.1",
-    "postScript": "mermaid.initialize({\n  startOnLoad: false,\n  theme: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default',\n});\nmermaid.run();\n"
+    "postScript": "(function () {\n  var diagrams = document.querySelectorAll('.mermaid');\n  var init = false;\n\n  function currentTheme() {\n    var themes = {\n      'light': 'neutral',\n      'dark': 'dark',\n    };\n    var current = document.documentElement.getAttribute('data-theme');\n    return themes[current] ?? 'default';\n  }\n\n  async function render(theme) {\n    mermaid.initialize({ startOnLoad: false, theme: theme });\n\n    for (var diagram of diagrams) {\n      if (!init) {\n        // hardcoded theme can be present in the original content\n        var src = diagram.textContent.replace(/^[ \\t]+theme:[ \\t]+\\w+[ \\t]*\\n/m, '');\n        diagram.setAttribute('data-diagram', src);\n      }\n      var def = diagram.getAttribute('data-diagram');\n      var { svg } = await mermaid.render('mermaid-' + crypto.randomUUID(), def);\n      diagram.innerHTML = svg;\n    }\n    init = true;\n  }\n\n  new MutationObserver(function () { render(currentTheme()); }).observe(document.documentElement, {\n    attributes: true,\n    attributeFilter: ['data-theme'],\n  });\n\n  render(currentTheme());\n})();\n"
   }
 ]
