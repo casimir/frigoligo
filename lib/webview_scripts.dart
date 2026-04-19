@@ -74,7 +74,7 @@ const webViewNpmScripts = [
   WebViewNpmScript(
     name: 'mermaid',
     npmPackage: 'mermaid',
-    version: '11.4.1', // renovate: datasource=npm depName=mermaid
+    version: '11.14.0', // renovate: datasource=npm depName=mermaid
     files: {
       'mermaid/dist/mermaid.min.js': 'mermaid.min.js',
       'mermaid/LICENSE': 'LICENSE.txt',
