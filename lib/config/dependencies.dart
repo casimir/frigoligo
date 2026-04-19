@@ -8,6 +8,7 @@ import '../bridge/login_bridge.dart';
 import '../bridge/navigation_split_bridge.dart';
 import '../bridge/session_details_bridge.dart';
 import '../bridge/settings_bridge.dart';
+import '../bridge/system_bridge.dart';
 import '../constants.dart';
 import '../data/repositories/article_repository.dart';
 import '../data/repositories/logger_repository.dart';
@@ -117,4 +118,5 @@ void setupNativeBridges() {
     () => SettingsBridge(configStoreService: d.get()),
     dispose: (obj) => obj.dispose(),
   );
+  d.registerLazySingleton(() => SystemBridge());
 }

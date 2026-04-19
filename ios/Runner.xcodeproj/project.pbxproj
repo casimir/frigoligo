@@ -60,6 +60,8 @@
 		E4F5A6B7C8D9E0F1A2B3C4D5 /* ReadingSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A5B6C7D8E9F0A1B2C3D4E5 /* ReadingSettingsView.swift */; };
 		F1E2D3C4B5A6F7E8D9C0B1A2 /* SaveLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B3C4D5E6F7A8B9C0D1E2F3 /* SaveLinkView.swift */; };
 		FB79C22F514D444C99A08E63 /* NavigationSplitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB14938C12F143829E910AC0 /* NavigationSplitViewModel.swift */; };
+		09C446126FFF4D3787A40D19 /* System.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C5C8A75DC8411CA62D6C0A /* System.g.swift */; };
+		22338DA1B5C84A8B9FDD4CEA /* SystemBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70575CCE15CE4FB0BCA14A6D /* SystemBridge.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -163,6 +165,8 @@
 		F4A5B6C7D8E9F0A1B2C3D4E5 /* ReadingSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingSettingsView.swift; sourceTree = "<group>"; };
 		F96CB72AE9B3436B99FE780C /* FilterBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterBarView.swift; sourceTree = "<group>"; };
 		FB14938C12F143829E910AC0 /* NavigationSplitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationSplitViewModel.swift; sourceTree = "<group>"; };
+		C3C5C8A75DC8411CA62D6C0A /* System.g.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = System.g.swift; sourceTree = "<group>"; };
+		70575CCE15CE4FB0BCA14A6D /* SystemBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemBridge.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -255,8 +259,18 @@
 				02E887982F62A90B009E2EA9 /* Article */,
 				751A543976C842AC9F5B8914 /* Navigation */,
 				0217AA0A2F800000000A0010 /* Settings */,
+				A04A24ED283B4922B51C218E /* System */,
 			);
 			path = Features;
+			sourceTree = "<group>";
+		};
+		A04A24ED283B4922B51C218E /* System */ = {
+			isa = PBXGroup;
+			children = (
+				C3C5C8A75DC8411CA62D6C0A /* System.g.swift */,
+				70575CCE15CE4FB0BCA14A6D /* SystemBridge.swift */,
+			);
+			path = System;
 			sourceTree = "<group>";
 		};
 		3B4D0FAAD1D2F20CE09ECD50 /* Pods */ = {
@@ -610,6 +624,8 @@
 				0217AA122F800000000A0018 /* SessionDetailsView.swift in Sources */,
 				0217AA132F800000000A0019 /* LogConsoleView.swift in Sources */,
 				0217AA1B2F800000000A0021 /* LicensesView.swift in Sources */,
+				09C446126FFF4D3787A40D19 /* System.g.swift in Sources */,
+				22338DA1B5C84A8B9FDD4CEA /* SystemBridge.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

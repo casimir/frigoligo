@@ -21,6 +21,7 @@ import 'bridge/login_bridge.dart';
 import 'bridge/navigation_split_bridge.dart';
 import 'bridge/session_details_bridge.dart';
 import 'bridge/settings_bridge.dart';
+import 'bridge/system_bridge.dart';
 import 'config/dependencies.dart';
 import 'config/logging.dart';
 import 'constants.dart';
@@ -57,12 +58,8 @@ Future<void> mainHeadless() async {
   dependencies.get<NavigationSplitBridge>();
   dependencies.get<SessionDetailsBridge>();
   dependencies.get<SettingsBridge>();
-  runApp(
-    const ProviderScope(
-      observers: [if (enableDebugLogs) RiverpodObserver()],
-      child: MyApp(),
-    ),
-  );
+  dependencies.get<SystemBridge>();
+  await configureBackgroundFetch();
 }
 
 Future<void> _commonSetup(String loggerName) async {
@@ -180,9 +177,11 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      dependencies.get<ConfigStoreService>().reload();
-      SyncManager.instance.throttledSynchronize(withFinalRefresh: true);
+    if (state == AppLifecycleState.resumed && !UniversalPlatform.isIOS) {
+      unawaited(dependencies.get<ConfigStoreService>().reload());
+      unawaited(
+        SyncManager.instance.throttledSynchronize(withFinalRefresh: true),
+      );
     }
   }
 }

@@ -5,6 +5,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   var window: UIWindow?
 
+  private var systemBridge: SystemBridge?
   private var articleSheetViewModel: ArticleSheetViewModel?
   private var authGateViewModel: AuthGateViewModel?
   private var licensesViewModel: LicensesViewModel?
@@ -26,6 +27,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     else { return }
 
     let messenger = engine.binaryMessenger
+    self.systemBridge = SystemBridge(binaryMessenger: messenger)
+    SystemBridge.shared = self.systemBridge
+
     let authGateVM = AuthGateViewModel(binaryMessenger: messenger)
     let licensesVM = LicensesViewModel(binaryMessenger: messenger)
     let logConsoleVM = LogConsoleViewModel(binaryMessenger: messenger)
@@ -61,5 +65,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     window.rootViewController = rootVC
     window.makeKeyAndVisible()
     self.window = window
+  }
+
+  func sceneDidBecomeActive(_ scene: UIScene) {
+    systemBridge?.notifyAppResumed()
   }
 }
