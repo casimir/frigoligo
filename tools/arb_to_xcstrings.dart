@@ -21,12 +21,6 @@ class _StringEntry {
   _StringEntry({this.comment});
   final String? comment;
   final Map<String, Map<String, dynamic>> localizations = {};
-
-  Map<String, dynamic> toJson() => {
-    if (comment != null && comment!.isNotEmpty) 'comment': comment,
-    'extractionState': 'stale',
-    'localizations': localizations,
-  };
 }
 
 typedef _ArbMeta = ({
@@ -95,6 +89,7 @@ void main() {
   strings.removeWhere((_, v) => v.localizations.isEmpty);
 
   final Map<String, dynamic> nativeEntries = {};
+  final Map<String, String> preservedExtractionState = {};
   if (outputFile.existsSync()) {
     final oldData =
         jsonDecode(outputFile.readAsStringSync()) as Map<String, dynamic>;
@@ -103,16 +98,30 @@ void main() {
       if (!strings.containsKey(e.key) && (e.value as Map).isEmpty) {
         nativeEntries[e.key] = e.value;
       }
+      final oldEntry = e.value as Map<String, dynamic>;
+      if (oldEntry.containsKey('extractionState')) {
+        preservedExtractionState[e.key] = oldEntry['extractionState'] as String;
+      }
     }
   }
 
-  // Merge native (empty) entries with ARB entries, sort all case-insensitively.
+  // Merge native (empty) entries with ARB entries, preserve extractionState.
   final allEntries = <String, dynamic>{
     ...nativeEntries,
-    for (final e in strings.entries) e.key: e.value.toJson(),
+    for (final e in strings.entries)
+      e.key: {
+        if (e.value.comment?.isNotEmpty == true) 'comment': e.value.comment,
+        if (preservedExtractionState[e.key] != null)
+          'extractionState': preservedExtractionState[e.key],
+        'localizations': e.value.localizations,
+      },
   };
   final sortedKeys = allEntries.keys.toList()
-    ..sort((a, b) => a.toLowerCase().compareTo(b.toLowerCase()));
+    ..sort((a, b) {
+      if (a == '·') return -1;
+      if (b == '·') return 1;
+      return a.toLowerCase().compareTo(b.toLowerCase());
+    });
   final xcstrings = {
     'sourceLanguage': 'en',
     'strings': {for (final k in sortedKeys) k: allEntries[k]},
@@ -184,6 +193,14 @@ Map<String, dynamic> _buildLocalization(
   return {'stringUnit': _stringUnit(_convertPlaceholders(value, phTypes))};
 }
 
+Map<String, dynamic> _buildEntry(_StringEntry entry, String? extractionState) {
+  return {
+    if (entry.comment?.isNotEmpty == true) 'comment': entry.comment,
+    if (extractionState != null) 'extractionState': extractionState,
+    'localizations': entry.localizations,
+  };
+}
+
 String _convertPlaceholders(String value, Map<String, String> phTypes) =>
     value.replaceAllMapped(
       _placeholderRe,
@@ -228,7 +245,7 @@ Map<String, String> _parsePluralBody(String body) {
     final key = body.substring(keyStart, i).trim();
     if (key.isEmpty || i >= body.length) break;
 
-    i++; // skip opening {
+    i++;
     int depth = 1;
     final valStart = i;
     while (i < body.length && depth > 0) {

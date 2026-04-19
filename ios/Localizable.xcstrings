@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "·" : {
+
+    },
     "%@" : {
 
     },
@@ -2562,7 +2565,6 @@
     },
     "filters_articleDomainsCount" : {
       "comment" : "The number of articles domains used in filters.",
-      "extractionState" : "stale",
       "localizations" : {
         "af" : {
           "variations" : {
@@ -3666,7 +3668,6 @@
     },
     "filters_articleTagsCount" : {
       "comment" : "The number of tags used in filters.",
-      "extractionState" : "stale",
       "localizations" : {
         "af" : {
           "variations" : {
@@ -8915,7 +8916,6 @@
     },
     "logconsole_export_all_logs" : {
       "comment" : "Label for exporting all available logs.",
-      "extractionState" : "stale",
       "localizations" : {
         "af" : {
           "stringUnit" : {
@@ -9425,7 +9425,6 @@
     },
     "logconsole_export_current_session" : {
       "comment" : "Label for exporting only the current session logs.",
-      "extractionState" : "stale",
       "localizations" : {
         "af" : {
           "stringUnit" : {
@@ -18323,9 +18322,6 @@
           }
         }
       }
-    },
-    "·" : {
-
     }
   },
   "version" : "1.0"
