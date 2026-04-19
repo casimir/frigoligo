@@ -1,17 +1,20 @@
+const _scrollRoot =
+  document.documentElement.scrollHeight > document.body.scrollHeight
+      ? document.documentElement
+      : document.body;
+
 function scrollableHeight(element) {
   return element.scrollHeight - element.clientHeight;
 }
 
-
 function scrollToProgress(progress) {
-  const content = document.body;
-  const target = progress * scrollableHeight(content);
-  content.scrollTo({ top: target });
+  const target = progress * scrollableHeight(_scrollRoot);
+  _scrollRoot.scrollTo({ top: target });
 }
 
 function computeProgress() {
-  const content = document.body;
-  const progress = content.scrollTop / scrollableHeight(content);
+  const scrollable = scrollableHeight(_scrollRoot);
+  const progress = _scrollRoot.scrollTop / scrollable;
   const clamped = Math.max(0, Math.min(progress, 1));
   return clamped;
 }

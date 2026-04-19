@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<!-- Dev test page for webview scripts. Open directly in a browser.
+     Script tags between the markers are managed by tools/vendor_scripts.dart. -->
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Webview scripts test</title>
+  <style>
+    body {
+      max-width: 800px;
+      margin: 2rem auto;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .scroll-header {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    [data-theme="light"] {
+      background: #fff;
+      color: #000;
+    }
+
+    [data-theme="dark"] {
+      background: #1a1a1a;
+      color: #e0e0e0;
+    }
+  </style>
+  <script>
+    (function () {
+      var isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+    })();
+  </script>
+  <!-- BEGIN scripts atDocumentStart -->
+  <link rel="stylesheet" href="../assets/www/styles/base.css">
+  <link rel="stylesheet" href="../assets/www/styles/fonts.css">
+  <link rel="stylesheet" href="../assets/www/scripts/highlightjs/styles/default.min.css">
+  <script src="../assets/www/scripts/webkit_init.js"></script>
+  <!-- END scripts atDocumentStart -->
+</head>
+
+<body>
+  <div class="scroll-header">
+    <span>Scroll: <span id="progress">0.000</span></span>
+    <label><input type="radio" name="theme" value="light"> Light</label>
+    <label><input type="radio" name="theme" value="dark"> Dark</label>
+    <label><input type="radio" name="theme" value="system" checked> System</label>
+  </div>
+  <h1>Webview scripts test</h1>
+
+  <h2>LaTeX (MathJax)</h2>
+  <p>Inline: $E = mc^2$ and $\int_0^\infty e^{-x^2}\,dx = \frac{\sqrt{\pi}}{2}$</p>
+  <p>Block:</p>
+  $$\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}$$
+
+  <h2>Mermaid</h2>
+  <pre class="mermaid">
+graph TD
+    A[Start] --> B{Condition}
+    B -- Yes --> C[Do something]
+    B -- No --> D[Do something else]
+    C --> E[End]
+    D --> E
+  </pre>
+
+  <h2>Code (syntax highlighting)</h2>
+  <p>First some sturdy Rust</p>
+  <pre><code class="language-rust">struct Fibonacci { a: u64, b: u64 }
+
+impl Fibonacci {
+    fn new() -> Self { Fibonacci { a: 0, b: 1 } }
+}
+
+impl Iterator for Fibonacci {
+    type Item = u64;
+    fn next(&mut self) -> Option<u64> {
+        let next = self.a + self.b;
+        self.a = self.b;
+        self.b = next;
+        Some(self.a)
+    }
+}
+
+fn main() {
+    let fibs: Vec<u64> = Fibonacci::new().take(10).collect();
+    println!("{:?}", fibs);
+}</code></pre>
+
+  <p>Then some stealthy PHP</p>
+  <pre><code>function fibonacci(int $n): Generator {
+    [$a, $b] = [0, 1];
+    for ($i = 0; $i < $n; $i++) {
+        yield $a;
+        [$a, $b] = [$b, $a + $b];
+    }
+}
+
+foreach (fibonacci(10) as $value) {
+    echo $value . "\n";
+}</code></pre>
+
+  <p>Python (pre with class, no nested code element)</p>
+  <div class="highlight">
+    <pre class="language-python" data-lang="python">def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+print(fibonacci(10))</pre>
+  </div>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', function () {
+      var html = document.documentElement;
+      var radios = document.getElementsByName('theme');
+
+      function setTheme(mode) {
+        if (mode === 'system') {
+          var isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          html.setAttribute('data-theme', isDark ? 'dark' : 'light');
+        } else {
+          html.setAttribute('data-theme', mode);
+        }
+      }
+
+      function getSelectedTheme() {
+        for (var r of radios) {
+          if (r.checked) return r.value;
+        }
+        return 'system';
+      }
+
+      setTheme(getSelectedTheme());
+
+      for (var r of radios) {
+        r.addEventListener('change', function () {
+          setTheme(this.value);
+        });
+      }
+
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
+        if (getSelectedTheme() === 'system') {
+          setTheme('system');
+        }
+      });
+    });
+  </script>
+  <!-- BEGIN scripts atDocumentEnd -->
+  <script src="../assets/www/scripts/highlightjs/highlight.min.js"></script>
+  <script src="../assets/www/scripts/highlightjs/init.js"></script>
+
+  <script src="../assets/www/scripts/mathjax/config.js"></script>
+  <script>window.MathJax.output.fontPath = '../assets/www/scripts/mathjax/fonts/%%FONT%%-font';</script>
+  <script src="../assets/www/scripts/mathjax/tex-chtml.js"></script>
+
+  <script src="../assets/www/scripts/mermaid/mermaid.min.js"></script>
+  <script src="../assets/www/scripts/mermaid/init.js"></script>
+
+  <script>
+    window.ScrollProgress = { postMessage: (p) => { document.getElementById('progress').textContent = p.toFixed(3); } };
+  </script>
+  <script src="../assets/www/scripts/scrolling.js"></script>
+  <!-- END scripts atDocumentEnd -->
+</body>
+
+</html>

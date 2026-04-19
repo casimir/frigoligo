@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:logging/logging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -66,15 +65,6 @@ const readingFonts = [
 ];
 const defaultReadingFont = 'Lato';
 
-TextStyle textStyleFromFontFamily(String family) {
-  try {
-    return GoogleFonts.getFont(family);
-  } catch (e) {
-    _log.info('failed to load font $family', e);
-    return const TextStyle();
-  }
-}
-
 @JsonSerializable()
 class ReaderSettingsValues {
   // The default values are based on Material's "Body Large" text theme.
@@ -93,7 +83,7 @@ class ReaderSettingsValues {
   String fontFamily;
   bool justifyText;
 
-  TextStyle get textStyle => textStyleFromFontFamily(fontFamily).merge(
+  TextStyle get textStyle => TextStyle(fontFamily: fontFamily).merge(
     TextStyle(fontSize: fontSize, height: height, letterSpacing: letterSpacing),
   );
 

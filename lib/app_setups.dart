@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:google_fonts/google_fonts.dart';
 import 'package:logging/logging.dart';
 
 import 'config/dependencies.dart';
 import 'config/logging.dart';
+import 'webview_scripts.dart';
 
 void setupLogger(Logger errorLogger) {
   dependencies.get<LoggerRepository>().registerLogHandler(enableDebugLogs);
@@ -21,11 +21,20 @@ void setupLogger(Logger errorLogger) {
   };
 }
 
-void setupGoogleFonts() {
-  // prevent fetching fonts from the internet, only loads the ones in the assets
-  GoogleFonts.config.allowRuntimeFetching = false;
+void setupFontLicenses() {
   LicenseRegistry.addLicense(() async* {
-    final license = await rootBundle.loadString('assets/google_fonts/OFL.txt');
+    final license = await rootBundle.loadString('assets/www/fonts/OFL.txt');
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });
+}
+
+void setupWebViewScriptLicenses() {
+  for (final script in webViewNpmScripts) {
+    final path = script.licensePath;
+    if (path == null) continue;
+    LicenseRegistry.addLicense(() async* {
+      final license = await rootBundle.loadString(path);
+      yield LicenseEntryWithLineBreaks([script.name], license);
+    });
+  }
 }

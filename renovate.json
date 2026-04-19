@@ -6,6 +6,17 @@
   "labels": [
     "dependencies"
   ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["lib/webview_scripts\\.dart"],
+      "matchStrings": [
+        "version: '(?<currentValue>[^']+)'.*// renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)"
+      ],
+      "datasourceTemplate": "{{datasource}}",
+      "depNameTemplate": "{{depName}}"
+    }
+  ],
   "packageRules": [
     {
       "groupName": "Flutters deps depending on source_gen",

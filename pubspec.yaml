@@ -46,7 +46,6 @@ dependencies:
   cadanse: 1.6.1
   flutter_form_builder: 10.0.1
   flutter_widget_from_html: 0.17.0
-  google_fonts: 6.2.1
   settings_ui: 2.0.2
   webview_flutter: 4.13.0
   webview_flutter_android: any
@@ -103,33 +102,173 @@ flutter:
 
   assets:
     - assets/article.template.html
-    - assets/google_fonts/
     - assets/sample-articles.json
+    # BEGIN webview-scripts
+    - assets/www/
+    - assets/www/fonts/
     - assets/www/scripts/
+    - assets/www/scripts/highlightjs/
+    - assets/www/scripts/highlightjs/styles/
+    - assets/www/scripts/mathjax/
+    - assets/www/scripts/mathjax/fonts/mathjax-newcm-font/chtml/dynamic/
+    - assets/www/scripts/mathjax/fonts/mathjax-newcm-font/chtml/woff2/
+    - assets/www/scripts/mermaid/
     - assets/www/styles/
+    # END webview-scripts
 
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages
+  fonts:
+    - family: Lato
+      fonts:
+        - asset: assets/www/fonts/Lato-Regular.ttf
+        - asset: assets/www/fonts/Lato-Italic.ttf
+          style: italic
+        - asset: assets/www/fonts/Lato-Thin.ttf
+          weight: 100
+        - asset: assets/www/fonts/Lato-ThinItalic.ttf
+          weight: 100
+          style: italic
+        - asset: assets/www/fonts/Lato-Light.ttf
+          weight: 300
+        - asset: assets/www/fonts/Lato-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/www/fonts/Lato-Bold.ttf
+          weight: 700
+        - asset: assets/www/fonts/Lato-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/www/fonts/Lato-Black.ttf
+          weight: 900
+        - asset: assets/www/fonts/Lato-BlackItalic.ttf
+          weight: 900
+          style: italic
+    - family: Montserrat
+      fonts:
+        - asset: assets/www/fonts/Montserrat-Regular.ttf
+        - asset: assets/www/fonts/Montserrat-Italic.ttf
+          style: italic
+        - asset: assets/www/fonts/Montserrat-Thin.ttf
+          weight: 100
+        - asset: assets/www/fonts/Montserrat-ThinItalic.ttf
+          weight: 100
+          style: italic
+        - asset: assets/www/fonts/Montserrat-ExtraLight.ttf
+          weight: 200
+        - asset: assets/www/fonts/Montserrat-ExtraLightItalic.ttf
+          weight: 200
+          style: italic
+        - asset: assets/www/fonts/Montserrat-Light.ttf
+          weight: 300
+        - asset: assets/www/fonts/Montserrat-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/www/fonts/Montserrat-Medium.ttf
+          weight: 500
+        - asset: assets/www/fonts/Montserrat-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: assets/www/fonts/Montserrat-SemiBold.ttf
+          weight: 600
+        - asset: assets/www/fonts/Montserrat-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+        - asset: assets/www/fonts/Montserrat-Bold.ttf
+          weight: 700
+        - asset: assets/www/fonts/Montserrat-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/www/fonts/Montserrat-ExtraBold.ttf
+          weight: 800
+        - asset: assets/www/fonts/Montserrat-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
+        - asset: assets/www/fonts/Montserrat-Black.ttf
+          weight: 900
+        - asset: assets/www/fonts/Montserrat-BlackItalic.ttf
+          weight: 900
+          style: italic
+    - family: Literata
+      fonts:
+        - asset: assets/www/fonts/Literata-Regular.ttf
+        - asset: assets/www/fonts/Literata-Italic.ttf
+          style: italic
+        - asset: assets/www/fonts/Literata-ExtraLight.ttf
+          weight: 200
+        - asset: assets/www/fonts/Literata-ExtraLightItalic.ttf
+          weight: 200
+          style: italic
+        - asset: assets/www/fonts/Literata-Light.ttf
+          weight: 300
+        - asset: assets/www/fonts/Literata-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/www/fonts/Literata-Medium.ttf
+          weight: 500
+        - asset: assets/www/fonts/Literata-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: assets/www/fonts/Literata-SemiBold.ttf
+          weight: 600
+        - asset: assets/www/fonts/Literata-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+        - asset: assets/www/fonts/Literata-Bold.ttf
+          weight: 700
+        - asset: assets/www/fonts/Literata-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/www/fonts/Literata-ExtraBold.ttf
+          weight: 800
+        - asset: assets/www/fonts/Literata-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
+        - asset: assets/www/fonts/Literata-Black.ttf
+          weight: 900
+        - asset: assets/www/fonts/Literata-BlackItalic.ttf
+          weight: 900
+          style: italic
+    - family: Newsreader
+      fonts:
+        - asset: assets/www/fonts/Newsreader-Regular.ttf
+        - asset: assets/www/fonts/Newsreader-Italic.ttf
+          style: italic
+        - asset: assets/www/fonts/Newsreader-ExtraLight.ttf
+          weight: 200
+        - asset: assets/www/fonts/Newsreader-ExtraLightItalic.ttf
+          weight: 200
+          style: italic
+        - asset: assets/www/fonts/Newsreader-Light.ttf
+          weight: 300
+        - asset: assets/www/fonts/Newsreader-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/www/fonts/Newsreader-Medium.ttf
+          weight: 500
+        - asset: assets/www/fonts/Newsreader-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: assets/www/fonts/Newsreader-SemiBold.ttf
+          weight: 600
+        - asset: assets/www/fonts/Newsreader-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+        - asset: assets/www/fonts/Newsreader-Bold.ttf
+          weight: 700
+        - asset: assets/www/fonts/Newsreader-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/www/fonts/Newsreader-ExtraBold.ttf
+          weight: 800
+        - asset: assets/www/fonts/Newsreader-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
+    - family: Atkinson Hyperlegible
+      fonts:
+        - asset: assets/www/fonts/AtkinsonHyperlegible-Regular.ttf
+        - asset: assets/www/fonts/AtkinsonHyperlegible-Italic.ttf
+          style: italic
+        - asset: assets/www/fonts/AtkinsonHyperlegible-Bold.ttf
+          weight: 700
+        - asset: assets/www/fonts/AtkinsonHyperlegible-BoldItalic.ttf
+          weight: 700
+          style: italic

@@ -8,9 +8,10 @@ struct ArticleWebView: UIViewRepresentable {
   let readingProgress: Double
   let readingSettings: ArticleReadingSettings
   let onProgressChange: (Double) -> Void
+  @Environment(\.colorScheme) private var colorScheme
 
   private var baseURL: URL? {
-    FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
+    WebViewPreloader.webRoot
   }
 
   func makeCoordinator() -> Coordinator {
@@ -18,35 +19,10 @@ struct ArticleWebView: UIViewRepresentable {
   }
 
   func makeUIView(context: Context) -> WKWebView {
-    let config = WKWebViewConfiguration()
+    let config = WebViewPreloader.shared.makeConfiguration()
     config.userContentController.add(context.coordinator, name: "ScrollProgress")
     config.userContentController.add(context.coordinator, name: "ScrollEnd")
     config.userContentController.add(context.coordinator, name: "ConsoleLog")
-    config.userContentController.addUserScript(
-      WKUserScript(
-        source: """
-            window.ScrollProgress = webkit.messageHandlers.ScrollProgress;
-            window.ScrollEnd = webkit.messageHandlers.ScrollEnd;
-          """,
-        injectionTime: .atDocumentStart,
-        forMainFrameOnly: true
-      ))
-    config.userContentController.addUserScript(
-      WKUserScript(
-        source: """
-            (function() {
-              ['log','warn','error','info'].forEach(function(m) {
-                var orig = console[m];
-                console[m] = function() {
-                  window.webkit.messageHandlers.ConsoleLog.postMessage('[' + m + '] ' + Array.from(arguments).join(' '));
-                  orig.apply(console, arguments);
-                };
-              });
-            })();
-          """,
-        injectionTime: .atDocumentStart,
-        forMainFrameOnly: true
-      ))
     let webView = WKWebView(frame: .zero, configuration: config)
     webView.navigationDelegate = context.coordinator
     webView.backgroundColor = .systemBackground
@@ -65,10 +41,18 @@ struct ArticleWebView: UIViewRepresentable {
 
   func updateUIView(_ webView: WKWebView, context: Context) {
     if html != context.coordinator.lastHtml || readingSettings != context.coordinator.lastSettings {
+      let reason = html != context.coordinator.lastHtml ? "content changed" : "settings changed"
+      print("[ArticleWebView] reloading article (\(reason))")
       context.coordinator.lastHtml = html
       context.coordinator.lastSettings = readingSettings
       context.coordinator.didRestoreScroll = false
       loadArticle(into: webView)
+    } else if context.coordinator.lastTheme != colorScheme {
+      context.coordinator.lastTheme = colorScheme
+      let theme = colorScheme == .dark ? "dark" : "light"
+      print("[ArticleWebView] theme switch: \(theme)")
+      webView.evaluateJavaScript("document.documentElement.setAttribute('data-theme', '\(theme)')")
+      { _, _ in }
     }
   }
 
@@ -91,32 +75,30 @@ struct ArticleWebView: UIViewRepresentable {
 
   private func wrapFragment(_ fragment: String) -> String {
     let textAlign = readingSettings.justifyText ? "justify" : "start"
+    let stylesheetLinks = WebViewPreloader.shared.linkedStylesheets
+      .map { "<link rel=\"stylesheet\" href=\"\($0)\" />" }
+      .joined(separator: "\n      ")
     return """
-      <html>
+      <html data-theme="\(colorScheme == .dark ? "dark" : "light")">
       <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="styles/fonts.css" />
+      \(stylesheetLinks)
       <style>
+        :root { color-scheme: light dark; }
         body {
-          max-width: 680px;
-          margin: 0 auto;
-          padding: 16px;
           font-family: \(readingSettings.fontFamily), sans-serif;
           font-size: \(fontSizeCss(readingSettings.fontSize));
           line-height: 1.6;
           text-align: \(textAlign);
           color: #1c1c1e;
         }
-        img { max-width: 100%; height: auto; }
-        pre { overflow-x: auto; }
         @media (prefers-color-scheme: dark) {
           body { background: #000; color: #f2f2f7; }
         }
       </style>
       </head>
       <body>\(title.map { "<h1>\($0)</h1>" } ?? "")\(fragment)
-      <script src="scripts/scrolling.js"></script>
       </body>
       </html>
       """
@@ -131,6 +113,7 @@ extension ArticleWebView {
     var didRestoreScroll = false
     var lastHtml: String?
     var lastSettings: ArticleReadingSettings?
+    var lastTheme: ColorScheme?
 
     init(readingProgress: Double, onProgressChange: @escaping (Double) -> Void) {
       self.readingProgress = readingProgress
