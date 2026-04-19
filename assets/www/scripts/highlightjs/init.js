@@ -6,6 +6,7 @@ hljs.highlightAll();
     var link = document.querySelector('link[href*="highlightjs/styles"]');
     if (!link) return;
     var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    console.log('[highlightjs] using theme: ' + (isDark ? 'dark' : 'light'));
     link.href = link.href.replace(/[\w-]+\.min\.css$/, isDark ? 'dark.min.css' : 'default.min.css');
   }
 

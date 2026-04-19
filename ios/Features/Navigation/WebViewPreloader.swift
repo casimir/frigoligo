@@ -108,7 +108,7 @@ final class WebViewPreloader: NSObject, WKNavigationDelegate {
 
       loaded.append(
         LoadedScript(
-          source: "console.log('[WebViewPreloader] \(entry.name) loaded');\n" + source,
+          source: source,
           injectionTime: injTime
         ))
     }
@@ -136,7 +136,6 @@ final class WebViewPreloader: NSObject, WKNavigationDelegate {
     wv.navigationDelegate = self
     warmupView = wv
     warmupStart = Date()
-    print("[WebViewPreloader] warmup: starting")
     wv.loadHTMLString("", baseURL: nil)
   }
 

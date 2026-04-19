@@ -41,6 +41,8 @@ struct ArticleWebView: UIViewRepresentable {
 
   func updateUIView(_ webView: WKWebView, context: Context) {
     if html != context.coordinator.lastHtml || readingSettings != context.coordinator.lastSettings {
+      let reason = html != context.coordinator.lastHtml ? "content changed" : "settings changed"
+      print("[ArticleWebView] reloading article (\(reason))")
       context.coordinator.lastHtml = html
       context.coordinator.lastSettings = readingSettings
       context.coordinator.didRestoreScroll = false
@@ -48,6 +50,7 @@ struct ArticleWebView: UIViewRepresentable {
     } else if context.coordinator.lastTheme != colorScheme {
       context.coordinator.lastTheme = colorScheme
       let theme = colorScheme == .dark ? "dark" : "light"
+      print("[ArticleWebView] theme switch: \(theme)")
       webView.evaluateJavaScript("document.documentElement.setAttribute('data-theme', '\(theme)')")
       { _, _ in }
     }

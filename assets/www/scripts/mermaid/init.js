@@ -12,6 +12,7 @@
   }
 
   async function render(theme) {
+    console.log('[mermaid] using theme: ' + theme);
     mermaid.initialize({ startOnLoad: false, theme: theme });
 
     for (var diagram of diagrams) {
