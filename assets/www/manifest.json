@@ -21,7 +21,8 @@
     "path": "assets/www/scripts/highlightjs/styles/default.min.css",
     "injectionTime": "atDocumentStart",
     "copyToFS": [
-      "scripts/highlightjs/styles/default.min.css"
+      "scripts/highlightjs/styles/default.min.css",
+      "scripts/highlightjs/styles/dark.min.css"
     ]
   },
   {
@@ -39,7 +40,7 @@
     "path": "assets/www/scripts/highlightjs/highlight.min.js",
     "injectionTime": "atDocumentEnd",
     "version": "11.11.1",
-    "postScript": "hljs.configure({cssSelector: 'pre code, pre[class*=\"language-\"]'});\nhljs.highlightAll();"
+    "postScript": "hljs.configure({cssSelector: 'pre code, pre[class*=\"language-\"]'});\nhljs.highlightAll();\n\n(function () {\n  function updateTheme() {\n    var link = document.querySelector('link[href*=\"highlightjs/styles\"]');\n    if (!link) return;\n    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';\n    link.href = link.href.replace(/[\\w-]+\\.min\\.css$/, isDark ? 'dark.min.css' : 'default.min.css');\n  }\n\n  new MutationObserver(updateTheme).observe(document.documentElement, {\n    attributes: true, attributeFilter: ['data-theme'],\n  });\n\n  updateTheme();\n})();"
   },
   {
     "name": "mathjax",

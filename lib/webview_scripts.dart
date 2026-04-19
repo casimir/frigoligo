@@ -49,6 +49,7 @@ const webViewNpmScripts = [
       '@highlightjs/cdn-assets/highlight.min.js': 'highlight.min.js',
       '@highlightjs/cdn-assets/styles/default.min.css':
           'styles/default.min.css',
+      '@highlightjs/cdn-assets/styles/dark.min.css': 'styles/dark.min.css',
       '@highlightjs/cdn-assets/LICENSE': 'LICENSE.txt',
     },
     licensePath: 'assets/www/scripts/highlightjs/LICENSE.txt',
@@ -100,7 +101,10 @@ const webViewCustomScripts = [
   WebViewCustomScript(
     name: 'highlightjs_theme',
     file: 'scripts/highlightjs/styles/default.min.css',
-    copyToFS: ['scripts/highlightjs/styles/default.min.css'],
+    copyToFS: [
+      'scripts/highlightjs/styles/default.min.css',
+      'scripts/highlightjs/styles/dark.min.css',
+    ],
     injectionTime: ScriptInjectionTime.atDocumentStart,
   ),
   WebViewCustomScript(
