@@ -39,27 +39,25 @@ import 'ui/article/widgets/article_content.dart';
 
 Future<void> main() async {
   await _commonSetup('main');
-  runApp(
-    const ProviderScope(
-      observers: [if (enableDebugLogs) RiverpodObserver()],
-      child: MyApp(),
-    ),
-  );
-}
-
-@pragma('vm:entry-point')
-Future<void> mainHeadless() async {
-  await _commonSetup('mainHeadless');
-  dependencies.get<ArticleSheetBridge>();
-  dependencies.get<AuthGateBridge>();
-  dependencies.get<LicensesBridge>();
-  dependencies.get<LogConsoleBridge>();
-  dependencies.get<LoginBridge>();
-  dependencies.get<NavigationSplitBridge>();
-  dependencies.get<SessionDetailsBridge>();
-  dependencies.get<SettingsBridge>();
-  dependencies.get<SystemBridge>();
-  await configureBackgroundFetch();
+  if (UniversalPlatform.isIOS) {
+    dependencies.get<ArticleSheetBridge>();
+    dependencies.get<AuthGateBridge>();
+    dependencies.get<LicensesBridge>();
+    dependencies.get<LogConsoleBridge>();
+    dependencies.get<LoginBridge>();
+    dependencies.get<NavigationSplitBridge>();
+    dependencies.get<SessionDetailsBridge>();
+    dependencies.get<SettingsBridge>();
+    dependencies.get<SystemBridge>();
+    await configureBackgroundFetch();
+  } else {
+    runApp(
+      const ProviderScope(
+        observers: [if (enableDebugLogs) RiverpodObserver()],
+        child: MyApp(),
+      ),
+    );
+  }
 }
 
 Future<void> _commonSetup(String loggerName) async {

@@ -13,7 +13,7 @@ import UIKit
     super.application(application, didFinishLaunchingWithOptions: launchOptions)
 
     let engine = FlutterEngine(name: "main")
-    engine.run(withEntrypoint: "mainHeadless")
+    engine.run()
     GeneratedPluginRegistrant.register(with: engine)
     AppBadgePlugin.register(with: engine.registrar(forPlugin: "AppBadgePlugin")!)
     self.engine = engine
