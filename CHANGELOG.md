@@ -30,6 +30,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(iOS)* Make settings screen really adaptive (+ small async fixes) ([7e27cb3](https://github.com/casimir/frigoligo/commit/7e27cb35ebb0a2e24e09a7ebee4e3a8e48c3b14a))
 - *(iOS)* Native login screen and session management ([#446](https://github.com/casimir/frigoligo/pull/446)) ([c28e461](https://github.com/casimir/frigoligo/commit/c28e461b1d1b6e18f1944730dae16661c5a53f39))
 - *(iOS)* Add OSS licenses screens in the settings ([3e0900b](https://github.com/casimir/frigoligo/commit/3e0900b947fd31aa90bd88d6593dcaf7c40a3d4a))
+- *(reader)* Inject several js packages for rich formatting ([#447](https://github.com/casimir/frigoligo/pull/447)) ([4c9e9cc](https://github.com/casimir/frigoligo/commit/4c9e9cc9c40fca812b8eb45fb5203ebcf9313090))
 
 ### 🐛 Bug Fixes
 
@@ -84,6 +85,11 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(iOS)* Read HTML from disk to allow JS loading ([db997ee](https://github.com/casimir/frigoligo/commit/db997ee9c1b7f15983dd44c96a053662f3801f5d))
 - *(iOS)* Update old swift API usage ([d1622d7](https://github.com/casimir/frigoligo/commit/d1622d72d028506436a6ae94c1852e75f66dcc29))
 - *(iOS)* Explicit article content encoding ([1ef0bfc](https://github.com/casimir/frigoligo/commit/1ef0bfc515fbdfdce922133430a2325de166b2da))
+
+### ◀️ Revert
+
+- *(l10n)* Remove settings_itemLicenses to unblock Weblate sync ([a297013](https://github.com/casimir/frigoligo/commit/a29701382b907dd05769d01fb5019f82d72980fc))
+- *(l10n)* Bring back the changes made to unblock Weblate sync ([fbee7e6](https://github.com/casimir/frigoligo/commit/fbee7e64780bfc4448980dba3eac512b54024b7a))
 
 ### 🚜 Refactor
 
@@ -151,6 +157,16 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
  ([b990cde](https://github.com/casimir/frigoligo/commit/b990cde52f3c1cf935ca8b94570e63d057bb171f))
 - Update translations: Arabic
  ([8677705](https://github.com/casimir/frigoligo/commit/867770534b6ea68c9b7c3b0093955aedc8d5867e))
+- Update translations: Czech
+ ([f626950](https://github.com/casimir/frigoligo/commit/f626950516b7690f62b790f2f1088c460c9965a9))
+- Update translations: Vietnamese
+ ([2139a50](https://github.com/casimir/frigoligo/commit/2139a50a12010320fde0f6f124ba46c79adc816a))
+- Update translations: Afrikaans
+ ([78ad71f](https://github.com/casimir/frigoligo/commit/78ad71fea4203584c5939976e2724cad37f8f127))
+- Update translations: Frisian
+ ([a32ec16](https://github.com/casimir/frigoligo/commit/a32ec1611eba448f468134c6fac2bf3a18eed1e0))
+- Update translations: Chinese (Traditional Han script)
+ ([2273b91](https://github.com/casimir/frigoligo/commit/2273b919284fa2640310bd17c666eb24d5c2dac9))
 
 ### ⚙️ Miscellaneous Tasks
 
