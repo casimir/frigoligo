@@ -120,3 +120,16 @@ void setupNativeBridges() {
   );
   d.registerLazySingleton(() => SystemBridge());
 }
+
+void initializeNativeBridges() {
+  dependencies
+    ..get<ArticleSheetBridge>()
+    ..get<AuthGateBridge>()
+    ..get<LicensesBridge>()
+    ..get<LogConsoleBridge>()
+    ..get<LoginBridge>()
+    ..get<NavigationSplitBridge>()
+    ..get<SessionDetailsBridge>()
+    ..get<SettingsBridge>()
+    ..get<SystemBridge>();
+}

@@ -13,14 +13,6 @@ import 'package:universal_platform/universal_platform.dart';
 import 'app_info.dart';
 import 'app_setups.dart';
 import 'applinks/handler.dart';
-import 'bridge/article_sheet_bridge.dart';
-import 'bridge/auth_gate_bridge.dart';
-import 'bridge/licenses_bridge.dart';
-import 'bridge/log_console_bridge.dart';
-import 'bridge/login_bridge.dart';
-import 'bridge/navigation_split_bridge.dart';
-import 'bridge/session_details_bridge.dart';
-import 'bridge/settings_bridge.dart';
 import 'bridge/system_bridge.dart';
 import 'config/dependencies.dart';
 import 'config/logging.dart';
@@ -40,15 +32,7 @@ import 'ui/article/widgets/article_content.dart';
 Future<void> main() async {
   await _commonSetup('main');
   if (UniversalPlatform.isIOS) {
-    dependencies.get<ArticleSheetBridge>();
-    dependencies.get<AuthGateBridge>();
-    dependencies.get<LicensesBridge>();
-    dependencies.get<LogConsoleBridge>();
-    dependencies.get<LoginBridge>();
-    dependencies.get<NavigationSplitBridge>();
-    dependencies.get<SessionDetailsBridge>();
-    dependencies.get<SettingsBridge>();
-    dependencies.get<SystemBridge>();
+    initializeNativeBridges();
   } else {
     runApp(
       const ProviderScope(
@@ -175,10 +159,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed && !UniversalPlatform.isIOS) {
-      unawaited(dependencies.get<ConfigStoreService>().reload());
-      unawaited(
-        SyncManager.instance.throttledSynchronize(withFinalRefresh: true),
-      );
+      unawaited(handleAppResumed());
     }
   }
 }

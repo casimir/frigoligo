@@ -6,6 +6,11 @@ import '../data/services/local/storage/config_store_service.dart';
 import '../domain/sync/sync_manager.dart';
 import '../pigeon/system.g.dart';
 
+Future<void> handleAppResumed() async {
+  await dependencies.get<ConfigStoreService>().reload();
+  await SyncManager.instance.synchronize(withFinalRefresh: true);
+}
+
 class SystemBridge implements SystemFlutterApi {
   SystemBridge() {
     SystemFlutterApi.setUp(this);
@@ -20,10 +25,7 @@ class SystemBridge implements SystemFlutterApi {
   }
 
   @override
-  Future<void> onAppResumed() async {
-    await dependencies.get<ConfigStoreService>().reload();
-    await SyncManager.instance.synchronize(withFinalRefresh: true);
-  }
+  Future<void> onAppResumed() => handleAppResumed();
 
   @override
   Future<void> onBackgroundFetch() async {

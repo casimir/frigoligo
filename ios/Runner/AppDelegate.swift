@@ -56,8 +56,10 @@ import UIKit
   private func handleBackgroundSync(task: BGAppRefreshTask) {
     scheduleBackgroundSync()
     task.expirationHandler = { task.setTaskCompleted(success: false) }
-    SystemBridge.shared?.notifyBackgroundFetch {
-      task.setTaskCompleted(success: true)
+    guard let bridge = SystemBridge.shared else {
+      task.setTaskCompleted(success: false)
+      return
     }
+    bridge.notifyBackgroundFetch { task.setTaskCompleted(success: true) }
   }
 }
