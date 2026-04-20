@@ -193,14 +193,6 @@ Map<String, dynamic> _buildLocalization(
   return {'stringUnit': _stringUnit(_convertPlaceholders(value, phTypes))};
 }
 
-Map<String, dynamic> _buildEntry(_StringEntry entry, String? extractionState) {
-  return {
-    if (entry.comment?.isNotEmpty == true) 'comment': entry.comment,
-    if (extractionState != null) 'extractionState': extractionState,
-    'localizations': entry.localizations,
-  };
-}
-
 String _convertPlaceholders(String value, Map<String, String> phTypes) =>
     value.replaceAllMapped(
       _placeholderRe,
