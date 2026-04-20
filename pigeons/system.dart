@@ -19,6 +19,9 @@ class LogData {
 @FlutterApi()
 abstract class SystemFlutterApi {
   void log(LogData entry);
+
   @async
   void onAppResumed();
+  @async
+  void onBackgroundFetch();
 }

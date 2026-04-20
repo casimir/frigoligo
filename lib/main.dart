@@ -49,7 +49,6 @@ Future<void> main() async {
     dependencies.get<SessionDetailsBridge>();
     dependencies.get<SettingsBridge>();
     dependencies.get<SystemBridge>();
-    await configureBackgroundFetch();
   } else {
     runApp(
       const ProviderScope(

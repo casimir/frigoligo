@@ -17,8 +17,16 @@ class SystemBridge {
     shared?.log(message, logger: logger, level: "INFO")
   }
 
+  static func logError(_ message: String, logger: String) {
+    shared?.log(message, logger: logger, level: "ERROR")
+  }
+
   func notifyAppResumed() {
     api.onAppResumed { _ in }
+  }
+
+  func notifyBackgroundFetch(completion: @escaping () -> Void) {
+    api.onBackgroundFetch { _ in completion() }
   }
 
   func log(_ message: String, logger: String, level: String = "INFO", error: String? = nil) {

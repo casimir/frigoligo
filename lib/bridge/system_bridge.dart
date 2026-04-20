@@ -22,6 +22,11 @@ class SystemBridge implements SystemFlutterApi {
   @override
   Future<void> onAppResumed() async {
     await dependencies.get<ConfigStoreService>().reload();
-    await SyncManager.instance.throttledSynchronize(withFinalRefresh: true);
+    await SyncManager.instance.synchronize(withFinalRefresh: true);
+  }
+
+  @override
+  Future<void> onBackgroundFetch() async {
+    await SyncManager.instance.synchronize(withFinalRefresh: true);
   }
 }

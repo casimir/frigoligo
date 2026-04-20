@@ -5,7 +5,6 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   var window: UIWindow?
 
-  private var systemBridge: SystemBridge?
   private var articleSheetViewModel: ArticleSheetViewModel?
   private var authGateViewModel: AuthGateViewModel?
   private var licensesViewModel: LicensesViewModel?
@@ -27,8 +26,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     else { return }
 
     let messenger = engine.binaryMessenger
-    self.systemBridge = SystemBridge(binaryMessenger: messenger)
-    SystemBridge.shared = self.systemBridge
 
     let authGateVM = AuthGateViewModel(binaryMessenger: messenger)
     let licensesVM = LicensesViewModel(binaryMessenger: messenger)
@@ -68,6 +65,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   }
 
   func sceneDidBecomeActive(_ scene: UIScene) {
-    systemBridge?.notifyAppResumed()
+    SystemBridge.shared?.notifyAppResumed()
+  }
+
+  func sceneDidEnterBackground(_ scene: UIScene) {
+    (UIApplication.shared.delegate as? AppDelegate)?.scheduleBackgroundSync()
   }
 }
