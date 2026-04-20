@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:background_fetch/background_fetch.dart';
 import 'package:logging/logging.dart';
 import 'package:neat_periodic_task/neat_periodic_task.dart';
@@ -10,6 +12,32 @@ import '../domain/sync/sync_manager.dart';
 part '_g/background_sync.g.dart';
 
 final _log = Logger('background_sync');
+
+Future<void> configureBackgroundFetch() async {
+  try {
+    final status = await BackgroundFetch.configure(
+      BackgroundFetchConfig(
+        minimumFetchInterval: periodicSyncInterval.inMinutes,
+        forceAlarmManager: false,
+        stopOnTerminate: false,
+        startOnBoot: true,
+        enableHeadless: true,
+        requiresBatteryNotLow: true,
+        requiresCharging: false,
+        requiresStorageNotLow: false,
+        requiresDeviceIdle: false,
+        requiredNetworkType: NetworkType.ANY,
+      ),
+      (String taskId) async {
+        _log.info('starting background sync');
+        await SyncManager.instance.throttledSynchronize(withFinalRefresh: true);
+      },
+    );
+    _log.info('background task configured: $status');
+  } catch (e) {
+    _log.info('failed to configure background task: $e');
+  }
+}
 
 @riverpod
 void backgroundSync(Ref ref) {
@@ -24,32 +52,7 @@ void backgroundSync(Ref ref) {
       ),
     ).start();
   } else if (UniversalPlatform.isMobile) {
-    BackgroundFetch.configure(
-          BackgroundFetchConfig(
-            minimumFetchInterval: periodicSyncInterval.inMinutes,
-            forceAlarmManager: false,
-            stopOnTerminate: false,
-            startOnBoot: true,
-            enableHeadless: true,
-            requiresBatteryNotLow: true,
-            requiresCharging: false,
-            requiresStorageNotLow: false,
-            requiresDeviceIdle: false,
-            requiredNetworkType: NetworkType.ANY,
-          ),
-          (String taskId) async {
-            _log.info('starting background sync');
-            await SyncManager.instance.throttledSynchronize(
-              withFinalRefresh: true,
-            );
-          },
-        )
-        .then((int status) {
-          _log.info('background task configured: $status');
-        })
-        .catchError((e) {
-          _log.info('failed to configure background task: $e');
-        });
+    unawaited(configureBackgroundFetch());
   } else {
     _log.info('starting one-shot background sync');
     SyncManager.instance.throttledSynchronize(withFinalRefresh: true);

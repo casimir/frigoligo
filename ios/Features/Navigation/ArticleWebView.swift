@@ -3,6 +3,8 @@ import SwiftUI
 import WebKit
 
 struct ArticleWebView: UIViewRepresentable {
+  private static let loggerName = "ArticleWebView"
+
   let html: String
   let title: String?
   let readingProgress: Double
@@ -42,7 +44,7 @@ struct ArticleWebView: UIViewRepresentable {
   func updateUIView(_ webView: WKWebView, context: Context) {
     if html != context.coordinator.lastHtml || readingSettings != context.coordinator.lastSettings {
       let reason = html != context.coordinator.lastHtml ? "content changed" : "settings changed"
-      print("[ArticleWebView] reloading article (\(reason))")
+      SystemBridge.logInfo("reloading article (\(reason))", logger: ArticleWebView.loggerName)
       context.coordinator.lastHtml = html
       context.coordinator.lastSettings = readingSettings
       context.coordinator.didRestoreScroll = false
@@ -50,7 +52,7 @@ struct ArticleWebView: UIViewRepresentable {
     } else if context.coordinator.lastTheme != colorScheme {
       context.coordinator.lastTheme = colorScheme
       let theme = colorScheme == .dark ? "dark" : "light"
-      print("[ArticleWebView] theme switch: \(theme)")
+      SystemBridge.logInfo("theme switch: \(theme)", logger: ArticleWebView.loggerName)
       webView.evaluateJavaScript("document.documentElement.setAttribute('data-theme', '\(theme)')")
       { _, _ in }
     }
@@ -155,7 +157,7 @@ extension ArticleWebView {
         guard let progress = message.body as? Double else { return }
         onProgressChange(progress)
       case "ConsoleLog":
-        print("[WebView] \(message.body)")
+        SystemBridge.logInfo("\(message.body)", logger: "WebView")
       default:
         break
       }

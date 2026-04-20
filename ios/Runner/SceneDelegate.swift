@@ -26,6 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     else { return }
 
     let messenger = engine.binaryMessenger
+
     let authGateVM = AuthGateViewModel(binaryMessenger: messenger)
     let licensesVM = LicensesViewModel(binaryMessenger: messenger)
     let logConsoleVM = LogConsoleViewModel(binaryMessenger: messenger)
@@ -61,5 +62,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     window.rootViewController = rootVC
     window.makeKeyAndVisible()
     self.window = window
+  }
+
+  func sceneDidBecomeActive(_ scene: UIScene) {
+    SystemBridge.shared?.notifyAppResumed()
+  }
+
+  func sceneDidEnterBackground(_ scene: UIScene) {
+    (UIApplication.shared.delegate as? AppDelegate)?.scheduleBackgroundSync()
   }
 }
