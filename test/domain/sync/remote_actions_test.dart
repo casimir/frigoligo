@@ -458,6 +458,19 @@ void main() {
         () => apiClient.createArticle('https://example.com', tags: null),
       ).called(1);
     });
+
+    test('execute propagates error when createArticle fails', () async {
+      final action = SaveArticleAction(Uri.parse('https://example.com'));
+
+      when(
+        () => apiClient.createArticle(any(), tags: any(named: 'tags')),
+      ).thenThrow(const ServerError('not found'));
+
+      await expectLater(
+        () => action.execute(apiClient, storage, (_) {}),
+        throwsA(isA<ServerError>()),
+      );
+    });
   });
 
   group('RefetchArticleAction', () {

@@ -277,6 +277,17 @@ void main() {
       expect(syncManager.state.lastError, null);
       expect(await syncManager.getPendingCount(), 0);
     });
+
+    test('should persist action in queue when ServerError is thrown', () async {
+      // Simulates a reachable server that returns e.g. 404
+      await syncManager.addAction(
+        NoopAction.error(const ServerError('not found')),
+      );
+      await syncManager.synchronize(withFinalRefresh: false);
+
+      expect(await syncManager.getPendingCount(), 1);
+      expect(syncManager.state.lastError, isA<ServerError>());
+    });
   });
 
   group('SyncState', () {

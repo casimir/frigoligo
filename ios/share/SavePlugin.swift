@@ -7,26 +7,31 @@
 
 import Flutter
 
-public class SavePlugin : NSObject, FlutterPlugin {
+private struct FlutterCallError: CustomStringConvertible, Error {
+  let message: String
+  var description: String { message }
+}
+
+public class SavePlugin: NSObject, FlutterPlugin {
   static let CHANNEL = "net.casimir-lab.frigoligo/save"
-  
+
   private let channel: FlutterMethodChannel
-  
+
   public static var shared: SavePlugin?
-  
+
   public static func register(with registrar: any FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: CHANNEL, binaryMessenger: registrar.messenger())
     let instance = SavePlugin(channel: channel)
     registrar.addMethodCallDelegate(instance, channel: instance.channel)
-    
+
     shared = instance
   }
-  
+
   private init(channel: FlutterMethodChannel) {
     self.channel = channel
     super.init()
   }
-  
+
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     switch call.method {
     case "debugHello":
@@ -35,18 +40,22 @@ public class SavePlugin : NSObject, FlutterPlugin {
       result(FlutterMethodNotImplemented)
     }
   }
-  
+
   public func debugHello() {
     channel.invokeMethod("debugHello", arguments: nil) { result in
       print("swift: \(result as! String)")
     }
   }
-  
+
   @MainActor
   public func saveArticle(url: URL) async throws -> Int? {
     return try await withCheckedThrowingContinuation { continuation in
-      self.channel.invokeMethod("saveArticle", arguments: url.absoluteString) {articleId in
-        continuation.resume(returning: articleId as? Int)
+      self.channel.invokeMethod("saveArticle", arguments: url.absoluteString) { result in
+        if let error = result as? FlutterError {
+          continuation.resume(throwing: FlutterCallError(message: error.message ?? error.code))
+        } else {
+          continuation.resume(returning: result as? Int)
+        }
       }
     }
   }
