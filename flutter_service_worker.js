@@ -410,7 +410,7 @@ const RESOURCES = {"assets/assets/www/manifest.json": "0d266b633917dff351ef7f94b
 "canvaskit/skwasm.js": "1ef3ea3a0fec4569e5d531da25f34095",
 "flutter.js": "888483df48293866f9f41d3d9274a779",
 "drift_worker.js": "afac8b57eb80f0846a382f7303929b0f",
-"flutter_bootstrap.js": "fdca9dc0e76af9072eec513cd053b06b",
+"flutter_bootstrap.js": "4f712fe83795be92200f7768bb732c1d",
 "main.dart.js": "e5f8a83a9b49040646d440ce33dcf8fc",
 "version.json": "0351f2f681def5caba2c2b3553e23b05",
 "icons/Icon-maskable-512.png": "2f29d01214f376bfd797155980d136cc",
