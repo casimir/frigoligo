@@ -17,18 +17,18 @@ import UIKit
     super.application(application, didFinishLaunchingWithOptions: launchOptions)
 
     let engine = FlutterEngine(name: "main")
-    engine.run()
-    GeneratedPluginRegistrant.register(with: engine)
-    AppBadgePlugin.register(
-      with: engine.registrar(forPlugin: "AppBadgePlugin")!
-    )
-    self.engine = engine
-
+    guard engine.run() else {
+      fatalError("FlutterEngine failed to run")
+    }
     SystemBridge.shared = SystemBridge(binaryMessenger: engine.binaryMessenger)
 
     BGTaskScheduler.shared.register(forTaskWithIdentifier: bgTaskId, using: nil) { task in
       self.handleBackgroundSync(task: task as! BGAppRefreshTask)
     }
+
+    GeneratedPluginRegistrant.register(with: engine)
+    AppBadgePlugin.register(with: engine.registrar(forPlugin: "AppBadgePlugin")!)
+    self.engine = engine
 
     return true
   }

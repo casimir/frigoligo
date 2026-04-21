@@ -51,7 +51,7 @@ void backgroundSync(Ref ref) {
         withFinalRefresh: true,
       ),
     ).start();
-  } else if (UniversalPlatform.isMobile) {
+  } else if (UniversalPlatform.isAndroid) {
     unawaited(configureBackgroundFetch());
   } else {
     _log.info('starting one-shot background sync');

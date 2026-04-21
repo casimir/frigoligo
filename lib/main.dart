@@ -173,6 +173,7 @@ Future<void> mainNativeShare() async {
 
   // after this line using `await` is OK
   WidgetsFlutterBinding.ensureInitialized();
+  SystemBridge();
 
   log.info('starting share extension');
 

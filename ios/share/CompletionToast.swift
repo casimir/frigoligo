@@ -21,6 +21,8 @@ class ToastViewModel: ObservableObject {
 }
 
 public struct CompletionToast: View {
+  private static let loggerName = "CompletionToast"
+
   let frameSize = 100.0
   let frameColor = Color.secondary.opacity(1.0)
 
@@ -68,7 +70,8 @@ public struct CompletionToast: View {
           // leave the success feedback sink in the user mind
           try await Task.sleep(nanoseconds: 400_000_000)
         } catch {
-          devLog("task: couldn't wait a bit: \(error)")
+          SystemBridge.logInfo(
+            "task: couldn't wait a bit: \(error)", logger: CompletionToast.loggerName)
         }
         await didSucceed()
       }

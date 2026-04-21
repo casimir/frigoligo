@@ -17,6 +17,7 @@
 		02170A112F700000000A000A /* CredentialsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02170A122F700000000A000A /* CredentialsView.swift */; };
 		0217AA012F800000000A0001 /* ArticleSheet.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA002F800000000A0001 /* ArticleSheet.g.swift */; };
 		0217AA032F800000000A0002 /* AuthGate.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA022F800000000A0002 /* AuthGate.g.swift */; };
+		4638C38A5CE7442983097E2A /* AuthGate.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA022F800000000A0002 /* AuthGate.g.swift */; };
 		0217AA052F800000000A0003 /* NavigationSplit.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA042F800000000A0003 /* NavigationSplit.g.swift */; };
 		0217AA062F800000000A0004 /* Settings.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA072F800000000A0005 /* Settings.g.swift */; };
 		0217AA102F800000000A0016 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0217AA0B2F800000000A0011 /* SettingsView.swift */; };
@@ -44,8 +45,10 @@
 		02F0CC9D2D42434500A73A77 /* Flutter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02F0CC9C2D42434500A73A77 /* Flutter.xcframework */; };
 		05BC92B8285B3FFB45B2EFE5 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 695FF15C61FFCBBA5A997ED3 /* Pods_Runner.framework */; };
 		09C446126FFF4D3787A40D19 /* System.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C5C8A75DC8411CA62D6C0A /* System.g.swift */; };
+		71647D55D75F41B5A323AF9D /* System.g.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C5C8A75DC8411CA62D6C0A /* System.g.swift */; };
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
 		22338DA1B5C84A8B9FDD4CEA /* SystemBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70575CCE15CE4FB0BCA14A6D /* SystemBridge.swift */; };
+		B7F1D45302234A69B7292B57 /* SystemBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70575CCE15CE4FB0BCA14A6D /* SystemBridge.swift */; };
 		22B52D5EB0604C6EAED12184 /* FilterBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96CB72AE9B3436B99FE780C /* FilterBarView.swift */; };
 		3576E1A2A2B04601AF1C1643 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79BFDF1F26D94824B3B038AA /* SidebarView.swift */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
@@ -585,6 +588,9 @@
 				02F0CC942D40522800A73A77 /* SavePlugin.swift in Sources */,
 				027594672F199844000DCD29 /* AppBadgePlugin.swift in Sources */,
 				021BA09A2A9BFCE500557A89 /* ShareViewController.swift in Sources */,
+				4638C38A5CE7442983097E2A /* AuthGate.g.swift in Sources */,
+				71647D55D75F41B5A323AF9D /* System.g.swift in Sources */,
+				B7F1D45302234A69B7292B57 /* SystemBridge.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
