@@ -111,6 +111,8 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Free API client and session management from riverpod ([#429](https://github.com/casimir/frigoligo/pull/429)) ([44bacbd](https://github.com/casimir/frigoligo/commit/44bacbd812f6f00cf28e39f79d617ace72c69292))
 - Manage backgound syncing with SyncManager ([#431](https://github.com/casimir/frigoligo/pull/431)) ([2f32275](https://github.com/casimir/frigoligo/commit/2f32275b83ac89744679cc6011cc84fbfcca381d))
 - *(iOS)* Avoid loading flutter widget tree ([#450](https://github.com/casimir/frigoligo/pull/450)) ([339919e](https://github.com/casimir/frigoligo/commit/339919ed7d7a8200d2f99d483daed231ca05752d))
+- *(iOS)* Plug share extension log to the core logger ([e78dabb](https://github.com/casimir/frigoligo/commit/e78dabbd9647de65f55b5b9ab678043244d00f46))
+- Add more test around article saving errors ([73219ed](https://github.com/casimir/frigoligo/commit/73219ed3845f9235cd8bf8684b0106286d20438f))
 
 ### 📚 Documentation
 
