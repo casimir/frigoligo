@@ -18,7 +18,7 @@ struct ArticleDetailView: View {
         }
       )
       .navigationBarTitleDisplayMode(.inline)
-      .ignoresSafeArea(edges: .bottom)
+      .ignoresSafeArea(edges: [.top, .bottom])
       .toolbar {
         ToolbarItemGroup(placement: .navigationBarTrailing) {
           let isArchived = viewModel.articleData?.isArchived ?? false
