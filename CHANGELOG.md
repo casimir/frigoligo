@@ -31,6 +31,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(iOS)* Native login screen and session management ([#446](https://github.com/casimir/frigoligo/pull/446)) ([c28e461](https://github.com/casimir/frigoligo/commit/c28e461b1d1b6e18f1944730dae16661c5a53f39))
 - *(iOS)* Add OSS licenses screens in the settings ([3e0900b](https://github.com/casimir/frigoligo/commit/3e0900b947fd31aa90bd88d6593dcaf7c40a3d4a))
 - *(reader)* Inject several js packages for rich formatting ([#447](https://github.com/casimir/frigoligo/pull/447)) ([4c9e9cc](https://github.com/casimir/frigoligo/commit/4c9e9cc9c40fca812b8eb45fb5203ebcf9313090))
+- *(iOS)* Make article content scroll under the navbar ([101a8cb](https://github.com/casimir/frigoligo/commit/101a8cb935837fbdfeab6b324ef6dfefdc1c99cf))
 
 ### 🐛 Bug Fixes
 
