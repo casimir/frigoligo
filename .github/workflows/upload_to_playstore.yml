@@ -16,8 +16,8 @@ jobs:
     if: ${{ github.ref_type == 'tag' || github.event.inputs.force == 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: timheuer/base64-to-file@v1.2
+      - uses: actions/checkout@v6
+      - uses: timheuer/base64-to-file@v2.0
         with:
           fileName: "keystore.jks"
           fileDir: "${{ github.workspace }}/"
@@ -30,7 +30,7 @@ jobs:
           echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> $KEYSTORE_PROPERTIES_PATH
         env:
           KEYSTORE_PROPERTIES_PATH: ${{ github.workspace }}/android/keystore.properties
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: zulu
           java-version: 17
