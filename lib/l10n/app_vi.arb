@@ -589,5 +589,9 @@
                 "format": "compact"
             }
         }
+    },
+    "settings_itemLicenses": "Xem giấy phép",
+    "@settings_itemLicenses": {
+        "description": "The action to display the open-source licenses screen."
     }
 }
