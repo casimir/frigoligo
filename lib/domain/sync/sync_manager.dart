@@ -83,12 +83,18 @@ class SyncManager {
     required ArticleRepository articleRepository,
     required RemoteActionRepository remoteActionRepository,
     required ServerSessionRepository serverSessionRepository,
+    ApiClient Function()? clientFactory,
   }) : _appBadgeService = appBadgeService,
        _configStoreService = configStoreService,
        _localStorageService = localStorageService,
        _articleRepository = articleRepository,
        _remoteActionRepository = remoteActionRepository,
        _serverSessionRepository = serverSessionRepository,
+       _clientFactory =
+           clientFactory ??
+           (() => serverSessionRepository.createClient(
+             userAgent: AppInfo.userAgent,
+           )),
        _state = const SyncState(
          isWorking: false,
          progressValue: null,
@@ -102,6 +108,7 @@ class SyncManager {
   final ArticleRepository _articleRepository;
   final RemoteActionRepository _remoteActionRepository;
   final ServerSessionRepository _serverSessionRepository;
+  final ApiClient Function() _clientFactory;
 
   SyncState _state;
   SyncState get state => _state;
@@ -159,9 +166,7 @@ class SyncManager {
     required ProgressCallback onProgress,
   }) async {
     final Map<String, dynamic> res = {};
-    final api = _serverSessionRepository.createClient(
-      userAgent: AppInfo.userAgent,
-    );
+    final api = _clientFactory();
 
     onProgress(null);
     int i = 1;
@@ -235,9 +240,7 @@ class SyncManager {
 
         _setProgress(null);
         _log.info('running action: $_refreshAction');
-        final api = _serverSessionRepository.createClient(
-          userAgent: AppInfo.userAgent,
-        );
+        final api = _clientFactory();
         await _refreshAction.execute(api, _localStorageService, _setProgress);
 
         final articleIds = await _localStorageService.articles.getAllIds();

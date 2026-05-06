@@ -22,7 +22,28 @@ class MockConfigStoreService extends Mock implements ConfigStoreService {}
 
 class MockAppBadgeService extends Mock implements AppBadgeService {}
 
+class MockApiClient extends Mock implements ApiClient {}
+
+class MockApiClientWithProgress extends Mock
+    implements ApiClient, WithReadProgress {}
+
 class FakeRemoteAction extends Fake implements RemoteAction {}
+
+void _setupMockApiWithProgressBase(MockApiClientWithProgress api) {
+  when(
+    () => api.listArticles(
+      since: any(named: 'since'),
+      onProgress: any(named: 'onProgress'),
+    ),
+  ).thenAnswer((_) => Stream.empty());
+  when(
+    () => api.listOperations(
+      since: any(named: 'since'),
+      localIds: any(named: 'localIds'),
+      onProgress: any(named: 'onProgress'),
+    ),
+  ).thenAnswer((_) async => []);
+}
 
 void main() {
   late DB db;
@@ -32,6 +53,7 @@ void main() {
   late MockArticleRepository articleRepo;
   late MockConfigStoreService configStore;
   late MockAppBadgeService appBadge;
+  late MockApiClient mockApi;
   late SyncManager syncManager;
 
   setUpAll(() async {
@@ -68,6 +90,7 @@ void main() {
     articleRepo = MockArticleRepository();
     configStore = MockConfigStoreService();
     appBadge = MockAppBadgeService();
+    mockApi = MockApiClient();
 
     final session = ServerSession(
       ServerType.freon,
@@ -88,6 +111,19 @@ void main() {
     ).thenAnswer((_) async {});
     when(() => articleRepo.getDirtyProgress(any())).thenAnswer((_) async => []);
     when(() => articleRepo.applyProgress(any())).thenAnswer((_) async {});
+    when(
+      () => mockApi.listArticles(
+        since: any(named: 'since'),
+        onProgress: any(named: 'onProgress'),
+      ),
+    ).thenAnswer((_) => Stream.empty());
+    when(
+      () => mockApi.listOperations(
+        since: any(named: 'since'),
+        localIds: any(named: 'localIds'),
+        onProgress: any(named: 'onProgress'),
+      ),
+    ).thenAnswer((_) async => []);
 
     syncManager = SyncManager(
       appBadgeService: appBadge,
@@ -96,6 +132,7 @@ void main() {
       articleRepository: articleRepo,
       remoteActionRepository: remoteActionRepository,
       serverSessionRepository: sessionRepo,
+      clientFactory: () => mockApi,
     );
   });
 
@@ -158,6 +195,19 @@ void main() {
       await syncManager.addAction(action2);
       expect(await syncManager.getPendingCount(), 2);
     });
+
+    test(
+      'addAction in local mode executes immediately without queuing',
+      () async {
+        final localSession = ServerSession(ServerType.local);
+        when(() => sessionRepo.getSession()).thenReturn(localSession);
+
+        await syncManager.addAction(const DeleteArticleAction(42));
+
+        expect(await syncManager.getPendingCount(), 0);
+        verify(() => articleRepo.delete(42)).called(1);
+      },
+    );
   });
 
   group('sync execution', () {
@@ -198,6 +248,7 @@ void main() {
       final result2 = await syncManager.synchronize(withFinalRefresh: true);
       expect(result2, isA<Map<String, dynamic>>());
       expect(await syncManager.getPendingCount(), 0);
+      expect(syncManager.state.lastError, null);
     });
 
     test(
@@ -431,6 +482,18 @@ void main() {
 
   group('read progress sync', () {
     test(
+      'withFinalRefresh: true skips progress sync when api lacks support',
+      () async {
+        await syncManager.addAction(const NoopAction('test'));
+        await syncManager.synchronize(withFinalRefresh: true);
+        expect(syncManager.state.lastError, null);
+        expect(await syncManager.getPendingCount(), 0);
+        verifyNever(() => articleRepo.applyProgress(any()));
+        verifyNever(() => articleRepo.getDirtyProgress(any()));
+      },
+    );
+
+    test(
       'should not attempt read progress sync when withFinalRefresh is false',
       () async {
         await syncManager.synchronize(withFinalRefresh: false);
@@ -438,5 +501,70 @@ void main() {
         verifyNever(() => articleRepo.getDirtyProgress(any()));
       },
     );
+
+    test('applies remote progress when api supports it', () async {
+      final mockApiWithProgress = MockApiClientWithProgress();
+      _setupMockApiWithProgressBase(mockApiWithProgress);
+      final remoteProgress = [
+        ReadProgressUpdate(
+          articleId: 1,
+          progress: 0.5,
+          updatedAt: DateTime(2024),
+        ),
+      ];
+      when(
+        () => mockApiWithProgress.getReadProgress(any()),
+      ).thenAnswer((_) async => remoteProgress);
+      when(
+        () => mockApiWithProgress.putReadProgress(any()),
+      ).thenAnswer((_) async {});
+
+      final manager = SyncManager(
+        appBadgeService: appBadge,
+        configStoreService: configStore,
+        localStorageService: storage,
+        articleRepository: articleRepo,
+        remoteActionRepository: remoteActionRepository,
+        serverSessionRepository: sessionRepo,
+        clientFactory: () => mockApiWithProgress,
+      );
+
+      await manager.synchronize(withFinalRefresh: true);
+
+      expect(manager.state.lastError, null);
+      verify(() => mockApiWithProgress.getReadProgress(any())).called(1);
+      verify(() => articleRepo.applyProgress(any())).called(1);
+    });
+
+    test('uploads dirty progress when present', () async {
+      final mockApiWithProgress = MockApiClientWithProgress();
+      _setupMockApiWithProgressBase(mockApiWithProgress);
+      when(
+        () => mockApiWithProgress.getReadProgress(any()),
+      ).thenAnswer((_) async => []);
+      when(
+        () => mockApiWithProgress.putReadProgress(any()),
+      ).thenAnswer((_) async {});
+
+      final dirty = [(articleId: 2, progress: 0.8, updatedAt: DateTime(2024))];
+      when(
+        () => articleRepo.getDirtyProgress(any()),
+      ).thenAnswer((_) async => dirty);
+
+      final manager = SyncManager(
+        appBadgeService: appBadge,
+        configStoreService: configStore,
+        localStorageService: storage,
+        articleRepository: articleRepo,
+        remoteActionRepository: remoteActionRepository,
+        serverSessionRepository: sessionRepo,
+        clientFactory: () => mockApiWithProgress,
+      );
+
+      await manager.synchronize(withFinalRefresh: true);
+
+      expect(manager.state.lastError, null);
+      verify(() => mockApiWithProgress.putReadProgress(any())).called(1);
+    });
   });
 }
