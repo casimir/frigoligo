@@ -387,6 +387,48 @@ void main() {
     });
   });
 
+  group('action preservation across resyncs', () {
+    test(
+      'SaveArticleAction survives database clear with keepPendingActions',
+      () async {
+        await syncManager.addAction(
+          SaveArticleAction(Uri.parse('https://example.com')),
+        );
+        expect(await syncManager.getPendingCount(), 1);
+
+        await storage.database.clear(keepPendingActions: true);
+
+        expect(await syncManager.getPendingCount(), 1);
+        final actions = await remoteActionRepository.getAllOrderedByCreation();
+        expect(actions.single, isA<SaveArticleAction>());
+      },
+    );
+
+    test(
+      'EditArticleAction for deleted article is pruned after resync',
+      () async {
+        await syncManager.addAction(
+          const EditArticleAction(999, archived: true),
+        );
+
+        await remoteActionRepository.pruneStaleActions({1, 2});
+
+        expect(await syncManager.getPendingCount(), 0);
+      },
+    );
+
+    test(
+      'EditArticleAction for existing article is preserved after resync',
+      () async {
+        await syncManager.addAction(const EditArticleAction(1, archived: true));
+
+        await remoteActionRepository.pruneStaleActions({1, 2});
+
+        expect(await syncManager.getPendingCount(), 1);
+      },
+    );
+  });
+
   group('read progress sync', () {
     test(
       'should not attempt read progress sync when withFinalRefresh is false',

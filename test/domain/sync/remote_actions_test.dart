@@ -84,6 +84,35 @@ void main() {
       expect(actionStr.contains(action.runtimeType.toString()), true);
       expect(actionStr.contains(action.value), true);
     });
+
+    group('affectedArticleId', () {
+      test('RefreshArticlesAction returns null', () {
+        expect(const RefreshArticlesAction().affectedArticleId, isNull);
+      });
+
+      test('DeleteArticleAction returns articleId', () {
+        expect(const DeleteArticleAction(123).affectedArticleId, 123);
+      });
+
+      test('EditArticleAction returns articleId', () {
+        expect(const EditArticleAction(456).affectedArticleId, 456);
+      });
+
+      test('SaveArticleAction returns null', () {
+        expect(
+          SaveArticleAction(Uri.parse('https://example.com')).affectedArticleId,
+          isNull,
+        );
+      });
+
+      test('RefetchArticleAction returns articleId', () {
+        expect(const RefetchArticleAction(789).affectedArticleId, 789);
+      });
+
+      test('NoopAction returns null', () {
+        expect(const NoopAction('test').affectedArticleId, isNull);
+      });
+    });
   });
 
   group('RefreshArticlesAction', () {

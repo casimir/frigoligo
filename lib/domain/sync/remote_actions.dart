@@ -45,6 +45,9 @@ abstract class RemoteAction with EquatableMixin {
     return '${type.name}:$values';
   }
 
+  /// The article this action targets or null for article-independent actions.
+  int? get affectedArticleId => null;
+
   /// Parameters used when serializing the action. These are stored in DB until
   /// the action is executed.
   ActionParams get params;
@@ -116,8 +119,11 @@ class RefreshArticlesAction extends RemoteAction {
     _log.info('starting refresh with since=${sinceDT?.toIso8601String()}');
 
     if (since == null) {
-      await storage.database.clear(keepPositions: true);
-      _log.info('cleared the local cache (articles and pending actions)');
+      await storage.database.clear(
+        keepPendingActions: true,
+        keepPositions: true,
+      );
+      _log.info('cleared the local cache');
 
       final articlesStream = api.listArticles(
         since: sinceDT,
@@ -162,6 +168,9 @@ class DeleteArticleAction extends RemoteAction {
   final int articleId;
 
   @override
+  int? get affectedArticleId => articleId;
+
+  @override
   ActionParams get params => {'articleId': articleId};
 
   factory DeleteArticleAction.fromParams(ActionParams params) =>
@@ -191,6 +200,9 @@ class EditArticleAction extends RemoteAction {
   final bool? archived;
   final bool? starred;
   final List<String>? tags;
+
+  @override
+  int? get affectedArticleId => articleId;
 
   @override
   ActionParams get params => {
@@ -267,6 +279,9 @@ class RefetchArticleAction extends RemoteAction {
     : super(RemoteActionType.refetchArticle);
 
   final int articleId;
+
+  @override
+  int? get affectedArticleId => articleId;
 
   @override
   ActionParams get params => {'articleId': articleId};

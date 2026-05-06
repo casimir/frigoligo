@@ -240,6 +240,9 @@ class SyncManager {
         );
         await _refreshAction.execute(api, _localStorageService, _setProgress);
 
+        final articleIds = await _localStorageService.articles.getAllIds();
+        await _remoteActionRepository.pruneStaleActions(articleIds);
+
         if (api is WithReadProgress) {
           _log.info('syncing read progress');
           _setProgress(null);

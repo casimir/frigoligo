@@ -63,12 +63,15 @@ class DB extends $DB {
     },
   );
 
-  Future<void> clear({bool keepPositions = false}) {
+  Future<void> clear({
+    bool keepPendingActions = false,
+    bool keepPositions = false,
+  }) {
     return transaction(() async {
       await articles.deleteAll();
       await metadata.deleteAll();
+      if (!keepPendingActions) await remoteActions.deleteAll();
       if (!keepPositions) await articleScrollPositions.deleteAll();
-      await remoteActions.deleteAll();
     });
   }
 }

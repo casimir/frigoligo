@@ -89,4 +89,6 @@ abstract class RemoteActionRepository {
   Future<bool> exists(RemoteAction action);
   Future<int> count();
   Future<List<RemoteAction>> getAllOrderedByCreation();
+
+  Future<void> pruneStaleActions(Set<int> presentArticleIds);
 }
