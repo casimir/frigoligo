@@ -46,4 +46,19 @@ class RemoteActionRepositoryImpl implements RemoteActionRepository {
       return RemoteAction.fromParams(row.className, params);
     }).toList();
   }
+
+  @override
+  Future<void> pruneStaleActions(Set<int> presentArticleIds) async {
+    final actions = await getAllOrderedByCreation();
+    final staleKeys = actions
+        .where((a) {
+          final id = a.affectedArticleId;
+          return id != null && !presentArticleIds.contains(id);
+        })
+        .map((a) => a.hashCode)
+        .toSet();
+    if (staleKeys.isNotEmpty) {
+      await _localStorageService.remoteActions.deleteByKeys(staleKeys);
+    }
+  }
 }

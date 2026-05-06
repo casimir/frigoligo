@@ -387,9 +387,13 @@ class DatabaseManager {
 
   final DB _db;
 
-  /// Clears all data, optionally preserving scroll positions.
-  Future<void> clear({bool keepPositions = false}) =>
-      _db.clear(keepPositions: keepPositions);
+  Future<void> clear({
+    bool keepPendingActions = false,
+    bool keepPositions = false,
+  }) => _db.clear(
+    keepPendingActions: keepPendingActions,
+    keepPositions: keepPositions,
+  );
 }
 
 class MetadataManager {
@@ -436,6 +440,9 @@ class RemoteActionsManager {
 
   Future<int> delete(int key) =>
       _db.managers.remoteActions.filter((f) => f.key.equals(key)).delete();
+
+  Future<int> deleteByKeys(Set<int> keys) =>
+      _db.managers.remoteActions.filter((f) => f.key.isIn(keys)).delete();
 
   Future<void> clear() => _db.managers.remoteActions.delete();
 
