@@ -114,6 +114,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(iOS)* Avoid loading flutter widget tree ([#450](https://github.com/casimir/frigoligo/pull/450)) ([339919e](https://github.com/casimir/frigoligo/commit/339919ed7d7a8200d2f99d483daed231ca05752d))
 - *(iOS)* Plug share extension log to the core logger ([e78dabb](https://github.com/casimir/frigoligo/commit/e78dabbd9647de65f55b5b9ab678043244d00f46))
 - Add more test around article saving errors ([73219ed](https://github.com/casimir/frigoligo/commit/73219ed3845f9235cd8bf8684b0106286d20438f))
+- *(remotesync)* Prune remote actions after sync instead of a clear ([#453](https://github.com/casimir/frigoligo/pull/453)) ([c7fc26d](https://github.com/casimir/frigoligo/commit/c7fc26dce3abe96ef1b42e10d9ed9210dac52376))
 
 ### 📚 Documentation
 
@@ -201,6 +202,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Cleanup redundant riverpod imports ([4f17ed9](https://github.com/casimir/frigoligo/commit/4f17ed9b69f1573217c75317c4ca072da97cc53e))
 - Force explicit handling of futures ([9daa949](https://github.com/casimir/frigoligo/commit/9daa949f3379d37a155a35dcd9783d16acf82043))
 - *(l10n)* Tweak translation script to match xcode output ([31afda3](https://github.com/casimir/frigoligo/commit/31afda3f48d81807147c369797972c2cfb37900e))
+- *(syncmanager)* Better test coverage ([d595c7f](https://github.com/casimir/frigoligo/commit/d595c7fb037bc3034842507709757559e5e4d8f4))
 
 ### I18n
 
