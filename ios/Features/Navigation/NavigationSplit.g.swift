@@ -185,41 +185,6 @@ struct ArticleRowData: Hashable {
   }
 }
 
-/// Sync progress state for the toolbar indicator.
-///
-/// Generated class from Pigeon that represents data sent in messages.
-struct NavigationSyncState: Hashable {
-  var isWorking: Bool
-  var progressValue: Double? = nil
-  var pendingCount: Int64
-
-  // swift-format-ignore: AlwaysUseLowerCamelCase
-  static func fromList(_ pigeonVar_list: [Any?]) -> NavigationSyncState? {
-    let isWorking = pigeonVar_list[0] as! Bool
-    let progressValue: Double? = nilOrValue(pigeonVar_list[1])
-    let pendingCount = pigeonVar_list[2] as! Int64
-
-    return NavigationSyncState(
-      isWorking: isWorking,
-      progressValue: progressValue,
-      pendingCount: pendingCount
-    )
-  }
-  func toList() -> [Any?] {
-    return [
-      isWorking,
-      progressValue,
-      pendingCount,
-    ]
-  }
-  static func == (lhs: NavigationSyncState, rhs: NavigationSyncState) -> Bool {
-    return deepEqualsNavigationSplit(lhs.toList(), rhs.toList())
-  }
-  func hash(into hasher: inout Hasher) {
-    deepHashNavigationSplit(value: toList(), hasher: &hasher)
-  }
-}
-
 /// Mirrors the Query domain model for active filter state.
 ///
 /// Generated class from Pigeon that represents data sent in messages.
@@ -355,12 +320,10 @@ private class NavigationSplitPigeonCodecReader: FlutterStandardReader {
     case 131:
       return ArticleRowData.fromList(self.readValue() as! [Any?])
     case 132:
-      return NavigationSyncState.fromList(self.readValue() as! [Any?])
-    case 133:
       return NavigationFilterState.fromList(self.readValue() as! [Any?])
-    case 134:
+    case 133:
       return ArticleReadingSettings.fromList(self.readValue() as! [Any?])
-    case 135:
+    case 134:
       return ArticleContent.fromList(self.readValue() as! [Any?])
     default:
       return super.readValue(ofType: type)
@@ -379,17 +342,14 @@ private class NavigationSplitPigeonCodecWriter: FlutterStandardWriter {
     } else if let value = value as? ArticleRowData {
       super.writeByte(131)
       super.writeValue(value.toList())
-    } else if let value = value as? NavigationSyncState {
+    } else if let value = value as? NavigationFilterState {
       super.writeByte(132)
       super.writeValue(value.toList())
-    } else if let value = value as? NavigationFilterState {
+    } else if let value = value as? ArticleReadingSettings {
       super.writeByte(133)
       super.writeValue(value.toList())
-    } else if let value = value as? ArticleReadingSettings {
-      super.writeByte(134)
-      super.writeValue(value.toList())
     } else if let value = value as? ArticleContent {
-      super.writeByte(135)
+      super.writeByte(134)
       super.writeValue(value.toList())
     } else {
       super.writeValue(value)
@@ -412,12 +372,11 @@ class NavigationSplitPigeonCodec: FlutterStandardMessageCodec, @unchecked Sendab
     readerWriter: NavigationSplitPigeonCodecReaderWriter())
 }
 
-/// Pushes updated list/sync/filter state into the native sidebar.
+/// Pushes updated list/filter state into the native sidebar.
 ///
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol NavigationSplitApi {
   func updateArticleIds(ids: [Int64]) throws
-  func updateSyncState(state: NavigationSyncState) throws
   func updateFilterState(state: NavigationFilterState) throws
   func updateArticleContent(content: ArticleContent) throws
   func updateArticleData(data: ArticleRowData) throws
@@ -449,23 +408,6 @@ class NavigationSplitApiSetup {
       }
     } else {
       updateArticleIdsChannel.setMessageHandler(nil)
-    }
-    let updateSyncStateChannel = FlutterBasicMessageChannel(
-      name: "dev.flutter.pigeon.frigoligo.NavigationSplitApi.updateSyncState\(channelSuffix)",
-      binaryMessenger: binaryMessenger, codec: codec)
-    if let api = api {
-      updateSyncStateChannel.setMessageHandler { message, reply in
-        let args = message as! [Any?]
-        let stateArg = args[0] as! NavigationSyncState
-        do {
-          try api.updateSyncState(state: stateArg)
-          reply(wrapResult(nil))
-        } catch {
-          reply(wrapError(error))
-        }
-      }
-    } else {
-      updateSyncStateChannel.setMessageHandler(nil)
     }
     let updateFilterStateChannel = FlutterBasicMessageChannel(
       name: "dev.flutter.pigeon.frigoligo.NavigationSplitApi.updateFilterState\(channelSuffix)",

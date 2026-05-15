@@ -3,8 +3,6 @@ import Flutter
 @MainActor
 class NavigationSplitViewModel: NSObject, ObservableObject, NavigationSplitApi {
   @Published var articleIds: [Int64] = []
-  @Published var syncState: NavigationSyncState = NavigationSyncState(
-    isWorking: false, progressValue: nil, pendingCount: 0)
   @Published var filterState: NavigationFilterState = NavigationFilterState(
     text: "", textMode: .all, stateFilter: .unread, onlyStarred: false,
     tags: [], domains: [])
@@ -37,10 +35,6 @@ class NavigationSplitViewModel: NSObject, ObservableObject, NavigationSplitApi {
     if let selected = selectedArticleId, !ids.contains(selected) {
       selectedArticleId = nil
     }
-  }
-
-  func updateSyncState(state: NavigationSyncState) throws {
-    syncState = state
   }
 
   func updateFilterState(state: NavigationFilterState) throws {

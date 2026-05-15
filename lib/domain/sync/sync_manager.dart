@@ -24,24 +24,36 @@ class SyncState {
     required this.progressValue,
     required this.lastError,
     required this.pendingCount,
+    this.isNoInternet = false,
+    this.isAuthFailure = false,
+    this.lastSyncTimestamp,
   });
 
   final bool isWorking;
   final double? progressValue;
   final Exception? lastError;
   final int pendingCount;
+  final bool isNoInternet;
+  final bool isAuthFailure;
+  final int? lastSyncTimestamp;
 
   SyncState copyWith({
     bool? isWorking,
     double? progressValue,
     Exception? lastError,
     int? pendingCount,
+    bool? isNoInternet,
+    bool? isAuthFailure,
+    int? lastSyncTimestamp,
   }) {
     return SyncState(
       isWorking: isWorking ?? this.isWorking,
       progressValue: progressValue ?? this.progressValue,
       lastError: lastError ?? this.lastError,
       pendingCount: pendingCount ?? this.pendingCount,
+      isNoInternet: isNoInternet ?? this.isNoInternet,
+      isAuthFailure: isAuthFailure ?? this.isAuthFailure,
+      lastSyncTimestamp: lastSyncTimestamp ?? this.lastSyncTimestamp,
     );
   }
 }
@@ -231,6 +243,8 @@ class SyncManager {
     );
 
     Exception? error;
+    bool isNoInternet = false;
+    bool isAuthFailure = false;
 
     try {
       res.addAll(await executeAllPendingActions(onProgress: _setProgress));
@@ -285,7 +299,14 @@ class SyncManager {
       await _updateAppBadge();
     } on ServerError catch (e) {
       _log.severe('communication error', e);
-      if (e.source is! ClientException) {
+      if (e.source is ClientException) {
+        isNoInternet = true;
+      } else if (e.isInvalidTokenError ||
+          e.response?.statusCode == 401 ||
+          e.response?.statusCode == 403) {
+        isAuthFailure = true;
+        error = e;
+      } else {
         error = e;
       }
     } on Exception catch (e) {
@@ -296,12 +317,16 @@ class SyncManager {
       _log.severe('sync failed (badly)', e, st);
       error = Exception(e.toString());
     } finally {
+      final lastSyncTS = await _localStorageService.metadata.getLastSyncTS();
       _updateState(
         SyncState(
           isWorking: false,
           progressValue: null,
           lastError: error,
           pendingCount: await getPendingCount(),
+          isNoInternet: isNoInternet,
+          isAuthFailure: isAuthFailure,
+          lastSyncTimestamp: lastSyncTS,
         ),
       );
     }

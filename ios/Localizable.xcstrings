@@ -17969,6 +17969,126 @@
         }
       }
     },
+    "sync_lastSynced" : {
+      "comment" : "Sync indicator: relative time of last successful sync.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last synced %@"
+          }
+        }
+      }
+    },
+    "sync_neverSynced" : {
+      "comment" : "Sync indicator: shown when no sync has ever completed.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Never synced"
+          }
+        }
+      }
+    },
+    "sync_openSettings" : {
+      "comment" : "Sync detail action: open settings to re-authenticate.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open settings"
+          }
+        }
+      }
+    },
+    "sync_retry" : {
+      "comment" : "Sync detail action: retry a failed sync.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retry"
+          }
+        }
+      }
+    },
+    "sync_statusAllGood" : {
+      "comment" : "Sync indicator status: everything is synced.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Up to date"
+          }
+        }
+      }
+    },
+    "sync_statusAuthFailure" : {
+      "comment" : "Sync indicator status: credentials need to be refreshed.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Authentication required"
+          }
+        }
+      }
+    },
+    "sync_statusError" : {
+      "comment" : "Sync indicator status: an error occurred during sync.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sync error"
+          }
+        }
+      }
+    },
+    "sync_statusNoInternet" : {
+      "comment" : "Sync indicator status: device is offline.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No internet connection"
+          }
+        }
+      }
+    },
+    "sync_statusServerUnreachable" : {
+      "comment" : "Sync indicator status: server could not be reached.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server unreachable"
+          }
+        }
+      }
+    },
+    "sync_statusSyncing" : {
+      "comment" : "Sync indicator status: sync in progress.",
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Syncing…"
+          }
+        }
+      }
+    },
     "syncer_pendingActions" : {
       "comment" : "Number of pending actions in the RemoteSyncer queue.",
       "extractionState" : "stale",

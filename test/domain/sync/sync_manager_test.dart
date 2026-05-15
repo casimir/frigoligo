@@ -287,14 +287,17 @@ void main() {
       expect(syncManager.state.lastError, isA<ServerError>());
       expect(syncManager.state.lastError.toString(), contains('test error'));
       expect(syncManager.state.isWorking, false);
+      expect(syncManager.state.isNoInternet, false);
+      expect(syncManager.state.isAuthFailure, false);
       await remoteActionRepository.clear();
 
-      // ServerError with ClientException source should NOT be captured
+      // ServerError with ClientException source: isNoInternet, no lastError
       await syncManager.addAction(
         const NoopAction('ERROR:ClientException:network error'),
       );
       await syncManager.synchronize(withFinalRefresh: false);
       expect(syncManager.state.lastError, null);
+      expect(syncManager.state.isNoInternet, true);
       expect(syncManager.state.isWorking, false);
       await remoteActionRepository.clear();
 
@@ -302,6 +305,7 @@ void main() {
       await syncManager.addAction(NoopAction.error(Exception('generic error')));
       await syncManager.synchronize(withFinalRefresh: false);
       expect(syncManager.state.lastError, isA<Exception>());
+      expect(syncManager.state.isNoInternet, false);
       expect(syncManager.state.isWorking, false);
     });
 
@@ -342,12 +346,15 @@ void main() {
   });
 
   group('SyncState', () {
-    test('copyWith should update selectively', () {
+    test('copyWith should update selectively and preserve extra fields', () {
       const original = SyncState(
         isWorking: true,
         progressValue: 0.5,
         lastError: null,
         pendingCount: 3,
+        isNoInternet: true,
+        isAuthFailure: false,
+        lastSyncTimestamp: 1000,
       );
 
       final partial = original.copyWith(isWorking: false);
@@ -355,6 +362,9 @@ void main() {
       expect(partial.progressValue, 0.5);
       expect(partial.lastError, null);
       expect(partial.pendingCount, 3);
+      expect(partial.isNoInternet, true);
+      expect(partial.isAuthFailure, false);
+      expect(partial.lastSyncTimestamp, 1000);
 
       final error = Exception('test');
       final complete = original.copyWith(
@@ -367,6 +377,9 @@ void main() {
       expect(complete.progressValue, 0.7);
       expect(complete.lastError, error);
       expect(complete.pendingCount, 5);
+      expect(complete.isNoInternet, true);
+      expect(complete.isAuthFailure, false);
+      expect(complete.lastSyncTimestamp, 1000);
     });
   });
 

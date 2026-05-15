@@ -13,6 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   private var navigationViewModel: NavigationSplitViewModel?
   private var sessionDetailsViewModel: SessionDetailsViewModel?
   private var settingsViewModel: SettingsViewModel?
+  private var syncViewModel: SyncViewModel?
 
   func scene(
     _ scene: UIScene,
@@ -34,6 +35,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     let navigationVM = NavigationSplitViewModel(binaryMessenger: messenger)
     let sessionDetailsVM = SessionDetailsViewModel(binaryMessenger: messenger)
     let settingsVM = SettingsViewModel(binaryMessenger: messenger)
+    let syncVM = SyncViewModel(binaryMessenger: messenger)
 
     self.authGateViewModel = authGateVM
     self.licensesViewModel = licensesVM
@@ -42,6 +44,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     self.navigationViewModel = navigationVM
     self.sessionDetailsViewModel = sessionDetailsVM
     self.settingsViewModel = settingsVM
+    self.syncViewModel = syncVM
 
     let rootVC = UIHostingController(
       rootView: AppView()
@@ -52,6 +55,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         .environmentObject(navigationVM)
         .environmentObject(sessionDetailsVM)
         .environmentObject(settingsVM)
+        .environmentObject(syncVM)
     )
     articleSheetViewModel = ArticleSheetViewModel(
       binaryMessenger: messenger,
