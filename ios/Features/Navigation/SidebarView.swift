@@ -93,8 +93,12 @@ private class PreviewBinaryMessenger: NSObject, FlutterBinaryMessenger {
 }
 
 #Preview {
-  let vm = NavigationSplitViewModel(binaryMessenger: PreviewBinaryMessenger())
+  let messenger = PreviewBinaryMessenger()
+  let vm = NavigationSplitViewModel(binaryMessenger: messenger)
+  let syncVM = SyncViewModel(binaryMessenger: messenger)
   NavigationStack {
-    SidebarView().environmentObject(vm)
+    SidebarView()
+      .environmentObject(vm)
+      .environmentObject(syncVM)
   }
 }
