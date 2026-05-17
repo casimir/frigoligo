@@ -64,7 +64,7 @@ struct SidebarView: View {
           Image(systemName: "gear")
         }
       }
-      ToolbarItem(placement: .topBarTrailing) {
+      ToolbarItem(placement: .topBarLeading) {
         SyncIndicatorView()
       }
       ToolbarItem(placement: .topBarTrailing) {

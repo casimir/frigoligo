@@ -31,17 +31,6 @@ struct SyncIndicatorView: View {
         showDetail = true
       } label: {
         indicatorLabel
-          .overlay(alignment: .topTrailing) {
-            if state.pendingCount > 0 {
-              Text("\(state.pendingCount)")
-                .font(.caption2)
-                .bold()
-                .foregroundStyle(.white)
-                .padding(2)
-                .background(.red, in: Circle())
-                .offset(x: 6, y: -6)
-            }
-          }
       }
       .popover(isPresented: $showDetail) {
         SyncDetailView()
