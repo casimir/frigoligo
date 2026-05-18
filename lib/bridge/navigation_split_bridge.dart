@@ -38,7 +38,6 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
         .listen((json) {
           unawaited(_api.updateReadingSettings(_settingsFromJson(json)));
         });
-    SyncManager.instance.addListener(_onSyncState);
   }
 
   final ConfigStoreService _configStoreService;
@@ -64,18 +63,6 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
       fontSize: (map?['fontSize'] as num?)?.toDouble() ?? 16.0,
       fontFamily: (map?['fontFamily'] as String?) ?? 'Lato',
       justifyText: (map?['justifyText'] as bool?) ?? false,
-    );
-  }
-
-  void _onSyncState(SyncState state) {
-    unawaited(
-      _api.updateSyncState(
-        NavigationSyncState(
-          isWorking: state.isWorking,
-          progressValue: state.progressValue,
-          pendingCount: state.pendingCount,
-        ),
-      ),
     );
   }
 
@@ -236,7 +223,6 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
     _contentSubscription?.cancel();
     _dataSubscription?.cancel();
     _settingsSubscription?.cancel();
-    SyncManager.instance.removeListener(_onSyncState);
   }
 
   Future<void> _startContentStream(int id) async {

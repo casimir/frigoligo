@@ -105,14 +105,16 @@ void main() {
     }
   }
 
-  // Merge native (empty) entries with ARB entries, preserve extractionState.
+  // Merge native (empty) entries with ARB entries.
+  // ARB entries are always marked "manual" so Xcode never marks them stale and
+  // always compiles them into the binary (even when only the source-language
+  // translation exists, the English value is available as a runtime fallback).
   final allEntries = <String, dynamic>{
     ...nativeEntries,
     for (final e in strings.entries)
       e.key: {
         if (e.value.comment?.isNotEmpty == true) 'comment': e.value.comment,
-        if (preservedExtractionState[e.key] != null)
-          'extractionState': preservedExtractionState[e.key],
+        'extractionState': 'manual',
         'localizations': e.value.localizations,
       },
   };
