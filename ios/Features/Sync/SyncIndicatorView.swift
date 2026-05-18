@@ -68,24 +68,35 @@ struct SyncDetailView: View {
   private var state: SyncIndicatorState { syncViewModel.syncState }
 
   var body: some View {
-    VStack(alignment: .leading, spacing: 12) {
-      Text(statusDescription)
-        .font(.headline)
+    VStack(alignment: .leading, spacing: 16) {
+      HStack(alignment: .center, spacing: 10) {
+        statusIcon
+          .font(.title3)
+        Text(statusDescription)
+          .font(.headline)
+      }
 
-      Text(lastSyncText)
-        .font(.subheadline)
-        .foregroundStyle(.secondary)
+      Divider()
 
-      if state.pendingCount > 0 {
-        Text(String(format: String(localized: "%@ pending"), "\(state.pendingCount)"))
+      VStack(alignment: .leading, spacing: 6) {
+        Text(lastSyncText)
           .font(.subheadline)
           .foregroundStyle(.secondary)
+
+        if state.pendingCount > 0 {
+          Text(String(format: String(localized: "sync_pendingCount"), state.pendingCount))
+            .font(.subheadline)
+            .foregroundStyle(.secondary)
+        }
       }
 
       if let errorDetail = state.errorDetail {
         Text(errorDetail)
-          .font(.caption)
+          .font(.caption.monospaced())
           .foregroundStyle(.secondary)
+          .padding(8)
+          .frame(maxWidth: .infinity, alignment: .leading)
+          .background(.quaternary, in: RoundedRectangle(cornerRadius: 6))
       }
 
       switch state.status {
@@ -105,6 +116,27 @@ struct SyncDetailView: View {
     }
     .padding()
     .frame(minWidth: 260, alignment: .leading)
+  }
+
+  @ViewBuilder
+  private var statusIcon: some View {
+    switch state.status {
+    case .allGood:
+      Image(systemName: "checkmark.circle.fill")
+        .foregroundStyle(.green)
+    case .syncing:
+      Image(systemName: "arrow.triangle.2.circlepath")
+        .modifier(SpinningModifier())
+    case .noInternet:
+      Image(systemName: "wifi.slash")
+        .foregroundStyle(.orange)
+    case .serverUnreachable, .syncError:
+      Image(systemName: "exclamationmark.triangle.fill")
+        .foregroundStyle(.orange)
+    case .authFailure:
+      Image(systemName: "person.crop.circle.badge.exclamationmark")
+        .foregroundStyle(.red)
+    }
   }
 
   private var statusDescription: String {
