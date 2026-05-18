@@ -561,6 +561,11 @@ class AppLocalizationsGl extends AppLocalizations {
   }
 
   @override
+  String sync_pendingCount(int count) {
+    return '$count pending';
+  }
+
+  @override
   String get sync_retry => 'Retry';
 
   @override

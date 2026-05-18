@@ -948,6 +948,12 @@ abstract class AppLocalizations {
   /// **'Last synced {relativeTime}'**
   String sync_lastSynced(String relativeTime);
 
+  /// Sync detail: number of items waiting to sync.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} pending'**
+  String sync_pendingCount(int count);
+
   /// Sync detail action: retry a failed sync.
   ///
   /// In en, this message translates to:

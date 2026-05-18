@@ -648,6 +648,15 @@
       }
     }
   },
+  "sync_pendingCount": "{count} pending",
+  "@sync_pendingCount": {
+    "description": "Sync detail: number of items waiting to sync.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "sync_retry": "Retry",
   "@sync_retry": {
     "description": "Sync detail action: retry a failed sync."
