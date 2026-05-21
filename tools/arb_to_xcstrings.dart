@@ -86,6 +86,20 @@ void main() {
     }
   }
 
+  final allLocales = arbFiles.map((f) => _localeFromPath(f.path)).toList();
+
+  for (final stringEntry in strings.values) {
+    final en = stringEntry.localizations['en'];
+    if (en == null) continue;
+    final rebuilt = <String, Map<String, dynamic>>{};
+    for (final locale in allLocales) {
+      rebuilt[locale] = stringEntry.localizations[locale] ?? _deepCopyJson(en);
+    }
+    stringEntry.localizations
+      ..clear()
+      ..addAll(rebuilt);
+  }
+
   strings.removeWhere((_, v) => v.localizations.isEmpty);
 
   final Map<String, dynamic> nativeEntries = {};
@@ -145,6 +159,9 @@ void main() {
   outputFile.writeAsStringSync(json);
   print('Written ${outputFile.path} (${strings.length} strings)');
 }
+
+Map<String, dynamic> _deepCopyJson(Map<String, dynamic> m) =>
+    jsonDecode(jsonEncode(m)) as Map<String, dynamic>;
 
 String _localeFromPath(String path) =>
     (_localeFromPathRe.firstMatch(path)?.group(1) ?? 'en').replaceAll('_', '-');
