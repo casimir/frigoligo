@@ -77,6 +77,14 @@ struct SyncDetailView: View {
           .font(.headline)
       }
 
+      if state.status == .syncing {
+        if let progress = state.progressValue {
+          ProgressView(value: progress).progressViewStyle(.linear)
+        } else {
+          ProgressView().progressViewStyle(.linear)
+        }
+      }
+
       Divider()
 
       VStack(alignment: .leading, spacing: 6) {
@@ -246,6 +254,9 @@ private func previewSyncVM(
     VStack(alignment: .leading, spacing: 24) {
       Text("syncing, indeterminate").font(.caption).foregroundStyle(.secondary)
       SyncDetailView().environmentObject(previewSyncVM(status: .syncing))
+
+      Text("syncing, determinate (60%)").font(.caption).foregroundStyle(.secondary)
+      SyncDetailView().environmentObject(previewSyncVM(status: .syncing, progressValue: 0.6))
 
       Text("syncing + pending").font(.caption).foregroundStyle(.secondary)
       SyncDetailView()

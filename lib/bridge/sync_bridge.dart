@@ -11,6 +11,7 @@ class SyncBridge {
 
   final _api = SyncApi();
   SyncIndicatorStatus? _lastStatus;
+  double? _lastProgressValue;
 
   void _onSyncState(SyncState state) {
     final status = switch (state) {
@@ -20,8 +21,11 @@ class SyncBridge {
       _ when state.lastError != null => SyncIndicatorStatus.syncError,
       _ => SyncIndicatorStatus.allGood,
     };
-    if (status == _lastStatus && state.isWorking) return;
+    if (status == _lastStatus && state.progressValue == _lastProgressValue) {
+      return;
+    }
     _lastStatus = status;
+    _lastProgressValue = state.progressValue;
     unawaited(
       _api.updateSyncState(
         SyncIndicatorState(
