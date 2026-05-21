@@ -1,3 +1,4 @@
+import Flutter
 import SwiftUI
 
 private struct SpinningModifier: ViewModifier {
@@ -160,4 +161,120 @@ struct SyncDetailView: View {
     let relativeTime = formatter.localizedString(for: date, relativeTo: Date())
     return String(format: String(localized: "sync_lastSynced"), relativeTime)
   }
+}
+
+private class PreviewBinaryMessenger: NSObject, FlutterBinaryMessenger {
+  func send(onChannel channel: String, message: Data?) {}
+  func send(
+    onChannel channel: String,
+    message: Data?,
+    binaryReply callback: FlutterBinaryReply?
+  ) {}
+  func setMessageHandlerOnChannel(
+    _ channel: String,
+    binaryMessageHandler handler: FlutterBinaryMessageHandler?
+  ) -> FlutterBinaryMessengerConnection { 0 }
+  func cleanUpConnection(_ connection: FlutterBinaryMessengerConnection) {}
+}
+
+@MainActor
+private func previewSyncVM(
+  status: SyncIndicatorStatus,
+  progressValue: Double? = nil,
+  pendingCount: Int64 = 0,
+  lastSyncTimestamp: Int64? = nil,
+  errorDetail: String? = nil
+) -> SyncViewModel {
+  let vm = SyncViewModel(binaryMessenger: PreviewBinaryMessenger())
+  vm.syncState = SyncIndicatorState(
+    status: status,
+    progressValue: progressValue,
+    pendingCount: pendingCount,
+    lastSyncTimestamp: lastSyncTimestamp,
+    errorDetail: errorDetail
+  )
+  return vm
+}
+
+#Preview("Indicator icons") {
+  let navVM = NavigationSplitViewModel(binaryMessenger: PreviewBinaryMessenger())
+  VStack(spacing: 16) {
+    HStack {
+      Text("syncing (indeterminate)")
+      Spacer()
+      SyncIndicatorView().environmentObject(previewSyncVM(status: .syncing))
+    }
+    HStack {
+      Text("syncing (determinate)")
+      Spacer()
+      SyncIndicatorView().environmentObject(previewSyncVM(status: .syncing, progressValue: 0.6))
+    }
+    HStack {
+      Text("syncError + pending")
+      Spacer()
+      SyncIndicatorView().environmentObject(previewSyncVM(status: .syncError, pendingCount: 3))
+    }
+    HStack {
+      Text("noInternet")
+      Spacer()
+      SyncIndicatorView().environmentObject(previewSyncVM(status: .noInternet))
+    }
+    HStack {
+      Text("serverUnreachable")
+      Spacer()
+      SyncIndicatorView().environmentObject(previewSyncVM(status: .serverUnreachable))
+    }
+    HStack {
+      Text("syncError")
+      Spacer()
+      SyncIndicatorView().environmentObject(previewSyncVM(status: .syncError))
+    }
+    HStack {
+      Text("authFailure")
+      Spacer()
+      SyncIndicatorView().environmentObject(previewSyncVM(status: .authFailure))
+    }
+  }
+  .padding()
+  .environmentObject(navVM)
+}
+
+#Preview("Detail view") {
+  let navVM = NavigationSplitViewModel(binaryMessenger: PreviewBinaryMessenger())
+  let ts = Int64(Date().timeIntervalSince1970) - 3600
+  ScrollView {
+    VStack(alignment: .leading, spacing: 24) {
+      Text("syncing, indeterminate").font(.caption).foregroundStyle(.secondary)
+      SyncDetailView().environmentObject(previewSyncVM(status: .syncing))
+
+      Text("syncing + pending").font(.caption).foregroundStyle(.secondary)
+      SyncDetailView()
+        .environmentObject(previewSyncVM(status: .syncing, pendingCount: 3, lastSyncTimestamp: ts))
+
+      Text("noInternet, never synced").font(.caption).foregroundStyle(.secondary)
+      SyncDetailView().environmentObject(previewSyncVM(status: .noInternet))
+
+      Text("noInternet + last sync").font(.caption).foregroundStyle(.secondary)
+      SyncDetailView()
+        .environmentObject(previewSyncVM(status: .noInternet, lastSyncTimestamp: ts))
+
+      Text("serverUnreachable + error").font(.caption).foregroundStyle(.secondary)
+      SyncDetailView()
+        .environmentObject(
+          previewSyncVM(
+            status: .serverUnreachable, lastSyncTimestamp: ts, errorDetail: "Connection refused"))
+
+      Text("syncError + pending + error").font(.caption).foregroundStyle(.secondary)
+      SyncDetailView()
+        .environmentObject(
+          previewSyncVM(
+            status: .syncError, pendingCount: 3, lastSyncTimestamp: ts, errorDetail: "HTTP 500"))
+
+      Text("authFailure").font(.caption).foregroundStyle(.secondary)
+      SyncDetailView()
+        .environmentObject(previewSyncVM(status: .authFailure, lastSyncTimestamp: ts))
+    }
+    .padding()
+  }
+  .environmentObject(navVM)
 }
