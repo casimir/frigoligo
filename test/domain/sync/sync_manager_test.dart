@@ -10,6 +10,7 @@ import 'package:frigoligo/data/services/platform/appbadge_service.dart';
 import 'package:frigoligo/domain/models/server_session.dart';
 import 'package:frigoligo/domain/repositories.dart';
 import 'package:frigoligo/domain/sync/sync_manager.dart';
+import 'package:frigoligo/domain/types.dart';
 import 'package:frigoligo/server/clients.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -291,14 +292,27 @@ void main() {
       expect(syncManager.state.isAuthFailure, false);
       await remoteActionRepository.clear();
 
-      // ServerError with ClientException source: isNoInternet, no lastError
-      await syncManager.addAction(
+      // ServerError with ClientException source + no internet: isNoInternet, no lastError
+      await remoteActionRepository.clear();
+      final noInternetManager = SyncManager(
+        appBadgeService: appBadge,
+        configStoreService: configStore,
+        localStorageService: storage,
+        articleRepository: articleRepo,
+        remoteActionRepository: remoteActionRepository,
+        serverSessionRepository: sessionRepo,
+        clientFactory: () => mockApi,
+        reachabilityChecker: (_) async =>
+            (hasInternet: false, serverReachable: false),
+      );
+      await noInternetManager.addAction(
         const NoopAction('ERROR:ClientException:network error'),
       );
-      await syncManager.synchronize(withFinalRefresh: false);
-      expect(syncManager.state.lastError, null);
-      expect(syncManager.state.isNoInternet, true);
-      expect(syncManager.state.isWorking, false);
+      await noInternetManager.synchronize(withFinalRefresh: false);
+      expect(noInternetManager.state.lastError, null);
+      expect(noInternetManager.state.isNoInternet, true);
+      expect(noInternetManager.state.isServerUnreachable, false);
+      expect(noInternetManager.state.isWorking, false);
       await remoteActionRepository.clear();
 
       // Generic Exception should be captured
@@ -343,6 +357,60 @@ void main() {
       expect(await syncManager.getPendingCount(), 1);
       expect(syncManager.state.lastError, isA<ServerError>());
     });
+
+    test(
+      'ClientException with internet but unreachable server: isServerUnreachable',
+      () async {
+        final manager = SyncManager(
+          appBadgeService: appBadge,
+          configStoreService: configStore,
+          localStorageService: storage,
+          articleRepository: articleRepo,
+          remoteActionRepository: remoteActionRepository,
+          serverSessionRepository: sessionRepo,
+          clientFactory: () => mockApi,
+          reachabilityChecker: (_) async =>
+              (hasInternet: true, serverReachable: false),
+        );
+        await manager.addAction(
+          const NoopAction('ERROR:ClientException:connection refused'),
+        );
+        await manager.synchronize(withFinalRefresh: false);
+
+        expect(manager.state.lastError, null);
+        expect(manager.state.isNoInternet, false);
+        expect(manager.state.isServerUnreachable, true);
+        expect(manager.state.isWorking, false);
+        await remoteActionRepository.clear();
+      },
+    );
+
+    test(
+      'ClientException with both probes passing: falls through to syncError',
+      () async {
+        final manager = SyncManager(
+          appBadgeService: appBadge,
+          configStoreService: configStore,
+          localStorageService: storage,
+          articleRepository: articleRepo,
+          remoteActionRepository: remoteActionRepository,
+          serverSessionRepository: sessionRepo,
+          clientFactory: () => mockApi,
+          reachabilityChecker: (_) async =>
+              (hasInternet: true, serverReachable: true),
+        );
+        await manager.addAction(
+          const NoopAction('ERROR:ClientException:unexpected'),
+        );
+        await manager.synchronize(withFinalRefresh: false);
+
+        expect(manager.state.lastError, isA<ServerError>());
+        expect(manager.state.isNoInternet, false);
+        expect(manager.state.isServerUnreachable, false);
+        expect(manager.state.isWorking, false);
+        await remoteActionRepository.clear();
+      },
+    );
   });
 
   group('SyncState', () {
@@ -354,6 +422,7 @@ void main() {
         pendingCount: 3,
         isNoInternet: true,
         isAuthFailure: false,
+        isServerUnreachable: true,
         lastSyncTimestamp: 1000,
       );
 
@@ -364,13 +433,14 @@ void main() {
       expect(partial.pendingCount, 3);
       expect(partial.isNoInternet, true);
       expect(partial.isAuthFailure, false);
+      expect(partial.isServerUnreachable, true);
       expect(partial.lastSyncTimestamp, 1000);
 
       final error = Exception('test');
       final complete = original.copyWith(
         isWorking: false,
-        progressValue: 0.7,
-        lastError: error,
+        progressValue: const Some(0.7),
+        lastError: Some(error),
         pendingCount: 5,
       );
       expect(complete.isWorking, false);
