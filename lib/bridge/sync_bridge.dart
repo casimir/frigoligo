@@ -10,22 +10,16 @@ class SyncBridge {
   }
 
   final _api = SyncApi();
-  SyncIndicatorStatus? _lastStatus;
-  double? _lastProgressValue;
 
   void _onSyncState(SyncState state) {
     final status = switch (state) {
       _ when state.isWorking => SyncIndicatorStatus.syncing,
       _ when state.isNoInternet => SyncIndicatorStatus.noInternet,
+      _ when state.isServerUnreachable => SyncIndicatorStatus.serverUnreachable,
       _ when state.isAuthFailure => SyncIndicatorStatus.authFailure,
       _ when state.lastError != null => SyncIndicatorStatus.syncError,
       _ => SyncIndicatorStatus.allGood,
     };
-    if (status == _lastStatus && state.progressValue == _lastProgressValue) {
-      return;
-    }
-    _lastStatus = status;
-    _lastProgressValue = state.progressValue;
     unawaited(
       _api.updateSyncState(
         SyncIndicatorState(
