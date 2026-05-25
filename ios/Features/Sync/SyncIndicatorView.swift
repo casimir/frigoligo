@@ -38,6 +38,7 @@ struct SyncIndicatorView: View {
           .environmentObject(syncViewModel)
           .presentationDetents(sizeClass == .compact ? [.medium] : [])
       }
+      .onDisappear { showDetail = false }
     }
   }
 
