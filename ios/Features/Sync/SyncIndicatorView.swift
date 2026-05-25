@@ -21,6 +21,7 @@ private struct SpinningModifier: ViewModifier {
 
 struct SyncIndicatorView: View {
   @EnvironmentObject var syncViewModel: SyncViewModel
+  @EnvironmentObject var navViewModel: NavigationSplitViewModel
   @Environment(\.horizontalSizeClass) private var sizeClass
   @State private var showDetail = false
 
@@ -36,6 +37,7 @@ struct SyncIndicatorView: View {
       .popover(isPresented: $showDetail) {
         SyncDetailView()
           .environmentObject(syncViewModel)
+          .environmentObject(navViewModel)
           .presentationDetents(sizeClass == .compact ? [.medium] : [])
       }
       .onDisappear { showDetail = false }

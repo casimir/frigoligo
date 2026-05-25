@@ -117,17 +117,20 @@ func deepHashSettings(value: Any?, hasher: inout Hasher) {
 /// Generated class from Pigeon that represents data sent in messages.
 struct AppSettings: Hashable {
   var appBadge: Bool
+  var internetCheckUrl: String
   var tagSaveEnabled: Bool
   var tagSaveLabel: String
 
   // swift-format-ignore: AlwaysUseLowerCamelCase
   static func fromList(_ pigeonVar_list: [Any?]) -> AppSettings? {
     let appBadge = pigeonVar_list[0] as! Bool
-    let tagSaveEnabled = pigeonVar_list[1] as! Bool
-    let tagSaveLabel = pigeonVar_list[2] as! String
+    let internetCheckUrl = pigeonVar_list[1] as! String
+    let tagSaveEnabled = pigeonVar_list[2] as! Bool
+    let tagSaveLabel = pigeonVar_list[3] as! String
 
     return AppSettings(
       appBadge: appBadge,
+      internetCheckUrl: internetCheckUrl,
       tagSaveEnabled: tagSaveEnabled,
       tagSaveLabel: tagSaveLabel
     )
@@ -135,6 +138,7 @@ struct AppSettings: Hashable {
   func toList() -> [Any?] {
     return [
       appBadge,
+      internetCheckUrl,
       tagSaveEnabled,
       tagSaveLabel,
     ]

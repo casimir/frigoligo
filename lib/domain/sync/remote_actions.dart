@@ -331,6 +331,8 @@ class NoopAction extends RemoteAction {
 
       if (type == 'ServerError') {
         throw ServerError(message);
+      } else if (type == 'InvalidToken') {
+        throw ServerError(message, manuallyInvalidated: true);
       } else if (type.contains('ClientException')) {
         throw ServerError(message, source: ClientException(message));
       } else if (type == 'Error') {

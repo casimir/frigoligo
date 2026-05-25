@@ -20,16 +20,16 @@ final _log = Logger('sync.manager');
 const _refreshAction = RefreshArticlesAction();
 const autoSyncThrottleSeconds = 15 * 60;
 
-typedef ReachabilityChecker =
-    Future<({bool hasInternet, bool serverReachable})> Function(Uri serverUrl);
-
-Future<({bool hasInternet, bool serverReachable})> _defaultReachabilityCheck(
+Future<({bool hasInternet, bool serverReachable})> _reachabilityCheck(
+  ConfigStoreService configStoreService,
   Uri serverUrl,
 ) async {
-  if (!await probeInternet()) {
+  final rawUrl =
+      configStoreService.get<String>(Sk.internetCheckUrl.key) ??
+      Sk.internetCheckUrl.initial as String;
+  if (!await probeInternet(Uri.parse(rawUrl))) {
     return (hasInternet: false, serverReachable: false);
   }
-
   final client = Client();
   try {
     await client.head(serverUrl).timeout(const Duration(seconds: 5));
@@ -40,6 +40,9 @@ Future<({bool hasInternet, bool serverReachable})> _defaultReachabilityCheck(
     client.close();
   }
 }
+
+typedef ReachabilityChecker =
+    Future<({bool hasInternet, bool serverReachable})> Function(Uri serverUrl);
 
 class SyncState {
   const SyncState({
@@ -139,7 +142,10 @@ class SyncManager {
            (() => serverSessionRepository.createClient(
              userAgent: AppInfo.userAgent,
            )),
-       _reachabilityChecker = reachabilityChecker ?? _defaultReachabilityCheck,
+       _reachabilityChecker =
+           reachabilityChecker ??
+           ((Uri serverUrl) =>
+               _reachabilityCheck(configStoreService, serverUrl)),
        _state = const SyncState(
          isWorking: false,
          progressValue: null,
@@ -240,8 +246,7 @@ class SyncManager {
       }
 
       // new actions might be added while the current batch was processed
-      actionsCount += await getPendingCount();
-    } while (i < actionsCount);
+    } while (await getPendingCount() > 0);
 
     return res;
   }
@@ -273,6 +278,7 @@ class SyncManager {
         progressValue: null,
         lastError: null,
         pendingCount: await getPendingCount(),
+        lastSyncTimestamp: _state.lastSyncTimestamp,
       ),
     );
 

@@ -10,6 +10,7 @@ class SyncBridge {
   }
 
   final _api = SyncApi();
+  SyncIndicatorState? _lastSentState;
 
   void _onSyncState(SyncState state) {
     final status = switch (state) {
@@ -20,17 +21,16 @@ class SyncBridge {
       _ when state.lastError != null => SyncIndicatorStatus.syncError,
       _ => SyncIndicatorStatus.allGood,
     };
-    unawaited(
-      _api.updateSyncState(
-        SyncIndicatorState(
-          status: status,
-          progressValue: state.progressValue,
-          pendingCount: state.pendingCount,
-          lastSyncTimestamp: state.lastSyncTimestamp,
-          errorDetail: state.lastError?.toString(),
-        ),
-      ),
+    final newState = SyncIndicatorState(
+      status: status,
+      progressValue: state.progressValue,
+      pendingCount: state.pendingCount,
+      lastSyncTimestamp: state.lastSyncTimestamp,
+      errorDetail: state.lastError?.toString(),
     );
+    if (newState == _lastSentState) return;
+    _lastSentState = newState;
+    unawaited(_api.updateSyncState(newState));
   }
 
   void dispose() => SyncManager.instance.removeListener(_onSyncState);

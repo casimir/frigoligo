@@ -359,6 +359,21 @@ void main() {
     });
 
     test(
+      'ServerError with invalid token: isAuthFailure, lastError set',
+      () async {
+        await syncManager.addAction(
+          const NoopAction('ERROR:InvalidToken:token_expired'),
+        );
+        await syncManager.synchronize(withFinalRefresh: false);
+        expect(syncManager.state.isAuthFailure, true);
+        expect(syncManager.state.lastError, isA<ServerError>());
+        expect(syncManager.state.isNoInternet, false);
+        expect(syncManager.state.isServerUnreachable, false);
+        await remoteActionRepository.clear();
+      },
+    );
+
+    test(
       'ClientException with internet but unreachable server: isServerUnreachable',
       () async {
         final manager = SyncManager(

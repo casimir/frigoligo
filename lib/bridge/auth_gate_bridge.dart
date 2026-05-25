@@ -18,10 +18,7 @@ class AuthGateBridge {
 
   void _onSyncState(SyncState state) {
     final error = state.lastError;
-    if (error != null &&
-        error != _lastSyncError &&
-        error is ServerError &&
-        error.isInvalidTokenError) {
+    if (state.isAuthFailure && error != null && error != _lastSyncError) {
       _api.reauthRequired();
     }
     _lastSyncError = error;

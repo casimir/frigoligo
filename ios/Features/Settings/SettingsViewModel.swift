@@ -3,7 +3,11 @@ import Flutter
 @MainActor
 class SettingsViewModel: NSObject, ObservableObject, SettingsApi {
   @Published var appSettings: AppSettings = AppSettings(
-    appBadge: false, tagSaveEnabled: false, tagSaveLabel: "inbox")
+    appBadge: false,
+    internetCheckUrl: "https://one.one.one.one",
+    tagSaveEnabled: false,
+    tagSaveLabel: "inbox"
+  )
 
   private let flutterApi: SettingsFlutterApi
 

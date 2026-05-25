@@ -52,6 +52,7 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
   StreamSubscription<String?>? _contentSubscription;
   StreamSubscription<ArticleRowData?>? _dataSubscription;
   StreamSubscription<dynamic>? _settingsSubscription;
+  int? _currentArticleId;
 
   static ArticleReadingSettings _settingsFromJson(dynamic json) {
     final map = switch (json) {
@@ -198,7 +199,9 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
 
   @override
   Future<void> onArticleSelected(int id) async {
+    _currentArticleId = id;
     await _contentSubscription?.cancel();
+    _contentSubscription = null;
     await _dataSubscription?.cancel();
     await _api.updateArticleContent(
       ArticleContent(id: id, html: null, readingProgress: 0.0),
@@ -227,6 +230,7 @@ class NavigationSplitBridge implements NavigationSplitFlutterApi {
 
   Future<void> _startContentStream(int id) async {
     final progress = await _articleRepository.watchReadingProgress(id).first;
+    if (_currentArticleId != id) return;
     _contentSubscription = _articleRepository.watchContent(id).listen((html) {
       unawaited(
         _api.updateArticleContent(

@@ -41,6 +41,16 @@ struct SettingsView: View {
             Label(
               String(localized: "settings_itemLogConsole"), systemImage: "doc.text.magnifyingglass")
           }
+          LabeledContent("Internet check URL") {
+            TextField(
+              "https://one.one.one.one",
+              text: binding(\.internetCheckUrl, with: { $0.with(internetCheckUrl: $1) })
+            )
+            .keyboardType(.URL)
+            .textInputAutocapitalization(.never)
+            .autocorrectionDisabled()
+            .multilineTextAlignment(.trailing)
+          }
           Button(String(localized: "settings_itemClearCache")) {
             showClearCacheConfirm = true
           }
@@ -117,11 +127,13 @@ struct SettingsView: View {
 extension AppSettings {
   fileprivate func with(
     appBadge: Bool? = nil,
+    internetCheckUrl: String? = nil,
     tagSaveEnabled: Bool? = nil,
     tagSaveLabel: String? = nil
   ) -> AppSettings {
     AppSettings(
       appBadge: appBadge ?? self.appBadge,
+      internetCheckUrl: internetCheckUrl ?? self.internetCheckUrl,
       tagSaveEnabled: tagSaveEnabled ?? self.tagSaveEnabled,
       tagSaveLabel: tagSaveLabel ?? self.tagSaveLabel
     )

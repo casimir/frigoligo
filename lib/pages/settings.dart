@@ -287,6 +287,28 @@ class SettingsPage extends ConsumerWidget {
                         .read(settingsProvider.notifier)
                         .set(Sk.nativeArticleRenderer, value),
                   ),
+                SettingsTile.navigation(
+                  leading: const Icon(Icons.dns),
+                  title: const Text('Internet check URL'),
+                  value: Text(settings[Sk.internetCheckUrl]),
+                  onPressed: (context) async {
+                    final result = await showTextInputDialog(
+                      context: context,
+                      textFields: [
+                        DialogTextField(
+                          keyboardType: TextInputType.url,
+                          autocorrect: false,
+                          initialText: settings[Sk.internetCheckUrl],
+                        ),
+                      ],
+                    );
+                    if (result != null) {
+                      await ref
+                          .read(settingsProvider.notifier)
+                          .set(Sk.internetCheckUrl, result.first);
+                    }
+                  },
+                ),
               ],
             ),
           ],

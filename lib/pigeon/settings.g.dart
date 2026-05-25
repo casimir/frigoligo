@@ -50,18 +50,21 @@ bool _deepEquals(Object? a, Object? b) {
 class AppSettings {
   AppSettings({
     required this.appBadge,
+    required this.internetCheckUrl,
     required this.tagSaveEnabled,
     required this.tagSaveLabel,
   });
 
   bool appBadge;
 
+  String internetCheckUrl;
+
   bool tagSaveEnabled;
 
   String tagSaveLabel;
 
   List<Object?> _toList() {
-    return <Object?>[appBadge, tagSaveEnabled, tagSaveLabel];
+    return <Object?>[appBadge, internetCheckUrl, tagSaveEnabled, tagSaveLabel];
   }
 
   Object encode() {
@@ -72,8 +75,9 @@ class AppSettings {
     result as List<Object?>;
     return AppSettings(
       appBadge: result[0]! as bool,
-      tagSaveEnabled: result[1]! as bool,
-      tagSaveLabel: result[2]! as String,
+      internetCheckUrl: result[1]! as String,
+      tagSaveEnabled: result[2]! as bool,
+      tagSaveLabel: result[3]! as String,
     );
   }
 
