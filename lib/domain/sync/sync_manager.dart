@@ -9,7 +9,6 @@ import '../../providers/settings.dart';
 import '../../server/clients.dart';
 import '../client_factory.dart';
 import '../repositories.dart';
-import '../types.dart';
 import 'internet_probe_web.dart' if (dart.library.io) 'internet_probe_io.dart';
 import 'remote_actions.dart';
 
@@ -104,14 +103,18 @@ class SyncManager {
   static late SyncManager _instance;
   static SyncManager get instance => _instance;
 
-  static void init({
+  static Future<void> init({
     required AppBadgeService appBadgeService,
     required ConfigStoreService configStoreService,
     required LocalStorageService localStorageService,
     required ArticleRepository articleRepository,
     required RemoteActionRepository remoteActionRepository,
     required ServerSessionRepository serverSessionRepository,
-  }) {
+  }) async {
+    // Read last sync timestamp from storage
+    final lastSyncTimestamp = await localStorageService.metadata
+        .getLastSyncTS();
+
     _instance = SyncManager(
       appBadgeService: appBadgeService,
       configStoreService: configStoreService,
@@ -119,6 +122,7 @@ class SyncManager {
       articleRepository: articleRepository,
       remoteActionRepository: remoteActionRepository,
       serverSessionRepository: serverSessionRepository,
+      lastSyncTimestamp: lastSyncTimestamp,
     );
   }
 
@@ -129,6 +133,7 @@ class SyncManager {
     required ArticleRepository articleRepository,
     required RemoteActionRepository remoteActionRepository,
     required ServerSessionRepository serverSessionRepository,
+    int? lastSyncTimestamp,
     ApiClient Function()? clientFactory,
     ReachabilityChecker? reachabilityChecker,
   }) : _appBadgeService = appBadgeService,
@@ -146,11 +151,12 @@ class SyncManager {
            reachabilityChecker ??
            ((Uri serverUrl) =>
                _reachabilityCheck(configStoreService, serverUrl)),
-       _state = const SyncState(
+       _state = SyncState(
          isWorking: false,
          progressValue: null,
          lastError: null,
          pendingCount: 0,
+         lastSyncTimestamp: lastSyncTimestamp,
        );
 
   final AppBadgeService _appBadgeService;

@@ -62,10 +62,10 @@ void main() {
     late DB db;
     late MockArticleScreenController mockController;
 
-    setUp(() {
+    setUp(() async {
       db = DB(inMemory());
       setupDependencies(withDB: db);
-      SyncManager.init(
+      await SyncManager.init(
         appBadgeService: dependencies.get(),
         configStoreService: dependencies.get(),
         localStorageService: dependencies.get(),

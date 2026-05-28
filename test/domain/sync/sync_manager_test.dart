@@ -144,13 +144,13 @@ void main() {
   group('initialization', () {
     test(
       'should initialize with default state and support singleton pattern',
-      () {
+      () async {
         expect(syncManager.state.isWorking, false);
         expect(syncManager.state.progressValue, null);
         expect(syncManager.state.lastError, null);
         expect(syncManager.state.pendingCount, 0);
 
-        SyncManager.init(
+        await SyncManager.init(
           appBadgeService: appBadge,
           configStoreService: configStore,
           localStorageService: storage,
