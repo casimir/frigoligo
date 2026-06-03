@@ -21,13 +21,6 @@ class ArticleRowData {
   late String url;
 }
 
-/// Sync progress state for the toolbar indicator.
-class NavigationSyncState {
-  late bool isWorking;
-  double? progressValue; // null = indeterminate
-  late int pendingCount;
-}
-
 enum NavigationSearchTextMode { all, title, content }
 
 enum NavigationStateFilter { all, unread, archived }
@@ -57,11 +50,10 @@ class ArticleContent {
   double readingProgress;
 }
 
-/// Pushes updated list/sync/filter state into the native sidebar.
+/// Pushes updated list/filter state into the native sidebar.
 @HostApi()
 abstract class NavigationSplitApi {
   void updateArticleIds(List<int> ids);
-  void updateSyncState(NavigationSyncState state);
   void updateFilterState(NavigationFilterState state);
   void updateArticleContent(ArticleContent content);
   void updateArticleData(ArticleRowData data);

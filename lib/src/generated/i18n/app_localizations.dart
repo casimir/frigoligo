@@ -798,11 +798,23 @@ abstract class AppLocalizations {
   /// **'The local cache will be deleted and fetched again from the server.'**
   String get settings_clearCacheMessage;
 
+  /// The submenu holding advanced/diagnostic settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced'**
+  String get settings_itemAdvanced;
+
   /// Settings for the appearance of the application.
   ///
   /// In en, this message translates to:
   /// **'Appearance'**
   String get settings_itemAppearance;
+
+  /// The URL pinged to detect internet connectivity.
+  ///
+  /// In en, this message translates to:
+  /// **'Internet check URL'**
+  String get settings_itemInternetCheckUrl;
 
   /// The action to display the about screen.
   ///
@@ -899,6 +911,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count, plural, =1{1 action} other{{count} actions}}'**
   String syncer_pendingActions(int count);
+
+  /// Sync indicator status: everything is synced.
+  ///
+  /// In en, this message translates to:
+  /// **'Up to date'**
+  String get sync_statusAllGood;
+
+  /// Sync indicator status: sync in progress.
+  ///
+  /// In en, this message translates to:
+  /// **'Syncing…'**
+  String get sync_statusSyncing;
+
+  /// Sync indicator status: device is offline.
+  ///
+  /// In en, this message translates to:
+  /// **'No internet connection'**
+  String get sync_statusNoInternet;
+
+  /// Sync indicator status: server could not be reached.
+  ///
+  /// In en, this message translates to:
+  /// **'Server unreachable'**
+  String get sync_statusServerUnreachable;
+
+  /// Sync indicator status: an error occurred during sync.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync error'**
+  String get sync_statusError;
+
+  /// Sync indicator status: credentials need to be refreshed.
+  ///
+  /// In en, this message translates to:
+  /// **'Authentication required'**
+  String get sync_statusAuthFailure;
+
+  /// Sync indicator: shown when no sync has ever completed.
+  ///
+  /// In en, this message translates to:
+  /// **'Never synced'**
+  String get sync_neverSynced;
+
+  /// Sync indicator: relative time of last successful sync.
+  ///
+  /// In en, this message translates to:
+  /// **'Last synced {relativeTime}'**
+  String sync_lastSynced(String relativeTime);
+
+  /// Sync detail: number of items waiting to sync.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} pending'**
+  String sync_pendingCount(int count);
+
+  /// Sync detail action: retry a failed sync.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get sync_retry;
+
+  /// Sync detail action: open settings to re-authenticate.
+  ///
+  /// In en, this message translates to:
+  /// **'Open settings'**
+  String get sync_openSettings;
 }
 
 class _AppLocalizationsDelegate

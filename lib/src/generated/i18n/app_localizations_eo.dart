@@ -469,7 +469,13 @@ class AppLocalizationsEo extends AppLocalizations {
       'La loka kaŝmemoro estos forigita kaj denove elŝutita de la servilo.';
 
   @override
+  String get settings_itemAdvanced => 'Advanced';
+
+  @override
   String get settings_itemAppearance => 'Aspekto';
+
+  @override
+  String get settings_itemInternetCheckUrl => 'Internet check URL';
 
   @override
   String get settings_itemAbout => 'Pri-paĝo';
@@ -533,4 +539,41 @@ class AppLocalizationsEo extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get sync_statusAllGood => 'Up to date';
+
+  @override
+  String get sync_statusSyncing => 'Syncing…';
+
+  @override
+  String get sync_statusNoInternet => 'No internet connection';
+
+  @override
+  String get sync_statusServerUnreachable => 'Server unreachable';
+
+  @override
+  String get sync_statusError => 'Sync error';
+
+  @override
+  String get sync_statusAuthFailure => 'Authentication required';
+
+  @override
+  String get sync_neverSynced => 'Never synced';
+
+  @override
+  String sync_lastSynced(String relativeTime) {
+    return 'Last synced $relativeTime';
+  }
+
+  @override
+  String sync_pendingCount(int count) {
+    return '$count pending';
+  }
+
+  @override
+  String get sync_retry => 'Retry';
+
+  @override
+  String get sync_openSettings => 'Open settings';
 }

@@ -29,17 +29,11 @@ struct SettingsView: View {
         }
 
         Section {
-          NavigationLink {
+          NavigationLink(String(localized: "settings_itemSessionDetails")) {
             SessionDetailsView()
-          } label: {
-            Label(
-              String(localized: "settings_itemSessionDetails"), systemImage: "person.crop.circle")
           }
-          NavigationLink {
+          NavigationLink(String(localized: "settings_itemLogConsole")) {
             LogConsoleView()
-          } label: {
-            Label(
-              String(localized: "settings_itemLogConsole"), systemImage: "doc.text.magnifyingglass")
           }
           Button(String(localized: "settings_itemClearCache")) {
             showClearCacheConfirm = true
@@ -47,21 +41,38 @@ struct SettingsView: View {
         }
 
         Section {
-          NavigationLink {
+          NavigationLink(String(localized: "settings_itemLicenses")) {
             LicensesView()
-          } label: {
-            Label(String(localized: "settings_itemLicenses"), systemImage: "doc.plaintext")
           }
           Link(destination: URL(string: "https://github.com/casimir/frigoligo")!) {
-            Label(
-              String(localized: "g_sourceCode"),
-              systemImage: "chevron.left.forwardslash.chevron.right")
+            LabeledContent {
+              Image(systemName: "arrow.up.right.square").foregroundStyle(.secondary)
+            } label: {
+              Text(String(localized: "g_sourceCode"))
+            }
           }
+          .foregroundStyle(.primary)
           Link(destination: URL(string: "https://github.com/casimir/frigoligo/issues")!) {
-            Label(String(localized: "settings_bugReportLink"), systemImage: "ant")
+            LabeledContent {
+              Image(systemName: "arrow.up.right.square").foregroundStyle(.secondary)
+            } label: {
+              Text(String(localized: "settings_bugReportLink"))
+            }
           }
+          .foregroundStyle(.primary)
           Link(destination: URL(string: "https://hosted.weblate.org/projects/frigoligo/")!) {
-            Label(String(localized: "settings_helpToTranslate"), systemImage: "globe")
+            LabeledContent {
+              Image(systemName: "arrow.up.right.square").foregroundStyle(.secondary)
+            } label: {
+              Text(String(localized: "settings_helpToTranslate"))
+            }
+          }
+          .foregroundStyle(.primary)
+        }
+
+        Section {
+          NavigationLink(String(localized: "settings_itemAdvanced")) {
+            AdvancedSettingsView()
           }
         }
 
@@ -111,19 +122,5 @@ struct SettingsView: View {
     let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "-"
     let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "-"
     return "\(version) (\(build))"
-  }
-}
-
-extension AppSettings {
-  fileprivate func with(
-    appBadge: Bool? = nil,
-    tagSaveEnabled: Bool? = nil,
-    tagSaveLabel: String? = nil
-  ) -> AppSettings {
-    AppSettings(
-      appBadge: appBadge ?? self.appBadge,
-      tagSaveEnabled: tagSaveEnabled ?? self.tagSaveEnabled,
-      tagSaveLabel: tagSaveLabel ?? self.tagSaveLabel
-    )
   }
 }

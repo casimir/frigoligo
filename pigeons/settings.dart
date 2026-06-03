@@ -10,6 +10,7 @@ import 'package:pigeon/pigeon.dart';
 )
 class AppSettings {
   late bool appBadge;
+  late String internetCheckUrl;
   late bool tagSaveEnabled;
   late String tagSaveLabel;
 }

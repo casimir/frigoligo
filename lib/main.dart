@@ -70,7 +70,7 @@ Future<void> _commonSetup(String loggerName) async {
   }
   await Settings.init();
 
-  SyncManager.init(
+  await SyncManager.init(
     appBadgeService: dependencies.get(),
     configStoreService: dependencies.get(),
     localStorageService: dependencies.get(),
@@ -182,7 +182,7 @@ Future<void> mainNativeShare() async {
   await AppInfo.init();
   await Settings.init();
 
-  SyncManager.init(
+  await SyncManager.init(
     appBadgeService: dependencies.get(),
     configStoreService: dependencies.get(),
     localStorageService: dependencies.get(),

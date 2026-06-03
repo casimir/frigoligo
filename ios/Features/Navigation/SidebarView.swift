@@ -25,9 +25,15 @@ struct SidebarView: View {
       prompt: String(localized: "filters_searchbarHint")
     )
     .searchScopes($searchScope) {
-      Text(String(localized: "filters_searchModeAll")).tag(NavigationSearchTextMode.all)
-      Text(String(localized: "filters_searchModeTitle")).tag(NavigationSearchTextMode.title)
-      Text(String(localized: "filters_searchModeContent")).tag(NavigationSearchTextMode.content)
+      Text(String(localized: "filters_searchModeAll")).tag(
+        NavigationSearchTextMode.all
+      )
+      Text(String(localized: "filters_searchModeTitle")).tag(
+        NavigationSearchTextMode.title
+      )
+      Text(String(localized: "filters_searchModeContent")).tag(
+        NavigationSearchTextMode.content
+      )
     }
     .onChange(of: searchText) { newValue in
       viewModel.setSearchText(newValue)
@@ -49,19 +55,23 @@ struct SidebarView: View {
       SaveLinkView().environmentObject(viewModel)
     }
     .navigationTitle("Articles")
+    .navigationBarTitleDisplayMode(.inline)
     .toolbar {
-      ToolbarItem(placement: .navigationBarTrailing) {
-        Button {
-          viewModel.openSaveLink()
-        } label: {
-          Image(systemName: "plus")
-        }
-      }
-      ToolbarItem(placement: .navigationBarTrailing) {
+      ToolbarItem(placement: .topBarLeading) {
         Button {
           viewModel.openSettings()
         } label: {
           Image(systemName: "gear")
+        }
+      }
+      ToolbarItem(placement: .topBarLeading) {
+        SyncIndicatorView()
+      }
+      ToolbarItem(placement: .topBarTrailing) {
+        Button {
+          viewModel.openSaveLink()
+        } label: {
+          Image(systemName: "plus")
         }
       }
     }
@@ -70,16 +80,25 @@ struct SidebarView: View {
 
 private class PreviewBinaryMessenger: NSObject, FlutterBinaryMessenger {
   func send(onChannel channel: String, message: Data?) {}
-  func send(onChannel channel: String, message: Data?, binaryReply callback: FlutterBinaryReply?) {}
+  func send(
+    onChannel channel: String,
+    message: Data?,
+    binaryReply callback: FlutterBinaryReply?
+  ) {}
   func setMessageHandlerOnChannel(
-    _ channel: String, binaryMessageHandler handler: FlutterBinaryMessageHandler?
+    _ channel: String,
+    binaryMessageHandler handler: FlutterBinaryMessageHandler?
   ) -> FlutterBinaryMessengerConnection { 0 }
   func cleanUpConnection(_ connection: FlutterBinaryMessengerConnection) {}
 }
 
 #Preview {
-  let vm = NavigationSplitViewModel(binaryMessenger: PreviewBinaryMessenger())
+  let messenger = PreviewBinaryMessenger()
+  let vm = NavigationSplitViewModel(binaryMessenger: messenger)
+  let syncVM = SyncViewModel(binaryMessenger: messenger)
   NavigationStack {
-    SidebarView().environmentObject(vm)
+    SidebarView()
+      .environmentObject(vm)
+      .environmentObject(syncVM)
   }
 }

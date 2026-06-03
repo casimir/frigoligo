@@ -261,6 +261,7 @@ class Settings extends _$Settings {
 // Settings Keys
 enum Sk {
   appBadge('appBadge', false),
+  internetCheckUrl('internetCheckUrl', 'https://one.one.one.one'),
   language('locale', Language.system, EnumCodec(Language.values)),
   nativeArticleRenderer('nativeArticleRenderer', true),
   readingSettings('readingSettings', Object()),

@@ -2,7 +2,6 @@
 import '../domain/repositories.dart';
 import '../domain/sync/sync_manager.dart';
 import '../pigeon/auth_gate.g.dart';
-import '../server/clients.dart';
 
 class AuthGateBridge {
   static final _api = AuthGateApi();
@@ -18,10 +17,7 @@ class AuthGateBridge {
 
   void _onSyncState(SyncState state) {
     final error = state.lastError;
-    if (error != null &&
-        error != _lastSyncError &&
-        error is ServerError &&
-        error.isInvalidTokenError) {
+    if (state.isAuthFailure && error != null && error != _lastSyncError) {
       _api.reauthRequired();
     }
     _lastSyncError = error;

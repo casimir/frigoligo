@@ -20,7 +20,7 @@ void main() {
     setUp(() async {
       db = DB(inMemory());
       setupDependencies(withDB: db);
-      SyncManager.init(
+      await SyncManager.init(
         appBadgeService: dependencies.get(),
         configStoreService: dependencies.get(),
         localStorageService: dependencies.get(),

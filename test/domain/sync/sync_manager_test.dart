@@ -10,6 +10,7 @@ import 'package:frigoligo/data/services/platform/appbadge_service.dart';
 import 'package:frigoligo/domain/models/server_session.dart';
 import 'package:frigoligo/domain/repositories.dart';
 import 'package:frigoligo/domain/sync/sync_manager.dart';
+import 'package:frigoligo/domain/types.dart';
 import 'package:frigoligo/server/clients.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -143,13 +144,13 @@ void main() {
   group('initialization', () {
     test(
       'should initialize with default state and support singleton pattern',
-      () {
+      () async {
         expect(syncManager.state.isWorking, false);
         expect(syncManager.state.progressValue, null);
         expect(syncManager.state.lastError, null);
         expect(syncManager.state.pendingCount, 0);
 
-        SyncManager.init(
+        await SyncManager.init(
           appBadgeService: appBadge,
           configStoreService: configStore,
           localStorageService: storage,
@@ -287,21 +288,38 @@ void main() {
       expect(syncManager.state.lastError, isA<ServerError>());
       expect(syncManager.state.lastError.toString(), contains('test error'));
       expect(syncManager.state.isWorking, false);
+      expect(syncManager.state.isNoInternet, false);
+      expect(syncManager.state.isAuthFailure, false);
       await remoteActionRepository.clear();
 
-      // ServerError with ClientException source should NOT be captured
-      await syncManager.addAction(
+      // ServerError with ClientException source + no internet: isNoInternet, no lastError
+      await remoteActionRepository.clear();
+      final noInternetManager = SyncManager(
+        appBadgeService: appBadge,
+        configStoreService: configStore,
+        localStorageService: storage,
+        articleRepository: articleRepo,
+        remoteActionRepository: remoteActionRepository,
+        serverSessionRepository: sessionRepo,
+        clientFactory: () => mockApi,
+        reachabilityChecker: (_) async =>
+            (hasInternet: false, serverReachable: false),
+      );
+      await noInternetManager.addAction(
         const NoopAction('ERROR:ClientException:network error'),
       );
-      await syncManager.synchronize(withFinalRefresh: false);
-      expect(syncManager.state.lastError, null);
-      expect(syncManager.state.isWorking, false);
+      await noInternetManager.synchronize(withFinalRefresh: false);
+      expect(noInternetManager.state.lastError, null);
+      expect(noInternetManager.state.isNoInternet, true);
+      expect(noInternetManager.state.isServerUnreachable, false);
+      expect(noInternetManager.state.isWorking, false);
       await remoteActionRepository.clear();
 
       // Generic Exception should be captured
       await syncManager.addAction(NoopAction.error(Exception('generic error')));
       await syncManager.synchronize(withFinalRefresh: false);
       expect(syncManager.state.lastError, isA<Exception>());
+      expect(syncManager.state.isNoInternet, false);
       expect(syncManager.state.isWorking, false);
     });
 
@@ -339,15 +357,88 @@ void main() {
       expect(await syncManager.getPendingCount(), 1);
       expect(syncManager.state.lastError, isA<ServerError>());
     });
+
+    test(
+      'ServerError with invalid token: isAuthFailure, lastError set',
+      () async {
+        await syncManager.addAction(
+          const NoopAction('ERROR:InvalidToken:token_expired'),
+        );
+        await syncManager.synchronize(withFinalRefresh: false);
+        expect(syncManager.state.isAuthFailure, true);
+        expect(syncManager.state.lastError, isA<ServerError>());
+        expect(syncManager.state.isNoInternet, false);
+        expect(syncManager.state.isServerUnreachable, false);
+        await remoteActionRepository.clear();
+      },
+    );
+
+    test(
+      'ClientException with internet but unreachable server: isServerUnreachable',
+      () async {
+        final manager = SyncManager(
+          appBadgeService: appBadge,
+          configStoreService: configStore,
+          localStorageService: storage,
+          articleRepository: articleRepo,
+          remoteActionRepository: remoteActionRepository,
+          serverSessionRepository: sessionRepo,
+          clientFactory: () => mockApi,
+          reachabilityChecker: (_) async =>
+              (hasInternet: true, serverReachable: false),
+        );
+        await manager.addAction(
+          const NoopAction('ERROR:ClientException:connection refused'),
+        );
+        await manager.synchronize(withFinalRefresh: false);
+
+        expect(manager.state.lastError, null);
+        expect(manager.state.isNoInternet, false);
+        expect(manager.state.isServerUnreachable, true);
+        expect(manager.state.isWorking, false);
+        await remoteActionRepository.clear();
+      },
+    );
+
+    test(
+      'ClientException with both probes passing: falls through to syncError',
+      () async {
+        final manager = SyncManager(
+          appBadgeService: appBadge,
+          configStoreService: configStore,
+          localStorageService: storage,
+          articleRepository: articleRepo,
+          remoteActionRepository: remoteActionRepository,
+          serverSessionRepository: sessionRepo,
+          clientFactory: () => mockApi,
+          reachabilityChecker: (_) async =>
+              (hasInternet: true, serverReachable: true),
+        );
+        await manager.addAction(
+          const NoopAction('ERROR:ClientException:unexpected'),
+        );
+        await manager.synchronize(withFinalRefresh: false);
+
+        expect(manager.state.lastError, isA<ServerError>());
+        expect(manager.state.isNoInternet, false);
+        expect(manager.state.isServerUnreachable, false);
+        expect(manager.state.isWorking, false);
+        await remoteActionRepository.clear();
+      },
+    );
   });
 
   group('SyncState', () {
-    test('copyWith should update selectively', () {
+    test('copyWith should update selectively and preserve extra fields', () {
       const original = SyncState(
         isWorking: true,
         progressValue: 0.5,
         lastError: null,
         pendingCount: 3,
+        isNoInternet: true,
+        isAuthFailure: false,
+        isServerUnreachable: true,
+        lastSyncTimestamp: 1000,
       );
 
       final partial = original.copyWith(isWorking: false);
@@ -355,18 +446,25 @@ void main() {
       expect(partial.progressValue, 0.5);
       expect(partial.lastError, null);
       expect(partial.pendingCount, 3);
+      expect(partial.isNoInternet, true);
+      expect(partial.isAuthFailure, false);
+      expect(partial.isServerUnreachable, true);
+      expect(partial.lastSyncTimestamp, 1000);
 
       final error = Exception('test');
       final complete = original.copyWith(
         isWorking: false,
-        progressValue: 0.7,
-        lastError: error,
+        progressValue: const Some(0.7),
+        lastError: Some(error),
         pendingCount: 5,
       );
       expect(complete.isWorking, false);
       expect(complete.progressValue, 0.7);
       expect(complete.lastError, error);
       expect(complete.pendingCount, 5);
+      expect(complete.isNoInternet, true);
+      expect(complete.isAuthFailure, false);
+      expect(complete.lastSyncTimestamp, 1000);
     });
   });
 

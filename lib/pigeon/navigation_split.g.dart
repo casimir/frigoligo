@@ -133,54 +133,6 @@ class ArticleRowData {
   int get hashCode => Object.hashAll(_toList());
 }
 
-/// Sync progress state for the toolbar indicator.
-class NavigationSyncState {
-  NavigationSyncState({
-    required this.isWorking,
-    this.progressValue,
-    required this.pendingCount,
-  });
-
-  bool isWorking;
-
-  double? progressValue;
-
-  int pendingCount;
-
-  List<Object?> _toList() {
-    return <Object?>[isWorking, progressValue, pendingCount];
-  }
-
-  Object encode() {
-    return _toList();
-  }
-
-  static NavigationSyncState decode(Object result) {
-    result as List<Object?>;
-    return NavigationSyncState(
-      isWorking: result[0]! as bool,
-      progressValue: result[1] as double?,
-      pendingCount: result[2]! as int,
-    );
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  bool operator ==(Object other) {
-    if (other is! NavigationSyncState || other.runtimeType != runtimeType) {
-      return false;
-    }
-    if (identical(this, other)) {
-      return true;
-    }
-    return _deepEquals(encode(), other.encode());
-  }
-
-  @override
-  // ignore: avoid_equals_and_hash_code_on_mutable_classes
-  int get hashCode => Object.hashAll(_toList());
-}
-
 /// Mirrors the Query domain model for active filter state.
 class NavigationFilterState {
   NavigationFilterState({
@@ -349,17 +301,14 @@ class _PigeonCodec extends StandardMessageCodec {
     } else if (value is ArticleRowData) {
       buffer.putUint8(131);
       writeValue(buffer, value.encode());
-    } else if (value is NavigationSyncState) {
+    } else if (value is NavigationFilterState) {
       buffer.putUint8(132);
       writeValue(buffer, value.encode());
-    } else if (value is NavigationFilterState) {
+    } else if (value is ArticleReadingSettings) {
       buffer.putUint8(133);
       writeValue(buffer, value.encode());
-    } else if (value is ArticleReadingSettings) {
-      buffer.putUint8(134);
-      writeValue(buffer, value.encode());
     } else if (value is ArticleContent) {
-      buffer.putUint8(135);
+      buffer.putUint8(134);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -378,12 +327,10 @@ class _PigeonCodec extends StandardMessageCodec {
       case 131:
         return ArticleRowData.decode(readValue(buffer)!);
       case 132:
-        return NavigationSyncState.decode(readValue(buffer)!);
-      case 133:
         return NavigationFilterState.decode(readValue(buffer)!);
-      case 134:
+      case 133:
         return ArticleReadingSettings.decode(readValue(buffer)!);
-      case 135:
+      case 134:
         return ArticleContent.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
@@ -391,7 +338,7 @@ class _PigeonCodec extends StandardMessageCodec {
   }
 }
 
-/// Pushes updated list/sync/filter state into the native sidebar.
+/// Pushes updated list/filter state into the native sidebar.
 class NavigationSplitApi {
   /// Constructor for [NavigationSplitApi].  The [binaryMessenger] named argument is
   /// available for dependency injection.  If it is left null, the default
@@ -420,33 +367,6 @@ class NavigationSplitApi {
         );
     final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
       <Object?>[ids],
-    );
-    final List<Object?>? pigeonVar_replyList =
-        await pigeonVar_sendFuture as List<Object?>?;
-    if (pigeonVar_replyList == null) {
-      throw _createConnectionError(pigeonVar_channelName);
-    } else if (pigeonVar_replyList.length > 1) {
-      throw PlatformException(
-        code: pigeonVar_replyList[0]! as String,
-        message: pigeonVar_replyList[1] as String?,
-        details: pigeonVar_replyList[2],
-      );
-    } else {
-      return;
-    }
-  }
-
-  Future<void> updateSyncState(NavigationSyncState state) async {
-    final String pigeonVar_channelName =
-        'dev.flutter.pigeon.frigoligo.NavigationSplitApi.updateSyncState$pigeonVar_messageChannelSuffix';
-    final BasicMessageChannel<Object?> pigeonVar_channel =
-        BasicMessageChannel<Object?>(
-          pigeonVar_channelName,
-          pigeonChannelCodec,
-          binaryMessenger: pigeonVar_binaryMessenger,
-        );
-    final Future<Object?> pigeonVar_sendFuture = pigeonVar_channel.send(
-      <Object?>[state],
     );
     final List<Object?>? pigeonVar_replyList =
         await pigeonVar_sendFuture as List<Object?>?;

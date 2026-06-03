@@ -23,7 +23,7 @@ void main() {
       db = DB(inMemory());
       setupDependencies(withConfigStoreBackend: InMemoryBackend(), withDB: db);
       await dependencies.get<ConfigStoreService>().initialize();
-      SyncManager.init(
+      await SyncManager.init(
         appBadgeService: dependencies.get(),
         configStoreService: dependencies.get(),
         localStorageService: dependencies.get(),

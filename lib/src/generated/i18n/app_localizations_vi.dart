@@ -471,7 +471,13 @@ class AppLocalizationsVi extends AppLocalizations {
       'Bộ nhớ đệm cục bộ sẽ bị xóa và tải lại từ máy chủ.';
 
   @override
+  String get settings_itemAdvanced => 'Advanced';
+
+  @override
   String get settings_itemAppearance => 'Giao diện';
+
+  @override
+  String get settings_itemInternetCheckUrl => 'Internet check URL';
 
   @override
   String get settings_itemAbout => 'Giới thiệu';
@@ -533,4 +539,41 @@ class AppLocalizationsVi extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get sync_statusAllGood => 'Up to date';
+
+  @override
+  String get sync_statusSyncing => 'Syncing…';
+
+  @override
+  String get sync_statusNoInternet => 'No internet connection';
+
+  @override
+  String get sync_statusServerUnreachable => 'Server unreachable';
+
+  @override
+  String get sync_statusError => 'Sync error';
+
+  @override
+  String get sync_statusAuthFailure => 'Authentication required';
+
+  @override
+  String get sync_neverSynced => 'Never synced';
+
+  @override
+  String sync_lastSynced(String relativeTime) {
+    return 'Last synced $relativeTime';
+  }
+
+  @override
+  String sync_pendingCount(int count) {
+    return '$count pending';
+  }
+
+  @override
+  String get sync_retry => 'Retry';
+
+  @override
+  String get sync_openSettings => 'Open settings';
 }

@@ -94,6 +94,12 @@ struct ArticleDetailView: View {
           }
         }
       }
+      .toolbar {
+        ToolbarItemGroup(placement: .bottomBar) {
+          SyncIndicatorView()
+          Spacer()
+        }
+      }
       .sheet(isPresented: $showReadingSettings) {
         ReadingSettingsView().environmentObject(viewModel)
       }

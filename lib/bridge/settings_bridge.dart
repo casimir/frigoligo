@@ -18,6 +18,11 @@ class SettingsBridge implements SettingsFlutterApi {
         .listen(
           (_) => unawaited(_api.updateAppSettings(_buildCurrentAppSettings())),
         );
+    _internetCheckUrlSubscription = configStoreService
+        .watch<String>(Sk.internetCheckUrl.key)
+        .listen(
+          (_) => unawaited(_api.updateAppSettings(_buildCurrentAppSettings())),
+        );
     _tagSaveEnabledSubscription = configStoreService
         .watch<bool>(Sk.tagSaveEnabled.key)
         .listen(
@@ -34,16 +39,21 @@ class SettingsBridge implements SettingsFlutterApi {
   final SettingsApi _api = SettingsApi();
 
   StreamSubscription<bool?>? _appBadgeSubscription;
+  StreamSubscription<String?>? _internetCheckUrlSubscription;
   StreamSubscription<bool?>? _tagSaveEnabledSubscription;
   StreamSubscription<String?>? _tagSaveLabelSubscription;
 
   AppSettings _buildCurrentAppSettings() {
     return AppSettings(
       appBadge: _configStoreService.get<bool>(Sk.appBadge.key) ?? false,
+      internetCheckUrl:
+          _configStoreService.get<String>(Sk.internetCheckUrl.key) ??
+          Sk.internetCheckUrl.initial as String,
       tagSaveEnabled:
           _configStoreService.get<bool>(Sk.tagSaveEnabled.key) ?? false,
       tagSaveLabel:
-          _configStoreService.get<String>(Sk.tagSaveLabel.key) ?? 'inbox',
+          _configStoreService.get<String>(Sk.tagSaveLabel.key) ??
+          Sk.tagSaveLabel.initial as String,
     );
   }
 
@@ -52,6 +62,12 @@ class SettingsBridge implements SettingsFlutterApi {
     final current = _buildCurrentAppSettings();
     if (settings.appBadge != current.appBadge) {
       await _configStoreService.set(Sk.appBadge.key, settings.appBadge);
+    }
+    if (settings.internetCheckUrl != current.internetCheckUrl) {
+      await _configStoreService.set(
+        Sk.internetCheckUrl.key,
+        settings.internetCheckUrl,
+      );
     }
     if (settings.tagSaveEnabled != current.tagSaveEnabled) {
       await _configStoreService.set(
@@ -80,6 +96,7 @@ class SettingsBridge implements SettingsFlutterApi {
 
   void dispose() {
     _appBadgeSubscription?.cancel();
+    _internetCheckUrlSubscription?.cancel();
     _tagSaveEnabledSubscription?.cancel();
     _tagSaveLabelSubscription?.cancel();
   }

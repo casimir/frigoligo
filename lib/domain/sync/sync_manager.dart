@@ -9,6 +9,7 @@ import '../../providers/settings.dart';
 import '../../server/clients.dart';
 import '../client_factory.dart';
 import '../repositories.dart';
+import 'internet_probe_web.dart' if (dart.library.io) 'internet_probe_io.dart';
 import 'remote_actions.dart';
 
 export 'remote_actions.dart';
@@ -18,30 +19,74 @@ final _log = Logger('sync.manager');
 const _refreshAction = RefreshArticlesAction();
 const autoSyncThrottleSeconds = 15 * 60;
 
+Future<({bool hasInternet, bool serverReachable})> _reachabilityCheck(
+  ConfigStoreService configStoreService,
+  Uri serverUrl,
+) async {
+  final rawUrl =
+      configStoreService.get<String>(Sk.internetCheckUrl.key) ??
+      Sk.internetCheckUrl.initial as String;
+  if (!await probeInternet(Uri.parse(rawUrl))) {
+    return (hasInternet: false, serverReachable: false);
+  }
+  final client = Client();
+  try {
+    await client.head(serverUrl).timeout(const Duration(seconds: 5));
+    return (hasInternet: true, serverReachable: true);
+  } catch (_) {
+    return (hasInternet: true, serverReachable: false);
+  } finally {
+    client.close();
+  }
+}
+
+typedef ReachabilityChecker =
+    Future<({bool hasInternet, bool serverReachable})> Function(Uri serverUrl);
+
 class SyncState {
   const SyncState({
     required this.isWorking,
     required this.progressValue,
     required this.lastError,
     required this.pendingCount,
+    this.isNoInternet = false,
+    this.isAuthFailure = false,
+    this.isServerUnreachable = false,
+    this.lastSyncTimestamp,
   });
 
   final bool isWorking;
   final double? progressValue;
   final Exception? lastError;
   final int pendingCount;
+  final bool isNoInternet;
+  final bool isAuthFailure;
+  final bool isServerUnreachable;
+  final int? lastSyncTimestamp;
 
   SyncState copyWith({
     bool? isWorking,
-    double? progressValue,
-    Exception? lastError,
+    Option<double?> progressValue,
+    Option<Exception?> lastError,
     int? pendingCount,
+    bool? isNoInternet,
+    bool? isAuthFailure,
+    bool? isServerUnreachable,
+    Option<int?> lastSyncTimestamp,
   }) {
     return SyncState(
       isWorking: isWorking ?? this.isWorking,
-      progressValue: progressValue ?? this.progressValue,
-      lastError: lastError ?? this.lastError,
+      progressValue: progressValue != null
+          ? progressValue.value
+          : this.progressValue,
+      lastError: lastError != null ? lastError.value : this.lastError,
       pendingCount: pendingCount ?? this.pendingCount,
+      isNoInternet: isNoInternet ?? this.isNoInternet,
+      isAuthFailure: isAuthFailure ?? this.isAuthFailure,
+      isServerUnreachable: isServerUnreachable ?? this.isServerUnreachable,
+      lastSyncTimestamp: lastSyncTimestamp != null
+          ? lastSyncTimestamp.value
+          : this.lastSyncTimestamp,
     );
   }
 }
@@ -58,14 +103,18 @@ class SyncManager {
   static late SyncManager _instance;
   static SyncManager get instance => _instance;
 
-  static void init({
+  static Future<void> init({
     required AppBadgeService appBadgeService,
     required ConfigStoreService configStoreService,
     required LocalStorageService localStorageService,
     required ArticleRepository articleRepository,
     required RemoteActionRepository remoteActionRepository,
     required ServerSessionRepository serverSessionRepository,
-  }) {
+  }) async {
+    // Read last sync timestamp from storage
+    final lastSyncTimestamp = await localStorageService.metadata
+        .getLastSyncTS();
+
     _instance = SyncManager(
       appBadgeService: appBadgeService,
       configStoreService: configStoreService,
@@ -73,6 +122,7 @@ class SyncManager {
       articleRepository: articleRepository,
       remoteActionRepository: remoteActionRepository,
       serverSessionRepository: serverSessionRepository,
+      lastSyncTimestamp: lastSyncTimestamp,
     );
   }
 
@@ -83,7 +133,9 @@ class SyncManager {
     required ArticleRepository articleRepository,
     required RemoteActionRepository remoteActionRepository,
     required ServerSessionRepository serverSessionRepository,
+    int? lastSyncTimestamp,
     ApiClient Function()? clientFactory,
+    ReachabilityChecker? reachabilityChecker,
   }) : _appBadgeService = appBadgeService,
        _configStoreService = configStoreService,
        _localStorageService = localStorageService,
@@ -95,11 +147,16 @@ class SyncManager {
            (() => serverSessionRepository.createClient(
              userAgent: AppInfo.userAgent,
            )),
-       _state = const SyncState(
+       _reachabilityChecker =
+           reachabilityChecker ??
+           ((Uri serverUrl) =>
+               _reachabilityCheck(configStoreService, serverUrl)),
+       _state = SyncState(
          isWorking: false,
          progressValue: null,
          lastError: null,
          pendingCount: 0,
+         lastSyncTimestamp: lastSyncTimestamp,
        );
 
   final AppBadgeService _appBadgeService;
@@ -109,6 +166,7 @@ class SyncManager {
   final RemoteActionRepository _remoteActionRepository;
   final ServerSessionRepository _serverSessionRepository;
   final ApiClient Function() _clientFactory;
+  final ReachabilityChecker _reachabilityChecker;
 
   SyncState _state;
   SyncState get state => _state;
@@ -132,7 +190,7 @@ class SyncManager {
 
   void _setProgress(double? value) {
     if (value != _state.progressValue) {
-      _updateState(_state.copyWith(progressValue: value));
+      _updateState(_state.copyWith(progressValue: Some(value)));
     }
   }
 
@@ -194,8 +252,7 @@ class SyncManager {
       }
 
       // new actions might be added while the current batch was processed
-      actionsCount += await getPendingCount();
-    } while (i < actionsCount);
+    } while (await getPendingCount() > 0);
 
     return res;
   }
@@ -227,10 +284,14 @@ class SyncManager {
         progressValue: null,
         lastError: null,
         pendingCount: await getPendingCount(),
+        lastSyncTimestamp: _state.lastSyncTimestamp,
       ),
     );
 
     Exception? error;
+    bool isNoInternet = false;
+    bool isAuthFailure = false;
+    bool isServerUnreachable = false;
 
     try {
       res.addAll(await executeAllPendingActions(onProgress: _setProgress));
@@ -285,7 +346,24 @@ class SyncManager {
       await _updateAppBadge();
     } on ServerError catch (e) {
       _log.severe('communication error', e);
-      if (e.source is! ClientException) {
+      if (e.source is ClientException) {
+        final serverUrl = session.wallabag?.server ?? session.freon?.server;
+        final reachability = serverUrl != null
+            ? await _reachabilityChecker(serverUrl)
+            : (hasInternet: false, serverReachable: false);
+        if (!reachability.hasInternet) {
+          isNoInternet = true;
+        } else if (!reachability.serverReachable) {
+          isServerUnreachable = true;
+        } else {
+          error = e;
+        }
+      } else if (e.isInvalidTokenError ||
+          e.response?.statusCode == 401 ||
+          e.response?.statusCode == 403) {
+        isAuthFailure = true;
+        error = e;
+      } else {
         error = e;
       }
     } on Exception catch (e) {
@@ -296,12 +374,17 @@ class SyncManager {
       _log.severe('sync failed (badly)', e, st);
       error = Exception(e.toString());
     } finally {
+      final lastSyncTS = await _localStorageService.metadata.getLastSyncTS();
       _updateState(
         SyncState(
           isWorking: false,
           progressValue: null,
           lastError: error,
           pendingCount: await getPendingCount(),
+          isNoInternet: isNoInternet,
+          isAuthFailure: isAuthFailure,
+          isServerUnreachable: isServerUnreachable,
+          lastSyncTimestamp: lastSyncTS,
         ),
       );
     }
