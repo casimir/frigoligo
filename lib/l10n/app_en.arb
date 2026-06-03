@@ -535,9 +535,17 @@
   "@settings_clearCacheMessage": {
     "description": "The message of the confirmation dialog to clear the cache."
   },
+  "settings_itemAdvanced": "Advanced",
+  "@settings_itemAdvanced": {
+    "description": "The submenu holding advanced/diagnostic settings."
+  },
   "settings_itemAppearance": "Appearance",
   "@settings_itemAppearance": {
     "description": "Settings for the appearance of the application."
+  },
+  "settings_itemInternetCheckUrl": "Internet check URL",
+  "@settings_itemInternetCheckUrl": {
+    "description": "The URL pinged to detect internet connectivity."
   },
   "settings_itemAbout": "About",
   "@settings_itemAbout": {

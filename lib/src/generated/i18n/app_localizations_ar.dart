@@ -469,7 +469,13 @@ class AppLocalizationsAr extends AppLocalizations {
       'سيتم حذف الذاكرة المؤقتة المحلية وجلبها مرة أخرى من الخادم.';
 
   @override
+  String get settings_itemAdvanced => 'Advanced';
+
+  @override
   String get settings_itemAppearance => 'المظهر';
+
+  @override
+  String get settings_itemInternetCheckUrl => 'Internet check URL';
 
   @override
   String get settings_itemAbout => 'حول';

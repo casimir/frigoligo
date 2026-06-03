@@ -471,7 +471,13 @@ class AppLocalizationsVi extends AppLocalizations {
       'Bộ nhớ đệm cục bộ sẽ bị xóa và tải lại từ máy chủ.';
 
   @override
+  String get settings_itemAdvanced => 'Advanced';
+
+  @override
   String get settings_itemAppearance => 'Giao diện';
+
+  @override
+  String get settings_itemInternetCheckUrl => 'Internet check URL';
 
   @override
   String get settings_itemAbout => 'Giới thiệu';

@@ -472,7 +472,13 @@ class AppLocalizationsPt extends AppLocalizations {
       'O cache local será apagado e recuperado novamente do servidor.';
 
   @override
+  String get settings_itemAdvanced => 'Advanced';
+
+  @override
   String get settings_itemAppearance => 'Aparência';
+
+  @override
+  String get settings_itemInternetCheckUrl => 'Internet check URL';
 
   @override
   String get settings_itemAbout => 'Sobre';

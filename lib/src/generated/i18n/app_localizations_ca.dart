@@ -471,7 +471,13 @@ class AppLocalizationsCa extends AppLocalizations {
       'La memòria cau local se suprimirà i es recuperarà del servidor un cop més.';
 
   @override
+  String get settings_itemAdvanced => 'Advanced';
+
+  @override
   String get settings_itemAppearance => 'Aspecte';
+
+  @override
+  String get settings_itemInternetCheckUrl => 'Internet check URL';
 
   @override
   String get settings_itemAbout => 'Quant a';

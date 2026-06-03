@@ -473,7 +473,13 @@ class AppLocalizationsNl extends AppLocalizations {
       'De lokale cache wordt verwijderd en wordt opnieuw bij de server opgehaald.';
 
   @override
+  String get settings_itemAdvanced => 'Advanced';
+
+  @override
   String get settings_itemAppearance => 'Uiterlijk';
+
+  @override
+  String get settings_itemInternetCheckUrl => 'Internet check URL';
 
   @override
   String get settings_itemAbout => 'Over';

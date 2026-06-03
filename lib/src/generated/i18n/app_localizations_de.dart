@@ -474,7 +474,13 @@ class AppLocalizationsDe extends AppLocalizations {
       'Der lokale Cache wird gelöscht und erneut vom Server abgerufen.';
 
   @override
+  String get settings_itemAdvanced => 'Advanced';
+
+  @override
   String get settings_itemAppearance => 'Design';
+
+  @override
+  String get settings_itemInternetCheckUrl => 'Internet check URL';
 
   @override
   String get settings_itemAbout => 'Über';

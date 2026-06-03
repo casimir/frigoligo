@@ -470,7 +470,13 @@ class AppLocalizationsCs extends AppLocalizations {
       'The local cache will be deleted and fetched again from the server.';
 
   @override
+  String get settings_itemAdvanced => 'Advanced';
+
+  @override
   String get settings_itemAppearance => 'Appearance';
+
+  @override
+  String get settings_itemInternetCheckUrl => 'Internet check URL';
 
   @override
   String get settings_itemAbout => 'About';

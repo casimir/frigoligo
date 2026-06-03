@@ -476,7 +476,13 @@ class AppLocalizationsFr extends AppLocalizations {
       'Le cache local sera supprimé et récupéré à nouveau depuis le serveur.';
 
   @override
+  String get settings_itemAdvanced => 'Advanced';
+
+  @override
   String get settings_itemAppearance => 'Apparence';
+
+  @override
+  String get settings_itemInternetCheckUrl => 'Internet check URL';
 
   @override
   String get settings_itemAbout => 'À propos';

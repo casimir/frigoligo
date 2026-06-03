@@ -471,7 +471,13 @@ class AppLocalizationsRu extends AppLocalizations {
       'Локальный кэш будет удалён и снова получен с сервера.';
 
   @override
+  String get settings_itemAdvanced => 'Advanced';
+
+  @override
   String get settings_itemAppearance => 'Тема';
+
+  @override
+  String get settings_itemInternetCheckUrl => 'Internet check URL';
 
   @override
   String get settings_itemAbout => 'Информация';

@@ -471,7 +471,13 @@ class AppLocalizationsEt extends AppLocalizations {
       'Järgnevaga kustutame kohaliku vahemälu ja laadime andmed serverist uuesti.';
 
   @override
+  String get settings_itemAdvanced => 'Advanced';
+
+  @override
   String get settings_itemAppearance => 'Välimus';
+
+  @override
+  String get settings_itemInternetCheckUrl => 'Internet check URL';
 
   @override
   String get settings_itemAbout => 'Rakenduse teave';

@@ -469,7 +469,13 @@ class AppLocalizationsGl extends AppLocalizations {
       'Vaise eliminar a caché local e solicitar outra vez os datos ao servidor.';
 
   @override
+  String get settings_itemAdvanced => 'Advanced';
+
+  @override
   String get settings_itemAppearance => 'Aparencia';
+
+  @override
+  String get settings_itemInternetCheckUrl => 'Internet check URL';
 
   @override
   String get settings_itemAbout => 'Sobre';

@@ -798,11 +798,23 @@ abstract class AppLocalizations {
   /// **'The local cache will be deleted and fetched again from the server.'**
   String get settings_clearCacheMessage;
 
+  /// The submenu holding advanced/diagnostic settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced'**
+  String get settings_itemAdvanced;
+
   /// Settings for the appearance of the application.
   ///
   /// In en, this message translates to:
   /// **'Appearance'**
   String get settings_itemAppearance;
+
+  /// The URL pinged to detect internet connectivity.
+  ///
+  /// In en, this message translates to:
+  /// **'Internet check URL'**
+  String get settings_itemInternetCheckUrl;
 
   /// The action to display the about screen.
   ///

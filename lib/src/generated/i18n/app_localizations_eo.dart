@@ -469,7 +469,13 @@ class AppLocalizationsEo extends AppLocalizations {
       'La loka kaŝmemoro estos forigita kaj denove elŝutita de la servilo.';
 
   @override
+  String get settings_itemAdvanced => 'Advanced';
+
+  @override
   String get settings_itemAppearance => 'Aspekto';
+
+  @override
+  String get settings_itemInternetCheckUrl => 'Internet check URL';
 
   @override
   String get settings_itemAbout => 'Pri-paĝo';

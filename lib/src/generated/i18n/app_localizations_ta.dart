@@ -472,7 +472,13 @@ class AppLocalizationsTa extends AppLocalizations {
       'உள்ளக கேச் நீக்கப்பட்டு மீண்டும் சேவையகத்திலிருந்து பெறப்படும்.';
 
   @override
+  String get settings_itemAdvanced => 'Advanced';
+
+  @override
   String get settings_itemAppearance => 'தோற்றம்';
+
+  @override
+  String get settings_itemInternetCheckUrl => 'Internet check URL';
 
   @override
   String get settings_itemAbout => 'பற்றி';

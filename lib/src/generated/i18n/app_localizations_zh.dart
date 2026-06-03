@@ -430,7 +430,13 @@ class AppLocalizationsZh extends AppLocalizations {
   String get settings_clearCacheMessage => '本地缓存将被删除，并重新从服务器获取。';
 
   @override
+  String get settings_itemAdvanced => 'Advanced';
+
+  @override
   String get settings_itemAppearance => '外观';
+
+  @override
+  String get settings_itemInternetCheckUrl => 'Internet check URL';
 
   @override
   String get settings_itemAbout => '关于';
