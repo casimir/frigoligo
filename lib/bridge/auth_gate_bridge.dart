@@ -2,7 +2,6 @@
 import '../domain/repositories.dart';
 import '../domain/sync/sync_manager.dart';
 import '../pigeon/auth_gate.g.dart';
-import '../server/clients.dart';
 
 class AuthGateBridge {
   static final _api = AuthGateApi();
