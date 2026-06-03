@@ -8,15 +8,15 @@ struct AdvancedSettingsView: View {
   var body: some View {
     List {
       Section {
-        LabeledContent(String(localized: "settings_itemInternetCheckUrl")) {
-          TextField(
-            "https://...",
-            text: binding(\.internetCheckUrl, with: { $0.with(internetCheckUrl: $1) })
+        NavigationLink {
+          InternetCheckUrlEditView(
+            url: binding(\.internetCheckUrl, with: { $0.with(internetCheckUrl: $1) })
           )
-          .keyboardType(.URL)
-          .textInputAutocapitalization(.never)
-          .autocorrectionDisabled()
-          .multilineTextAlignment(.trailing)
+        } label: {
+          LabeledContent(String(localized: "settings_itemInternetCheckUrl")) {
+            Text(settings.internetCheckUrl)
+              .foregroundStyle(.secondary)
+          }
         }
       }
     }
@@ -32,5 +32,22 @@ struct AdvancedSettingsView: View {
       get: { settings[keyPath: keyPath] },
       set: { viewModel.setAppSettings(update(settings, $0)) }
     )
+  }
+}
+
+private struct InternetCheckUrlEditView: View {
+  @Binding var url: String
+
+  var body: some View {
+    Form {
+      Section {
+        TextField("https://...", text: $url)
+          .keyboardType(.URL)
+          .textInputAutocapitalization(.never)
+          .autocorrectionDisabled()
+      }
+    }
+    .navigationTitle(String(localized: "settings_itemInternetCheckUrl"))
+    .navigationBarTitleDisplayMode(.inline)
   }
 }
