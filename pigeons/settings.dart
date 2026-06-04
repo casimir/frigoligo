@@ -58,6 +58,8 @@ abstract class SessionDetailsFlutterApi {
   void logout();
   @async
   void refreshToken();
+  @async
+  void invalidateSession();
 }
 
 /// Callbacks from the native log console screen to the Dart bridge.

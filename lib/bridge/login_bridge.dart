@@ -19,6 +19,20 @@ class LoginBridge implements LoginFlutterApi {
   final ServerSessionRepository _repo;
 
   @override
+  Future<LoginPrefill?> reauthPrefill() async {
+    final session = _repo.getSession();
+    if (session?.type == ServerType.wallabag && session!.wallabag != null) {
+      final w = session.wallabag!;
+      return LoginPrefill(
+        server: w.server.toString(),
+        clientId: w.clientId,
+        clientSecret: w.clientSecret,
+      );
+    }
+    return null;
+  }
+
+  @override
   Future<ServerCheckResult> checkServer(String url, bool selfSigned) async {
     final check = await checkServerState(url, selfSigned);
     return ServerCheckResult(

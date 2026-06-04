@@ -106,6 +106,54 @@ class ServerCheckResult {
   int get hashCode => Object.hashAll(_toList());
 }
 
+/// Pre-filled credentials from a stored wallabag session for re-auth.
+class LoginPrefill {
+  LoginPrefill({
+    required this.server,
+    required this.clientId,
+    required this.clientSecret,
+  });
+
+  String server;
+
+  String clientId;
+
+  String clientSecret;
+
+  List<Object?> _toList() {
+    return <Object?>[server, clientId, clientSecret];
+  }
+
+  Object encode() {
+    return _toList();
+  }
+
+  static LoginPrefill decode(Object result) {
+    result as List<Object?>;
+    return LoginPrefill(
+      server: result[0]! as String,
+      clientId: result[1]! as String,
+      clientSecret: result[2]! as String,
+    );
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  bool operator ==(Object other) {
+    if (other is! LoginPrefill || other.runtimeType != runtimeType) {
+      return false;
+    }
+    if (identical(this, other)) {
+      return true;
+    }
+    return _deepEquals(encode(), other.encode());
+  }
+
+  @override
+  // ignore: avoid_equals_and_hash_code_on_mutable_classes
+  int get hashCode => Object.hashAll(_toList());
+}
+
 class _PigeonCodec extends StandardMessageCodec {
   const _PigeonCodec();
   @override
@@ -115,6 +163,9 @@ class _PigeonCodec extends StandardMessageCodec {
       buffer.putInt64(value);
     } else if (value is ServerCheckResult) {
       buffer.putUint8(129);
+      writeValue(buffer, value.encode());
+    } else if (value is LoginPrefill) {
+      buffer.putUint8(130);
       writeValue(buffer, value.encode());
     } else {
       super.writeValue(buffer, value);
@@ -126,6 +177,8 @@ class _PigeonCodec extends StandardMessageCodec {
     switch (type) {
       case 129:
         return ServerCheckResult.decode(readValue(buffer)!);
+      case 130:
+        return LoginPrefill.decode(readValue(buffer)!);
       default:
         return super.readValueOfType(type, buffer);
     }
@@ -135,6 +188,10 @@ class _PigeonCodec extends StandardMessageCodec {
 /// Native login screen callbacks to Dart.
 abstract class LoginFlutterApi {
   static const MessageCodec<Object?> pigeonChannelCodec = _PigeonCodec();
+
+  /// Returns stored wallabag server/clientId/clientSecret for re-auth prefill,
+  /// or null when there is no wallabag session (first login, freon session).
+  Future<LoginPrefill?> reauthPrefill();
 
   Future<ServerCheckResult> checkServer(String url, bool selfSigned);
 
@@ -159,6 +216,30 @@ abstract class LoginFlutterApi {
     messageChannelSuffix = messageChannelSuffix.isNotEmpty
         ? '.$messageChannelSuffix'
         : '';
+    {
+      final BasicMessageChannel<Object?>
+      pigeonVar_channel = BasicMessageChannel<Object?>(
+        'dev.flutter.pigeon.frigoligo.LoginFlutterApi.reauthPrefill$messageChannelSuffix',
+        pigeonChannelCodec,
+        binaryMessenger: binaryMessenger,
+      );
+      if (api == null) {
+        pigeonVar_channel.setMessageHandler(null);
+      } else {
+        pigeonVar_channel.setMessageHandler((Object? message) async {
+          try {
+            final LoginPrefill? output = await api.reauthPrefill();
+            return wrapResponse(result: output);
+          } on PlatformException catch (e) {
+            return wrapResponse(error: e);
+          } catch (e) {
+            return wrapResponse(
+              error: PlatformException(code: 'error', message: e.toString()),
+            );
+          }
+        });
+      }
+    }
     {
       final BasicMessageChannel<Object?>
       pigeonVar_channel = BasicMessageChannel<Object?>(

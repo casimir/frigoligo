@@ -971,12 +971,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Retry'**
   String get sync_retry;
-
-  /// Sync detail action: open settings to re-authenticate.
-  ///
-  /// In en, this message translates to:
-  /// **'Open settings'**
-  String get sync_openSettings;
 }
 
 class _AppLocalizationsDelegate

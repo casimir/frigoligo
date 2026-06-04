@@ -23,4 +23,10 @@ class SessionDetailsViewModel: ObservableObject {
   func refreshToken() {
     flutterApi.refreshToken { _ in }
   }
+
+  #if DEBUG
+    func invalidateSession() {
+      flutterApi.invalidateSession { _ in }
+    }
+  #endif
 }

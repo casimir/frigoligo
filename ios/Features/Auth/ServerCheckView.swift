@@ -22,7 +22,9 @@ struct ServerCheckView: View {
           .autocorrectionDisabled()
           .textInputAutocapitalization(.never)
           .focused($urlFocused)
+          .accessibilityIdentifier("login.fieldUrl")
         Toggle(String(localized: "login_acceptSelfSigned"), isOn: $selfSigned)
+          .accessibilityIdentifier("login.toggleSelfSigned")
       }
 
       if let error {
@@ -39,6 +41,7 @@ struct ServerCheckView: View {
             dismissCover()
           }
         }
+        .accessibilityIdentifier("login.demoMode")
       }
     }
     .navigationTitle(String(localized: "g_server"))
@@ -52,12 +55,19 @@ struct ServerCheckView: View {
             Task { await check() }
           }
           .disabled(url.isEmpty)
+          .accessibilityIdentifier("login.check")
         }
       }
     }
     .navigationDestination(isPresented: $showCredentials) {
       if let result = checkResult {
         CredentialsView(checkResult: result, onSuccess: dismissCover)
+      }
+    }
+    .task {
+      await viewModel.loadPrefill()
+      if url.isEmpty, let server = viewModel.prefill?.server {
+        url = server
       }
     }
     .onAppear { urlFocused = true }

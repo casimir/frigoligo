@@ -25,13 +25,20 @@ struct CredentialsView: View {
             .focused($firstFieldFocused)
             .autocorrectionDisabled()
             .textInputAutocapitalization(.never)
-          SecureField(String(localized: "login_fieldClientSecret"), text: $clientSecret)
+            .accessibilityIdentifier("login.fieldClientId")
+          TextField(
+            String(localized: "login_fieldClientSecret"),
+            text: $clientSecret
+          )
+          .accessibilityIdentifier("login.fieldClientSecret")
           TextField(String(localized: "login_fieldUsername"), text: $username)
             .textContentType(.username)
             .autocorrectionDisabled()
             .textInputAutocapitalization(.never)
+            .accessibilityIdentifier("login.fieldUsername")
           SecureField(String(localized: "login_fieldPassword"), text: $password)
             .textContentType(.password)
+            .accessibilityIdentifier("login.fieldPassword")
         }
       } else {
         Section {
@@ -39,6 +46,7 @@ struct CredentialsView: View {
             .focused($firstFieldFocused)
             .autocorrectionDisabled()
             .textInputAutocapitalization(.never)
+            .accessibilityIdentifier("login.fieldApiToken")
         }
       }
 
@@ -63,7 +71,14 @@ struct CredentialsView: View {
             Task { await login() }
           }
           .disabled(!canSubmit)
+          .accessibilityIdentifier("login.submit")
         }
+      }
+    }
+    .task {
+      if isWallabag, clientId.isEmpty, let prefill = viewModel.prefill {
+        clientId = prefill.clientId
+        clientSecret = prefill.clientSecret
       }
     }
     .onAppear { firstFieldFocused = true }
@@ -88,12 +103,19 @@ struct CredentialsView: View {
 
     if isWallabag {
       error = await viewModel.loginWallabag(
-        url: url, selfSigned: selfSigned,
-        clientId: clientId, clientSecret: clientSecret,
-        username: username, password: password
+        url: url,
+        selfSigned: selfSigned,
+        clientId: clientId,
+        clientSecret: clientSecret,
+        username: username,
+        password: password
       )
     } else {
-      error = await viewModel.loginFreon(url: url, selfSigned: selfSigned, token: apiToken)
+      error = await viewModel.loginFreon(
+        url: url,
+        selfSigned: selfSigned,
+        token: apiToken
+      )
     }
 
     if error == nil { onSuccess() }

@@ -133,11 +133,48 @@ struct ServerCheckResult: Hashable {
   }
 }
 
+/// Pre-filled credentials from a stored wallabag session for re-auth.
+///
+/// Generated class from Pigeon that represents data sent in messages.
+struct LoginPrefill: Hashable {
+  var server: String
+  var clientId: String
+  var clientSecret: String
+
+  // swift-format-ignore: AlwaysUseLowerCamelCase
+  static func fromList(_ pigeonVar_list: [Any?]) -> LoginPrefill? {
+    let server = pigeonVar_list[0] as! String
+    let clientId = pigeonVar_list[1] as! String
+    let clientSecret = pigeonVar_list[2] as! String
+
+    return LoginPrefill(
+      server: server,
+      clientId: clientId,
+      clientSecret: clientSecret
+    )
+  }
+  func toList() -> [Any?] {
+    return [
+      server,
+      clientId,
+      clientSecret,
+    ]
+  }
+  static func == (lhs: LoginPrefill, rhs: LoginPrefill) -> Bool {
+    return deepEqualsLogin(lhs.toList(), rhs.toList())
+  }
+  func hash(into hasher: inout Hasher) {
+    deepHashLogin(value: toList(), hasher: &hasher)
+  }
+}
+
 private class LoginPigeonCodecReader: FlutterStandardReader {
   override func readValue(ofType type: UInt8) -> Any? {
     switch type {
     case 129:
       return ServerCheckResult.fromList(self.readValue() as! [Any?])
+    case 130:
+      return LoginPrefill.fromList(self.readValue() as! [Any?])
     default:
       return super.readValue(ofType: type)
     }
@@ -148,6 +185,9 @@ private class LoginPigeonCodecWriter: FlutterStandardWriter {
   override func writeValue(_ value: Any) {
     if let value = value as? ServerCheckResult {
       super.writeByte(129)
+      super.writeValue(value.toList())
+    } else if let value = value as? LoginPrefill {
+      super.writeByte(130)
       super.writeValue(value.toList())
     } else {
       super.writeValue(value)
@@ -173,6 +213,9 @@ class LoginPigeonCodec: FlutterStandardMessageCodec, @unchecked Sendable {
 ///
 /// Generated protocol from Pigeon that represents Flutter messages that can be called from Swift.
 protocol LoginFlutterApiProtocol {
+  /// Returns stored wallabag server/clientId/clientSecret for re-auth prefill,
+  /// or null when there is no wallabag session (first login, freon session).
+  func reauthPrefill(completion: @escaping (Result<LoginPrefill?, PigeonError>) -> Void)
   func checkServer(
     url urlArg: String, selfSigned selfSignedArg: Bool,
     completion: @escaping (Result<ServerCheckResult, PigeonError>) -> Void)
@@ -194,6 +237,29 @@ class LoginFlutterApi: LoginFlutterApiProtocol {
   }
   var codec: LoginPigeonCodec {
     return LoginPigeonCodec.shared
+  }
+  /// Returns stored wallabag server/clientId/clientSecret for re-auth prefill,
+  /// or null when there is no wallabag session (first login, freon session).
+  func reauthPrefill(completion: @escaping (Result<LoginPrefill?, PigeonError>) -> Void) {
+    let channelName: String =
+      "dev.flutter.pigeon.frigoligo.LoginFlutterApi.reauthPrefill\(messageChannelSuffix)"
+    let channel = FlutterBasicMessageChannel(
+      name: channelName, binaryMessenger: binaryMessenger, codec: codec)
+    channel.sendMessage(nil) { response in
+      guard let listResponse = response as? [Any?] else {
+        completion(.failure(createConnectionError(withChannelName: channelName)))
+        return
+      }
+      if listResponse.count > 1 {
+        let code: String = listResponse[0] as! String
+        let message: String? = nilOrValue(listResponse[1])
+        let details: String? = nilOrValue(listResponse[2])
+        completion(.failure(PigeonError(code: code, message: message, details: details)))
+      } else {
+        let result: LoginPrefill? = nilOrValue(listResponse[0])
+        completion(.success(result))
+      }
+    }
   }
   func checkServer(
     url urlArg: String, selfSigned selfSignedArg: Bool,

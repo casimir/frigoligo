@@ -575,9 +575,6 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get sync_retry => 'Retry';
-
-  @override
-  String get sync_openSettings => 'Open settings';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).

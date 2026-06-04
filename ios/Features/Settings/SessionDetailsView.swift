@@ -98,6 +98,13 @@ struct SessionDetailsView: View {
         showLogoutConfirm = true
       }
     }
+    #if DEBUG
+      Section("Debug") {
+        Button("Invalidate session", role: .destructive) {
+          viewModel.invalidateSession()
+        }
+      }
+    #endif
   }
 
   private func obfuscated(_ value: String) -> String {
