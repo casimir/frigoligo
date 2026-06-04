@@ -4,8 +4,18 @@ import Flutter
 class LoginViewModel: ObservableObject {
   private let flutterApi: LoginFlutterApi
 
+  var prefill: LoginPrefill?
+
   init(binaryMessenger: FlutterBinaryMessenger) {
     self.flutterApi = LoginFlutterApi(binaryMessenger: binaryMessenger)
+  }
+
+  func loadPrefill() async {
+    prefill = await withCheckedContinuation { continuation in
+      flutterApi.reauthPrefill { result in
+        continuation.resume(returning: try? result.get())
+      }
+    }
   }
 
   func checkServer(url: String, selfSigned: Bool) async -> ServerCheckResult? {

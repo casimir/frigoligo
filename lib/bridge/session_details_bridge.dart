@@ -6,6 +6,7 @@ import '../data/services/local/storage/config_store_service.dart';
 import '../data/services/local/storage/storage_service.dart';
 import '../data/services/platform/appbadge_service.dart';
 import '../domain/client_factory.dart';
+import '../domain/sync/sync_manager.dart';
 import '../pigeon/auth_gate.g.dart';
 import '../pigeon/settings.g.dart';
 import '../server/clients.dart';
@@ -68,6 +69,17 @@ class SessionDetailsBridge implements SessionDetailsFlutterApi {
     final client = sessionRepo.createClient(userAgent: 'frigoligo');
     if (client is WallabagClient) {
       await client.refreshToken();
+    }
+  }
+
+  @override
+  Future<void> invalidateSession() async {
+    final sessionRepo = dependencies.get<ServerSessionRepository>();
+    final session = sessionRepo.getSession();
+    if (session != null) {
+      await sessionRepo.save(session.invalidated());
+      // crashes early with an auth error to trigger the usual modal flow
+      unawaited(SyncManager.instance.synchronize(withFinalRefresh: false));
     }
   }
 }

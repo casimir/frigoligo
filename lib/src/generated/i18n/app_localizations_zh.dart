@@ -526,9 +526,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get sync_retry => 'Retry';
-
-  @override
-  String get sync_openSettings => 'Open settings';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).

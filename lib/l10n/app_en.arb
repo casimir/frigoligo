@@ -668,9 +668,5 @@
   "sync_retry": "Retry",
   "@sync_retry": {
     "description": "Sync detail action: retry a failed sync."
-  },
-  "sync_openSettings": "Open settings",
-  "@sync_openSettings": {
-    "description": "Sync detail action: open settings to re-authenticate."
   }
 }

@@ -18,9 +18,21 @@ class ServerCheckResult {
   String? errorMessage; // detail for "unknown" only
 }
 
+/// Pre-filled credentials from a stored wallabag session for re-auth.
+class LoginPrefill {
+  late String server;
+  late String clientId;
+  late String clientSecret;
+}
+
 /// Native login screen callbacks to Dart.
 @FlutterApi()
 abstract class LoginFlutterApi {
+  /// Returns stored wallabag server/clientId/clientSecret for re-auth prefill,
+  /// or null when there is no wallabag session (first login, freon session).
+  @async
+  LoginPrefill? reauthPrefill();
+
   @async
   ServerCheckResult checkServer(String url, bool selfSigned);
   @async

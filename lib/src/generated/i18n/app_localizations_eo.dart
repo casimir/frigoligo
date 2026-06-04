@@ -573,7 +573,4 @@ class AppLocalizationsEo extends AppLocalizations {
 
   @override
   String get sync_retry => 'Retry';
-
-  @override
-  String get sync_openSettings => 'Open settings';
 }

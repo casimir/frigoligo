@@ -22,8 +22,10 @@ private struct SpinningModifier: ViewModifier {
 struct SyncIndicatorView: View {
   @EnvironmentObject var syncViewModel: SyncViewModel
   @EnvironmentObject var navViewModel: NavigationSplitViewModel
+  @EnvironmentObject var authGateViewModel: AuthGateViewModel
   @Environment(\.horizontalSizeClass) private var sizeClass
   @State private var showDetail = false
+  @State private var loginAfterDismiss = false
 
   private var state: SyncIndicatorState { syncViewModel.syncState }
 
@@ -35,10 +37,19 @@ struct SyncIndicatorView: View {
         indicatorLabel
       }
       .popover(isPresented: $showDetail) {
-        SyncDetailView()
-          .environmentObject(syncViewModel)
-          .environmentObject(navViewModel)
-          .presentationDetents(sizeClass == .compact ? [.medium] : [])
+        SyncDetailView(onRequireLogin: {
+          loginAfterDismiss = true
+          showDetail = false
+        })
+        .environmentObject(syncViewModel)
+        .environmentObject(navViewModel)
+        .presentationDetents(sizeClass == .compact ? [.medium] : [])
+        .onDisappear {
+          if loginAfterDismiss {
+            loginAfterDismiss = false
+            authGateViewModel.requiresLogin = true
+          }
+        }
       }
       .onDisappear { showDetail = false }
     }
@@ -68,6 +79,8 @@ struct SyncIndicatorView: View {
 struct SyncDetailView: View {
   @EnvironmentObject var syncViewModel: SyncViewModel
   @EnvironmentObject var navViewModel: NavigationSplitViewModel
+
+  var onRequireLogin: () -> Void = {}
 
   private var state: SyncIndicatorState { syncViewModel.syncState }
 
@@ -118,8 +131,8 @@ struct SyncDetailView: View {
         }
         .buttonStyle(.borderedProminent)
       case .authFailure:
-        Button(String(localized: "sync_openSettings")) {
-          navViewModel.openSettings()
+        Button(String(localized: "login_actionLogin")) {
+          onRequireLogin()
         }
         .buttonStyle(.borderedProminent)
       case .allGood, .syncing, .noInternet:
@@ -209,6 +222,7 @@ private func previewSyncVM(
 
 #Preview("Indicator icons") {
   let navVM = NavigationSplitViewModel(binaryMessenger: PreviewBinaryMessenger())
+  let authGateVM = AuthGateViewModel(binaryMessenger: PreviewBinaryMessenger())
   VStack(spacing: 16) {
     HStack {
       Text("syncing (indeterminate)")
@@ -248,6 +262,7 @@ private func previewSyncVM(
   }
   .padding()
   .environmentObject(navVM)
+  .environmentObject(authGateVM)
 }
 
 #Preview("Detail view") {
