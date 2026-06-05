@@ -33,6 +33,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(reader)* Inject several js packages for rich formatting ([#447](https://github.com/casimir/frigoligo/pull/447)) ([4c9e9cc](https://github.com/casimir/frigoligo/commit/4c9e9cc9c40fca812b8eb45fb5203ebcf9313090))
 - *(iOS)* Make article content scroll under the navbar ([101a8cb](https://github.com/casimir/frigoligo/commit/101a8cb935837fbdfeab6b324ef6dfefdc1c99cf))
 - *(ios)* Live sync indicator ([#454](https://github.com/casimir/frigoligo/pull/454)) ([b68a057](https://github.com/casimir/frigoligo/commit/b68a05757717443695f2c6f6fbfc3e2c17b4a526))
+- *(ios)* Prefill wallabag login form on re-login ([#456](https://github.com/casimir/frigoligo/pull/456)) ([c292359](https://github.com/casimir/frigoligo/commit/c2923598c7f6e1e3da26efd3e2b61678676ba18c))
 
 ### 🐛 Bug Fixes
 
