@@ -248,8 +248,9 @@ String _replaceMarkers(
 ) {
   final beginIdx = content.indexOf(begin);
   final endIdx = content.indexOf(end);
-  if (beginIdx == -1 || endIdx == -1)
+  if (beginIdx == -1 || endIdx == -1) {
     throw StateError('Markers not found: $begin');
+  }
   return '${content.substring(0, beginIdx + begin.length)}\n$replacement${content.substring(endIdx)}';
 }
 
