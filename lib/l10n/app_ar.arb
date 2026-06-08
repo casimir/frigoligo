@@ -593,5 +593,63 @@
                 "type": "String"
             }
         }
+    },
+    "settings_itemAdvanced": "متقدم",
+    "@settings_itemAdvanced": {
+        "description": "The submenu holding advanced/diagnostic settings."
+    },
+    "settings_itemInternetCheckUrl": "رابط التحقق من الإنترنت",
+    "@settings_itemInternetCheckUrl": {
+        "description": "The URL pinged to detect internet connectivity."
+    },
+    "sync_statusAllGood": "تم التحديث",
+    "@sync_statusAllGood": {
+        "description": "Sync indicator status: everything is synced."
+    },
+    "sync_statusSyncing": "جارٍ المزامنة…",
+    "@sync_statusSyncing": {
+        "description": "Sync indicator status: sync in progress."
+    },
+    "sync_statusNoInternet": "لا يوجد اتصال بالإنترنت",
+    "@sync_statusNoInternet": {
+        "description": "Sync indicator status: device is offline."
+    },
+    "sync_statusServerUnreachable": "لا يمكن الوصول للسيرفر",
+    "@sync_statusServerUnreachable": {
+        "description": "Sync indicator status: server could not be reached."
+    },
+    "sync_statusError": "خطأ في المزامنة",
+    "@sync_statusError": {
+        "description": "Sync indicator status: an error occurred during sync."
+    },
+    "sync_statusAuthFailure": "التحقق من الهوية مطلوب",
+    "@sync_statusAuthFailure": {
+        "description": "Sync indicator status: credentials need to be refreshed."
+    },
+    "sync_neverSynced": "لم تتم المزامنة من قبل",
+    "@sync_neverSynced": {
+        "description": "Sync indicator: shown when no sync has ever completed."
+    },
+    "sync_lastSynced": "تمت المزامنة منذ {relativeTime}",
+    "@sync_lastSynced": {
+        "description": "Sync indicator: relative time of last successful sync.",
+        "placeholders": {
+            "relativeTime": {
+                "type": "String"
+            }
+        }
+    },
+    "sync_pendingCount": "{count} جارٍ",
+    "@sync_pendingCount": {
+        "description": "Sync detail: number of items waiting to sync.",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "sync_retry": "حاول مرة آخرى",
+    "@sync_retry": {
+        "description": "Sync detail action: retry a failed sync."
     }
 }
