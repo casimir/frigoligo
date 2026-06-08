@@ -115,19 +115,23 @@ class _LoginFlowServerState extends ConsumerState<LoginFlowServer> {
               ),
             ),
             C.spacers.verticalContent,
-            TextButton(
-              onPressed: () async {
-                setState(() {
-                  _isLoadingDemo = true;
-                });
-                await setupDemoMode(dependencies.get(), dependencies.get());
-                if (context.mounted) {
-                  context.go('/');
-                }
-              },
-              child: _isLoadingDemo
-                  ? const CircularProgressIndicator()
-                  : Text(context.L.login_demoMode),
+            Semantics(
+              identifier: 'login.tryDemo',
+              button: true,
+              child: TextButton(
+                onPressed: () async {
+                  setState(() {
+                    _isLoadingDemo = true;
+                  });
+                  await setupDemoMode(dependencies.get(), dependencies.get());
+                  if (context.mounted) {
+                    context.go('/');
+                  }
+                },
+                child: _isLoadingDemo
+                    ? const CircularProgressIndicator()
+                    : Text(context.L.login_demoMode),
+              ),
             ),
           ],
         ),

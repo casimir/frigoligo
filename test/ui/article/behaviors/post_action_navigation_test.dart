@@ -1,4 +1,3 @@
-import 'package:cadanse/components/widgets/adaptive/actions_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -80,7 +79,7 @@ void main() {
     }
 
     Future<void> triggerDelete(WidgetTester tester) async {
-      await tester.tap(find.byType(ActionsMenuButton));
+      await tester.tap(find.byKey(kArticleMoreActionsButton));
       await tester.pumpAndSettle();
       await tester.tap(find.byKey(kArticleActionDelete));
       await tester.pumpAndSettle();

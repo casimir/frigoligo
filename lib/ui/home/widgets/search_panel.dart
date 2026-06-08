@@ -22,7 +22,7 @@ class SearchPanel extends ConsumerWidget {
   });
 
   final SearchPanelController controller;
-  final PopupMenuButton? menu;
+  final Widget? menu;
   final Color? backgroundColor;
 
   @override

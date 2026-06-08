@@ -59,12 +59,12 @@ void main() {
     testWidgets('should provides a menu with the main actions', (tester) async {
       await tester.pumpWidget(buildWidget());
 
-      expect(find.byType(PopupMenuButton), findsOneWidget);
+      expect(find.byType(PopupMenuButton<MenuAction>), findsOneWidget);
 
-      await tester.tap(find.byType(PopupMenuButton));
+      await tester.tap(find.byType(PopupMenuButton<MenuAction>));
       await tester.pumpAndSettle();
 
-      expect(find.byType(PopupMenuItem), findsNWidgets(3));
+      expect(find.byType(PopupMenuItem<MenuAction>), findsNWidgets(3));
 
       // Still could not find a good way to test navigation actions. So let's
       // just test the synchronize action for now.

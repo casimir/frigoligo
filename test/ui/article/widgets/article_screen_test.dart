@@ -1,4 +1,3 @@
-import 'package:cadanse/components/widgets/adaptive/actions_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -191,7 +190,7 @@ void main() {
         await tester.pumpAndSettle();
         verify(() => mockController.setStarred(true)).called(1);
 
-        await tester.tap(find.byType(ActionsMenuButton));
+        await tester.tap(find.byKey(kArticleMoreActionsButton));
         await tester.pumpAndSettle();
         when(
           () => mockController.openInBrowser(any()),
@@ -204,7 +203,7 @@ void main() {
           ),
         ).called(1);
 
-        await tester.tap(find.byType(ActionsMenuButton));
+        await tester.tap(find.byKey(kArticleMoreActionsButton));
         await tester.pumpAndSettle();
         when(
           () => mockController.shareArticle(any(), any(), any()),
@@ -234,7 +233,7 @@ void main() {
 
         expect(find.byType(ArticleContentPlaceholder), findsOneWidget);
         expect(find.byType(ArticleContent), findsNothing);
-        expect(find.byType(ActionsMenuButton), findsOneWidget);
+        expect(find.byKey(kArticleMoreActionsButton), findsOneWidget);
       });
     });
   });

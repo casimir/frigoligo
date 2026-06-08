@@ -40,7 +40,10 @@ class SettingsPage extends ConsumerWidget {
     final settings = ref.watch(settingsProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(context.L.settings_title)),
+      appBar: AppBar(
+        title: Text(context.L.settings_title),
+        leading: Semantics(identifier: 'back', child: const BackButton()),
+      ),
       body: Center(
         child: SettingsList(
           sections: [

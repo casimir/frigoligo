@@ -41,7 +41,7 @@ struct ServerCheckView: View {
             dismissCover()
           }
         }
-        .accessibilityIdentifier("login.demoMode")
+        .accessibilityIdentifier("login.tryDemo")
       }
     }
     .navigationTitle(String(localized: "g_server"))

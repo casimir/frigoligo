@@ -1,6 +1,5 @@
 import 'package:cadanse/cadanse.dart';
 import 'package:cadanse/components/flows/confirmation_modal.dart';
-import 'package:cadanse/components/widgets/adaptive/actions_menu.dart';
 import 'package:cadanse/components/widgets/adaptive/buttons.dart';
 import 'package:cadanse/components/widgets/adaptive/modal_sheet.dart';
 import 'package:cadanse/components/widgets/adaptive/scaffold.dart';
@@ -191,6 +190,7 @@ const kArticleActionOpenInBrowser = Key('article.actions.openInBrowser');
 const kArticleActionReadingSettings = Key('article.actions.readingSettings');
 const kArticleActionShare = Key('article.actions.share');
 const kArticleActionStar = Key('article.actions.star');
+const kArticleMoreActionsButton = Key('article.moreActions');
 
 List<Widget> buildActions(
   ArticleScreenController controller,
@@ -327,23 +327,33 @@ List<Widget> buildActions(
 
   return [
     ...mainActions.map((key) => actions[key]!.toActionButton()),
-    ActionsMenuButton(
-      key: popupMenuKey,
-      actions: moreActions
-          .map(
-            (key) => key != null
-                ? ActionsMenuEntry(
-                    key: actions[key]!.key,
-                    title: actions[key]!.label,
-                    icon: actions[key]!.icon,
-                    onTap: () => actions[key]!.onPressed(),
-                    isDestructive: actions[key]!.isDestructive,
-                  )
-                : null,
-          )
-          .toList(),
-      // the blur effect doesn't work on top of the native webview
-      applyBlurEffect: false,
+    Semantics(
+      key: kArticleMoreActionsButton,
+      identifier: 'article.moreActions',
+      child: PopupMenuButton<ArticleActionKey>(
+        key: popupMenuKey,
+        itemBuilder: (context) =>
+            moreActions.map<PopupMenuEntry<ArticleActionKey>>((key) {
+              if (key == null) return const PopupMenuDivider();
+              final a = actions[key]!;
+              Widget child = ListTile(
+                leading: Icon(a.icon),
+                title: Text(a.label),
+              );
+              if (key == ArticleActionKey.readingSettings) {
+                child = Semantics(
+                  identifier: 'article.readingSettings',
+                  child: child,
+                );
+              }
+              return PopupMenuItem<ArticleActionKey>(
+                key: a.key,
+                value: key,
+                onTap: a.onPressed,
+                child: child,
+              );
+            }).toList(),
+      ),
     ),
   ];
 }

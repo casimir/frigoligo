@@ -92,6 +92,7 @@ struct SettingsView: View {
           } label: {
             Image(systemName: "xmark")
           }
+          .accessibilityIdentifier("back")
         }
       }
       .alert(

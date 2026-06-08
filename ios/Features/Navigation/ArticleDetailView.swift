@@ -62,6 +62,7 @@ struct ArticleDetailView: View {
                 systemImage: "textformat.size"
               )
             }
+            .accessibilityIdentifier("article.readingSettings")
 
             if let urlString = viewModel.articleData?.url,
               let url = URL(string: urlString)
@@ -92,6 +93,7 @@ struct ArticleDetailView: View {
           } label: {
             Label("More", systemImage: "ellipsis.circle")
           }
+          .accessibilityIdentifier("article.moreActions")
         }
       }
       .toolbar {

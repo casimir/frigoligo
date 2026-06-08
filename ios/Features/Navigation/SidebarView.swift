@@ -63,6 +63,7 @@ struct SidebarView: View {
         } label: {
           Image(systemName: "gear")
         }
+        .accessibilityIdentifier("listing.settings")
       }
       ToolbarItem(placement: .topBarLeading) {
         SyncIndicatorView()

@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../../buildcontext_extension.dart';
 import '../../../dialogs/save.dart';
-import '../../../widget_keys.dart';
 import '../../core/widgets/remote_sync.dart';
 import '../../repository_providers.dart';
 import '../controllers/listing_container_controller.dart';
@@ -64,39 +63,43 @@ class _ListingContainerState extends ConsumerState<ListingContainer> {
     );
   }
 
-  PopupMenuButton _buildMenu(
+  Widget _buildMenu(
     BuildContext context,
     ListingContainerController controller,
-  ) => PopupMenuButton(
-    key: const Key(wkListingPopupMenu),
-    itemBuilder: (context) => [
-      PopupMenuItem(
-        value: MenuAction.saveLink,
-        child: ListTile(
-          leading: const Icon(Icons.add_link),
-          title: Text(context.L.g_saveLink),
+  ) => Semantics(
+    identifier: 'listing.menu',
+    child: PopupMenuButton<MenuAction>(
+      itemBuilder: (context) => [
+        PopupMenuItem(
+          value: MenuAction.saveLink,
+          child: ListTile(
+            leading: const Icon(Icons.add_link),
+            title: Text(context.L.g_saveLink),
+          ),
         ),
-      ),
-      PopupMenuItem(
-        value: MenuAction.synchronize,
-        child: ListTile(
-          leading: const Icon(Icons.sync),
-          title: Text(context.L.g_synchronize),
+        PopupMenuItem(
+          value: MenuAction.synchronize,
+          child: ListTile(
+            leading: const Icon(Icons.sync),
+            title: Text(context.L.g_synchronize),
+          ),
         ),
-      ),
-      PopupMenuItem(
-        value: MenuAction.settings,
-        child: ListTile(
-          key: const Key(wkListingSettings),
-          leading: const Icon(Icons.settings),
-          title: Text(context.L.g_settings),
+        PopupMenuItem(
+          value: MenuAction.settings,
+          child: Semantics(
+            identifier: 'listing.settings',
+            child: ListTile(
+              leading: const Icon(Icons.settings),
+              title: Text(context.L.g_settings),
+            ),
+          ),
         ),
-      ),
-    ],
-    onSelected: (action) => switch (action as MenuAction) {
-      MenuAction.saveLink => showSaveUrlDialog(context),
-      MenuAction.synchronize => controller.refresh(),
-      MenuAction.settings => context.push('/settings'),
-    },
+      ],
+      onSelected: (action) => switch (action) {
+        MenuAction.saveLink => showSaveUrlDialog(context),
+        MenuAction.synchronize => controller.refresh(),
+        MenuAction.settings => context.push('/settings'),
+      },
+    ),
   );
 }
