@@ -163,7 +163,7 @@
     "@settings_itemClearCache": {
         "description": "The action to clear the offline cache."
     },
-    "settings_itemLicenses": "Afficher les licences",
+    "settings_itemLicenses": "Voir les licences",
     "@settings_itemLicenses": {
         "description": "The action to display the open-source licenses screen."
     },
@@ -558,5 +558,63 @@
     "login_demoMode": "Essayer en mode démo",
     "@login_demoMode": {
         "description": "The action to put the app in demo mode instead of connecting to a server."
+    },
+    "settings_itemAdvanced": "Avancé",
+    "@settings_itemAdvanced": {
+        "description": "The submenu holding advanced/diagnostic settings."
+    },
+    "settings_itemInternetCheckUrl": "URL de vérification Internet",
+    "@settings_itemInternetCheckUrl": {
+        "description": "The URL pinged to detect internet connectivity."
+    },
+    "sync_statusAllGood": "À jour",
+    "@sync_statusAllGood": {
+        "description": "Sync indicator status: everything is synced."
+    },
+    "sync_statusSyncing": "Synchronisation…",
+    "@sync_statusSyncing": {
+        "description": "Sync indicator status: sync in progress."
+    },
+    "sync_statusNoInternet": "Pas de connexion Internet",
+    "@sync_statusNoInternet": {
+        "description": "Sync indicator status: device is offline."
+    },
+    "sync_statusServerUnreachable": "Serveur injoignable",
+    "@sync_statusServerUnreachable": {
+        "description": "Sync indicator status: server could not be reached."
+    },
+    "sync_statusError": "Erreur de synchronisation",
+    "@sync_statusError": {
+        "description": "Sync indicator status: an error occurred during sync."
+    },
+    "sync_statusAuthFailure": "Authentification requise",
+    "@sync_statusAuthFailure": {
+        "description": "Sync indicator status: credentials need to be refreshed."
+    },
+    "sync_neverSynced": "Jamais synchronisé",
+    "@sync_neverSynced": {
+        "description": "Sync indicator: shown when no sync has ever completed."
+    },
+    "sync_lastSynced": "Dernière synchronisation {relativeTime}",
+    "@sync_lastSynced": {
+        "description": "Sync indicator: relative time of last successful sync.",
+        "placeholders": {
+            "relativeTime": {
+                "type": "String"
+            }
+        }
+    },
+    "sync_pendingCount": "{count} en attente",
+    "@sync_pendingCount": {
+        "description": "Sync detail: number of items waiting to sync.",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "sync_retry": "Ressayer",
+    "@sync_retry": {
+        "description": "Sync detail action: retry a failed sync."
     }
 }
