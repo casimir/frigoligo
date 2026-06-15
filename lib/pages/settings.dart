@@ -14,7 +14,6 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../app_info.dart';
 import '../buildcontext_extension.dart';
 import '../config/dependencies.dart';
-import '../constants.dart';
 import '../data/services/local/storage/config_store_service.dart';
 import '../data/services/local/storage/storage_service.dart';
 import '../data/services/platform/appbadge_service.dart';
@@ -143,10 +142,10 @@ class SettingsPage extends ConsumerWidget {
               ],
             ),
             // Translations
-            SettingsSection(
-              title: _settingsSectionSplitter,
-              tiles: [
-                if (!UniversalPlatform.isIOS)
+            if (!AppInfo.usesSystemLocale)
+              SettingsSection(
+                title: _settingsSectionSplitter,
+                tiles: [
                   SettingsTile.navigation(
                     leading: const Icon(Icons.language),
                     title: Text(context.L.settings_itemLanguage),
@@ -171,16 +170,8 @@ class SettingsPage extends ConsumerWidget {
                       }
                     },
                   ),
-                SettingsTile(
-                  leading: const Icon(Icons.handyman),
-                  trailing: const Icon(Icons.open_in_new),
-                  title: Text(context.L.settings_helpToTranslate),
-                  onPressed: (_) => launchUrlString(
-                    'https://hosted.weblate.org/projects/frigoligo/',
-                  ),
-                ),
-              ],
-            ),
+                ],
+              ),
             // App Info
             SettingsSection(
               title: _settingsSectionSplitter,
@@ -215,6 +206,14 @@ class SettingsPage extends ConsumerWidget {
                   title: Text(context.L.settings_bugReportLink),
                   onPressed: (_) => launchUrlString(
                     'https://github.com/casimir/frigoligo/issues',
+                  ),
+                ),
+                SettingsTile(
+                  leading: const Icon(Icons.handyman),
+                  trailing: const Icon(Icons.open_in_new),
+                  title: Text(context.L.settings_helpToTranslate),
+                  onPressed: (_) => launchUrlString(
+                    'https://hosted.weblate.org/projects/frigoligo/',
                   ),
                 ),
                 SettingsTile.navigation(
@@ -281,36 +280,10 @@ class SettingsPage extends ConsumerWidget {
                     }
                   },
                 ),
-                if (nativeArticleRendererSupported)
-                  SettingsTile.switchTile(
-                    leading: const Icon(Icons.settings_suggest),
-                    title: Text(context.L.settings_nativeArticleRenderer),
-                    initialValue: settings[Sk.nativeArticleRenderer],
-                    onToggle: (value) => ref
-                        .read(settingsProvider.notifier)
-                        .set(Sk.nativeArticleRenderer, value),
-                  ),
                 SettingsTile.navigation(
-                  leading: const Icon(Icons.dns),
-                  title: const Text('Internet check URL'),
-                  value: Text(settings[Sk.internetCheckUrl]),
-                  onPressed: (context) async {
-                    final result = await showTextInputDialog(
-                      context: context,
-                      textFields: [
-                        DialogTextField(
-                          keyboardType: TextInputType.url,
-                          autocorrect: false,
-                          initialText: settings[Sk.internetCheckUrl],
-                        ),
-                      ],
-                    );
-                    if (result != null) {
-                      await ref
-                          .read(settingsProvider.notifier)
-                          .set(Sk.internetCheckUrl, result.first);
-                    }
-                  },
+                  leading: const Icon(Icons.tune),
+                  title: Text(context.L.settings_itemAdvanced),
+                  onPressed: (context) => context.push('/settings/advanced'),
                 ),
               ],
             ),

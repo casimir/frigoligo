@@ -24,6 +24,7 @@ codegen: pigeon
 translations:
 	$(FLUTTER) gen-l10n
 	$(DART) tools/arb_to_xcstrings.dart
+	$(DART) tools/arb_to_android_locales.dart
 	$(DART) flathub/render_metadata.dart
 
 .PHONY: lint

@@ -6,6 +6,7 @@ import '../pages/login.dart';
 import '../pages/save.dart';
 import '../pages/session_details.dart';
 import '../pages/settings.dart';
+import '../pages/settings_advanced.dart';
 import '../ui/home/controllers/home_screen_controller.dart';
 import '../ui/home/widgets/home_screen.dart';
 import '../ui/logconsole/viewmodels/logconsole_viewmodel.dart';
@@ -55,6 +56,10 @@ GoRouter router(Ref ref) {
       GoRoute(
         path: '/settings',
         builder: (context, state) => const SettingsPage(),
+      ),
+      GoRoute(
+        path: '/settings/advanced',
+        builder: (context, state) => const SettingsAdvancedPage(),
       ),
       GoRoute(
         path: '/session',
