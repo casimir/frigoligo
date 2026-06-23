@@ -40,7 +40,6 @@
         "description": "The source code of a software."
     },
     "g_system": "系统",
-    "@g_system": {},
     "g_tag": "标签",
     "@g_tag": {
         "description": "A tag can be attached to an article."
@@ -50,7 +49,6 @@
         "description": "A version, as in the application version."
     },
     "humanize_days": "{n} 天",
-    "@humanize_days": {},
     "humanize_future": "{duration} 后",
     "@humanize_future": {
         "description": "Describe a duration until a moment in the future.",
@@ -61,9 +59,7 @@
         }
     },
     "humanize_hours": "{n} 小时",
-    "@humanize_hours": {},
     "humanize_minutes": "{n} 分钟",
-    "@humanize_minutes": {},
     "humanize_past": "{duration} 前",
     "@humanize_past": {
         "description": "Describe a duration since a moment in the past.",
@@ -74,7 +70,6 @@
         }
     },
     "humanize_seconds": "{n} 秒",
-    "@humanize_seconds": {},
     "article_addTags": "添加标签",
     "@article_addTags": {
         "description": "The action to add tags to an article."
@@ -546,5 +541,80 @@
     "logconsole_clear_logs": "清除日志",
     "@logconsole_clear_logs": {
         "description": "The action to clear the logs."
+    },
+    "login_demoMode": "尝试使用演示模式",
+    "@login_demoMode": {
+        "description": "The action to put the app in demo mode instead of connecting to a server."
+    },
+    "save_localModeError": "保存新文章需要服务器连接。",
+    "@save_localModeError": {
+        "description": "Error message shown when trying to save an article in local mode."
+    },
+    "save_malformedUrlError": "错误的URL：{url}",
+    "@save_malformedUrlError": {
+        "description": "Error message shown when the URL to save is malformed.",
+        "placeholders": {
+            "url": {
+                "type": "String"
+            }
+        }
+    },
+    "settings_itemAdvanced": "高级设置",
+    "@settings_itemAdvanced": {
+        "description": "The submenu holding advanced/diagnostic settings."
+    },
+    "settings_itemInternetCheckUrl": "Internet 检查URL",
+    "@settings_itemInternetCheckUrl": {
+        "description": "The URL pinged to detect internet connectivity."
+    },
+    "sync_statusAllGood": "更新",
+    "@sync_statusAllGood": {
+        "description": "Sync indicator status: everything is synced."
+    },
+    "sync_statusSyncing": "正在同步…",
+    "@sync_statusSyncing": {
+        "description": "Sync indicator status: sync in progress."
+    },
+    "sync_statusNoInternet": "未连接到互联网",
+    "@sync_statusNoInternet": {
+        "description": "Sync indicator status: device is offline."
+    },
+    "sync_statusServerUnreachable": "无法访问服务器",
+    "@sync_statusServerUnreachable": {
+        "description": "Sync indicator status: server could not be reached."
+    },
+    "sync_statusError": "同步错误",
+    "@sync_statusError": {
+        "description": "Sync indicator status: an error occurred during sync."
+    },
+    "sync_statusAuthFailure": "需要认证",
+    "@sync_statusAuthFailure": {
+        "description": "Sync indicator status: credentials need to be refreshed."
+    },
+    "sync_retry": "重试",
+    "@sync_retry": {
+        "description": "Sync detail action: retry a failed sync."
+    },
+    "sync_lastSynced": "上次同步于{relativeTime}",
+    "@sync_lastSynced": {
+        "description": "Sync indicator: relative time of last successful sync.",
+        "placeholders": {
+            "relativeTime": {
+                "type": "String"
+            }
+        }
+    },
+    "sync_pendingCount": "{count}项正在等待同步",
+    "@sync_pendingCount": {
+        "description": "Sync detail: number of items waiting to sync.",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "sync_neverSynced": "尚未同步",
+    "@sync_neverSynced": {
+        "description": "Sync indicator: shown when no sync has ever completed."
     }
 }
