@@ -59,7 +59,7 @@ const webViewNpmScripts = [
   WebViewNpmScript(
     name: 'mathjax',
     npmPackage: 'mathjax',
-    version: '4.1.1', // renovate: datasource=npm depName=mathjax
+    version: '4.1.2', // renovate: datasource=npm depName=mathjax
     files: {
       'mathjax/tex-chtml.js': 'tex-chtml.js',
       '@mathjax/mathjax-newcm-font/chtml': 'fonts/mathjax-newcm-font/chtml',
