@@ -1,0 +1,4 @@
+- Reformulação da maior parte da interface para torná-la mais consistente e fácil de usar.
+- Reconstrução completa do sistema de armazenamento para uma experiência mais consistente e confiável em todas as plataformas.
+- Reconstrução da lógica de contagem de notificações do aplicativo para maior confiabilidade.
+- Novo idioma: Esperanto.
