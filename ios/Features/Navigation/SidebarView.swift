@@ -54,7 +54,7 @@ struct SidebarView: View {
     .sheet(isPresented: $viewModel.showSaveLinkSheet) {
       SaveLinkView().environmentObject(viewModel)
     }
-    .navigationTitle("Articles")
+    .navigationTitle(String(localized: "g_articles"))
     .navigationBarTitleDisplayMode(.inline)
     .toolbar {
       ToolbarItem(placement: .topBarLeading) {

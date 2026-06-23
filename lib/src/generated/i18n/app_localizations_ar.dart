@@ -15,6 +15,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get g_article => 'مقال';
 
   @override
+  String get g_articles => 'Articles';
+
+  @override
   String get g_check => 'تحقَّق';
 
   @override

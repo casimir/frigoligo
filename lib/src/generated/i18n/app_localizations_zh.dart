@@ -15,6 +15,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get g_article => '文章';
 
   @override
+  String get g_articles => 'Articles';
+
+  @override
   String get g_check => '检查';
 
   @override

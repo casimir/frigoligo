@@ -144,6 +144,12 @@ abstract class AppLocalizations {
   /// **'Article'**
   String get g_article;
 
+  /// Plural of article.
+  ///
+  /// In en, this message translates to:
+  /// **'Articles'**
+  String get g_articles;
+
   /// A verb as in to check something.
   ///
   /// In en, this message translates to:

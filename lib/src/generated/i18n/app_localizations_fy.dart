@@ -15,6 +15,9 @@ class AppLocalizationsFy extends AppLocalizations {
   String get g_article => 'Webartikel';
 
   @override
+  String get g_articles => 'Articles';
+
+  @override
   String get g_check => 'Kontrolearje';
 
   @override

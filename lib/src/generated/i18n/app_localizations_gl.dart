@@ -15,6 +15,9 @@ class AppLocalizationsGl extends AppLocalizations {
   String get g_article => 'Artigo';
 
   @override
+  String get g_articles => 'Articles';
+
+  @override
   String get g_check => 'Comprobar';
 
   @override

@@ -15,6 +15,9 @@ class AppLocalizationsTa extends AppLocalizations {
   String get g_article => 'கட்டுரை';
 
   @override
+  String get g_articles => 'Articles';
+
+  @override
   String get g_check => 'சரிபார்';
 
   @override

@@ -22,7 +22,7 @@ struct SaveLinkView: View {
           }
         }
       }
-      .navigationTitle("Save link")
+      .navigationTitle(String(localized: "g_saveLink"))
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         ToolbarItem(placement: .cancellationAction) {

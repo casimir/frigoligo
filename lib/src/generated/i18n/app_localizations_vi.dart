@@ -15,6 +15,9 @@ class AppLocalizationsVi extends AppLocalizations {
   String get g_article => 'Bài viết';
 
   @override
+  String get g_articles => 'Articles';
+
+  @override
   String get g_check => 'Kiểm tra';
 
   @override
