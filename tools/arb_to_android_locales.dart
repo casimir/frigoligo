@@ -19,7 +19,9 @@ String _qualifier(String tag) =>
 const _markerXml =
     '<?xml version="1.0" encoding="utf-8"?>\n'
     '<!-- GENERATED FILE, DO NOT EDIT MANUALLY -->\n'
-    '<resources><bool name="frigoligo_locale_marker">true</bool></resources>\n';
+    '<resources xmlns:tools="http://schemas.android.com/tools">'
+    '<bool name="frigoligo_locale_marker" tools:ignore="MissingDefaultResource">true</bool>'
+    '</resources>\n';
 
 void main() {
   final resDir = Directory('android/app/src/main/res');
