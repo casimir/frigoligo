@@ -428,6 +428,10 @@
     "@g_article": {
         "description": "A piece of content fetched from the web. This is one of the main concepts of the app."
     },
+    "g_articles": "文章",
+    "@g_articles": {
+        "description": "Plural of article."
+    },
     "filters_articleDomains": "網域",
     "@filters_articleDomains": {
         "description": "Filter the domains from where the articles have been fetched."

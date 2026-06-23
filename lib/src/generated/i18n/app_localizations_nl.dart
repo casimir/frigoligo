@@ -15,7 +15,7 @@ class AppLocalizationsNl extends AppLocalizations {
   String get g_article => 'Artikel';
 
   @override
-  String get g_articles => 'Articles';
+  String get g_articles => 'Artikelen';
 
   @override
   String get g_check => 'Controleren';

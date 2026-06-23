@@ -15,7 +15,7 @@ class AppLocalizationsAf extends AppLocalizations {
   String get g_article => 'Artikel';
 
   @override
-  String get g_articles => 'Articles';
+  String get g_articles => 'Artikels';
 
   @override
   String get g_check => 'Kontroleer';

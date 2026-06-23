@@ -15,7 +15,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get g_article => 'Artigo';
 
   @override
-  String get g_articles => 'Articles';
+  String get g_articles => 'Artigos';
 
   @override
   String get g_check => 'Verificar';
@@ -322,7 +322,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get login_actionLogin => 'Conecte-se';
 
   @override
-  String get login_demoMode => 'Try in demo mode';
+  String get login_demoMode => 'Experimente no modo de demonstração';
 
   @override
   String get login_existingSessionDialogConfirm => 'Sair';
@@ -387,11 +387,11 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get save_localModeError =>
-      'A server connection is required to save new articles.';
+      'É necessária uma conexão com o servidor para salvar novos artigos.';
 
   @override
   String save_malformedUrlError(String url) {
-    return 'Malformed URL: $url';
+    return 'URL malformada: $url';
   }
 
   @override
@@ -586,6 +586,9 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get g_article => 'Artigo';
+
+  @override
+  String get g_articles => 'Artigos';
 
   @override
   String get g_check => 'Checar';
@@ -1117,6 +1120,9 @@ class AppLocalizationsPtPt extends AppLocalizationsPt {
   String get g_article => 'Artigo';
 
   @override
+  String get g_articles => 'Artigos';
+
+  @override
   String get g_check => 'Verificar';
 
   @override
@@ -1575,7 +1581,13 @@ class AppLocalizationsPtPt extends AppLocalizationsPt {
       'O cache local será apagado e recuperado novamente do servidor.';
 
   @override
+  String get settings_itemAdvanced => 'Avançado';
+
+  @override
   String get settings_itemAppearance => 'Aparência';
+
+  @override
+  String get settings_itemInternetCheckUrl => 'URL para verificar a Internet';
 
   @override
   String get settings_itemAbout => 'Sobre';
@@ -1638,4 +1650,38 @@ class AppLocalizationsPtPt extends AppLocalizationsPt {
     );
     return '$_temp0';
   }
+
+  @override
+  String get sync_statusAllGood => 'Atualizado';
+
+  @override
+  String get sync_statusSyncing => 'A sincronizar…';
+
+  @override
+  String get sync_statusNoInternet => 'Sem conexão de internet';
+
+  @override
+  String get sync_statusServerUnreachable => 'Servidor inacessível';
+
+  @override
+  String get sync_statusError => 'Erro de sincronização';
+
+  @override
+  String get sync_statusAuthFailure => 'Autenticação necessária';
+
+  @override
+  String get sync_neverSynced => 'Nunca foi sincronizado';
+
+  @override
+  String sync_lastSynced(String relativeTime) {
+    return 'Última sincronização $relativeTime';
+  }
+
+  @override
+  String sync_pendingCount(int count) {
+    return '$count pendente';
+  }
+
+  @override
+  String get sync_retry => 'Repetir';
 }

@@ -15,7 +15,7 @@ class AppLocalizationsCs extends AppLocalizations {
   String get g_article => 'Článek';
 
   @override
-  String get g_articles => 'Articles';
+  String get g_articles => 'Články';
 
   @override
   String get g_check => 'Kontrola';

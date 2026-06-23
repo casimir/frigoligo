@@ -450,6 +450,10 @@
     "@g_article": {
         "description": "A piece of content fetched from the web. This is one of the main concepts of the app."
     },
+    "g_articles": "Artigos",
+    "@g_articles": {
+        "description": "Plural of article."
+    },
     "articlefields_readingTime": "Tempo de lectura",
     "@articlefields_readingTime": {
         "description": "The estimated reading time of the article."

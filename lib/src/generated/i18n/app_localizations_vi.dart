@@ -15,7 +15,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get g_article => 'Bài viết';
 
   @override
-  String get g_articles => 'Articles';
+  String get g_articles => 'Bài viết';
 
   @override
   String get g_check => 'Kiểm tra';
@@ -492,7 +492,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get settings_itemClearCache => 'Xóa bộ nhớ đệm';
 
   @override
-  String get settings_itemLicenses => 'View licenses';
+  String get settings_itemLicenses => 'Xem giấy phép';
 
   @override
   String get settings_itemLogConsole => 'Bảng điều khiển nhật ký';

@@ -15,7 +15,7 @@ class AppLocalizationsEt extends AppLocalizations {
   String get g_article => 'Artikkel';
 
   @override
-  String get g_articles => 'Articles';
+  String get g_articles => 'Artiklid';
 
   @override
   String get g_check => 'Kontrolli';
@@ -474,13 +474,14 @@ class AppLocalizationsEt extends AppLocalizations {
       'Järgnevaga kustutame kohaliku vahemälu ja laadime andmed serverist uuesti.';
 
   @override
-  String get settings_itemAdvanced => 'Advanced';
+  String get settings_itemAdvanced => 'Lisaseadistused';
 
   @override
   String get settings_itemAppearance => 'Välimus';
 
   @override
-  String get settings_itemInternetCheckUrl => 'Internet check URL';
+  String get settings_itemInternetCheckUrl =>
+      'Internetiühenduse kontrollimise võrguaadress';
 
   @override
   String get settings_itemAbout => 'Rakenduse teave';
@@ -546,36 +547,36 @@ class AppLocalizationsEt extends AppLocalizations {
   }
 
   @override
-  String get sync_statusAllGood => 'Up to date';
+  String get sync_statusAllGood => 'Ajakohane';
 
   @override
-  String get sync_statusSyncing => 'Syncing…';
+  String get sync_statusSyncing => 'Sünkroonimisel…';
 
   @override
-  String get sync_statusNoInternet => 'No internet connection';
+  String get sync_statusNoInternet => 'Internetiühendus puudub';
 
   @override
-  String get sync_statusServerUnreachable => 'Server unreachable';
+  String get sync_statusServerUnreachable => 'Server pole leitav';
 
   @override
-  String get sync_statusError => 'Sync error';
+  String get sync_statusError => 'Sünkroonimisviga';
 
   @override
-  String get sync_statusAuthFailure => 'Authentication required';
+  String get sync_statusAuthFailure => 'Autentimine on vajalik';
 
   @override
-  String get sync_neverSynced => 'Never synced';
+  String get sync_neverSynced => 'Pole kunagi sünkroonitud';
 
   @override
   String sync_lastSynced(String relativeTime) {
-    return 'Last synced $relativeTime';
+    return 'Viimati sünkroonitud $relativeTime';
   }
 
   @override
   String sync_pendingCount(int count) {
-    return '$count pending';
+    return '$count on ootel';
   }
 
   @override
-  String get sync_retry => 'Retry';
+  String get sync_retry => 'Proovi uuesti';
 }

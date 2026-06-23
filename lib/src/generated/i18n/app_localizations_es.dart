@@ -15,7 +15,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get g_article => 'Artículo';
 
   @override
-  String get g_articles => 'Articles';
+  String get g_articles => 'Artículos';
 
   @override
   String get g_check => 'Comprobar';
@@ -473,13 +473,13 @@ class AppLocalizationsEs extends AppLocalizations {
       'La caché local se eliminará y se recuperará nuevamente del servidor.';
 
   @override
-  String get settings_itemAdvanced => 'Advanced';
+  String get settings_itemAdvanced => 'Avanzado';
 
   @override
   String get settings_itemAppearance => 'Aspecto';
 
   @override
-  String get settings_itemInternetCheckUrl => 'Internet check URL';
+  String get settings_itemInternetCheckUrl => 'URL de comprobación de Internet';
 
   @override
   String get settings_itemAbout => 'Acerca de';
@@ -546,36 +546,36 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get sync_statusAllGood => 'Up to date';
+  String get sync_statusAllGood => 'Hasta la fecha';
 
   @override
-  String get sync_statusSyncing => 'Syncing…';
+  String get sync_statusSyncing => 'Sincronizando…';
 
   @override
-  String get sync_statusNoInternet => 'No internet connection';
+  String get sync_statusNoInternet => 'Sin conexión a Internet';
 
   @override
-  String get sync_statusServerUnreachable => 'Server unreachable';
+  String get sync_statusServerUnreachable => 'Servidor no alcanzable';
 
   @override
-  String get sync_statusError => 'Sync error';
+  String get sync_statusError => 'Sincronismo erróneo';
 
   @override
-  String get sync_statusAuthFailure => 'Authentication required';
+  String get sync_statusAuthFailure => 'Autenticación requerida';
 
   @override
-  String get sync_neverSynced => 'Never synced';
+  String get sync_neverSynced => 'Nunca sincronizado';
 
   @override
   String sync_lastSynced(String relativeTime) {
-    return 'Last synced $relativeTime';
+    return 'Última sincronización $relativeTime';
   }
 
   @override
   String sync_pendingCount(int count) {
-    return '$count pending';
+    return '$count pendiente';
   }
 
   @override
-  String get sync_retry => 'Retry';
+  String get sync_retry => 'Reintentar';
 }

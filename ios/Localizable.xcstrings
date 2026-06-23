@@ -5219,13 +5219,13 @@
         "af" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Articles"
+            "value" : "Artikels"
           }
         },
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Articles"
+            "value" : "مقالات"
           }
         },
         "ca" : {
@@ -5237,13 +5237,13 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Articles"
+            "value" : "Články"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Articles"
+            "value" : "Artikel"
           }
         },
         "en" : {
@@ -5255,19 +5255,19 @@
         "eo" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Articles"
+            "value" : "Artikoloj"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Articles"
+            "value" : "Artículos"
           }
         },
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Articles"
+            "value" : "Artiklid"
           }
         },
         "fr" : {
@@ -5279,73 +5279,73 @@
         "fy" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Articles"
+            "value" : "Webartikels"
           }
         },
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Articles"
+            "value" : "Artigos"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Articles"
+            "value" : "Articoli"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Articles"
+            "value" : "Artikelen"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Articles"
+            "value" : "Artigos"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Articles"
+            "value" : "Artigos"
           }
         },
         "pt-PT" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Articles"
+            "value" : "Artigos"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Articles"
+            "value" : "Статьи"
           }
         },
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Articles"
+            "value" : "கட்டுரைகள்"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Articles"
+            "value" : "Bài viết"
           }
         },
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Articles"
+            "value" : "文章"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Articles"
+            "value" : "文章"
           }
         }
       }
@@ -11577,7 +11577,7 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Try in demo mode"
+            "value" : "Experimente no modo de demonstração"
           }
         },
         "pt-BR" : {
@@ -11613,7 +11613,7 @@
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Try in demo mode"
+            "value" : "尝试使用演示模式"
           }
         },
         "zh-Hant" : {
@@ -13923,7 +13923,7 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A server connection is required to save new articles."
+            "value" : "É necessária uma conexão com o servidor para salvar novos artigos."
           }
         },
         "pt-BR" : {
@@ -13959,7 +13959,7 @@
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A server connection is required to save new articles."
+            "value" : "保存新文章需要服务器连接。"
           }
         },
         "zh-Hant" : {
@@ -14061,7 +14061,7 @@
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Malformed URL: %@"
+            "value" : "URL malformada: %@"
           }
         },
         "pt-BR" : {
@@ -14097,7 +14097,7 @@
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Malformed URL: %@"
+            "value" : "错误的URL：%@"
           }
         },
         "zh-Hant" : {
@@ -18126,7 +18126,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Advanced"
+            "value" : "متقدم"
           }
         },
         "ca" : {
@@ -18144,7 +18144,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Advanced"
+            "value" : "Erweitert"
           }
         },
         "en" : {
@@ -18162,19 +18162,19 @@
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Advanced"
+            "value" : "Avanzado"
           }
         },
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Advanced"
+            "value" : "Lisaseadistused"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Advanced"
+            "value" : "Avancé"
           }
         },
         "fy" : {
@@ -18192,7 +18192,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Advanced"
+            "value" : "Avanzate"
           }
         },
         "nl" : {
@@ -18216,13 +18216,13 @@
         "pt-PT" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Advanced"
+            "value" : "Avançado"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Advanced"
+            "value" : "Дополнительно"
           }
         },
         "ta" : {
@@ -18240,7 +18240,7 @@
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Advanced"
+            "value" : "高级设置"
           }
         },
         "zh-Hant" : {
@@ -18678,7 +18678,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Internet check URL"
+            "value" : "رابط التحقق من الإنترنت"
           }
         },
         "ca" : {
@@ -18696,7 +18696,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Internet check URL"
+            "value" : "Internet-Check URL"
           }
         },
         "en" : {
@@ -18714,19 +18714,19 @@
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Internet check URL"
+            "value" : "URL de comprobación de Internet"
           }
         },
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Internet check URL"
+            "value" : "Internetiühenduse kontrollimise võrguaadress"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Internet check URL"
+            "value" : "URL de vérification Internet"
           }
         },
         "fy" : {
@@ -18744,7 +18744,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Internet check URL"
+            "value" : "URL di verifica internet"
           }
         },
         "nl" : {
@@ -18768,13 +18768,13 @@
         "pt-PT" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Internet check URL"
+            "value" : "URL para verificar a Internet"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Internet check URL"
+            "value" : "Проверка URL адреса"
           }
         },
         "ta" : {
@@ -18792,7 +18792,7 @@
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Internet check URL"
+            "value" : "Internet 检查URL"
           }
         },
         "zh-Hant" : {
@@ -19002,7 +19002,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Afficher les licences"
+            "value" : "Voir les licences"
           }
         },
         "fy" : {
@@ -19062,7 +19062,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "View licenses"
+            "value" : "Xem giấy phép"
           }
         },
         "zh" : {
@@ -20334,7 +20334,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Last synced %@"
+            "value" : "تمت المزامنة منذ %@"
           }
         },
         "ca" : {
@@ -20352,7 +20352,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Last synced %@"
+            "value" : "Zuletzt synchronisiert %@"
           }
         },
         "en" : {
@@ -20370,19 +20370,19 @@
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Last synced %@"
+            "value" : "Última sincronización %@"
           }
         },
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Last synced %@"
+            "value" : "Viimati sünkroonitud %@"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Last synced %@"
+            "value" : "Dernière synchronisation %@"
           }
         },
         "fy" : {
@@ -20400,7 +20400,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Last synced %@"
+            "value" : "Ultima sincronizzazione %@"
           }
         },
         "nl" : {
@@ -20424,13 +20424,13 @@
         "pt-PT" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Last synced %@"
+            "value" : "Última sincronização %@"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Last synced %@"
+            "value" : "Последняя синхронизация %@"
           }
         },
         "ta" : {
@@ -20448,7 +20448,7 @@
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Last synced %@"
+            "value" : "上次同步于%@"
           }
         },
         "zh-Hant" : {
@@ -20472,7 +20472,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Never synced"
+            "value" : "لم تتم المزامنة من قبل"
           }
         },
         "ca" : {
@@ -20490,7 +20490,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Never synced"
+            "value" : "Noch nicht synchronisiert"
           }
         },
         "en" : {
@@ -20508,19 +20508,19 @@
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Never synced"
+            "value" : "Nunca sincronizado"
           }
         },
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Never synced"
+            "value" : "Pole kunagi sünkroonitud"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Never synced"
+            "value" : "Jamais synchronisé"
           }
         },
         "fy" : {
@@ -20538,7 +20538,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Never synced"
+            "value" : "Mai sincronizzato"
           }
         },
         "nl" : {
@@ -20562,13 +20562,13 @@
         "pt-PT" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Never synced"
+            "value" : "Nunca foi sincronizado"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Never synced"
+            "value" : "Синхронизаций не было"
           }
         },
         "ta" : {
@@ -20586,7 +20586,7 @@
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Never synced"
+            "value" : "尚未同步"
           }
         },
         "zh-Hant" : {
@@ -20610,7 +20610,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%lld pending"
+            "value" : "%lld جارٍ"
           }
         },
         "ca" : {
@@ -20628,7 +20628,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%lld pending"
+            "value" : "%lld ausstehend"
           }
         },
         "en" : {
@@ -20646,19 +20646,19 @@
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%lld pending"
+            "value" : "%lld pendiente"
           }
         },
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%lld pending"
+            "value" : "%lld on ootel"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%lld pending"
+            "value" : "%lld en attente"
           }
         },
         "fy" : {
@@ -20676,7 +20676,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%lld pending"
+            "value" : "%lld in attesa"
           }
         },
         "nl" : {
@@ -20700,13 +20700,13 @@
         "pt-PT" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%lld pending"
+            "value" : "%lld pendente"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%lld pending"
+            "value" : "%lld в очереди"
           }
         },
         "ta" : {
@@ -20724,7 +20724,7 @@
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%lld pending"
+            "value" : "%lld项正在等待同步"
           }
         },
         "zh-Hant" : {
@@ -20748,7 +20748,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Retry"
+            "value" : "حاول مرة آخرى"
           }
         },
         "ca" : {
@@ -20766,7 +20766,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Retry"
+            "value" : "Erneut versuchen"
           }
         },
         "en" : {
@@ -20784,19 +20784,19 @@
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Retry"
+            "value" : "Reintentar"
           }
         },
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Retry"
+            "value" : "Proovi uuesti"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Retry"
+            "value" : "Ressayer"
           }
         },
         "fy" : {
@@ -20814,7 +20814,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Retry"
+            "value" : "Riprova"
           }
         },
         "nl" : {
@@ -20838,13 +20838,13 @@
         "pt-PT" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Retry"
+            "value" : "Repetir"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Retry"
+            "value" : "Повторить"
           }
         },
         "ta" : {
@@ -20862,7 +20862,7 @@
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Retry"
+            "value" : "重试"
           }
         },
         "zh-Hant" : {
@@ -20886,7 +20886,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Up to date"
+            "value" : "تم التحديث"
           }
         },
         "ca" : {
@@ -20904,7 +20904,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Up to date"
+            "value" : "Aktuell"
           }
         },
         "en" : {
@@ -20922,19 +20922,19 @@
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Up to date"
+            "value" : "Hasta la fecha"
           }
         },
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Up to date"
+            "value" : "Ajakohane"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Up to date"
+            "value" : "À jour"
           }
         },
         "fy" : {
@@ -20952,7 +20952,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Up to date"
+            "value" : "Aggiornato"
           }
         },
         "nl" : {
@@ -20976,13 +20976,13 @@
         "pt-PT" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Up to date"
+            "value" : "Atualizado"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Up to date"
+            "value" : "Синхронизировано"
           }
         },
         "ta" : {
@@ -21000,7 +21000,7 @@
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Up to date"
+            "value" : "更新"
           }
         },
         "zh-Hant" : {
@@ -21024,7 +21024,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Authentication required"
+            "value" : "التحقق من الهوية مطلوب"
           }
         },
         "ca" : {
@@ -21042,7 +21042,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Authentication required"
+            "value" : "Authentifizierung erforderlich"
           }
         },
         "en" : {
@@ -21060,19 +21060,19 @@
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Authentication required"
+            "value" : "Autenticación requerida"
           }
         },
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Authentication required"
+            "value" : "Autentimine on vajalik"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Authentication required"
+            "value" : "Authentification requise"
           }
         },
         "fy" : {
@@ -21090,7 +21090,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Authentication required"
+            "value" : "Autenticazione richiesta"
           }
         },
         "nl" : {
@@ -21114,13 +21114,13 @@
         "pt-PT" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Authentication required"
+            "value" : "Autenticação necessária"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Authentication required"
+            "value" : "Требуется аутентификация"
           }
         },
         "ta" : {
@@ -21138,7 +21138,7 @@
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Authentication required"
+            "value" : "需要认证"
           }
         },
         "zh-Hant" : {
@@ -21162,7 +21162,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sync error"
+            "value" : "خطأ في المزامنة"
           }
         },
         "ca" : {
@@ -21180,7 +21180,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sync error"
+            "value" : "Synchronisierungsfehler"
           }
         },
         "en" : {
@@ -21198,19 +21198,19 @@
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sync error"
+            "value" : "Sincronismo erróneo"
           }
         },
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sync error"
+            "value" : "Sünkroonimisviga"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sync error"
+            "value" : "Erreur de synchronisation"
           }
         },
         "fy" : {
@@ -21228,7 +21228,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sync error"
+            "value" : "Errore di sincronizzazione"
           }
         },
         "nl" : {
@@ -21252,13 +21252,13 @@
         "pt-PT" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sync error"
+            "value" : "Erro de sincronização"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sync error"
+            "value" : "Ошибка синхронизации"
           }
         },
         "ta" : {
@@ -21276,7 +21276,7 @@
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sync error"
+            "value" : "同步错误"
           }
         },
         "zh-Hant" : {
@@ -21300,7 +21300,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No internet connection"
+            "value" : "لا يوجد اتصال بالإنترنت"
           }
         },
         "ca" : {
@@ -21318,7 +21318,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No internet connection"
+            "value" : "Keine Internet Verbindung"
           }
         },
         "en" : {
@@ -21336,19 +21336,19 @@
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No internet connection"
+            "value" : "Sin conexión a Internet"
           }
         },
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No internet connection"
+            "value" : "Internetiühendus puudub"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No internet connection"
+            "value" : "Pas de connexion Internet"
           }
         },
         "fy" : {
@@ -21366,7 +21366,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No internet connection"
+            "value" : "Nessuna connessione internet"
           }
         },
         "nl" : {
@@ -21390,13 +21390,13 @@
         "pt-PT" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No internet connection"
+            "value" : "Sem conexão de internet"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No internet connection"
+            "value" : "Нет подключения к интернету"
           }
         },
         "ta" : {
@@ -21414,7 +21414,7 @@
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No internet connection"
+            "value" : "未连接到互联网"
           }
         },
         "zh-Hant" : {
@@ -21438,7 +21438,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Server unreachable"
+            "value" : "لا يمكن الوصول للسيرفر"
           }
         },
         "ca" : {
@@ -21456,7 +21456,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Server unreachable"
+            "value" : "Server nicht erreichbar"
           }
         },
         "en" : {
@@ -21474,19 +21474,19 @@
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Server unreachable"
+            "value" : "Servidor no alcanzable"
           }
         },
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Server unreachable"
+            "value" : "Server pole leitav"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Server unreachable"
+            "value" : "Serveur injoignable"
           }
         },
         "fy" : {
@@ -21504,7 +21504,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Server unreachable"
+            "value" : "Server non raggiungibile"
           }
         },
         "nl" : {
@@ -21528,13 +21528,13 @@
         "pt-PT" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Server unreachable"
+            "value" : "Servidor inacessível"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Server unreachable"
+            "value" : "Сервер недоступен"
           }
         },
         "ta" : {
@@ -21552,7 +21552,7 @@
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Server unreachable"
+            "value" : "无法访问服务器"
           }
         },
         "zh-Hant" : {
@@ -21576,7 +21576,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Syncing…"
+            "value" : "جارٍ المزامنة…"
           }
         },
         "ca" : {
@@ -21594,7 +21594,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Syncing…"
+            "value" : "Synchronisiere…"
           }
         },
         "en" : {
@@ -21612,19 +21612,19 @@
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Syncing…"
+            "value" : "Sincronizando…"
           }
         },
         "et" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Syncing…"
+            "value" : "Sünkroonimisel…"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Syncing…"
+            "value" : "Synchronisation…"
           }
         },
         "fy" : {
@@ -21642,7 +21642,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Syncing…"
+            "value" : "Sincronizzazione…"
           }
         },
         "nl" : {
@@ -21666,13 +21666,13 @@
         "pt-PT" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Syncing…"
+            "value" : "A sincronizar…"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Syncing…"
+            "value" : "Синхронизация…"
           }
         },
         "ta" : {
@@ -21690,7 +21690,7 @@
         "zh" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Syncing…"
+            "value" : "正在同步…"
           }
         },
         "zh-Hant" : {

@@ -479,13 +479,13 @@ class AppLocalizationsFr extends AppLocalizations {
       'Le cache local sera supprimé et récupéré à nouveau depuis le serveur.';
 
   @override
-  String get settings_itemAdvanced => 'Advanced';
+  String get settings_itemAdvanced => 'Avancé';
 
   @override
   String get settings_itemAppearance => 'Apparence';
 
   @override
-  String get settings_itemInternetCheckUrl => 'Internet check URL';
+  String get settings_itemInternetCheckUrl => 'URL de vérification Internet';
 
   @override
   String get settings_itemAbout => 'À propos';
@@ -497,7 +497,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get settings_itemClearCache => 'Nettoyer le cache';
 
   @override
-  String get settings_itemLicenses => 'Afficher les licences';
+  String get settings_itemLicenses => 'Voir les licences';
 
   @override
   String get settings_itemLogConsole => 'Console de journalisation';
@@ -550,36 +550,36 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get sync_statusAllGood => 'Up to date';
+  String get sync_statusAllGood => 'À jour';
 
   @override
-  String get sync_statusSyncing => 'Syncing…';
+  String get sync_statusSyncing => 'Synchronisation…';
 
   @override
-  String get sync_statusNoInternet => 'No internet connection';
+  String get sync_statusNoInternet => 'Pas de connexion Internet';
 
   @override
-  String get sync_statusServerUnreachable => 'Server unreachable';
+  String get sync_statusServerUnreachable => 'Serveur injoignable';
 
   @override
-  String get sync_statusError => 'Sync error';
+  String get sync_statusError => 'Erreur de synchronisation';
 
   @override
-  String get sync_statusAuthFailure => 'Authentication required';
+  String get sync_statusAuthFailure => 'Authentification requise';
 
   @override
-  String get sync_neverSynced => 'Never synced';
+  String get sync_neverSynced => 'Jamais synchronisé';
 
   @override
   String sync_lastSynced(String relativeTime) {
-    return 'Last synced $relativeTime';
+    return 'Dernière synchronisation $relativeTime';
   }
 
   @override
   String sync_pendingCount(int count) {
-    return '$count pending';
+    return '$count en attente';
   }
 
   @override
-  String get sync_retry => 'Retry';
+  String get sync_retry => 'Ressayer';
 }

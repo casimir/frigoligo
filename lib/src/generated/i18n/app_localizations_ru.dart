@@ -15,7 +15,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get g_article => 'Статья';
 
   @override
-  String get g_articles => 'Articles';
+  String get g_articles => 'Статьи';
 
   @override
   String get g_check => 'Проверка';
@@ -474,13 +474,13 @@ class AppLocalizationsRu extends AppLocalizations {
       'Локальный кэш будет удалён и снова получен с сервера.';
 
   @override
-  String get settings_itemAdvanced => 'Advanced';
+  String get settings_itemAdvanced => 'Дополнительно';
 
   @override
   String get settings_itemAppearance => 'Тема';
 
   @override
-  String get settings_itemInternetCheckUrl => 'Internet check URL';
+  String get settings_itemInternetCheckUrl => 'Проверка URL адреса';
 
   @override
   String get settings_itemAbout => 'Информация';
@@ -544,36 +544,36 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get sync_statusAllGood => 'Up to date';
+  String get sync_statusAllGood => 'Синхронизировано';
 
   @override
-  String get sync_statusSyncing => 'Syncing…';
+  String get sync_statusSyncing => 'Синхронизация…';
 
   @override
-  String get sync_statusNoInternet => 'No internet connection';
+  String get sync_statusNoInternet => 'Нет подключения к интернету';
 
   @override
-  String get sync_statusServerUnreachable => 'Server unreachable';
+  String get sync_statusServerUnreachable => 'Сервер недоступен';
 
   @override
-  String get sync_statusError => 'Sync error';
+  String get sync_statusError => 'Ошибка синхронизации';
 
   @override
-  String get sync_statusAuthFailure => 'Authentication required';
+  String get sync_statusAuthFailure => 'Требуется аутентификация';
 
   @override
-  String get sync_neverSynced => 'Never synced';
+  String get sync_neverSynced => 'Синхронизаций не было';
 
   @override
   String sync_lastSynced(String relativeTime) {
-    return 'Last synced $relativeTime';
+    return 'Последняя синхронизация $relativeTime';
   }
 
   @override
   String sync_pendingCount(int count) {
-    return '$count pending';
+    return '$count в очереди';
   }
 
   @override
-  String get sync_retry => 'Retry';
+  String get sync_retry => 'Повторить';
 }

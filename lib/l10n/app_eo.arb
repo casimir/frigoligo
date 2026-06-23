@@ -415,6 +415,10 @@
   "@g_article": {
     "description": "A piece of content fetched from the web. This is one of the main concepts of the app."
   },
+  "g_articles": "Artikoloj",
+  "@g_articles": {
+    "description": "Plural of article."
+  },
   "g_saveLink": "Konservi ligon",
   "@g_saveLink": {
     "description": "A verb, as in to save a link."

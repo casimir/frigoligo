@@ -143,6 +143,10 @@
     "@g_article": {
         "description": "A piece of content fetched from the web. This is one of the main concepts of the app."
     },
+    "g_articles": "Artigos",
+    "@g_articles": {
+        "description": "Plural of article."
+    },
     "articlefields_title": "Título",
     "@articlefields_title": {
         "description": "The title of the article."

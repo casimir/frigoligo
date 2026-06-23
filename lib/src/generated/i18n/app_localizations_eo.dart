@@ -15,7 +15,7 @@ class AppLocalizationsEo extends AppLocalizations {
   String get g_article => 'Artikolo';
 
   @override
-  String get g_articles => 'Articles';
+  String get g_articles => 'Artikoloj';
 
   @override
   String get g_check => 'Kontroli';

@@ -15,7 +15,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get g_article => '文章';
 
   @override
-  String get g_articles => 'Articles';
+  String get g_articles => '文章';
 
   @override
   String get g_check => '检查';
@@ -286,7 +286,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get login_actionLogin => '登录';
 
   @override
-  String get login_demoMode => 'Try in demo mode';
+  String get login_demoMode => '尝试使用演示模式';
 
   @override
   String get login_existingSessionDialogConfirm => '登出';
@@ -348,12 +348,11 @@ class AppLocalizationsZh extends AppLocalizations {
   String get save_viewArticle => '浏览文章';
 
   @override
-  String get save_localModeError =>
-      'A server connection is required to save new articles.';
+  String get save_localModeError => '保存新文章需要服务器连接。';
 
   @override
   String save_malformedUrlError(String url) {
-    return 'Malformed URL: $url';
+    return '错误的URL：$url';
   }
 
   @override
@@ -433,13 +432,13 @@ class AppLocalizationsZh extends AppLocalizations {
   String get settings_clearCacheMessage => '本地缓存将被删除，并重新从服务器获取。';
 
   @override
-  String get settings_itemAdvanced => 'Advanced';
+  String get settings_itemAdvanced => '高级设置';
 
   @override
   String get settings_itemAppearance => '外观';
 
   @override
-  String get settings_itemInternetCheckUrl => 'Internet check URL';
+  String get settings_itemInternetCheckUrl => 'Internet 检查URL';
 
   @override
   String get settings_itemAbout => '关于';
@@ -497,38 +496,38 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get sync_statusAllGood => 'Up to date';
+  String get sync_statusAllGood => '更新';
 
   @override
-  String get sync_statusSyncing => 'Syncing…';
+  String get sync_statusSyncing => '正在同步…';
 
   @override
-  String get sync_statusNoInternet => 'No internet connection';
+  String get sync_statusNoInternet => '未连接到互联网';
 
   @override
-  String get sync_statusServerUnreachable => 'Server unreachable';
+  String get sync_statusServerUnreachable => '无法访问服务器';
 
   @override
-  String get sync_statusError => 'Sync error';
+  String get sync_statusError => '同步错误';
 
   @override
-  String get sync_statusAuthFailure => 'Authentication required';
+  String get sync_statusAuthFailure => '需要认证';
 
   @override
-  String get sync_neverSynced => 'Never synced';
+  String get sync_neverSynced => '尚未同步';
 
   @override
   String sync_lastSynced(String relativeTime) {
-    return 'Last synced $relativeTime';
+    return '上次同步于$relativeTime';
   }
 
   @override
   String sync_pendingCount(int count) {
-    return '$count pending';
+    return '$count项正在等待同步';
   }
 
   @override
-  String get sync_retry => 'Retry';
+  String get sync_retry => '重试';
 }
 
 /// The translations for Chinese, using the Han script (`zh_Hant`).
@@ -537,6 +536,9 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get g_article => '文章';
+
+  @override
+  String get g_articles => '文章';
 
   @override
   String get g_check => '檢查';

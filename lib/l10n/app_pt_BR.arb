@@ -369,6 +369,10 @@
     "@g_article": {
         "description": "A piece of content fetched from the web. This is one of the main concepts of the app."
     },
+    "g_articles": "Artigos",
+    "@g_articles": {
+        "description": "Plural of article."
+    },
     "login_fieldClientId": "ID do cliente",
     "@login_fieldClientId": {
         "description": "The client ID field of the login form."
