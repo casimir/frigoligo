@@ -1,0 +1,40 @@
+sequence = [
+  "light",
+  ".maestro/screenshots.yaml",
+  "dark",
+  ".maestro/screenshots-dark.yaml",
+]
+
+[locales]
+shared  = ["ar_SA", "ca_ES", "cs_CZ", "de_DE", "en_US", "es_ES", "fr_FR", "it_IT", "nl_NL", "pt_BR", "pt_PT", "ru_RU", "vi_VN", "zh_CN", "zh_TW"]
+android = ["af_ZA", "et_EE", "gl_ES", "ta_IN"]
+
+[ios]
+app_id   = "net.casimir-lab.frigoligo"
+build    = ["fvm", "flutter", "build", "ios", "--simulator"]
+artifact = "build/ios/iphonesimulator/Runner.app"
+out_dir  = "fastlane/screenshots/ios/{locale}"
+
+  [[ios.phones]]
+  model  = "iPhone-17-Pro-Max"
+  os     = "iOS-26-5"
+  prefix = "iPhone 17 Pro Max"
+
+  [[ios.tablets]]
+  model  = "iPad-Pro-13-inch-M5"
+  os     = "iOS-26-5"
+  prefix = "iPad Pro 13-inch (M5)"
+
+[android]
+app_id   = "net.casimirlab.frigoligo"
+build    = ["fvm", "flutter", "build", "apk", "--debug"]
+artifact = "build/app/outputs/flutter-apk/app-debug.apk"
+out_dir  = "fastlane/metadata/android/{locale}/images/{subdir}"
+
+  [[android.phones]]
+  avd    = "android_phone"
+  subdir = "phoneScreenshots"
+
+  [[android.tablets]]
+  avd    = "android_tablet"
+  subdir = "tenInchScreenshots"

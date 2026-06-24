@@ -1,0 +1,39 @@
+appId: ${APP_ID}
+---
+- runFlow: flows/_login.yaml
+
+- runFlow:
+    when:
+      true: ${DEVICE_TYPE == 'tablet'}
+    commands:
+      - tapOn: "(?s).*wallabag turns 10.*"
+      - waitForAnimationToEnd
+      - assertVisible: "(?s).*To celebrate this birthday.*"
+      - waitForAnimationToEnd
+
+- takeScreenshot: ${SCREENSHOT_DIR}/1-listing
+
+- runFlow:
+    when:
+      platform: android
+    commands:
+      - tapOn:
+          id: "listing.menu"
+      - tapOn:
+          id: "listing.settings"
+- runFlow:
+    when:
+      platform: ios
+    commands:
+      - tapOn:
+          id: "listing.settings"
+- waitForAnimationToEnd
+- takeScreenshot: ${SCREENSHOT_DIR}/3-settings
+
+- tapOn:
+    id: "back"
+
+- runFlow:
+    file: flows/_reading-settings.yaml
+    env:
+      SHOT: 2-reading-settings

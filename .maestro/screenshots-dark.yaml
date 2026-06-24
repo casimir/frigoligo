@@ -1,0 +1,3 @@
+appId: ${APP_ID}
+---
+- takeScreenshot: ${SCREENSHOT_DIR}/4-reading-settings-dark

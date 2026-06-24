@@ -1,0 +1,8 @@
+appId: ${APP_ID}
+---
+- launchApp:
+    clearState: false
+- waitForAnimationToEnd
+- tapOn:
+    id: "login.tryDemo"
+- assertVisible: "(?s).*wallabag turns 10.*"

@@ -1,0 +1,8 @@
+appId: ${APP_ID}
+---
+- tapOn: "(?s).*wallabag turns 10.*"
+- tapOn:
+    id: "article.moreActions"
+- tapOn:
+    id: "article.readingSettings"
+- takeScreenshot: ${SCREENSHOT_DIR}/${SHOT}
