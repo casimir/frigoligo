@@ -1,0 +1,5 @@
+- Une grande partie de l'application a été reconstruite sur des fondations plus fiables et flexibles.
+- Nouveau moteur de rendu des articles prenant en charge les contenus complexes.
+- Synchronisation plus fiable, avec un retour instantané pour chaque action.
+- Mode démo pour essayer l'application sans serveur.
+- Mise à jour des traductions dans toutes les langues.

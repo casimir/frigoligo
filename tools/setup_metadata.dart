@@ -7,7 +7,7 @@ const androidMetadataRoot = '$metadataRoot/android';
 const iosMetadataRoot = '$metadataRoot/ios';
 
 // unsupported languages on Apple App Store
-const langSkips = ['et', 'gl-ES', 'ta-IN'];
+const langSkips = ['af', 'et', 'gl-ES', 'ta-IN'];
 // different language codes for Apple App Store
 const langRewrite = {
   'it-IT': 'it',

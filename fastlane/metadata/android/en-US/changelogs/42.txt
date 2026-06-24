@@ -1,0 +1,5 @@
+- Most of the app has been rebuilt for more reliable and flexible foundation.
+- New article content renderer that supports complex content.
+- More reliable syncing, with instant feedback on every action.
+- Demo mode to try the app without a server.
+- Translation updates in all languages.
