@@ -34,6 +34,9 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(iOS)* Make article content scroll under the navbar ([101a8cb](https://github.com/casimir/frigoligo/commit/101a8cb935837fbdfeab6b324ef6dfefdc1c99cf))
 - *(ios)* Live sync indicator ([#454](https://github.com/casimir/frigoligo/pull/454)) ([b68a057](https://github.com/casimir/frigoligo/commit/b68a05757717443695f2c6f6fbfc3e2c17b4a526))
 - *(ios)* Prefill wallabag login form on re-login ([#456](https://github.com/casimir/frigoligo/pull/456)) ([c292359](https://github.com/casimir/frigoligo/commit/c2923598c7f6e1e3da26efd3e2b61678676ba18c))
+- *(android)* Enable per-app-local on Android 13+ ([71f46a1](https://github.com/casimir/frigoligo/commit/71f46a183282b5389b98c1e083f25d011b7e8c8e))
+- *(i18n)* Translate "Articles" for the main screen title ([51a6054](https://github.com/casimir/frigoligo/commit/51a60540949770a9a80743293019154134b43ecb))
+- *(i18n)* Translate "Articles" in all locales and regen everything ([9217c30](https://github.com/casimir/frigoligo/commit/9217c30bdf963a91c40a20e41b65620fee9efa05))
 
 ### 🐛 Bug Fixes
 
@@ -117,6 +120,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(iOS)* Plug share extension log to the core logger ([e78dabb](https://github.com/casimir/frigoligo/commit/e78dabbd9647de65f55b5b9ab678043244d00f46))
 - Add more test around article saving errors ([73219ed](https://github.com/casimir/frigoligo/commit/73219ed3845f9235cd8bf8684b0106286d20438f))
 - *(remotesync)* Prune remote actions after sync instead of a clear ([#453](https://github.com/casimir/frigoligo/pull/453)) ([c7fc26d](https://github.com/casimir/frigoligo/commit/c7fc26dce3abe96ef1b42e10d9ed9210dac52376))
+- *(demo)* Embed cover images for the first page of the demo data ([c3cc5e8](https://github.com/casimir/frigoligo/commit/c3cc5e81542f25f32411b983c0500f1158aa1ad3))
 
 ### 📚 Documentation
 
@@ -174,6 +178,8 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
  ([a32ec16](https://github.com/casimir/frigoligo/commit/a32ec1611eba448f468134c6fac2bf3a18eed1e0))
 - Update translations: Chinese (Traditional Han script)
  ([2273b91](https://github.com/casimir/frigoligo/commit/2273b919284fa2640310bd17c666eb24d5c2dac9))
+- Update translations: English
+ ([4d40298](https://github.com/casimir/frigoligo/commit/4d40298786fb78f4a19ddff4df24e6f0f13fe15b))
 
 ### ⚙️ Miscellaneous Tasks
 
@@ -205,6 +211,10 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Force explicit handling of futures ([9daa949](https://github.com/casimir/frigoligo/commit/9daa949f3379d37a155a35dcd9783d16acf82043))
 - *(l10n)* Tweak translation script to match xcode output ([31afda3](https://github.com/casimir/frigoligo/commit/31afda3f48d81807147c369797972c2cfb37900e))
 - *(syncmanager)* Better test coverage ([d595c7f](https://github.com/casimir/frigoligo/commit/d595c7fb037bc3034842507709757559e5e4d8f4))
+- Fix lint issue ([4991052](https://github.com/casimir/frigoligo/commit/4991052601045b45910ddf354fcf0b84d3c1076f))
+- Add some semantics identifier in UIs ([f500797](https://github.com/casimir/frigoligo/commit/f500797955f645da9850a8f88a2d585458d17a05))
+- *(android)* Fix local marker lint issue ([e3aaaee](https://github.com/casimir/frigoligo/commit/e3aaaee7adf629929ada82686ccb0601713cb8ad))
+- *(webview)* Bump mermaid ([919a189](https://github.com/casimir/frigoligo/commit/919a1899b63698bd51d21145c8e933c5c98ec398))
 
 ### I18n
 
