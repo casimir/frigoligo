@@ -37,6 +37,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(android)* Enable per-app-local on Android 13+ ([71f46a1](https://github.com/casimir/frigoligo/commit/71f46a183282b5389b98c1e083f25d011b7e8c8e))
 - *(i18n)* Translate "Articles" for the main screen title ([51a6054](https://github.com/casimir/frigoligo/commit/51a60540949770a9a80743293019154134b43ecb))
 - *(i18n)* Translate "Articles" in all locales and regen everything ([9217c30](https://github.com/casimir/frigoligo/commit/9217c30bdf963a91c40a20e41b65620fee9efa05))
+- *(screenshots)* Add maestro flows and multishot config ([91b79e4](https://github.com/casimir/frigoligo/commit/91b79e4201b699b98cf14e9397ef29e1984fd44b))
 
 ### 🐛 Bug Fixes
 
@@ -126,6 +127,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 
 - Assume the situation about automated testing ([3f0a206](https://github.com/casimir/frigoligo/commit/3f0a206edc5175d9f66271b68081e38f22e301af))
 - Sligthly improve badge consistency ([cb03505](https://github.com/casimir/frigoligo/commit/cb035058faece343c3230a1492e085c4ff0a5796))
+- *(changelogs)* Start the changelog for the next release ([34ddc5c](https://github.com/casimir/frigoligo/commit/34ddc5ce007e21facefe033457642c7703ed031e))
 
 ### ⚡ Performance
 
