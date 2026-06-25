@@ -597,5 +597,63 @@
     "settings_itemLicenses": "Xem giấy phép",
     "@settings_itemLicenses": {
         "description": "The action to display the open-source licenses screen."
+    },
+    "sync_retry": "",
+    "@sync_retry": {
+        "description": "Sync detail action: retry a failed sync."
+    },
+    "sync_statusNoInternet": "",
+    "@sync_statusNoInternet": {
+        "description": "Sync indicator status: device is offline."
+    },
+    "settings_itemInternetCheckUrl": "",
+    "@settings_itemInternetCheckUrl": {
+        "description": "The URL pinged to detect internet connectivity."
+    },
+    "sync_pendingCount": "",
+    "@sync_pendingCount": {
+        "description": "Sync detail: number of items waiting to sync.",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "sync_lastSynced": "",
+    "@sync_lastSynced": {
+        "description": "Sync indicator: relative time of last successful sync.",
+        "placeholders": {
+            "relativeTime": {
+                "type": "String"
+            }
+        }
+    },
+    "sync_statusError": "",
+    "@sync_statusError": {
+        "description": "Sync indicator status: an error occurred during sync."
+    },
+    "sync_neverSynced": "",
+    "@sync_neverSynced": {
+        "description": "Sync indicator: shown when no sync has ever completed."
+    },
+    "sync_statusAuthFailure": "",
+    "@sync_statusAuthFailure": {
+        "description": "Sync indicator status: credentials need to be refreshed."
+    },
+    "sync_statusSyncing": "",
+    "@sync_statusSyncing": {
+        "description": "Sync indicator status: sync in progress."
+    },
+    "settings_itemAdvanced": "",
+    "@settings_itemAdvanced": {
+        "description": "The submenu holding advanced/diagnostic settings."
+    },
+    "sync_statusServerUnreachable": "",
+    "@sync_statusServerUnreachable": {
+        "description": "Sync indicator status: server could not be reached."
+    },
+    "sync_statusAllGood": "",
+    "@sync_statusAllGood": {
+        "description": "Sync indicator status: everything is synced."
     }
 }
