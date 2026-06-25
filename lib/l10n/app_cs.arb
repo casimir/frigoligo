@@ -174,5 +174,486 @@
     "article_unarchive": "Zrušit archivaci tohoto článku",
     "@article_unarchive": {
         "description": "The action to unarchive the article."
+    },
+    "sync_retry": "",
+    "@sync_retry": {
+        "description": "Sync detail action: retry a failed sync."
+    },
+    "syncer_pendingActions": "",
+    "@syncer_pendingActions": {
+        "description": "Number of pending actions in the RemoteSyncer queue.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "session_title": "",
+    "@session_title": {
+        "description": "The title of the session details screen."
+    },
+    "filters_articleState": "",
+    "@filters_articleState": {
+        "description": "The state of the article."
+    },
+    "filters_articleStateArchived": "",
+    "@filters_articleStateArchived": {
+        "description": "Filter articles with the state 'archived'."
+    },
+    "listing_articlesAll": "",
+    "@listing_articlesAll": {
+        "description": "The title for the list of all the articles."
+    },
+    "save_viewArticle": "",
+    "@save_viewArticle": {
+        "description": "The action to view the article after it is saved."
+    },
+    "server_emptyField": "",
+    "@server_emptyField": {
+        "description": "A message for non-empty check fail on a form field.",
+        "placeholders": {
+            "label": {
+                "type": "String"
+            }
+        }
+    },
+    "sync_statusNoInternet": "",
+    "@sync_statusNoInternet": {
+        "description": "Sync indicator status: device is offline."
+    },
+    "logconsole_export_current_session": "",
+    "@logconsole_export_current_session": {
+        "description": "Label for exporting only the current session logs.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "settings_itemLanguage": "",
+    "@settings_itemLanguage": {
+        "description": "The action to change the language of the application."
+    },
+    "filters_searchMode": "",
+    "@filters_searchMode": {
+        "description": "The title of the search mode screen (which fields to search text into)."
+    },
+    "save_confirmationTitle": "",
+    "@save_confirmationTitle": {
+        "description": "The title of the confirmation screen after the article is saved. "
+    },
+    "server_unreachable": "",
+    "@server_unreachable": {
+        "description": "The server instance is unreachable."
+    },
+    "settings_valueThemeLight": "",
+    "@settings_valueThemeLight": {
+        "description": "The label for the light theme mode."
+    },
+    "settings_itemOpenDeeplink": "",
+    "@settings_itemOpenDeeplink": {
+        "description": "The action to open a deep link."
+    },
+    "session_logoutDialogMessage": "",
+    "@session_logoutDialogMessage": {
+        "description": "The message of the confirmation dialog to log out."
+    },
+    "filters_searchbarHint": "",
+    "@filters_searchbarHint": {
+        "description": "Search bar hint in the home screen."
+    },
+    "save_title": "",
+    "@save_title": {
+        "description": "The title of the save screen."
+    },
+    "settings_itemLogConsole": "",
+    "@settings_itemLogConsole": {
+        "description": "The action to display the log console screen."
+    },
+    "filters_articleStateAll": "",
+    "@filters_articleStateAll": {
+        "description": "Don't filter articles by state."
+    },
+    "save_dubiousUrlMessage": "",
+    "@save_dubiousUrlMessage": {
+        "description": "The message of the dubious URL warning dialog.",
+        "placeholders": {
+            "url": {
+                "type": "String"
+            }
+        }
+    },
+    "login_demoMode": "",
+    "@login_demoMode": {
+        "description": "The action to put the app in demo mode instead of connecting to a server."
+    },
+    "login_existingSessionDialogConfirm": "",
+    "@login_existingSessionDialogConfirm": {
+        "description": "The action to log out from the existing session."
+    },
+    "listing_noArticles": "",
+    "@listing_noArticles": {
+        "description": "Placeholder for when there are no articles to display."
+    },
+    "filters_articleDomains": "",
+    "@filters_articleDomains": {
+        "description": "Filter the domains from where the articles have been fetched."
+    },
+    "session_copiedToClipboard": "",
+    "@session_copiedToClipboard": {
+        "description": "A message displayed when the value is copied to the clipboard."
+    },
+    "filters_articleTags": "",
+    "@filters_articleTags": {
+        "description": "Filter articles with the given tag values."
+    },
+    "server_address": "",
+    "@server_address": {
+        "description": "The address of the wallabag instance."
+    },
+    "articlefields_title": "",
+    "@articlefields_title": {
+        "description": "The title of the article."
+    },
+    "session_fieldTokenExpiration": "",
+    "@session_fieldTokenExpiration": {
+        "description": "The label of the token expiration field in the session screen."
+    },
+    "settings_itemLicenses": "",
+    "@settings_itemLicenses": {
+        "description": "The action to display the open-source licenses screen."
+    },
+    "settings_itemInternetCheckUrl": "",
+    "@settings_itemInternetCheckUrl": {
+        "description": "The URL pinged to detect internet connectivity."
+    },
+    "settings_itemClearCache": "",
+    "@settings_itemClearCache": {
+        "description": "The action to clear the offline cache."
+    },
+    "session_neverSynced": "",
+    "@session_neverSynced": {
+        "description": "Default value for the last sync time."
+    },
+    "logconsole_export_title": "",
+    "@logconsole_export_title": {
+        "description": "The title of the export as file dialog."
+    },
+    "settings_valueThemeDark": "",
+    "@settings_valueThemeDark": {
+        "description": "The label for the dark theme mode."
+    },
+    "login_existingSessionDialogTitle": "",
+    "@login_existingSessionDialogTitle": {
+        "description": "The title of the dialog warning about an existing session."
+    },
+    "session_fieldLastServerSync": "",
+    "@session_fieldLastServerSync": {
+        "description": "The label of the last server sync field in the session screen."
+    },
+    "listing_articlesArchived": "",
+    "@listing_articlesArchived": {
+        "description": "The title for the list of the articles with the state Archived."
+    },
+    "logconsole_export_all_logs": "",
+    "@logconsole_export_all_logs": {
+        "description": "Label for exporting all available logs.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "settings_nativeArticleRenderer": "",
+    "@settings_nativeArticleRenderer": {
+        "description": "The action to toggle the use of the experimental article renderer."
+    },
+    "server_versionNotSupported": "",
+    "@server_versionNotSupported": {
+        "description": "The server instance is not supported."
+    },
+    "filters_articleFavoriteStarred": "",
+    "@filters_articleFavoriteStarred": {
+        "description": "Filter starred articles."
+    },
+    "settings_title": "",
+    "@settings_title": {
+        "description": "The title of the settings screen."
+    },
+    "login_fieldClientSecret": "",
+    "@login_fieldClientSecret": {
+        "description": "The client secret field of the login form."
+    },
+    "save_malformedUrlError": "",
+    "@save_malformedUrlError": {
+        "description": "Error message shown when the URL to save is malformed.",
+        "placeholders": {
+            "url": {
+                "type": "String"
+            }
+        }
+    },
+    "filters_searchModeAll": "",
+    "@filters_searchModeAll": {
+        "description": "Search text in all fields."
+    },
+    "settings_bugReportLink": "",
+    "@settings_bugReportLink": {
+        "description": "The action to open the bug report form."
+    },
+    "session_fieldAccessToken": "",
+    "@session_fieldAccessToken": {
+        "description": "The label of the access token field in the session screen."
+    },
+    "server_unknownServerType": "",
+    "@server_unknownServerType": {
+        "description": "The application could not detect the server type."
+    },
+    "session_fieldApiToken": "",
+    "@session_fieldApiToken": {
+        "description": "The API token field name of in forms."
+    },
+    "articlefields_readingTime": "",
+    "@articlefields_readingTime": {
+        "description": "The estimated reading time of the article."
+    },
+    "session_invalidToken": "",
+    "@session_invalidToken": {
+        "description": "Placeholder for expiration date when the token is invalid."
+    },
+    "selector_selectbuttonlabel": "",
+    "@selector_selectbuttonlabel": {
+        "description": "The label of the select button in a selector screen.",
+        "placeholders": {
+            "numberOfItems": {
+                "type": "String",
+                "example": "3 items"
+            }
+        }
+    },
+    "session_logoutSession": "",
+    "@session_logoutSession": {
+        "description": "The action to log out the session."
+    },
+    "settings_itemAppearance": "",
+    "@settings_itemAppearance": {
+        "description": "Settings for the appearance of the application."
+    },
+    "save_dubiousUrlConfirm": "",
+    "@save_dubiousUrlConfirm": {
+        "description": "The confirmation button of the dubious URL warning dialog."
+    },
+    "readdingsettings_textFormatting": "",
+    "@readdingsettings_textFormatting": {
+        "description": "The text formatting to display the content of the article."
+    },
+    "filters_articleTagsCount": "",
+    "@filters_articleTagsCount": {
+        "description": "The number of tags used in filters.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "sync_pendingCount": "",
+    "@sync_pendingCount": {
+        "description": "Sync detail: number of items waiting to sync.",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "settings_itemSessionDetails": "",
+    "@settings_itemSessionDetails": {
+        "description": "The action to display the session details screen."
+    },
+    "readingsettings_title": "",
+    "@readingsettings_title": {
+        "description": "The title of the reading settings screen."
+    },
+    "readingsettings_fontSize": "",
+    "@readingsettings_fontSize": {
+        "description": "The font size to display the content of the article."
+    },
+    "sync_lastSynced": "",
+    "@sync_lastSynced": {
+        "description": "Sync indicator: relative time of last successful sync.",
+        "placeholders": {
+            "relativeTime": {
+                "type": "String"
+            }
+        }
+    },
+    "login_fieldPassword": "",
+    "@login_fieldPassword": {
+        "description": "The password field of the login form."
+    },
+    "session_logoutDialogTitle": "",
+    "@session_logoutDialogTitle": {
+        "description": "The title of the confirmation dialog to log out."
+    },
+    "settings_helpToTranslate": "",
+    "@settings_helpToTranslate": {
+        "description": "The action to open the Weblate project in a webview."
+    },
+    "settings_savedArticleTagLabel": "",
+    "@settings_savedArticleTagLabel": {
+        "description": "The label of the tag to add to saved articles."
+    },
+    "login_fieldUsername": "",
+    "@login_fieldUsername": {
+        "description": "The username field of the login form."
+    },
+    "login_acceptSelfSigned": "",
+    "@login_acceptSelfSigned": {
+        "description": "Wether or not to accept self-signed certificates when connecting to the wallabag instance."
+    },
+    "session_renewDialogMessage": "",
+    "@session_renewDialogMessage": {
+        "description": "The message of the confirmation dialog to renew the session."
+    },
+    "article_unstar": "",
+    "@article_unstar": {
+        "description": "The action to unstar the article."
+    },
+    "filters_searchModeContent": "",
+    "@filters_searchModeContent": {
+        "description": "Search text only in the content field."
+    },
+    "session_logoutDialogConfirm": "",
+    "@session_logoutDialogConfirm": {
+        "description": "Confirm the log out from the confirmation dialog."
+    },
+    "logconsole_clear_logs": "",
+    "@logconsole_clear_logs": {
+        "description": "The action to clear the logs."
+    },
+    "settings_itemAbout": "",
+    "@settings_itemAbout": {
+        "description": "The action to display the about screen."
+    },
+    "settings_savedArticleTag": "",
+    "@settings_savedArticleTag": {
+        "description": "The action to toggle the addition of a tag to saved articles."
+    },
+    "login_actionLogin": "",
+    "@login_actionLogin": {
+        "description": "The action to log in."
+    },
+    "save_dubiousUrlTitle": "",
+    "@save_dubiousUrlTitle": {
+        "description": "The title of the dubious URL warning dialog."
+    },
+    "save_noUrl": "",
+    "@save_noUrl": {
+        "description": "The URL was missing from the save request."
+    },
+    "sync_statusError": "",
+    "@sync_statusError": {
+        "description": "Sync indicator status: an error occurred during sync."
+    },
+    "filters_articleStateUnread": "",
+    "@filters_articleStateUnread": {
+        "description": "Filter articles with the state 'unread'."
+    },
+    "login_existingSessionDialogMessage": "",
+    "@login_existingSessionDialogMessage": {
+        "description": "The message of the dialog warning about an existing session."
+    },
+    "sync_neverSynced": "",
+    "@sync_neverSynced": {
+        "description": "Sync indicator: shown when no sync has ever completed."
+    },
+    "settings_clearCacheMessage": "",
+    "@settings_clearCacheMessage": {
+        "description": "The message of the confirmation dialog to clear the cache."
+    },
+    "logconsole_title": "",
+    "@logconsole_title": {
+        "description": "The title of the log console screen."
+    },
+    "save_localModeError": "",
+    "@save_localModeError": {
+        "description": "Error message shown when trying to save an article in local mode."
+    },
+    "session_renewDialogTitle": "",
+    "@session_renewDialogTitle": {
+        "description": "The title of the confirmation dialog to renew the session."
+    },
+    "sync_statusAuthFailure": "",
+    "@sync_statusAuthFailure": {
+        "description": "Sync indicator status: credentials need to be refreshed."
+    },
+    "login_openLogConsole": "",
+    "@login_openLogConsole": {
+        "description": "The action to open the log console."
+    },
+    "server_invalidUrl": "",
+    "@server_invalidUrl": {
+        "description": "The address of the wallabag instance is invalid."
+    },
+    "sync_statusSyncing": "",
+    "@sync_statusSyncing": {
+        "description": "Sync indicator status: sync in progress."
+    },
+    "login_fieldClientId": "",
+    "@login_fieldClientId": {
+        "description": "The client ID field of the login form."
+    },
+    "settings_itemAdvanced": "",
+    "@settings_itemAdvanced": {
+        "description": "The submenu holding advanced/diagnostic settings."
+    },
+    "articlefields_tags": "",
+    "@articlefields_tags": {
+        "description": "The tags of the article."
+    },
+    "sync_statusServerUnreachable": "",
+    "@sync_statusServerUnreachable": {
+        "description": "Sync indicator status: server could not be reached."
+    },
+    "filters_articleDomainsCount": "",
+    "@filters_articleDomainsCount": {
+        "description": "The number of articles domains used in filters.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "filters_searchModeTitle": "",
+    "@filters_searchModeTitle": {
+        "description": "Search text only in the title field."
+    },
+    "readingsettings_fontFamily": "",
+    "@readingsettings_fontFamily": {
+        "description": "The font family to display the content of the article."
+    },
+    "listing_articlesUnread": "",
+    "@listing_articlesUnread": {
+        "description": "The title for the list of the articles with the state Unread."
+    },
+    "settings_itemAppBadge": "",
+    "@settings_itemAppBadge": {
+        "description": "The action to toggle the unread badge on the application icon."
+    },
+    "articlefields_website": "",
+    "@articlefields_website": {
+        "description": "The website (domain) from where the article has been fetched."
+    },
+    "sync_statusAllGood": "",
+    "@sync_statusAllGood": {
+        "description": "Sync indicator status: everything is synced."
+    },
+    "session_forceTokenResfresh": "",
+    "@session_forceTokenResfresh": {
+        "description": "The action to force a token refresh."
     }
 }
