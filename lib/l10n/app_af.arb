@@ -491,5 +491,169 @@
     "session_fieldAccessToken": "Toegangsbewys",
     "@session_fieldAccessToken": {
         "description": "The label of the access token field in the session screen."
+    },
+    "sync_retry": "",
+    "@sync_retry": {
+        "description": "Sync detail action: retry a failed sync."
+    },
+    "session_title": "",
+    "@session_title": {
+        "description": "The title of the session details screen."
+    },
+    "sync_statusNoInternet": "",
+    "@sync_statusNoInternet": {
+        "description": "Sync indicator status: device is offline."
+    },
+    "settings_itemOpenDeeplink": "",
+    "@settings_itemOpenDeeplink": {
+        "description": "The action to open a deep link."
+    },
+    "settings_itemLogConsole": "",
+    "@settings_itemLogConsole": {
+        "description": "The action to display the log console screen."
+    },
+    "save_dubiousUrlMessage": "",
+    "@save_dubiousUrlMessage": {
+        "description": "The message of the dubious URL warning dialog.",
+        "placeholders": {
+            "url": {
+                "type": "String"
+            }
+        }
+    },
+    "login_demoMode": "",
+    "@login_demoMode": {
+        "description": "The action to put the app in demo mode instead of connecting to a server."
+    },
+    "session_fieldTokenExpiration": "",
+    "@session_fieldTokenExpiration": {
+        "description": "The label of the token expiration field in the session screen."
+    },
+    "settings_itemLicenses": "",
+    "@settings_itemLicenses": {
+        "description": "The action to display the open-source licenses screen."
+    },
+    "settings_itemInternetCheckUrl": "",
+    "@settings_itemInternetCheckUrl": {
+        "description": "The URL pinged to detect internet connectivity."
+    },
+    "settings_itemClearCache": "",
+    "@settings_itemClearCache": {
+        "description": "The action to clear the offline cache."
+    },
+    "session_fieldLastServerSync": "",
+    "@session_fieldLastServerSync": {
+        "description": "The label of the last server sync field in the session screen."
+    },
+    "settings_nativeArticleRenderer": "",
+    "@settings_nativeArticleRenderer": {
+        "description": "The action to toggle the use of the experimental article renderer."
+    },
+    "save_malformedUrlError": "",
+    "@save_malformedUrlError": {
+        "description": "Error message shown when the URL to save is malformed.",
+        "placeholders": {
+            "url": {
+                "type": "String"
+            }
+        }
+    },
+    "settings_bugReportLink": "",
+    "@settings_bugReportLink": {
+        "description": "The action to open the bug report form."
+    },
+    "session_fieldApiToken": "",
+    "@session_fieldApiToken": {
+        "description": "The API token field name of in forms."
+    },
+    "settings_itemAppearance": "",
+    "@settings_itemAppearance": {
+        "description": "Settings for the appearance of the application."
+    },
+    "sync_pendingCount": "",
+    "@sync_pendingCount": {
+        "description": "Sync detail: number of items waiting to sync.",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "settings_itemSessionDetails": "",
+    "@settings_itemSessionDetails": {
+        "description": "The action to display the session details screen."
+    },
+    "sync_lastSynced": "",
+    "@sync_lastSynced": {
+        "description": "Sync indicator: relative time of last successful sync.",
+        "placeholders": {
+            "relativeTime": {
+                "type": "String"
+            }
+        }
+    },
+    "settings_savedArticleTagLabel": "",
+    "@settings_savedArticleTagLabel": {
+        "description": "The label of the tag to add to saved articles."
+    },
+    "session_renewDialogMessage": "",
+    "@session_renewDialogMessage": {
+        "description": "The message of the confirmation dialog to renew the session."
+    },
+    "sync_statusError": "",
+    "@sync_statusError": {
+        "description": "Sync indicator status: an error occurred during sync."
+    },
+    "sync_neverSynced": "",
+    "@sync_neverSynced": {
+        "description": "Sync indicator: shown when no sync has ever completed."
+    },
+    "settings_clearCacheMessage": "",
+    "@settings_clearCacheMessage": {
+        "description": "The message of the confirmation dialog to clear the cache."
+    },
+    "save_localModeError": "",
+    "@save_localModeError": {
+        "description": "Error message shown when trying to save an article in local mode."
+    },
+    "session_renewDialogTitle": "",
+    "@session_renewDialogTitle": {
+        "description": "The title of the confirmation dialog to renew the session."
+    },
+    "sync_statusAuthFailure": "",
+    "@sync_statusAuthFailure": {
+        "description": "Sync indicator status: credentials need to be refreshed."
+    },
+    "login_openLogConsole": "",
+    "@login_openLogConsole": {
+        "description": "The action to open the log console."
+    },
+    "sync_statusSyncing": "",
+    "@sync_statusSyncing": {
+        "description": "Sync indicator status: sync in progress."
+    },
+    "settings_itemAdvanced": "",
+    "@settings_itemAdvanced": {
+        "description": "The submenu holding advanced/diagnostic settings."
+    },
+    "sync_statusServerUnreachable": "",
+    "@sync_statusServerUnreachable": {
+        "description": "Sync indicator status: server could not be reached."
+    },
+    "readingsettings_fontFamily": "",
+    "@readingsettings_fontFamily": {
+        "description": "The font family to display the content of the article."
+    },
+    "settings_itemAppBadge": "",
+    "@settings_itemAppBadge": {
+        "description": "The action to toggle the unread badge on the application icon."
+    },
+    "sync_statusAllGood": "",
+    "@sync_statusAllGood": {
+        "description": "Sync indicator status: everything is synced."
+    },
+    "session_forceTokenResfresh": "",
+    "@session_forceTokenResfresh": {
+        "description": "The action to force a token refresh."
     }
 }
