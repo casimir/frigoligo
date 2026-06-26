@@ -217,6 +217,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Add some semantics identifier in UIs ([f500797](https://github.com/casimir/frigoligo/commit/f500797955f645da9850a8f88a2d585458d17a05))
 - *(android)* Fix local marker lint issue ([e3aaaee](https://github.com/casimir/frigoligo/commit/e3aaaee7adf629929ada82686ccb0601713cb8ad))
 - *(webview)* Bump mermaid ([919a189](https://github.com/casimir/frigoligo/commit/919a1899b63698bd51d21145c8e933c5c98ec398))
+- Fix trailing newline ([02098d5](https://github.com/casimir/frigoligo/commit/02098d520a17c18bbeb6e803f53e1825bf5b4edc))
 
 ### I18n
 
