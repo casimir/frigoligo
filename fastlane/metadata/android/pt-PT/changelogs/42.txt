@@ -1,0 +1,5 @@
+- A maior parte da aplicação foi reconstruida para ser mais fiável e ter uma fundação mais flexível.
+- Um novo renderizador conteúdo de artigos que suporta conteúdo complexo.
+- Sincronização mais fiável, com resposta imediata em cada ação.
+- Modo de demonstração para experimentar a aplicação sem um servidor.
+- Atualizações de traduções em todos os idiomas.
