@@ -1,0 +1,5 @@
+- Suurem osa rakendusest on ümber tehtud, et tagada usaldusväärsem ja paindlikum alus tulevikuks.
+- Uus artiklite sisu kuvaja, mis toetab keerukat sisu.
+- Usaldusväärsem sünkroonimine, mis annab iga tegevuse kohta kohese tagasiside.
+- Demorežiim, mis võimaldab rakendust proovida ilma serverita.
+- Tõlgete täiendused kõigis keeltes.
