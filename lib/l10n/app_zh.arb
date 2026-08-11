@@ -48,7 +48,7 @@
     "@g_version": {
         "description": "A version, as in the application version."
     },
-    "humanize_days": "{n} 天",
+    "humanize_days": "{n, plural, =1{1 天} other{{n} 天}}",
     "humanize_future": "{duration} 后",
     "@humanize_future": {
         "description": "Describe a duration until a moment in the future.",
@@ -58,8 +58,8 @@
             }
         }
     },
-    "humanize_hours": "{n} 小时",
-    "humanize_minutes": "{n} 分钟",
+    "humanize_hours": "{n, plural, =1{1 小时} other{{n} 小时}}",
+    "humanize_minutes": "{n, plural, =1{1 分钟} other{{n} 分钟}}",
     "humanize_past": "{duration} 前",
     "@humanize_past": {
         "description": "Describe a duration since a moment in the past.",
@@ -69,7 +69,7 @@
             }
         }
     },
-    "humanize_seconds": "{n} 秒",
+    "humanize_seconds": "{n, plural, =1{1 秒} other{{n} 秒}}",
     "article_addTags": "添加标签",
     "@article_addTags": {
         "description": "The action to add tags to an article."
