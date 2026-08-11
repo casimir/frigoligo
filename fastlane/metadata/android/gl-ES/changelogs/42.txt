@@ -1,0 +1,5 @@
+- a maior parte da app volveuse a reconstruír para facela máis fiable e cunha base máis flexible.
+- novo motor para mostrar os artigos compatible con contido complexo.
+- sincronización máis fiable, con indicación do resultado de cada acción.
+- modo de proba da aplicación, sen precisar un servidor.
+- actualización das traducións en todos os idiomas.
