@@ -1,0 +1,5 @@
+- Phần lớn ứng dụng đã được sửa lại để có nền tảng ổn định và linh hoạt hơn.
+- Trình hiển thị nội dung bài viết mới, hỗ trợ nội dung phức tạp hơn.
+- Đồng bộ ổn định hơn, với phản hồi tức thời cho mọi hành động.
+- Chế độ demo để thử ứng dụng mà không cần có server.
+- Cập nhật bản dịch cho toàn bộ ngôn ngữ.
