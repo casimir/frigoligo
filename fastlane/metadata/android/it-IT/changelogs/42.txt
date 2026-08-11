@@ -1,0 +1,5 @@
+- La maggior parte dell'app è stata ricostruita per una base più affidabile e flessibile.
+- Nuovo renderer di contenuti di articoli che supporta contenuti complessi.
+- Sincronizzazione più affidabile, con feedback istantaneo su ogni azione.
+- Modalità demo per provare l'app senza un server.
+- Aggiornamenti delle traduzioni in tutte le lingue.
