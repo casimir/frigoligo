@@ -1,0 +1,4 @@
+- Přepracována většina rozhraní pro vyšší konzistenci a snadnější ovládání.
+- Zcela přepracován systém úložiště, aby bylo používání na všech platformách konzistentnější a spolehlivější.
+- Přepracována logika číselného odznaku ikony aplikace pro vyšší spolehlivost.
+- Nový jazyk: esperanto.

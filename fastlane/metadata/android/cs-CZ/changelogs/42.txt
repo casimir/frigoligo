@@ -1,0 +1,5 @@
+- Většina aplikace byla přepracována, aby měla spolehlivější a flexibilnější základ.
+- Nový nástroj pro vykreslování článků podporuje i složitý obsah.
+- Spolehlivější synchronizace s okamžitou odezvou na každou akci.
+- Ukázkový režim pro vyzkoušení aplikace bez serveru.
+- Aktualizovány překlady všech jazyků.

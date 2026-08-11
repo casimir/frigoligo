@@ -1,0 +1,4 @@
+- Přidáno tlačítko pro ukládání odkazů z hlavní obrazovky.
+- Rozšířena jazyková podpora o galicijštinu, brazilskou portugalštinu a čínštinu.
+- Opraveno několik chyb, mimo jiné při ukládání článků a synchronizačních akcích.
+- Přepracována navigace mezi zobrazeními článků pro plynulejší používání.

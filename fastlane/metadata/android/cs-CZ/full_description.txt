@@ -1,0 +1,4 @@
+Mějte své odkazy vždy s sebou a udržujte je aktuální! Frigoligo je klient pro wallabag, který se snaží být jednoduchý, rychlý a snadno ovladatelný.
+Stejně jako wallabag je Frigoligo zdarma, bez reklam a s otevřeným zdrojovým kódem.
+
+K používání této aplikace potřebujete instanci služby wallabag.

@@ -1,0 +1,4 @@
+- Řada úprav a vylepšení uživatelského rozhraní.
+- Opraveno tlačítko sdílení, které v některých případech nefungovalo.
+- Nové jazyky: španělština a estonština.
+- Aktualizovány překlady několika jazyků.

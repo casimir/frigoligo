@@ -1,0 +1,3 @@
+- Článek lze nyní uložit i bez připojení.
+- Přidáno tlačítko, kterým lze server požádat o opětovné načtení článku.
+- Nový jazyk: brazilská portugalština.

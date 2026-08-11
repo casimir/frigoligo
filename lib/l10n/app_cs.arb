@@ -7,11 +7,11 @@
     "@g_articles": {
         "description": "Plural of article."
     },
-    "g_check": "Kontrola",
+    "g_check": "Zkontrolovat",
     "@g_check": {
         "description": "A verb as in to check something."
     },
-    "g_checking": "Kontroluji…",
+    "g_checking": "Probíhá kontrola…",
     "@g_checking": {
         "description": "Present participle of the verb to check."
     },
@@ -43,7 +43,7 @@
     "@g_sourceCode": {
         "description": "The source code of a software."
     },
-    "g_synchronize": "Synchronizace",
+    "g_synchronize": "Synchronizovat",
     "@g_synchronize": {
         "description": "A verb, as in to synchronize with the server."
     },
@@ -51,7 +51,7 @@
     "@g_system": {
         "description": "A name, as in the default configuration (System configuration)."
     },
-    "g_tag": "Tag",
+    "g_tag": "Štítek",
     "@g_tag": {
         "description": "A tag can be attached to an article."
     },
@@ -59,7 +59,7 @@
     "@g_version": {
         "description": "A version, as in the application version."
     },
-    "humanize_days": "{n, plural, =1{1 den} other {{n} dny}}",
+    "humanize_days": "{n, plural, =1{1 den} few{{n} dny} other{{n} dnů}}",
     "@humanize_days": {
         "placeholders": {
             "n": {
@@ -77,7 +77,7 @@
             }
         }
     },
-    "humanize_hours": "{n, plural,=1{1 hodina} other {{n} hodin}}",
+    "humanize_hours": "{n, plural, =1{1 hodinu} few{{n} hodiny} other{{n} hodin}}",
     "@humanize_hours": {
         "placeholders": {
             "n": {
@@ -86,7 +86,7 @@
             }
         }
     },
-    "humanize_minutes": "{n, plural,=1{1 minuta} other{{n} minut}}",
+    "humanize_minutes": "{n, plural, =1{1 minutu} few{{n} minuty} other{{n} minut}}",
     "@humanize_minutes": {
         "placeholders": {
             "n": {
@@ -104,7 +104,7 @@
             }
         }
     },
-    "humanize_seconds": "{n, plural,=1{1 vteřina} other{{n} vteřin}}",
+    "humanize_seconds": "{n, plural, =1{1 vteřinu} few{{n} vteřiny} other{{n} vteřin}}",
     "@humanize_seconds": {
         "placeholders": {
             "n": {
@@ -133,7 +133,7 @@
     "@article_details": {
         "description": "The action to show the article details."
     },
-    "article_noContentFetched": "Nebyl načte žádný obsah",
+    "article_noContentFetched": "Nebyl načten žádný obsah",
     "@article_noContentFetched": {
         "description": "Placeholder for when the article content is not available."
     },
@@ -145,7 +145,7 @@
     "@article_openInBrowser": {
         "description": "The action to open the article in the web browser."
     },
-    "article_readingTime": "{minutes} minut",
+    "article_readingTime": "{minutes} min",
     "@article_readingTime": {
         "description": "The estimated reading time of the article.",
         "placeholders": {
@@ -167,12 +167,493 @@
     "@article_share": {
         "description": "The action to share the article."
     },
-    "article_star": "Označit tento článek",
+    "article_star": "Označit tento článek hvězdičkou",
     "@article_star": {
         "description": "The action to star the article."
     },
     "article_unarchive": "Zrušit archivaci tohoto článku",
     "@article_unarchive": {
         "description": "The action to unarchive the article."
+    },
+    "article_unstar": "Odebrat tomuto článku hvězdičku",
+    "@article_unstar": {
+        "description": "The action to unstar the article."
+    },
+    "settings_bugReportLink": "Nahlásit chybu",
+    "@settings_bugReportLink": {
+        "description": "The action to open the bug report form."
+    },
+    "settings_clearCacheMessage": "Místní mezipaměť bude vymazána a znovu načtena ze serveru.",
+    "@settings_clearCacheMessage": {
+        "description": "The message of the confirmation dialog to clear the cache."
+    },
+    "settings_itemAdvanced": "Pokročilé",
+    "@settings_itemAdvanced": {
+        "description": "The submenu holding advanced/diagnostic settings."
+    },
+    "settings_itemAppearance": "Vzhled",
+    "@settings_itemAppearance": {
+        "description": "Settings for the appearance of the application."
+    },
+    "settings_itemInternetCheckUrl": "Adresa URL pro kontrolu připojení k internetu",
+    "@settings_itemInternetCheckUrl": {
+        "description": "The URL pinged to detect internet connectivity."
+    },
+    "settings_itemAppBadge": "Zobrazovat odznak nepřečtených článků",
+    "@settings_itemAppBadge": {
+        "description": "The action to toggle the unread badge on the application icon."
+    },
+    "settings_itemClearCache": "Vymazat mezipaměť",
+    "@settings_itemClearCache": {
+        "description": "The action to clear the offline cache."
+    },
+    "settings_itemLicenses": "Zobrazit licence",
+    "@settings_itemLicenses": {
+        "description": "The action to display the open-source licenses screen."
+    },
+    "settings_itemLogConsole": "Protokol aplikace",
+    "@settings_itemLogConsole": {
+        "description": "The action to display the log console screen."
+    },
+    "settings_itemLanguage": "Jazyk",
+    "@settings_itemLanguage": {
+        "description": "The action to change the language of the application."
+    },
+    "settings_helpToTranslate": "Pomoci s překladem",
+    "@settings_helpToTranslate": {
+        "description": "The action to open the Weblate project in a webview."
+    },
+    "settings_savedArticleTag": "Přidávat uloženým článkům štítek",
+    "@settings_savedArticleTag": {
+        "description": "The action to toggle the addition of a tag to saved articles."
+    },
+    "settings_savedArticleTagLabel": "Štítek pro uložené články",
+    "@settings_savedArticleTagLabel": {
+        "description": "The label of the tag to add to saved articles."
+    },
+    "settings_itemSessionDetails": "Podrobnosti o relaci",
+    "@settings_itemSessionDetails": {
+        "description": "The action to display the session details screen."
+    },
+    "settings_title": "Nastavení",
+    "@settings_title": {
+        "description": "The title of the settings screen."
+    },
+    "settings_nativeArticleRenderer": "Nativní vykreslování článků",
+    "@settings_nativeArticleRenderer": {
+        "description": "The action to toggle the use of the experimental article renderer."
+    },
+    "settings_valueThemeDark": "Tmavý",
+    "@settings_valueThemeDark": {
+        "description": "The label for the dark theme mode."
+    },
+    "settings_valueThemeLight": "Světlý",
+    "@settings_valueThemeLight": {
+        "description": "The label for the light theme mode."
+    },
+    "login_acceptSelfSigned": "Přijímat certifikáty podepsané svým držitelem",
+    "@login_acceptSelfSigned": {
+        "description": "Wether or not to accept self-signed certificates when connecting to the wallabag instance."
+    },
+    "login_actionLogin": "Přihlásit se",
+    "@login_actionLogin": {
+        "description": "The action to log in."
+    },
+    "login_demoMode": "Vyzkoušet ukázkový režim",
+    "@login_demoMode": {
+        "description": "The action to put the app in demo mode instead of connecting to a server."
+    },
+    "login_existingSessionDialogConfirm": "Odhlásit se",
+    "@login_existingSessionDialogConfirm": {
+        "description": "The action to log out from the existing session."
+    },
+    "login_existingSessionDialogMessage": "Chcete se odhlásit z aktuální relace a zahájit novou?",
+    "@login_existingSessionDialogMessage": {
+        "description": "The message of the dialog warning about an existing session."
+    },
+    "login_existingSessionDialogTitle": "Stávající relace je aktivní",
+    "@login_existingSessionDialogTitle": {
+        "description": "The title of the dialog warning about an existing session."
+    },
+    "login_fieldClientId": "ID klienta",
+    "@login_fieldClientId": {
+        "description": "The client ID field of the login form."
+    },
+    "login_fieldClientSecret": "Tajný klíč klienta",
+    "@login_fieldClientSecret": {
+        "description": "The client secret field of the login form."
+    },
+    "login_fieldPassword": "Heslo",
+    "@login_fieldPassword": {
+        "description": "The password field of the login form."
+    },
+    "login_fieldUsername": "Uživatelské jméno",
+    "@login_fieldUsername": {
+        "description": "The username field of the login form."
+    },
+    "login_openLogConsole": "Otevřít protokol aplikace",
+    "@login_openLogConsole": {
+        "description": "The action to open the log console."
+    },
+    "server_address": "Adresa serveru",
+    "@server_address": {
+        "description": "The address of the wallabag instance."
+    },
+    "server_emptyField": "Vyplňte pole „{label}“",
+    "@server_emptyField": {
+        "description": "A message for non-empty check fail on a form field.",
+        "placeholders": {
+            "label": {
+                "type": "String"
+            }
+        }
+    },
+    "server_invalidUrl": "Neplatná adresa",
+    "@server_invalidUrl": {
+        "description": "The address of the wallabag instance is invalid."
+    },
+    "server_unknownServerType": "Neznámý typ serveru",
+    "@server_unknownServerType": {
+        "description": "The application could not detect the server type."
+    },
+    "server_unreachable": "Server je nedostupný",
+    "@server_unreachable": {
+        "description": "The server instance is unreachable."
+    },
+    "server_versionNotSupported": "Nepodporovaná verze serveru",
+    "@server_versionNotSupported": {
+        "description": "The server instance is not supported."
+    },
+    "session_copiedToClipboard": "Zkopírováno do schránky",
+    "@session_copiedToClipboard": {
+        "description": "A message displayed when the value is copied to the clipboard."
+    },
+    "session_invalidToken": "neplatný",
+    "@session_invalidToken": {
+        "description": "Placeholder for expiration date when the token is invalid."
+    },
+    "session_logoutDialogConfirm": "Odhlásit se",
+    "@session_logoutDialogConfirm": {
+        "description": "Confirm the log out from the confirmation dialog."
+    },
+    "session_logoutDialogMessage": "Budete se muset znovu přihlásit.",
+    "@session_logoutDialogMessage": {
+        "description": "The message of the confirmation dialog to log out."
+    },
+    "session_logoutDialogTitle": "Odhlášení z relace",
+    "@session_logoutDialogTitle": {
+        "description": "The title of the confirmation dialog to log out."
+    },
+    "session_logoutSession": "Odhlásit se z relace",
+    "@session_logoutSession": {
+        "description": "The action to log out the session."
+    },
+    "session_fieldAccessToken": "Přístupový token",
+    "@session_fieldAccessToken": {
+        "description": "The label of the access token field in the session screen."
+    },
+    "session_fieldApiToken": "Token API",
+    "@session_fieldApiToken": {
+        "description": "The API token field name of in forms."
+    },
+    "session_fieldLastServerSync": "Poslední synchronizace se serverem",
+    "@session_fieldLastServerSync": {
+        "description": "The label of the last server sync field in the session screen."
+    },
+    "session_fieldTokenExpiration": "Vypršení platnosti tokenu",
+    "@session_fieldTokenExpiration": {
+        "description": "The label of the token expiration field in the session screen."
+    },
+    "session_forceTokenResfresh": "Vynutit obnovení tokenu",
+    "@session_forceTokenResfresh": {
+        "description": "The action to force a token refresh."
+    },
+    "session_neverSynced": "nikdy",
+    "@session_neverSynced": {
+        "description": "Default value for the last sync time."
+    },
+    "session_renewDialogMessage": "Server odmítá aktuální token relace. Chcete-li obnovit synchronizaci, budete se muset znovu přihlásit.",
+    "@session_renewDialogMessage": {
+        "description": "The message of the confirmation dialog to renew the session."
+    },
+    "session_renewDialogTitle": "Obnovit relaci",
+    "@session_renewDialogTitle": {
+        "description": "The title of the confirmation dialog to renew the session."
+    },
+    "session_title": "Podrobnosti o relaci",
+    "@session_title": {
+        "description": "The title of the session details screen."
+    },
+    "sync_statusSyncing": "Probíhá synchronizace…",
+    "@sync_statusSyncing": {
+        "description": "Sync indicator status: sync in progress."
+    },
+    "sync_statusNoInternet": "Bez připojení k internetu",
+    "@sync_statusNoInternet": {
+        "description": "Sync indicator status: device is offline."
+    },
+    "sync_statusServerUnreachable": "Server je nedostupný",
+    "@sync_statusServerUnreachable": {
+        "description": "Sync indicator status: server could not be reached."
+    },
+    "sync_statusError": "Chyba synchronizace",
+    "@sync_statusError": {
+        "description": "Sync indicator status: an error occurred during sync."
+    },
+    "sync_statusAuthFailure": "Je nutné přihlášení",
+    "@sync_statusAuthFailure": {
+        "description": "Sync indicator status: credentials need to be refreshed."
+    },
+    "sync_neverSynced": "Synchronizace zatím neproběhla",
+    "@sync_neverSynced": {
+        "description": "Sync indicator: shown when no sync has ever completed."
+    },
+    "sync_lastSynced": "Naposledy synchronizováno {relativeTime}",
+    "@sync_lastSynced": {
+        "description": "Sync indicator: relative time of last successful sync.",
+        "placeholders": {
+            "relativeTime": {
+                "type": "String"
+            }
+        }
+    },
+    "sync_pendingCount": "Čekající položky: {count}",
+    "@sync_pendingCount": {
+        "description": "Sync detail: number of items waiting to sync.",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "sync_retry": "Zkusit znovu",
+    "@sync_retry": {
+        "description": "Sync detail action: retry a failed sync."
+    },
+    "logconsole_title": "Protokol aplikace",
+    "@logconsole_title": {
+        "description": "The title of the log console screen."
+    },
+    "logconsole_clear_logs": "Vymazat protokol",
+    "@logconsole_clear_logs": {
+        "description": "The action to clear the logs."
+    },
+    "logconsole_export_title": "Exportovat do souboru",
+    "@logconsole_export_title": {
+        "description": "The title of the export as file dialog."
+    },
+    "syncer_pendingActions": "{count, plural, =1{1 čekající akce} few{{count} čekající akce} other{{count} čekajících akcí}}",
+    "@syncer_pendingActions": {
+        "description": "Number of pending actions in the RemoteSyncer queue.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "logconsole_export_current_session": "Aktuální spuštění ({count, plural, =1{1 řádek} few{{count} řádky} other{{count} řádků}})",
+    "@logconsole_export_current_session": {
+        "description": "Label for exporting only the current session logs.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "logconsole_export_all_logs": "Celý protokol ({count, plural, =1{1 řádek} few{{count} řádky} other{{count} řádků}})",
+    "@logconsole_export_all_logs": {
+        "description": "Label for exporting all available logs.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "articlefields_tags": "Štítky",
+    "@articlefields_tags": {
+        "description": "The tags of the article."
+    },
+    "filters_articleTagsCount": "{count, plural, =1{1 štítek} few{{count} štítky} other{{count} štítků}}",
+    "@filters_articleTagsCount": {
+        "description": "The number of tags used in filters.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "filters_articleState": "Stav",
+    "@filters_articleState": {
+        "description": "The state of the article."
+    },
+    "filters_articleStateAll": "Všechny stavy",
+    "@filters_articleStateAll": {
+        "description": "Don't filter articles by state."
+    },
+    "filters_articleStateArchived": "Archivované",
+    "@filters_articleStateArchived": {
+        "description": "Filter articles with the state 'archived'."
+    },
+    "filters_articleStateUnread": "Nepřečtené",
+    "@filters_articleStateUnread": {
+        "description": "Filter articles with the state 'unread'."
+    },
+    "filters_searchbarHint": "Hledat v článcích",
+    "@filters_searchbarHint": {
+        "description": "Search bar hint in the home screen."
+    },
+    "filters_searchMode": "Režim hledání",
+    "@filters_searchMode": {
+        "description": "The title of the search mode screen (which fields to search text into)."
+    },
+    "filters_searchModeAll": "Všechna pole",
+    "@filters_searchModeAll": {
+        "description": "Search text in all fields."
+    },
+    "filters_searchModeContent": "Obsah",
+    "@filters_searchModeContent": {
+        "description": "Search text only in the content field."
+    },
+    "filters_searchModeTitle": "Název",
+    "@filters_searchModeTitle": {
+        "description": "Search text only in the title field."
+    },
+    "selector_selectbuttonlabel": "Vybrat {numberOfItems}",
+    "@selector_selectbuttonlabel": {
+        "description": "The label of the select button in a selector screen.",
+        "placeholders": {
+            "numberOfItems": {
+                "type": "String",
+                "example": "3 items"
+            }
+        }
+    },
+    "save_title": "Uložit článek",
+    "@save_title": {
+        "description": "The title of the save screen."
+    },
+    "save_noUrl": "Nebyla zadána adresa URL",
+    "@save_noUrl": {
+        "description": "The URL was missing from the save request."
+    },
+    "save_dubiousUrlTitle": "Podezřelá adresa URL",
+    "@save_dubiousUrlTitle": {
+        "description": "The title of the dubious URL warning dialog."
+    },
+    "save_dubiousUrlMessage": "Toto nevypadá jako adresa URL. Přesto uložit?\n{url}",
+    "@save_dubiousUrlMessage": {
+        "description": "The message of the dubious URL warning dialog.",
+        "placeholders": {
+            "url": {
+                "type": "String"
+            }
+        }
+    },
+    "save_dubiousUrlConfirm": "Uložit",
+    "@save_dubiousUrlConfirm": {
+        "description": "The confirmation button of the dubious URL warning dialog."
+    },
+    "save_malformedUrlError": "Nesprávný formát adresy URL: {url}",
+    "@save_malformedUrlError": {
+        "description": "Error message shown when the URL to save is malformed.",
+        "placeholders": {
+            "url": {
+                "type": "String"
+            }
+        }
+    },
+    "save_localModeError": "K ukládání nových článků je nutné připojení k serveru.",
+    "@save_localModeError": {
+        "description": "Error message shown when trying to save an article in local mode."
+    },
+    "save_confirmationTitle": "Článek uložen!",
+    "@save_confirmationTitle": {
+        "description": "The title of the confirmation screen after the article is saved. "
+    },
+    "save_viewArticle": "Zobrazit článek",
+    "@save_viewArticle": {
+        "description": "The action to view the article after it is saved."
+    },
+    "articlefields_title": "Název",
+    "@articlefields_title": {
+        "description": "The title of the article."
+    },
+    "articlefields_website": "Webová stránka",
+    "@articlefields_website": {
+        "description": "The website (domain) from where the article has been fetched."
+    },
+    "articlefields_readingTime": "Doba čtení",
+    "@articlefields_readingTime": {
+        "description": "The estimated reading time of the article."
+    },
+    "readingsettings_fontSize": "Velikost písma",
+    "@readingsettings_fontSize": {
+        "description": "The font size to display the content of the article."
+    },
+    "readingsettings_fontFamily": "Rodina písma",
+    "@readingsettings_fontFamily": {
+        "description": "The font family to display the content of the article."
+    },
+    "readdingsettings_textFormatting": "Formátování textu",
+    "@readdingsettings_textFormatting": {
+        "description": "The text formatting to display the content of the article."
+    },
+    "filters_articleTags": "Štítky",
+    "@filters_articleTags": {
+        "description": "Filter articles with the given tag values."
+    },
+    "listing_noArticles": "Žádné články",
+    "@listing_noArticles": {
+        "description": "Placeholder for when there are no articles to display."
+    },
+    "listing_articlesAll": "Všechny články",
+    "@listing_articlesAll": {
+        "description": "The title for the list of all the articles."
+    },
+    "listing_articlesArchived": "Archivované články",
+    "@listing_articlesArchived": {
+        "description": "The title for the list of the articles with the state Archived."
+    },
+    "listing_articlesUnread": "Nepřečtené články",
+    "@listing_articlesUnread": {
+        "description": "The title for the list of the articles with the state Unread."
+    },
+    "settings_itemOpenDeeplink": "Otevřít přímý odkaz",
+    "@settings_itemOpenDeeplink": {
+        "description": "The action to open a deep link."
+    },
+    "settings_itemAbout": "O aplikaci",
+    "@settings_itemAbout": {
+        "description": "The action to display the about screen."
+    },
+    "sync_statusAllGood": "Vše je synchronizováno",
+    "@sync_statusAllGood": {
+        "description": "Sync indicator status: everything is synced."
+    },
+    "readingsettings_title": "Textové nastavení",
+    "@readingsettings_title": {
+        "description": "The title of the reading settings screen."
+    },
+    "filters_articleFavoriteStarred": "S hvězdičkou",
+    "@filters_articleFavoriteStarred": {
+        "description": "Filter starred articles."
+    },
+    "filters_articleDomainsCount": "{count, plural, =1{1 doména} few{{count} domény} other{{count} domén}}",
+    "@filters_articleDomainsCount": {
+        "description": "The number of articles domains used in filters.",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "filters_articleDomains": "Domény",
+    "@filters_articleDomains": {
+        "description": "Filter the domains from where the articles have been fetched."
     }
 }
