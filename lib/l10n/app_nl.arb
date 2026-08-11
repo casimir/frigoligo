@@ -549,7 +549,7 @@
     "@server_versionNotSupported": {
         "description": "The server instance is not supported."
     },
-    "settings_nativeArticleRenderer": "Native artikelweergave",
+    "settings_nativeArticleRenderer": "Systeem artikelrenderer",
     "@settings_nativeArticleRenderer": {
         "description": "The action to toggle the use of the experimental article renderer."
     },
@@ -597,5 +597,63 @@
                 "type": "String"
             }
         }
+    },
+    "settings_itemAdvanced": "Geavanceerd",
+    "@settings_itemAdvanced": {
+        "description": "The submenu holding advanced/diagnostic settings."
+    },
+    "settings_itemInternetCheckUrl": "Internet controle URL",
+    "@settings_itemInternetCheckUrl": {
+        "description": "The URL pinged to detect internet connectivity."
+    },
+    "sync_statusAllGood": "Bijgewerkt",
+    "@sync_statusAllGood": {
+        "description": "Sync indicator status: everything is synced."
+    },
+    "sync_statusNoInternet": "Geen netwerk verbinding",
+    "@sync_statusNoInternet": {
+        "description": "Sync indicator status: device is offline."
+    },
+    "sync_statusServerUnreachable": "Server niet bereikbaar",
+    "@sync_statusServerUnreachable": {
+        "description": "Sync indicator status: server could not be reached."
+    },
+    "sync_statusAuthFailure": "Authenticatie vereist",
+    "@sync_statusAuthFailure": {
+        "description": "Sync indicator status: credentials need to be refreshed."
+    },
+    "sync_neverSynced": "Nooit gesynct",
+    "@sync_neverSynced": {
+        "description": "Sync indicator: shown when no sync has ever completed."
+    },
+    "sync_lastSynced": "Laatst gesynct {relativeTime}",
+    "@sync_lastSynced": {
+        "description": "Sync indicator: relative time of last successful sync.",
+        "placeholders": {
+            "relativeTime": {
+                "type": "String"
+            }
+        }
+    },
+    "sync_pendingCount": "{count} in behandeling",
+    "@sync_pendingCount": {
+        "description": "Sync detail: number of items waiting to sync.",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "sync_retry": "Opnieuw",
+    "@sync_retry": {
+        "description": "Sync detail action: retry a failed sync."
+    },
+    "sync_statusSyncing": "Synchroniseren…",
+    "@sync_statusSyncing": {
+        "description": "Sync indicator status: sync in progress."
+    },
+    "sync_statusError": "Synchronisatiefout",
+    "@sync_statusError": {
+        "description": "Sync indicator status: an error occurred during sync."
     }
 }
