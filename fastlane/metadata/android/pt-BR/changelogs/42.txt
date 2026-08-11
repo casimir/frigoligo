@@ -1,0 +1,5 @@
+* Grande parte do app foi reconstruída sobre uma base mais confiável e flexível.
+* Novo renderizador de conteúdo de artigos, com suporte a conteúdos complexos.
+* Sincronização mais confiável, com retorno instantâneo para cada ação.
+* Modo de demonstração para testar o app sem precisar de um servidor.
+* Atualizações de tradução em todos os idiomas.
