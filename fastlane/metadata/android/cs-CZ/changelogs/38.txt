@@ -1,0 +1,5 @@
+- Přidána možnost vytvářet štítky při úpravě článku.
+- Příjemnější používání aplikace bez připojení.
+- Opraveno několik chyb souvisejících s průběhem čtení.
+- Přidána možnost připojit se k serveru bez SSL.
+- Nové jazyky: ruština (Русский язык) a tamilština (தமிழ்).

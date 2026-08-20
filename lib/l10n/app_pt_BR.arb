@@ -144,7 +144,7 @@
     "@settings_valueThemeLight": {
         "description": "The label for the light theme mode."
     },
-    "filters_articleFavoriteStarred": "Estrelou",
+    "filters_articleFavoriteStarred": "Favoritado",
     "@filters_articleFavoriteStarred": {
         "description": "Filter starred articles."
     },
@@ -562,5 +562,63 @@
                 "type": "String"
             }
         }
+    },
+    "settings_itemAdvanced": "Avançado",
+    "@settings_itemAdvanced": {
+        "description": "The submenu holding advanced/diagnostic settings."
+    },
+    "settings_itemInternetCheckUrl": "URL de verificação da internet",
+    "@settings_itemInternetCheckUrl": {
+        "description": "The URL pinged to detect internet connectivity."
+    },
+    "sync_statusAllGood": "Atualizado",
+    "@sync_statusAllGood": {
+        "description": "Sync indicator status: everything is synced."
+    },
+    "sync_statusSyncing": "Sincronizando…",
+    "@sync_statusSyncing": {
+        "description": "Sync indicator status: sync in progress."
+    },
+    "sync_statusNoInternet": "Sem conexão com a internet",
+    "@sync_statusNoInternet": {
+        "description": "Sync indicator status: device is offline."
+    },
+    "sync_statusServerUnreachable": "Servidor inacessível",
+    "@sync_statusServerUnreachable": {
+        "description": "Sync indicator status: server could not be reached."
+    },
+    "sync_statusError": "Erro de sincronização",
+    "@sync_statusError": {
+        "description": "Sync indicator status: an error occurred during sync."
+    },
+    "sync_statusAuthFailure": "Autenticação necessária",
+    "@sync_statusAuthFailure": {
+        "description": "Sync indicator status: credentials need to be refreshed."
+    },
+    "sync_neverSynced": "Nunca sincronizado",
+    "@sync_neverSynced": {
+        "description": "Sync indicator: shown when no sync has ever completed."
+    },
+    "sync_lastSynced": "Última sincronização: {relativeTime}",
+    "@sync_lastSynced": {
+        "description": "Sync indicator: relative time of last successful sync.",
+        "placeholders": {
+            "relativeTime": {
+                "type": "String"
+            }
+        }
+    },
+    "sync_pendingCount": "{count} pendente",
+    "@sync_pendingCount": {
+        "description": "Sync detail: number of items waiting to sync.",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "sync_retry": "Tentar novamente",
+    "@sync_retry": {
+        "description": "Sync detail action: retry a failed sync."
     }
 }

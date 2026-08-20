@@ -1,4 +1,4 @@
-- Adicione uma maneira de criar tags ao editar um artigo.
+- Adicionada uma maneira de criar tags ao editar um artigo.
 - Melhor experiência quando offline.
 - Várias correções de bugs relacionadas ao progresso da leitura.
 - Permita conectar-se a um servidor sem SSL.

@@ -1,0 +1,3 @@
+- Spolehlivější a svižnější komunikace se serverem.
+- Nové jazyky: tradiční čínština (漢文) a ruština (Русский язык).
+- Povoleny certifikáty podepsané svým držitelem pro připojení k serveru.

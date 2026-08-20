@@ -1,0 +1,1 @@
+- Opravena chyba způsobující ztrátu dat po restartování aplikace.

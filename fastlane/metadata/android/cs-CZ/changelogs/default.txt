@@ -1,0 +1,1 @@
+Vylepšena stabilita a opraveny chyby.

@@ -562,5 +562,63 @@
     "login_demoMode": "Probar en modo demostración",
     "@login_demoMode": {
         "description": "The action to put the app in demo mode instead of connecting to a server."
+    },
+    "settings_itemAdvanced": "Avanzado",
+    "@settings_itemAdvanced": {
+        "description": "The submenu holding advanced/diagnostic settings."
+    },
+    "settings_itemInternetCheckUrl": "Comprobar URL",
+    "@settings_itemInternetCheckUrl": {
+        "description": "The URL pinged to detect internet connectivity."
+    },
+    "sync_statusAllGood": "Está ao día",
+    "@sync_statusAllGood": {
+        "description": "Sync indicator status: everything is synced."
+    },
+    "sync_statusSyncing": "Sincronizando…",
+    "@sync_statusSyncing": {
+        "description": "Sync indicator status: sync in progress."
+    },
+    "sync_statusNoInternet": "Sen conexión a internet",
+    "@sync_statusNoInternet": {
+        "description": "Sync indicator status: device is offline."
+    },
+    "sync_statusServerUnreachable": "O servidor non é accesible",
+    "@sync_statusServerUnreachable": {
+        "description": "Sync indicator status: server could not be reached."
+    },
+    "sync_statusError": "Erro ao sincronizar",
+    "@sync_statusError": {
+        "description": "Sync indicator status: an error occurred during sync."
+    },
+    "sync_statusAuthFailure": "Require autenticación",
+    "@sync_statusAuthFailure": {
+        "description": "Sync indicator status: credentials need to be refreshed."
+    },
+    "sync_neverSynced": "Nunca se sincronizou",
+    "@sync_neverSynced": {
+        "description": "Sync indicator: shown when no sync has ever completed."
+    },
+    "sync_lastSynced": "Última sincronización {relativeTime}",
+    "@sync_lastSynced": {
+        "description": "Sync indicator: relative time of last successful sync.",
+        "placeholders": {
+            "relativeTime": {
+                "type": "String"
+            }
+        }
+    },
+    "sync_pendingCount": "{count} pendentes",
+    "@sync_pendingCount": {
+        "description": "Sync detail: number of items waiting to sync.",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "sync_retry": "Volver a intentar",
+    "@sync_retry": {
+        "description": "Sync detail action: retry a failed sync."
     }
 }

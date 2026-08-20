@@ -1,0 +1,1 @@
+- Opravena chyba, která mohla bránit otevírání odkazů v obsahu článků.
