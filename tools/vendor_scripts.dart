@@ -29,6 +29,7 @@ void main() {
   };
   _generateManifest(configContents);
   _updateTestHtml(configContents);
+  _updateArticleTemplate();
 }
 
 Map<String, String> _loadManifestVersions() {
@@ -180,6 +181,38 @@ void _generateManifest(Map<String, String> configContents) {
   print('Generated manifest.json (${entries.length} entries)');
 }
 
+String _npmScriptTags({
+  required String wwwBase,
+  required ScriptInjectionTime time,
+  required String indent,
+  required bool testShims,
+}) {
+  final tags = StringBuffer();
+  final scriptsBase = wwwBase.isEmpty ? 'scripts' : '$wwwBase/scripts';
+
+  for (final script in webViewNpmScripts.where(
+    (s) => s.injectionTime == time,
+  )) {
+    final scriptBase = '$scriptsBase/${script.name}';
+    if (script.preScriptFile case final f?) {
+      tags.writeln('$indent<script src="$scriptBase/$f"></script>');
+      if (testShims && script.name == 'mathjax') {
+        tags.writeln(
+          "$indent<script>window.MathJax.output.fontPath = '$scriptBase/fonts/%%FONT%%-font';</script>",
+        );
+      }
+    }
+    tags.writeln(
+      '$indent<script src="$scriptBase/${_mainJsFile(script)}"></script>',
+    );
+    if (script.postScriptFile case final f?) {
+      tags.writeln('$indent<script src="$scriptBase/$f"></script>');
+    }
+    tags.writeln();
+  }
+  return tags.toString();
+}
+
 void _updateTestHtml(Map<String, String> configContents) {
   final file = File('$_projectRoot/test/test.html');
   var content = file.readAsStringSync();
@@ -187,28 +220,16 @@ void _updateTestHtml(Map<String, String> configContents) {
   for (final time in ScriptInjectionTime.values) {
     final tags = StringBuffer();
     const indent = '  ';
-    const scriptsBase = '../assets/www/scripts';
+    const wwwBase = '../assets/www';
 
-    for (final script in webViewNpmScripts.where(
-      (s) => s.injectionTime == time,
-    )) {
-      final scriptBase = '$scriptsBase/${script.name}';
-      if (script.preScriptFile case final f?) {
-        tags.writeln('$indent<script src="$scriptBase/$f"></script>');
-        if (script.name == 'mathjax') {
-          tags.writeln(
-            "$indent<script>window.MathJax.output.fontPath = '$scriptBase/fonts/%%FONT%%-font';</script>",
-          );
-        }
-      }
-      tags.writeln(
-        '$indent<script src="$scriptBase/${_mainJsFile(script)}"></script>',
-      );
-      if (script.postScriptFile case final f?) {
-        tags.writeln('$indent<script src="$scriptBase/$f"></script>');
-      }
-      tags.writeln();
-    }
+    tags.write(
+      _npmScriptTags(
+        wwwBase: wwwBase,
+        time: time,
+        indent: indent,
+        testShims: true,
+      ),
+    );
 
     for (final script in webViewCustomScripts.where(
       (s) => s.injectionTime == time,
@@ -235,6 +256,36 @@ void _updateTestHtml(Map<String, String> configContents) {
       tags.toString(),
     );
   }
+
+  file.writeAsStringSync(content);
+  print('Updated ${file.path}');
+}
+
+void _updateArticleTemplate() {
+  final file = File('$_projectRoot/assets/article.template.html');
+  var content = file.readAsStringSync();
+
+  final theme = webViewCustomScripts.firstWhere(
+    (s) => s.name == 'highlightjs_theme',
+  );
+  content = _replaceMarkers(
+    content,
+    '  <!-- BEGIN rich-scripts head -->',
+    '  <!-- END rich-scripts head -->',
+    '  <link rel="stylesheet" href="${theme.file}">\n',
+  );
+
+  content = _replaceMarkers(
+    content,
+    '  <!-- BEGIN rich-scripts body -->',
+    '  <!-- END rich-scripts body -->',
+    _npmScriptTags(
+      wwwBase: '',
+      time: ScriptInjectionTime.atDocumentEnd,
+      indent: '  ',
+      testShims: false,
+    ),
+  );
 
   file.writeAsStringSync(content);
   print('Updated ${file.path}');
