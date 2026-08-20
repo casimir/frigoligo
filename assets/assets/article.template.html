@@ -28,12 +28,26 @@
   </style>
   {{ colorScheme }}
   {{ readingSettings }}
+  <!-- BEGIN rich-scripts head -->
+  <link rel="stylesheet" href="scripts/highlightjs/styles/default.min.css">
+  <!-- END rich-scripts head -->
 </head>
 
 <body>
   <h1>{{ articleTitle }}</h1>
   <div id="content" class="{{ articleClass }}">{{ articleContent }}</div>
   <script src="scripts/scrolling.js"></script>
+  <!-- BEGIN rich-scripts body -->
+  <script src="scripts/highlightjs/highlight.min.js"></script>
+  <script src="scripts/highlightjs/init.js"></script>
+
+  <script src="scripts/mathjax/config.js"></script>
+  <script src="scripts/mathjax/tex-chtml.js"></script>
+
+  <script src="scripts/mermaid/mermaid.min.js"></script>
+  <script src="scripts/mermaid/init.js"></script>
+
+  <!-- END rich-scripts body -->
 </body>
 
 </html>
