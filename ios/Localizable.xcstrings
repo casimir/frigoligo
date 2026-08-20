@@ -92,6 +92,12 @@
             "value" : "Aggiungi etichette"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add tags"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -228,6 +234,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Archivia questo articolo"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Archive this article"
           }
         },
         "nl" : {
@@ -368,6 +380,12 @@
             "value" : "Visualizza l'originale"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Browse the original"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -504,6 +522,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Elimina questo articolo"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete this article"
           }
         },
         "nl" : {
@@ -644,6 +668,12 @@
             "value" : "Ulteriori informazioni"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More information"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -725,7 +755,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nebyl načte žádný obsah"
+            "value" : "Nebyl načten žádný obsah"
           }
         },
         "de" : {
@@ -780,6 +810,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nessun contenuto recuperato"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No content fetched"
           }
         },
         "nl" : {
@@ -920,6 +956,12 @@
             "value" : "Articolo non trovato"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Article not found"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1056,6 +1098,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Apri nel browser"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open in browser"
           }
         },
         "nl" : {
@@ -1196,6 +1244,12 @@
             "value" : "Impostazioni testo"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Text settings"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1277,7 +1331,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%lld minut"
+            "value" : "%lld min"
           }
         },
         "de" : {
@@ -1329,6 +1383,12 @@
           }
         },
         "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld min"
+          }
+        },
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld min"
@@ -1472,6 +1532,12 @@
             "value" : "Recupera nuovamente il contenuto"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Re-fetch content"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1610,6 +1676,12 @@
             "value" : "Condividi questo articolo"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share this article"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1691,7 +1763,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Označit tento článek"
+            "value" : "Označit tento článek hvězdičkou"
           }
         },
         "de" : {
@@ -1746,6 +1818,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aggiungi ai preferiti questo articolo"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Star this article"
           }
         },
         "nl" : {
@@ -1886,6 +1964,12 @@
             "value" : "Rimuovi dall'archivio questo articolo"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unarchive this article"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1967,7 +2051,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unstar this article"
+            "value" : "Odebrat tomuto článku hvězdičku"
           }
         },
         "de" : {
@@ -2022,6 +2106,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Rimuovi dai preferiti questo articolo"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unstar this article"
           }
         },
         "nl" : {
@@ -2105,7 +2195,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Reading time"
+            "value" : "Doba čtení"
           }
         },
         "de" : {
@@ -2160,6 +2250,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tempo di lettura"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reading time"
           }
         },
         "nl" : {
@@ -2243,7 +2339,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tags"
+            "value" : "Štítky"
           }
         },
         "de" : {
@@ -2298,6 +2394,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Etichette"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tags"
           }
         },
         "nl" : {
@@ -2381,7 +2483,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Title"
+            "value" : "Název"
           }
         },
         "de" : {
@@ -2436,6 +2538,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Titolo"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Title"
           }
         },
         "nl" : {
@@ -2519,7 +2627,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Website"
+            "value" : "Webová stránka"
           }
         },
         "de" : {
@@ -2574,6 +2682,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sito web"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Website"
           }
         },
         "nl" : {
@@ -2660,7 +2774,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Domains"
+            "value" : "Domény"
           }
         },
         "de" : {
@@ -2715,6 +2829,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Domini"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domains"
           }
         },
         "nl" : {
@@ -2834,16 +2954,22 @@
         "cs" : {
           "variations" : {
             "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld domény"
+                }
+              },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "1 domain"
+                  "value" : "1 doména"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld domains"
+                  "value" : "%lld domén"
                 }
               }
             }
@@ -3017,6 +3143,24 @@
             }
           }
         },
+        "ja" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 domain"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld domains"
+                }
+              }
+            }
+          }
+        },
         "nl" : {
           "variations" : {
             "plural" : {
@@ -3182,7 +3326,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Starred"
+            "value" : "S hvězdičkou"
           }
         },
         "de" : {
@@ -3239,6 +3383,12 @@
             "value" : "Preferiti"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Starred"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3254,7 +3404,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Estrelou"
+            "value" : "Favoritado"
           }
         },
         "pt-PT" : {
@@ -3320,7 +3470,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "State"
+            "value" : "Stav"
           }
         },
         "de" : {
@@ -3375,6 +3525,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Stato"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "State"
           }
         },
         "nl" : {
@@ -3458,7 +3614,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "All states"
+            "value" : "Všechny stavy"
           }
         },
         "de" : {
@@ -3513,6 +3669,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tutti gli stati"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All states"
           }
         },
         "nl" : {
@@ -3596,7 +3758,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Archived"
+            "value" : "Archivované"
           }
         },
         "de" : {
@@ -3651,6 +3813,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Archiviato"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Archived"
           }
         },
         "nl" : {
@@ -3734,7 +3902,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unread"
+            "value" : "Nepřečtené"
           }
         },
         "de" : {
@@ -3789,6 +3957,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Non letto"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unread"
           }
         },
         "nl" : {
@@ -3872,7 +4046,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tags"
+            "value" : "Štítky"
           }
         },
         "de" : {
@@ -3927,6 +4101,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Etichette"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tags"
           }
         },
         "nl" : {
@@ -4046,16 +4226,22 @@
         "cs" : {
           "variations" : {
             "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld štítky"
+                }
+              },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "1 tag"
+                  "value" : "1 štítek"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld tags"
+                  "value" : "%lld štítků"
                 }
               }
             }
@@ -4224,6 +4410,24 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld etichette"
+                }
+              }
+            }
+          }
+        },
+        "ja" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 tag"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld tags"
                 }
               }
             }
@@ -4406,7 +4610,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Search in articles"
+            "value" : "Hledat v článcích"
           }
         },
         "de" : {
@@ -4461,6 +4665,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cerca nell'articolo"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search in articles"
           }
         },
         "nl" : {
@@ -4544,7 +4754,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Search mode"
+            "value" : "Režim hledání"
           }
         },
         "de" : {
@@ -4599,6 +4809,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Modalità di ricerca"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search mode"
           }
         },
         "nl" : {
@@ -4682,7 +4898,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "All fields"
+            "value" : "Všechna pole"
           }
         },
         "de" : {
@@ -4737,6 +4953,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tutti i campi"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All fields"
           }
         },
         "nl" : {
@@ -4820,7 +5042,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Content"
+            "value" : "Obsah"
           }
         },
         "de" : {
@@ -4875,6 +5097,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Contenuto"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Content"
           }
         },
         "nl" : {
@@ -4958,7 +5186,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Title"
+            "value" : "Název"
           }
         },
         "de" : {
@@ -5013,6 +5241,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Titolo"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Title"
           }
         },
         "nl" : {
@@ -5156,6 +5390,12 @@
             "value" : "Articolo"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Article"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5294,6 +5534,12 @@
             "value" : "Articoli"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Articles"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5375,7 +5621,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kontrola"
+            "value" : "Zkontrolovat"
           }
         },
         "de" : {
@@ -5430,6 +5676,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Verifica"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check"
           }
         },
         "nl" : {
@@ -5513,7 +5765,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kontroluji…"
+            "value" : "Probíhá kontrola…"
           }
         },
         "de" : {
@@ -5568,6 +5820,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Verificando…"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Checking…"
           }
         },
         "nl" : {
@@ -5708,6 +5966,12 @@
             "value" : "Elimina"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5844,6 +6108,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Salva link"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save link"
           }
         },
         "nl" : {
@@ -5984,6 +6254,12 @@
             "value" : "Cerca"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6117,6 +6393,12 @@
           }
         },
         "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server"
+          }
+        },
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Server"
@@ -6260,6 +6542,12 @@
             "value" : "Impostazioni"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6396,6 +6684,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Condividi"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share"
           }
         },
         "nl" : {
@@ -6536,6 +6830,12 @@
             "value" : "Codice sorgente"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Source code"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6617,7 +6917,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Synchronizace"
+            "value" : "Synchronizovat"
           }
         },
         "de" : {
@@ -6672,6 +6972,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sincronizza"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Synchronize"
           }
         },
         "nl" : {
@@ -6812,6 +7118,12 @@
             "value" : "Sistema"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6893,7 +7205,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tag"
+            "value" : "Štítek"
           }
         },
         "de" : {
@@ -6948,6 +7260,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Etichetta"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tag"
           }
         },
         "nl" : {
@@ -7088,6 +7406,12 @@
             "value" : "Versione"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7204,6 +7528,12 @@
         "cs" : {
           "variations" : {
             "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld dny"
+                }
+              },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
@@ -7213,7 +7543,7 @@
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld dny"
+                  "value" : "%lld dnů"
                 }
               }
             }
@@ -7387,6 +7717,24 @@
             }
           }
         },
+        "ja" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 day"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld days"
+                }
+              }
+            }
+          }
+        },
         "nl" : {
           "variations" : {
             "plural" : {
@@ -7514,9 +7862,21 @@
           }
         },
         "zh" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld 天"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 天"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld 天"
+                }
+              }
+            }
           }
         },
         "zh-Hant" : {
@@ -7616,6 +7976,12 @@
           }
         },
         "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "in %@"
+          }
+        },
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "in %@"
@@ -7737,10 +8103,16 @@
         "cs" : {
           "variations" : {
             "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld hodiny"
+                }
+              },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "1 hodina"
+                  "value" : "1 hodinu"
                 }
               },
               "other" : {
@@ -7920,6 +8292,24 @@
             }
           }
         },
+        "ja" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 hour"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld hours"
+                }
+              }
+            }
+          }
+        },
         "nl" : {
           "variations" : {
             "plural" : {
@@ -8047,9 +8437,21 @@
           }
         },
         "zh" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld 小时"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 小时"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld 小时"
+                }
+              }
+            }
           }
         },
         "zh-Hant" : {
@@ -8132,10 +8534,16 @@
         "cs" : {
           "variations" : {
             "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld minuty"
+                }
+              },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "1 minuta"
+                  "value" : "1 minutu"
                 }
               },
               "other" : {
@@ -8315,6 +8723,24 @@
             }
           }
         },
+        "ja" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 minute"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld minutes"
+                }
+              }
+            }
+          }
+        },
         "nl" : {
           "variations" : {
             "plural" : {
@@ -8442,9 +8868,21 @@
           }
         },
         "zh" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld 分钟"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 分钟"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld 分钟"
+                }
+              }
+            }
           }
         },
         "zh-Hant" : {
@@ -8547,6 +8985,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ fa"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ ago"
           }
         },
         "nl" : {
@@ -8665,10 +9109,16 @@
         "cs" : {
           "variations" : {
             "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld vteřiny"
+                }
+              },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "1 vteřina"
+                  "value" : "1 vteřinu"
                 }
               },
               "other" : {
@@ -8848,6 +9298,24 @@
             }
           }
         },
+        "ja" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 second"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld seconds"
+                }
+              }
+            }
+          }
+        },
         "nl" : {
           "variations" : {
             "plural" : {
@@ -8975,9 +9443,21 @@
           }
         },
         "zh" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%lld 秒"
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 秒"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld 秒"
+                }
+              }
+            }
           }
         },
         "zh-Hant" : {
@@ -9025,7 +9505,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "All articles"
+            "value" : "Všechny články"
           }
         },
         "de" : {
@@ -9080,6 +9560,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tutti gli articoli"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All articles"
           }
         },
         "nl" : {
@@ -9163,7 +9649,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Archived articles"
+            "value" : "Archivované články"
           }
         },
         "de" : {
@@ -9218,6 +9704,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Articoli archiviati"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Archived articles"
           }
         },
         "nl" : {
@@ -9301,7 +9793,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unread articles"
+            "value" : "Nepřečtené články"
           }
         },
         "de" : {
@@ -9356,6 +9848,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Articoli non letti"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unread articles"
           }
         },
         "nl" : {
@@ -9439,7 +9937,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No articles"
+            "value" : "Žádné články"
           }
         },
         "de" : {
@@ -9494,6 +9992,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nessun articolo"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No articles"
           }
         },
         "nl" : {
@@ -9577,7 +10081,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Clear logs"
+            "value" : "Vymazat protokol"
           }
         },
         "de" : {
@@ -9632,6 +10136,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Elimina registri"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clear logs"
           }
         },
         "nl" : {
@@ -9781,7 +10291,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "All logs (%#@count@)"
+            "value" : "Celý protokol (%#@count@)"
           },
           "substitutions" : {
             "count" : {
@@ -9789,16 +10299,22 @@
               "formatSpecifier" : "d",
               "variations" : {
                 "plural" : {
+                  "few" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%lld řádky"
+                    }
+                  },
                   "one" : {
                     "stringUnit" : {
                       "state" : "translated",
-                      "value" : "1 line"
+                      "value" : "1 řádek"
                     }
                   },
                   "other" : {
                     "stringUnit" : {
                       "state" : "translated",
-                      "value" : "%lld lines"
+                      "value" : "%lld řádků"
                     }
                   }
                 }
@@ -10034,6 +10550,34 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tutti i log (%#@count@)"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "d",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "1 line"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%lld lines"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All logs (%#@count@)"
           },
           "substitutions" : {
             "count" : {
@@ -10403,7 +10947,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Current session (%#@count@)"
+            "value" : "Aktuální spuštění (%#@count@)"
           },
           "substitutions" : {
             "count" : {
@@ -10411,16 +10955,22 @@
               "formatSpecifier" : "d",
               "variations" : {
                 "plural" : {
+                  "few" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%lld řádky"
+                    }
+                  },
                   "one" : {
                     "stringUnit" : {
                       "state" : "translated",
-                      "value" : "1 line"
+                      "value" : "1 řádek"
                     }
                   },
                   "other" : {
                     "stringUnit" : {
                       "state" : "translated",
-                      "value" : "%lld lines"
+                      "value" : "%lld řádků"
                     }
                   }
                 }
@@ -10656,6 +11206,34 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sessione corrente (%#@count@)"
+          },
+          "substitutions" : {
+            "count" : {
+              "argNum" : 1,
+              "formatSpecifier" : "d",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "1 line"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%lld lines"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Current session (%#@count@)"
           },
           "substitutions" : {
             "count" : {
@@ -10959,7 +11537,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Export as file"
+            "value" : "Exportovat do souboru"
           }
         },
         "de" : {
@@ -11014,6 +11592,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Esporta come file"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Export as file"
           }
         },
         "nl" : {
@@ -11097,7 +11681,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Log Console"
+            "value" : "Protokol aplikace"
           }
         },
         "de" : {
@@ -11152,6 +11736,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Registro della console"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log Console"
           }
         },
         "nl" : {
@@ -11235,7 +11825,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Accept self-signed certificates"
+            "value" : "Přijímat certifikáty podepsané svým držitelem"
           }
         },
         "de" : {
@@ -11290,6 +11880,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Accetta certificato auto-firmati"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accept self-signed certificates"
           }
         },
         "nl" : {
@@ -11373,7 +11969,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Log in"
+            "value" : "Přihlásit se"
           }
         },
         "de" : {
@@ -11428,6 +12024,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Accedi"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log in"
           }
         },
         "nl" : {
@@ -11511,7 +12113,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Try in demo mode"
+            "value" : "Vyzkoušet ukázkový režim"
           }
         },
         "de" : {
@@ -11566,6 +12168,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Prova in modalità demo"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try in demo mode"
           }
         },
         "nl" : {
@@ -11649,7 +12257,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Log out"
+            "value" : "Odhlásit se"
           }
         },
         "de" : {
@@ -11704,6 +12312,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Esci"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log out"
           }
         },
         "nl" : {
@@ -11787,7 +12401,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Do you want to log out of the current session and open a new one?"
+            "value" : "Chcete se odhlásit z aktuální relace a zahájit novou?"
           }
         },
         "de" : {
@@ -11842,6 +12456,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vuoi uscire dalla sessione attuale e aprirne una nuova?"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do you want to log out of the current session and open a new one?"
           }
         },
         "nl" : {
@@ -11925,7 +12545,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A session is currently active"
+            "value" : "Stávající relace je aktivní"
           }
         },
         "de" : {
@@ -11980,6 +12600,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Una sessione è attualmente attiva"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A session is currently active"
           }
         },
         "nl" : {
@@ -12063,7 +12689,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Client ID"
+            "value" : "ID klienta"
           }
         },
         "de" : {
@@ -12118,6 +12744,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ID cliente"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Client ID"
           }
         },
         "nl" : {
@@ -12201,7 +12833,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Client Secret"
+            "value" : "Tajný klíč klienta"
           }
         },
         "de" : {
@@ -12256,6 +12888,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Chiave segreta"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Client Secret"
           }
         },
         "nl" : {
@@ -12339,7 +12977,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Password"
+            "value" : "Heslo"
           }
         },
         "de" : {
@@ -12391,6 +13029,12 @@
           }
         },
         "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Password"
+          }
+        },
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Password"
@@ -12477,7 +13121,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Username"
+            "value" : "Uživatelské jméno"
           }
         },
         "de" : {
@@ -12532,6 +13176,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nome utente"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Username"
           }
         },
         "nl" : {
@@ -12615,7 +13265,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Open the Log Console"
+            "value" : "Otevřít protokol aplikace"
           }
         },
         "de" : {
@@ -12670,6 +13320,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Apri il registro della console"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open the Log Console"
           }
         },
         "nl" : {
@@ -12753,7 +13409,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Text formatting"
+            "value" : "Formátování textu"
           }
         },
         "de" : {
@@ -12808,6 +13464,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Formattazione del testo"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Text formatting"
           }
         },
         "nl" : {
@@ -12891,7 +13553,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Font family"
+            "value" : "Rodina písma"
           }
         },
         "de" : {
@@ -12946,6 +13608,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Famiglia di caratteri"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Font family"
           }
         },
         "nl" : {
@@ -13029,7 +13697,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Font size"
+            "value" : "Velikost písma"
           }
         },
         "de" : {
@@ -13084,6 +13752,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dimensione dei caratteri"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Font size"
           }
         },
         "nl" : {
@@ -13167,7 +13841,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Text settings"
+            "value" : "Textové nastavení"
           }
         },
         "de" : {
@@ -13222,6 +13896,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Impostazioni di lettura"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Text settings"
           }
         },
         "nl" : {
@@ -13305,7 +13985,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Article saved!"
+            "value" : "Článek uložen!"
           }
         },
         "de" : {
@@ -13360,6 +14040,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Articolo salvato!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Article saved!"
           }
         },
         "nl" : {
@@ -13443,7 +14129,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Save it"
+            "value" : "Uložit"
           }
         },
         "de" : {
@@ -13498,6 +14184,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Salvalo"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save it"
           }
         },
         "nl" : {
@@ -13581,7 +14273,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This URL does not look like one. Save it anyway?\n%@"
+            "value" : "Toto nevypadá jako adresa URL. Přesto uložit?\n%@"
           }
         },
         "de" : {
@@ -13636,6 +14328,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Questo URL non sembra valido. Vuoi salvarlo comunque?\n%@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This URL does not look like one. Save it anyway?\n%@"
           }
         },
         "nl" : {
@@ -13719,7 +14417,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dubious URL"
+            "value" : "Podezřelá adresa URL"
           }
         },
         "de" : {
@@ -13774,6 +14472,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "URL sospetto"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dubious URL"
           }
         },
         "nl" : {
@@ -13857,7 +14561,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "A server connection is required to save new articles."
+            "value" : "K ukládání nových článků je nutné připojení k serveru."
           }
         },
         "de" : {
@@ -13912,6 +14616,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Per salvare nuovi articoli è necessaria una connessione al server."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A server connection is required to save new articles."
           }
         },
         "nl" : {
@@ -13995,7 +14705,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Malformed URL: %@"
+            "value" : "Nesprávný formát adresy URL: %@"
           }
         },
         "de" : {
@@ -14050,6 +14760,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "URL non valido: %@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Malformed URL: %@"
           }
         },
         "nl" : {
@@ -14133,7 +14849,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No URL provided"
+            "value" : "Nebyla zadána adresa URL"
           }
         },
         "de" : {
@@ -14188,6 +14904,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nessun URL fornito"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No URL provided"
           }
         },
         "nl" : {
@@ -14271,7 +14993,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Save article"
+            "value" : "Uložit článek"
           }
         },
         "de" : {
@@ -14326,6 +15048,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Salva articolo"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save article"
           }
         },
         "nl" : {
@@ -14409,7 +15137,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "View article"
+            "value" : "Zobrazit článek"
           }
         },
         "de" : {
@@ -14464,6 +15192,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Visualizza articolo"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View article"
           }
         },
         "nl" : {
@@ -14550,7 +15284,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Select %@"
+            "value" : "Vybrat %@"
           }
         },
         "de" : {
@@ -14605,6 +15339,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Seleziona %@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select %@"
           }
         },
         "nl" : {
@@ -14688,7 +15428,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Server address"
+            "value" : "Adresa serveru"
           }
         },
         "de" : {
@@ -14743,6 +15483,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Indirizzo server"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server address"
           }
         },
         "nl" : {
@@ -14826,7 +15572,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Enter your %@"
+            "value" : "Vyplňte pole „%@“"
           }
         },
         "de" : {
@@ -14881,6 +15627,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Inserisci %@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter your %@"
           }
         },
         "nl" : {
@@ -14964,7 +15716,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Invalid address"
+            "value" : "Neplatná adresa"
           }
         },
         "de" : {
@@ -15019,6 +15771,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Indirizzo non valido"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid address"
           }
         },
         "nl" : {
@@ -15102,7 +15860,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unknown server type"
+            "value" : "Neznámý typ serveru"
           }
         },
         "de" : {
@@ -15157,6 +15915,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Tipo di server sconosciuto"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unknown server type"
           }
         },
         "nl" : {
@@ -15240,7 +16004,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Server unreachable"
+            "value" : "Server je nedostupný"
           }
         },
         "de" : {
@@ -15295,6 +16059,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Server non raggiungibile"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server unreachable"
           }
         },
         "nl" : {
@@ -15378,7 +16148,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Server version not supported"
+            "value" : "Nepodporovaná verze serveru"
           }
         },
         "de" : {
@@ -15433,6 +16203,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Versione del server non supportata"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server version not supported"
           }
         },
         "nl" : {
@@ -15516,7 +16292,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Copied to clipboard"
+            "value" : "Zkopírováno do schránky"
           }
         },
         "de" : {
@@ -15571,6 +16347,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Copiato negli appunti"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copied to clipboard"
           }
         },
         "nl" : {
@@ -15654,7 +16436,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Access token"
+            "value" : "Přístupový token"
           }
         },
         "de" : {
@@ -15709,6 +16491,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Token di accesso"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Access token"
           }
         },
         "nl" : {
@@ -15792,7 +16580,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "API token"
+            "value" : "Token API"
           }
         },
         "de" : {
@@ -15847,6 +16635,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Token API"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "API token"
           }
         },
         "nl" : {
@@ -15930,7 +16724,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Last server sync"
+            "value" : "Poslední synchronizace se serverem"
           }
         },
         "de" : {
@@ -15985,6 +16779,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ultima sincronizzazione del server"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last server sync"
           }
         },
         "nl" : {
@@ -16068,7 +16868,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Token expiration"
+            "value" : "Vypršení platnosti tokenu"
           }
         },
         "de" : {
@@ -16123,6 +16923,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Scadenza del token"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Token expiration"
           }
         },
         "nl" : {
@@ -16206,7 +17012,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Force token refresh"
+            "value" : "Vynutit obnovení tokenu"
           }
         },
         "de" : {
@@ -16261,6 +17067,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Forza aggiornamento token"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Force token refresh"
           }
         },
         "nl" : {
@@ -16344,7 +17156,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "invalid"
+            "value" : "neplatný"
           }
         },
         "de" : {
@@ -16399,6 +17211,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "non valido"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "invalid"
           }
         },
         "nl" : {
@@ -16482,7 +17300,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Log out"
+            "value" : "Odhlásit se"
           }
         },
         "de" : {
@@ -16537,6 +17355,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Esci"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log out"
           }
         },
         "nl" : {
@@ -16620,7 +17444,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "You will need to log in again."
+            "value" : "Budete se muset znovu přihlásit."
           }
         },
         "de" : {
@@ -16675,6 +17499,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dovrai accedere nuovamente."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You will need to log in again."
           }
         },
         "nl" : {
@@ -16758,7 +17588,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Log out session"
+            "value" : "Odhlášení z relace"
           }
         },
         "de" : {
@@ -16813,6 +17643,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Esci dalla sessione"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log out session"
           }
         },
         "nl" : {
@@ -16896,7 +17732,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Log out session"
+            "value" : "Odhlásit se z relace"
           }
         },
         "de" : {
@@ -16951,6 +17787,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Esci dalla sessione"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log out session"
           }
         },
         "nl" : {
@@ -17034,7 +17876,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "never"
+            "value" : "nikdy"
           }
         },
         "de" : {
@@ -17089,6 +17931,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "mai"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "never"
           }
         },
         "nl" : {
@@ -17172,7 +18020,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The server refuses the current session token. You will need to log in again to resume the synchronization."
+            "value" : "Server odmítá aktuální token relace. Chcete-li obnovit synchronizaci, budete se muset znovu přihlásit."
           }
         },
         "de" : {
@@ -17227,6 +18075,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Il server non accetta il token della sessione attuale. Devi accedere nuovamente per riprendere la sincronizzazione."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The server refuses the current session token. You will need to log in again to resume the synchronization."
           }
         },
         "nl" : {
@@ -17310,7 +18164,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Renew session"
+            "value" : "Obnovit relaci"
           }
         },
         "de" : {
@@ -17365,6 +18219,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Rinnova sessione"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Renew session"
           }
         },
         "nl" : {
@@ -17448,7 +18308,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Session details"
+            "value" : "Podrobnosti o relaci"
           }
         },
         "de" : {
@@ -17503,6 +18363,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dettagli sessione"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Session details"
           }
         },
         "nl" : {
@@ -17586,7 +18452,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Report a bug"
+            "value" : "Nahlásit chybu"
           }
         },
         "de" : {
@@ -17641,6 +18507,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Segnala un bug"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Report a bug"
           }
         },
         "nl" : {
@@ -17724,7 +18596,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The local cache will be deleted and fetched again from the server."
+            "value" : "Místní mezipaměť bude vymazána a znovu načtena ze serveru."
           }
         },
         "de" : {
@@ -17779,6 +18651,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "La cache locale verrà eliminata e recuperata nuovamente dal server."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The local cache will be deleted and fetched again from the server."
           }
         },
         "nl" : {
@@ -17862,7 +18740,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Help to translate"
+            "value" : "Pomoci s překladem"
           }
         },
         "de" : {
@@ -17917,6 +18795,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aiuta a tradurre"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Help to translate"
           }
         },
         "nl" : {
@@ -18000,7 +18884,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "About"
+            "value" : "O aplikaci"
           }
         },
         "de" : {
@@ -18055,6 +18939,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Informazioni su"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About"
           }
         },
         "nl" : {
@@ -18138,7 +19028,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Advanced"
+            "value" : "Pokročilé"
           }
         },
         "de" : {
@@ -18186,7 +19076,7 @@
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Advanced"
+            "value" : "Avanzado"
           }
         },
         "it" : {
@@ -18195,10 +19085,16 @@
             "value" : "Avanzate"
           }
         },
-        "nl" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Advanced"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geavanceerd"
           }
         },
         "pt" : {
@@ -18210,7 +19106,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Advanced"
+            "value" : "Avançado"
           }
         },
         "pt-PT" : {
@@ -18234,7 +19130,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Advanced"
+            "value" : "Nâng cao"
           }
         },
         "zh" : {
@@ -18276,7 +19172,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Show unread badge"
+            "value" : "Zobrazovat odznak nepřečtených článků"
           }
         },
         "de" : {
@@ -18331,6 +19227,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mostra badge non letto"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show unread badge"
           }
         },
         "nl" : {
@@ -18414,7 +19316,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Appearance"
+            "value" : "Vzhled"
           }
         },
         "de" : {
@@ -18469,6 +19371,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aspetto"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appearance"
           }
         },
         "nl" : {
@@ -18552,7 +19460,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Clear cache"
+            "value" : "Vymazat mezipaměť"
           }
         },
         "de" : {
@@ -18607,6 +19515,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pulisci cache"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clear cache"
           }
         },
         "nl" : {
@@ -18690,7 +19604,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Internet check URL"
+            "value" : "Adresa URL pro kontrolu připojení k internetu"
           }
         },
         "de" : {
@@ -18738,7 +19652,7 @@
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Internet check URL"
+            "value" : "Comprobar URL"
           }
         },
         "it" : {
@@ -18747,10 +19661,16 @@
             "value" : "URL di verifica internet"
           }
         },
-        "nl" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Internet check URL"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Internet controle URL"
           }
         },
         "pt" : {
@@ -18762,7 +19682,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Internet check URL"
+            "value" : "URL de verificação da internet"
           }
         },
         "pt-PT" : {
@@ -18786,7 +19706,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Internet check URL"
+            "value" : "URL kiểm tra internet"
           }
         },
         "zh" : {
@@ -18828,7 +19748,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Language"
+            "value" : "Jazyk"
           }
         },
         "de" : {
@@ -18883,6 +19803,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lingua"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Language"
           }
         },
         "nl" : {
@@ -18966,7 +19892,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "View licenses"
+            "value" : "Zobrazit licence"
           }
         },
         "de" : {
@@ -19021,6 +19947,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Visualizza licenze"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View licenses"
           }
         },
         "nl" : {
@@ -19104,7 +20036,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Log Console"
+            "value" : "Protokol aplikace"
           }
         },
         "de" : {
@@ -19159,6 +20091,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Registro della console"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log Console"
           }
         },
         "nl" : {
@@ -19242,7 +20180,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Open a deep link"
+            "value" : "Otevřít přímý odkaz"
           }
         },
         "de" : {
@@ -19297,6 +20235,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Apri un link profondo"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open a deep link"
           }
         },
         "nl" : {
@@ -19380,7 +20324,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Session details"
+            "value" : "Podrobnosti o relaci"
           }
         },
         "de" : {
@@ -19435,6 +20379,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Dettagli sessione"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Session details"
           }
         },
         "nl" : {
@@ -19518,7 +20468,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Native article renderer"
+            "value" : "Nativní vykreslování článků"
           }
         },
         "de" : {
@@ -19575,10 +20525,16 @@
             "value" : "Render articoli nativo"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Native article renderer"
+          }
+        },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Native artikelweergave"
+            "value" : "Systeem artikelrenderer"
           }
         },
         "pt" : {
@@ -19656,7 +20612,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Add a tag to saved articles"
+            "value" : "Přidávat uloženým článkům štítek"
           }
         },
         "de" : {
@@ -19711,6 +20667,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aggiungi un'etichetta agli articoli salvati"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a tag to saved articles"
           }
         },
         "nl" : {
@@ -19794,7 +20756,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Label for saved articles"
+            "value" : "Štítek pro uložené články"
           }
         },
         "de" : {
@@ -19849,6 +20811,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Etichetta per gli articoli salvati"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Label for saved articles"
           }
         },
         "nl" : {
@@ -19932,7 +20900,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Settings"
+            "value" : "Nastavení"
           }
         },
         "de" : {
@@ -19987,6 +20955,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Impostazioni"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
           }
         },
         "nl" : {
@@ -20070,7 +21044,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dark"
+            "value" : "Tmavý"
           }
         },
         "de" : {
@@ -20125,6 +21099,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Scuro"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dark"
           }
         },
         "nl" : {
@@ -20208,7 +21188,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Light"
+            "value" : "Světlý"
           }
         },
         "de" : {
@@ -20263,6 +21243,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Chiaro"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Light"
           }
         },
         "nl" : {
@@ -20346,7 +21332,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Last synced %@"
+            "value" : "Naposledy synchronizováno %@"
           }
         },
         "de" : {
@@ -20394,7 +21380,7 @@
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Last synced %@"
+            "value" : "Última sincronización %@"
           }
         },
         "it" : {
@@ -20403,10 +21389,16 @@
             "value" : "Ultima sincronizzazione %@"
           }
         },
-        "nl" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Last synced %@"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Laatst gesynct %@"
           }
         },
         "pt" : {
@@ -20418,7 +21410,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Last synced %@"
+            "value" : "Última sincronização: %@"
           }
         },
         "pt-PT" : {
@@ -20442,7 +21434,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Last synced %@"
+            "value" : "Đồng bộ lần cuối %@"
           }
         },
         "zh" : {
@@ -20484,7 +21476,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Never synced"
+            "value" : "Synchronizace zatím neproběhla"
           }
         },
         "de" : {
@@ -20532,7 +21524,7 @@
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Never synced"
+            "value" : "Nunca se sincronizou"
           }
         },
         "it" : {
@@ -20541,10 +21533,16 @@
             "value" : "Mai sincronizzato"
           }
         },
-        "nl" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Never synced"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nooit gesynct"
           }
         },
         "pt" : {
@@ -20556,7 +21554,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Never synced"
+            "value" : "Nunca sincronizado"
           }
         },
         "pt-PT" : {
@@ -20580,7 +21578,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Never synced"
+            "value" : "Chưa từng đồng bộ"
           }
         },
         "zh" : {
@@ -20622,7 +21620,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%lld pending"
+            "value" : "Čekající položky: %lld"
           }
         },
         "de" : {
@@ -20670,7 +21668,7 @@
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%lld pending"
+            "value" : "%lld pendentes"
           }
         },
         "it" : {
@@ -20679,10 +21677,16 @@
             "value" : "%lld in attesa"
           }
         },
-        "nl" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld pending"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld in behandeling"
           }
         },
         "pt" : {
@@ -20694,7 +21698,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%lld pending"
+            "value" : "%lld pendente"
           }
         },
         "pt-PT" : {
@@ -20718,7 +21722,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%lld pending"
+            "value" : "%lld đang chờ xử lý"
           }
         },
         "zh" : {
@@ -20760,7 +21764,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Retry"
+            "value" : "Zkusit znovu"
           }
         },
         "de" : {
@@ -20808,7 +21812,7 @@
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Retry"
+            "value" : "Volver a intentar"
           }
         },
         "it" : {
@@ -20817,10 +21821,16 @@
             "value" : "Riprova"
           }
         },
-        "nl" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Retry"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opnieuw"
           }
         },
         "pt" : {
@@ -20832,7 +21842,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Retry"
+            "value" : "Tentar novamente"
           }
         },
         "pt-PT" : {
@@ -20856,7 +21866,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Retry"
+            "value" : "Thử lại"
           }
         },
         "zh" : {
@@ -20898,7 +21908,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Up to date"
+            "value" : "Vše je synchronizováno"
           }
         },
         "de" : {
@@ -20946,7 +21956,7 @@
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Up to date"
+            "value" : "Está ao día"
           }
         },
         "it" : {
@@ -20955,10 +21965,16 @@
             "value" : "Aggiornato"
           }
         },
-        "nl" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Up to date"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bijgewerkt"
           }
         },
         "pt" : {
@@ -20970,7 +21986,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Up to date"
+            "value" : "Atualizado"
           }
         },
         "pt-PT" : {
@@ -20994,7 +22010,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Up to date"
+            "value" : "đã cập nhật"
           }
         },
         "zh" : {
@@ -21036,7 +22052,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Authentication required"
+            "value" : "Je nutné přihlášení"
           }
         },
         "de" : {
@@ -21084,7 +22100,7 @@
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Authentication required"
+            "value" : "Require autenticación"
           }
         },
         "it" : {
@@ -21093,10 +22109,16 @@
             "value" : "Autenticazione richiesta"
           }
         },
-        "nl" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Authentication required"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Authenticatie vereist"
           }
         },
         "pt" : {
@@ -21108,7 +22130,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Authentication required"
+            "value" : "Autenticação necessária"
           }
         },
         "pt-PT" : {
@@ -21132,7 +22154,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Authentication required"
+            "value" : "Vui lòng xác thực"
           }
         },
         "zh" : {
@@ -21174,7 +22196,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sync error"
+            "value" : "Chyba synchronizace"
           }
         },
         "de" : {
@@ -21222,7 +22244,7 @@
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sync error"
+            "value" : "Erro ao sincronizar"
           }
         },
         "it" : {
@@ -21231,10 +22253,16 @@
             "value" : "Errore di sincronizzazione"
           }
         },
-        "nl" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sync error"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Synchronisatiefout"
           }
         },
         "pt" : {
@@ -21246,7 +22274,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sync error"
+            "value" : "Erro de sincronização"
           }
         },
         "pt-PT" : {
@@ -21270,7 +22298,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sync error"
+            "value" : "Đồng bộ lỗi"
           }
         },
         "zh" : {
@@ -21312,7 +22340,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No internet connection"
+            "value" : "Bez připojení k internetu"
           }
         },
         "de" : {
@@ -21360,7 +22388,7 @@
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No internet connection"
+            "value" : "Sen conexión a internet"
           }
         },
         "it" : {
@@ -21369,10 +22397,16 @@
             "value" : "Nessuna connessione internet"
           }
         },
-        "nl" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "No internet connection"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geen netwerk verbinding"
           }
         },
         "pt" : {
@@ -21384,7 +22418,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No internet connection"
+            "value" : "Sem conexão com a internet"
           }
         },
         "pt-PT" : {
@@ -21408,7 +22442,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No internet connection"
+            "value" : "Không có kết nối internet"
           }
         },
         "zh" : {
@@ -21450,7 +22484,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Server unreachable"
+            "value" : "Server je nedostupný"
           }
         },
         "de" : {
@@ -21498,7 +22532,7 @@
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Server unreachable"
+            "value" : "O servidor non é accesible"
           }
         },
         "it" : {
@@ -21507,10 +22541,16 @@
             "value" : "Server non raggiungibile"
           }
         },
-        "nl" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Server unreachable"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server niet bereikbaar"
           }
         },
         "pt" : {
@@ -21522,7 +22562,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Server unreachable"
+            "value" : "Servidor inacessível"
           }
         },
         "pt-PT" : {
@@ -21546,7 +22586,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Server unreachable"
+            "value" : "Không thể kết nối với server"
           }
         },
         "zh" : {
@@ -21588,7 +22628,7 @@
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Syncing…"
+            "value" : "Probíhá synchronizace…"
           }
         },
         "de" : {
@@ -21636,7 +22676,7 @@
         "gl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Syncing…"
+            "value" : "Sincronizando…"
           }
         },
         "it" : {
@@ -21645,10 +22685,16 @@
             "value" : "Sincronizzazione…"
           }
         },
-        "nl" : {
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Syncing…"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Synchroniseren…"
           }
         },
         "pt" : {
@@ -21660,7 +22706,7 @@
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Syncing…"
+            "value" : "Sincronizando…"
           }
         },
         "pt-PT" : {
@@ -21684,7 +22730,7 @@
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Syncing…"
+            "value" : "Đang đồng bộ…"
           }
         },
         "zh" : {
@@ -21762,16 +22808,22 @@
         "cs" : {
           "variations" : {
             "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld čekající akce"
+                }
+              },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "1 action"
+                  "value" : "1 čekající akce"
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld actions"
+                  "value" : "%lld čekajících akcí"
                 }
               }
             }
@@ -21934,6 +22986,24 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld azioni"
+                }
+              }
+            }
+          }
+        },
+        "ja" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 action"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld actions"
                 }
               }
             }

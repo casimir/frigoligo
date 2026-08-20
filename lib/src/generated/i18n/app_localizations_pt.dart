@@ -787,7 +787,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   }
 
   @override
-  String get filters_articleFavoriteStarred => 'Estrelou';
+  String get filters_articleFavoriteStarred => 'Favoritado';
 
   @override
   String get filters_articleState => 'Estado';
@@ -1048,7 +1048,13 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
       'O cache local será excluído e recuperado novamente do servidor.';
 
   @override
+  String get settings_itemAdvanced => 'Avançado';
+
+  @override
   String get settings_itemAppearance => 'Aparência';
+
+  @override
+  String get settings_itemInternetCheckUrl => 'URL de verificação da internet';
 
   @override
   String get settings_itemAbout => 'Sobre';
@@ -1110,6 +1116,40 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
     );
     return '$_temp0';
   }
+
+  @override
+  String get sync_statusAllGood => 'Atualizado';
+
+  @override
+  String get sync_statusSyncing => 'Sincronizando…';
+
+  @override
+  String get sync_statusNoInternet => 'Sem conexão com a internet';
+
+  @override
+  String get sync_statusServerUnreachable => 'Servidor inacessível';
+
+  @override
+  String get sync_statusError => 'Erro de sincronização';
+
+  @override
+  String get sync_statusAuthFailure => 'Autenticação necessária';
+
+  @override
+  String get sync_neverSynced => 'Nunca sincronizado';
+
+  @override
+  String sync_lastSynced(String relativeTime) {
+    return 'Última sincronização: $relativeTime';
+  }
+
+  @override
+  String sync_pendingCount(int count) {
+    return '$count pendente';
+  }
+
+  @override
+  String get sync_retry => 'Tentar novamente';
 }
 
 /// The translations for Portuguese, as used in Portugal (`pt_PT`).

@@ -63,7 +63,13 @@ class AppLocalizationsZh extends AppLocalizations {
     );
     final String nString = nNumberFormat.format(n);
 
-    return '$nString 天';
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$nString 天',
+      one: '1 天',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -78,7 +84,13 @@ class AppLocalizationsZh extends AppLocalizations {
     );
     final String nString = nNumberFormat.format(n);
 
-    return '$nString 小时';
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$nString 小时',
+      one: '1 小时',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -88,7 +100,13 @@ class AppLocalizationsZh extends AppLocalizations {
     );
     final String nString = nNumberFormat.format(n);
 
-    return '$nString 分钟';
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$nString 分钟',
+      one: '1 分钟',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -103,7 +121,13 @@ class AppLocalizationsZh extends AppLocalizations {
     );
     final String nString = nNumberFormat.format(n);
 
-    return '$nString 秒';
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$nString 秒',
+      one: '1 秒',
+    );
+    return '$_temp0';
   }
 
   @override

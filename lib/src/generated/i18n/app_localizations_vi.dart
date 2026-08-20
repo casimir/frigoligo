@@ -474,13 +474,13 @@ class AppLocalizationsVi extends AppLocalizations {
       'Bộ nhớ đệm cục bộ sẽ bị xóa và tải lại từ máy chủ.';
 
   @override
-  String get settings_itemAdvanced => 'Advanced';
+  String get settings_itemAdvanced => 'Nâng cao';
 
   @override
   String get settings_itemAppearance => 'Giao diện';
 
   @override
-  String get settings_itemInternetCheckUrl => 'Internet check URL';
+  String get settings_itemInternetCheckUrl => 'URL kiểm tra internet';
 
   @override
   String get settings_itemAbout => 'Giới thiệu';
@@ -544,36 +544,36 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
-  String get sync_statusAllGood => 'Up to date';
+  String get sync_statusAllGood => 'đã cập nhật';
 
   @override
-  String get sync_statusSyncing => 'Syncing…';
+  String get sync_statusSyncing => 'Đang đồng bộ…';
 
   @override
-  String get sync_statusNoInternet => 'No internet connection';
+  String get sync_statusNoInternet => 'Không có kết nối internet';
 
   @override
-  String get sync_statusServerUnreachable => 'Server unreachable';
+  String get sync_statusServerUnreachable => 'Không thể kết nối với server';
 
   @override
-  String get sync_statusError => 'Sync error';
+  String get sync_statusError => 'Đồng bộ lỗi';
 
   @override
-  String get sync_statusAuthFailure => 'Authentication required';
+  String get sync_statusAuthFailure => 'Vui lòng xác thực';
 
   @override
-  String get sync_neverSynced => 'Never synced';
+  String get sync_neverSynced => 'Chưa từng đồng bộ';
 
   @override
   String sync_lastSynced(String relativeTime) {
-    return 'Last synced $relativeTime';
+    return 'Đồng bộ lần cuối $relativeTime';
   }
 
   @override
   String sync_pendingCount(int count) {
-    return '$count pending';
+    return '$count đang chờ xử lý';
   }
 
   @override
-  String get sync_retry => 'Retry';
+  String get sync_retry => 'Thử lại';
 }

@@ -476,13 +476,13 @@ class AppLocalizationsNl extends AppLocalizations {
       'De lokale cache wordt verwijderd en wordt opnieuw bij de server opgehaald.';
 
   @override
-  String get settings_itemAdvanced => 'Advanced';
+  String get settings_itemAdvanced => 'Geavanceerd';
 
   @override
   String get settings_itemAppearance => 'Uiterlijk';
 
   @override
-  String get settings_itemInternetCheckUrl => 'Internet check URL';
+  String get settings_itemInternetCheckUrl => 'Internet controle URL';
 
   @override
   String get settings_itemAbout => 'Over';
@@ -522,7 +522,7 @@ class AppLocalizationsNl extends AppLocalizations {
   String get settings_title => 'Instellingen';
 
   @override
-  String get settings_nativeArticleRenderer => 'Native artikelweergave';
+  String get settings_nativeArticleRenderer => 'Systeem artikelrenderer';
 
   @override
   String get settings_valueThemeDark => 'Donker';
@@ -547,36 +547,36 @@ class AppLocalizationsNl extends AppLocalizations {
   }
 
   @override
-  String get sync_statusAllGood => 'Up to date';
+  String get sync_statusAllGood => 'Bijgewerkt';
 
   @override
-  String get sync_statusSyncing => 'Syncing…';
+  String get sync_statusSyncing => 'Synchroniseren…';
 
   @override
-  String get sync_statusNoInternet => 'No internet connection';
+  String get sync_statusNoInternet => 'Geen netwerk verbinding';
 
   @override
-  String get sync_statusServerUnreachable => 'Server unreachable';
+  String get sync_statusServerUnreachable => 'Server niet bereikbaar';
 
   @override
-  String get sync_statusError => 'Sync error';
+  String get sync_statusError => 'Synchronisatiefout';
 
   @override
-  String get sync_statusAuthFailure => 'Authentication required';
+  String get sync_statusAuthFailure => 'Authenticatie vereist';
 
   @override
-  String get sync_neverSynced => 'Never synced';
+  String get sync_neverSynced => 'Nooit gesynct';
 
   @override
   String sync_lastSynced(String relativeTime) {
-    return 'Last synced $relativeTime';
+    return 'Laatst gesynct $relativeTime';
   }
 
   @override
   String sync_pendingCount(int count) {
-    return '$count pending';
+    return '$count in behandeling';
   }
 
   @override
-  String get sync_retry => 'Retry';
+  String get sync_retry => 'Opnieuw';
 }

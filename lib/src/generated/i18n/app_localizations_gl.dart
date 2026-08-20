@@ -472,13 +472,13 @@ class AppLocalizationsGl extends AppLocalizations {
       'Vaise eliminar a caché local e solicitar outra vez os datos ao servidor.';
 
   @override
-  String get settings_itemAdvanced => 'Advanced';
+  String get settings_itemAdvanced => 'Avanzado';
 
   @override
   String get settings_itemAppearance => 'Aparencia';
 
   @override
-  String get settings_itemInternetCheckUrl => 'Internet check URL';
+  String get settings_itemInternetCheckUrl => 'Comprobar URL';
 
   @override
   String get settings_itemAbout => 'Sobre';
@@ -544,36 +544,36 @@ class AppLocalizationsGl extends AppLocalizations {
   }
 
   @override
-  String get sync_statusAllGood => 'Up to date';
+  String get sync_statusAllGood => 'Está ao día';
 
   @override
-  String get sync_statusSyncing => 'Syncing…';
+  String get sync_statusSyncing => 'Sincronizando…';
 
   @override
-  String get sync_statusNoInternet => 'No internet connection';
+  String get sync_statusNoInternet => 'Sen conexión a internet';
 
   @override
-  String get sync_statusServerUnreachable => 'Server unreachable';
+  String get sync_statusServerUnreachable => 'O servidor non é accesible';
 
   @override
-  String get sync_statusError => 'Sync error';
+  String get sync_statusError => 'Erro ao sincronizar';
 
   @override
-  String get sync_statusAuthFailure => 'Authentication required';
+  String get sync_statusAuthFailure => 'Require autenticación';
 
   @override
-  String get sync_neverSynced => 'Never synced';
+  String get sync_neverSynced => 'Nunca se sincronizou';
 
   @override
   String sync_lastSynced(String relativeTime) {
-    return 'Last synced $relativeTime';
+    return 'Última sincronización $relativeTime';
   }
 
   @override
   String sync_pendingCount(int count) {
-    return '$count pending';
+    return '$count pendentes';
   }
 
   @override
-  String get sync_retry => 'Retry';
+  String get sync_retry => 'Volver a intentar';
 }

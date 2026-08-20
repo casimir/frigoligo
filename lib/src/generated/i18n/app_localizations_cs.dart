@@ -18,10 +18,10 @@ class AppLocalizationsCs extends AppLocalizations {
   String get g_articles => 'Články';
 
   @override
-  String get g_check => 'Kontrola';
+  String get g_check => 'Zkontrolovat';
 
   @override
-  String get g_checking => 'Kontroluji…';
+  String get g_checking => 'Probíhá kontrola…';
 
   @override
   String get g_delete => 'Smazat';
@@ -45,13 +45,13 @@ class AppLocalizationsCs extends AppLocalizations {
   String get g_sourceCode => 'Zdrojový kód';
 
   @override
-  String get g_synchronize => 'Synchronizace';
+  String get g_synchronize => 'Synchronizovat';
 
   @override
   String get g_system => 'Systém';
 
   @override
-  String get g_tag => 'Tag';
+  String get g_tag => 'Štítek';
 
   @override
   String get g_version => 'Verze';
@@ -66,7 +66,8 @@ class AppLocalizationsCs extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       n,
       locale: localeName,
-      other: '$nString dny',
+      other: '$nString dnů',
+      few: '$nString dny',
       one: '1 den',
     );
     return '$_temp0';
@@ -88,7 +89,8 @@ class AppLocalizationsCs extends AppLocalizations {
       n,
       locale: localeName,
       other: '$nString hodin',
-      one: '1 hodina',
+      few: '$nString hodiny',
+      one: '1 hodinu',
     );
     return '$_temp0';
   }
@@ -104,7 +106,8 @@ class AppLocalizationsCs extends AppLocalizations {
       n,
       locale: localeName,
       other: '$nString minut',
-      one: '1 minuta',
+      few: '$nString minuty',
+      one: '1 minutu',
     );
     return '$_temp0';
   }
@@ -125,7 +128,8 @@ class AppLocalizationsCs extends AppLocalizations {
       n,
       locale: localeName,
       other: '$nString vteřin',
-      one: '1 vteřina',
+      few: '$nString vteřiny',
+      one: '1 vteřinu',
     );
     return '$_temp0';
   }
@@ -146,7 +150,7 @@ class AppLocalizationsCs extends AppLocalizations {
   String get article_details => 'Více informací';
 
   @override
-  String get article_noContentFetched => 'Nebyl načte žádný obsah';
+  String get article_noContentFetched => 'Nebyl načten žádný obsah';
 
   @override
   String get article_notFound => 'Článek nenalezen';
@@ -161,7 +165,7 @@ class AppLocalizationsCs extends AppLocalizations {
     );
     final String minutesString = minutesNumberFormat.format(minutes);
 
-    return '$minutesString minut';
+    return '$minutesString min';
   }
 
   @override
@@ -174,28 +178,28 @@ class AppLocalizationsCs extends AppLocalizations {
   String get article_share => 'Sdílet tento článek';
 
   @override
-  String get article_star => 'Označit tento článek';
+  String get article_star => 'Označit tento článek hvězdičkou';
 
   @override
   String get article_unarchive => 'Zrušit archivaci tohoto článku';
 
   @override
-  String get article_unstar => 'Unstar this article';
+  String get article_unstar => 'Odebrat tomuto článku hvězdičku';
 
   @override
-  String get articlefields_readingTime => 'Reading time';
+  String get articlefields_readingTime => 'Doba čtení';
 
   @override
-  String get articlefields_tags => 'Tags';
+  String get articlefields_tags => 'Štítky';
 
   @override
-  String get articlefields_title => 'Title';
+  String get articlefields_title => 'Název';
 
   @override
-  String get articlefields_website => 'Website';
+  String get articlefields_website => 'Webová stránka';
 
   @override
-  String get filters_articleDomains => 'Domains';
+  String get filters_articleDomains => 'Domény';
 
   @override
   String filters_articleDomainsCount(int count) {
@@ -207,29 +211,30 @@ class AppLocalizationsCs extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString domains',
-      one: '1 domain',
+      other: '$countString domén',
+      few: '$countString domény',
+      one: '1 doména',
     );
     return '$_temp0';
   }
 
   @override
-  String get filters_articleFavoriteStarred => 'Starred';
+  String get filters_articleFavoriteStarred => 'S hvězdičkou';
 
   @override
-  String get filters_articleState => 'State';
+  String get filters_articleState => 'Stav';
 
   @override
-  String get filters_articleStateUnread => 'Unread';
+  String get filters_articleStateUnread => 'Nepřečtené';
 
   @override
-  String get filters_articleStateArchived => 'Archived';
+  String get filters_articleStateArchived => 'Archivované';
 
   @override
-  String get filters_articleStateAll => 'All states';
+  String get filters_articleStateAll => 'Všechny stavy';
 
   @override
-  String get filters_articleTags => 'Tags';
+  String get filters_articleTags => 'Štítky';
 
   @override
   String filters_articleTagsCount(int count) {
@@ -241,35 +246,36 @@ class AppLocalizationsCs extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString tags',
-      one: '1 tag',
+      other: '$countString štítků',
+      few: '$countString štítky',
+      one: '1 štítek',
     );
     return '$_temp0';
   }
 
   @override
-  String get filters_searchbarHint => 'Search in articles';
+  String get filters_searchbarHint => 'Hledat v článcích';
 
   @override
-  String get filters_searchMode => 'Search mode';
+  String get filters_searchMode => 'Režim hledání';
 
   @override
-  String get filters_searchModeAll => 'All fields';
+  String get filters_searchModeAll => 'Všechna pole';
 
   @override
-  String get filters_searchModeContent => 'Content';
+  String get filters_searchModeContent => 'Obsah';
 
   @override
-  String get filters_searchModeTitle => 'Title';
+  String get filters_searchModeTitle => 'Název';
 
   @override
-  String get logconsole_title => 'Log Console';
+  String get logconsole_title => 'Protokol aplikace';
 
   @override
-  String get logconsole_clear_logs => 'Clear logs';
+  String get logconsole_clear_logs => 'Vymazat protokol';
 
   @override
-  String get logconsole_export_title => 'Export as file';
+  String get logconsole_export_title => 'Exportovat do souboru';
 
   @override
   String logconsole_export_current_session(int count) {
@@ -281,10 +287,11 @@ class AppLocalizationsCs extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString lines',
-      one: '1 line',
+      other: '$countString řádků',
+      few: '$countString řádky',
+      one: '1 řádek',
     );
-    return 'Current session ($_temp0)';
+    return 'Aktuální spuštění ($_temp0)';
   }
 
   @override
@@ -297,234 +304,237 @@ class AppLocalizationsCs extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString lines',
-      one: '1 line',
+      other: '$countString řádků',
+      few: '$countString řádky',
+      one: '1 řádek',
     );
-    return 'All logs ($_temp0)';
+    return 'Celý protokol ($_temp0)';
   }
 
   @override
-  String get listing_noArticles => 'No articles';
+  String get listing_noArticles => 'Žádné články';
 
   @override
-  String get listing_articlesAll => 'All articles';
+  String get listing_articlesAll => 'Všechny články';
 
   @override
-  String get listing_articlesArchived => 'Archived articles';
+  String get listing_articlesArchived => 'Archivované články';
 
   @override
-  String get listing_articlesUnread => 'Unread articles';
+  String get listing_articlesUnread => 'Nepřečtené články';
 
   @override
-  String get login_acceptSelfSigned => 'Accept self-signed certificates';
+  String get login_acceptSelfSigned =>
+      'Přijímat certifikáty podepsané svým držitelem';
 
   @override
-  String get login_actionLogin => 'Log in';
+  String get login_actionLogin => 'Přihlásit se';
 
   @override
-  String get login_demoMode => 'Try in demo mode';
+  String get login_demoMode => 'Vyzkoušet ukázkový režim';
 
   @override
-  String get login_existingSessionDialogConfirm => 'Log out';
+  String get login_existingSessionDialogConfirm => 'Odhlásit se';
 
   @override
   String get login_existingSessionDialogMessage =>
-      'Do you want to log out of the current session and open a new one?';
+      'Chcete se odhlásit z aktuální relace a zahájit novou?';
 
   @override
-  String get login_existingSessionDialogTitle =>
-      'A session is currently active';
+  String get login_existingSessionDialogTitle => 'Stávající relace je aktivní';
 
   @override
-  String get login_fieldClientId => 'Client ID';
+  String get login_fieldClientId => 'ID klienta';
 
   @override
-  String get login_fieldClientSecret => 'Client Secret';
+  String get login_fieldClientSecret => 'Tajný klíč klienta';
 
   @override
-  String get login_fieldPassword => 'Password';
+  String get login_fieldPassword => 'Heslo';
 
   @override
-  String get login_fieldUsername => 'Username';
+  String get login_fieldUsername => 'Uživatelské jméno';
 
   @override
-  String get login_openLogConsole => 'Open the Log Console';
+  String get login_openLogConsole => 'Otevřít protokol aplikace';
 
   @override
-  String get readingsettings_fontFamily => 'Font family';
+  String get readingsettings_fontFamily => 'Rodina písma';
 
   @override
-  String get readingsettings_fontSize => 'Font size';
+  String get readingsettings_fontSize => 'Velikost písma';
 
   @override
-  String get readdingsettings_textFormatting => 'Text formatting';
+  String get readdingsettings_textFormatting => 'Formátování textu';
 
   @override
-  String get readingsettings_title => 'Text settings';
+  String get readingsettings_title => 'Textové nastavení';
 
   @override
-  String get save_confirmationTitle => 'Article saved!';
+  String get save_confirmationTitle => 'Článek uložen!';
 
   @override
   String save_dubiousUrlMessage(String url) {
-    return 'This URL does not look like one. Save it anyway?\n$url';
+    return 'Toto nevypadá jako adresa URL. Přesto uložit?\n$url';
   }
 
   @override
-  String get save_dubiousUrlConfirm => 'Save it';
+  String get save_dubiousUrlConfirm => 'Uložit';
 
   @override
-  String get save_dubiousUrlTitle => 'Dubious URL';
+  String get save_dubiousUrlTitle => 'Podezřelá adresa URL';
 
   @override
-  String get save_noUrl => 'No URL provided';
+  String get save_noUrl => 'Nebyla zadána adresa URL';
 
   @override
-  String get save_title => 'Save article';
+  String get save_title => 'Uložit článek';
 
   @override
-  String get save_viewArticle => 'View article';
+  String get save_viewArticle => 'Zobrazit článek';
 
   @override
   String get save_localModeError =>
-      'A server connection is required to save new articles.';
+      'K ukládání nových článků je nutné připojení k serveru.';
 
   @override
   String save_malformedUrlError(String url) {
-    return 'Malformed URL: $url';
+    return 'Nesprávný formát adresy URL: $url';
   }
 
   @override
   String selector_selectbuttonlabel(String numberOfItems) {
-    return 'Select $numberOfItems';
+    return 'Vybrat $numberOfItems';
   }
 
   @override
-  String get server_address => 'Server address';
+  String get server_address => 'Adresa serveru';
 
   @override
   String server_emptyField(String label) {
-    return 'Enter your $label';
+    return 'Vyplňte pole „$label“';
   }
 
   @override
-  String get server_invalidUrl => 'Invalid address';
+  String get server_invalidUrl => 'Neplatná adresa';
 
   @override
-  String get server_unknownServerType => 'Unknown server type';
+  String get server_unknownServerType => 'Neznámý typ serveru';
 
   @override
-  String get server_unreachable => 'Server unreachable';
+  String get server_unreachable => 'Server je nedostupný';
 
   @override
-  String get server_versionNotSupported => 'Server version not supported';
+  String get server_versionNotSupported => 'Nepodporovaná verze serveru';
 
   @override
-  String get session_copiedToClipboard => 'Copied to clipboard';
+  String get session_copiedToClipboard => 'Zkopírováno do schránky';
 
   @override
-  String get session_invalidToken => 'invalid';
+  String get session_invalidToken => 'neplatný';
 
   @override
-  String get session_logoutDialogConfirm => 'Log out';
+  String get session_logoutDialogConfirm => 'Odhlásit se';
 
   @override
-  String get session_logoutDialogMessage => 'You will need to log in again.';
+  String get session_logoutDialogMessage => 'Budete se muset znovu přihlásit.';
 
   @override
-  String get session_logoutDialogTitle => 'Log out session';
+  String get session_logoutDialogTitle => 'Odhlášení z relace';
 
   @override
-  String get session_logoutSession => 'Log out session';
+  String get session_logoutSession => 'Odhlásit se z relace';
 
   @override
-  String get session_fieldAccessToken => 'Access token';
+  String get session_fieldAccessToken => 'Přístupový token';
 
   @override
-  String get session_fieldApiToken => 'API token';
+  String get session_fieldApiToken => 'Token API';
 
   @override
-  String get session_fieldLastServerSync => 'Last server sync';
+  String get session_fieldLastServerSync =>
+      'Poslední synchronizace se serverem';
 
   @override
-  String get session_fieldTokenExpiration => 'Token expiration';
+  String get session_fieldTokenExpiration => 'Vypršení platnosti tokenu';
 
   @override
-  String get session_forceTokenResfresh => 'Force token refresh';
+  String get session_forceTokenResfresh => 'Vynutit obnovení tokenu';
 
   @override
-  String get session_neverSynced => 'never';
+  String get session_neverSynced => 'nikdy';
 
   @override
   String get session_renewDialogMessage =>
-      'The server refuses the current session token. You will need to log in again to resume the synchronization.';
+      'Server odmítá aktuální token relace. Chcete-li obnovit synchronizaci, budete se muset znovu přihlásit.';
 
   @override
-  String get session_renewDialogTitle => 'Renew session';
+  String get session_renewDialogTitle => 'Obnovit relaci';
 
   @override
-  String get session_title => 'Session details';
+  String get session_title => 'Podrobnosti o relaci';
 
   @override
-  String get settings_bugReportLink => 'Report a bug';
+  String get settings_bugReportLink => 'Nahlásit chybu';
 
   @override
   String get settings_clearCacheMessage =>
-      'The local cache will be deleted and fetched again from the server.';
+      'Místní mezipaměť bude vymazána a znovu načtena ze serveru.';
 
   @override
-  String get settings_itemAdvanced => 'Advanced';
+  String get settings_itemAdvanced => 'Pokročilé';
 
   @override
-  String get settings_itemAppearance => 'Appearance';
+  String get settings_itemAppearance => 'Vzhled';
 
   @override
-  String get settings_itemInternetCheckUrl => 'Internet check URL';
+  String get settings_itemInternetCheckUrl =>
+      'Adresa URL pro kontrolu připojení k internetu';
 
   @override
-  String get settings_itemAbout => 'About';
+  String get settings_itemAbout => 'O aplikaci';
 
   @override
-  String get settings_itemAppBadge => 'Show unread badge';
+  String get settings_itemAppBadge => 'Zobrazovat odznak nepřečtených článků';
 
   @override
-  String get settings_itemClearCache => 'Clear cache';
+  String get settings_itemClearCache => 'Vymazat mezipaměť';
 
   @override
-  String get settings_itemLicenses => 'View licenses';
+  String get settings_itemLicenses => 'Zobrazit licence';
 
   @override
-  String get settings_itemLogConsole => 'Log Console';
+  String get settings_itemLogConsole => 'Protokol aplikace';
 
   @override
-  String get settings_itemOpenDeeplink => 'Open a deep link';
+  String get settings_itemOpenDeeplink => 'Otevřít přímý odkaz';
 
   @override
-  String get settings_itemLanguage => 'Language';
+  String get settings_itemLanguage => 'Jazyk';
 
   @override
-  String get settings_helpToTranslate => 'Help to translate';
+  String get settings_helpToTranslate => 'Pomoci s překladem';
 
   @override
-  String get settings_savedArticleTag => 'Add a tag to saved articles';
+  String get settings_savedArticleTag => 'Přidávat uloženým článkům štítek';
 
   @override
-  String get settings_savedArticleTagLabel => 'Label for saved articles';
+  String get settings_savedArticleTagLabel => 'Štítek pro uložené články';
 
   @override
-  String get settings_itemSessionDetails => 'Session details';
+  String get settings_itemSessionDetails => 'Podrobnosti o relaci';
 
   @override
-  String get settings_title => 'Settings';
+  String get settings_title => 'Nastavení';
 
   @override
-  String get settings_nativeArticleRenderer => 'Native article renderer';
+  String get settings_nativeArticleRenderer => 'Nativní vykreslování článků';
 
   @override
-  String get settings_valueThemeDark => 'Dark';
+  String get settings_valueThemeDark => 'Tmavý';
 
   @override
-  String get settings_valueThemeLight => 'Light';
+  String get settings_valueThemeLight => 'Světlý';
 
   @override
   String syncer_pendingActions(int count) {
@@ -536,43 +546,44 @@ class AppLocalizationsCs extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$countString actions',
-      one: '1 action',
+      other: '$countString čekajících akcí',
+      few: '$countString čekající akce',
+      one: '1 čekající akce',
     );
     return '$_temp0';
   }
 
   @override
-  String get sync_statusAllGood => 'Up to date';
+  String get sync_statusAllGood => 'Vše je synchronizováno';
 
   @override
-  String get sync_statusSyncing => 'Syncing…';
+  String get sync_statusSyncing => 'Probíhá synchronizace…';
 
   @override
-  String get sync_statusNoInternet => 'No internet connection';
+  String get sync_statusNoInternet => 'Bez připojení k internetu';
 
   @override
-  String get sync_statusServerUnreachable => 'Server unreachable';
+  String get sync_statusServerUnreachable => 'Server je nedostupný';
 
   @override
-  String get sync_statusError => 'Sync error';
+  String get sync_statusError => 'Chyba synchronizace';
 
   @override
-  String get sync_statusAuthFailure => 'Authentication required';
+  String get sync_statusAuthFailure => 'Je nutné přihlášení';
 
   @override
-  String get sync_neverSynced => 'Never synced';
+  String get sync_neverSynced => 'Synchronizace zatím neproběhla';
 
   @override
   String sync_lastSynced(String relativeTime) {
-    return 'Last synced $relativeTime';
+    return 'Naposledy synchronizováno $relativeTime';
   }
 
   @override
   String sync_pendingCount(int count) {
-    return '$count pending';
+    return 'Čekající položky: $count';
   }
 
   @override
-  String get sync_retry => 'Retry';
+  String get sync_retry => 'Zkusit znovu';
 }
