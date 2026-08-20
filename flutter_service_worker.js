@@ -419,7 +419,7 @@ const RESOURCES = {"drift_worker.js": "afac8b57eb80f0846a382f7303929b0f",
 "assets/packages/wakelock_plus/assets/no_sleep.js": "7748a45cd593f33280669b29c2c8919a",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "dfb94d43b1e563843c3fac627da1164c",
 "main.dart.js": "322b31d77c5fded75ba6baf2c708f38f",
-"flutter_bootstrap.js": "a79bf11453bfa033029b244b698f4549",
+"flutter_bootstrap.js": "54f7a8af26667e446a379c756a41643c",
 "manifest.json": "ead8714d71cf26bd14b0a8e6a69aba29"};
 // The application shell files that are downloaded before a service worker can
 // start.
