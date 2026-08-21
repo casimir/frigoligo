@@ -38,6 +38,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(i18n)* Translate "Articles" for the main screen title ([51a6054](https://github.com/casimir/frigoligo/commit/51a60540949770a9a80743293019154134b43ecb))
 - *(i18n)* Translate "Articles" in all locales and regen everything ([9217c30](https://github.com/casimir/frigoligo/commit/9217c30bdf963a91c40a20e41b65620fee9efa05))
 - *(screenshots)* Add maestro flows and multishot config ([91b79e4](https://github.com/casimir/frigoligo/commit/91b79e4201b699b98cf14e9397ef29e1984fd44b))
+- *(flutter)* Integrate rich content rendering using vendored scripts ([2b8ad57](https://github.com/casimir/frigoligo/commit/2b8ad57e3624c849b5c020e5e4192f2faa709326))
 
 ### 🐛 Bug Fixes
 
@@ -219,6 +220,8 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(webview)* Bump mermaid ([919a189](https://github.com/casimir/frigoligo/commit/919a1899b63698bd51d21145c8e933c5c98ec398))
 - Fix trailing newline ([02098d5](https://github.com/casimir/frigoligo/commit/02098d520a17c18bbeb6e803f53e1825bf5b4edc))
 - *(android)* Align target version to flutter ([6235dda](https://github.com/casimir/frigoligo/commit/6235dda7c033d4f0632f4a715f954fcad75f8ccb))
+- Tweaked demo data ([7c843a8](https://github.com/casimir/frigoligo/commit/7c843a831ef366e0a8108f35f3d12c1d19f2a558))
+- *(i18n)* Integrate new translations ([eb04b16](https://github.com/casimir/frigoligo/commit/eb04b16bbe0f6853909036332a902b8ba5b078b1))
 
 ### I18n
 
