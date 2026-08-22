@@ -93,6 +93,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(iOS)* Read HTML from disk to allow JS loading ([db997ee](https://github.com/casimir/frigoligo/commit/db997ee9c1b7f15983dd44c96a053662f3801f5d))
 - *(iOS)* Update old swift API usage ([d1622d7](https://github.com/casimir/frigoligo/commit/d1622d72d028506436a6ae94c1852e75f66dcc29))
 - *(iOS)* Explicit article content encoding ([1ef0bfc](https://github.com/casimir/frigoligo/commit/1ef0bfc515fbdfdce922133430a2325de166b2da))
+- *(save)* Use automatic save label when enabled ([d0030fa](https://github.com/casimir/frigoligo/commit/d0030fa628efda517cfd5338ccb86c07e64fd80b))
 
 ### ◀️ Revert
 
