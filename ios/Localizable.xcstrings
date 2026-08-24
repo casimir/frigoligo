@@ -1877,7 +1877,7 @@
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Star this article"
+            "value" : "收藏此文章"
           }
         }
       }
@@ -2165,7 +2165,7 @@
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unstar this article"
+            "value" : "取消收藏此文章"
           }
         }
       }
@@ -5156,7 +5156,7 @@
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Content"
+            "value" : "內容"
           }
         }
       }
@@ -21446,7 +21446,7 @@
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Last synced %@"
+            "value" : "上次同步於 %@"
           }
         }
       }
@@ -21590,7 +21590,7 @@
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Never synced"
+            "value" : "未曾同步"
           }
         }
       }
@@ -21734,7 +21734,7 @@
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%lld pending"
+            "value" : "%lld 個待處理"
           }
         }
       }
@@ -21878,7 +21878,7 @@
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Retry"
+            "value" : "重試"
           }
         }
       }
@@ -22166,7 +22166,7 @@
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Authentication required"
+            "value" : "需要登入授權"
           }
         }
       }
@@ -22310,7 +22310,7 @@
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sync error"
+            "value" : "同步失敗"
           }
         }
       }
@@ -22454,7 +22454,7 @@
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No internet connection"
+            "value" : "無網路連線"
           }
         }
       }
@@ -22598,7 +22598,7 @@
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Server unreachable"
+            "value" : "無法連線至伺服器"
           }
         }
       }
@@ -22742,7 +22742,7 @@
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Syncing…"
+            "value" : "同步中…"
           }
         }
       }

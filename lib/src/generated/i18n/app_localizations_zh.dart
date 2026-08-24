@@ -721,7 +721,13 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
   String get article_share => '分享此文章';
 
   @override
+  String get article_star => '收藏此文章';
+
+  @override
   String get article_unarchive => '取消封存此文章';
+
+  @override
+  String get article_unstar => '取消收藏此文章';
 
   @override
   String get articlefields_readingTime => '閱讀時間';
@@ -774,6 +780,9 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
 
   @override
   String get filters_searchModeAll => '所有欄位';
+
+  @override
+  String get filters_searchModeContent => '內容';
 
   @override
   String get filters_searchModeTitle => '標題';
@@ -991,4 +1000,35 @@ class AppLocalizationsZhHant extends AppLocalizationsZh {
     );
     return '$_temp0';
   }
+
+  @override
+  String get sync_statusSyncing => '同步中…';
+
+  @override
+  String get sync_statusNoInternet => '無網路連線';
+
+  @override
+  String get sync_statusServerUnreachable => '無法連線至伺服器';
+
+  @override
+  String get sync_statusError => '同步失敗';
+
+  @override
+  String get sync_statusAuthFailure => '需要登入授權';
+
+  @override
+  String get sync_neverSynced => '未曾同步';
+
+  @override
+  String sync_lastSynced(String relativeTime) {
+    return '上次同步於 $relativeTime';
+  }
+
+  @override
+  String sync_pendingCount(int count) {
+    return '$count 個待處理';
+  }
+
+  @override
+  String get sync_retry => '重試';
 }
