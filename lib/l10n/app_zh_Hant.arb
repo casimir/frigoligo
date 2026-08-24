@@ -487,5 +487,63 @@
     "server_versionNotSupported": "不支援的伺服器版本",
     "@server_versionNotSupported": {
         "description": "The server instance is not supported."
+    },
+    "article_star": "收藏此文章",
+    "@article_star": {
+        "description": "The action to star the article."
+    },
+    "article_unstar": "取消收藏此文章",
+    "@article_unstar": {
+        "description": "The action to unstar the article."
+    },
+    "filters_searchModeContent": "內容",
+    "@filters_searchModeContent": {
+        "description": "Search text only in the content field."
+    },
+    "sync_retry": "重試",
+    "@sync_retry": {
+        "description": "Sync detail action: retry a failed sync."
+    },
+    "sync_neverSynced": "未曾同步",
+    "@sync_neverSynced": {
+        "description": "Sync indicator: shown when no sync has ever completed."
+    },
+    "sync_statusError": "同步失敗",
+    "@sync_statusError": {
+        "description": "Sync indicator status: an error occurred during sync."
+    },
+    "sync_statusServerUnreachable": "無法連線至伺服器",
+    "@sync_statusServerUnreachable": {
+        "description": "Sync indicator status: server could not be reached."
+    },
+    "sync_statusAuthFailure": "需要登入授權",
+    "@sync_statusAuthFailure": {
+        "description": "Sync indicator status: credentials need to be refreshed."
+    },
+    "sync_statusNoInternet": "無網路連線",
+    "@sync_statusNoInternet": {
+        "description": "Sync indicator status: device is offline."
+    },
+    "sync_statusSyncing": "同步中…",
+    "@sync_statusSyncing": {
+        "description": "Sync indicator status: sync in progress."
+    },
+    "sync_pendingCount": "{count} 個待處理",
+    "@sync_pendingCount": {
+        "description": "Sync detail: number of items waiting to sync.",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "sync_lastSynced": "上次同步於 {relativeTime}",
+    "@sync_lastSynced": {
+        "description": "Sync indicator: relative time of last successful sync.",
+        "placeholders": {
+            "relativeTime": {
+                "type": "String"
+            }
+        }
     }
 }
