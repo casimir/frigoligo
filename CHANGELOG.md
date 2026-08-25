@@ -223,6 +223,8 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(android)* Align target version to flutter ([6235dda](https://github.com/casimir/frigoligo/commit/6235dda7c033d4f0632f4a715f954fcad75f8ccb))
 - Tweaked demo data ([7c843a8](https://github.com/casimir/frigoligo/commit/7c843a831ef366e0a8108f35f3d12c1d19f2a558))
 - *(i18n)* Integrate new translations ([eb04b16](https://github.com/casimir/frigoligo/commit/eb04b16bbe0f6853909036332a902b8ba5b078b1))
+- Upgrade vendored scripts ([e2325b8](https://github.com/casimir/frigoligo/commit/e2325b88845f8d7851144646bd585e667193d414))
+- *(i18n)* Regen translations ([fda5e6f](https://github.com/casimir/frigoligo/commit/fda5e6fe4d2cc3bc69b6e5b32ef4b4a0c82db3f4))
 
 ### I18n
 
