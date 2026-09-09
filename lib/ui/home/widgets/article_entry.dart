@@ -26,7 +26,7 @@ class ArticleEntry extends ConsumerWidget {
   }
 
   Widget buildLoaded(BuildContext context, WidgetRef ref, ArticleData data) {
-    return Column(
+    final child = Column(
       children: [
         const SizedBox(height: 8),
         Row(
@@ -70,6 +70,7 @@ class ArticleEntry extends ConsumerWidget {
               _ImagePreview(url: data.previewPicture!, width: 80, height: 80),
           ],
         ),
+        const Spacer(),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -121,6 +122,7 @@ class ArticleEntry extends ConsumerWidget {
         const Divider(thickness: 1, height: 1),
       ],
     );
+    return SizedBox(height: itemExtent, child: child);
   }
 }
 
