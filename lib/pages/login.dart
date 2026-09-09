@@ -20,6 +20,7 @@ class LoginPage extends ConsumerStatefulWidget {
 
 class _LoginPageState extends ConsumerState<LoginPage> {
   late Map<String, String>? _currentData;
+  bool _sessionCheckDone = false;
 
   @override
   Widget build(BuildContext context) {
@@ -38,17 +39,20 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
     if (flowState case FSReady(initial: final initial)) {
       _currentData = initial;
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        // ask for confirmation if there is an existing session
-        // skip it if some initial data is provided (deeplink)
-        if (initial == null) {
-          final ServerSessionRepository repository = dependencies.get();
-          final session = repository.getSession();
-          if (session != null) {
-            _triggerConfirmationDialog();
+      if (!_sessionCheckDone) {
+        _sessionCheckDone = true;
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          // ask for confirmation if there is an existing session
+          // skip it if some initial data is provided (deeplink)
+          if (initial == null) {
+            final ServerSessionRepository repository = dependencies.get();
+            final session = repository.getSession();
+            if (session != null) {
+              _triggerConfirmationDialog();
+            }
           }
-        }
-      });
+        });
+      }
     }
 
     final flowServer = LoginFlowServer(initial: _currentData?['server']);
