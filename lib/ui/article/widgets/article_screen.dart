@@ -249,26 +249,22 @@ List<Widget> buildActions(
       icon: C(context).icons.info,
       label: context.L.article_details,
       onPressed: () {
-        if (controller.hasNativeSheet) {
-          controller.openNativeSheet(data.id);
-        } else {
-          showModalSheet(
-            context: context,
-            title: context.L.g_article,
-            builder: (_) {
-              final sheetController = ArticleSheetController(
-                syncManager: SyncManager.instance,
-                tagRepository: ref.watch(tagRepositoryProvider),
-                sharingService: dependencies.get(),
-                urlLauncherService: dependencies.get(),
-                articleId: data.id,
-              );
-              return Material(
-                child: ArticleSheet(controller: sheetController, data: data),
-              );
-            },
-          );
-        }
+        showModalSheet(
+          context: context,
+          title: context.L.g_article,
+          builder: (_) {
+            final sheetController = ArticleSheetController(
+              syncManager: SyncManager.instance,
+              tagRepository: ref.watch(tagRepositoryProvider),
+              sharingService: dependencies.get(),
+              urlLauncherService: dependencies.get(),
+              articleId: data.id,
+            );
+            return Material(
+              child: ArticleSheet(controller: sheetController, data: data),
+            );
+          },
+        );
       },
     ),
     ArticleActionKey.openInBrowser: ArticleAction(

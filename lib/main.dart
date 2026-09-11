@@ -158,7 +158,7 @@ class _MyAppState extends ConsumerState<MyApp> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed && !UniversalPlatform.isIOS) {
+    if (state == AppLifecycleState.resumed) {
       unawaited(handleAppResumed());
     }
   }

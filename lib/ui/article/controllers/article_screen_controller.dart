@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import '../../../bridge/article_sheet_bridge.dart';
 import '../../../data/services/platform/sharing_service.dart';
 import '../../../data/services/platform/urllauncher_service.dart';
 import '../../../domain/sync/sync_manager.dart';
@@ -10,24 +9,15 @@ class ArticleScreenController {
     required SyncManager syncManager,
     required SharingService sharingService,
     required UrlLauncherService urlLauncherService,
-    ArticleSheetBridge? bridge,
     required this.articleId,
   }) : _syncManager = syncManager,
        _sharingService = sharingService,
-       _urlLauncherService = urlLauncherService,
-       _bridge = bridge;
+       _urlLauncherService = urlLauncherService;
 
   final SyncManager _syncManager;
   final SharingService _sharingService;
   final UrlLauncherService _urlLauncherService;
-  final ArticleSheetBridge? _bridge;
   final int articleId;
-
-  bool get hasNativeSheet => _bridge != null;
-
-  Future<void> openNativeSheet(int articleId) {
-    return _bridge!.open(articleId);
-  }
 
   Future<void> setArchived(bool archived) async {
     await _syncManager.addAction(

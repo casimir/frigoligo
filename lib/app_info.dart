@@ -31,8 +31,6 @@ class AppInfo {
     return _data!;
   }
 
-  static bool get deviceIsIPhone => data.iosInfo?.model == 'iPhone';
-
   // false below API 33: in-app picker handles locale there instead
   static bool get usesSystemLocale =>
       UniversalPlatform.isIOS || (data.androidSdkInt ?? 0) >= 33;
