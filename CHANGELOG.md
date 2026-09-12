@@ -126,6 +126,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Add more test around article saving errors ([73219ed](https://github.com/casimir/frigoligo/commit/73219ed3845f9235cd8bf8684b0106286d20438f))
 - *(remotesync)* Prune remote actions after sync instead of a clear ([#453](https://github.com/casimir/frigoligo/pull/453)) ([c7fc26d](https://github.com/casimir/frigoligo/commit/c7fc26dce3abe96ef1b42e10d9ed9210dac52376))
 - *(demo)* Embed cover images for the first page of the demo data ([c3cc5e8](https://github.com/casimir/frigoligo/commit/c3cc5e81542f25f32411b983c0500f1158aa1ad3))
+- Remove temporary bridge migration code ([8bc52fa](https://github.com/casimir/frigoligo/commit/8bc52fa1eb444ec35784a857afdcc1e8028bc412))
 
 ### 📚 Documentation
 
