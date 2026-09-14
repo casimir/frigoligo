@@ -1,1 +1,68 @@
-{}
+{
+    "g_delete": "削除",
+    "@g_delete": {
+        "description": "A verb, as in to delete something."
+    },
+    "g_search": "検索",
+    "@g_search": {
+        "description": "A verb, as in to search something."
+    },
+    "g_settings": "設定",
+    "@g_settings": {
+        "description": "The settings of the application."
+    },
+    "g_share": "共有",
+    "@g_share": {
+        "description": "A verb, as in to share something."
+    },
+    "g_sourceCode": "ソースコード",
+    "@g_sourceCode": {
+        "description": "The source code of a software."
+    },
+    "g_tag": "タグ",
+    "@g_tag": {
+        "description": "A tag can be attached to an article."
+    },
+    "g_version": "バージョン",
+    "@g_version": {
+        "description": "A version, as in the application version."
+    },
+    "article_readingTime": "{minutes} 分",
+    "@article_readingTime": {
+        "description": "The estimated reading time of the article.",
+        "placeholders": {
+            "minutes": {
+                "type": "int",
+                "format": "compact"
+            }
+        }
+    },
+    "article_readingSettings": "テキスト設定",
+    "@article_readingSettings": {
+        "description": "The action to open the reading settings sheet."
+    },
+    "article_share": "記事を共有",
+    "@article_share": {
+        "description": "The action to share the article."
+    },
+    "articlefields_title": "タイトル",
+    "@articlefields_title": {
+        "description": "The title of the article."
+    },
+    "filters_articleStateUnread": "未読",
+    "@filters_articleStateUnread": {
+        "description": "Filter articles with the state 'unread'."
+    },
+    "filters_searchModeTitle": "タイトル",
+    "@filters_searchModeTitle": {
+        "description": "Search text only in the title field."
+    },
+    "login_actionLogin": "ログイン",
+    "@login_actionLogin": {
+        "description": "The action to log in."
+    },
+    "login_existingSessionDialogConfirm": "ログアウト",
+    "@login_existingSessionDialogConfirm": {
+        "description": "The action to log out from the existing session."
+    }
+}
