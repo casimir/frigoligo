@@ -226,7 +226,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build_windows:
-    runs-on: windows-latest
+    runs-on: windows-2022
     env:
       ARTIFACT: frigoligo-${{ github.head_ref ||  github.ref_name }}-win-x64.zip
     steps:
