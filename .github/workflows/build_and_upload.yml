@@ -122,7 +122,7 @@ jobs:
             os: ubuntu-22.04
             flutter_channel: stable
           - arch: arm64
-            os: ubicloud-standard-2-arm
+            os: ubicloud-standard-2-arm-ubuntu-2204
             flutter_channel: master
     runs-on: ${{ matrix.os }}
     env:
