@@ -180,7 +180,7 @@ jobs:
       - name: Install native dependencies
         run: |
           sudo apt update -y
-          sudo apt install -y libgtk-3-0 xvfb x11-utils
+          sudo apt install -y libegl1 libgl1-mesa-dri libgtk-3-0 x11-utils xvfb
       - uses: actions/checkout@v7
         with:
           sparse-checkout: |
