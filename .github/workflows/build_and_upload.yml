@@ -119,7 +119,7 @@ jobs:
       matrix:
         include:
           - arch: x64
-            os: ubuntu-latest
+            os: ubuntu-22.04
             flutter_channel: stable
           - arch: arm64
             os: ubicloud-standard-2-arm
@@ -165,11 +165,13 @@ jobs:
           - artifact_arch: x86_64
             env_arch: x86_64
             linux_arch: x64
+            os: ubuntu-22.04
           - artifact_arch: aarch64
             env_arch: arm_aarch64
             linux_arch: arm64
+            os: ubuntu-22.04-arm
     needs: build_linux
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     env:
       ARCH: ${{ matrix.env_arch }}
       ARTIFACT: Frigoligo-${{ github.head_ref ||  github.ref_name }}-${{ matrix.artifact_arch }}.AppImage
@@ -178,7 +180,7 @@ jobs:
       - name: Install native dependencies
         run: |
           sudo apt update -y
-          sudo apt install libfuse2
+          sudo apt install -y libgtk-3-0 xvfb x11-utils
       - uses: actions/checkout@v7
         with:
           sparse-checkout: |
@@ -197,9 +199,20 @@ jobs:
         working-directory: ./appimage
       - name: Build AppImage
         run: |
-          wget -q "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
-          chmod +x appimagetool-x86_64.AppImage
-          ./appimagetool-x86_64.AppImage Frigoligo.AppDir $ARTIFACT
+          wget -q "https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-${{ matrix.artifact_arch }}.AppImage"
+          chmod +x appimagetool-${{ matrix.artifact_arch }}.AppImage
+          ./appimagetool-${{ matrix.artifact_arch }}.AppImage Frigoligo.AppDir $ARTIFACT
+        working-directory: ./appimage
+      - name: Test AppImage
+        run: |
+          chmod +x "$ARTIFACT"
+          Xvfb :99 &
+          export DISPLAY=:99
+          ./"$ARTIFACT" &
+          APID=$!
+          sleep 10
+          kill -0 $APID || { echo "Exited before showing a window"; exit 1; }
+          xwininfo -root -tree | grep -qE '0x.*": \(' || { echo "No window"; exit 1; }
         working-directory: ./appimage
       - uses: actions/upload-artifact@v7
         with:
