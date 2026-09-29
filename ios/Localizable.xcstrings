@@ -1247,7 +1247,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Text settings"
+            "value" : "テキスト設定"
           }
         },
         "nl" : {
@@ -1391,7 +1391,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%lld min"
+            "value" : "%lld 分"
           }
         },
         "nl" : {
@@ -1679,7 +1679,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Share this article"
+            "value" : "記事を共有"
           }
         },
         "nl" : {
@@ -2543,7 +2543,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Title"
+            "value" : "タイトル"
           }
         },
         "nl" : {
@@ -3962,7 +3962,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unread"
+            "value" : "未読"
           }
         },
         "nl" : {
@@ -5246,7 +5246,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Title"
+            "value" : "タイトル"
           }
         },
         "nl" : {
@@ -5969,7 +5969,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Delete"
+            "value" : "削除"
           }
         },
         "nl" : {
@@ -6257,7 +6257,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Search"
+            "value" : "検索"
           }
         },
         "nl" : {
@@ -6545,7 +6545,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Settings"
+            "value" : "設定"
           }
         },
         "nl" : {
@@ -6689,7 +6689,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Share"
+            "value" : "共有"
           }
         },
         "nl" : {
@@ -6833,7 +6833,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Source code"
+            "value" : "ソースコード"
           }
         },
         "nl" : {
@@ -7265,7 +7265,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tag"
+            "value" : "タグ"
           }
         },
         "nl" : {
@@ -7409,7 +7409,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Version"
+            "value" : "バージョン"
           }
         },
         "nl" : {
@@ -12029,7 +12029,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Log in"
+            "value" : "ログイン"
           }
         },
         "nl" : {
@@ -12317,7 +12317,7 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Log out"
+            "value" : "ログアウト"
           }
         },
         "nl" : {

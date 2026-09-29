@@ -24,25 +24,25 @@ class AppLocalizationsJa extends AppLocalizations {
   String get g_checking => 'Checking…';
 
   @override
-  String get g_delete => 'Delete';
+  String get g_delete => '削除';
 
   @override
   String get g_saveLink => 'Save link';
 
   @override
-  String get g_search => 'Search';
+  String get g_search => '検索';
 
   @override
   String get g_server => 'Server';
 
   @override
-  String get g_settings => 'Settings';
+  String get g_settings => '設定';
 
   @override
-  String get g_share => 'Share';
+  String get g_share => '共有';
 
   @override
-  String get g_sourceCode => 'Source code';
+  String get g_sourceCode => 'ソースコード';
 
   @override
   String get g_synchronize => 'Synchronize';
@@ -51,10 +51,10 @@ class AppLocalizationsJa extends AppLocalizations {
   String get g_system => 'System';
 
   @override
-  String get g_tag => 'Tag';
+  String get g_tag => 'タグ';
 
   @override
-  String get g_version => 'Version';
+  String get g_version => 'バージョン';
 
   @override
   String humanize_days(int n) {
@@ -161,17 +161,17 @@ class AppLocalizationsJa extends AppLocalizations {
     );
     final String minutesString = minutesNumberFormat.format(minutes);
 
-    return '$minutesString min';
+    return '$minutesString 分';
   }
 
   @override
   String get article_refetchContent => 'Re-fetch content';
 
   @override
-  String get article_readingSettings => 'Text settings';
+  String get article_readingSettings => 'テキスト設定';
 
   @override
-  String get article_share => 'Share this article';
+  String get article_share => '記事を共有';
 
   @override
   String get article_star => 'Star this article';
@@ -189,7 +189,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get articlefields_tags => 'Tags';
 
   @override
-  String get articlefields_title => 'Title';
+  String get articlefields_title => 'タイトル';
 
   @override
   String get articlefields_website => 'Website';
@@ -220,7 +220,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get filters_articleState => 'State';
 
   @override
-  String get filters_articleStateUnread => 'Unread';
+  String get filters_articleStateUnread => '未読';
 
   @override
   String get filters_articleStateArchived => 'Archived';
@@ -260,7 +260,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get filters_searchModeContent => 'Content';
 
   @override
-  String get filters_searchModeTitle => 'Title';
+  String get filters_searchModeTitle => 'タイトル';
 
   @override
   String get logconsole_title => 'Log Console';
@@ -319,13 +319,13 @@ class AppLocalizationsJa extends AppLocalizations {
   String get login_acceptSelfSigned => 'Accept self-signed certificates';
 
   @override
-  String get login_actionLogin => 'Log in';
+  String get login_actionLogin => 'ログイン';
 
   @override
   String get login_demoMode => 'Try in demo mode';
 
   @override
-  String get login_existingSessionDialogConfirm => 'Log out';
+  String get login_existingSessionDialogConfirm => 'ログアウト';
 
   @override
   String get login_existingSessionDialogMessage =>
