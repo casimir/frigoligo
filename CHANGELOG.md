@@ -96,6 +96,9 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(save)* Use automatic save label when enabled ([d0030fa](https://github.com/casimir/frigoligo/commit/d0030fa628efda517cfd5338ccb86c07e64fd80b))
 - *(login)* Avoid spurious "existing session" dialogs ([3c71284](https://github.com/casimir/frigoligo/commit/3c712843d1bac2a06ce44e5ac574610b200cbca4))
 - *(ui)* Force item height in articles listing ([e15eb3d](https://github.com/casimir/frigoligo/commit/e15eb3d97b55ba176c528e09809c1e81dcf808e5))
+- *(appimage)* Pin ubuntu version + use newer toolchain ([3afea78](https://github.com/casimir/frigoligo/commit/3afea78af2c845ad5ee377f3f2f07eba6e9b1e0d))
+- *(appimage)* Add missing packages ([e142cff](https://github.com/casimir/frigoligo/commit/e142cffdcc7e7953033c6a496fd2d4b8983cbdf8))
+- *(windows)* Pin build image ([f5b365c](https://github.com/casimir/frigoligo/commit/f5b365c976b8825d05409ae77e1926d64917a31a))
 
 ### ◀️ Revert
 
@@ -229,6 +232,10 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Upgrade vendored scripts ([e2325b8](https://github.com/casimir/frigoligo/commit/e2325b88845f8d7851144646bd585e667193d414))
 - *(i18n)* Regen translations ([fda5e6f](https://github.com/casimir/frigoligo/commit/fda5e6fe4d2cc3bc69b6e5b32ef4b4a0c82db3f4))
 - Regen podfiles ([e282268](https://github.com/casimir/frigoligo/commit/e28226849c54dfa6481859990abc3323cbdb5f52))
+
+### Fux
+
+- *(appimage)* Pin arm ubuntu image ([75b6206](https://github.com/casimir/frigoligo/commit/75b620674230af0b41a388c964eab4b5ab6bc54e))
 
 ### I18n
 
