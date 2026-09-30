@@ -190,6 +190,8 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
  ([2273b91](https://github.com/casimir/frigoligo/commit/2273b919284fa2640310bd17c666eb24d5c2dac9))
 - Update translations: English
  ([4d40298](https://github.com/casimir/frigoligo/commit/4d40298786fb78f4a19ddff4df24e6f0f13fe15b))
+- Update translations: Japanese
+ ([286e2ad](https://github.com/casimir/frigoligo/commit/286e2addd60ef94672c6b260c3b2489bf426db61))
 
 ### ⚙️ Miscellaneous Tasks
 
@@ -232,6 +234,7 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - Upgrade vendored scripts ([e2325b8](https://github.com/casimir/frigoligo/commit/e2325b88845f8d7851144646bd585e667193d414))
 - *(i18n)* Regen translations ([fda5e6f](https://github.com/casimir/frigoligo/commit/fda5e6fe4d2cc3bc69b6e5b32ef4b4a0c82db3f4))
 - Regen podfiles ([e282268](https://github.com/casimir/frigoligo/commit/e28226849c54dfa6481859990abc3323cbdb5f52))
+- *(i18n)* Regen new translations ([c03d57a](https://github.com/casimir/frigoligo/commit/c03d57a4cf8fd19ff15292d08209c5d39a6be2da))
 
 ### Fux
 
