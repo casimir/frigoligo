@@ -392,6 +392,24 @@ abstract class AppLocalizations {
   /// **'{count, plural, =1{1 domain} other{{count} domains}}'**
   String filters_articleDomainsCount(int count);
 
+  /// Choose whether saved articles are shown newest or oldest first.
+  ///
+  /// In en, this message translates to:
+  /// **'Sort by date'**
+  String get filters_sortOrder;
+
+  /// Show the most recently saved articles first.
+  ///
+  /// In en, this message translates to:
+  /// **'Newest first'**
+  String get filters_sortOrderNewestFirst;
+
+  /// Show the earliest saved articles first.
+  ///
+  /// In en, this message translates to:
+  /// **'Oldest first'**
+  String get filters_sortOrderOldestFirst;
+
   /// Filter starred articles.
   ///
   /// In en, this message translates to:

@@ -1,6 +1,8 @@
 import 'package:cadanse/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:frigoligo/ui/core/widgets/src/navigation_split_view/animated_navigation_pane_slider.dart'
+    show kNavigationPaneWidth;
 
 import 'src/widget_tester_extension.dart';
 import 'src/widgets.dart';
@@ -20,6 +22,24 @@ void main() {
           expectSimpleSideBySideLayout(tester);
         },
       );
+
+      testWidgets('It should scale the navigation pane on wide windows', (
+        tester,
+      ) async {
+        tester.setSize(const Size(900, 600));
+        await tester.pumpWidget(
+          const SimpleApp(child: SimpleNavigationSplitView()),
+        );
+        await tester.pumpAndSettle();
+
+        final pane = find.byKey(const ValueKey(1));
+        expect(tester.getSize(pane).width, kNavigationPaneWidth);
+
+        tester.setSize(const Size(1200, 600));
+        await tester.pumpAndSettle();
+
+        expect(tester.getSize(pane).width, 420);
+      });
 
       testWidgets('It should use full layout for other window classes', (
         tester,

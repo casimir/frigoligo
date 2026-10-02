@@ -64,6 +64,7 @@ class QueryRepositoryImpl extends QueryRepository {
             onlyStarred: _query.onlyStarred,
             tags: _query.tags,
             domains: _query.domains,
+            ascending: _query.sortOrder == SortOrder.oldestFirst,
           )
           .watch()
           .listen(controller.add, onError: controller.addError);

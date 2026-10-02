@@ -2022,6 +2022,7 @@ class ArticleDrift extends i3.ModularAccessor {
   i0.Selectable<int> articleIdsForText(
     String query, {
     ArticleIdsForText$predicate? predicate,
+    bool ascending = false,
   }) {
     var $arrayStartIndex = 2;
     final generatedpredicate = $write(
@@ -2032,10 +2033,12 @@ class ArticleDrift extends i3.ModularAccessor {
     );
     $arrayStartIndex += generatedpredicate.amountOfVariables;
     return customSelect(
-      'SELECT articles.id FROM articles_fts JOIN articles ON articles.id = articles_fts."rowid" WHERE articles_fts MATCH ?1 AND ${generatedpredicate.sql} ORDER BY rank',
+      'SELECT articles.id FROM articles_fts JOIN articles ON articles.id = articles_fts."rowid" WHERE articles_fts MATCH ?1 AND ${generatedpredicate.sql} ORDER BY CASE WHEN ?${generatedpredicate.amountOfVariables + 2} THEN articles.created_at END ASC, CASE WHEN NOT ?${generatedpredicate.amountOfVariables + 3} THEN articles.created_at END DESC',
       variables: [
         i0.Variable<String>(query),
         ...generatedpredicate.introducedVariables,
+        i0.Variable<bool>(ascending),
+        i0.Variable<bool>(ascending),
       ],
       readsFrom: {articles, articlesFts, ...generatedpredicate.watchedTables},
     ).map((i0.QueryRow row) => row.read<int>('id'));
