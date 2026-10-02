@@ -45,6 +45,7 @@ void main() {
         ..setState(StateFilter.archived)
         ..setOnlyStarred(true)
         ..setDomains(['test'])
+        ..setSortOrder(SortOrder.oldestFirst)
         ..setTags(['test']);
 
       await completer.future;
@@ -59,6 +60,7 @@ void main() {
             state: StateFilter.archived,
             onlyStarred: true,
             domains: ['test'],
+            sortOrder: SortOrder.oldestFirst,
             tags: ['test'],
           ),
         ),
