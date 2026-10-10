@@ -16,14 +16,12 @@ artifact = "build/ios/iphonesimulator/Runner.app"
 out_dir  = "fastlane/screenshots/ios/{locale}"
 
   [[ios.phones]]
-  model  = "iPhone-17-Pro-Max"
-  os     = "iOS-26-5"
-  prefix = "iPhone 17 Pro Max"
+  name    = "iPhone 17 Pro Max"
+  runtime = "iOS-26-5"
 
   [[ios.tablets]]
-  model  = "iPad-Pro-13-inch-M5"
-  os     = "iOS-26-5"
-  prefix = "iPad Pro 13-inch (M5)"
+  name    = "iPad Pro 13-inch (M5)"
+  runtime = "iOS-26-5"
 
 [android]
 app_id   = "net.casimirlab.frigoligo"
@@ -32,9 +30,9 @@ artifact = "build/app/outputs/flutter-apk/app-debug.apk"
 out_dir  = "fastlane/metadata/android/{locale}/images/{subdir}"
 
   [[android.phones]]
-  avd    = "android_phone"
+  name   = "android_phone"
   subdir = "phoneScreenshots"
 
   [[android.tablets]]
-  avd    = "android_tablet"
+  name   = "android_tablet"
   subdir = "tenInchScreenshots"
