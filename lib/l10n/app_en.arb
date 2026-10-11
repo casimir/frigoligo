@@ -215,6 +215,18 @@
       }
     }
   },
+  "filters_sortOrder": "Sort by date",
+  "@filters_sortOrder": {
+    "description": "Choose whether saved articles are shown newest or oldest first."
+  },
+  "filters_sortOrderNewestFirst": "Newest first",
+  "@filters_sortOrderNewestFirst": {
+    "description": "Show the most recently saved articles first."
+  },
+  "filters_sortOrderOldestFirst": "Oldest first",
+  "@filters_sortOrderOldestFirst": {
+    "description": "Show the earliest saved articles first."
+  },
   "filters_articleFavoriteStarred": "Starred",
   "@filters_articleFavoriteStarred": {
     "description": "Filter starred articles."

@@ -47,11 +47,12 @@ CREATE TRIGGER articles_au AFTER UPDATE ON articles BEGIN
   INSERT INTO articles_fts(rowid, title, content) VALUES (new.id, new.title, new.content);
 END;
 
-articleIdsForText ($predicate = TRUE): SELECT articles.id FROM articles_fts
+articleIdsForText ($predicate = TRUE, $ascending = FALSE): SELECT articles.id FROM articles_fts
     JOIN articles ON articles.id = articles_fts.rowid
     WHERE articles_fts MATCH :query
       AND $predicate
-    ORDER BY rank;
+    ORDER BY CASE WHEN :ascending THEN articles.created_at END ASC,
+             CASE WHEN NOT :ascending THEN articles.created_at END DESC;
 
 articleCountForText ($predicate = TRUE): SELECT COUNT(articles.id) FROM articles_fts
     JOIN articles ON articles.id = articles_fts.rowid

@@ -17,6 +17,12 @@ class SearchPanelController {
     );
   }
 
+  void setSortOrder(SortOrder sortOrder) {
+    _queryRepository.query = _queryRepository.query.copyWith(
+      sortOrder: sortOrder,
+    );
+  }
+
   void setState(StateFilter state) {
     _queryRepository.query = _queryRepository.query.copyWith(state: state);
   }

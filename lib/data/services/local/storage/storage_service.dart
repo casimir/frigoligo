@@ -206,6 +206,7 @@ class ArticlesManager {
     required bool onlyStarred,
     required List<String> tags,
     required List<String> domains,
+    required bool ascending,
   }) {
     final t = _db.articles;
     final whereStatement = _buildWhereStatement(
@@ -218,11 +219,16 @@ class ArticlesManager {
         ? _db.articleDrift.articleIdsForText(
             _buildTextQuery(text, textMode),
             predicate: (_, _) => whereStatement,
+            ascending: ascending,
           )
         : (t.selectOnly()
                 ..addColumns([t.id])
                 ..where(whereStatement)
-                ..orderBy([OrderingTerm.desc(t.createdAt)]))
+                ..orderBy([
+                  ascending
+                      ? OrderingTerm.asc(t.createdAt)
+                      : OrderingTerm.desc(t.createdAt),
+                ]))
               .map((row) => row.read(t.id)!);
     return StorageQuery(statement);
   }

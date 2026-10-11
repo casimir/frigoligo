@@ -12,6 +12,7 @@ import '../states.dart';
 
 const kFilterDomainsKey = Key('search.filters.domains');
 const kFilterTagsKey = Key('search.filters.tags');
+const kFilterSortOrderKey = Key('search.filters.sortOrder');
 
 class SearchPanel extends ConsumerWidget {
   const SearchPanel({
@@ -99,23 +100,22 @@ class SearchPanel extends ConsumerWidget {
               ),
             ),
             C.spacers.verticalComponent,
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: kSpacingBetweenGroups,
-                ),
-                child: Row(
-                  spacing: kSpacingInGroup,
-                  children: [
-                    _StateSelector(onSelected: controller.setState),
-                    _StarredToggle(
-                      onSelected: (value) => controller.setOnlyStarred(value),
-                    ),
-                    _TagsSelector(onSelected: controller.setTags),
-                    _DomainsSelector(onSelected: controller.setDomains),
-                  ],
-                ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: kSpacingBetweenGroups,
+              ),
+              child: Wrap(
+                spacing: kSpacingInGroup,
+                runSpacing: kSpacingInGroup,
+                children: [
+                  _StateSelector(onSelected: controller.setState),
+                  _StarredToggle(
+                    onSelected: (value) => controller.setOnlyStarred(value),
+                  ),
+                  _TagsSelector(onSelected: controller.setTags),
+                  _DomainsSelector(onSelected: controller.setDomains),
+                  _SortOrderSelector(onSelected: controller.setSortOrder),
+                ],
               ),
             ),
           ],
@@ -415,6 +415,42 @@ class _DomainsSelector extends StatelessWidget {
       onSelected: onSelected,
       labelizer: context.L.filters_articleDomainsCount,
       leadingIcon: const Icon(Icons.web),
+    );
+  }
+}
+
+class _SortOrderSelector extends StatelessWidget {
+  const _SortOrderSelector({required this.onSelected});
+
+  final void Function(SortOrder) onSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return _AsyncFilterWidget(
+      selector: (ref) => ref.watch(
+        queryStateProvider.selectAsync((state) => state.query.sortOrder),
+      ),
+      loadingBuilder: (context) =>
+          _buildLoadingChip(context, context.L.filters_sortOrderNewestFirst),
+      errorBuilder: (context, error) =>
+          _buildLoadingChip(context, context.L.filters_sortOrderNewestFirst),
+      builder: (context, sortOrder) => SelectChip<SortOrder>(
+        key: kFilterSortOrderKey,
+        title: context.L.filters_sortOrder,
+        initialSelection: SortOrder.newestFirst,
+        value: sortOrder,
+        onSelected: onSelected,
+        entries: [
+          DropdownMenuEntry(
+            value: SortOrder.newestFirst,
+            label: context.L.filters_sortOrderNewestFirst,
+          ),
+          DropdownMenuEntry(
+            value: SortOrder.oldestFirst,
+            label: context.L.filters_sortOrderOldestFirst,
+          ),
+        ],
+      ),
     );
   }
 }
