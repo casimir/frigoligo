@@ -235,6 +235,8 @@ See [changelogs](https://github.com/casimir/frigoligo/tree/main/fastlane/metadat
 - *(i18n)* Regen translations ([fda5e6f](https://github.com/casimir/frigoligo/commit/fda5e6fe4d2cc3bc69b6e5b32ef4b4a0c82db3f4))
 - Regen podfiles ([e282268](https://github.com/casimir/frigoligo/commit/e28226849c54dfa6481859990abc3323cbdb5f52))
 - *(i18n)* Regen new translations ([c03d57a](https://github.com/casimir/frigoligo/commit/c03d57a4cf8fd19ff15292d08209c5d39a6be2da))
+- *(vendored)* Upgrade mermaid ([a72b97c](https://github.com/casimir/frigoligo/commit/a72b97ce6745a6ec894a1846a065ae06765ed8f0))
+- *(screenshots)* Upgrade config to latest multishot version ([a7e86d0](https://github.com/casimir/frigoligo/commit/a7e86d0c404ac6f24b4b76ea01f0a527280af607))
 
 ### Fux
 
