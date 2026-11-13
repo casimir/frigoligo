@@ -208,6 +208,15 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
+  String get filters_sortOrder => 'Sort by date';
+
+  @override
+  String get filters_sortOrderNewestFirst => 'Newest first';
+
+  @override
+  String get filters_sortOrderOldestFirst => 'Oldest first';
+
+  @override
   String get filters_articleFavoriteStarred => '已收藏';
 
   @override

@@ -18,6 +18,7 @@ void main() {
   setUpAll(() {
     registerFallbackValue(SearchTextMode.all);
     registerFallbackValue(StateFilter.all);
+    registerFallbackValue(SortOrder.newestFirst);
   });
 
   group('SearchPanel', () {
@@ -104,6 +105,28 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('3'), findsOneWidget);
+    });
+
+    testWidgets('should allow changing saved-date order', (tester) async {
+      when(() => mockController.setSortOrder(any())).thenAnswer((_) async {});
+
+      await tester.pumpWidget(buildWidget());
+      await tester.pumpAndSettle();
+
+      final BuildContext context = tester.element(find.byType(SearchPanel));
+      final l = AppLocalizations.of(context)!;
+      final sortOrderFinder = find.byKey(kFilterSortOrderKey);
+      final domainsFinder = find.byKey(kFilterDomainsKey);
+      expect(find.text(l.filters_sortOrderNewestFirst), findsOneWidget);
+      expect(tester.getRect(domainsFinder).right, lessThanOrEqualTo(360));
+      expect(tester.getRect(sortOrderFinder).right, lessThanOrEqualTo(360));
+
+      await tester.tap(sortOrderFinder);
+      await tester.pumpAndSettle();
+      await tester.tap(find.text(l.filters_sortOrderOldestFirst).last);
+      await tester.pumpAndSettle();
+
+      verify(() => mockController.setSortOrder(SortOrder.oldestFirst)).called(1);
     });
 
     testWidgets('should update the query when the text is changed', (
@@ -195,16 +218,7 @@ void main() {
       await tester.pumpWidget(buildWidget(availableTags: ['tag1', 'tag2']));
       await tester.pumpAndSettle();
 
-      // Scroll to tags filter and tap it
       final tagsFinder = find.byKey(kFilterTagsKey);
-      await tester.scrollUntilVisible(
-        tagsFinder,
-        50.0,
-        scrollable: find.descendant(
-          of: find.byType(SearchPanel),
-          matching: find.byType(Scrollable).first,
-        ),
-      );
       await tester.tap(tagsFinder);
       await tester.pumpAndSettle();
 
@@ -224,14 +238,6 @@ void main() {
       await tester.pumpAndSettle();
 
       final domainsFinder = find.byKey(kFilterDomainsKey);
-      await tester.scrollUntilVisible(
-        domainsFinder,
-        50.0,
-        scrollable: find.descendant(
-          of: find.byType(SearchPanel),
-          matching: find.byType(Scrollable).first,
-        ),
-      );
       await tester.tap(domainsFinder);
       await tester.pumpAndSettle();
 
@@ -252,14 +258,6 @@ void main() {
       await tester.pumpAndSettle();
 
       final tagsFinder = find.byKey(kFilterTagsKey);
-      await tester.scrollUntilVisible(
-        tagsFinder,
-        50.0,
-        scrollable: find.descendant(
-          of: find.byType(SearchPanel),
-          matching: find.byType(Scrollable).first,
-        ),
-      );
 
       // Tap the clear icon on the chip
       final clearIcon = find.descendant(

@@ -4,6 +4,7 @@ class Query with EquatableMixin {
   const Query({
     this.text = '',
     this.textMode = SearchTextMode.all,
+    this.sortOrder = SortOrder.newestFirst,
     this.state = StateFilter.all,
     this.onlyStarred = false,
     this.tags = const [],
@@ -12,6 +13,7 @@ class Query with EquatableMixin {
 
   final String text;
   final SearchTextMode textMode;
+  final SortOrder sortOrder;
   final StateFilter state;
   final bool onlyStarred;
   final List<String> tags;
@@ -21,6 +23,7 @@ class Query with EquatableMixin {
   List<Object?> get props => [
     text,
     textMode,
+    sortOrder,
     state,
     onlyStarred,
     tags,
@@ -30,6 +33,7 @@ class Query with EquatableMixin {
   Query copyWith({
     String? text,
     SearchTextMode? textMode,
+    SortOrder? sortOrder,
     StateFilter? state,
     bool? onlyStarred,
     List<String>? tags,
@@ -37,6 +41,7 @@ class Query with EquatableMixin {
   }) => Query(
     text: text ?? this.text,
     textMode: textMode ?? this.textMode,
+    sortOrder: sortOrder ?? this.sortOrder,
     state: state ?? this.state,
     onlyStarred: onlyStarred ?? this.onlyStarred,
     tags: tags ?? this.tags,
@@ -45,5 +50,7 @@ class Query with EquatableMixin {
 }
 
 enum SearchTextMode { all, title, content }
+
+enum SortOrder { newestFirst, oldestFirst }
 
 enum StateFilter { all, unread, archived }

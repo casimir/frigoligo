@@ -152,6 +152,44 @@ void main() {
       expect(await queryRepository.watchArticleIds().first, equals([1]));
     });
 
+    test('should order saved articles by date, including text results', () async {
+      final newer = Article(
+        id: 1,
+        createdAt: DateTime(2001),
+        updatedAt: DateTime(2001),
+        title: 'matching article',
+        url: 'https://somewhere.org/articles/1',
+        readingTime: 1,
+        tags: [],
+      );
+      final older = Article(
+        id: 2,
+        createdAt: DateTime(2000),
+        updatedAt: DateTime(2000),
+        title: 'matching article',
+        url: 'https://somewhere.org/articles/2',
+        readingTime: 1,
+        tags: [],
+      );
+      await localStorageService.articles.update(newer);
+      await localStorageService.articles.update(older);
+
+      queryRepository.query = const Query();
+      expect(await queryRepository.watchArticleIds().first, [1, 2]);
+
+      queryRepository.query = const Query(sortOrder: SortOrder.oldestFirst);
+      expect(await queryRepository.watchArticleIds().first, [2, 1]);
+
+      queryRepository.query = const Query(text: 'matching');
+      expect(await queryRepository.watchArticleIds().first, [1, 2]);
+
+      queryRepository.query = const Query(
+        text: 'matching',
+        sortOrder: SortOrder.oldestFirst,
+      );
+      expect(await queryRepository.watchArticleIds().first, [2, 1]);
+    });
+
     test('should allow to list the available domains', () async {
       Future<void> persistNewArticle(
         int id,
